@@ -1,0 +1,23 @@
+{
+  "name": "thin-hook",
+  "version": "0.0.1",
+  "description": "Thin Hook Preprocessor",
+  "main": "hook.min.js",
+  "authors": [
+    "Tetsuya Mori <t2y3141592@gmail.com>"
+  ],
+  "license": "BSD-2-Clause",
+  "keywords": [
+    "ES6",
+    "ES2015",
+    "hook"
+  ],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "devDependencies": {
+  }
+}

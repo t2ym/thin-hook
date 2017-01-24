@@ -1,0 +1,51 @@
+{
+  "name": "thin-hook",
+  "version": "0.0.1",
+  "description": "Thin Hook Preprocessor",
+  "main": "hook.js",
+  "scripts": {
+    "test": "istanbul cover ./node_modules/mocha/bin/_mocha test/test.js --report lcov -- -R spec && wct test/index.html",
+    "build": "gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/t2ym/thin-hook.git"
+  },
+  "keywords": [
+    "ES6",
+    "ES2015",
+    "hook"
+  ],
+  "author": "Tetsuya Mori <t2y3141592@gmail.com>",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/t2ym/thin-hook/issues"
+  },
+  "homepage": "https://github.com/t2ym/thin-hook#readme",
+  "devDependencies": {
+    "babel-cli": "^6.22.2",
+    "babel-preset-es2015": "^6.22.0",
+    "browserify": "^13.3.0",
+    "chai": "^3.5.0",
+    "coveralls": "^2.11.15",
+    "escodegen": "^1.8.1",
+    "espree": "^3.3.2",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-browserify": "^0.5.1",
+    "gulp-if": "^2.0.2",
+    "gulp-rename": "^1.2.2",
+    "gulp-replace": "^0.5.4",
+    "gulp-rollup": "^2.9.0",
+    "gulp-sourcemaps": "^1.9.1",
+    "gulp-uglify": "^2.0.0",
+    "istanbul": "^0.4.5",
+    "lcov-result-merger": "^1.2.0",
+    "mocha": "^3.2.0",
+    "rollup-plugin-async": "^1.2.0",
+    "run-sequence": "^1.2.2",
+    "uglifyjs": "^2.4.10",
+    "web-component-tester": "4.2.2",
+    "web-component-tester-istanbul": "^0.10.0"
+  }
+}
