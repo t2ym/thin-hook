@@ -120,3 +120,33 @@ function destructuring([x, , [y], z], [a, b, c]) {
     return x + y + z + a + b + c;
   }, this, arguments);
 }
+function d() {
+  return __hook__(() => {
+    return function descructuringWithObjects({
+      a,
+      b,
+      c,
+      x: d,
+      y: e
+    }, [f, g, h]) {
+      return __hook__(({
+        a = 1,
+        b = 0,
+        c = 3,
+        x: d = 0,
+        y: e
+      }, [f = 6, g = 0, h = 8]) => {
+        return a === 1 && b === 2 && c === 3 && d === 4 && e === 5 && f === 6 && g === 7 && h === 8;
+      }, this, arguments);
+    }({
+      b: 2,
+      c: undefined,
+      x: 4,
+      y: 5
+    }, [
+      ,
+      7,
+      undefined
+    ]);
+  }, this, arguments);
+}
