@@ -50,12 +50,13 @@ Thin Hook Preprocessor (experimental)
 ## Supported Syntax
 
 - Functions
-- Object Shorthand Methods
+- Object Shorthand Methods (`{ m() {} }`)
 - ES6 Classes (`constructor`, `super`, `this`)
-- Generator Functions (`yield`)
-- Async Functions
-- Arrow Functions (`a => a`, `a => { return a; }`, `a => ({ p: a})`)
+- Generator Functions (`function *g() { yield X }`)
+- Arrow Functions (`a => a`, `a => { return a; }`, `a => ({ p: a })`)
+- Async Functions (`async function f() {}`, `async method() {}`, `async () => {}`)
 - Default Parameters for Functions/Methods/Arrow Functions
+- Default Parameters with Destructuring (`function f([ a = 1 ], { b = 2, x: c = 3 }) {}`)
 
 ## Install
 
@@ -90,10 +91,10 @@ Thin Hook Preprocessor (experimental)
 
 TBD
 
-- hook.hook - default hook callback function
-- hook.preprocess(code: string, hookName: string = '__hook__')
-- hook.escodegenOptions: object
-- hook.expreeOptions: object
+- `hook.hook` - default hook callback `function __hook__()`
+- `hook.preprocess(code: string, hookName: string = '__hook__')`
+- `hook.escodegenOptions`: object
+- `hook.espreeOptions`: object
 
 ## TODOs
 
