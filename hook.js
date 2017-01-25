@@ -140,5 +140,5 @@ module.exports = {
   espree: espree,
   escodegen: escodegen,
   escodegenOptions: escodegenOptions,
-  expreeOptions: espreeOptions
+  espreeOptions: espreeOptions
 };
