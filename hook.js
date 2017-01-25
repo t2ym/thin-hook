@@ -46,7 +46,17 @@ function _preprocess(ast, isConstructor = false, hookName) {
       ast.params = params.map(function _trim(param) {
         return param && (param.type === 'ArrayPattern'
           ? { type: param.type, elements: param.elements.map(element => _trim(element)) }
-          : param.type === 'AssignmentPattern' ? param.left : param);
+          : param.type === 'AssignmentPattern'
+            ? param.left
+            : param.type === 'ObjectPattern'
+              // Fix #3: Trim default value assignment, avoiding escodegen's issue on ObjectPattern and AssignmentPattern,
+              //         which incorrectly renders { v = X: v = X } for { p: v = X }
+              //         Change ObjectPattern/AssignmentPattern to ObjectExpression/AssignmentExpression to avoid the issue
+              ? { type: 'ObjectExpression', properties: param.properties.map(prop => prop.value.type === 'AssignmentPattern'
+                ? ((prop.key.name !== prop.value.left.name ? (prop.value.type = 'AssignmentExpression', prop.value.operator = '=') : true),
+                  ((p, v) => (p.value = v, p))(Object.assign({}, prop), prop.value.left))
+                : prop) }
+              : param);
       });
       ast.body = template.body;
     }
