@@ -115,3 +115,8 @@ function* gfunc(a, b, c) {
     ];
   }, this, arguments);
 }
+function destructuring([x, , [y], z], [a, b, c]) {
+  return __hook__(([x, , [y = 2], z = 3], [a, b = 5, c = 6]) => {
+    return x + y + z + a + b + c;
+  }, this, arguments);
+}

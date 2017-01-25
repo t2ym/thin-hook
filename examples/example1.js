@@ -64,3 +64,6 @@ function * gfunc(a, b, c) {
   // comment for gfunc
   yield * [a, b, c];
 }
+function destructuring([x, , [y = 2], z = 3], [a, b = 5, c = 6]) {
+  return x + y + z + a + b + c;
+}
