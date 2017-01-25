@@ -43,7 +43,11 @@ function _preprocess(ast, isConstructor = false, hookName) {
       f.params = ast.params;
       f.body.body = body;
       f.__hooked__ = true;
-      ast.params = params.map(param => param.type === 'AssignmentPattern' ? param.left : param)
+      ast.params = params.map(function _trim(param) {
+        return param && (param.type === 'ArrayPattern'
+          ? { type: param.type, elements: param.elements.map(element => _trim(element)) }
+          : param.type === 'AssignmentPattern' ? param.left : param);
+      });
       ast.body = template.body;
     }
     break;
