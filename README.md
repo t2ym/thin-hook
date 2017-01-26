@@ -97,9 +97,10 @@ TBD
   - `hookName`: name of hook callback function
   - `initialContext`: typically `[ ['script.js', {}] ]`
   - `contextGenerator(astPath)`: callback function with `astPath = [ ['script.js', {}], ['root', rootAst], ['body', bodyAst], ..., [0, FunctionExpressionAst] ]`
-- `hook.nullContextGenerator()`: context as `''`
-- `astPathContextGenerator(astPath: Array)`: context as `'script.js,[root]Program,body,astType,...'`
-- `methodContextGenerator(astPath: Array)`: context as `'script.js,Class,Method'`
+- Built-in Context Generator Functions:
+  - `hook.nullContextGenerator()`: context as `''`
+  - `hook.astPathContextGenerator(astPath: Array)`: context as `'script.js,[root]Program,body,astType,...'`
+  - `hook.methodContextGenerator(astPath: Array)`: context as `'script.js,Class,Method'`
 - `hook.escodegenOptions`: object passed to `escodegen.generate` options
 - `hook.espreeOptions`: object passed to `espree.parse` options
 
