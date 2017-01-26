@@ -12,7 +12,7 @@ function _espreeParse(code) {
   return espree.parse(code, espreeOptions);
 }
 
-function _preprocess(ast, isConstructor = false, hookName) {
+function _preprocess(ast, isConstructor = false, hookName, astPath, contextGenerator = () => '') {
   switch (ast.type) {
   case 'MethodDefinition':
     if (ast.kind === 'constructor') {
@@ -31,11 +31,12 @@ function _preprocess(ast, isConstructor = false, hookName) {
         Array.isArray(ast.body.body)) {
       let params = ast.params;
       let body = ast.body.body;
+      let context = contextGenerator(astPath).replace(/\'/g, '\\\'');
       let template = _espreeParse(ast.generator
-        ? 'function * f() { yield * ' + hookName + '(function * () {}, this, arguments); }'
+        ? 'function * f() { yield * ' + hookName + '(function * () {}, this, arguments, \'' + context + '\'); }'
         : isConstructor
-          ? 'function f() { return ' + hookName + '(() => {}, null, arguments); }'
-          : 'function f() { return ' + hookName + '(() => {}, this, arguments); }').body[0];
+          ? 'function f() { return ' + hookName + '(() => {}, null, arguments, \'' + context + '\'); }'
+          : 'function f() { return ' + hookName + '(() => {}, this, arguments, \'' + context + '\'); }').body[0];
       let f = ast.generator
         ? template.body.body[0].expression.argument.arguments[0]
         : template.body.body[0].argument.arguments[0];
@@ -64,11 +65,12 @@ function _preprocess(ast, isConstructor = false, hookName) {
     else {
       if (typeof ast.body === 'object' &&
           !Array.isArray(ast.body)) {
+        let context = contextGenerator(astPath).replace(/\'/g, '\\\'');
         let template = _espreeParse(ast.body.type === 'BlockStatement'
-          ? '(...args) => ' + hookName + '(p => { return p; }, this, args)'
+          ? '(...args) => ' + hookName + '(p => { return p; }, this, args, \'' + context + '\')'
           : ast.body.type === 'ObjectExpression'
-            ? '(...args) => ' + hookName + '(p => ({ p: p }), this, args)'
-            : '(...args) => ' + hookName + '(p => p, this, args)').body[0].expression;
+            ? '(...args) => ' + hookName + '(p => ({ p: p }), this, args, \'' + context + '\')'
+            : '(...args) => ' + hookName + '(p => p, this, args, \'' + context + '\')').body[0].expression;
         let f = template.body.arguments[0];
         f.async = ast.async;
         f.params = ast.params;
@@ -84,16 +86,20 @@ function _preprocess(ast, isConstructor = false, hookName) {
   }
   for (let target in ast) {
     if (ast[target]) {
+      astPath.push([target, ast[target]]);
       if (Array.isArray(ast[target])) {
-        ast[target].forEach(item => {
+        ast[target].forEach((item, index) => {
           if (item && typeof item === 'object' && typeof item.type === 'string') {
-            _preprocess(item, false, hookName);
+            astPath.push([index, item]);
+            _preprocess(item, false, hookName, astPath, contextGenerator);
+            astPath.pop();
           }
         });
       }
       else if (typeof ast[target] === 'object' && typeof ast[target].type === 'string') {
-        _preprocess(ast[target], isConstructor, hookName);
+        _preprocess(ast[target], isConstructor, hookName, astPath, contextGenerator);
       }
+      astPath.pop();
     }
   }
 }
@@ -133,10 +139,11 @@ const escodegenOptions = {
   verbatim: undefined
 };
 
-function preprocess(code, hookName = '__hook__') {
+function preprocess(code, hookName = '__hook__', initialContext = [], contextGenerator = generateMethodContext) {
   let targetAst = espree.parse(code, espreeOptions);
   let astWithComments = escodegen.attachComments(targetAst, targetAst.comments, targetAst.tokens);
-  _preprocess(targetAst, false, hookName);
+  initialContext.push(['root', targetAst]);
+  _preprocess(targetAst, false, hookName, initialContext, contextGenerator);
   return escodegen.generate(astWithComments, escodegenOptions);
 }
 
@@ -144,9 +151,28 @@ function __hook__(f, thisArg, args, context) {
   return thisArg ? f.apply(thisArg, args) : f(...args);
 }
 
+function generateNullContext() {
+  return '';
+}
+
+function generateAstPathContext(astPath) {
+  return astPath.map(([ path, node ]) => node && node.type
+    ? '[' + path + ']' + node.type + (node.id && node.id.name ? ':' + node.id.name : (node.key && node.key.name ? ':' + node.key.name : ''))
+    : path).join(',');
+}
+
+function generateMethodContext(astPath) {
+  return astPath.map(([ path, node ], index) => node && node.type
+    ? (node.id && node.id.name ? node.id.name : (node.key && node.key.name ? node.key.name : ''))
+    : index === 0 ? path : '').filter(p => p).join(',');
+}
+
 module.exports = {
   hook: __hook__,
   preprocess: preprocess,
+  nullContextGenerator: generateNullContext,
+  astPathContextGenerator: generateAstPathContext,
+  methodContextGenerator: generateMethodContext,
   escodegenOptions: escodegenOptions,
   espreeOptions: espreeOptions
 };
