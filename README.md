@@ -20,9 +20,9 @@ Thin Hook Preprocessor (experimental)
   class C {
     add(a, b) {
       return __hook__((a = 1, b = 2) => {
-        let plus = (...args) => __hook__((x, y) => x + y, this, args);
+        let plus = (...args) => __hook__((x, y) => x + y, this, args, 'examples/example2.js,C,add,plus');
         return plus(x, y);
-      }, this, arguments);
+      }, this, arguments, 'examples/example2.js,C,add');
     }
   }
 ```
@@ -32,7 +32,7 @@ Thin Hook Preprocessor (experimental)
 ```javascript
   const hook = require('thin-hook/hook.js');
   let code = fs.readFileSync('src/target.js', 'UTF-8');
-  let gen = hook.preprocess(code, '__hook__');
+  let gen = hook.preprocess(code, '__hook__', [['src/target.js', {}]], hook.methodContextGenerator);
   fs.writeFileSync('hooked/target.js', gen);
 ```
 
@@ -40,7 +40,7 @@ Thin Hook Preprocessor (experimental)
 
 ```javascript
   window.__hook__ = function __hook__(f, thisArg, args, context) {
-    console.log('hook:', f.name, args);
+    console.log('hook:', context, args);
     return thisArg ? f.apply(thisArg, args) : f(...args);
   }
 ```
@@ -92,9 +92,16 @@ Thin Hook Preprocessor (experimental)
 TBD
 
 - `hook.hook` - default hook callback `function __hook__()`
-- `hook.preprocess(code: string, hookName: string = '__hook__')`
-- `hook.escodegenOptions`: object
-- `hook.espreeOptions`: object
+- `hook.preprocess(code: string, hookName: string = '__hook__', initialContext: Array = [], contextGenerator: function = hook.methodContextGenerator)`
+  - `code`: input JavaScript as string
+  - `hookName`: name of hook callback function
+  - `initialContext`: typically `[ ['script.js', {}] ]`
+  - `contextGenerator(astPath)`: callback function with `astPath = [ ['script.js', {}], ['root', rootAst], ['body', bodyAst], ..., [0, FunctionExpressionAst] ]`
+- `hook.nullContextGenerator()`: context as `''`
+- `astPathContextGenerator(astPath: Array)`: context as `'script.js,[root]Program,body,astType,...'`
+- `methodContextGenerator(astPath: Array)`: context as `'script.js,Class,Method'`
+- `hook.escodegenOptions`: object passed to `escodegen.generate` options
+- `hook.espreeOptions`: object passed to `espree.parse` options
 
 ## TODOs
 
