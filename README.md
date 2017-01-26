@@ -52,7 +52,6 @@ Thin Hook Preprocessor (experimental)
 ```javascript
   // Example Custom Context Generator Function with Hashing
   const crypto = require('crypto');
-  const hash = crypto.createHash('sha256');
 
   function generateHashContext(astPath) {
     const hash = crypto.createHash('sha256');
