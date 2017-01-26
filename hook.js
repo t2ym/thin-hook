@@ -147,8 +147,6 @@ function __hook__(f, thisArg, args, context) {
 module.exports = {
   hook: __hook__,
   preprocess: preprocess,
-  espree: espree,
-  escodegen: escodegen,
   escodegenOptions: escodegenOptions,
   espreeOptions: espreeOptions
 };
