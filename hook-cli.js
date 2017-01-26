@@ -12,7 +12,7 @@ for (let i = 2; i < process.argv.length; i++) {
     continue;
   }
   let code = fs.readFileSync(process.argv[i], 'UTF-8');
-  let gen = hook.preprocess(code);
+  let gen = hook.preprocess(code, '__hook__', [ [ process.argv[i], {} ] ]);
   let outPath = path.join(path.dirname(process.argv[i]), 'hooked.' + path.basename(process.argv[i]));
   console.log(outPath);
   fs.writeFileSync(outPath, gen);
