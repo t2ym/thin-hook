@@ -32,20 +32,65 @@ Thin Hook Preprocessor (experimental)
 ```javascript
   const hook = require('thin-hook/hook.js');
   let code = fs.readFileSync('src/target.js', 'UTF-8');
-  let gen = hook.preprocess(code, '__hook__', [['src/target.js', {}]], hook.methodContextGenerator);
+  let initialContext = [['src/target.js', {}]];
+  let gen = hook.preprocess(code, '__hook__', initialContext, generateHashContext);
   fs.writeFileSync('hooked/target.js', gen);
+  fs.writeFileSync('hooked/target.js.contexts.json', JSON.stringify(initialContext[0][1], null, 2));
 ```
 
-### Hook Callback Function
+### Context Generator Function (customizable)
 
 ```javascript
-  window.__hook__ = function __hook__(f, thisArg, args, context) {
-    console.log('hook:', context, args);
+  // Built-in Context Generator Function
+  hook.methodContextGenerator = function generateMethodContext(astPath) {
+    return astPath.map(([ path, node ], index) => node && node.type
+      ? (node.id && node.id.name ? node.id.name : (node.key && node.key.name ? node.key.name : ''))
+      : index === 0 ? path : '').filter(p => p).join(',');
+  }
+```
+
+```javascript
+  // Example Custom Context Generator Function with Hashing
+  const crypto = require('crypto');
+  const hash = crypto.createHash('sha256');
+
+  function generateHashContext(astPath) {
+    const hash = crypto.createHash('sha256');
+    let methodContext = astPath.map(([ path, node ], index) => node && node.type
+      ? (node.id && node.id.name ? node.id.name : (node.key && node.key.name ? node.key.name : ''))
+      : index === 0 ? path : '').filter(p => p).join(',');
+    hash.update(methodContext);
+    let hashContext = hash.digest('hex');
+    astPath[0][1][hashContext] = methodContext;
+    return hashContext;
+  }
+```
+
+### Hook Callback Function (customizable)
+
+```javascript
+  // Built-in Minimal Hook Callback Function
+  hook.hook = function __hook__(f, thisArg, args, context) {
     return thisArg ? f.apply(thisArg, args) : f(...args);
   }
 ```
 
-#### Note: `context` argument is not implemented yet
+```javascript
+  // Example Hook Callback Function with Primitive Access Control
+  hashContext = { 'hash': 'context', ... }; // Generated from hook.preprocess initialContext[0][1]
+  trustedContext = { 'context': /trustedModules/, ... }; // Access Policies
+
+  window.__hook__ = function __hook__(f, thisArg, args, context) {
+    console.log('hook:', context, args);
+    if (!hashContext[context] ||
+        !trustedContext[hashContext[context]] ||
+        !(new Error('').stack.match(trustedContext[hashContext[context]]))) {
+      // plus check thisArg, args, etc.
+      throw new Error('Permission Denied');
+    }
+    return thisArg ? f.apply(thisArg, args) : f(...args);
+  }
+```
 
 ## Supported Syntax
 
@@ -108,7 +153,6 @@ TBD
 
 - Build Script
 - Refine API
-- Add `context` argument to the `__hook__` callback function
 - Hook `new Function()` to preprocess scripts
 - Hook `eval()` to preprocess scripts
 - Hook `document.write('<script>')` to preprocess scripts
