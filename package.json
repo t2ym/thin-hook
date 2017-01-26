@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/t2ym/thin-hook#readme",
   "dependencies": {
-    "escodegen": "^1.8.1",
+    "escodegen": "t2ym/escodegen#master",
     "espree": "^3.3.2"
   },
   "devDependencies": {
