@@ -4,17 +4,17 @@ class A1 {
       this.x = x;
       this.y = y;
       this.z = z;
-    }, null, arguments);
+    }, null, arguments, 'examples/example1.js,A1,constructor');
   }
   method(a, b, c) {
     return __hook__((a, b = 4, c = 9) => {
       return a + b + c;
-    }, this, arguments);
+    }, this, arguments, 'examples/example1.js,A1,method');
   }
   method2(a, b, c) {
     return __hook__((a = 1, b = 3, c = 7) => {
       return a + b + c + 1;
-    }, this, arguments);
+    }, this, arguments, 'examples/example1.js,A1,method2');
   }
 }
 class X1 extends A1 {
@@ -26,53 +26,53 @@ class X1 extends A1 {
         y: y,
         z: z
       };
-    }, null, arguments);
+    }, null, arguments, 'examples/example1.js,X1,constructor');
   }
   a(p, nn) {
     return __hook__((p = 1, nn = 3) => {
-      let x = (...args) => __hook__(n => this.b + n, this, args);
+      let x = (...args) => __hook__(n => this.b + n, this, args, 'examples/example1.js,X1,a,x');
       let y = (...args) =>
         (__hook__(n => {
           return this.b + n;
-        }, this, args));
+        }, this, args, 'examples/example1.js,X1,a,y'));
       let z = (...args) => __hook__((p, n) => ({
         p: p * 2,
         n: n * 3
-      }), this, args);
+      }), this, args, 'examples/example1.js,X1,a,z');
       let u = (...args) => __hook__((p, n) => [
         p * 2,
         n * 3
-      ], this, args);
+      ], this, args, 'examples/example1.js,X1,a,u');
       return x(nn) + y(p) + z(p, nn).p + u(p, nn)[1];
-    }, this, arguments);
+    }, this, arguments, 'examples/example1.js,X1,a');
   }
   get b() {
     return __hook__(() => {
       return 1;
-    }, this, arguments);
+    }, this, arguments, 'examples/example1.js,X1,b');
   }
   method(a, b, c) {
     return __hook__((a, b = 0, c = b + 3) => {
       return super.method2(a, b, c) + 1;
-    }, this, arguments);
+    }, this, arguments, 'examples/example1.js,X1,method');
   }
   async amethod(a, b, c) {
     return __hook__(async (a, b = a + 3, c = b + 3) => {
-      let afunc = async (...args) => __hook__(async (x, y, z) => x * y * z, this, args);
+      let afunc = async (...args) => __hook__(async (x, y, z) => x * y * z, this, args, 'examples/example1.js,X1,amethod,afunc');
       return await afunc(a, b, c);
-    }, this, arguments);
+    }, this, arguments, 'examples/example1.js,X1,amethod');
   }
   *gmethod(a, b, c) {
     yield* __hook__(function* (a, b = a * 5, c = a * b * 4) {
       yield a;
       yield b;
       yield c;
-    }, this, arguments);
+    }, this, arguments, 'examples/example1.js,X1,gmethod');
   }
   static smethod(a, b, c) {
     return __hook__((a = 2, b = a * 2, c = b * 3) => {
       return a + b + c;
-    }, this, arguments);
+    }, this, arguments, 'examples/example1.js,X1,smethod');
   }
 }
 class Y1 extends X1 {
@@ -84,7 +84,7 @@ class Y1 extends X1 {
         y: y,
         z: z
       };
-    }, null, arguments);
+    }, null, arguments, 'examples/example1.js,Y1,constructor');
   }
 }
 let o = {
@@ -92,18 +92,18 @@ let o = {
     yield* __hook__(function* () {
       yield 1;
       yield 2;
-    }, this, arguments);
+    }, this, arguments, 'examples/example1.js,o,generator');
   }
 };
 function f(a, b, c) {
   return __hook__((a, b, c) => {
     return a + b + c;
-  }, this, arguments);
+  }, this, arguments, 'examples/example1.js,f');
 }
 async function afunc(a, b, c) {
   return __hook__(async (a, b, c) => {
     return a + b + c;
-  }, this, arguments);
+  }, this, arguments, 'examples/example1.js,afunc');
 }
 function* gfunc(a, b, c) {
   yield* __hook__(function* (a, b, c) {
@@ -113,12 +113,12 @@ function* gfunc(a, b, c) {
       b,
       c
     ];
-  }, this, arguments);
+  }, this, arguments, 'examples/example1.js,gfunc');
 }
 function destructuring([x, , [y], z], [a, b, c]) {
   return __hook__(([x, , [y = 2], z = 3], [a, b = 5, c = 6]) => {
     return x + y + z + a + b + c;
-  }, this, arguments);
+  }, this, arguments, 'examples/example1.js,destructuring');
 }
 function d() {
   return __hook__(() => {
@@ -137,7 +137,7 @@ function d() {
         y: e
       }, [f = 6, g = 0, h = 8]) => {
         return a === 1 && b === 2 && c === 3 && d === 4 && e === 5 && f === 6 && g === 7 && h === 8;
-      }, this, arguments);
+      }, this, arguments, 'examples/example1.js,d,descructuringWithObjects');
     }({
       b: 2,
       c: undefined,
@@ -148,5 +148,5 @@ function d() {
       7,
       undefined
     ]);
-  }, this, arguments);
+  }, this, arguments, 'examples/example1.js,d');
 }
