@@ -126,7 +126,7 @@ function generateMethodContext(astPath) {
     : index === 0 ? path : '').filter(p => p).join(',');
 }
 
-module.exports = {
+module.exports = Object.assign(preprocess, {
   hook: __hook__,
   preprocess: preprocess,
   nullContextGenerator: () => '',
@@ -134,4 +134,4 @@ module.exports = {
   methodContextGenerator: generateMethodContext,
   escodegenOptions: escodegenOptions,
   espreeOptions: espreeOptions
-};
+});

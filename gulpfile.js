@@ -21,7 +21,7 @@ gulp.task('examples', () => {
     .pipe(through.obj((file, enc, callback) => {
       let code = String(file.contents);
       let basename = path.basename(file.path);
-      let hooked = hook.preprocess(code, '__hook__', [ [ 'examples/' + basename, {} ] ], hook.methodContextGenerator);
+      let hooked = hook(code, '__hook__', [ [ 'examples/' + basename, {} ] ], hook.methodContextGenerator);
       file.contents = new Buffer(hooked);
       callback(null, file);
     }))

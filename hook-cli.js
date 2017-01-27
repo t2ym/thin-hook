@@ -84,7 +84,7 @@ for (let i = 2; i < process.argv.length; i++) {
     continue;
   }
   let code = fs.readFileSync(process.argv[i], 'UTF-8');
-  let gen = hook.preprocess(code, hookName, [ [ process.argv[i], contexts ] ], contextGenerator);
+  let gen = hook(code, hookName, [ [ process.argv[i], contexts ] ], contextGenerator);
   let outPath = path.join(path.dirname(process.argv[i]), 'hooked.' + path.basename(process.argv[i]));
   console.log('Hooked: ', outPath);
   fs.writeFileSync(outPath, gen);
