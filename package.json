@@ -1,6 +1,6 @@
 {
   "name": "thin-hook",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Thin Hook Preprocessor",
   "main": "hook.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "build": "gulp"
   },
   "bin": {
-    "hook": "./hook-cli.js",
+    "hook": "./hook-cli.js"
   },
   "repository": {
     "type": "git",
