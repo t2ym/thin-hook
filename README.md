@@ -145,8 +145,6 @@ TBD
   - `hook.nullContextGenerator()`: context as `''`
   - `hook.astPathContextGenerator(astPath: Array)`: context as `'script.js,[root]Program,body,astType,...'`
   - `hook.methodContextGenerator(astPath: Array)`: context as `'script.js,Class,Method'`
-- `hook.escodegenOptions`: object passed to `escodegen.generate` options
-- `hook.espreeOptions`: object passed to `espree.parse` options
 
 ## TODOs
 

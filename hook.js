@@ -131,7 +131,5 @@ module.exports = Object.assign(preprocess, {
   preprocess: preprocess, // deprecated
   nullContextGenerator: () => '',
   astPathContextGenerator: generateAstPathContext,
-  methodContextGenerator: generateMethodContext,
-  escodegenOptions: escodegenOptions,
-  espreeOptions: espreeOptions
+  methodContextGenerator: generateMethodContext
 });
