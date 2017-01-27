@@ -150,14 +150,12 @@ TBD
 
 ## TODOs
 
-- Build Script
 - Refine API
 - Hook `new Function()` to preprocess scripts
 - Hook `eval()` to preprocess scripts
 - Hook `document.write('<script>')` to preprocess scripts
 - Hook `HTMLScriptElement.textContent` to preprocess scripts
 - Run as run-time HTML and JavaScript contents filter in Service Worker
-- Support Source Map
 - Test Suites
 - Demo
 - Performance Optimization
