@@ -104,40 +104,7 @@ function _preprocess(ast, isConstructor = false, hookName, astPath, contextGener
   }
 }
 
-const escodegenOptions = {
-  format: {
-    indent: {
-      style: '  ',
-      base: 0,
-      adjustMultilineComment: false
-    },
-    newline: '\n',
-    space: ' ',
-    json: false,
-    renumber: false,
-    hexadecimal: false,
-    quotes: 'single',
-    escapeless: false,
-    compact: false,
-    parentheses: true,
-    semicolons: true,
-    safeConcatenation: false
-  },
-  moz: {
-    starlessGenerator: false,
-    parenthesizedComprehensionBlock: false,
-    comprehensionExpressionStartsWithAssignment: false
-  },
-  parse: null,
-  comment: true,
-  sourceMap: undefined,
-  sourceMapRoot: null,
-  sourceMapWithCode: false,
-  file: undefined,
-  //sourceContent: originalSource,
-  directive: false,
-  verbatim: undefined
-};
+const escodegenOptions = { format: { indent: { style: '  ' }, }, comment: true };
 
 function preprocess(code, hookName = '__hook__', initialContext = [], contextGenerator = generateMethodContext) {
   let targetAst = espree.parse(code, espreeOptions);
@@ -149,10 +116,6 @@ function preprocess(code, hookName = '__hook__', initialContext = [], contextGen
 
 function __hook__(f, thisArg, args, context) {
   return thisArg ? f.apply(thisArg, args) : f(...args);
-}
-
-function generateNullContext() {
-  return '';
 }
 
 function generateAstPathContext(astPath) {
@@ -170,7 +133,7 @@ function generateMethodContext(astPath) {
 module.exports = {
   hook: __hook__,
   preprocess: preprocess,
-  nullContextGenerator: generateNullContext,
+  nullContextGenerator: () => '',
   astPathContextGenerator: generateAstPathContext,
   methodContextGenerator: generateMethodContext,
   escodegenOptions: escodegenOptions,
