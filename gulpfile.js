@@ -36,7 +36,7 @@ gulp.task('build', () => {
     .pipe(source('hook.min.js'))
     .pipe(buffer())
     .pipe(babel({ "presets": [ 'es2015' ]}))
-    .pipe(uglify({ mangle: false }))
+    .pipe(uglify({ mangle: true }))
     .pipe(gulp.dest('.'));
 });
 
