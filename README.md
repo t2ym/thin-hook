@@ -33,7 +33,7 @@ Thin Hook Preprocessor (experimental)
   const hook = require('thin-hook/hook.js');
   let code = fs.readFileSync('src/target.js', 'UTF-8');
   let initialContext = [['src/target.js', {}]];
-  let gen = hook.preprocess(code, '__hook__', initialContext, generateHashContext);
+  let gen = hook(code, '__hook__', initialContext, generateHashContext);
   fs.writeFileSync('hooked/target.js', gen);
   fs.writeFileSync('hooked/target.js.contexts.json', JSON.stringify(initialContext[0][1], null, 2));
 ```
