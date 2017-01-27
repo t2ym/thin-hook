@@ -140,7 +140,7 @@ TBD
   - `hookName`: name of hook callback function
   - `initialContext`: typically `[ ['script.js', {}] ]`
   - `contextGenerator(astPath)`: callback function with `astPath = [ ['script.js', {}], ['root', rootAst], ['body', bodyAst], ..., [0, FunctionExpressionAst] ]`
-- `hook.hook` - default hook callback `function __hook__()`
+- `hook.__hook__` - default hook callback `function __hook__()`
 - Built-in Context Generator Functions:
   - `hook.nullContextGenerator()`: context as `''`
   - `hook.astPathContextGenerator(astPath: Array)`: context as `'script.js,[root]Program,body,astType,...'`

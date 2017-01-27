@@ -127,8 +127,8 @@ function generateMethodContext(astPath) {
 }
 
 module.exports = Object.assign(preprocess, {
-  hook: __hook__,
-  preprocess: preprocess,
+  __hook__: __hook__,
+  preprocess: preprocess, // deprecated
   nullContextGenerator: () => '',
   astPathContextGenerator: generateAstPathContext,
   methodContextGenerator: generateMethodContext,
