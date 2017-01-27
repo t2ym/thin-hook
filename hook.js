@@ -8,10 +8,6 @@ const escodegen = require('escodegen');
 
 const espreeOptions = { range: true, tokens: true, comment: true, ecmaVersion: 8 };
 
-function _espreeParse(code) {
-  return espree.parse(code, espreeOptions);
-}
-
 function _preprocess(ast, isConstructor = false, hookName, astPath, contextGenerator = () => '') {
   switch (ast.type) {
   case 'MethodDefinition':
@@ -32,11 +28,11 @@ function _preprocess(ast, isConstructor = false, hookName, astPath, contextGener
       let params = ast.params;
       let body = ast.body.body;
       let context = contextGenerator(astPath).replace(/\'/g, '\\\'');
-      let template = _espreeParse(ast.generator
+      let template = espree.parse(ast.generator
         ? 'function * f() { yield * ' + hookName + '(function * () {}, this, arguments, \'' + context + '\'); }'
         : isConstructor
           ? 'function f() { return ' + hookName + '(() => {}, null, arguments, \'' + context + '\'); }'
-          : 'function f() { return ' + hookName + '(() => {}, this, arguments, \'' + context + '\'); }').body[0];
+          : 'function f() { return ' + hookName + '(() => {}, this, arguments, \'' + context + '\'); }', espreeOptions).body[0];
       let f = ast.generator
         ? template.body.body[0].expression.argument.arguments[0]
         : template.body.body[0].argument.arguments[0];
@@ -66,11 +62,11 @@ function _preprocess(ast, isConstructor = false, hookName, astPath, contextGener
       if (typeof ast.body === 'object' &&
           !Array.isArray(ast.body)) {
         let context = contextGenerator(astPath).replace(/\'/g, '\\\'');
-        let template = _espreeParse(ast.body.type === 'BlockStatement'
+        let template = espree.parse(ast.body.type === 'BlockStatement'
           ? '(...args) => ' + hookName + '(p => { return p; }, this, args, \'' + context + '\')'
           : ast.body.type === 'ObjectExpression'
             ? '(...args) => ' + hookName + '(p => ({ p: p }), this, args, \'' + context + '\')'
-            : '(...args) => ' + hookName + '(p => p, this, args, \'' + context + '\')').body[0].expression;
+            : '(...args) => ' + hookName + '(p => p, this, args, \'' + context + '\')', espreeOptions).body[0].expression;
         let f = template.body.arguments[0];
         f.async = ast.async;
         f.params = ast.params;
