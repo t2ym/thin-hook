@@ -126,10 +126,10 @@ function generateMethodContext(astPath) {
     : index === 0 ? path : '').filter(p => p).join(',');
 }
 
-module.exports = Object.assign(preprocess, {
+module.exports = Object.freeze(Object.assign(preprocess, {
   __hook__: __hook__,
   preprocess: preprocess, // deprecated
   nullContextGenerator: () => '',
   astPathContextGenerator: generateAstPathContext,
   methodContextGenerator: generateMethodContext
-});
+}));
