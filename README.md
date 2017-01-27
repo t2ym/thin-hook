@@ -69,7 +69,7 @@ Thin Hook Preprocessor (experimental)
 
 ```javascript
   // Built-in Minimal Hook Callback Function
-  hook.hook = function __hook__(f, thisArg, args, context) {
+  hook.__hook__ = function __hook__(f, thisArg, args, context) {
     return thisArg ? f.apply(thisArg, args) : f(...args);
   }
 ```
