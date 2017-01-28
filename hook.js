@@ -102,7 +102,7 @@ function _preprocess(ast, isConstructor = false, hookName, astPath, contextGener
 
 const escodegenOptions = { format: { indent: { style: '  ' }, }, comment: true };
 
-function preprocess(code, hookName = '__hook__', initialContext = [], contextGenerator = generateMethodContext) {
+function hook(code, hookName = '__hook__', initialContext = [], contextGenerator = generateMethodContext) {
   let targetAst = espree.parse(code, espreeOptions);
   let astWithComments = escodegen.attachComments(targetAst, targetAst.comments, targetAst.tokens);
   initialContext.push(['root', targetAst]);
@@ -126,9 +126,9 @@ function generateMethodContext(astPath) {
     : index === 0 ? path : '').filter(p => p).join(',');
 }
 
-module.exports = Object.freeze(Object.assign(preprocess, {
+module.exports = Object.freeze(Object.assign(hook, {
   __hook__: __hook__,
-  preprocess: preprocess, // deprecated
+  preprocess: hook, // deprecated
   nullContextGenerator: () => '',
   astPathContextGenerator: generateAstPathContext,
   methodContextGenerator: generateMethodContext
