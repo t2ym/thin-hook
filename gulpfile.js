@@ -71,6 +71,17 @@ gulp.task('build', () => {
       let code = String(file.contents);
       let espreeOptions = { range: false, tokens: false, comment: false, ecmaVersion: 8 };
       let originalAst = espree.parse(code, espreeOptions);
+      let unconfigurableGlobalHookAst = espree.parse(
+        "Object.defineProperty(g, 'hook', { configurable: false, enumerable: false, writable: false, value: f() });",
+        espreeOptions).body[0];
+      let expectedOriginalGlobalHookAst = espree.parse('g.hook = f();', espreeOptions).body[0];
+      _trimStartEndRaw(expectedOriginalGlobalHookAst);
+      _trimStartEndRaw(originalAst.body[0].expression.callee.body.body[0].alternate.alternate.body[2]);
+      assert.equal(
+        JSON.stringify(originalAst.body[0].expression.callee.body.body[0].alternate.alternate.body[2], null, 2),
+        JSON.stringify(expectedOriginalGlobalHookAst, null, 2), 'g.hook = f() exists');
+      // replace g.hook = f() with unconfigurable property definition
+      originalAst.body[0].expression.callee.body.body[0].alternate.alternate.body[2] = unconfigurableGlobalHookAst;
       let minifiedCode = escodegen.generate(originalAst, { format: { compact: true } });
       let minifiedAst = espree.parse(minifiedCode, espreeOptions);
       _trimStartEndRaw(originalAst);
