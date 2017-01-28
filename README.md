@@ -121,7 +121,7 @@ Thin Hook Preprocessor (experimental)
 ### Browsers
 
 ```html
-  <!-- browserified with espree and escodegen; ES5 transpiled; minified -->
+  <!-- browserified along with espree and escodegen; minified -->
   <script src="path/to/bower_components/thin-hook/hook.min.js"></script>
 ```
 
