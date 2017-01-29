@@ -145,11 +145,15 @@ TBD
   - `hook.nullContextGenerator()`: context as `''`
   - `hook.astPathContextGenerator(astPath: Array)`: context as `'script.js,[root]Program,body,astType,...'`
   - `hook.methodContextGenerator(astPath: Array)`: context as `'script.js,Class,Method'`
+- `hook.Function(hookName, initialContext: Array = [['Function', {}]], contextGenerator)`: hooked Function constructor
+  - Usage: `(new (hook.Function('__hook__', [['window,Function', {}]]))('return function f() {}'))()`
+  - Automatically applied in `hook()` preprocessing
+- `hook.hook(target: Class, ...)`: hook platform global object with `target`
+  - Usage: `hook.hook(hook.Function('__hook__', [['window,Function', {}]]))`
 
 ## TODOs
 
 - Refine API
-- Hook `new Function()` to preprocess scripts
 - Hook `eval()` to preprocess scripts
 - Hook `document.write('<script>')` to preprocess scripts
 - Hook `HTMLScriptElement.textContent` to preprocess scripts
