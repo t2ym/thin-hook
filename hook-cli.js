@@ -10,8 +10,8 @@ const path = require('path');
 const crypto = require('crypto');
 
 let hookName = '__hook__';
-let contextGenerator = hook.methodContextGenerator;
-let hashContextGenerator = hook.methodContextGenerator;
+let contextGenerator = 'method';
+let hashContextGenerator;
 let hashSalt = '__hashSalt__';
 let contexts = {};
 let contextsJson = './contexts.json';
@@ -33,12 +33,13 @@ Options:
 
 function generateHashContext(astPath) {
   const hash = crypto.createHash('sha256');
-  let methodContext = hashContextGenerator(astPath);
+  let methodContext = hook.contextGenerators[hashContextGenerator](astPath);
   hash.update(hashSalt + methodContext);
   let hashContext = hash.digest('hex');
   astPath[0][1][hashContext] = methodContext;
   return hashContext;
 }
+hook.contextGenerators.hash = generateHashContext;
 
 for (let i = 2; i < process.argv.length; i++) {
   let match = process.argv[i].match(/^--hook=(.*)$/);
@@ -50,22 +51,22 @@ for (let i = 2; i < process.argv.length; i++) {
   if (match) {
     switch (match[1]) {
     case 'null':
-      contextGenerator = hook.nullContextGenerator;
+      contextGenerator = 'null';
       break;
     case 'astPath':
-      contextGenerator = hook.astPathContextGenerator;
+      contextGenerator = 'astPath';
       break;
     case 'hash':
-      contextGenerator = generateHashContext;
-      hashContextGenerator = hook.methodContextGenerator;
+      contextGenerator = 'hash';
+      hashContextGenerator = 'method';
       break;
     case 'hashAstPath':
-      contextGenerator = generateHashContext;
-      hashContextGenerator = hook.astPathContextGenerator;
+      contextGenerator = 'hash';
+      hashContextGenerator = 'astPath';
       break;
     case 'method':
     default:
-      contextGenerator = hook.methodContextGenerator;
+      contextGenerator = 'method';
       break;
     }
     continue;
@@ -90,7 +91,7 @@ for (let i = 2; i < process.argv.length; i++) {
   fs.writeFileSync(outPath, gen);
 }
 
-if (contextGenerator === generateHashContext) {
+if (contextGenerator === 'hash') {
   console.log('Contexts: ' + contextsJson);
   fs.writeFileSync(contextsJson, JSON.stringify(contexts, null, 2));
 }
