@@ -130,6 +130,9 @@ function hook(code, hookName = '__hook__', initialContext = [], contextGenerator
   let targetAst = espree.parse(code, espreeOptions);
   let astWithComments = escodegen.attachComments(targetAst, targetAst.comments, targetAst.tokens);
   initialContext.push(['root', targetAst]);
+  if (typeof contextGenerator === 'string') {
+    contextGenerator = hook.contextGenerators[contextGenerator] || generateMethodContext;
+  }
   _preprocess(targetAst, false, hookName, initialContext, contextGenerator);
   return escodegen.generate(astWithComments, escodegenOptions);
 }
@@ -218,10 +221,11 @@ function hookPlatform(...targets) {
 
 module.exports = Object.freeze(Object.assign(hook, {
   __hook__: __hook__,
-  preprocess: hook, // deprecated
-  nullContextGenerator: () => '',
-  astPathContextGenerator: generateAstPathContext,
-  methodContextGenerator: generateMethodContext,
   hook: hookPlatform,
-  Function: hookFunction
+  Function: hookFunction,
+  contextGenerators: {
+    'null': () =>'',
+    'astPath': generateAstPathContext,
+    'method': generateMethodContext
+  }
 }));
