@@ -77,6 +77,30 @@ function _preprocess(ast, isConstructor = false, hookName, astPath, contextGener
       }
     }
     break;
+  case 'NewExpression':
+    if (ast.callee && ast.callee.name === 'Function') {
+      let context = contextGenerator(astPath).replace(/\'/g, '\\\'');
+      let template = espree.parse('new (hook.Function(\'' + hookName + '\', [[\'' + context + '\', {}]]))(\'statement\');', espreeOptions).body[0].expression;
+      ast.callee = template.callee;
+    }
+    break;
+  case 'CallExpression':
+    if (ast.callee &&
+        ast.callee.type === 'MemberExpression' &&
+        ast.callee.object.type === 'Identifier' && ast.callee.object.name === 'Reflect' &&
+        ((ast.callee.property.type === 'Identifier' && ast.callee.property.name === 'construct') || 
+         (ast.callee.property.type === 'Literal' && ast.callee.property.value === 'construct')) &&
+        ast.arguments && ast.arguments[0] && ast.arguments[0].type === 'Identifier' && ast.arguments[0].name === 'Function') {
+      let context = contextGenerator(astPath).replace(/\'/g, '\\\'');
+      let template = espree.parse('new (hook.Function(\'' + hookName + '\', [[\'' + context + '\', {}]]))(\'statement\');', espreeOptions).body[0].expression;
+      ast.arguments[0] = template.callee;
+    }
+    break;
+  case 'MetaProperty':
+    // patch espree-generated AST to be compatible with that from esprima
+    ast.meta = ast.meta.name;
+    ast.property = ast.property.name;
+    break;
   default:
     break;
   }
@@ -126,10 +150,78 @@ function generateMethodContext(astPath) {
     : index === 0 ? path : '').filter(p => p).join(',');
 }
 
+const _global = typeof window === 'object' ? window : typeof global === 'object' ? global : typeof self === 'object' ? self : this;
+const _native = {
+  Function: Function
+};
+const _freeze = {
+  Function: { static: [], proto: [ 'apply', 'call', 'bind', 'arguments' ] }
+};
+
+function hookFunction(hookName, initialContext = [['Function', {}]], contextGenerator) {
+  return function Function(...args) {
+    if (args.length >= 1) {
+      let hooked = 'return ' + hook('(() => { ' + args[args.length - 1] + ' })(arguments)', hookName, initialContext, contextGenerator);
+      args[args.length - 1] = hooked;
+    }
+    return Reflect.construct(_native.Function, args);
+  }
+}
+
+function _freezeProperties(target) {
+  function _freezeProperty(target, prop) {
+    let desc = Object.getOwnPropertyDescriptor(target, prop);
+    if (desc && desc.configurable) {
+      desc.configurable = false;
+      if (desc.writable) {
+        desc.writable = false;
+      }
+      Object.defineProperty(target, prop, desc);
+    }
+  }
+  _freeze[target.name].static.forEach(prop => {
+    _freezeProperty(target, prop);
+  });
+  _freeze[target.name].proto.forEach(prop => {
+    _freezeProperty(target.prototype, prop);
+  });
+}
+
+function hookPlatform(...targets) {
+  let platform = _global;
+  targets.forEach(target => {
+    switch (target.name) {
+    case 'Function':
+      Object.getOwnPropertyNames(_native[target.name]).forEach(prop => {
+        let desc = Object.getOwnPropertyDescriptor(_native[target.name], prop);
+        if (desc) {
+          Object.defineProperty(target, prop, desc);
+        }
+      });
+      Object.defineProperty(target, 'toString',
+        { value: function toString() { return 'function ' + target.name + '() { [native code] }' },
+          configurable: false, enumerable: false, writable: false });
+      Object.defineProperty(_native[target.name].prototype, 'constructor',
+        { value: target, configurable: false, enumerable: false, writable: false });
+      _freezeProperties(target);
+      Object.defineProperty(platform, target.name,
+        { value: target, configurable: false, enumerable: false, writable: false });
+      break;
+    case 'eval':
+    case 'write':
+    case 'HTMLScriptElement':
+    default:
+      break;
+    }
+  });
+}
+
 module.exports = Object.freeze(Object.assign(hook, {
   __hook__: __hook__,
   preprocess: hook, // deprecated
   nullContextGenerator: () => '',
   astPathContextGenerator: generateAstPathContext,
-  methodContextGenerator: generateMethodContext
+  methodContextGenerator: generateMethodContext,
+  hook: hookPlatform,
+  Function: hookFunction
 }));
