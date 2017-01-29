@@ -142,10 +142,11 @@ TBD
   - `contextGeneratorName`: function property name in `hook.contextGenerators`
     - argument `astPath = [ ['script.js', {}], ['root', rootAst], ['body', bodyAst], ..., [0, FunctionExpressionAst] ]`
 - `hook.__hook__` - minimal hook callback `function __hook__()`
-- `hook.contextGenerators`: object. Built-in Context Generator Functions
+- `hook.contextGenerators`: object. Context Generator Functions
   - `null()`: context as `''`
   - `astPath(astPath: Array)`: context as `'script.js,[root]Program,body,astType,...'`
   - `method(astPath: Array)`: context as `'script.js,Class,Method'`
+  - custom context generator function has to be added to this object with its unique contextGeneratorName
 - `hook.Function(hookName, initialContext: Array = [['Function', {}]], contextGeneratorName)`: hooked Function constructor
   - Usage: `(new (hook.Function('__hook__', [['window,Function', {}]], 'method'))('return function f() {}'))()`
   - Automatically applied in `hook()` preprocessing
