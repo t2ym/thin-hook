@@ -135,18 +135,18 @@ Thin Hook Preprocessor (experimental)
 
 TBD
 
-- `hook(code: string, hookName: string = '__hook__', initialContext: Array = [], contextGenerator: string = 'method')`
+- `hook(code: string, hookName: string = '__hook__', initialContext: Array = [], contextGeneratorName: string = 'method')`
   - `code`: input JavaScript as string
   - `hookName`: name of hook callback function
   - `initialContext`: typically `[ ['script.js', {}] ]`
-  - `contextGenerator(astPath)`: callback function with `astPath = [ ['script.js', {}], ['root', rootAst], ['body', bodyAst], ..., [0, FunctionExpressionAst] ]`
-    - If `contextGenerator` is a string, `hook.contextGenerators[contextGenerator]` function is used
+  - `contextGeneratorName`: function property name in `hook.contextGenerators`
+    - argument `astPath = [ ['script.js', {}], ['root', rootAst], ['body', bodyAst], ..., [0, FunctionExpressionAst] ]`
 - `hook.__hook__` - minimal hook callback `function __hook__()`
 - `hook.contextGenerators`: object. Built-in Context Generator Functions
   - `null()`: context as `''`
   - `astPath(astPath: Array)`: context as `'script.js,[root]Program,body,astType,...'`
   - `method(astPath: Array)`: context as `'script.js,Class,Method'`
-- `hook.Function(hookName, initialContext: Array = [['Function', {}]], contextGenerator)`: hooked Function constructor
+- `hook.Function(hookName, initialContext: Array = [['Function', {}]], contextGeneratorName)`: hooked Function constructor
   - Usage: `(new (hook.Function('__hook__', [['window,Function', {}]], 'method'))('return function f() {}'))()`
   - Automatically applied in `hook()` preprocessing
 - `hook.hook(target: Class, ...)`: hook platform global object with `target`
