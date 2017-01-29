@@ -4,7 +4,7 @@ class NewFunction {
       return new (hook.Function('__hook__', [[
           'examples/example3.js,NewFunction,adderGenerator',
           {}
-        ]]))('base', `return function generatedAdd(a, b) {
+        ]], 'method'))('base', `return function generatedAdd(a, b) {
       let plus = (x, y) => base + x + y;
       return plus(a, b);
     }`)(base);
@@ -22,11 +22,11 @@ class ReflectConstructFunction {
       let c = Reflect.construct(hook.Function('__hook__', [[
           'examples/example3.js,ReflectConstructFunction,constructor,c',
           {}
-        ]]), ['return class C { m(x) { return x + 1; } }'], new.target);
+        ]], 'method'), ['return class C { m(x) { return x + 1; } }'], new.target);
       let c2 = Reflect['construct'](hook.Function('__hook__', [[
           'examples/example3.js,ReflectConstructFunction,constructor,c2',
           {}
-        ]]), ['return class C { m(x) { return x + 1; } }'], new.target);
+        ]], 'method'), ['return class C { m(x) { return x + 1; } }'], new.target);
     }, null, arguments, 'examples/example3.js,ReflectConstructFunction,constructor');
   }
 }
