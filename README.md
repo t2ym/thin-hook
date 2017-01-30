@@ -60,7 +60,7 @@ Thin Hook Preprocessor (experimental)
     const hash = crypto.createHash('sha256');
     let hashedInitialContext = astPath[0][0];
     astPath[0][0] = contexts[hashedInitialContext] || astPath[0][0];
-    let methodContext = hook.contextGenerators.hash(astPath);
+    let methodContext = hook.contextGenerators.method(astPath);
     astPath[0][0] = hashedInitialContext;
     hash.update(hashSalt + methodContext);
     let hashContext = hash.digest('hex');
