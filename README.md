@@ -62,7 +62,7 @@ Thin Hook Preprocessor (experimental)
     astPath[0][0] = contexts[hashedInitialContext] || astPath[0][0];
     let methodContext = hook.contextGenerators.hash(astPath);
     astPath[0][0] = hashedInitialContext;
-    hash.update(__hash_salt__ + methodContext);
+    hash.update(hashSalt + methodContext);
     let hashContext = hash.digest('hex');
     contexts[hashContext] = methodContext;
     return hashContext;
