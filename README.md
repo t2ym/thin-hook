@@ -44,7 +44,8 @@ Thin Hook Preprocessor (experimental)
   // Built-in Context Generator Function
   hook.contextGenerators.method = function generateMethodContext(astPath) {
     return astPath.map(([ path, node ], index) => node && node.type
-      ? (node.id && node.id.name ? node.id.name : (node.key && node.key.name ? node.key.name : ''))
+      ? (node.id && node.id.name ? node.id.name : (node.key && node.key.name
+        ? (node.kind === 'get' || node.kind === 'set' ? node.kind + ' ' : node.static ? 'static ' : '') + node.key.name : ''))
       : index === 0 ? path : '').filter(p => p).join(',');
   }
 ```
@@ -52,15 +53,18 @@ Thin Hook Preprocessor (experimental)
 ```javascript
   // Example Custom Context Generator Function with Hashing
   const crypto = require('crypto');
+  const hashSalt = '__hash_salt__';
+  let contexts = {};
 
   hook.contextGenerators.hash = function generateHashContext(astPath) {
     const hash = crypto.createHash('sha256');
-    let methodContext = astPath.map(([ path, node ], index) => node && node.type
-      ? (node.id && node.id.name ? node.id.name : (node.key && node.key.name ? node.key.name : ''))
-      : index === 0 ? path : '').filter(p => p).join(',');
-    hash.update(methodContext);
+    let hashedInitialContext = astPath[0][0];
+    astPath[0][0] = contexts[hashedInitialContext] || astPath[0][0];
+    let methodContext = hook.contextGenerators.hash(astPath);
+    astPath[0][0] = hashedInitialContext;
+    hash.update(__hash_salt__ + methodContext);
     let hashContext = hash.digest('hex');
-    astPath[0][1][hashContext] = methodContext;
+    contexts[hashContext] = methodContext;
     return hashContext;
   }
 ```
