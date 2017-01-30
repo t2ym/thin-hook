@@ -144,13 +144,15 @@ function __hook__(f, thisArg, args, context) {
 
 function generateAstPathContext(astPath) {
   return astPath.map(([ path, node ]) => node && node.type
-    ? '[' + path + ']' + node.type + (node.id && node.id.name ? ':' + node.id.name : (node.key && node.key.name ? ':' + node.key.name : ''))
+    ? '[' + path + ']' + node.type + (node.id && node.id.name ? ':' + node.id.name : (node.key && node.key.name
+      ? ':' + (node.kind === 'get' || node.kind === 'set' ? node.kind + ' ' : node.static ? 'static ' : '') + node.key.name : ''))
     : path).join(',');
 }
 
 function generateMethodContext(astPath) {
   return astPath.map(([ path, node ], index) => node && node.type
-    ? (node.id && node.id.name ? node.id.name : (node.key && node.key.name ? node.key.name : ''))
+    ? (node.id && node.id.name ? node.id.name : (node.key && node.key.name
+      ? (node.kind === 'get' || node.kind === 'set' ? node.kind + ' ' : node.static ? 'static ' : '') + node.key.name : ''))
     : index === 0 ? path : '').filter(p => p).join(',');
 }
 
