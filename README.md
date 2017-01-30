@@ -35,7 +35,7 @@ Thin Hook Preprocessor (experimental)
   let initialContext = [['src/target.js', {}]];
   let gen = hook(code, '__hook__', initialContext, 'hash');
   fs.writeFileSync('hooked/target.js', gen);
-  fs.writeFileSync('hooked/target.js.contexts.json', JSON.stringify(initialContext[0][1], null, 2));
+  fs.writeFileSync('hooked/target.js.contexts.json', JSON.stringify(contexts, null, 2));
 ```
 
 ### Context Generator Function (customizable)
