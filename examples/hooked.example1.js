@@ -49,7 +49,7 @@ class X1 extends A1 {
   get b() {
     return __hook__(() => {
       return 1;
-    }, this, arguments, 'examples/example1.js,X1,b');
+    }, this, arguments, 'examples/example1.js,X1,get b');
   }
   method(a, b, c) {
     return __hook__((a, b = 0, c = b + 3) => {
@@ -72,7 +72,7 @@ class X1 extends A1 {
   static smethod(a, b, c) {
     return __hook__((a = 2, b = a * 2, c = b * 3) => {
       return a + b + c;
-    }, this, arguments, 'examples/example1.js,X1,smethod');
+    }, this, arguments, 'examples/example1.js,X1,static smethod');
   }
 }
 class Y1 extends X1 {
