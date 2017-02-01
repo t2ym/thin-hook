@@ -158,9 +158,10 @@ TBD
   - Usage: `hook.hook(hook.Function('__hook__', [['window,Function', {}]], 'method'))`
 - `hook.serviceWorkerHandlers.fetch`: function 'fetch' event handler for Service Worker
   - `<script src="thin-hook/hook.min.js?no-hook=true&hook-name=__hook__&discard-hook-errors=true"></script>`: arguments from the page
-    - `no-hook`: `true` if hook is skipped for the script
     - `hook-name`: default `__hook__`. hook callback function name
     - `discard-hook-errors`: `true` if errors in hooking are ignored and the original contents are provided
+  - `<script src="script.js?no-hook=true"></script>`: skip hooking for the source script
+  - `<script no-hook>...</script>`: skip hooking for the embedded script
   - register as Service Worker
     - `Service-Worker-Allowed` HTTP response header must have an appropriate scope for the target application
 ```javascript
