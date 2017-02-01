@@ -38,6 +38,9 @@ function _trimStartEndRaw(ast) {
   if (ast && typeof ast === 'object') {
     [ 'start', 'end', 'raw' ].forEach(prop => {
       if (ast && ast.hasOwnProperty(prop)) {
+        if (prop === 'raw' && ast[prop].match(/(\\xaa\\xb5|\\u200c\\u200d)/) && ast.hasOwnProperty('value')) {
+          ast.value = ast.raw.replace(/^\"(.*)\"/, '$1');
+        }
         delete ast[prop];
       }
     });
@@ -82,9 +85,9 @@ gulp.task('build', () => {
         JSON.stringify(expectedOriginalGlobalHookAst, null, 2), 'g.hook = f() exists');
       // replace g.hook = f() with unconfigurable property definition
       originalAst.body[0].expression.callee.body.body[0].alternate.alternate.body[2] = unconfigurableGlobalHookAst;
+      _trimStartEndRaw(originalAst);
       let minifiedCode = escodegen.generate(originalAst, { format: { compact: true } });
       let minifiedAst = espree.parse(minifiedCode, espreeOptions);
-      _trimStartEndRaw(originalAst);
       _trimStartEndRaw(minifiedAst);
       let originalAstJson = JSON.stringify(originalAst, null, 2);
       let minifiedAstJson = JSON.stringify(minifiedAst, null, 2);
