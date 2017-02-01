@@ -222,10 +222,105 @@ function hookPlatform(...targets) {
   });
 }
 
+let hookNameForServiceWorker = '__hook__';
+let discardHookErrors = true;
+
+function onFetch(event) {
+  event.respondWith(fetch(event.request).then(function(response) {
+    if (response.status === 200 && response.url) {
+      let url = new URL(response.url);
+      if (!response.url.match(/no-hook=true/) && url.pathname.match(/[.]js$/)) {
+        return response.text().then(function(result) {
+          try {
+            result = hook(result, hookNameForServiceWorker, [[url.pathname, {}]]);
+          }
+          catch (e) {
+            if (discardHookErrors) {
+              console.log(e);
+            }
+            else {
+              throw e;
+            }
+          }
+          finally {
+            return new Response(result, { headers: {'Content-Type': 'text/javascript'} });
+          }
+        });
+      }
+      else if (url.pathname.match(/(\/|[.]html?)$/)) {
+        return response.text().then(function(result) {
+          try {
+            let processed = '';
+            let remaining = result.replace(/\n/g, '\0');
+            while (remaining) {
+              let scriptAt = remaining.indexOf('<script');
+              if (scriptAt >= 0) {
+                processed += remaining.substr(0, scriptAt);
+                remaining = remaining.substr(scriptAt);
+                let matchScriptTag = remaining.match(/^<script( [^>]{1,}| *)>(.*)$/);
+                if (matchScriptTag) {
+                  let skipHooking = matchScriptTag[1].indexOf(' no-hook') >= 0;
+                  processed += '<script' + matchScriptTag[1] + '>';
+                  remaining = matchScriptTag[2];
+                  let endScriptAt = remaining.indexOf('</script');
+                  if (endScriptAt >= 0) {
+                    let script = remaining.substr(0, endScriptAt);
+                    let src = matchScriptTag[1].match(/src="([^"]*\/thin-hook\/hook[.]min[.]js\?[^"]*)"$/);
+                    if (src) {
+                      let srcUrl = new URL(src[1], 'https://host/');
+                      if (srcUrl.searchParams.has('hook-name')) {
+                        hookNameForServiceWorker = srcUrl.searchParams.get('hook-name');
+                      }
+                      if (srcUrl.searchParams.has('discard-hook-errors')) {
+                        discardHookErrors = srcUrl.searchParams.get('discard-hook-errors') === 'true';
+                      }
+                    }
+                    if (script && !skipHooking) {
+                      script = hook(script.replace(/\0/g, '\n'), hookNameForServiceWorker, [[url.pathname, {}]]);
+                    }
+                    processed += script;
+                    remaining = remaining.substr(endScriptAt);
+                    let matchEndScriptTag = remaining.match(/^<\/script([^>]*)>(.*)$/m);
+                    if (matchEndScriptTag) {
+                      processed += '</script' + matchEndScriptTag[1] + '>';
+                      remaining = matchEndScriptTag[2];
+                      continue;
+                    }
+                  }
+                }
+              }
+              processed += remaining;
+              remaining = '';
+            }
+            result = processed.replace(/\0/g, '\n');
+          }
+          catch (e) {
+            if (discardHookErrors) {
+              console.log(e);
+            }
+            else {
+              throw e;
+            }
+          }
+          finally {
+            return new Response(result, { headers: {'Content-Type': 'text/html'} });
+          }
+        });
+      }
+    }
+    return response;
+  }).catch(function(error) {
+    throw error;
+  }));
+}
+
 module.exports = Object.freeze(Object.assign(hook, {
   __hook__: __hook__,
   hook: hookPlatform,
   Function: hookFunction,
+  serviceWorkerHandlers: {
+    fetch: onFetch
+  },
   contextGenerators: {
     'null': () =>'',
     'astPath': generateAstPathContext,

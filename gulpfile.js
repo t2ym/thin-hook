@@ -77,6 +77,10 @@ gulp.task('build', () => {
       let unconfigurableGlobalHookAst = espree.parse(
         "Object.defineProperty(g, 'hook', { configurable: false, enumerable: false, writable: false, value: f() });",
         espreeOptions).body[0];
+      let serviceWorkerHandlerRegistrationAst = espree.parse(
+        "if (g.constructor.name === 'ServiceWorkerGlobalScope')" +
+        "{ for (let h in hook.serviceWorkerHandlers) { g.addEventListener(h, hook.serviceWorkerHandlers[h]) } }",
+        espreeOptions).body[0];
       let expectedOriginalGlobalHookAst = espree.parse('g.hook = f();', espreeOptions).body[0];
       _trimStartEndRaw(expectedOriginalGlobalHookAst);
       _trimStartEndRaw(originalAst.body[0].expression.callee.body.body[0].alternate.alternate.body[2]);
@@ -85,6 +89,8 @@ gulp.task('build', () => {
         JSON.stringify(expectedOriginalGlobalHookAst, null, 2), 'g.hook = f() exists');
       // replace g.hook = f() with unconfigurable property definition
       originalAst.body[0].expression.callee.body.body[0].alternate.alternate.body[2] = unconfigurableGlobalHookAst;
+      // append service worker handler registration code
+      originalAst.body[0].expression.callee.body.body[0].alternate.alternate.body[3] = serviceWorkerHandlerRegistrationAst;
       _trimStartEndRaw(originalAst);
       let minifiedCode = escodegen.generate(originalAst, { format: { compact: true } });
       let minifiedAst = espree.parse(minifiedCode, espreeOptions);
