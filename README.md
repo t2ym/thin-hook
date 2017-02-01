@@ -156,6 +156,33 @@ TBD
   - Automatically applied in `hook()` preprocessing
 - `hook.hook(target: Class, ...)`: hook platform global object with `target`
   - Usage: `hook.hook(hook.Function('__hook__', [['window,Function', {}]], 'method'))`
+- `hook.serviceWorkerHandlers.fetch`: function 'fetch' event handler for Service Worker
+  - `<script src="thin-hook/hook.min.js?no-hook=true&hook-name=__hook__&discard-hook-errors=true"></script>`: arguments from the page
+    - `no-hook`: `true` if hook is skipped for the script
+    - `hook-name`: default `__hook__`. hook callback function name
+    - `discard-hook-errors`: `true` if errors in hooking are ignored and the original contents are provided
+  - register as Service Worker
+    - `Service-Worker-Allowed` HTTP response header must have an appropriate scope for the target application
+```javascript
+    // Proof of Concept Service Worker Registration Script: Not Reliable
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('thin-hook/hook.min.js', { scope: '/app-root/' })
+        .then(registration => {
+          if (registration.active) {
+            window.dispatchEvent(new Event('service-worker-ready'));
+          }
+          else {
+            let serviceWorker = registration.installing || registration.waiting;
+            if (serviceWorker) {
+              serviceWorker.addEventListener('statechange', function (e) {
+                window.location.reload();
+              });
+            }
+          }
+        });
+    }
+    // Application must wait until service-worker-ready event
+```
 
 ## TODOs
 
