@@ -15,6 +15,7 @@ let hashContextGenerator;
 let hashSalt = '__hashSalt__';
 let contexts = {};
 let contextsJson = './contexts.json';
+let out = '';
 
 if (process.argv.length <= 2) {
   let cmd = path.basename(process.argv[1]);
@@ -28,6 +29,7 @@ Options:
   --context={contextGenerator} : Context generator. Valid values: method null astPath hash hashAstPath. Default: method
   --hashSalt={hashSalt} : Salt for hash generator. Default: __hashSalt__
   --contextsJson={contexts.json} : Path to contexts.json. Default: contexts.json
+  --out={outPath} : Path for output HTML
 `);
 }
 
@@ -84,11 +86,32 @@ for (let i = 2; i < process.argv.length; i++) {
   if (path.basename(process.argv[i]).match(/^hooked[.]/)) {
     continue;
   }
-  let code = fs.readFileSync(process.argv[i], 'UTF-8');
-  let gen = hook(code, hookName, [ [ process.argv[i], contexts ] ], contextGenerator);
-  let outPath = path.join(path.dirname(process.argv[i]), 'hooked.' + path.basename(process.argv[i]));
-  console.log('Hooked: ', outPath);
-  fs.writeFileSync(outPath, gen);
+  match = process.argv[i].match(/^--out=(.*)$/);
+  if (match) {
+    out = match[1];
+    continue;
+  }
+  if (process.argv[i].match(/[.]js$/)) {
+    let code = fs.readFileSync(process.argv[i], 'UTF-8');
+    let gen = hook(code, hookName, [ [ process.argv[i], contexts ] ], contextGenerator);
+    let outPath = path.join(path.dirname(process.argv[i]), 'hooked.' + path.basename(process.argv[i]));
+    console.log('Hooked: ', outPath);
+    fs.writeFileSync(outPath, gen);
+  }
+  else if (process.argv[i].match(/[.]html?$/)) {
+    let html = fs.readFileSync(process.argv[i], 'UTF-8');
+    let transformed = hook.serviceWorkerTransformers.encodeHtml(html);
+    let outPath = out ? out : path.join(path.dirname(process.argv[i]), 'encoded.' + path.basename(process.argv[i]));
+    if (html === transformed) {
+      transformed = hook.serviceWorkerTransformers.decodeHtml(html);
+      outPath = out ? out : path.join(path.dirname(process.argv[i]), 'decoded.' + path.basename(process.argv[i]));
+      console.log('Decoded: ' + process.argv[i] + ' to ' + outPath);
+    }
+    else {
+      console.log('Encoded: ' + process.argv[i] + ' to ' + outPath);
+    }
+    fs.writeFileSync(outPath, transformed);
+  }
 }
 
 if (contextGenerator === 'hash') {
