@@ -209,7 +209,7 @@ TBD
     - `hook-name`: default `__hook__`. hook callback function name
     - `discard-hook-errors`: `true` if errors in hooking are ignored and the original contents are provided. Default: `true`
     - `fallback-page`: fallback page to land if Service Worker is not available in the browser
-    - `service-worker-ready': `true` if the entry HTML page is decoded; `false` if encoded. This parameter must be at the end of the URL
+    - `service-worker-ready`: `true` if the entry HTML page is decoded; `false` if encoded. This parameter must be at the end of the URL
   - `<script src="script.js?no-hook=true"></script>`: skip hooking for the source script
   - `<script no-hook>...</script>`: skip hooking for the embedded script
   - register as Service Worker
