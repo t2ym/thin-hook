@@ -250,6 +250,7 @@ function onFetch(event) {
       else if (url.pathname.match(/(\/|[.]html?)$/)) {
         return response.text().then(function(result) {
           try {
+            result = hook.serviceWorkerTransformers.decodeHtml(result);
             let processed = '';
             let remaining = result.replace(/\n/g, '\0');
             while (remaining) {
@@ -314,6 +315,60 @@ function onFetch(event) {
   }));
 }
 
+function encodeHtml(html) {
+  let html0 = html.replace(/\n/g, '\0');
+  if (html0.match(/<script [^>]*src="[^"]*\/hook[.]min[.]js[\?][^"]*service-worker-ready=true"><\/script>/)) {
+    html = html0.replace(/<!--/g, '<C!--').replace(/-->/g, '--C>').replace(
+      /^(.*<script [^>]*src="[^"]*\/hook[.]min[.]js\?[^"]*&service-worker-ready=)true("><\/script>)(.*)$/,
+      '$1false$2</head></html><!--$3-->').replace(/\0/g, '\n');
+  }
+  return html;
+}
+
+function decodeHtml(html) {
+  let html0 = html.replace(/\n/g, '\0');
+  if (html0.match(/<script [^>]*src="[^"]*\/hook[.]min[.]js[\?][^"]*service-worker-ready=false"><\/script><\/head><\/html><!--/)) {
+    html = html0.replace(
+      /^(.*<script [^>]*src="[^"]*\/hook[.]min[.]js\?[^"]*&service-worker-ready=)false("><\/script>)<\/head><\/html><!--(.*)-->$/,
+      '$1true$2$3').replace(/<C!--/g, '<!--').replace(/--C>/g, '-->').replace(/\0/g, '\n');
+  }
+  return html;
+}
+
+function registerServiceWorker(fallbackUrl = './index-no-service-worker.html', reloadTimeout = 500, inactiveReloadTimeout = 1000) {
+  if ('serviceWorker' in navigator) {
+    let src = new URL(document.currentScript.src, "https://host/");
+    if (src.searchParams.has('service-worker-ready')) {
+      navigator.serviceWorker.register(document.currentScript.src, { scope: window.location.pathname.replace(/\/[^\/]*$/, '/') })
+        .then(registration => {
+          let serviceWorker = registration.active || registration.waiting || registration.installing;
+          if (serviceWorker) {
+            if (!(src.searchParams.get('service-worker-ready') === 'true' && registration.active)) {
+              serviceWorker.addEventListener('statechange', function (e) {
+                let src = new URL(document.currentScript.src, "https://host/");
+                if (src.searchParams.get('service-worker-ready') !== 'true') {
+                  window.location.reload();
+                }
+              });
+              setTimeout(function() { window.location.reload(); }, inactiveReloadTimeout);
+            }
+          }
+          else {
+            setTimeout(function() { window.location.reload(); }, reloadTimeout);
+          }
+        });
+    }
+  }
+  else {
+    let src = new URL(document.currentScript.src, "https://host/");
+    let match = src.search.match(/[&\?]fallback-page=([^&\?]*)/);
+    if (match) {
+      fallbackUrl = match[1];
+    }
+    window.location = fallbackUrl;
+  }
+}
+
 module.exports = Object.freeze(Object.assign(hook, {
   __hook__: __hook__,
   hook: hookPlatform,
@@ -321,6 +376,11 @@ module.exports = Object.freeze(Object.assign(hook, {
   serviceWorkerHandlers: {
     fetch: onFetch
   },
+  serviceWorkerTransformers: {
+    encodeHtml: encodeHtml,
+    decodeHtml: decodeHtml
+  },
+  registerServiceWorker: registerServiceWorker,
   contextGenerators: {
     'null': () =>'',
     'astPath': generateAstPathContext,
