@@ -218,6 +218,7 @@ TBD
   - `encodeHtml(html: string)`: encode HTML for Service Worker
   - `decodeHtml(html: string)`: decode encoded HTML for Service Worker
 - `hook.registerServiceWorker(fallbackUrl: string = './index-no-service-worker.html', reloadTimeout: number = 500, inactiveReloadTimeout: number = 1000)`:
+  - Automatically called on loading `hook.min.js` on browsers
   - `fallbackUrl`: fallback URL for browsers without Service Worker
   - `reloadTimeout`: default: 500 (ms). Timeout to reload the page when no Service Worker is detected
   - `inactiveReloadTimeout`: default: 1000 (ms). Timeout to reload the page when inactive (waiting, installing) Service Worker is detected. When a state change of the Service Worker instance is detected, the page is reloaded immediately even before the timeout.
