@@ -95,6 +95,54 @@ Thin Hook Preprocessor (experimental)
   }
 ```
 
+### Entry HTML with Service Worker
+
+If hooking is performed run-time in Service Worker, the entry HTML page must be loaded via Service Worker
+so that no hook-targeted scripts are evaluated without hooking.
+
+To achieve this, the static entry HTML has to be __Encoded__ at build time by `hook.serviceWorkerTransformers.encodeHTML(html)`.
+
+#### Hook CLI to encode the entry HTML
+
+```sh
+  # encode src/index.html to dist/index.html
+  hook --out dist/index.html src/index.html
+```
+
+#### Decoded/Original HTML (source code)
+
+```html
+<html>
+  <head>
+    <script src="../thin-hook/hook.min.js?no-hook=true&hook-name=__hook__&fallback-page=index-no-sw.html&service-worker-ready=true"></script>
+    <!-- Hook Callback Function -->
+    <script no-hook>
+      window.__hook__ = function __hook__(f, thisArg, args, context) {
+        ...
+        return thisArg ? f.apply(thisArg, args) : f(...args);
+      }
+    </script>
+    ...
+</html>
+```
+
+#### Encoded HTML (Service Worker converts it to Decoded HTML)
+
+```html
+<html>
+  <head>
+    <script src="../thin-hook/hook.min.js?no-hook=true&hook-name=__hook__&fallback-page=index-no-sw.html&service-worker-ready=false"></script></head></html><!--
+    <C!-- Hook Callback Function --C>
+    <script no-hook>
+      window.__hook__ = function __hook__(f, thisArg, args, context) {
+        ...
+        return thisArg ? f.apply(thisArg, args) : f(...args);
+      }
+    </script>
+    ...
+</html>-->
+```
+
 ## Supported Syntax
 
 - Functions
@@ -157,33 +205,22 @@ TBD
 - `hook.hook(target: Class, ...)`: hook platform global object with `target`
   - Usage: `hook.hook(hook.Function('__hook__', [['window,Function', {}]], 'method'))`
 - `hook.serviceWorkerHandlers.fetch`: function 'fetch' event handler for Service Worker
-  - `<script src="thin-hook/hook.min.js?no-hook=true&hook-name=__hook__&discard-hook-errors=true"></script>`: arguments from the page
+  - `<script src="thin-hook/hook.min.js?no-hook=true&hook-name=__hook__&discard-hook-errors=true&fallback-page=index-no-sw.html&service-worker-ready=true"></script>`: arguments from the page
     - `hook-name`: default `__hook__`. hook callback function name
-    - `discard-hook-errors`: `true` if errors in hooking are ignored and the original contents are provided
+    - `discard-hook-errors`: `true` if errors in hooking are ignored and the original contents are provided. Default: `true`
+    - `fallback-page`: fallback page to land if Service Worker is not available in the browser
+    - `service-worker-ready': `true` if the entry HTML page is decoded; `false` if encoded. This parameter must be at the end of the URL
   - `<script src="script.js?no-hook=true"></script>`: skip hooking for the source script
   - `<script no-hook>...</script>`: skip hooking for the embedded script
   - register as Service Worker
     - `Service-Worker-Allowed` HTTP response header must have an appropriate scope for the target application
-```javascript
-    // Proof of Concept Service Worker Registration Script: Not Reliable
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('thin-hook/hook.min.js', { scope: '/app-root/' })
-        .then(registration => {
-          if (registration.active) {
-            window.dispatchEvent(new Event('service-worker-ready'));
-          }
-          else {
-            let serviceWorker = registration.installing || registration.waiting;
-            if (serviceWorker) {
-              serviceWorker.addEventListener('statechange', function (e) {
-                window.location.reload();
-              });
-            }
-          }
-        });
-    }
-    // Application must wait until service-worker-ready event
-```
+- `hook.serviceWorkerTransformers`:
+  - `encodeHtml(html: string)`: encode HTML for Service Worker
+  - `decodeHtml(html: string)`: decode encoded HTML for Service Worker
+- `hook.registerServiceWorker(fallbackUrl: string = './index-no-service-worker.html', reloadTimeout: number = 500, inactiveReloadTimeout: number = 1000)`:
+  - `fallbackUrl`: fallback URL for browsers without Service Worker
+  - `reloadTimeout`: default: 500 (ms). Timeout to reload the page when no Service Worker is detected
+  - `inactiveReloadTimeout`: default: 1000 (ms). Timeout to reload the page when inactive (waiting, installing) Service Worker is detected
 
 ## TODOs
 
