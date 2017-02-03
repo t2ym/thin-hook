@@ -343,15 +343,16 @@ function decodeHtml(html) {
 
 function registerServiceWorker(fallbackUrl = './index-no-service-worker.html', reloadTimeout = 500, inactiveReloadTimeout = 1000) {
   if ('serviceWorker' in navigator) {
-    let src = new URL(document.currentScript.src, "https://host/");
+    let script = document.currentScript || Array.prototype.filter.call(document.querySelectorAll('script'), s => s.src.match(/\/hook.min.js/))[0];
+    let src = new URL(script.src, window.location.href);
     if (src.searchParams.has('service-worker-ready')) {
-      navigator.serviceWorker.register(document.currentScript.src, { scope: window.location.pathname.replace(/\/[^\/]*$/, '/') })
+      navigator.serviceWorker.register(script.src.replace(/\?.*$/, ''), { scope: window.location.pathname.replace(/\/[^\/]*$/, '/') })
         .then(registration => {
           let serviceWorker = registration.active || registration.waiting || registration.installing;
           if (serviceWorker) {
             if (!(src.searchParams.get('service-worker-ready') === 'true' && registration.active)) {
               serviceWorker.addEventListener('statechange', function (e) {
-                let src = new URL(document.currentScript.src, "https://host/");
+                let src = new URL(script.src, "https://host/");
                 if (src.searchParams.get('service-worker-ready') !== 'true') {
                   window.location.reload();
                 }
