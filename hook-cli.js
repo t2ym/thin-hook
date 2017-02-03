@@ -12,6 +12,7 @@ const crypto = require('crypto');
 let hookName = '__hook__';
 let contextGenerator = 'method';
 let hashContextGenerator;
+let metaHooking = true;
 let hashSalt = '__hashSalt__';
 let contexts = {};
 let contextsJson = './contexts.json';
@@ -27,6 +28,7 @@ Usage: ${cmd} [--hook={hookName}] [--context={contextGenarator}] targets ...
 Options:
   --hook={hookName} : Hook callback. Default: __hook__
   --context={contextGenerator} : Context generator. Valid values: method null astPath hash hashAstPath. Default: method
+  --metaHooking={metaHooking}: Enable meta hooking (run-time hooking for metaprogramming) if true. Default: true
   --hashSalt={hashSalt} : Salt for hash generator. Default: __hashSalt__
   --contextsJson={contexts.json} : Path to contexts.json. Default: contexts.json
   --out={outPath} : Path for output HTML
@@ -78,6 +80,11 @@ for (let i = 2; i < process.argv.length; i++) {
     hashSalt = match[1];
     continue;
   }
+  match = process.argv[i].match(/^--metaHooking=(.*)$/);
+  if (match) {
+    metaHooking = match[1] === 'true';
+    continue;
+  }
   match = process.argv[i].match(/^--contextsJson=(.*)$/);
   if (match) {
     contextsJson = match[1];
@@ -93,7 +100,7 @@ for (let i = 2; i < process.argv.length; i++) {
   }
   if (process.argv[i].match(/[.]js$/)) {
     let code = fs.readFileSync(process.argv[i], 'UTF-8');
-    let gen = hook(code, hookName, [ [ process.argv[i], contexts ] ], contextGenerator);
+    let gen = hook(code, hookName, [ [ process.argv[i], contexts ] ], contextGenerator, metaHooking);
     let outPath = path.join(path.dirname(process.argv[i]), 'hooked.' + path.basename(process.argv[i]));
     console.log('Hooked: ', outPath);
     fs.writeFileSync(outPath, gen);
