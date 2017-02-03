@@ -8,7 +8,7 @@ const escodegen = require('escodegen');
 
 const espreeOptions = { range: true, tokens: true, comment: true, ecmaVersion: 8 };
 
-function _preprocess(ast, isConstructor = false, hookName, astPath, contextGeneratorName, contextGenerator) {
+function _preprocess(ast, isConstructor = false, hookName, astPath, contextGeneratorName, contextGenerator, metaHooking) {
   switch (ast.type) {
   case 'MethodDefinition':
     if (ast.kind === 'constructor') {
@@ -78,7 +78,7 @@ function _preprocess(ast, isConstructor = false, hookName, astPath, contextGener
     }
     break;
   case 'NewExpression':
-    if (ast.callee && ast.callee.name === 'Function') {
+    if (metaHooking && ast.callee && ast.callee.name === 'Function') {
       let context = contextGenerator(astPath).replace(/\'/g, '\\\'');
       let template = espree.parse('new (hook.Function(\'' + hookName + '\', [[\'' + context + '\', {}]], \'' + contextGeneratorName + '\'))(\'1\');',
         espreeOptions).body[0].expression;
@@ -86,7 +86,8 @@ function _preprocess(ast, isConstructor = false, hookName, astPath, contextGener
     }
     break;
   case 'CallExpression':
-    if (ast.callee &&
+    if (metaHooking &&
+        ast.callee &&
         ast.callee.type === 'MemberExpression' &&
         ast.callee.object.type === 'Identifier' && ast.callee.object.name === 'Reflect' &&
         ((ast.callee.property.type === 'Identifier' && ast.callee.property.name === 'construct') || 
@@ -113,13 +114,13 @@ function _preprocess(ast, isConstructor = false, hookName, astPath, contextGener
         ast[target].forEach((item, index) => {
           if (item && typeof item === 'object' && typeof item.type === 'string') {
             astPath.push([index, item]);
-            _preprocess(item, false, hookName, astPath, contextGeneratorName, contextGenerator);
+            _preprocess(item, false, hookName, astPath, contextGeneratorName, contextGenerator, metaHooking);
             astPath.pop();
           }
         });
       }
       else if (typeof ast[target] === 'object' && typeof ast[target].type === 'string') {
-        _preprocess(ast[target], isConstructor, hookName, astPath, contextGeneratorName, contextGenerator);
+        _preprocess(ast[target], isConstructor, hookName, astPath, contextGeneratorName, contextGenerator, metaHooking);
       }
       astPath.pop();
     }
@@ -128,13 +129,13 @@ function _preprocess(ast, isConstructor = false, hookName, astPath, contextGener
 
 const escodegenOptions = { format: { indent: { style: '  ' }, }, comment: true };
 
-function hook(code, hookName = '__hook__', initialContext = [], contextGeneratorName = 'method') {
+function hook(code, hookName = '__hook__', initialContext = [], contextGeneratorName = 'method', metaHooking = true) {
   let targetAst = espree.parse(code, espreeOptions);
   let astWithComments = escodegen.attachComments(targetAst, targetAst.comments, targetAst.tokens);
   contextGeneratorName = hook.contextGenerators[contextGeneratorName] ? contextGeneratorName : 'method';
   let contextGenerator = hook.contextGenerators[contextGeneratorName];
   initialContext.push(['root', targetAst]);
-  _preprocess(targetAst, false, hookName, initialContext, contextGeneratorName, contextGenerator);
+  _preprocess(targetAst, false, hookName, initialContext, contextGeneratorName, contextGenerator, metaHooking);
   return escodegen.generate(astWithComments, escodegenOptions);
 }
 
