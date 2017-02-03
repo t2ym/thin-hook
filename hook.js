@@ -224,6 +224,7 @@ function hookPlatform(...targets) {
 }
 
 let hookNameForServiceWorker = '__hook__';
+let contextGeneratorName = 'method';
 let discardHookErrors = true;
 
 function onFetch(event) {
@@ -233,7 +234,7 @@ function onFetch(event) {
       if (!response.url.match(/no-hook=true/) && url.pathname.match(/[.]js$/)) {
         return response.text().then(function(result) {
           try {
-            result = hook(result, hookNameForServiceWorker, [[url.pathname, {}]]);
+            result = hook(result, hookNameForServiceWorker, [[url.pathname, {}]], contextGeneratorName);
           }
           catch (e) {
             if (discardHookErrors) {
@@ -273,12 +274,15 @@ function onFetch(event) {
                       if (srcUrl.searchParams.has('hook-name')) {
                         hookNameForServiceWorker = srcUrl.searchParams.get('hook-name');
                       }
+                      if (srcUrl.searchParams.has('context-generator-name')) {
+                        contextGeneratorName = srcUrl.searchParams.get('context-generator-name') || 'method';
+                      }
                       if (srcUrl.searchParams.has('discard-hook-errors')) {
                         discardHookErrors = srcUrl.searchParams.get('discard-hook-errors') === 'true';
                       }
                     }
                     if (script && !skipHooking) {
-                      script = hook(script.replace(/\0/g, '\n'), hookNameForServiceWorker, [[url.pathname, {}]]);
+                      script = hook(script.replace(/\0/g, '\n'), hookNameForServiceWorker, [[url.pathname, {}]], contextGeneratorName);
                     }
                     processed += script;
                     remaining = remaining.substr(endScriptAt);
