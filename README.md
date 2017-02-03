@@ -208,6 +208,7 @@ TBD
 - `hook.serviceWorkerHandlers.fetch`: function 'fetch' event handler for Service Worker
   - `<script src="thin-hook/hook.min.js?no-hook=true&hook-name=__hook__&discard-hook-errors=true&fallback-page=index-no-sw.html&service-worker-ready=true"></script>`: arguments from the page
     - `hook-name`: default `__hook__`. hook callback function name
+    - `context-generator-name`: default `method`. context generator callback function name
     - `discard-hook-errors`: `true` if errors in hooking are ignored and the original contents are provided. Default: `true`
     - `fallback-page`: fallback page to land if Service Worker is not available in the browser
     - `service-worker-ready`: `true` if the entry HTML page is decoded; `false` if encoded. This parameter must be at the end of the URL
