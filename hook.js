@@ -318,10 +318,11 @@ function onFetch(event) {
 
 function encodeHtml(html) {
   let html0 = html.replace(/\n/g, '\0');
-  if (html0.match(/<script [^>]*src="[^"]*\/hook[.]min[.]js[\?][^"]*service-worker-ready=true"><\/script>/)) {
-    html = html0.replace(/<!--/g, '<C!--').replace(/-->/g, '--C>').replace(
+  let match;
+  if (match = html0.match(/^(.*)(<script [^>]*src="[^"]*\/hook[.]min[.]js[\?][^"]*service-worker-ready=true"><\/script>.*)$/)) {
+    html = (match[1] + match[2].replace(/<!--/g, '<C!--').replace(/-->/g, '--C>').replace(
       /^(.*<script [^>]*src="[^"]*\/hook[.]min[.]js\?[^"]*&service-worker-ready=)true("><\/script>)(.*)$/,
-      '$1false$2</head></html><!--$3-->').replace(/\0/g, '\n');
+      '$1false$2</head></html><!--$3-->')).replace(/\0/g, '\n');
   }
   return html;
 }
