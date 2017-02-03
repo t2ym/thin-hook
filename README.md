@@ -187,12 +187,13 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
 
 TBD
 
-- `hook(code: string, hookName: string = '__hook__', initialContext: Array = [], contextGeneratorName: string = 'method')`
+- `hook(code: string, hookName: string = '__hook__', initialContext: Array = [], contextGeneratorName: string = 'method', metaHooking: boolean = true)`
   - `code`: input JavaScript as string
   - `hookName`: name of hook callback function
   - `initialContext`: typically `[ ['script.js', {}] ]`
   - `contextGeneratorName`: function property name in `hook.contextGenerators`
     - argument `astPath = [ ['script.js', {}], ['root', rootAst], ['body', bodyAst], ..., [0, FunctionExpressionAst] ]`
+  - `metaHooking`: Enable meta hooking (run-time hooking of metaprogramming) if true
 - `hook.__hook__` - minimal hook callback `function __hook__()`
 - `hook.contextGenerators`: object. Context Generator Functions
   - `null()`: context as `''`
