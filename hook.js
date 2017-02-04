@@ -226,98 +226,137 @@ function hookPlatform(...targets) {
 let hookNameForServiceWorker = '__hook__';
 let contextGeneratorName = 'method';
 let discardHookErrors = true;
+let version = '1';
+
+function onInstall(event) {
+  let serviceWorkerUrl = new URL(location.href);
+  version = serviceWorkerUrl.searchParams.get('version') || version;
+}
+
+function onActivate(event) {
+  event.waitUntil(caches.keys().then(keys => Promise.all(keys.map(key => (key === 'version_' + version) || caches.delete(key)))));
+}
 
 function onFetch(event) {
-  event.respondWith(fetch(event.request).then(function(response) {
-    if (response.status === 200 && response.url) {
-      let url = new URL(response.url);
-      if (!response.url.match(/no-hook=true/) && url.pathname.match(/[.]js$/)) {
-        return response.text().then(function(result) {
-          try {
-            result = hook(result, hookNameForServiceWorker, [[url.pathname, {}]], contextGeneratorName);
-          }
-          catch (e) {
-            if (discardHookErrors) {
-              console.log(e);
-            }
-            else {
-              throw e;
-            }
-          }
-          finally {
-            return new Response(result, { headers: {'Content-Type': 'text/javascript'} });
-          }
-        });
-      }
-      else if (url.pathname.match(/(\/|[.]html?)$/)) {
-        return response.text().then(function(result) {
-          try {
-            result = hook.serviceWorkerTransformers.decodeHtml(result);
-            let processed = '';
-            let remaining = result.replace(/\n/g, '\0');
-            while (remaining) {
-              let scriptAt = remaining.indexOf('<script');
-              if (scriptAt >= 0) {
-                processed += remaining.substr(0, scriptAt);
-                remaining = remaining.substr(scriptAt);
-                let matchScriptTag = remaining.match(/^<script( [^>]{1,}| *)>(.*)$/);
-                if (matchScriptTag) {
-                  let skipHooking = matchScriptTag[1].indexOf(' no-hook') >= 0;
-                  processed += '<script' + matchScriptTag[1] + '>';
-                  remaining = matchScriptTag[2];
-                  let endScriptAt = remaining.indexOf('</script');
-                  if (endScriptAt >= 0) {
-                    let script = remaining.substr(0, endScriptAt);
-                    let src = matchScriptTag[1].match(/src="([^"]*\/thin-hook\/hook[.]min[.]js\?[^"]*)"$/);
-                    if (src) {
-                      let srcUrl = new URL(src[1], 'https://host/');
-                      if (srcUrl.searchParams.has('hook-name')) {
-                        hookNameForServiceWorker = srcUrl.searchParams.get('hook-name');
-                      }
-                      if (srcUrl.searchParams.has('context-generator-name')) {
-                        contextGeneratorName = srcUrl.searchParams.get('context-generator-name') || 'method';
-                      }
-                      if (srcUrl.searchParams.has('discard-hook-errors')) {
-                        discardHookErrors = srcUrl.searchParams.get('discard-hook-errors') === 'true';
-                      }
+  event.respondWith(
+    caches.open('version_' + version).then(function(cache) {
+      return cache.match(event.request).then(function(response) {
+        return response || fetch(event.request.clone()).then(function(response) {
+          if (response.status === 200) {
+            if (response.url) {
+              let url = new URL(response.url);
+              if (!response.url.match(/no-hook=true/) && url.pathname.match(/[.]js$/)) {
+                return response.text().then(function(result) {
+                  try {
+                    result = hook(result, hookNameForServiceWorker, [[url.pathname, {}]], contextGeneratorName);
+                  }
+                  catch (e) {
+                    if (discardHookErrors) {
+                      console.log(e);
                     }
-                    if (script && !skipHooking) {
-                      script = hook(script.replace(/\0/g, '\n'), hookNameForServiceWorker, [[url.pathname, {}]], contextGeneratorName);
-                    }
-                    processed += script;
-                    remaining = remaining.substr(endScriptAt);
-                    let matchEndScriptTag = remaining.match(/^<\/script([^>]*)>(.*)$/m);
-                    if (matchEndScriptTag) {
-                      processed += '</script' + matchEndScriptTag[1] + '>';
-                      remaining = matchEndScriptTag[2];
-                      continue;
+                    else {
+                      throw e;
                     }
                   }
-                }
+                  finally {
+                    let processedResponse = new Response(result, { headers: {'Content-Type': 'text/javascript'} });
+                    cache.put(event.request, processedResponse.clone());
+                    return processedResponse;
+                  }
+                });
               }
-              processed += remaining;
-              remaining = '';
+              else if (url.pathname.match(/(\/|[.]html?)$/)) {
+                let original;
+                let decoded;
+                return response.text().then(function(result) {
+                  try {
+                    result = decoded = hook.serviceWorkerTransformers.decodeHtml(original = result);
+                    let processed = '';
+                    let remaining = result.replace(/\n/g, '\0');
+                    while (remaining) {
+                      let scriptAt = remaining.indexOf('<script');
+                      if (scriptAt >= 0) {
+                        processed += remaining.substr(0, scriptAt);
+                        remaining = remaining.substr(scriptAt);
+                        let matchScriptTag = remaining.match(/^<script( [^>]{1,}| *)>(.*)$/);
+                        if (matchScriptTag) {
+                          let skipHooking = matchScriptTag[1].indexOf(' no-hook') >= 0;
+                          processed += '<script' + matchScriptTag[1] + '>';
+                          remaining = matchScriptTag[2];
+                          let endScriptAt = remaining.indexOf('</script');
+                          if (endScriptAt >= 0) {
+                            let script = remaining.substr(0, endScriptAt);
+                            let src = matchScriptTag[1].match(/src="([^"]*\/thin-hook\/hook[.]min[.]js\?[^"]*)"$/);
+                            if (src) {
+                              let srcUrl = new URL(src[1], 'https://host/');
+                              if (srcUrl.searchParams.has('hook-name')) {
+                                hookNameForServiceWorker = srcUrl.searchParams.get('hook-name');
+                              }
+                              if (srcUrl.searchParams.has('context-generator-name')) {
+                                contextGeneratorName = srcUrl.searchParams.get('context-generator-name') || 'method';
+                              }
+                              if (srcUrl.searchParams.has('discard-hook-errors')) {
+                                discardHookErrors = srcUrl.searchParams.get('discard-hook-errors') === 'true';
+                              }
+                            }
+                            if (script && !skipHooking) {
+                              script = hook(script.replace(/\0/g, '\n'), hookNameForServiceWorker, [[url.pathname, {}]], contextGeneratorName);
+                            }
+                            processed += script;
+                            remaining = remaining.substr(endScriptAt);
+                            let matchEndScriptTag = remaining.match(/^<\/script([^>]*)>(.*)$/m);
+                            if (matchEndScriptTag) {
+                              processed += '</script' + matchEndScriptTag[1] + '>';
+                              remaining = matchEndScriptTag[2];
+                              continue;
+                            }
+                          }
+                        }
+                      }
+                      processed += remaining;
+                      remaining = '';
+                    }
+                    result = processed.replace(/\0/g, '\n');
+                  }
+                  catch (e) {
+                    if (discardHookErrors) {
+                      console.log(e);
+                    }
+                    else {
+                      throw e;
+                    }
+                  }
+                  finally {
+                    let processedResponse = new Response(result, { headers: {'Content-Type': 'text/html'} });
+                    if (decoded === original) {
+                      cache.put(event.request, processedResponse.clone());
+                    }
+                    else {
+                      let match = decoded.replace(/\n/g, '\0')
+                        .match(/<script [^>]*src="[^"]*\/hook[.]min[.]js[\?][^"]*version=(.*)&[^"]*"><\/script>/);
+                      if (match) {
+                        let newVersion = match[1];
+                        if (version !== newVersion) {
+                          version = newVersion;
+                          caches.keys()
+                            .then(keys => Promise.all(keys.map(key => (key === 'version_' + version) || caches.delete(key))))
+                            .then(() => registration.update());
+                        }
+                      }
+                    }
+                    return processedResponse;
+                  }
+                });
+              }
             }
-            result = processed.replace(/\0/g, '\n');
           }
-          catch (e) {
-            if (discardHookErrors) {
-              console.log(e);
-            }
-            else {
-              throw e;
-            }
-          }
-          finally {
-            return new Response(result, { headers: {'Content-Type': 'text/html'} });
-          }
+          return response;
         });
-      }
-    }
-    return response;
-  }).catch(function(error) {
-    throw error;
-  }));
+      }).catch(function(error) {
+        throw error;
+      });
+    })
+  );
 }
 
 function encodeHtml(html) {
@@ -346,7 +385,7 @@ function registerServiceWorker(fallbackUrl = './index-no-service-worker.html', r
     let script = document.currentScript || Array.prototype.filter.call(document.querySelectorAll('script'), s => s.src.match(/\/hook.min.js/))[0];
     let src = new URL(script.src, window.location.href);
     if (src.searchParams.has('service-worker-ready')) {
-      navigator.serviceWorker.register(script.src.replace(/\?.*$/, ''), { scope: window.location.pathname.replace(/\/[^\/]*$/, '/') })
+      navigator.serviceWorker.register(script.src.replace(/\&service-worker-ready=.*$/, ''), { scope: window.location.pathname.replace(/\/[^\/]*$/, '/') })
         .then(registration => {
           let serviceWorker = registration.active || registration.waiting || registration.installing;
           if (serviceWorker) {
@@ -381,6 +420,8 @@ module.exports = Object.freeze(Object.assign(hook, {
   hook: hookPlatform,
   Function: hookFunction,
   serviceWorkerHandlers: {
+    install: onInstall,
+    activate: onActivate,
     fetch: onFetch
   },
   serviceWorkerTransformers: {
