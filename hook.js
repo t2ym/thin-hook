@@ -389,7 +389,7 @@ function registerServiceWorker(fallbackUrl = './index-no-service-worker.html', r
     let script = document.currentScript || Array.prototype.filter.call(document.querySelectorAll('script'), s => s.src.match(/\/hook.min.js/))[0];
     let src = new URL(script.src, window.location.href);
     if (src.searchParams.has('service-worker-ready')) {
-      navigator.serviceWorker.register(script.src.replace(/\&service-worker-ready=.*$/, ''), { scope: window.location.pathname.replace(/\/[^\/]*$/, '/') })
+      navigator.serviceWorker.register(script.src.replace(/\&service-worker-ready=.*$/, ''), { scope: src.searchParams.get('sw-root') || window.location.pathname.replace(/\/[^\/]*$/, '/') })
         .then(registration => {
           let serviceWorker = registration.active || registration.waiting || registration.installing;
           if (serviceWorker) {
