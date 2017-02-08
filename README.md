@@ -69,6 +69,24 @@ Thin Hook Preprocessor (experimental)
   }
 ```
 
+```html
+  <!-- Example Custom Context Generator for Service Worker and Browser Document -->
+  <script src="bower_components/thin-hook/hook.min.js?version=1&no-hook=true&hook-name=__hook__&context-generator-name=method2&fallback-page=index-fb.html&service-worker-ready=true"></script>
+  <!-- script src is not supported (yet) -->
+  <script context-generator no-hook>
+  {
+    hook.contextGenerators.method2 = function generateMethodContext2(astPath) {
+      return astPath.map(([ path, node ], index) => node && node.type
+        ? (node.id && node.id.name ? node.id.name : (node.key && node.key.name
+          ? (node.kind === 'get' || node.kind === 'set' ? node.kind + ' ' : node.static ? 'static ' : '') + node.key.name : ''))
+        : index === 0 ? path : '').filter(p => p).join(',') +
+          (astPath[astPath.length - 1][1].range ? ':' + astPath[astPath.length - 1][1].range[0] + '-' + astPath[astPath.length - 1][1].range[1] : '');
+    }
+    Object.freeze(hook.contextGenerators);
+  }
+  </script>
+```
+
 ### Hook Callback Function (customizable)
 
 ```javascript
@@ -216,6 +234,10 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
       - `service-worker-ready`: `true` if the entry HTML page is decoded; `false` if encoded. This parameter must be at the end of the URL
     - `<script src="script.js?no-hook=true"></script>`: skip hooking for the source script
     - `<script no-hook>...</script>`: skip hooking for the embedded script
+    - `<script context-generator no-hook>hook.contextGenerators.custom = function (astPath) {...}</script>`: register a custom context generator for both Service Worker and browser document
+      - Only embedded scripts are supported
+      - Valid only in the main entry document with `hook.min.js` for Service Worker
+      - Must be runnable in both Service Worker and browser document
     - register as Service Worker
       - `Service-Worker-Allowed` HTTP response header must have an appropriate scope for the target application
 - `hook.serviceWorkerTransformers`:
