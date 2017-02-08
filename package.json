@@ -27,7 +27,8 @@
   "homepage": "https://github.com/t2ym/thin-hook#readme",
   "dependencies": {
     "escodegen": "t2ym/escodegen#master",
-    "espree": "^3.3.2"
+    "espree": "^3.3.2",
+    "sha.js": "^2.4.8"
   },
   "devDependencies": {
     "babel-cli": "^6.22.2",
