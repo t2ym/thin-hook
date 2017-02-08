@@ -299,6 +299,9 @@ function onFetch(event) {
                                 discardHookErrors = srcUrl.searchParams.get('discard-hook-errors') === 'true';
                               }
                             }
+                            if (original !== decoded && script && matchScriptTag[1].indexOf(' context-generator') >= 0) {
+                              (new Function(script.replace(/\0/g, '\n')))();
+                            }
                             if (script && !skipHooking) {
                               script = hook(script.replace(/\0/g, '\n'), hookNameForServiceWorker, [[url.pathname, {}]], contextGeneratorName);
                             }
