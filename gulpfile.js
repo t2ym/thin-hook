@@ -34,6 +34,20 @@ gulp.task('examples', () => {
     .pipe(gulp.dest('./examples'));
 });
 
+gulp.task('demo', () => {
+  return gulp.src(['demo/original-index.html'], { base: 'demo' })
+    //.pipe(sourcemaps.init())
+    .pipe(through.obj((file, enc, callback) => {
+      let html = String(file.contents);
+      let transformed = hook.serviceWorkerTransformers.decodeHtml(html);
+      file.contents = new Buffer(transformed);
+      callback(null, file);
+    }))
+    .pipe(rename('index.html'))
+    //.pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest('demo'));
+});
+
 function _trimStartEndRaw(ast) {
   if (ast && typeof ast === 'object') {
     [ 'start', 'end', 'raw' ].forEach(prop => {
@@ -116,5 +130,5 @@ gulp.task('build', () => {
 });
 
 gulp.task('default', (done) => {
-  runSequence('build', 'examples', done);
+  runSequence('build', 'examples', 'demo', done);
 });
