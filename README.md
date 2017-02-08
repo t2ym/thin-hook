@@ -226,8 +226,9 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
   - `install`: 'install' event handler. Set version from the `version` parameter
   - `activate`: 'activate' event handler. Clear caches of old versions.
   - `fetch`: 'fetch' event handler. Cache hooked JavaScripts and HTMLs except for the main page loading `hook.min.js`
-    - `<script src="thin-hook/hook.min.js?version=1&no-hook=true&hook-name=__hook__&discard-hook-errors=true&fallback-page=index-no-sw.html&service-worker-ready=true"></script>`: arguments from the page
+    - `<script src="thin-hook/hook.min.js?version=1&sw-root=/&no-hook=true&hook-name=__hook__&discard-hook-errors=true&fallback-page=index-no-sw.html&service-worker-ready=true"></script>`: arguments from the page
       - `version`: default `1`. Service Worker cache version. Old caches are flushed when the version is changed in the main page and reloaded. Service Worker is updated when the controlled page is detached after the reloading.
+      - `sw-root`: optional. Set Service Worker scope
       - `hook-name`: default `__hook__`. hook callback function name
       - `context-generator-name`: default `method`. context generator callback function name
       - `discard-hook-errors`: `true` if errors in hooking are ignored and the original contents are provided. Default: `true`
