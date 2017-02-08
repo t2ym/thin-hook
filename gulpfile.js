@@ -39,7 +39,7 @@ gulp.task('demo', () => {
     //.pipe(sourcemaps.init())
     .pipe(through.obj((file, enc, callback) => {
       let html = String(file.contents);
-      let transformed = hook.serviceWorkerTransformers.decodeHtml(html);
+      let transformed = hook.serviceWorkerTransformers.encodeHtml(html);
       file.contents = new Buffer(transformed);
       callback(null, file);
     }))
