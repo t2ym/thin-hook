@@ -5,6 +5,8 @@
 
 Thin Hook Preprocessor (experimental)
 
+[Demo](https://t2ym.github.io/thin-hook/components/thin-hook/demo/) on GitHub Pages
+
 ### Input
 ```javascript
   class C {
