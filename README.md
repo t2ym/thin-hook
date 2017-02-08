@@ -52,12 +52,11 @@ Thin Hook Preprocessor (experimental)
 
 ```javascript
   // Example Custom Context Generator Function with Hashing
-  const crypto = require('crypto');
   const hashSalt = '__hash_salt__';
   let contexts = {};
 
   hook.contextGenerators.hash = function generateHashContext(astPath) {
-    const hash = crypto.createHash('sha256');
+    const hash = hook.utils.createHash('sha256');
     let hashedInitialContext = astPath[0][0];
     astPath[0][0] = contexts[hashedInitialContext] || astPath[0][0];
     let methodContext = hook.contextGenerators.method(astPath);
