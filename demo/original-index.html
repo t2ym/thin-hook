@@ -15,7 +15,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <script src="../../thin-hook/hook.min.js?version=2&no-hook=true&hook-name=__hook__&context-generator-name=method2&fallback-page=index-fb.html&service-worker-ready=true"></script>
+  <script src="../../thin-hook/hook.min.js?version=3&no-hook=true&hook-name=__hook__&context-generator-name=method2&fallback-page=index-fb.html&service-worker-ready=true"></script>
   <script context-generator no-hook>
   {
     hook.contextGenerators.method2 = function generateMethodContext2(astPath) {
@@ -113,38 +113,6 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       console.log(asyncCalls);
     }
     {
-      let f = 1;
-      let oo = {
-        scheduleFetch: function () {
-          return __hook__(() => {
-            if (!this.scheduled) {
-              this.scheduled = true;
-              setTimeout(function () {
-                let __context__ = '/components/live-localizer/live-localizer-model.html,scheduleFetch:6710-6852';
-                return __hook__(() => {
-                  this.scheduled = false;
-                  if (!this.serverUpdated) {
-                    this.fetch();
-                  }
-                }, this, arguments, '/components/live-localizer/live-localizer-model.html,scheduleFetch:6710-6852');
-              }.bind(this), 60000);
-            }
-          }, this, arguments, '/components/live-localizer/live-localizer-model.html,scheduleFetch:6611-6890');
-        },
-
-        scheduleFetch: function () {
-          if (!this.scheduled) {
-            this.scheduled = true;
-            setTimeout(function () {
-              this.scheduled = false;
-              if (!this.serverUpdated) {
-                this.fetch();
-              }
-            }.bind(this), 60000);
-          }
-        }
-      }
-
       _native = {
         Promise: Promise
       }
