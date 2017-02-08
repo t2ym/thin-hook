@@ -287,7 +287,7 @@ function onFetch(event) {
                           let endScriptAt = remaining.indexOf('</script');
                           if (endScriptAt >= 0) {
                             let script = remaining.substr(0, endScriptAt);
-                            let src = matchScriptTag[1].match(/src="([^"]*\/thin-hook\/hook[.]min[.]js\?[^"]*)"$/);
+                            let src = matchScriptTag[1].match(/src="([^"]*\/hook[.]min[.]js\?[^"]*)"$/);
                             if (src) {
                               let srcUrl = new URL(src[1], 'https://host/');
                               if (srcUrl.searchParams.has('hook-name')) {
