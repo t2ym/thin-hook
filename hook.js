@@ -434,7 +434,7 @@ module.exports = Object.freeze(Object.assign(hook, {
   },
   registerServiceWorker: registerServiceWorker,
   contextGenerators: {
-    'null': () =>'',
+    'null': () => '',
     'astPath': generateAstPathContext,
     'method': generateMethodContext
   },
