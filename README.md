@@ -248,6 +248,8 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
   - `fallbackUrl`: fallback URL for browsers without Service Worker
   - `reloadTimeout`: default: 500 (ms). Timeout to reload the page when no Service Worker is detected
   - `inactiveReloadTimeout`: default: 1000 (ms). Timeout to reload the page when inactive (waiting, installing) Service Worker is detected. When a state change of the Service Worker instance is detected, the page is reloaded immediately even before the timeout.
+- `utils`: Utilities
+  - `createHash`: Synchronous SHA hash generator collections from [sha.js](https://github.com/crypto-browserify/sha.js)
 
 ## TODOs
 
