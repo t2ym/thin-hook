@@ -7,7 +7,6 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 const hook = require('./hook.js');
 const fs = require('fs');
 const path = require('path');
-const crypto = require('crypto');
 
 let hookName = '__hook__';
 let contextGenerator = 'method';
@@ -36,7 +35,7 @@ Options:
 }
 
 function generateHashContext(astPath) {
-  const hash = crypto.createHash('sha256');
+  const hash = hook.utils.createHash('sha256');
   let methodContext = hook.contextGenerators[hashContextGenerator](astPath);
   hash.update(hashSalt + methodContext);
   let hashContext = hash.digest('hex');
