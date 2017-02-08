@@ -5,6 +5,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 
 const espree = require('espree');
 const escodegen = require('escodegen');
+const createHash = require('sha.js');
 
 const espreeOptions = { range: true, tokens: true, comment: true, ecmaVersion: 8 };
 
@@ -436,5 +437,8 @@ module.exports = Object.freeze(Object.assign(hook, {
     'null': () =>'',
     'astPath': generateAstPathContext,
     'method': generateMethodContext
+  },
+  utils: {
+    createHash: createHash
   }
 }));
