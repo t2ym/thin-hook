@@ -129,8 +129,12 @@ gulp.task('build', () => {
     .pipe(gulp.dest('.'));
 });
 
-gulp.task('watch', function() {
+gulp.task('watchdemo', function() {
   gulp.watch(['demo/original-index.html'], ['demo']);
+});
+
+gulp.task('watch', function() {
+  gulp.watch(['hook.js'], ['default']);
 });
 
 gulp.task('default', (done) => {
