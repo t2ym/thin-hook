@@ -129,6 +129,10 @@ gulp.task('build', () => {
     .pipe(gulp.dest('.'));
 });
 
+gulp.task('watch', function() {
+  gulp.watch(['demo/original-index.html'], ['demo']);
+});
+
 gulp.task('default', (done) => {
   runSequence('build', 'examples', 'demo', done);
 });
