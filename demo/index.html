@@ -15,7 +15,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <script src="../../thin-hook/hook.min.js?version=8&sw-root=/&no-hook=true&hook-name=__hook__&context-generator-name=method2&fallback-page=index-fb.html&service-worker-ready=false"></script></head></html><!--
+  <script src="../../thin-hook/hook.min.js?version=9&sw-root=/&no-hook=true&hook-name=__hook__&context-generator-name=method2&fallback-page=index-fb.html&service-worker-ready=false"></script></head></html><!--
   <script context-generator no-hook>
   {
     hook.contextGenerators.method2 = function generateMethodContext2(astPath) {
@@ -44,6 +44,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     var callbacks = {};
     var reverseCallbacks = {};
     var pseudoContextArgument = Symbol('callback context');
+    var hookedFunctions = new WeakMap();
     window.__hook__ = function __hook__(f, thisArg, args, context, newTarget) {
       let _lastContext = lastContext;
       let _async = false;
@@ -51,8 +52,15 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       contexts[context] = true;
       if ((context === 'setTimeout' || context === 'setInterval' || context.indexOf('Promise') === 0 || context === 'EventTarget,addEventListener') && args) {
         for(let i = 0; i < 2; i++) {
-          if (typeof args[i] === 'function' && args[i].toString().indexOf('__hook__') >= 0) {
-            args[i](pseudoContextArgument, lastContext, context, args[i]);
+          if (typeof args[i] === 'function') {
+            let hf = hookedFunctions.get(args[i]);
+            if (typeof hf === 'undefined') {
+              hf = args[i].toString().indexOf('__hook__') >= 0;
+              hookedFunctions.set(args[i], hf);
+            }
+            if (hf) {
+              args[i](pseudoContextArgument, lastContext, context, args[i]);
+            }
           }
         }
       }
