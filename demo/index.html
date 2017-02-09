@@ -15,7 +15,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <script src="../../thin-hook/hook.min.js?version=9&sw-root=/&no-hook=true&hook-name=__hook__&context-generator-name=method2&fallback-page=index-fb.html&service-worker-ready=false"></script></head></html><!--
+  <script src="../../thin-hook/hook.min.js?version=16&sw-root=/&no-hook=true&hook-name=__hook__&context-generator-name=method2&fallback-page=index-fb.html&service-worker-ready=false"></script></head></html><!--
   <script context-generator no-hook>
   {
     hook.contextGenerators.method2 = function generateMethodContext2(astPath) {
@@ -44,40 +44,40 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     var callbacks = {};
     var reverseCallbacks = {};
     var pseudoContextArgument = Symbol('callback context');
-    var hookedFunctions = new WeakMap();
+    var callbackFunctions = new WeakMap();
     window.__hook__ = function __hook__(f, thisArg, args, context, newTarget) {
-      let _lastContext = lastContext;
-      let _async = false;
       counter++;
+      if (args[0] === pseudoContextArgument) {
+        return context;
+      }
+      let _lastContext = lastContext;
       contexts[context] = true;
       if ((context === 'setTimeout' || context === 'setInterval' || context.indexOf('Promise') === 0 || context === 'EventTarget,addEventListener') && args) {
         for(let i = 0; i < 2; i++) {
           if (typeof args[i] === 'function') {
-            let hf = hookedFunctions.get(args[i]);
-            if (typeof hf === 'undefined') {
-              hf = args[i].toString().indexOf('__hook__') >= 0;
-              hookedFunctions.set(args[i], hf);
+            let cbContext = callbackFunctions.get(args[i]);
+            if (typeof cbContext === 'undefined') {
+              cbContext = args[i].toString().indexOf('__hook__') >= 0;
+              if (cbContext) {
+                cbContext = args[i](pseudoContextArgument);
+              }
+              callbackFunctions.set(args[i], cbContext);
             }
-            if (hf) {
-              args[i](pseudoContextArgument, lastContext, context, args[i]);
+            if (cbContext) {
+              reverseCallbacks[lastContext] = reverseCallbacks[lastContext] || {};
+              reverseCallbacks[lastContext][context] = reverseCallbacks[lastContext][context] || {};
+              reverseCallbacks[lastContext][context][cbContext] = args[i];
+              callbacks[cbContext] = callbacks[cbContext] || {};
+              callbacks[cbContext][context] = callbacks[cbContext][context] || {};
+              callbacks[cbContext][context][lastContext] = args[i];
+              //console.log('Registering CALLBACK ' + lastContext + ' -> ' + context + ' -> callback ' + hfContext, args[i]);
             }
           }
         }
       }
       lastContext = context;
-      if (args[0] === pseudoContextArgument) {
-        // [ Symbol, lastContext, context, callback ]
-        reverseCallbacks[args[1]] = reverseCallbacks[args[1]] || {};
-        reverseCallbacks[args[1]][args[2]] = reverseCallbacks[args[1]][args[2]] || {};
-        reverseCallbacks[args[1]][args[2]][context] = args[3];
-        callbacks[context] = callbacks[context] || {};
-        callbacks[context][args[2]] = callbacks[context][args[2]] || {};
-        callbacks[context][args[2]][args[1]] = args[3];
-        //console.log('Registering CALLBACK ' + args[1] + ' -> ' + args[2] + ' -> callback ' + context, args[3]);
-        return context;
-      }
       contextStack.push(context);
-      contextStackLog[contextStack.join(' -> ')] = true;
+      //contextStackLog[contextStack.join(' -> ')] = true;
       contextTransitions[_lastContext] = contextTransitions[_lastContext] || {};
       contextTransitions[_lastContext][context] = true;
       contextReverseTransitions[context] = contextReverseTransitions[context] || {};
