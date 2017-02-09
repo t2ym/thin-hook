@@ -15,7 +15,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <script src="../../thin-hook/hook.min.js?version=25&sw-root=/&no-hook=true&hook-name=__hook__&context-generator-name=method2&fallback-page=index-fb.html&service-worker-ready=false"></script></head></html><!--
+  <script src="../../thin-hook/hook.min.js?version=28&sw-root=/&no-hook=true&hook-name=__hook__&context-generator-name=method2&fallback-page=index-fb.html&service-worker-ready=false"></script></head></html><!--
   <script context-generator no-hook>
   {
     hook.contextGenerators.method2 = function generateMethodContext2(astPath) {
@@ -144,11 +144,11 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         });
 
         _Promise.prototype.then = function (...args) {
-          return __hook__(_nativeMethods.Promise.proto.then, this, args, 'Promise,then');
+          return window[hookName](_nativeMethods.Promise.proto.then, this, args, 'Promise,then');
         }
 
         _Promise.prototype.catch = function (...args) {
-          return __hook__(_nativeMethods.Promise.proto.catch, this, args, 'Promise,catch');
+          return window[hookName](_nativeMethods.Promise.proto.catch, this, args, 'Promise,catch');
         }
         return _Promise;                
       }
