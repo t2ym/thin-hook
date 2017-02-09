@@ -15,7 +15,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <script src="../../thin-hook/hook.min.js?version=16&sw-root=/&no-hook=true&hook-name=__hook__&context-generator-name=method2&fallback-page=index-fb.html&service-worker-ready=false"></script></head></html><!--
+  <script src="../../thin-hook/hook.min.js?version=25&sw-root=/&no-hook=true&hook-name=__hook__&context-generator-name=method2&fallback-page=index-fb.html&service-worker-ready=false"></script></head></html><!--
   <script context-generator no-hook>
   {
     hook.contextGenerators.method2 = function generateMethodContext2(astPath) {
@@ -96,22 +96,9 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         }
       }
 
-      let result;
-      if (newTarget) {
-        result = Reflect.construct(f, args);
-      }
-      else {
-        if (thisArg) {
-          result = f.apply(thisArg, args);
-        }
-        else {
-          result = f(...args);
-        }
-      }
+      let result = newTarget ? Reflect.construct(f, args) : thisArg ? f.apply(thisArg, args) : f(...args);
       lastContext = _lastContext;
-      if (contextStack[contextStack.length - 1] !== context) {
-        //debugger;
-      }
+      // if (contextStack[contextStack.length - 1] !== context) { debugger; }
       contextStack.pop();
       return result;
     }
