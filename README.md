@@ -84,6 +84,11 @@ Thin Hook Preprocessor (experimental)
           (astPath[astPath.length - 1][1].range ? ':' + astPath[astPath.length - 1][1].range[0] + '-' + astPath[astPath.length - 1][1].range[1] : '');
     }
     Object.freeze(hook.contextGenerators);
+    // CORS script list
+    hook.parameters.cors = [
+      'https://raw.githubusercontent.com/t2ym/thin-hook/master/examples/example1.js',
+      (url) => { let _url = new URL(url); return _url.hostname !== location.hostname && ['www.gstatic.com'].indexOf(_url.hostname) < 0; }
+    ];
   }
   </script>
 ```
@@ -240,8 +245,11 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
       - Only embedded scripts are supported
       - Valid only in the main entry document with `hook.min.js` for Service Worker
       - Must be runnable in both Service Worker and browser document
+      - `hook.parameters.cors = [ 'cors_url_1', 'cors_url_2', ... ]`: specify CORS script URLs
+      - `hook.parameters.cors = [ (url) => url.match(/cors_url_pattern/), ... ]`: specify CORS script URL detector function(s)
     - register as Service Worker
       - `Service-Worker-Allowed` HTTP response header must have an appropriate scope for the target application
+    - `cors=true` parameter: CORS script, e.g., `<script src="https://cross.origin.host/path/script.js?cors=true"></script>`
 - `hook.serviceWorkerTransformers`:
   - `encodeHtml(html: string)`: encode HTML for Service Worker
   - `decodeHtml(html: string)`: decode encoded HTML for Service Worker
