@@ -34,18 +34,23 @@ gulp.task('examples', () => {
     .pipe(gulp.dest('./examples'));
 });
 
-gulp.task('demo', () => {
-  return gulp.src(['demo/original-index.html'], { base: 'demo' })
-    //.pipe(sourcemaps.init())
-    .pipe(through.obj((file, enc, callback) => {
-      let html = String(file.contents);
-      let transformed = hook.serviceWorkerTransformers.encodeHtml(html);
-      file.contents = new Buffer(transformed);
-      callback(null, file);
-    }))
-    .pipe(rename('index.html'))
-    //.pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest('demo'));
+gulp.task('demo', (done) => {
+  setTimeout(() => {
+    return gulp.src(['demo/original-index.html'], { base: 'demo' })
+      //.pipe(sourcemaps.init())
+      .pipe(through.obj((file, enc, callback) => {
+        let html = String(file.contents);
+        let transformed = hook.serviceWorkerTransformers.encodeHtml(html);
+        file.contents = new Buffer(transformed);
+        callback(null, file);
+      }))
+      .pipe(rename('index.html'))
+      //.pipe(sourcemaps.write('.'))
+      .pipe(gulp.dest('demo'))
+      .pipe(through.obj((file, enc, callback) => {
+        done();
+      }));
+  }, 1000);
 });
 
 function _trimStartEndRaw(ast) {
@@ -133,8 +138,14 @@ gulp.task('watchdemo', function() {
   gulp.watch(['demo/original-index.html'], ['demo']);
 });
 
+gulp.task('delayed-build', (done) => {
+  setTimeout(() => {
+    runSequence('build', 'examples', 'demo', done);
+  }, 1000);
+});
+
 gulp.task('watch', function() {
-  gulp.watch(['hook.js'], ['default']);
+  gulp.watch(['hook.js'], ['delayed-build']);
 });
 
 gulp.task('default', (done) => {
