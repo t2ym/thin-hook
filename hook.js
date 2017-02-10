@@ -242,14 +242,33 @@ function onFetch(event) {
   event.respondWith(
     caches.open('version_' + version).then(function(cache) {
       return cache.match(event.request).then(function(response) {
-        return response || fetch(event.request.clone()).then(function(response) {
+        let cors = false;
+        let request;
+        if (!response) {
+          if (event.request.url.indexOf('cors=true') >= 0) {
+            cors = true;
+            // no inheritance of auth information, etc. from event.request
+            request = new Request(event.request.url.replace(/&cors=true/, '').replace(/\?cors=true$/, '').replace(/\?cors=true&/, '?'), { mode: 'cors' });
+          }
+          else if (Array.isArray(hook.parameters.cors) &&
+            hook.parameters.cors.filter(pattern =>
+              typeof pattern === 'string' ? pattern === event.request.url : typeof pattern === 'function' ? pattern(event.request.url) : false
+            ).reduce((prev, curr) => prev || curr, false)) {
+            cors = true;
+            request = new Request(event.request.url, { mode: 'cors' });
+          }
+          else {
+            request = event.request.clone();
+          }
+        }
+        return response || fetch(request).then(function(response) {
           if (response.status === 200) {
             if (response.url) {
               let url = new URL(response.url);
               if (!response.url.match(/no-hook=true/) && url.pathname.match(/[.]js$/)) {
                 return response.text().then(function(result) {
                   try {
-                    result = hook(result, hookNameForServiceWorker, [[url.pathname, {}]], contextGeneratorName);
+                    result = hook(result, hookNameForServiceWorker, [[cors ? response.url : url.pathname, {}]], contextGeneratorName);
                   }
                   catch (e) {
                     if (discardHookErrors) {
@@ -304,7 +323,7 @@ function onFetch(event) {
                               (new Function(script.replace(/\0/g, '\n')))();
                             }
                             if (script && !skipHooking) {
-                              script = hook(script.replace(/\0/g, '\n'), hookNameForServiceWorker, [[url.pathname, {}]], contextGeneratorName);
+                              script = hook(script.replace(/\0/g, '\n'), hookNameForServiceWorker, [[cors ? response.url : url.pathname, {}]], contextGeneratorName);
                             }
                             processed += script;
                             remaining = remaining.substr(endScriptAt);
@@ -440,5 +459,6 @@ module.exports = Object.freeze(Object.assign(hook, {
   },
   utils: {
     createHash: createHash
-  }
+  },
+  parameters: {}
 }));
