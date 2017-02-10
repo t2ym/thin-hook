@@ -15,9 +15,13 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <script src="../../thin-hook/hook.min.js?version=28&sw-root=/&no-hook=true&hook-name=__hook__&context-generator-name=method2&fallback-page=index-fb.html&service-worker-ready=false"></script></head></html><!--
+  <script src="../../thin-hook/hook.min.js?version=37&sw-root=/&no-hook=true&hook-name=__hook__&context-generator-name=method2&fallback-page=index-fb.html&service-worker-ready=false"></script></head></html><!--
   <script context-generator no-hook>
   {
+    hook.parameters.cors = [
+      'https://raw.githubusercontent.com/t2ym/thin-hook/master/examples/example1.js',
+      (url) => { let _url = new URL(url); return _url.hostname !== location.hostname && ['www.gstatic.com'].indexOf(_url.hostname) < 0; }
+    ];
     hook.contextGenerators.method2 = function generateMethodContext2(astPath) {
       return astPath.map(([ path, node ], index) => node && node.type
         ? (node.id && node.id.name ? node.id.name : (node.key && node.key.name
@@ -172,6 +176,9 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
   <script no-hook>
     hook.hook(hook.Function('__hook__', [['Function', {}]]));
   </script>
+  <C!-- CORS scripts --C>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jsSHA/2.2.0/sha.js?cors=true"></script>
+  <script src="https://raw.githubusercontent.com/t2ym/thin-hook/master/examples/example1.js"></script>
 
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
 
