@@ -288,6 +288,7 @@ function onFetch(event) {
               else if (url.pathname.match(/(\/|[.]html?)$/)) {
                 let original;
                 let decoded;
+                let contextGeneratorScripts = [];
                 return response.text().then(function(result) {
                   try {
                     result = decoded = hook.serviceWorkerTransformers.decodeHtml(original = result);
@@ -319,8 +320,16 @@ function onFetch(event) {
                                 discardHookErrors = srcUrl.searchParams.get('discard-hook-errors') === 'true';
                               }
                             }
-                            if (original !== decoded && script && matchScriptTag[1].indexOf(' context-generator') >= 0) {
-                              (new Function(script.replace(/\0/g, '\n')))();
+                            if (original !== decoded && matchScriptTag[1].indexOf(' context-generator') >= 0) {
+                              if (script) {
+                                contextGeneratorScripts.push(new Function(script.replace(/\0/g, '\n')));
+                              }
+                              else {
+                                let matchScriptSrcAttribute = matchScriptTag[1].match(/ src="([^\"]*)"/);
+                                if (matchScriptSrcAttribute) {
+                                  contextGeneratorScripts.push(new URL(matchScriptSrcAttribute[1], url));
+                                }
+                              }
                             }
                             if (script && !skipHooking) {
                               script = hook(script.replace(/\0/g, '\n'), hookNameForServiceWorker, [[cors ? response.url : url.pathname, {}]], contextGeneratorName);
@@ -367,7 +376,51 @@ function onFetch(event) {
                         }
                       }
                     }
-                    return processedResponse;
+                    if (contextGeneratorScripts.length === 0) {
+                      return processedResponse;
+                    }
+                    else {
+                      let sequence = Promise.resolve();
+                      contextGeneratorScripts.forEach(script => {
+                        sequence = sequence.then(() => {
+                          if (typeof script === 'function') {
+                            script();
+                            return true;
+                          }
+                          else if (script instanceof URL) {
+                            let scriptRequest = new Request(script, { mode: 'cors' });
+                            return fetch(scriptRequest).then(scriptResponse => {
+                              if (scriptResponse.status < 400) {
+                                return scriptResponse.text();
+                              }
+                              else {
+                                throw scriptResponse;
+                              }
+                            }).then(text => {
+                              (new Function(text))();
+                              return true;
+                            }).catch(error => {
+                              console.log('Failed to fetch context generator script at ' + script, error);
+                              if (discardHookErrors) {
+                                return true;
+                              }
+                              else {
+                                if (error instanceof Response) {
+                                  throw new Error('Failed to fetch context generator script at ' + script + ' ' + error.status + ' ' + error.statusText);
+                                }
+                                else {
+                                  throw error;
+                                }
+                              }
+                            });
+                          }
+                          else {
+                            return true;
+                          }
+                        })
+                      });
+                      return sequence.then(() => processedResponse);
+                    }
                   }
                 });
               }
