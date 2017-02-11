@@ -306,7 +306,7 @@ function onFetch(event) {
                         for (let attr in attributes) {
                           if (attr.match(/^on[a-z]{1,}$/) && attributes[attr]) {
                             if (!attrNoHook) {
-                              attributes[attr] = hook('(() => { ' + attributes[attr] + '})()',
+                              attributes[attr] = 'return ' + hook('(() => { ' + attributes[attr] + '})()',
                                 hookNameForServiceWorker,
                                 [[(cors ? response.url : url.pathname) + ',' + name
                                 + (attributes.id ? '#' + attributes.id : attributes.class ? '.' + attributes.class : '')
