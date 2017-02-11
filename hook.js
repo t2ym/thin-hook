@@ -302,7 +302,26 @@ function onFetch(event) {
                     let stream = new htmlparser.WritableStream({
                       onopentag(name, attributes) {
                         let attrs = '';
+                        let attrNoHook = typeof attributes['no-hook'] === 'string';
                         for (let attr in attributes) {
+                          if (attr.match(/^on[a-z]{1,}$/) && attributes[attr]) {
+                            if (!attrNoHook) {
+                              attributes[attr] = hook('(() => { ' + attributes[attr] + '})()',
+                                hookNameForServiceWorker,
+                                [[(cors ? response.url : url.pathname) + ',' + name
+                                + (attributes.id ? '#' + attributes.id : attributes.class ? '.' + attributes.class : '')
+                                + ',' + attr + '@' + processed.length, {}]], contextGeneratorName);
+                            }
+                          }
+                          else if (attributes[attr] && attributes[attr].indexOf('javascript:') === 0) {
+                            if (!attrNoHook) {
+                              attributes[attr] = 'javascript:' + hook('(() => { ' + attributes[attr].substr(11) + '})()',
+                                hookNameForServiceWorker,
+                                [[(cors ? response.url : url.pathname) + ',' + name
+                                + (attributes.id ? '#' + attributes.id : attributes.class ? '.' + attributes.class : '')
+                                + ',' + attr + '@' + processed.length, {}]], contextGeneratorName);
+                            }
+                          }
                           attrs += ' ' + attr + (attributes[attr]
                             ? attributes[attr].indexOf('"') >= 0 
                               ? '=\'' + attributes[attr] + '\''
@@ -311,7 +330,7 @@ function onFetch(event) {
                         processed += '<' + name + attrs + '>';
                         if (name === 'script') {
                           inScript = true;
-                          noHook = typeof attributes['no-hook'] === 'string';
+                          noHook = attrNoHook;
                           src = attributes.src;
                           inlineScript = '';
                           contextGeneratorAttr = attributes['context-generator'];
@@ -346,7 +365,8 @@ function onFetch(event) {
                             contextGeneratorScripts.push(new Function(inlineScript));
                           }
                           if (inlineScript && !noHook) {
-                            inlineScript = hook(inlineScript, hookNameForServiceWorker, [[cors ? response.url : url.pathname, {}]], contextGeneratorName);
+                            inlineScript = hook(inlineScript, hookNameForServiceWorker,
+                              [[(cors ? response.url : url.pathname) + ',script@' + processed.length, {}]], contextGeneratorName);
                           }
                           processed += inlineScript;
                           inScript = false;
