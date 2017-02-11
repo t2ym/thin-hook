@@ -5,6 +5,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 
 const espree = require('espree');
 const escodegen = require('escodegen');
+const htmlparser = require('htmlparser2');
 const createHash = require('sha.js');
 
 const espreeOptions = { range: true, tokens: true, comment: true, ecmaVersion: 8 };
@@ -293,62 +294,77 @@ function onFetch(event) {
                   try {
                     result = decoded = hook.serviceWorkerTransformers.decodeHtml(original = result);
                     let processed = '';
-                    let remaining = result.replace(/\n/g, '\0');
-                    while (remaining) {
-                      let scriptAt = remaining.indexOf('<script');
-                      if (scriptAt >= 0) {
-                        processed += remaining.substr(0, scriptAt);
-                        remaining = remaining.substr(scriptAt);
-                        let matchScriptTag = remaining.match(/^<script( [^>]{1,}| *)>(.*)$/);
-                        if (matchScriptTag) {
-                          let skipHooking = matchScriptTag[1].indexOf(' no-hook') >= 0;
-                          processed += '<script' + matchScriptTag[1] + '>';
-                          remaining = matchScriptTag[2];
-                          let endScriptAt = remaining.indexOf('</script');
-                          if (endScriptAt >= 0) {
-                            let script = remaining.substr(0, endScriptAt);
-                            let src = matchScriptTag[1].match(/src="([^"]*\/hook[.]min[.]js\?[^"]*)"$/);
-                            if (src) {
-                              let srcUrl = new URL(src[1], 'https://host/');
-                              if (srcUrl.searchParams.has('hook-name')) {
-                                hookNameForServiceWorker = srcUrl.searchParams.get('hook-name');
-                              }
-                              if (srcUrl.searchParams.has('context-generator-name')) {
-                                contextGeneratorName = srcUrl.searchParams.get('context-generator-name') || 'method';
-                              }
-                              if (srcUrl.searchParams.has('discard-hook-errors')) {
-                                discardHookErrors = srcUrl.searchParams.get('discard-hook-errors') === 'true';
-                              }
+                    let inScript = false;
+                    let noHook = false;
+                    let contextGeneratorAttr = false;
+                    let src = '';
+                    let inlineScript = '';
+                    let stream = new htmlparser.WritableStream({
+                      onopentag(name, attributes) {
+                        let attrs = '';
+                        for (let attr in attributes) {
+                          attrs += ' ' + attr + (attributes[attr]
+                            ? attributes[attr].indexOf('"') >= 0 
+                              ? '=\'' + attributes[attr] + '\''
+                              : '="' + attributes[attr] + '"' : '');
+                        }
+                        processed += '<' + name + attrs + '>';
+                        if (name === 'script') {
+                          inScript = true;
+                          noHook = typeof attributes['no-hook'] === 'string';
+                          src = attributes.src;
+                          inlineScript = '';
+                          contextGeneratorAttr = attributes['context-generator'];
+                          if (src && src.match(/\/hook[.]min[.]js\?/)) {
+                            let srcUrl = new URL(src, 'https://host/');
+                            if (srcUrl.searchParams.has('hook-name')) {
+                              hookNameForServiceWorker = srcUrl.searchParams.get('hook-name');
                             }
-                            if (original !== decoded && matchScriptTag[1].indexOf(' context-generator') >= 0) {
-                              if (script) {
-                                contextGeneratorScripts.push(new Function(script.replace(/\0/g, '\n')));
-                              }
-                              else {
-                                let matchScriptSrcAttribute = matchScriptTag[1].match(/ src="([^\"]*)"/);
-                                if (matchScriptSrcAttribute) {
-                                  contextGeneratorScripts.push(new URL(matchScriptSrcAttribute[1], url));
-                                }
-                              }
+                            if (srcUrl.searchParams.has('context-generator-name')) {
+                              contextGeneratorName = srcUrl.searchParams.get('context-generator-name') || 'method';
                             }
-                            if (script && !skipHooking) {
-                              script = hook(script.replace(/\0/g, '\n'), hookNameForServiceWorker, [[cors ? response.url : url.pathname, {}]], contextGeneratorName);
-                            }
-                            processed += script;
-                            remaining = remaining.substr(endScriptAt);
-                            let matchEndScriptTag = remaining.match(/^<\/script([^>]*)>(.*)$/m);
-                            if (matchEndScriptTag) {
-                              processed += '</script' + matchEndScriptTag[1] + '>';
-                              remaining = matchEndScriptTag[2];
-                              continue;
+                            if (srcUrl.searchParams.has('discard-hook-errors')) {
+                              discardHookErrors = srcUrl.searchParams.get('discard-hook-errors') === 'true';
                             }
                           }
+                          if (original !== decoded && typeof contextGeneratorAttr === 'string' && src) {
+                            contextGeneratorScripts.push(new URL(src, url));
+                          }
                         }
+                      },
+                      ontext(text) {
+                        if (inScript) {
+                          inlineScript += text;
+                        }
+                        else {
+                          processed += text;
+                        }
+                      },
+                      onclosetag(name) {
+                        if (name === 'script' && inScript) {
+                          if (original !== decoded && typeof contextGeneratorAttr === 'string' && inlineScript) {
+                            contextGeneratorScripts.push(new Function(inlineScript));
+                          }
+                          if (inlineScript && !noHook) {
+                            inlineScript = hook(inlineScript, hookNameForServiceWorker, [[cors ? response.url : url.pathname, {}]], contextGeneratorName);
+                          }
+                          processed += inlineScript;
+                          inScript = false;
+                          noHook = false;
+                          src = '';
+                        }
+                        processed += '</' + name + '>';
+                      },
+                      oncomment(data) {
+                        processed += '<!--' + data + '-->';
+                      },
+                      onerror(error) {
+                        throw error;
                       }
-                      processed += remaining;
-                      remaining = '';
-                    }
-                    result = processed.replace(/\0/g, '\n');
+                    });
+                    stream.write(decoded);
+                    stream.end();
+                    result = processed;
                   }
                   catch (e) {
                     if (discardHookErrors) {

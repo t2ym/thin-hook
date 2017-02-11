@@ -28,6 +28,7 @@
   "dependencies": {
     "escodegen": "t2ym/escodegen#master",
     "espree": "^3.3.2",
+    "htmlparser2": "^3.9.2",
     "sha.js": "^2.4.8"
   },
   "devDependencies": {
