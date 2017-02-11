@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file xml:space="default" source-language="en" target-language="zh-Hans" datatype="plaintext" original="messages" date="2017-02-08T06:45:57Z" product-name="messages">
+  <file xml:space="default" source-language="en" target-language="zh-Hans" datatype="plaintext" original="messages" date="2017-02-11T03:36:20Z" product-name="messages">
     <header>
       <tool tool-id="xliff-conv" tool-name="xliff-conv" tool-version="1.0.10"/>
     </header>
@@ -42,7 +42,7 @@
         <source>Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Cu mei vide viris gloriatur, at populo eripuit sit.</source>
         <target state="new">zh-Hans Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Cu mei vide viris gloriatur, at populo eripuit sit.</target>
       </trans-unit>
-      <trans-unit id="my-view2.div_1:div">
+      <trans-unit id="my-view2.div_1:a:div">
         <source>2</source>
         <target state="new">2</target>
       </trans-unit>
