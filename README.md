@@ -222,11 +222,15 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
   - `astPath(astPath: Array)`: context as `'script.js,[root]Program,body,astType,...'`
   - `method(astPath: Array)`: context as `'script.js,Class,Method'`
   - custom context generator function has to be added to this object with its unique contextGeneratorName
-- `hook.Function(hookName, initialContext: Array = [['Function', {}]], contextGeneratorName)`: hooked Function constructor
-  - Usage: `(new (hook.Function('__hook__', [['window,Function', {}]], 'method'))('return function f() {}'))()`
-  - Automatically applied in `hook()` preprocessing
+- Hooked Native APIs: Automatically applied in `hook()` preprocessing
+  - `hook.Function(hookName, initialContext: Array = [['Function', {}]], contextGeneratorName)`: hooked Function constructor
+    - Usage: `(new (hook.Function('__hook__', [['window,Function', {}]], 'method'))('return function f() {}'))()`
+  - `hook.setTimeout(hookName, initialContext: Array = [['setTimeout', {}]], contextGeneratorName)`: hooked setTimeout function
+    - Note: Not automatically applied if the first argument is an (arrow) function expression
+  - `hook.setInterval(hookName, initialContext: Array = [['setInterval', {}]], contextGeneratorName)`: hooked setInterval function
+    - Note: Not automatically applied if the first argument is an (arrow) function expression
 - `hook.hook(target: Class, ...)`: hook platform global object with `target`
-  - Usage: `hook.hook(hook.Function('__hook__', [['window,Function', {}]], 'method'))`
+  - Usage: `['Function','setTimeout','setInterval'].forEach(name => hook.hook(hook.Function('__hook__', [[name, {}]], 'method'))`
 - `hook.serviceWorkerHandlers`: Service Worker event handlers
   - `install`: 'install' event handler. Set version from the `version` parameter
   - `activate`: 'activate' event handler. Clear caches of old versions.
