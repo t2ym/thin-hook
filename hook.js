@@ -100,6 +100,14 @@ function _preprocess(ast, isConstructor = false, hookName, astPath, contextGener
         espreeOptions).body[0].expression;
       ast.arguments[0] = template.callee;
     }
+    else if (metaHooking &&
+      ast.callee && ast.callee.type === 'Identifier' && (ast.callee.name === 'setTimeout' || ast.callee.name === 'setInterval') &&
+      ast.arguments && ast.arguments[0] && ast.arguments[0].type !== 'FunctionExpression' && ast.arguments[0].type !== 'ArrowFunctionExpression') {
+      let context = contextGenerator(astPath).replace(/\'/g, '\\\'');
+      let template = espree.parse('hook.' + ast.callee.name + '(\'' + hookName + '\', [[\'' + context + '\', {}]], \'' + contextGeneratorName + '\')',
+          espreeOptions).body[0].expression;
+      ast.callee = template;
+    }
     break;
   case 'MetaProperty':
     // patch espree-generated AST to be compatible with that from esprima
@@ -161,7 +169,9 @@ function generateMethodContext(astPath) {
 
 const _global = typeof window === 'object' ? window : typeof global === 'object' ? global : typeof self === 'object' ? self : this;
 const _native = {
-  Function: Function
+  Function: Function,
+  setTimeout: setTimeout,
+  setInterval: setInterval
 };
 const _freeze = {
   Function: { static: [], proto: [ 'apply', 'call', 'bind', 'arguments' ] }
@@ -177,6 +187,24 @@ function hookFunction(hookName, initialContext = [['Function', {}]], contextGene
   }
 }
 
+function hookSetTimeout(hookName, initialContext = [['setTimeout', {}]], contextGenerator) {
+  return function setTimeout(...args) {
+    if (typeof args[0] === 'string') {
+      args[0] = hook('(() => { ' + args[0] + ' })()', hookName, initialContext, contextGenerator);
+    }
+    return window.__hook__(_native.setTimeout, this, args, 'setTimeout');
+  }
+}
+
+function hookSetInterval(hookName, initialContext = [['setInterval', {}]], contextGenerator) {
+  return function setInterval(...args) {
+    if (typeof args[0] === 'string') {
+      args[0] = hook('(() => { ' + args[0] + ' })()', hookName, initialContext, contextGenerator);
+    }
+    return window.__hook__(_native.setInterval, this, args, 'setInterval');
+  }
+}
+
 function _freezeProperties(target) {
   function _freezeProperty(target, prop) {
     let desc = Object.getOwnPropertyDescriptor(target, prop);
@@ -188,10 +216,10 @@ function _freezeProperties(target) {
       Object.defineProperty(target, prop, desc);
     }
   }
-  _freeze[target.name].static.forEach(prop => {
+  _freeze[target.name] && _freeze[target.name].static && _freeze[target.name].static.forEach(prop => {
     _freezeProperty(target, prop);
   });
-  _freeze[target.name].proto.forEach(prop => {
+  _freeze[target.name] && _freeze[target.name].proto && _freeze[target.name].proto.forEach(prop => {
     _freezeProperty(target.prototype, prop);
   });
 }
@@ -212,6 +240,15 @@ function hookPlatform(...targets) {
           configurable: false, enumerable: false, writable: false });
       Object.defineProperty(_native[target.name].prototype, 'constructor',
         { value: target, configurable: false, enumerable: false, writable: false });
+      _freezeProperties(target);
+      Object.defineProperty(platform, target.name,
+        { value: target, configurable: false, enumerable: false, writable: false });
+      break;
+    case 'setTimeout':
+    case 'setInterval':
+      Object.defineProperty(target, 'toString',
+        { value: function toString() { return 'function ' + target.name + '() { [native code] }' },
+          configurable: false, enumerable: false, writable: false });
       _freezeProperties(target);
       Object.defineProperty(platform, target.name,
         { value: target, configurable: false, enumerable: false, writable: false });
@@ -531,6 +568,8 @@ module.exports = Object.freeze(Object.assign(hook, {
   __hook__: __hook__,
   hook: hookPlatform,
   Function: hookFunction,
+  setTimeout: hookSetTimeout,
+  setInterval: hookSetInterval,
   serviceWorkerHandlers: {
     install: onInstall,
     activate: onActivate,
