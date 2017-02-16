@@ -15,7 +15,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <script src="../../thin-hook/hook.min.js?version=57&sw-root=/&no-hook=true&hook-name=__hook__&context-generator-name=method2&fallback-page=index-fb.html&service-worker-ready=true"></script>
+  <script src="../../thin-hook/hook.min.js?version=79&sw-root=/&no-hook=true&hook-name=__hook__&context-generator-name=method2&fallback-page=index-fb.html&service-worker-ready=true"></script>
   <script context-generator src="hash-context-generator.js?no-hook=true"></script>
   <script context-generator no-hook>
   {
@@ -128,7 +128,10 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     }
     {
       _native = {
-        Promise: Promise
+        Promise: Promise,
+        HTMLScriptElement: typeof HTMLScriptElement === 'function' ? HTMLScriptElement : undefined,
+        Node: typeof Node === 'function' ? Node : undefined,
+        Element: typeof Element === 'function' ? Element : undefined
       }
       _nativeMethods = {
         Promise: {
@@ -176,15 +179,46 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       EventTarget.prototype.addEventListener = function addEventListener(...args) {
         return window.__hook__(_nativeMethods.EventTarget.proto.addEventListener, this, args, 'EventTarget,addEventListener');
       }
-
     }
   </script>
   <script no-hook>
-    [ 'Function', 'setTimeout', 'setInterval' ].forEach((name) => hook.hook(hook[name]('__hook__', [[name, {}]], 'method2')));
+    [ 'Function', 'setTimeout', 'setInterval', 'HTMLScriptElement' ]
+      .forEach((name) => hook.hook(hook[name]('__hook__', [[name, {}]], 'method2')));
   </script>
   <script>
-    setTimeout('console.log("callback script in string called")', 1000);
-    setTimeout(() => console.log("callback script called"), 1000);
+    {
+      setTimeout('console.log("callback script in string called")', 1000);
+      setTimeout(() => console.log("callback script called"), 1000);
+      window.__intervalId = setInterval('console.log("callback script in string called. intervalId = ", __intervalId); clearInterval(__intervalId)', 1000);
+    }
+    {
+      let script = document.createElement('script');
+      script.textContent = 'console.log("set textContent of HTMLScriptElement")';
+      addEventListener('load', function onLoad(event) {
+        removeEventListener('load', onLoad);
+        document.body.appendChild(script);
+      });
+    }
+    {
+      let script = document.createElement('script');
+      script.text = 'console.log("set type attribute of text/x-script")';
+      script.setAttribute('type', 'text/x-script');
+      script.setAttribute('type', 'text/javascript');
+      addEventListener('load', function onLoad(event) {
+        removeEventListener('load', onLoad);
+        document.body.appendChild(script);
+      });
+    }
+    {
+      let script = document.createElement('script');
+      script.text = 'console.log("set type property of text/xx-script")';
+      script.type = 'text/xx-script';
+      script.type = 'text/javascript';
+      addEventListener('load', function onLoad(event) {
+        removeEventListener('load', onLoad);
+        document.body.appendChild(script);
+      });
+    }
   </script>
   <!-- CORS scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jsSHA/2.2.0/sha.js?cors=true"></script>
