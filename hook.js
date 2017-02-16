@@ -192,7 +192,7 @@ function hookSetTimeout(hookName, initialContext = [['setTimeout', {}]], context
     if (typeof args[0] === 'string') {
       args[0] = hook('(() => { ' + args[0] + ' })()', hookName, initialContext, contextGenerator);
     }
-    return window.__hook__(_native.setTimeout, this, args, 'setTimeout');
+    return _global[hookName](_native.setTimeout, this, args, 'setTimeout');
   }
 }
 
@@ -201,7 +201,7 @@ function hookSetInterval(hookName, initialContext = [['setInterval', {}]], conte
     if (typeof args[0] === 'string') {
       args[0] = hook('(() => { ' + args[0] + ' })()', hookName, initialContext, contextGenerator);
     }
-    return window.__hook__(_native.setInterval, this, args, 'setInterval');
+    return _global[hookName](_native.setInterval, this, args, 'setInterval');
   }
 }
 
