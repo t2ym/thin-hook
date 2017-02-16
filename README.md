@@ -279,10 +279,18 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
 ## TODOs
 
 - Refine API
-- Hook `eval()` to preprocess scripts
-- Hook `document.write('<script>')` to preprocess scripts
-- Hook `HTMLScriptElement.textContent` to preprocess scripts
-- Run as run-time HTML and JavaScript contents filter in Service Worker
+- Hook Coverage
+  - Hook `eval()` to preprocess scripts
+  - Hook `document.write('<script>')` to preprocess scripts
+  - Hook `element.setAttribute('onXX', '{script}')` to preprocess scripts
+  - Hook `a.setAttribute('href', 'javascript:{script}')` to preprocess scripts
+  - Hook `a.href = 'javascript:{script}'` to preprocess scripts
+  - Hook Native APIs
+- Track Asynchronous Calls
+- Security Policies
+  - Framework for Access Control Policies
+  - Framework for Context Transition Policies
+  - Modularization of Policies
 - Test Suites
 - Demo
 - Performance Optimization
