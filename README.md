@@ -229,6 +229,12 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
     - Note: Not automatically applied if the first argument is an (arrow) function expression
   - `hook.setInterval(hookName, initialContext: Array = [['setInterval', {}]], contextGeneratorName)`: hooked setInterval function
     - Note: Not automatically applied if the first argument is an (arrow) function expression
+  - `hook.HTMLScriptElement(hookName, initialContext: Array = [['HTMLScriptElement', {}]], contextGeneratorName)`: HTMLScriptElement with hooked properties
+    - Note: Applied only at run time. Not applied in preprocessing. `HTMLScriptElement` class is the same object as the native one.
+    - `set textContent`: Script in `textContent` is hooked if `type` is a JavaScript MIME type. `Node.textContent` is hooked as well.
+      - Note: Scripts set by `innerHTML`/`outerHTML`/`text` properties are NOT executed, while `text` should be executed according to the standards.
+    - `set type`: Script in `this.textContent` is hooked if `type` is a JavaScript MIME type.
+    - `setAttribute('type', mimeType)`: Script in `this.textContent` is hooked if `mimeType` is a JavaScript MIME type. `Element.setAttribute` is hooked as well.
 - `hook.hook(target: Class, ...)`: hook platform global object with `target`
   - Usage: `['Function','setTimeout','setInterval'].forEach(name => hook.hook(hook.Function('__hook__', [[name, {}]], 'method'))`
 - `hook.serviceWorkerHandlers`: Service Worker event handlers
