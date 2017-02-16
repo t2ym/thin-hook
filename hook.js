@@ -168,11 +168,36 @@ function generateMethodContext(astPath) {
 }
 
 const _global = typeof window === 'object' ? window : typeof global === 'object' ? global : typeof self === 'object' ? self : this;
+// TODO: automate generation of these objects
 const _native = {
-  Function: Function,
-  setTimeout: setTimeout,
-  setInterval: setInterval
+  Function: _global.Function,
+  setTimeout: _global.setTimeout,
+  setInterval: _global.setInterval,
+  HTMLScriptElement: _global.HTMLScriptElement,
+  Node: _global.Node,
+  Element: _global.Element
 };
+const _nativeMethods = {
+  Node: {
+    static: {},
+    proto: {
+      textContent: _native.Node ? Object.getOwnPropertyDescriptor(_native.Node.prototype, 'textContent') : {}
+    }
+  },
+  Element: {
+    static: {},
+    proto: {
+      innerHTML: _native.Element ? Object.getOwnPropertyDescriptor(_native.Element.prototype, 'innerHTML') : {},
+      setAttribute: _native.Element ? Object.getOwnPropertyDescriptor(_native.Element.prototype, 'setAttribute') : {}
+    }
+  },
+  HTMLScriptElement: {
+    static: {},
+    proto: {
+      type: _native.HTMLScriptElement ? Object.getOwnPropertyDescriptor(_native.HTMLScriptElement.prototype, 'type') : {}
+    }
+  }
+}
 const _freeze = {
   Function: { static: [], proto: [ 'apply', 'call', 'bind', 'arguments' ] }
 };
@@ -203,6 +228,84 @@ function hookSetInterval(hookName, initialContext = [['setInterval', {}]], conte
     }
     return _global[hookName](_native.setInterval, this, args, 'setInterval');
   }
+}
+
+function hookHTMLScriptElement(hookName, initialContext = [['HTMLScriptElement', {}]], contextGenerator) {
+  const jsMimeTypes = [
+    '',
+    'application/ecmascript',
+    'application/javascript',
+    'application/x-ecmascript',
+    'application/x-javascript',
+    'text/ecmascript',
+    'text/javascript',
+    'text/javascript1.0',
+    'text/javascript1.1',
+    'text/javascript1.2',
+    'text/javascript1.3',
+    'text/javascript1.4',
+    'text/javascript1.5',
+    'text/jscript',
+    'text/livescript',
+    'text/x-ecmascript',
+    'text/x-javascript',
+    'module'
+  ];
+  Object.defineProperty(_native.Node.prototype, 'textContent', {
+    configurable: false,
+    enumerable: _nativeMethods.Node.proto.textContent.enumerable,
+    get: _nativeMethods.Node.proto.textContent.get,
+    set: function (value) {
+      if (this instanceof _native.HTMLScriptElement) {
+        if (jsMimeTypes.indexOf(this.type ? this.type.toLowerCase() : '') >= 0) {
+          // TODO: import/export syntax support for type=module
+          value = hook('(() => { ' + value + ' })()', hookName, initialContext, contextGenerator);
+        }
+      }
+      return _global[hookName](_nativeMethods.Node.proto.textContent.set, this, [value], this.constructor.name + ',set textContent');
+    }
+  });
+  Object.defineProperty(_native.HTMLScriptElement.prototype, 'type', {
+    configurable: false,
+    enumerable: _nativeMethods.HTMLScriptElement.proto.type.enumerable,
+    get: _nativeMethods.HTMLScriptElement.proto.type.get,
+    set: function (value) {
+      let doHook = false;
+      if (this instanceof _native.HTMLScriptElement &&
+          jsMimeTypes.indexOf(value ? value.toLowerCase() : '') >= 0 &&
+          jsMimeTypes.indexOf(this.type ? this.type.toLowerCase() : '') < 0) {
+        if (this.textContent.indexOf(hookName) < 0) {
+          doHook = true;
+        }
+      }
+      let result = _global[hookName](_nativeMethods.HTMLScriptElement.proto.type.set, this, [value], this.constructor.name + ',set type');
+      if (doHook) {
+        this.textContent = this.textContent;
+      }
+      return result;
+    }
+  });
+  Object.defineProperty(_native.Element.prototype, 'setAttribute', {
+    configurable: false,
+    enumerable: _nativeMethods.Element.proto.setAttribute.enumerable,
+    value: function setAttribute(name, value) {
+      let doHook = false;
+      if (this instanceof _native.HTMLScriptElement &&
+          name.toLowerCase() === 'type' &&
+          jsMimeTypes.indexOf(value ? value.toLowerCase() : '') >= 0 &&
+          jsMimeTypes.indexOf(this.type ? this.type.toLowerCase() : '') < 0) {
+        if (this.textContent.indexOf(hookName) < 0) {
+          doHook = true;
+        }
+      }
+      let result = _global[hookName](_nativeMethods.Element.proto.setAttribute.value, this, [name, value], this.constructor.name + ',setAttribute');
+      if (doHook) {
+        this.textContent = this.textContent;
+      }
+      return result;
+    }
+  });
+  return _native.HTMLScriptElement;
 }
 
 function _freezeProperties(target) {
@@ -253,9 +356,13 @@ function hookPlatform(...targets) {
       Object.defineProperty(platform, target.name,
         { value: target, configurable: false, enumerable: false, writable: false });
       break;
+    case 'HTMLScriptElement':
+      _freezeProperties(target);
+      Object.defineProperty(platform, target.name,
+        { value: target, configurable: false, enumerable: false, writable: false });
+      break;
     case 'eval':
     case 'write':
-    case 'HTMLScriptElement':
     default:
       break;
     }
@@ -570,6 +677,7 @@ module.exports = Object.freeze(Object.assign(hook, {
   Function: hookFunction,
   setTimeout: hookSetTimeout,
   setInterval: hookSetInterval,
+  HTMLScriptElement: hookHTMLScriptElement,
   serviceWorkerHandlers: {
     install: onInstall,
     activate: onActivate,
