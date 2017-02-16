@@ -235,7 +235,7 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
     - `setAttribute('onXX', '{script in attribute}')`: Script in onXX handler attribute is hooked
     - `setAttribute('href', 'javascript:{script in URL}')`: Script in URL `"javascript:{script in URL}"` is hooked
   - `hook.HTMLScriptElement(hookName, initialContext: Array = [['HTMLScriptElement', {}]], contextGeneratorName)`: HTMLScriptElement with hooked properties
-    - Note: Applied only at run time. Not applied in preprocessing. `HTMLScriptElement` class is the same object as the native one.
+    - Note: Applied only at run time. Not applied in preprocessing. `HTMLScriptElement` class is the same object as the native one. `hook.Node` and `hook.Element` are called internally.
     - `set textContent`: Script in `textContent` is hooked if `type` is a JavaScript MIME type. `Node.textContent` is hooked as well.
       - Note: Scripts set by `innerHTML`/`outerHTML`/`text` properties are NOT executed, while `text` should be executed according to the standards.
     - `set type`: Script in `this.textContent` is hooked if `type` is a JavaScript MIME type.
