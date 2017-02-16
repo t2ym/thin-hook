@@ -290,6 +290,7 @@ function hookElement(hookName, initialContext = [['Element', {}]], contextGenera
     Object.defineProperty(_native.Element.prototype, 'setAttribute', {
       configurable: false,
       enumerable: _nativeMethods.Element.proto.setAttribute.enumerable,
+      writable: false,
       value: function setAttribute(name, value) {
         let doHook = false;
         let _name = name ? name.toLowerCase() : '';
