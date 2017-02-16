@@ -19,7 +19,7 @@
   hook.setTimeout('__hook__', [[
       'examples/example4.js',
       {}
-    ]], 'method')(f, 1000);
+    ]], 'method')(f1, 1000);
   setInterval(function X() {
     return __hook__(() => {
       console.log('setInterval function');
@@ -40,5 +40,5 @@
   hook.setInterval('__hook__', [[
       'examples/example4.js',
       {}
-    ]], 'method')(f, 1000);
+    ]], 'method')(f2, 1000);
 }
