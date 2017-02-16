@@ -175,7 +175,9 @@ const _native = {
   setInterval: _global.setInterval,
   HTMLScriptElement: _global.HTMLScriptElement,
   Node: _global.Node,
-  Element: _global.Element
+  Element: _global.Element,
+  HTMLAnchorElement: _global.HTMLAnchorElement,
+  HTMLAreaElement: _global.HTMLAreaElement
 };
 const _nativeMethods = {
   Node: {
@@ -189,6 +191,18 @@ const _nativeMethods = {
     proto: {
       innerHTML: _native.Element ? Object.getOwnPropertyDescriptor(_native.Element.prototype, 'innerHTML') : {},
       setAttribute: _native.Element ? Object.getOwnPropertyDescriptor(_native.Element.prototype, 'setAttribute') : {}
+    }
+  },
+  HTMLAnchorElement: {
+    static: {},
+    proto: {
+      href: _native.HTMLAnchorElement ? Object.getOwnPropertyDescriptor(_native.HTMLAnchorElement.prototype, 'href') : {}
+    }
+  },
+  HTMLAreaElement: {
+    static: {},
+    proto: {
+      href: _native.HTMLAreaElement ? Object.getOwnPropertyDescriptor(_native.HTMLAreaElement.prototype, 'href') : {}
     }
   },
   HTMLScriptElement: {
@@ -230,82 +244,145 @@ function hookSetInterval(hookName, initialContext = [['setInterval', {}]], conte
   }
 }
 
+const jsMimeTypes = [
+  '',
+  'application/ecmascript',
+  'application/javascript',
+  'application/x-ecmascript',
+  'application/x-javascript',
+  'text/ecmascript',
+  'text/javascript',
+  'text/javascript1.0',
+  'text/javascript1.1',
+  'text/javascript1.2',
+  'text/javascript1.3',
+  'text/javascript1.4',
+  'text/javascript1.5',
+  'text/jscript',
+  'text/livescript',
+  'text/x-ecmascript',
+  'text/x-javascript',
+  'module'
+];
+
+function hookNode(hookName, initialContext = [['Node', {}]], contextGenerator) {
+  if (_native.Node && Object.getOwnPropertyDescriptor(_native.Node.prototype, 'textContent').configurable) {
+    Object.defineProperty(_native.Node.prototype, 'textContent', {
+      configurable: false,
+      enumerable: _nativeMethods.Node.proto.textContent.enumerable,
+      get: _nativeMethods.Node.proto.textContent.get,
+      set: function (value) {
+        if (this instanceof _native.HTMLScriptElement) {
+          if (jsMimeTypes.indexOf(this.type ? this.type.toLowerCase() : '') >= 0) {
+            // TODO: import/export syntax support for type=module
+            value = hook('(() => { ' + value + ' })()', hookName, initialContext, contextGenerator);
+          }
+        }
+        return _global[hookName](_nativeMethods.Node.proto.textContent.set, this, [value], this.constructor.name + ',set textContent');
+      }
+    });
+  }
+  return _native.Node;
+}
+
+function hookElement(hookName, initialContext = [['Element', {}]], contextGenerator) {
+  if (_native.Element && Object.getOwnPropertyDescriptor(_native.Element.prototype, 'setAttribute').configurable) {
+    Object.defineProperty(_native.Element.prototype, 'setAttribute', {
+      configurable: false,
+      enumerable: _nativeMethods.Element.proto.setAttribute.enumerable,
+      value: function setAttribute(name, value) {
+        let doHook = false;
+        let _name = name ? name.toLowerCase() : '';
+        let _value = typeof value === 'string' ? value.trim() : '';
+        switch (_name) {
+        case 'type':
+          if (this instanceof _native.HTMLScriptElement &&
+              jsMimeTypes.indexOf(_value.toLowerCase()) >= 0 &&
+              jsMimeTypes.indexOf(this.type ? this.type.toLowerCase() : '') < 0) {
+            if (this.textContent.indexOf(hookName) < 0) {
+              doHook = true;
+            }
+          }
+          break;
+        case 'href':
+          if (_value.startsWith('javascript:')) {
+            value = 'javascript:' +
+              hook('(() => { ' + _value.substr(11) + ' })()', hookName, [[ this.constructor.name + ',setAttribute,' + _name, {}]], contextGenerator);
+          }
+          break;
+        default:
+          if (_name.match(/^on[a-z]{1,}$/)) {
+            value = 'return ' +
+              hook('(() => { ' + value + ' })()', hookName, [[ this.constructor.name + ',setAttribute,' + _name, {}]], contextGenerator);
+          }
+          break;
+        }
+        let result = _global[hookName](_nativeMethods.Element.proto.setAttribute.value, this, [name, value], this.constructor.name + ',setAttribute');
+        if (doHook) {
+          this.textContent = this.textContent;
+        }
+        return result;
+      }
+    });
+  }
+  return _native.Element;
+}
+
 function hookHTMLScriptElement(hookName, initialContext = [['HTMLScriptElement', {}]], contextGenerator) {
-  const jsMimeTypes = [
-    '',
-    'application/ecmascript',
-    'application/javascript',
-    'application/x-ecmascript',
-    'application/x-javascript',
-    'text/ecmascript',
-    'text/javascript',
-    'text/javascript1.0',
-    'text/javascript1.1',
-    'text/javascript1.2',
-    'text/javascript1.3',
-    'text/javascript1.4',
-    'text/javascript1.5',
-    'text/jscript',
-    'text/livescript',
-    'text/x-ecmascript',
-    'text/x-javascript',
-    'module'
-  ];
-  Object.defineProperty(_native.Node.prototype, 'textContent', {
-    configurable: false,
-    enumerable: _nativeMethods.Node.proto.textContent.enumerable,
-    get: _nativeMethods.Node.proto.textContent.get,
-    set: function (value) {
-      if (this instanceof _native.HTMLScriptElement) {
-        if (jsMimeTypes.indexOf(this.type ? this.type.toLowerCase() : '') >= 0) {
-          // TODO: import/export syntax support for type=module
-          value = hook('(() => { ' + value + ' })()', hookName, initialContext, contextGenerator);
+  hookNode(hookName, initialContext, contextGenerator); // Node.textContent
+  hookElement(hookName, initialContext, contextGenerator); // Element.setAttribute('type')
+  if (_native.HTMLScriptElement &&
+      Object.getOwnPropertyDescriptor(_native.HTMLScriptElement.prototype, 'type').configurable) {
+    Object.defineProperty(_native.HTMLScriptElement.prototype, 'type', {
+      configurable: false,
+      enumerable: _nativeMethods.HTMLScriptElement.proto.type.enumerable,
+      get: _nativeMethods.HTMLScriptElement.proto.type.get,
+      set: function (value) {
+        let doHook = false;
+        if (this instanceof _native.HTMLScriptElement &&
+            jsMimeTypes.indexOf(value ? value.toLowerCase() : '') >= 0 &&
+            jsMimeTypes.indexOf(this.type ? this.type.toLowerCase() : '') < 0) {
+          if (this.textContent.indexOf(hookName) < 0) {
+            doHook = true;
+          }
         }
-      }
-      return _global[hookName](_nativeMethods.Node.proto.textContent.set, this, [value], this.constructor.name + ',set textContent');
-    }
-  });
-  Object.defineProperty(_native.HTMLScriptElement.prototype, 'type', {
-    configurable: false,
-    enumerable: _nativeMethods.HTMLScriptElement.proto.type.enumerable,
-    get: _nativeMethods.HTMLScriptElement.proto.type.get,
-    set: function (value) {
-      let doHook = false;
-      if (this instanceof _native.HTMLScriptElement &&
-          jsMimeTypes.indexOf(value ? value.toLowerCase() : '') >= 0 &&
-          jsMimeTypes.indexOf(this.type ? this.type.toLowerCase() : '') < 0) {
-        if (this.textContent.indexOf(hookName) < 0) {
-          doHook = true;
+        let result = _global[hookName](_nativeMethods.HTMLScriptElement.proto.type.set, this, [value], this.constructor.name + ',set type');
+        if (doHook) {
+          this.textContent = this.textContent;
         }
+        return result;
       }
-      let result = _global[hookName](_nativeMethods.HTMLScriptElement.proto.type.set, this, [value], this.constructor.name + ',set type');
-      if (doHook) {
-        this.textContent = this.textContent;
-      }
-      return result;
-    }
-  });
-  Object.defineProperty(_native.Element.prototype, 'setAttribute', {
-    configurable: false,
-    enumerable: _nativeMethods.Element.proto.setAttribute.enumerable,
-    value: function setAttribute(name, value) {
-      let doHook = false;
-      if (this instanceof _native.HTMLScriptElement &&
-          name.toLowerCase() === 'type' &&
-          jsMimeTypes.indexOf(value ? value.toLowerCase() : '') >= 0 &&
-          jsMimeTypes.indexOf(this.type ? this.type.toLowerCase() : '') < 0) {
-        if (this.textContent.indexOf(hookName) < 0) {
-          doHook = true;
-        }
-      }
-      let result = _global[hookName](_nativeMethods.Element.proto.setAttribute.value, this, [name, value], this.constructor.name + ',setAttribute');
-      if (doHook) {
-        this.textContent = this.textContent;
-      }
-      return result;
-    }
-  });
+    });
+  }
   return _native.HTMLScriptElement;
+}
+
+function hookHrefProperty(hookName, target, contextGenerator) {
+  if (_native[target] && Object.getOwnPropertyDescriptor(_native[target].prototype, 'href').configurable) {
+    Object.defineProperty(_native[target].prototype, 'href', {
+      configurable: false,
+      enumerable: _nativeMethods[target].proto.href.enumerable,
+      get: _nativeMethods[target].proto.href.get,
+      set: function href(value) {
+        let doHook = false;
+        let _value = typeof value === 'string' ? value.trim() : '';
+        if (_value.startsWith('javascript:')) {
+          value = 'javascript:' +
+            hook('(() => { ' + _value.substr(11) + ' })()', hookName, [[ this.constructor.name + ',set href', {}]], contextGenerator);
+        }
+        return _global[hookName](_nativeMethods[target].proto.href.set, this, [value], this.constructor.name + ',set href');
+      }
+    });
+  }
+  return _native[target];
+}
+
+function hookHTMLAnchorElement(hookName, initialContext = [['HTMLAnchorElement', {}]], contextGenerator) {
+  return hookHrefProperty(hookName, 'HTMLAnchorElement', contextGenerator);
+}
+
+function hookHTMLAreaElement(hookName, initialContext = [['HTMLAreaElement', {}]], contextGenerator) {
+  return hookHrefProperty(hookName, 'HTMLAreaElement', contextGenerator);
 }
 
 function _freezeProperties(target) {
@@ -677,6 +754,10 @@ module.exports = Object.freeze(Object.assign(hook, {
   Function: hookFunction,
   setTimeout: hookSetTimeout,
   setInterval: hookSetInterval,
+  Node: hookNode,
+  Element: hookElement,
+  HTMLAnchorElement: hookHTMLAnchorElement,
+  HTMLAreaElement: hookHTMLAreaElement,
   HTMLScriptElement: hookHTMLScriptElement,
   serviceWorkerHandlers: {
     install: onInstall,
