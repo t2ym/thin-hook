@@ -15,7 +15,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <script src="../../thin-hook/hook.min.js?version=79&sw-root=/&no-hook=true&hook-name=__hook__&context-generator-name=method2&fallback-page=index-fb.html&service-worker-ready=false"></script></head></html><!--
+  <script src="../../thin-hook/hook.min.js?version=91&sw-root=/&no-hook=true&hook-name=__hook__&context-generator-name=method2&fallback-page=index-fb.html&service-worker-ready=false"></script></head></html><!--
   <script context-generator src="hash-context-generator.js?no-hook=true"></script>
   <script context-generator no-hook>
   {
@@ -182,7 +182,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     }
   </script>
   <script no-hook>
-    [ 'Function', 'setTimeout', 'setInterval', 'HTMLScriptElement' ]
+    [ 'Function', 'setTimeout', 'setInterval', 'Node', 'Element', 'HTMLScriptElement', 'HTMLAnchorElement', 'HTMLAreaElement' ]
       .forEach((name) => hook.hook(hook[name]('__hook__', [[name, {}]], 'method2')));
   </script>
   <script>
@@ -218,6 +218,34 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         removeEventListener('load', onLoad);
         document.body.appendChild(script);
       });
+    }
+    {
+      let anchor = document.createElement('a');
+      anchor.setAttribute('href', '.');
+      anchor.setAttribute('href', 'javascript:console.log("set href attribute of anchor element")');
+      console.log('a.href = ' + anchor.getAttribute('href'));
+    }
+    {
+      let div = document.createElement('div');
+      div.setAttribute('onclick', 'console.log("set onclick attribute of div element", event.type)');
+      console.log('div.onclick = ' + div.getAttribute('onclick'));
+      addEventListener('load', function onLoad(event) {
+        removeEventListener('load', onLoad);
+        document.body.appendChild(div);
+        div.click();
+      });
+    }
+    {
+      let anchor = document.createElement('a');
+      anchor.href = '.';
+      anchor.href = 'javascript:console.log("set href property of anchor element")';
+      console.log('a.href = ' + anchor.href);
+    }
+    {
+      let area = document.createElement('area');
+      area.href = '.';
+      area.href = 'javascript:console.log("set href property of area element")';
+      console.log('area.href = ' + area.href);
     }
   </script>
   <C!-- CORS scripts --C>
