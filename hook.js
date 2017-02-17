@@ -377,7 +377,7 @@ function hookNode(hookName, initialContext = [['Node', {}]], contextGenerator) {
         if (this instanceof _native.HTMLScriptElement) {
           if (jsMimeTypes.indexOf(this.type ? this.type.toLowerCase() : '') >= 0) {
             // TODO: import/export syntax support for type=module
-            value = hook('(() => { ' + value + ' })()', hookName, initialContext, contextGenerator);
+            value = hook(value, hookName, initialContext, contextGenerator);
           }
         }
         return _global[hookName](_nativeMethods.Node.proto.textContent.set, this, [value], this.constructor.name + ',set textContent');
