@@ -15,7 +15,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <script src="../../thin-hook/hook.min.js?version=111&sw-root=/&no-hook=true&hook-name=__hook__&context-generator-name=method2&fallback-page=index-fb.html&service-worker-ready=false"></script></head></html><!--
+  <script src="../../thin-hook/hook.min.js?version=112&sw-root=/&no-hook=true&hook-name=__hook__&context-generator-name=method2&fallback-page=index-fb.html&service-worker-ready=false"></script></head></html><!--
   <script context-generator src="hash-context-generator.js?no-hook=true"></script>
   <script context-generator no-hook>
   {
@@ -193,7 +193,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     }
     {
       let script = document.createElement('script');
-      script.textContent = 'console.log("set textContent of HTMLScriptElement")';
+      script.textContent = '(function setTextContent() { console.log("set textContent of HTMLScriptElement"); })()';
       addEventListener('load', function onLoad(event) {
         removeEventListener('load', onLoad);
         document.body.appendChild(script);
@@ -201,7 +201,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     }
     {
       let script = document.createElement('script');
-      script.text = 'console.log("set type attribute of text/x-script")';
+      script.text = '(function setTypeAttribute() { console.log("set type attribute of text/x-script"); })()';
       script.setAttribute('type', 'text/x-script');
       script.setAttribute('type', 'text/javascript');
       addEventListener('load', function onLoad(event) {
@@ -211,7 +211,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     }
     {
       let script = document.createElement('script');
-      script.text = 'console.log("set type property of text/xx-script")';
+      script.text = '(function setTypeProperty() { console.log("set type property of text/x-script"); })()';
       script.type = 'text/xx-script';
       script.type = 'text/javascript';
       addEventListener('load', function onLoad(event) {
