@@ -15,12 +15,12 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <script src="../../thin-hook/hook.min.js?version=91&sw-root=/&no-hook=true&hook-name=__hook__&context-generator-name=method2&fallback-page=index-fb.html&service-worker-ready=false"></script></head></html><!--
+  <script src="../../thin-hook/hook.min.js?version=111&sw-root=/&no-hook=true&hook-name=__hook__&context-generator-name=method2&fallback-page=index-fb.html&service-worker-ready=false"></script></head></html><!--
   <script context-generator src="hash-context-generator.js?no-hook=true"></script>
   <script context-generator no-hook>
   {
     hook.parameters.cors = [
-      'https://raw.githubusercontent.com/t2ym/thin-hook/master/examples/example1.js',
+      'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js',
       (url) => { let _url = new URL(url); return _url.hostname !== location.hostname && ['www.gstatic.com'].indexOf(_url.hostname) < 0; }
     ];
     hook.contextGenerators.method2 = function generateMethodContext2(astPath) {
@@ -182,7 +182,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     }
   </script>
   <script no-hook>
-    [ 'Function', 'setTimeout', 'setInterval', 'Node', 'Element', 'HTMLScriptElement', 'HTMLAnchorElement', 'HTMLAreaElement' ]
+    [ 'Function', 'setTimeout', 'setInterval', 'Node', 'Element', 'HTMLScriptElement', 'HTMLAnchorElement', 'HTMLAreaElement', 'Document' ]
       .forEach((name) => hook.hook(hook[name]('__hook__', [[name, {}]], 'method2')));
   </script>
   <script>
@@ -247,10 +247,18 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       area.href = 'javascript:console.log("set href property of area element")';
       console.log('area.href = ' + area.href);
     }
+    {
+      document.write('<sc' + 'ript>' + '(function write1() { console.log("script tag via document.write"); })()' + '</sc' + 'ript>');
+      document.write('<sc' + 'ript src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js?cors=true"></sc' + 'ript>');
+      document.write('<sc' + 'ript no-hook>' + '(function write2() { console.log("no-hook script tag via document.write"); })()' + '</sc' + 'ript>');
+      document.write('<div><sc' + 'ript>' + '(function write3() { console.log("script tag in div tag via document.write"); })()' + '</sc' + 'ript></div>');
+      document.write('<div><sc' + 'ript no-hook>' + '(function write4() { console.log("no-hook script tag in div tag via document.write"); })()' + '</sc' + 'ript></div>');
+      document.write('<div></div>');
+    }
   </script>
   <C!-- CORS scripts --C>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jsSHA/2.2.0/sha.js?cors=true"></script>
-  <script src="https://raw.githubusercontent.com/t2ym/thin-hook/master/examples/example1.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
 
