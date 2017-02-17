@@ -244,6 +244,8 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
     - `set href`: Script in URL `"javascript:{script in URL}"` is hooked
   - `hook.HTMLAreaElement(hookName, initialContext: Array = [['HTMLAreaElement', {}]]), contextGeneratorName)`: HTMLAreaElement with hooked href property
     - `set href`: Script in URL `"javascript:{script in URL}"` is hooked
+  - `hook.Document(hookName, initialContext: Array = [['Document', {}]], contextGeneratorName)`: hook `write` function
+    - `write('<sc' + 'ript>{script in string}</sc' + 'ript>')`: Script in HTML fragment is hooked
 - `hook.hook(target: Class, ...)`: hook platform global object with `target`
   - Usage: `['Function','setTimeout','setInterval',...].forEach(name => hook.hook(hook.Function('__hook__', [[name, {}]], 'method'))`
 - `hook.serviceWorkerHandlers`: Service Worker event handlers
