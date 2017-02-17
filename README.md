@@ -292,8 +292,8 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
 - Refine API
 - Hook Coverage
   - Hook `eval()` to preprocess scripts
-  - Hook `document.write('<script>')` to preprocess scripts
   - Hook Native APIs
+- Consistent Contexts
 - Track Asynchronous Calls
 - Security Policies
   - Framework for Access Control Policies
