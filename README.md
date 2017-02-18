@@ -72,7 +72,6 @@ Thin Hook Preprocessor (experimental)
 
 ```javascript
 {
-{
   // Authorization Tickets for no-hook scripts
   // Ticket for this script itself is specified in URL of script tag as
   // hook.min.js?no-hook-authorization={ticket}
