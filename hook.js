@@ -150,19 +150,68 @@ function _preprocessHtml(html, hookName, url, cors, contextGenerator, contextGen
       let attrNoHook = typeof attributes['no-hook'] === 'string';
       for (let attr in attributes) {
         if (attr.match(/^on[a-z]{1,}$/) && attributes[attr]) {
-          if (!attrNoHook) {
+          let _attrNoHook = attrNoHook;
+          if (_attrNoHook) {
+            let hash = createHash('sha256');
+            hash.update(attributes[attr]);
+            let ticket = hash.digest('hex');
+            if (hook.parameters.noHookAuthorization) {
+              if (!hook.parameters.noHookAuthorization[ticket]) {
+                console.warn('invalidate no-hook for ' + (cors ? url.href : url.pathname) + ' ' + attr + ' ticket = ' + ticket);
+                hook.parameters.noHookAuthorizationFailed = hook.parameters.noHookAuthorizationFailed || {};
+                hook.parameters.noHookAuthorizationFailed[ticket] = true;
+                console.log('hook.parameters.noHookAuthorizationFailed = ', JSON.stringify(hook.parameters.noHookAuthorizationFailed, null, 2));
+                _attrNoHook = false;
+              }
+            }
+            else {
+              hook.parameters.noHookAuthorizationPassed = hook.parameters.noHookAuthorizationPassed || {};
+              hook.parameters.noHookAuthorizationPassed[ticket] = true;
+              if (hook.parameters.noHookAuthorization &&
+                  hook.parameters.noHookAuthorization['*']) {
+                console.log('no hooking ticket for ' + (cors ? url.href : url.pathname) + ' = ' + ticket);
+                console.log('hook.parameters.noHookAuthorizationPassed = ', JSON.stringify(hook.parameters.noHookAuthorizationPassed, null, 2));
+              }
+            }
+          }
+          if (!_attrNoHook) {
             attributes[attr] = 'return ' + hook('(() => { ' + attributes[attr] + '})()',
               hookNameForServiceWorker,
-              [[(cors ? response.url : url.pathname) + ',' + name
+              [[(cors ? url.href : url.pathname) + ',' + name
               + (attributes.id ? '#' + attributes.id : attributes.class ? '.' + attributes.class : '')
               + ',' + attr + '@' + (scriptOffset + processed.length), {}]], contextGeneratorName, metaHooking);
           }
         }
         else if (attributes[attr] && attributes[attr].indexOf('javascript:') === 0) {
-          if (!attrNoHook) {
+          let _attrNoHook = attrNoHook;
+          if (_attrNoHook) {
+            let hash = createHash('sha256');
+            hash.update(attributes[attr]);
+            let ticket = hash.digest('hex');
+            if (hook.parameters.noHookAuthorization &&
+                !hook.parameters.noHookAuthorization['*']) {
+              if (!hook.parameters.noHookAuthorization[ticket]) {
+                console.warn('invalidate no-hook for ' + (cors ? url.href : url.pathname) + ' ' + attr + ' ticket = ' + ticket);
+                hook.parameters.noHookAuthorizationFailed = hook.parameters.noHookAuthorizationFailed || {};
+                hook.parameters.noHookAuthorizationFailed[ticket] = true;
+                console.log('hook.parameters.noHookAuthorizationFailed = ', JSON.stringify(hook.parameters.noHookAuthorizationFailed, null, 2));
+                _attrNoHook = false;
+              }
+            }
+            else {
+              hook.parameters.noHookAuthorizationPassed = hook.parameters.noHookAuthorizationPassed || {};
+              hook.parameters.noHookAuthorizationPassed[ticket] = true;
+              if (hook.parameters.noHookAuthorization &&
+                  hook.parameters.noHookAuthorization['*']) {
+                console.log('no hooking ticket for ' + (cors ? url.href : url.pathname) + ' = ' + ticket);
+                console.log('hook.parameters.noHookAuthorizationPassed = ', JSON.stringify(hook.parameters.noHookAuthorizationPassed, null, 2));
+              }
+            }
+          }
+          if (!_attrNoHook) {
             attributes[attr] = 'javascript:' + hook('(() => { ' + attributes[attr].substr(11) + '})()',
               hookNameForServiceWorker,
-              [[(cors ? response.url : url.pathname) + ',' + name
+              [[(cors ? url.href : url.pathname) + ',' + name
               + (attributes.id ? '#' + attributes.id : attributes.class ? '.' + attributes.class : '')
               + ',' + attr + '@' + (scriptOffset + processed.length), {}]], contextGeneratorName, metaHooking);
           }
@@ -190,6 +239,13 @@ function _preprocessHtml(html, hookName, url, cors, contextGenerator, contextGen
           if (srcUrl.searchParams.has('discard-hook-errors')) {
             discardHookErrors = srcUrl.searchParams.get('discard-hook-errors') === 'true';
           }
+          if (srcUrl.searchParams.has('no-hook-authorization')) {
+            let noHookAuthorization = srcUrl.searchParams.get('no-hook-authorization').split(/,/);
+            hook.parameters.noHookAuthorizationPassed = hook.parameters.noHookAuthorizationPassed || {};
+            noHookAuthorization.forEach(ticket => {
+              hook.parameters.noHookAuthorizationPassed[ticket] = true;
+            });
+          }
         }
         if (isDecoded && typeof contextGeneratorAttr === 'string' && src) {
           contextGeneratorScripts.push(new URL(src, url));
@@ -209,9 +265,35 @@ function _preprocessHtml(html, hookName, url, cors, contextGenerator, contextGen
         if (isDecoded && typeof contextGeneratorAttr === 'string' && inlineScript) {
           contextGeneratorScripts.push(new Function(inlineScript));
         }
-        if (inlineScript && !noHook) {
-          inlineScript = hook(inlineScript, hookNameForServiceWorker,
-            [[(cors ? url.href : url.pathname) + ',script@' + (scriptOffset + processed.length), {}]], contextGeneratorName, metaHooking);
+        if (inlineScript) {
+          if (noHook) {
+            let hash = createHash('sha256');
+            hash.update(inlineScript);
+            let ticket = hash.digest('hex');
+            if (hook.parameters.noHookAuthorization &&
+                !hook.parameters.noHookAuthorization['*']) {
+              if (!hook.parameters.noHookAuthorization[ticket]) {
+                console.warn('invalidate no-hook for ' + (cors ? url.href : url.pathname) + ' ticket = ' + ticket);
+                hook.parameters.noHookAuthorizationFailed = hook.parameters.noHookAuthorizationFailed || {};
+                hook.parameters.noHookAuthorizationFailed[ticket] = true;
+                console.log('hook.parameters.noHookAuthorizationFailed = ', JSON.stringify(hook.parameters.noHookAuthorizationFailed, null, 2));
+                noHook = false;
+              }
+            }
+            else {
+              hook.parameters.noHookAuthorizationPassed = hook.parameters.noHookAuthorizationPassed || {};
+              hook.parameters.noHookAuthorizationPassed[ticket] = true;
+              if (hook.parameters.noHookAuthorization &&
+                  hook.parameters.noHookAuthorization['*']) {
+                console.log('no hooking ticket for ' + (cors ? url.href : url.pathname) + ' = ' + ticket);
+                console.log('hook.parameters.noHookAuthorizationPassed = ', JSON.stringify(hook.parameters.noHookAuthorizationPassed, null, 2));
+              }
+            }
+          }
+          if (!noHook) {
+            inlineScript = hook(inlineScript, hookNameForServiceWorker,
+              [[(cors ? url.href : url.pathname) + ',script@' + (scriptOffset + processed.length), {}]], contextGeneratorName, metaHooking);
+          }
         }
         processed += inlineScript;
         inScript = false;
@@ -629,10 +711,39 @@ function onFetch(event) {
           if (response.status === 200) {
             if (response.url) {
               let url = new URL(response.url);
-              if (!response.url.match(/no-hook=true/) && url.pathname.match(/[.]js$/)) {
+              let noHook = url.searchParams.get('no-hook') === 'true';
+              if (url.pathname.match(/[.]js$/)) {
                 return response.text().then(function(result) {
                   try {
-                    result = hook(result, hookNameForServiceWorker, [[cors ? response.url : url.pathname, {}]], contextGeneratorName);
+                    if (noHook) {
+                      let hash = createHash('sha256');
+                      hash.update(result);
+                      let ticket = hash.digest('hex');
+                      hook.parameters.noHookAuthorizationPassed = hook.parameters.noHookAuthorizationPassed || {};
+                      if (hook.parameters.noHookAuthorization &&
+                          !hook.parameters.noHookAuthorization['*']) {
+                        if (!hook.parameters.noHookAuthorization[ticket] &&
+                            !hook.parameters.noHookAuthorizationPassed[ticket]) {
+                          console.warn('invalidate no-hook for ' + (cors ? response.url : url.pathname) + ' ticket = ' + ticket);
+                          hook.parameters.noHookAuthorizationFailed = hook.parameters.noHookAuthorizationFailed || {};
+                          hook.parameters.noHookAuthorizationFailed[ticket] = true;
+                          console.log('hook.parameters.noHookAuthorizationFailed = ', JSON.stringify(hook.parameters.noHookAuthorizationFailed, null, 2));
+                          noHook = false;
+                        }
+                      }
+                      else {
+                        hook.parameters.noHookAuthorizationPassed = hook.parameters.noHookAuthorizationPassed || {};
+                        hook.parameters.noHookAuthorizationPassed[ticket] = true;
+                        if (hook.parameters.noHookAuthorization &&
+                            hook.parameters.noHookAuthorization['*']) {
+                          console.log('no hooking ticket for ' + (cors ? url.href : url.pathname) + ' = ' + ticket);
+                          console.log('hook.parameters.noHookAuthorizationPassed = ', JSON.stringify(hook.parameters.noHookAuthorizationPassed, null, 2));
+                        }
+                      }
+                    }
+                    if (!noHook) {
+                      result = hook(result, hookNameForServiceWorker, [[cors ? response.url : url.pathname, {}]], contextGeneratorName);
+                    }
                   }
                   catch (e) {
                     if (discardHookErrors) {
