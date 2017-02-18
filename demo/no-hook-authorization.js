@@ -17,9 +17,9 @@
     "a7cae24c3dd476f713903156b2e53549583bd7ef7e7702bdcce0cc47510bddfa": true,
     "5431117b1217c2c7700295a776c5ff3df468925ae4e118b682532238dd1ef019": true,
     "02c107ea633ed697acc12e1b3de1bcf2f0ef7cafe4f048e29553c224656ecd7a": true,
-    'passcode': 'XX02c107ea633ed697acc12e1b3de1bcf2f0ef7cafe4f048e29553c224656ecd7a'
   };
   const hidden = Symbol('hidden');
+  const passcode = 'XX02c107ea633ed697acc12e1b3de1bcf2f0ef7cafe4f048e29553c224656ecd7a';
   if (typeof self === 'object' && self.constructor.name === 'ServiceWorkerGlobalScope') {
     // Service Worker
     let reconfigure = false;
@@ -39,7 +39,7 @@
           return this[hidden];
         },
         set(value) {
-          if (value && value.passcode === 'XX02c107ea633ed697acc12e1b3de1bcf2f0ef7cafe4f048e29553c224656ecd7a') {
+          if (value && value.passcode === passcode) {
             delete value.passcode;
             Object.freeze(value);
             this[hidden] = value;
@@ -47,6 +47,7 @@
         }
       });
     }
+    noHookAuthorization.passcode = passcode;
     hook.parameters.noHookAuthorization = noHookAuthorization;
   }
   else {
