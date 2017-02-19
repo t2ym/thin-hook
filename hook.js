@@ -162,6 +162,7 @@ function _preprocessHtml(html, hookName, url, cors, contextGenerator, contextGen
                 hook.parameters.noHookAuthorizationFailed[ticket] = true;
                 console.log('hook.parameters.noHookAuthorizationFailed = ', JSON.stringify(hook.parameters.noHookAuthorizationFailed, null, 2));
                 _attrNoHook = false;
+                attributes[attr] = '/* invalidated unauthorized no-hook script */';
               }
             }
             else {
@@ -196,6 +197,7 @@ function _preprocessHtml(html, hookName, url, cors, contextGenerator, contextGen
                 hook.parameters.noHookAuthorizationFailed[ticket] = true;
                 console.log('hook.parameters.noHookAuthorizationFailed = ', JSON.stringify(hook.parameters.noHookAuthorizationFailed, null, 2));
                 _attrNoHook = false;
+                attributes[attr] = 'javascript:/* invalidated unauthorized no-hook script */';
               }
             }
             else {
@@ -278,6 +280,7 @@ function _preprocessHtml(html, hookName, url, cors, contextGenerator, contextGen
                 hook.parameters.noHookAuthorizationFailed[ticket] = true;
                 console.log('hook.parameters.noHookAuthorizationFailed = ', JSON.stringify(hook.parameters.noHookAuthorizationFailed, null, 2));
                 noHook = false;
+                inlineScript = '/* invalidated unauthorized no-hook script */';
               }
             }
             else {
@@ -729,6 +732,7 @@ function onFetch(event) {
                           hook.parameters.noHookAuthorizationFailed[ticket] = true;
                           console.log('hook.parameters.noHookAuthorizationFailed = ', JSON.stringify(hook.parameters.noHookAuthorizationFailed, null, 2));
                           noHook = false;
+                          result = '/* invalidated unauthorized no-hook script */';
                         }
                       }
                       else {
