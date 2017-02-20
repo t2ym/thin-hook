@@ -146,7 +146,8 @@ function _validateNoHookScript(script, url, isContextGeneratorValidation = false
       (hook.parameters.noHookAuthorization &&
       !hook.parameters.noHookAuthorization['*'])) {
     if ((!hook.parameters.noHookAuthorization || (hook.parameters.noHookAuthorization && !hook.parameters.noHookAuthorization[ticket])) &&
-        (hook.parameters.noHookAuthorizationPreValidated && !hook.parameters.noHookAuthorizationPreValidated[ticket])) {
+        ((hook.parameters.noHookAuthorization && !hook.parameters.noHookAuthorizationPreValidated) ||
+         (hook.parameters.noHookAuthorizationPreValidated && !hook.parameters.noHookAuthorizationPreValidated[ticket]))) {
       if (hook.parameters.noHookAuthorization || isContextGeneratorValidation) {
         console.error('invalidate no-hook for ' + url.href + ' ticket = ' + ticket, script);
         hook.parameters.noHookAuthorizationFailed = hook.parameters.noHookAuthorizationFailed || {};
