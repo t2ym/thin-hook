@@ -137,7 +137,7 @@ function _preprocess(ast, isConstructor = false, hookName, astPath, contextGener
   }
 }
 
-function _validateNoHookScript(script, url) {
+function _validateNoHookScript(script, url, isContextGeneratorValidation = false) {
   let hash = createHash('sha256');
   hash.update(script);
   let ticket = hash.digest('hex');
@@ -147,7 +147,7 @@ function _validateNoHookScript(script, url) {
       !hook.parameters.noHookAuthorization['*'])) {
     if ((!hook.parameters.noHookAuthorization || (hook.parameters.noHookAuthorization && !hook.parameters.noHookAuthorization[ticket])) &&
         (hook.parameters.noHookAuthorizationPreValidated && !hook.parameters.noHookAuthorizationPreValidated[ticket])) {
-      if (hook.parameters.noHookAuthorization) {
+      if (hook.parameters.noHookAuthorization || isContextGeneratorValidation) {
         console.error('invalidate no-hook for ' + url.href + ' ticket = ' + ticket, script);
         hook.parameters.noHookAuthorizationFailed = hook.parameters.noHookAuthorizationFailed || {};
         hook.parameters.noHookAuthorizationFailed[ticket] = true;
@@ -259,7 +259,7 @@ function _preprocessHtml(html, hookName, url, cors, contextGenerator, contextGen
     onclosetag(name) {
       if (name === 'script' && inScript) {
         if (isDecoded && typeof contextGeneratorAttr === 'string' && inlineScript) {
-          contextGeneratorScripts.push(new Function(inlineScript));
+          contextGeneratorScripts.push(inlineScript);
         }
         if (inlineScript) {
           if (noHook) {
@@ -766,8 +766,14 @@ function onFetch(event) {
                       let sequence = Promise.resolve();
                       contextGeneratorScripts.forEach(script => {
                         sequence = sequence.then(() => {
-                          if (typeof script === 'function') {
-                            script();
+                          if (typeof script === 'string') {
+                            let authorized = _validateNoHookScript(script, url, true);
+                            if (script === authorized) {
+                              (new Function(script))();
+                            }
+                            else {
+                              console.error('skip executing unauthorized inline context-generator script at ' + url.href);
+                            }
                             return true;
                           }
                           else if (script instanceof URL) {
@@ -780,7 +786,13 @@ function onFetch(event) {
                                 throw scriptResponse;
                               }
                             }).then(text => {
-                              (new Function(text))();
+                              let authorized = _validateNoHookScript(text, script, true);
+                              if (text === authorized) {
+                                (new Function(text))();
+                              }
+                              else {
+                                console.error('skip executing unauthorized context-generator script at ' + script.href);
+                              }
                               return true;
                             }).catch(error => {
                               console.log('Failed to fetch context generator script at ' + script, error);
