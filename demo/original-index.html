@@ -15,7 +15,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <script src="../../thin-hook/hook.min.js?version=164&sw-root=/&no-hook=true&no-hook-authorization=e29f255c31180df9181d2503315e4c452aa0e976dbb83e586480dc51a426151e&hook-name=__hook__&context-generator-name=method2&discard-hook-errors=false&fallback-page=index-fb.html&service-worker-ready=true"></script>
+  <script src="../../thin-hook/hook.min.js?version=244&no-hook-authorization=4c634b7ca1bf71d331e413c7866cf06c3ba07968762ad1834de62c722c761449,log-no-hook-authorization&sw-root=/&no-hook=true&hook-name=__hook__&context-generator-name=method2&discard-hook-errors=false&fallback-page=index-fb.html&service-worker-ready=true"></script>
   <script context-generator src="no-hook-authorization.js?no-hook=true"></script>
   <script context-generator src="hash-context-generator.js?no-hook=true"></script>
   <script context-generator no-hook>
@@ -186,6 +186,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     [ 'Function', 'setTimeout', 'setInterval', 'Node', 'Element', 'HTMLScriptElement', 'HTMLAnchorElement', 'HTMLAreaElement', 'Document' ]
       .forEach((name) => hook.hook(hook[name]('__hook__', [[name, {}]], 'method2')));
   </script>
+  <!-- <script no-hook>(function ff() { alert('invalid no-hook script that should not be executed'); })()</script> -->
   <script>
     {
       setTimeout('console.log("callback script in string called")', 1000);
