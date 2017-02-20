@@ -328,6 +328,9 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
       - `discard-hook-errors`: `true` if errors in hooking are ignored and the original contents are provided. Default: `true`
       - `fallback-page`: fallback page to land if Service Worker is not available in the browser
       - `no-hook-authorization`: Optional. CSV of no-hook authorization tickets for no-hook scripts. Typically for ticket of no-hook authorization script itself.
+        - The values are stored in `hook.parameters.noHookAuthorizationPreValidated` object in Service Worker
+        - Add the value `log-no-hook-authorization` to log authorization in console
+        - Note: `no-hook-authorization` must not exist in learning mode with `hook.parameters.noHookAuthorization['*'] === true`
       - `service-worker-ready`: `true` if the entry HTML page is decoded; `false` if encoded. This parameter must be at the end of the URL
     - `<script src="script.js?no-hook=true"></script>`: skip hooking for the source script
     - `<script no-hook>...</script>`: skip hooking for the embedded script
