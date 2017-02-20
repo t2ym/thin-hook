@@ -142,23 +142,29 @@ function _validateNoHookScript(script, url) {
   hash.update(script);
   let ticket = hash.digest('hex');
   hook.parameters.noHookAuthorizationPassed = hook.parameters.noHookAuthorizationPassed || {};
-  if (hook.parameters.noHookAuthorization &&
-      !hook.parameters.noHookAuthorization['*']) {
-    if (!hook.parameters.noHookAuthorization[ticket] &&
-        !hook.parameters.noHookAuthorizationPassed[ticket]) {
-      console.warn('invalidate no-hook for ' + url.href + ' ticket = ' + ticket);
-      hook.parameters.noHookAuthorizationFailed = hook.parameters.noHookAuthorizationFailed || {};
-      hook.parameters.noHookAuthorizationFailed[ticket] = true;
-      console.log('hook.parameters.noHookAuthorizationFailed = ', JSON.stringify(hook.parameters.noHookAuthorizationFailed, null, 2));
+  if (hook.parameters.noHookAuthorizationPreValidated ||
+      (hook.parameters.noHookAuthorization &&
+      !hook.parameters.noHookAuthorization['*'])) {
+    if ((!hook.parameters.noHookAuthorization || (hook.parameters.noHookAuthorization && !hook.parameters.noHookAuthorization[ticket])) &&
+        (hook.parameters.noHookAuthorizationPreValidated && !hook.parameters.noHookAuthorizationPreValidated[ticket])) {
+      if (hook.parameters.noHookAuthorization) {
+        console.error('invalidate no-hook for ' + url.href + ' ticket = ' + ticket, script);
+        hook.parameters.noHookAuthorizationFailed = hook.parameters.noHookAuthorizationFailed || {};
+        hook.parameters.noHookAuthorizationFailed[ticket] = true;
+        console.error('hook.parameters.noHookAuthorizationFailed = ', JSON.stringify(hook.parameters.noHookAuthorizationFailed, null, 2));
+      }
       script = '/* invalidated unauthorized no-hook script */';
+    }
+    else if (hook.parameters.noHookAuthorizationPreValidated && hook.parameters.noHookAuthorizationPreValidated['log-no-hook-authorization']) {
+      console.log('validate no-hook for ' + url.href + ' ticket = ' + ticket, script.substr(0, 100));
     }
   }
   else {
     hook.parameters.noHookAuthorizationPassed[ticket] = true;
     if (hook.parameters.noHookAuthorization &&
         hook.parameters.noHookAuthorization['*']) {
-      console.log('no hooking ticket for ' + url.href + ' = ' + ticket);
-      console.log('hook.parameters.noHookAuthorizationPassed = ', JSON.stringify(hook.parameters.noHookAuthorizationPassed, null, 2));
+      console.warn('no hooking ticket for ' + url.href + ' = ' + ticket, script.substr(0, 100));
+      console.warn('hook.parameters.noHookAuthorizationPassed = ', JSON.stringify(hook.parameters.noHookAuthorizationPassed, null, 2));
     }
   }
   return script;
@@ -194,8 +200,8 @@ function _preprocessHtml(html, hookName, url, cors, contextGenerator, contextGen
         else if (attributes[attr] && attributes[attr].indexOf('javascript:') === 0) {
           let _attrNoHook = attrNoHook;
           if (_attrNoHook) {
-            let originalScript = attributes[attr];
-            attributes[attr] = _validateNoHookScript(originalScript, url);
+            let originalScript = attributes[attr].substr(11);
+            attributes[attr] = 'javascript:' + _validateNoHookScript(originalScript, url);
             _attrNoHook = originalScript === attributes[attr];
           }
           if (!_attrNoHook) {
@@ -231,9 +237,9 @@ function _preprocessHtml(html, hookName, url, cors, contextGenerator, contextGen
           }
           if (srcUrl.searchParams.has('no-hook-authorization')) {
             let noHookAuthorization = srcUrl.searchParams.get('no-hook-authorization').split(/,/);
-            hook.parameters.noHookAuthorizationPassed = hook.parameters.noHookAuthorizationPassed || {};
+            hook.parameters.noHookAuthorizationPreValidated = hook.parameters.noHookAuthorizationPreValidated || {};
             noHookAuthorization.forEach(ticket => {
-              hook.parameters.noHookAuthorizationPassed[ticket] = true;
+              hook.parameters.noHookAuthorizationPreValidated[ticket] = true;
             });
           }
         }
@@ -796,7 +802,20 @@ function onFetch(event) {
                           }
                         })
                       });
-                      return sequence.then(() => processedResponse);
+                      return sequence.then(() => {
+                        // preprocess again after execution of all the context generator scripts
+                        result = _preprocessHtml(
+                          decoded,
+                          hookNameForServiceWorker,
+                          url,
+                          cors,
+                          contextGeneratorName,
+                          [],
+                          original !== decoded,
+                          true);
+                        // Note: context generator scripts should not throw hook errors
+                        return new Response(result, { headers: {'Content-Type': 'text/html'} });
+                      });
                     }
                   }
                 });
