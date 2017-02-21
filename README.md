@@ -293,6 +293,9 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
 - Hooked Native APIs: Automatically applied in `hook()` preprocessing
   - `hook.Function(hookName, initialContext: Array = [['Function', {}]], contextGeneratorName)`: hooked Function constructor
     - Usage: `(new (hook.Function('__hook__', [['window,Function', {}]], 'method'))('return function f() {}'))()`
+  - `hook.eval(hookName, initialContext: Array = [['eval', {}]], contextGeneratorName)`: hooked eval function
+    - Usage: `hook.eval('__hook__', [['eval', {}]], 'method'))('1 + 2', (script, eval) => eval(script))`
+    - Note: In no-hook scripts with the hooked global `eval` function via `hook.hook(hook.eval(...))`, the evaluation is bound to the global scope unless the wrapper arrow function `(script, eval) => eval(script)` is defined in the local scope and specifed as the second argument of each `eval()` call
   - `hook.setTimeout(hookName, initialContext: Array = [['setTimeout', {}]], contextGeneratorName)`: hooked setTimeout function
     - Note: Not automatically applied if the first argument is an (arrow) function expression
   - `hook.setInterval(hookName, initialContext: Array = [['setInterval', {}]], contextGeneratorName)`: hooked setInterval function
