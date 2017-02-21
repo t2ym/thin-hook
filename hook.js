@@ -118,9 +118,11 @@ function _preprocess(ast, isConstructor = false, hookName, astPath, contextGener
             espreeOptions).body[0].expression;
         let wrapper = espree.parse('(script, eval) => eval(script)', espreeOptions).body[0].expression;
         ast.callee = template;
-        wrapper.__hooked__ = true;
-        wrapper.body.__hooked__ = true;
-        ast.arguments.push(wrapper);
+        if (ast.arguments.length === 1) {
+          wrapper.__hooked__ = true;
+          wrapper.body.__hooked__ = true;
+          ast.arguments.push(wrapper);
+        }
       }
     }
     break;
@@ -410,7 +412,14 @@ function hookEval(hookName, initialContext = [['eval', {}]], contextGenerator) {
   //       eval(script, (script, eval) => eval(script))
   //       The default argument explicitly uses _eval (not eval) to force the evaluation bound to the global scope
   return function eval(script, evalWrapper = (script, _eval) => _eval(script)) {
-    if (typeof script === 'string') {
+    if (!evalWrapper || typeof evalWrapper !== 'function' ||
+        (evalWrapper.toString().replace(/ /g, '') !== '(script,eval)=>eval(script)' &&
+         evalWrapper.toString().replace(/ /g, '') !== '(script,_eval)=>_eval(script)')) {
+      console.error('hook.eval: invalid eval wrapper function "' + evalWrapper.toString() + '"');
+      evalWrapper = (script, _eval) => _eval(script);
+      script = '/* invalidated eval script due to invalid eval wrapper function */';
+    }
+    else if (typeof script === 'string') {
       script = hook(script, hookName, initialContext, contextGenerator);
     }
     return _global[hookName](evalWrapper, this, [script, _native.eval], 'eval');
