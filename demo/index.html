@@ -15,7 +15,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <script src="../../thin-hook/hook.min.js?version=311&no-hook-authorization=1d3b7349bf7d5ae768430e4c663487a96a442dba77e9801df542e7a2e82376d1,log-no-hook-authorization&sw-root=/&no-hook=true&hook-name=__hook__&context-generator-name=method2&discard-hook-errors=false&fallback-page=index-fb.html&service-worker-ready=false"></script></head></html><!--
+  <script src="../../thin-hook/hook.min.js?version=325&no-hook-authorization=2dbc0f87499481d10ff331b3c1eae4fb670d13354111f5a160861b852b91c5d3,log-no-hook-authorization&sw-root=/&no-hook=true&hook-name=__hook__&context-generator-name=method2&discard-hook-errors=false&fallback-page=index-fb.html&service-worker-ready=false"></script></head></html><!--
   <script context-generator src="no-hook-authorization.js?no-hook=true"></script>
   <script context-generator src="hash-context-generator.js?no-hook=true"></script>
   <script context-generator no-hook>
@@ -266,6 +266,8 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       let f = eval('if (e > 3) { c + 3; } else { b + 2; }');
       // Hooked eval() calls are bound to the local scope
       console.log(a, b, c, e, f); // 2 5 6 9 9
+      // invalid eval wrapper function should be detected
+      //eval('console.log("from hooked eval")', (script, e) => e('console.log("from native eval")'));
     }
   </script>
   <script no-hook>
