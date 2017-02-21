@@ -108,6 +108,21 @@ function _preprocess(ast, isConstructor = false, hookName, astPath, contextGener
           espreeOptions).body[0].expression;
       ast.callee = template;
     }
+    else if (metaHooking && ast.callee && ast.callee.type === 'Identifier' && ast.callee.name === 'eval') {
+      if (ast.__hooked__) {
+        delete ast.__hooked__;
+      }
+      else {
+        let context = contextGenerator(astPath).replace(/\'/g, '\\\'');
+        let template = espree.parse('hook.' + ast.callee.name + '(\'' + hookName + '\', [[\'' + context + '\', {}]], \'' + contextGeneratorName + '\')',
+            espreeOptions).body[0].expression;
+        let wrapper = espree.parse('(script, eval) => eval(script)', espreeOptions).body[0].expression;
+        ast.callee = template;
+        wrapper.__hooked__ = true;
+        wrapper.body.__hooked__ = true;
+        ast.arguments.push(wrapper);
+      }
+    }
     break;
   case 'MetaProperty':
     // patch espree-generated AST to be compatible with that from esprima
@@ -326,6 +341,7 @@ const _global = typeof window === 'object' ? window : typeof global === 'object'
 // TODO: automate generation of these objects
 const _native = {
   Function: _global.Function,
+  eval: _global.eval,
   setTimeout: _global.setTimeout,
   setInterval: _global.setInterval,
   HTMLScriptElement: _global.HTMLScriptElement,
@@ -385,6 +401,19 @@ function hookFunction(hookName, initialContext = [['Function', {}]], contextGene
       args[args.length - 1] = hooked;
     }
     return Reflect.construct(_native.Function, args);
+  }
+}
+
+function hookEval(hookName, initialContext = [['eval', {}]], contextGenerator) {
+  // Note: In no-hook scripts, hooked _global.eval is bound to the global scope, not the local one
+  //       To work aournd this limitation, attach the default evalWrapper explicitly in the second argument like this:
+  //       eval(script, (script, eval) => eval(script))
+  //       The default argument explicitly uses _eval (not eval) to force the evaluation bound to the global scope
+  return function eval(script, evalWrapper = (script, _eval) => _eval(script)) {
+    if (typeof script === 'string') {
+      script = hook(script, hookName, initialContext, contextGenerator);
+    }
+    return _global[hookName](evalWrapper, this, [script, _native.eval], 'eval');
   }
 }
 
@@ -641,6 +670,10 @@ function hookPlatform(...targets) {
         { value: target, configurable: false, enumerable: false, writable: false });
       break;
     case 'eval':
+      _freezeProperties(target);
+      Object.defineProperty(platform, target.name,
+        { value: target, configurable: false, enumerable: false, writable: false });
+      break;
     case 'write':
     default:
       break;
@@ -904,6 +937,7 @@ module.exports = Object.freeze(Object.assign(hook, {
   __hook__: __hook__,
   hook: hookPlatform,
   Function: hookFunction,
+  eval: hookEval,
   setTimeout: hookSetTimeout,
   setInterval: hookSetInterval,
   Node: hookNode,
