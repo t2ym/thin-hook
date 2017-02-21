@@ -334,6 +334,25 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
         - The values are stored in `hook.parameters.noHookAuthorizationPreValidated` object in Service Worker
         - Add the value `log-no-hook-authorization` to log authorization in console
         - Note: `no-hook-authorization` must not exist in learning mode with `hook.parameters.noHookAuthorization['*'] === true`
+          - Steps to update authorized no-hook scripts:
+            - 1. Let no-hook be "learning mode" by truthy `hook.parameters.noHookAuthorization['*']`
+            - 2. Remove (or temporarily rename) `no-hook-authorization` parameter from hook.min.js
+            - 3. Update no-hook script(s)
+            - 4. Clear Service Worker(s)
+            - 5. Update `version` parameter for hook.min.js
+            - 6. Check "Preserve Logs" option in debugger console
+            - 7. Reload the page(s) with no-hook script(s)
+            - 8. Copy and Paste values of hook.parameters.noHookAuthorizationPassed from both browser document and Service Worker to no-hook authorization script
+            - 9. Disable "learning mode"
+            - 10. Enable (or revive) `no-hook-authorization` parameter for hook.min.js with a dummy value
+            - 11. Clear Service Worker(s)
+            - 12. Update `version` parameter for hook.min.js
+            - 13. Reload the page(s) with no-hook scripts(s)
+            - 14. Copy and Paste the ticket for the no-hook authorization script into the `no-hook-authorization` parameter
+            - 15. Update `version` parameter for hook.min.js
+            - 16. Clear Service Worker(s)
+            - 17. Reload the page(s) with no-hook script(s)
+            - 18. Check if there are no unauthorized no-hook scripts
       - `service-worker-ready`: `true` if the entry HTML page is decoded; `false` if encoded. This parameter must be at the end of the URL
     - `<script src="script.js?no-hook=true"></script>`: skip hooking for the source script
     - `<script no-hook>...</script>`: skip hooking for the embedded script
