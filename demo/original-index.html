@@ -15,7 +15,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <script src="../../thin-hook/hook.min.js?version=268&no-hook-authorization=ba85e152d9adfa2d0c997e9355cc1a92f84b6da0e248b5b8f93a54ea8bf5ceb5,log-no-hook-authorization&sw-root=/&no-hook=true&hook-name=__hook__&context-generator-name=method2&discard-hook-errors=false&fallback-page=index-fb.html&service-worker-ready=true"></script>
+  <script src="../../thin-hook/hook.min.js?version=311&no-hook-authorization=1d3b7349bf7d5ae768430e4c663487a96a442dba77e9801df542e7a2e82376d1,log-no-hook-authorization&sw-root=/&no-hook=true&hook-name=__hook__&context-generator-name=method2&discard-hook-errors=false&fallback-page=index-fb.html&service-worker-ready=true"></script>
   <script context-generator src="no-hook-authorization.js?no-hook=true"></script>
   <script context-generator src="hash-context-generator.js?no-hook=true"></script>
   <script context-generator no-hook>
@@ -132,7 +132,8 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         Promise: Promise,
         HTMLScriptElement: typeof HTMLScriptElement === 'function' ? HTMLScriptElement : undefined,
         Node: typeof Node === 'function' ? Node : undefined,
-        Element: typeof Element === 'function' ? Element : undefined
+        Element: typeof Element === 'function' ? Element : undefined,
+        eval: typeof eval === 'function' ? eval : undefined
       }
       _nativeMethods = {
         Promise: {
@@ -183,7 +184,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     }
   </script>
   <script no-hook>
-    [ 'Function', 'setTimeout', 'setInterval', 'Node', 'Element', 'HTMLScriptElement', 'HTMLAnchorElement', 'HTMLAreaElement', 'Document' ]
+    [ 'Function', 'eval', 'setTimeout', 'setInterval', 'Node', 'Element', 'HTMLScriptElement', 'HTMLAnchorElement', 'HTMLAreaElement', 'Document' ]
       .forEach((name) => hook.hook(hook[name]('__hook__', [[name, {}]], 'method2')));
   </script>
   <!-- <script no-hook>(function ff() { alert('invalid no-hook script that should not be executed'); })()</script> -->
@@ -256,6 +257,42 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       document.write('<div><sc' + 'ript>' + '(function write3() { console.log("script tag in div tag via document.write"); })()' + '</sc' + 'ript></div>');
       document.write('<div><sc' + 'ript no-hook>' + '(function write4() { console.log("no-hook script tag in div tag via document.write"); })()' + '</sc' + 'ript></div>');
       document.write('<div></div>');
+    }
+    {
+      let a = 2;
+      let b = eval('a + 3');
+      let c = eval('let d = 4; d + 2');
+      let e = eval('(function f(x) { return x + 3; })(c)');
+      let f = eval('if (e > 3) { c + 3; } else { b + 2; }');
+      // Hooked eval() calls are bound to the local scope
+      console.log(a, b, c, e, f); // 2 5 6 9 9
+    }
+  </script>
+  <script no-hook>
+    {
+      window.a = 9;
+      window.b = 7;
+      window.c = 12;
+      window.e = 19;
+      let a = 2;
+      let b = eval('a + 3');
+      let c = eval('let d = 4; d + 2');
+      let e = eval('(function f(x) { return x + 3; })(c)');
+      let f = eval('if (e > 3) { c + 3; } else { b + 2; }');
+      // hooked window.eval() in a no-hook script is bound to the global scope, not to the local one
+      console.log(a, b, c, e, f); // 2 12 6 15 15
+    }
+    {
+      let wrapper = (script, eval) => eval(script);
+      let a = 2;
+      let b = eval('a + 3', wrapper);
+      let c = eval('let d = 4; d + 2', wrapper);
+      let e = eval('(function f(x) { return x + 3; })(c)', wrapper);
+      let f = eval('if (e > 3) { c + 3; } else { b + 2; }', wrapper);
+      // Use this locally bound arrow function wrapper as the second argument to bound the hooked eval to the local scope
+      // Eventually, there should be a better way to use the native eval, or other native APIs in general, in no-hook scripts more naturally
+      // The easiest way is to put all the no-hook scripts BEFORE hooking the platform with hook.hook(hook.eval(...))
+      console.log(a, b, c, e, f); // 2 5 6 9 9
     }
   </script>
   <!-- CORS scripts -->
