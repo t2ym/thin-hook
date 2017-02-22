@@ -85,13 +85,14 @@ Thin Hook Preprocessor (experimental)
     "35ae97a3305b863af7eb0ac75c8679233a2a7550e4c3046507fc9ea182c03615": true,
     "16afd3d5aa90cbd026eabcc4f09b1e4207a7042bc1e9be3b36d94415513683ed": true,
     "ae11a06c0ddec9f5b75de82a40745d6d1f92aea1459e8680171c405a5497d1c8": true,
-    "477a46cd19b0db0cc97d660a91cb57a8567e415d1e4a4efe4eafe6e0a6a2037b": true,
-    "7ecb3aeb79e5b143f0f5efd4070e55584abf96ce4ad8b54f44dec377c2e455ee": true,
-    "a6b4709f6d2d0e0c070c98a28f3ad122a830388df23b0d1fd0ad597cd34542fd": true,
+    "5b7ebf7b0b2977d44f47ffa4b19907abbc443feb31c343a6cbbbb033c8deb01a": true,
+    "c714633723320be54f106de0c50933c0aeda8ac3fba7c41c97a815ed0e71594c": true,
+    "2f43d927664bdfcbcb2cc4e3743652c7eb070057efe7eaf43910426c6eae7e45": true,
+    "b397e7c81cca74075d2934070cbbe58f345d3c00ff0bc04dc30b5c67715a572f": true,
     "02c107ea633ed697acc12e1b3de1bcf2f0ef7cafe4f048e29553c224656ecd7a": true,
-    "18fc57b3d13b0ff185c77c0d0c343e30999dc9ebb84213c1749e739218262ee4": true
+    "aebb23ce36eb6f7d597d37727b4e6ee5a57aafc564af2d65309a9597bfd86625": true
   };
-  const hidden = Symbol('hidden');
+  let hidden;
   const passcode = 'XX02c107ea633ed697acc12e1b3de1bcf2f0ef7cafe4f048e29553c224656ecd7a';
   if (typeof self === 'object' && self.constructor.name === 'ServiceWorkerGlobalScope') {
     // Service Worker
@@ -109,13 +110,13 @@ Thin Hook Preprocessor (experimental)
         configurable: false,
         enumerable: true,
         get() {
-          return this[hidden];
+          return hidden;
         },
         set(value) {
           if (value && value.passcode === passcode) {
             delete value.passcode;
             Object.freeze(value);
-            this[hidden] = value;
+            hidden = value;
           }
         }
       });

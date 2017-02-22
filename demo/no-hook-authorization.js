@@ -19,7 +19,7 @@
     "02c107ea633ed697acc12e1b3de1bcf2f0ef7cafe4f048e29553c224656ecd7a": true,
     "aebb23ce36eb6f7d597d37727b4e6ee5a57aafc564af2d65309a9597bfd86625": true
   };
-  const hidden = Symbol('hidden');
+  let hidden;
   const passcode = 'XX02c107ea633ed697acc12e1b3de1bcf2f0ef7cafe4f048e29553c224656ecd7a';
   if (typeof self === 'object' && self.constructor.name === 'ServiceWorkerGlobalScope') {
     // Service Worker
@@ -37,13 +37,13 @@
         configurable: false,
         enumerable: true,
         get() {
-          return this[hidden];
+          return hidden;
         },
         set(value) {
           if (value && value.passcode === passcode) {
             delete value.passcode;
             Object.freeze(value);
-            this[hidden] = value;
+            hidden = value;
           }
         }
       });
