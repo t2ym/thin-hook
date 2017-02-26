@@ -15,7 +15,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <script src="../../thin-hook/hook.min.js?version=326&no-hook-authorization=d1abd0401ca6aaf996e8c74baf99766f7e8904061f755e0babdd144bf252d67e,log-no-hook-authorization&sw-root=/&no-hook=true&hook-name=__hook__&context-generator-name=method2&discard-hook-errors=false&fallback-page=index-fb.html&service-worker-ready=true"></script>
+  <script src="../../thin-hook/hook.min.js?version=359&no-hook-authorization=6546386e188d4b7a76ec866f619cd59c3757a8d754c9d3b25beda6498ef9c642,log-no-hook-authorization&sw-root=/&no-hook=true&hook-name=__hook__&context-generator-name=method2&discard-hook-errors=false&fallback-page=index-fb.html&service-worker-ready=true"></script>
   <script context-generator src="no-hook-authorization.js?no-hook=true"></script>
   <script context-generator src="hash-context-generator.js?no-hook=true"></script>
   <script context-generator no-hook>
@@ -24,6 +24,14 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js',
       (url) => { let _url = new URL(url); return _url.hostname !== location.hostname && ['www.gstatic.com'].indexOf(_url.hostname) < 0; }
     ];
+    hook.parameters.worker = {
+      scripts: [
+        '../hook.min.js?no-hook=true',
+        'no-hook-authorization.js?no-hook=true',
+        'hook-callback.js?no-hook=true',
+        'hook-native-api.js?no-hook=true'
+      ]
+    };
     hook.contextGenerators.method2 = function generateMethodContext2(astPath) {
       return astPath.map(([ path, node ], index) => node && node.type
         ? (node.id && node.id.name ? node.id.name : (node.key && node.key.name
@@ -34,159 +42,9 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     Object.freeze(hook.contextGenerators);
   }
   </script>
-  <script no-hook>
-    var callTree = [['Phrases']];
-    var callTreeLastLength = callTree.length;
-    var counter = 0;
-    var calleeErrorCounter = 0;
-    var log = [];
-    var contexts = {};
-    var locationContexts = {};
-    var contextTransitions = {};
-    var contextReverseTransitions = {};
-    var lastContext;
-    var contextStack = [];
-    var contextStackLog = {};
-    var callbacks = {};
-    var reverseCallbacks = {};
-    var pseudoContextArgument = Symbol('callback context');
-    var callbackFunctions = new WeakMap();
-    window.__hook__ = function __hook__(f, thisArg, args, context, newTarget) {
-      counter++;
-      if (args[0] === pseudoContextArgument) {
-        return context;
-      }
-      let _lastContext = lastContext;
-      contexts[context] = true;
-      if ((context === 'setTimeout' || context === 'setInterval' || context.indexOf('Promise') === 0 || context === 'EventTarget,addEventListener') && args) {
-        for(let i = 0; i < 2; i++) {
-          if (typeof args[i] === 'function') {
-            let cbContext = callbackFunctions.get(args[i]);
-            if (typeof cbContext === 'undefined') {
-              cbContext = args[i].toString().indexOf('__hook__') >= 0;
-              if (cbContext) {
-                cbContext = args[i](pseudoContextArgument);
-              }
-              callbackFunctions.set(args[i], cbContext);
-            }
-            if (cbContext) {
-              reverseCallbacks[lastContext] = reverseCallbacks[lastContext] || {};
-              reverseCallbacks[lastContext][context] = reverseCallbacks[lastContext][context] || {};
-              reverseCallbacks[lastContext][context][cbContext] = args[i];
-              callbacks[cbContext] = callbacks[cbContext] || {};
-              callbacks[cbContext][context] = callbacks[cbContext][context] || {};
-              callbacks[cbContext][context][lastContext] = args[i];
-              //console.log('Registering CALLBACK ' + lastContext + ' -> ' + context + ' -> callback ' + cbContext, args[i]);
-            }
-          }
-          else if (i === 0 && (context === 'setTimeout' || context === 'setInterval') && typeof args[i] === 'string') {
-            let lines = args[i].split(/\n/);
-            let match = lines[lines.length - 1].match(/}, this, args, '([^']*)'\)\)\)\(\);/);
-            if (match) {
-              let cbContext = match[1];
-              reverseCallbacks[lastContext] = reverseCallbacks[lastContext] || {};
-              reverseCallbacks[lastContext][context] = reverseCallbacks[lastContext][context] || {};
-              reverseCallbacks[lastContext][context][cbContext] = args[i];
-              callbacks[cbContext] = callbacks[cbContext] || {};
-              callbacks[cbContext][context] = callbacks[cbContext][context] || {};
-              callbacks[cbContext][context][lastContext] = args[i];
-              //console.log('Registering CALLBACK script ' + lastContext + ' -> ' + context + ' -> callback script ' + cbContext, args[i]);
-            }
-          }
-        }
-      }
-      lastContext = context;
-      contextStack.push(context);
-      //contextStackLog[contextStack.join(' -> ')] = true;
-      contextTransitions[_lastContext] = contextTransitions[_lastContext] || {};
-      contextTransitions[_lastContext][context] = true;
-      contextReverseTransitions[context] = contextReverseTransitions[context] || {};
-      contextReverseTransitions[context][_lastContext] = true;
-
-      if (callbacks[context]) {
-        let c = 0;
-        for (let asyncEventContext in callbacks[context]) {
-          for (let callerContext in callbacks[context][asyncEventContext]) {
-            c++;
-            //console.log('Async CALLBACK ' + callerContext + ' -> ' + asyncEventContext + ' -> ' + context);
-          }
-        }
-        if (c !== 1) {
-          //console.log('CALLBACK with possibility of ' + c + ' multiple callers for ' + context);
-        }
-      }
-
-      let result = newTarget ? Reflect.construct(f, args) : thisArg ? f.apply(thisArg, args) : f(...args);
-      lastContext = _lastContext;
-      // if (contextStack[contextStack.length - 1] !== context) { debugger; }
-      contextStack.pop();
-      return result;
-    }
-
-    function showContextStackLog() {
-      let asyncCalls = Object.keys(contextStackLog).filter(c => c.match(/(setTimeout|setInterval|Promise)/g));
-      console.log(asyncCalls);
-    }
-    {
-      _native = {
-        Promise: Promise,
-        HTMLScriptElement: typeof HTMLScriptElement === 'function' ? HTMLScriptElement : undefined,
-        Node: typeof Node === 'function' ? Node : undefined,
-        Element: typeof Element === 'function' ? Element : undefined,
-        eval: typeof eval === 'function' ? eval : undefined
-      }
-      _nativeMethods = {
-        Promise: {
-          static: {
-            resolve: Promise.resolve,
-            reject: Promise.reject,
-            all: Promise.all,
-            race: Promise.race
-          },
-          proto: {
-            then: Promise.prototype.then,
-            catch: Promise.prototype.catch
-          }
-        },
-        EventTarget: {
-          static: {},
-          proto: {
-            addEventListener: EventTarget.prototype.addEventListener
-          }
-        }
-      }
-      let contextGeneratorName = 'method2';
-
-      function hookPromise(hookName) {
-        let _Promise = function Promise(...args) {
-          return window[hookName](_native.Promise, null, args, 'Promise', new.target);
-        };
-
-        [ 'resolve', 'reject', 'all', 'race', 'prototype' ].forEach(prop => {
-          _Promise[prop] = Promise[prop];
-        });
-
-        _Promise.prototype.then = function (...args) {
-          return window[hookName](_nativeMethods.Promise.proto.then, this, args, 'Promise,then');
-        }
-
-        _Promise.prototype.catch = function (...args) {
-          return window[hookName](_nativeMethods.Promise.proto.catch, this, args, 'Promise,catch');
-        }
-        return _Promise;                
-      }
-
-      window.Promise = hookPromise('__hook__');
-
-      EventTarget.prototype.addEventListener = function addEventListener(...args) {
-        return window.__hook__(_nativeMethods.EventTarget.proto.addEventListener, this, args, 'EventTarget,addEventListener');
-      }
-    }
-  </script>
-  <script no-hook>
-    [ 'Function', 'eval', 'setTimeout', 'setInterval', 'Node', 'Element', 'HTMLScriptElement', 'HTMLAnchorElement', 'HTMLAreaElement', 'Document' ]
-      .forEach((name) => hook.hook(hook[name]('__hook__', [[name, {}]], 'method2')));
-  </script>
+  <script src="hook-callback.js?no-hook=true"></script>
+  <script src="hook-native-api.js?no-hook=true"></script>
+  <script src="../../chai/chai.js?no-hook=true"></script>
   <!-- <script no-hook>(function ff() { alert('invalid no-hook script that should not be executed'); })()</script> -->
   <script>
     {
@@ -266,6 +124,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       let f = eval('if (e > 3) { c + 3; } else { b + 2; }');
       // Hooked eval() calls are bound to the local scope
       console.log(a, b, c, e, f); // 2 5 6 9 9
+      chai.assert.deepEqual([a, b, c, e, f], [2, 5, 6, 9, 9], 'hooked eval results');
       // invalid eval wrapper function should be detected
       //eval('console.log("from hooked eval")', (script, e) => e('console.log("from native eval")'));
     }
@@ -283,6 +142,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       let f = eval('if (e > 3) { c + 3; } else { b + 2; }');
       // hooked window.eval() in a no-hook script is bound to the global scope, not to the local one
       console.log(a, b, c, e, f); // 2 12 6 15 15
+      chai.assert.deepEqual([a, b, c, e, f], [2, 12, 6, 15, 15], 'hooked eval results');
     }
     {
       let wrapper = (script, eval) => eval(script);
@@ -295,8 +155,10 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       // Eventually, there should be a better way to use the native eval, or other native APIs in general, in no-hook scripts more naturally
       // The easiest way is to put all the no-hook scripts BEFORE hooking the platform with hook.hook(hook.eval(...))
       console.log(a, b, c, e, f); // 2 5 6 9 9
+      chai.assert.deepEqual([a, b, c, e, f], [2, 5, 6, 9, 9], 'hooked eval results');
     }
   </script>
+  <script src="web-worker-client.js"></script>
   <!-- CORS scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jsSHA/2.2.0/sha.js?cors=true"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
