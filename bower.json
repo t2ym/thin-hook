@@ -29,6 +29,7 @@
     "iron-localstorage": "polymerelements/iron-localstorage#^1.0.0",
     "iron-media-query": "polymerelements/iron-media-query#^1.0.0",
     "iron-selector": "polymerelements/iron-selector#^1.0.0",
-    "iron-test-helpers": "^1.2.5"
+    "iron-test-helpers": "^1.2.5",
+    "chai": "3.5.0"
   }
 }
