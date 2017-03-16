@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file xml:space="default" source-language="en" target-language="fr" datatype="plaintext" original="messages" date="2017-02-11T03:36:20Z" product-name="messages">
+  <file xml:space="default" source-language="en" target-language="fr" datatype="plaintext" original="messages" date="2017-03-16T09:14:59Z" product-name="messages">
     <header>
       <tool tool-id="xliff-conv" tool-name="xliff-conv" tool-version="1.0.10"/>
     </header>
@@ -41,6 +41,34 @@
       <trans-unit id="my-view1.div_1:p_3">
         <source>Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Cu mei vide viris gloriatur, at populo eripuit sit.</source>
         <target state="new">fr Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Cu mei vide viris gloriatur, at populo eripuit sit.</target>
+      </trans-unit>
+      <trans-unit id="my-view1.chartData.titleLabel">
+        <source># of Votes</source>
+        <target state="new">fr # of Votes</target>
+      </trans-unit>
+      <trans-unit id="my-view1.chartData.labels.0">
+        <source>Red</source>
+        <target state="new">fr Red</target>
+      </trans-unit>
+      <trans-unit id="my-view1.chartData.labels.1">
+        <source>Blue</source>
+        <target state="new">fr Blue</target>
+      </trans-unit>
+      <trans-unit id="my-view1.chartData.labels.2">
+        <source>Yellow</source>
+        <target state="new">fr Yellow</target>
+      </trans-unit>
+      <trans-unit id="my-view1.chartData.labels.3">
+        <source>Green</source>
+        <target state="new">fr Green</target>
+      </trans-unit>
+      <trans-unit id="my-view1.chartData.labels.4">
+        <source>Purple</source>
+        <target state="new">fr Purple</target>
+      </trans-unit>
+      <trans-unit id="my-view1.chartData.labels.5">
+        <source>Orange</source>
+        <target state="new">fr Orange</target>
       </trans-unit>
       <trans-unit id="my-view2.div_1:a:div">
         <source>2</source>
