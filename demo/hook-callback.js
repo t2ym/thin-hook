@@ -4,6 +4,8 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 */
 {
   var callTree = [['Phrases']];
+  // { id: label: group: }
+  var data = { nodes: [ { id: 'undefined', label: 'undefined', group: 'undefined' } ], edges: [] };
   var callTreeLastLength = callTree.length;
   var counter = 0;
   var calleeErrorCounter = 0;
@@ -20,12 +22,18 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
   var pseudoContextArgument = Symbol('callback context');
   var callbackFunctions = new WeakMap();
   var _global = typeof window === 'object' ? window : self;
+  _global._data = data;
   _global.__hook__ = function __hook__(f, thisArg, args, context, newTarget) {
     counter++;
     if (args[0] === pseudoContextArgument) {
       return context;
     }
     let _lastContext = lastContext;
+    if (!contexts[context]) {
+      let group = context.split(/[,:]/)[0];
+      let node = { id: context, label: context, group: group };
+      data.nodes.push(node);
+    }
     contexts[context] = true;
     if ((context === 'setTimeout' || context === 'setInterval' || context.indexOf('Promise') === 0 || context === 'EventTarget,addEventListener') && args) {
       for(let i = 0; i < 2; i++) {
@@ -41,6 +49,10 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           if (cbContext) {
             reverseCallbacks[lastContext] = reverseCallbacks[lastContext] || {};
             reverseCallbacks[lastContext][context] = reverseCallbacks[lastContext][context] || {};
+            if (!reverseCallbacks[lastContext][context][cbContext]) {
+              let edge = { from: lastContext, to: cbContext, label: context, dashes: true, arrows: 'to' };
+              data.edges.push(edge);
+            }
             reverseCallbacks[lastContext][context][cbContext] = args[i];
             callbacks[cbContext] = callbacks[cbContext] || {};
             callbacks[cbContext][context] = callbacks[cbContext][context] || {};
@@ -68,6 +80,21 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     contextStack.push(context);
     //contextStackLog[contextStack.join(' -> ')] = true;
     contextTransitions[_lastContext] = contextTransitions[_lastContext] || {};
+    if (!contextTransitions[_lastContext][context]) {
+      if (_lastContext) {
+        let edge = { from: _lastContext, to: context, arrows: 'to' };
+        data.edges.push(edge);
+      }
+      else {
+        if (callbacks[context]) {
+          // async callback
+        }
+        else {
+          let edge = { from: 'undefined', to: context, arrows: 'to' };
+          data.edges.push(edge);
+        }
+      }
+    }
     contextTransitions[_lastContext][context] = true;
     contextReverseTransitions[context] = contextReverseTransitions[context] || {};
     contextReverseTransitions[context][_lastContext] = true;
