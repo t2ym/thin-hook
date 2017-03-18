@@ -711,12 +711,13 @@ function onFetch(event) {
         let cors = false;
         let request;
         if (!response) {
-          if (event.request.url.indexOf('cors=true') >= 0) {
+          if (event.request.method === 'GET' && event.request.url.indexOf('cors=true') >= 0) {
             cors = true;
             // no inheritance of auth information, etc. from event.request
             request = new Request(event.request.url.replace(/&cors=true/, '').replace(/\?cors=true$/, '').replace(/\?cors=true&/, '?'), { mode: 'cors' });
           }
-          else if (Array.isArray(hook.parameters.cors) &&
+          else if (event.request.method === 'GET' &&
+            Array.isArray(hook.parameters.cors) &&
             hook.parameters.cors.filter(pattern =>
               typeof pattern === 'string' ? pattern === event.request.url : typeof pattern === 'function' ? pattern(event.request.url) : false
             ).reduce((prev, curr) => prev || curr, false)) {
