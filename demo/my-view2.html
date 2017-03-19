@@ -10,6 +10,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../../polymer/polymer.html">
 <link rel="import" href="../../i18n-behavior/i18n-behavior.html">
+<link rel="import" href="../../paper-progress/paper-progress.html">
 
 <dom-module id="my-view2">
 
@@ -44,6 +45,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         margin: 16px 0;
         color: #212121;
       }
+      .progress {
+        bottom: 0px;
+        width: 100%;
+      }
+      .progress.finished {
+        visibility: hidden;
+      }
     </style>
 
     <div class="card">
@@ -51,6 +59,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <h1>View Two</h1>
       <p>Ea duis bonorum nec, falli paulo aliquid ei eum.</p>
       <p>Id nam odio natum malorum, tibique copiosae expetenda mel ea.Detracto suavitate repudiandae no eum. Id adhuc minim soluta nam.Id nam odio natum malorum, tibique copiosae expetenda mel ea.</p>
+      <paper-progress id="progress" class="progress" max="150" value="[[progress]]"></paper-progress>
       <div id="mynetwork" width="400" height="400"></div>
     </div>
 
@@ -100,7 +109,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             maxVelocity: 146,
             solver: 'forceAtlas2Based',
             timestep: 0.35,
-            stabilization: {iterations: 150}
+            stabilization: {
+              iterations: 150,
+              updateInterval: 1
+            }
           },
           layout: {
             improvedLayout: false
@@ -108,6 +120,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         };
         this.network = new vis.Network(container, window._data, options);
         this._lastEdges = window._data.edges.length;
+        this.progress = 0;
+        this.network.addEventListener('stabilizationProgress', this.onProgressBindThis = this.onProgress.bind(this));
+        this.network.addEventListener('stabilizationIterationsDone', this.onFinishBindThis = this.onFinish.bind(this));
+      },
+
+      onProgress: function(e) {
+        this.progress = e.iterations;
+        if (this.$.progress.classList.contains('finished')) {
+          this.$.progress.classList.remove('finished');
+        }
+      },
+
+      onFinish: function(e) {
+        this.progress = 150;
+        this.$.progress.classList.add('finished');
       }
     });
 
