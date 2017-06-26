@@ -19,17 +19,20 @@
     "bower_components"
   ],
   "devDependencies": {
-    "live-localizer": "*",
+    "live-localizer": "^2.0.0",
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.0.0",
-    "web-component-tester": "4.2.2",
-    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0",
-    "app-layout": "polymerelements/app-layout#0.9.1",
-    "app-route": "polymerelements/app-route#^0.9.1",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.24",
+    "app-layout": "polymerelements/app-layout#^1.0.0",
+    "app-route": "polymerelements/app-route#^1.0.0",
     "iron-localstorage": "polymerelements/iron-localstorage#^1.0.0",
     "iron-media-query": "polymerelements/iron-media-query#^1.0.0",
     "iron-selector": "polymerelements/iron-selector#^1.0.0",
     "iron-test-helpers": "^1.2.5",
-    "chai": "3.5.0"
+    "chai": "3.5.0",
+    "paper-progress": "PolymerElements/paper-progress#^1.0.0"
+  },
+  "resolutions": {
+    "webcomponentsjs": "^0.7.24"
   }
 }
