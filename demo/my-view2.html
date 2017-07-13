@@ -52,6 +52,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       .progress.finished {
         visibility: hidden;
       }
+      #mynetwork {
+        min-width: 400px;
+        min-height: 400px;
+      }
     </style>
 
     <div class="card">
@@ -60,7 +64,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <p>Ea duis bonorum nec, falli paulo aliquid ei eum.</p>
       <p>Id nam odio natum malorum, tibique copiosae expetenda mel ea.Detracto suavitate repudiandae no eum. Id adhuc minim soluta nam.Id nam odio natum malorum, tibique copiosae expetenda mel ea.</p>
       <paper-progress id="progress" class="progress" max="150" value="[[progress]]"></paper-progress>
-      <div id="mynetwork" width="400" height="400"></div>
+      <div id="mynetwork"></div>
     </div>
 
   </template>
@@ -95,6 +99,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         // create a network
         let container = this.$.mynetwork;
         let options = {
+          autoResize: true,
+          width: '100%',
+          height: '400px',
           nodes: {
             shape: 'dot',
             size: 16
