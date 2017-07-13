@@ -307,8 +307,9 @@ function _preprocessHtml(html, hookName, url, cors, contextGenerator, contextGen
       throw error;
     }
   });
-  stream.write(html);
+  stream.write(html.replace(/\n/g, '\0').replace(/(<\/[\s]{1,})script([\s]*>)/g, '$1-closing-script-in-process-$2').replace(/\0/g, '\n'));
   stream.end();
+  processed = processed.replace(/\n/g, '\0').replace(/(<\/[\s]{1,})-closing-script-in-process-([\s]*>)/g, '$1script$2').replace(/\0/g, '\n');
   return processed;
 }
 
