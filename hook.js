@@ -196,6 +196,9 @@ function _preprocessHtml(html, hookName, url, cors, contextGenerator, contextGen
   let src = '';
   let inlineScript = '';
   let stream = new htmlparser.WritableStream({
+    onprocessinginstruction(name, data) {
+      processed += '<' + data + '>';
+    },
     onopentag(name, attributes) {
       let attrs = '';
       let attrNoHook = typeof attributes['no-hook'] === 'string';
