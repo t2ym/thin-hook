@@ -145,7 +145,7 @@ gulp.task('delayed-build', (done) => {
 });
 
 gulp.task('watch', function() {
-  gulp.watch(['hook.js'], ['delayed-build']);
+  gulp.watch(['hook.js', 'lib/**/*.js'], ['delayed-build']);
 });
 
 gulp.task('default', (done) => {
