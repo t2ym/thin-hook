@@ -5,13 +5,10 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 
 const serviceWorker = require('./lib/service-worker.js');
 const contextGenerators = require('./lib/context-generator.js');
+const hookCallbacks = require('./lib/hook-callback.js');
 
 const preprocess = serviceWorker.preprocess;
 const hook = preprocess.hook;
-
-function __hook__(f, thisArg, args, context) {
-  return thisArg ? f.apply(thisArg, args) : f(...args);
-}
 
 const _global = typeof window === 'object' ? window : typeof global === 'object' ? global : typeof self === 'object' ? self : this;
 // TODO: automate generation of these objects
@@ -364,8 +361,7 @@ function hookPlatform(...targets) {
   });
 }
 
-module.exports = Object.freeze(Object.assign(hook, {
-  __hook__: __hook__,
+module.exports = Object.freeze(Object.assign(hook, hookCallbacks, {
   hook: hookPlatform,
   Function: hookFunction,
   eval: hookEval,
