@@ -4,26 +4,13 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 */
 
 const serviceWorker = require('./lib/service-worker.js');
+const contextGenerators = require('./lib/context-generator.js');
 
 const preprocess = serviceWorker.preprocess;
 const hook = preprocess.hook;
 
 function __hook__(f, thisArg, args, context) {
   return thisArg ? f.apply(thisArg, args) : f(...args);
-}
-
-function generateAstPathContext(astPath) {
-  return astPath.map(([ path, node ]) => node && node.type
-    ? '[' + path + ']' + node.type + (node.id && node.id.name ? ':' + node.id.name : (node.key && node.key.name
-      ? ':' + (node.kind === 'get' || node.kind === 'set' ? node.kind + ' ' : node.static ? 'static ' : '') + node.key.name : ''))
-    : path).join(',');
-}
-
-function generateMethodContext(astPath) {
-  return astPath.map(([ path, node ], index) => node && node.type
-    ? (node.id && node.id.name ? node.id.name : (node.key && node.key.name
-      ? (node.kind === 'get' || node.kind === 'set' ? node.kind + ' ' : node.static ? 'static ' : '') + node.key.name : ''))
-    : index === 0 ? path : '').filter(p => p).join(',');
 }
 
 const _global = typeof window === 'object' ? window : typeof global === 'object' ? global : typeof self === 'object' ? self : this;
@@ -393,11 +380,7 @@ module.exports = Object.freeze(Object.assign(hook, {
   serviceWorkerHandlers: serviceWorker.serviceWorkerHandlers,
   serviceWorkerTransformers: serviceWorker.serviceWorkerTransformers,
   registerServiceWorker: serviceWorker.registerServiceWorker,
-  contextGenerators: {
-    'null': () => '',
-    'astPath': generateAstPathContext,
-    'method': generateMethodContext
-  },
+  contextGenerators: contextGenerators,
   utils: {
     createHash: preprocess.createHash
   },
