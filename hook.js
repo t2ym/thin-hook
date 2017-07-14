@@ -3,12 +3,15 @@
 Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 */
 
-const serviceWorker = require('./lib/service-worker.js');
-const contextGenerators = require('./lib/context-generator.js');
-const hookCallbacks = require('./lib/hook-callback.js');
-
-const preprocess = serviceWorker.preprocess;
+const espree = require('espree');
+const escodegen = require('escodegen');
+const htmlparser = require('htmlparser2');
+const createHash = require('sha.js');
+const preprocess = require('./lib/preprocess.js')(espree, escodegen, htmlparser, createHash);
 const hook = preprocess.hook;
+const serviceWorker = require('./lib/service-worker.js')(hook, preprocess);
+const contextGenerators = require('./lib/context-generator.js')(hook);
+const hookCallbacks = require('./lib/hook-callback.js')(hook);
 
 const _global = typeof window === 'object' ? window : typeof global === 'object' ? global : typeof self === 'object' ? self : this;
 // TODO: automate generation of these objects
@@ -361,7 +364,7 @@ function hookPlatform(...targets) {
   });
 }
 
-module.exports = Object.freeze(Object.assign(hook, hookCallbacks, {
+module.exports = Object.freeze(Object.assign(hook, hookCallbacks, contextGenerators, serviceWorker, {
   hook: hookPlatform,
   Function: hookFunction,
   eval: hookEval,
@@ -373,12 +376,8 @@ module.exports = Object.freeze(Object.assign(hook, hookCallbacks, {
   HTMLAreaElement: hookHTMLAreaElement,
   HTMLScriptElement: hookHTMLScriptElement,
   Document: hookDocument,
-  serviceWorkerHandlers: serviceWorker.serviceWorkerHandlers,
-  serviceWorkerTransformers: serviceWorker.serviceWorkerTransformers,
-  registerServiceWorker: serviceWorker.registerServiceWorker,
-  contextGenerators: contextGenerators,
   utils: {
-    createHash: preprocess.createHash
+    createHash: createHash
   },
   parameters: {}
 }));
