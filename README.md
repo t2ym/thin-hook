@@ -242,6 +242,7 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
 - Object Shorthand Methods (`{ m() {} }`)
 - ES6 Classes (`constructor`, `super`, `this`)
 - ES6 Modules (`import`, `export`);
+- Expressions in Template Literals(`` `${(v => v * v)(x)}` ``)
 - Generator Functions (`function *g() { yield X }`)
 - Arrow Functions (`a => a`, `a => { return a; }`, `a => ({ p: a })`)
 - Async Functions (`async function f() {}`, `async method() {}`, `async () => {}`)
