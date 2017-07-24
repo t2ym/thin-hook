@@ -132,6 +132,18 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       // invalid eval wrapper function should be detected
       //eval('console.log("from hooked eval")', (script, e) => e('console.log("from native eval")'));
     }
+    {
+      class S {
+        static sin(v) {
+          return Math.sin(v);
+        }
+      }
+      console.log(`
+        Math.sin(1) = ${Math.sin(1)}
+        S.sin(1) = ${S.sin(1)}
+        function f(1) = ${function f(v) { return S.sin(v); }(1)}
+        (v => S.sin(v))(1) = ${(v => S.sin(v))(1)}`);
+    }
   </script>
   <script type="module" src="es6-module2.js"></script>
   <script no-hook>
