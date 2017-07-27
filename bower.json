@@ -20,19 +20,17 @@
   ],
   "devDependencies": {
     "live-localizer": "^2.0.0",
-    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
-    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.0.0",
-    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.24",
-    "app-layout": "polymerelements/app-layout#^1.0.0",
-    "app-route": "polymerelements/app-route#^1.0.0",
-    "iron-localstorage": "polymerelements/iron-localstorage#^1.0.0",
-    "iron-media-query": "polymerelements/iron-media-query#^1.0.0",
-    "iron-selector": "polymerelements/iron-selector#^1.0.0",
-    "iron-test-helpers": "^1.2.5",
+    "iron-component-page": "PolymerElements/iron-component-page#^2.0.0",
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^2.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0",
+    "app-layout": "polymerelements/app-layout#^2.0.0",
+    "app-route": "polymerelements/app-route#^2.0.0",
+    "iron-localstorage": "polymerelements/iron-localstorage#^2.0.0",
+    "iron-media-query": "polymerelements/iron-media-query#^2.0.0",
+    "iron-selector": "polymerelements/iron-selector#^2.0.0",
+    "iron-test-helpers": "^2.0.0",
     "chai": "3.5.0",
-    "paper-progress": "PolymerElements/paper-progress#^1.0.0"
-  },
-  "resolutions": {
-    "webcomponentsjs": "^0.7.24"
+    "paper-progress": "PolymerElements/paper-progress#^2.0.0",
+    "polymer": "2.0.1"
   }
 }
