@@ -15,7 +15,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <script src="../../thin-hook/hook.min.js?version=428&no-hook-authorization=cd2d571ff11d8141b50d57351c869591c9813c12f3059f14a3f5b223799bd0db,log-no-hook-authorization&sw-root=/&no-hook=true&hook-name=__hook__&context-generator-name=method2&discard-hook-errors=false&fallback-page=index-fb.html&service-worker-ready=false"></script></head></html><!--
+  <script src="../../thin-hook/hook.min.js?version=428&no-hook-authorization=0ebef67c696560a8020eea77bbe7650385f2c067f647c9c85301b190da89708d,log-no-hook-authorization&sw-root=/&no-hook=true&hook-name=__hook__&context-generator-name=method2&discard-hook-errors=false&fallback-page=index-fb.html&service-worker-ready=false"></script></head></html><!--
   <script context-generator src="no-hook-authorization.js?no-hook=true"></script>
   <script context-generator src="hash-context-generator.js?no-hook=true"></script>
   <script context-generator no-hook>
@@ -143,6 +143,37 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         S.sin(1) = ${S.sin(1)}
         function f(1) = ${function f(v) { return S.sin(v); }(1)}
         (v => S.sin(v))(1) = ${(v => S.sin(v))(1)}`);
+    }
+    {
+      function asyncFunc1() {
+        return new Promise(function promiseCallback1(resolve, reject) {
+          setTimeout(function timeoutFunc() { resolve(1) }, 1000);
+        }).then(function thenFunc1(value) {
+          console.log('thenFunc1', value);
+          return Promise.resolve(2);
+        }).then(function thenFunc2(value) {
+          console.log('thenFunc2', value);
+          return 3;
+        });
+      }
+      async function asyncFunc2() {
+        let result = await asyncFunc1();
+        console.log('asyncFunc1', result);
+        chai.assert.equal(result, 3, 'asyncFunc1 aynchronously returns 3');
+        return result;
+      }
+      function asyncFunc3() {
+        return new Promise(function promiseCallback2(resolve, reject) {
+          setTimeout(function timeoutFunc2() { resolve(4) }, 500);
+        });
+      }
+      function callPromiseAll() {
+        return Promise.all([asyncFunc2(), asyncFunc3()]);
+      }
+      callPromiseAll().then(function thenFunc3(values) {
+        console.log('thenFunc3', values)
+        chai.assert.deepEqual(values, [ 3, 4 ], 'Promise.all([asyncFunc2(), asyncFunc3()]) resolves to [ 3, 4 ]');
+      });
     }
   </script>
   <script type="module" src="es6-module2.js"></script>

@@ -158,9 +158,24 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         return _global[hookName](_native.Promise, null, args, 'Promise', new.target);
       };
 
-      [ 'resolve', 'reject', 'all', 'race', 'prototype' ].forEach(prop => {
-        _Promise[prop] = Promise[prop];
-      });
+      _Promise.prototype = _native.Promise.prototype;
+      _Promise.prototype.constructor = _Promise;
+
+      _Promise.resolve = function (...args) {
+        return _global[hookName](_nativeMethods.Promise.static.resolve, this, args, 'Promise,static resolve');
+      }
+
+      _Promise.reject = function (...args) {
+        return _global[hookName](_nativeMethods.Promise.static.reject, this, args, 'Promise,static reject');
+      }
+
+      _Promise.all = function (...args) {
+        return _global[hookName](_nativeMethods.Promise.static.all, this, args, 'Promise,static all');
+      }
+
+      _Promise.race = function (...args) {
+        return _global[hookName](_nativeMethods.Promise.static.race, this, args, 'Promise,static race');
+      }
 
       _Promise.prototype.then = function (...args) {
         return _global[hookName](_nativeMethods.Promise.proto.then, this, args, 'Promise,then');
@@ -169,6 +184,23 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       _Promise.prototype.catch = function (...args) {
         return _global[hookName](_nativeMethods.Promise.proto.catch, this, args, 'Promise,catch');
       }
+
+      /*
+        Subclassing is simpler (no new.target) but easily hackable via its prototype chain
+      */
+      /*
+      let _Promise = class Promise extends _native.Promise {
+        constructor(...args) {
+          _global[hookName]((...args) => super(...args), null, args, 'Promise');
+        }
+        then(...args) {
+          return _global[hookName]((...args) => super.then(...args), this, args, 'Promise,then');
+        }
+        catch(...args) {
+          return _global[hookName]((...args) => super.catch(...args), this, args, 'Promise,catch');
+        }
+      }
+      */
       return _Promise;                
     }
 
