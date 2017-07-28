@@ -112,7 +112,85 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       }
     }
 
-    let result = newTarget ? Reflect.construct(f, args) : thisArg ? f.apply(thisArg, args) : f(...args);
+    let result;
+    if (typeof f === 'function') {
+      result = newTarget
+        ? Reflect.construct(f, args)
+        : thisArg
+          ? f.apply(thisArg, args)
+          : f(...args);
+    }
+    else {
+      // property access
+      switch (f) {
+      // getter
+      case '.':
+      case '[]':
+        result = thisArg[args[0]];
+        break;
+      // funcation call
+      case '()':
+        result = thisArg[args[0]].apply(thisArg, args[1]);
+        break;
+      // unary operators
+      case 'p++':
+        result = thisArg[args[0]]++;
+        break;
+      case '++p':
+        result = ++thisArg[args[0]];
+        break;
+      case 'p--':
+        result = thisArg[args[0]]--;
+        break;
+      case '--p':
+        result = --thisArg[args[0]];
+        break;
+      case 'delete':
+        result = delete thisArg[args[0]];
+        break;
+      // assignment operators
+      case '=':
+        result = thisArg[args[0]] = args[1];
+        break;
+      case '+=':
+        result = thisArg[args[0]] += args[1];
+        break;
+      case '-=':
+        result = thisArg[args[0]] -= args[1];
+        break;
+      case '*=':
+        result = thisArg[args[0]] *= args[1];
+        break;
+      case '/=':
+        result = thisArg[args[0]] /= args[1];
+        break;
+      case '%=':
+        result = thisArg[args[0]] %= args[1];
+        break;
+      case '**=':
+        result = thisArg[args[0]] **= args[1];
+        break;
+      case '<<=':
+        result = thisArg[args[0]] <<= args[1];
+        break;
+      case '>>=':
+        result = thisArg[args[0]] >>= args[1];
+        break;
+      case '&=':
+        result = thisArg[args[0]] &= args[1];
+        break;
+      case '^=':
+        result = thisArg[args[0]] ^= args[1];
+        break;
+      case '|=':
+        result = thisArg[args[0]] |= args[1];
+        break;
+      // default (invalid operator)
+      default:
+        result = null;
+        break;
+      }
+    }
     lastContext = _lastContext;
     // if (contextStack[contextStack.length - 1] !== context) { debugger; }
     contextStack.pop();
