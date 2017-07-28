@@ -166,8 +166,12 @@ Thin Hook Preprocessor (experimental)
 
 ```javascript
   // Built-in Minimal Hook Callback Function
-  hook.__hook__ = function __hook__(f, thisArg, args, context) {
-    return thisArg ? f.apply(thisArg, args) : f(...args);
+  hook.__hook__ = function __hook_except_properties__(f, thisArg, args, context, newTarget) {
+    return newTarget
+      ? Reflect.construct(f, args)
+      : thisArg
+        ? f.apply(thisArg, args)
+        : f(...args);
   }
 ```
 
@@ -176,7 +180,7 @@ Thin Hook Preprocessor (experimental)
   hashContext = { 'hash': 'context', ... }; // Generated from hook.preprocess initialContext[0][1]
   trustedContext = { 'context': /trustedModules/, ... }; // Access Policies
 
-  window.__hook__ = function __hook__(f, thisArg, args, context) {
+  window.__hook__ = function __hook__(f, thisArg, args, context, newTarget) {
     console.log('hook:', context, args);
     if (!hashContext[context] ||
         !trustedContext[hashContext[context]] ||
@@ -184,7 +188,11 @@ Thin Hook Preprocessor (experimental)
       // plus check thisArg, args, etc.
       throw new Error('Permission Denied');
     }
-    return thisArg ? f.apply(thisArg, args) : f(...args);
+    return newTarget
+      ? Reflect.construct(f, args)
+      : thisArg
+        ? f.apply(thisArg, args)
+        : f(...args);
   }
 ```
 
@@ -210,9 +218,13 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
     <script src="../thin-hook/hook.min.js?version=1&no-hook=true&hook-name=__hook__&fallback-page=index-no-sw.html&service-worker-ready=true"></script>
     <!-- Hook Callback Function -->
     <script no-hook>
-      window.__hook__ = function __hook__(f, thisArg, args, context) {
+      window.__hook__ = function __hook__(f, thisArg, args, context, newTarget) {
         ...
-        return thisArg ? f.apply(thisArg, args) : f(...args);
+        return newTarget
+          ? Reflect.construct(f, args)
+          : thisArg
+            ? f.apply(thisArg, args)
+            : f(...args);
       }
     </script>
     ...
@@ -227,9 +239,13 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
     <script src="../thin-hook/hook.min.js?version=1&no-hook=true&hook-name=__hook__&fallback-page=index-no-sw.html&service-worker-ready=false"></script></head></html><!--
     <C!-- Hook Callback Function --C>
     <script no-hook>
-      window.__hook__ = function __hook__(f, thisArg, args, context) {
+      window.__hook__ = function __hook__(f, thisArg, args, context, newTarget) {
         ...
-        return thisArg ? f.apply(thisArg, args) : f(...args);
+        return newTarget
+          ? Reflect.construct(f, args)
+          : thisArg
+            ? f.apply(thisArg, args)
+            : f(...args);
       }
     </script>
     ...
@@ -248,6 +264,7 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
 - Async Functions (`async function f() {}`, `async method() {}`, `async () => {}`)
 - Default Parameters for Functions/Methods/Arrow Functions
 - Default Parameters with Destructuring (`function f([ a = 1 ], { b = 2, x: c = 3 }) {}`)
+- Property Accessors (`o.p`, `o['p']`, `o.p()`)
 
 ## Install
 
@@ -280,14 +297,34 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
 
 ## API (Tentative)
 
-- `hook(code: string, hookName: string = '__hook__', initialContext: Array = [], contextGeneratorName: string = 'method', metaHooking: boolean = true)`
+- `hook(code: string, hookName: string = '__hook__', initialContext: Array = [], contextGeneratorName: string = 'method', metaHooking: boolean = true, hookProperty: boolean = true)`
   - `code`: input JavaScript as string
   - `hookName`: name of hook callback function
   - `initialContext`: typically `[ ['script.js', {}] ]`
   - `contextGeneratorName`: function property name in `hook.contextGenerators`
     - argument `astPath = [ ['script.js', {}], ['root', rootAst], ['body', bodyAst], ..., [0, FunctionExpressionAst] ]`
   - `metaHooking`: Enable meta hooking (run-time hooking of metaprogramming) if true
-- `hook.__hook__` - minimal hook callback `function __hook__()`
+  - `hookProperty`: Enable hooking of object property accessors if true
+- `hook.__hook__(f: function or string, thisArg: object, args: Array, context: string, newTarget: new.target meta property)`
+  - minimal hook callback function with property hooking
+  - `f`:
+    - `function`: target function to hook
+    - `string`: property operation to hook
+      - `.`: get property (`o.prop`)
+      - `()`: function call (`o.func()`)
+      - `=`, `+=`, ...: assignment operation (`o.prop = value`)
+      - `p++`, `++p`, `p--`, `--p`: postfixed/prefixed increment/decrement operation (`o.prop++`)
+      - `delete`: delete operation (`delete o.prop`)
+  - `thisArg`: `this` object for the function or the operation
+  - `args`:
+    - arguments for the function
+    - `[ property ]` for property access operations
+    - `[ property, value ]` for property assignment operations
+    - `[ property, [...args] ]` for function call operations
+  - `context`: context in the script
+  - `newTarget`: `new.target` meta property for constructor calls; `null` for other calls
+- `hook.__hook_except_properties__(f, thisArg, args, context, newTarget)`
+  - minimal hook callback function without property hooking
 - `hook.contextGenerators`: object. Context Generator Functions
   - `null()`: context as `''`
   - `astPath(astPath: Array)`: context as `'script.js,[root]Program,body,astType,...'`
