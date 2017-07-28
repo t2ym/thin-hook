@@ -1,12 +1,15 @@
 class Test {
   constructor(a) {
     return __hook__(a => {
-      this._a = a;
+      __hook__('=', this, [
+        '_a',
+        a
+      ], 'examples/es6-module.js,Test,constructor');
     }, null, arguments, 'examples/es6-module.js,Test,constructor');
   }
   get a() {
     return __hook__(() => {
-      return this._a;
+      return __hook__('.', this, ['_a'], 'examples/es6-module.js,Test,get a');
     }, this, arguments, 'examples/es6-module.js,Test,get a');
   }
 }

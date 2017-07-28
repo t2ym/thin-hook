@@ -1,9 +1,18 @@
 class A1 {
   constructor(x, y, z) {
     return __hook__((x, y = 3, z = 5) => {
-      this.x = x;
-      this.y = y;
-      this.z = z;
+      __hook__('=', this, [
+        'x',
+        x
+      ], 'examples/example1.js,A1,constructor');
+      __hook__('=', this, [
+        'y',
+        y
+      ], 'examples/example1.js,A1,constructor');
+      __hook__('=', this, [
+        'z',
+        z
+      ], 'examples/example1.js,A1,constructor');
     }, null, arguments, 'examples/example1.js,A1,constructor');
   }
   method(a, b, c) {
@@ -21,19 +30,22 @@ class X1 extends A1 {
   constructor(x, y, z) {
     return __hook__((x, y, z = 9) => {
       super(x, y, z);
-      this.xyz = {
-        x: x,
-        y: y,
-        z: z
-      };
+      __hook__('=', this, [
+        'xyz',
+        {
+          x: x,
+          y: y,
+          z: z
+        }
+      ], 'examples/example1.js,X1,constructor');
     }, null, arguments, 'examples/example1.js,X1,constructor');
   }
   a(p, nn) {
     return __hook__((p = 1, nn = 3) => {
-      let x = (...args) => __hook__(n => this.b + n, this, args, 'examples/example1.js,X1,a,x');
+      let x = (...args) => __hook__(n => __hook__('.', this, ['b'], 'examples/example1.js,X1,a,x') + n, this, args, 'examples/example1.js,X1,a,x');
       let y = (...args) =>
         (__hook__(n => {
-          return this.b + n;
+          return __hook__('.', this, ['b'], 'examples/example1.js,X1,a,y') + n;
         }, this, args, 'examples/example1.js,X1,a,y'));
       let z = (...args) => __hook__((p, n) => ({
         p: p * 2,
@@ -43,7 +55,7 @@ class X1 extends A1 {
         p * 2,
         n * 3
       ], this, args, 'examples/example1.js,X1,a,u');
-      return x(nn) + y(p) + z(p, nn).p + u(p, nn)[1];
+      return x(nn) + y(p) + __hook__('.', z(p, nn), ['p'], 'examples/example1.js,X1,a') + __hook__('.', u(p, nn), [1], 'examples/example1.js,X1,a');
     }, this, arguments, 'examples/example1.js,X1,a');
   }
   get b() {
@@ -79,11 +91,14 @@ class Y1 extends X1 {
   constructor(x, y, z) {
     return __hook__((x = 3, y = x * 3, z = x * y * 5) => {
       super(x, y, z);
-      this.XYZ = {
-        x: x,
-        y: y,
-        z: z
-      };
+      __hook__('=', this, [
+        'XYZ',
+        {
+          x: x,
+          y: y,
+          z: z
+        }
+      ], 'examples/example1.js,Y1,constructor');
     }, null, arguments, 'examples/example1.js,Y1,constructor');
   }
 }

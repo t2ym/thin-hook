@@ -1,44 +1,90 @@
 {
   setTimeout(function X() {
     return __hook__(() => {
-      console.log('setTimeout function');
+      __hook__('()', console, [
+        'log',
+        ['setTimeout function']
+      ], 'examples/example4.js,X');
     }, this, arguments, 'examples/example4.js,X');
   }, 1000);
   setTimeout((...args) =>
     (__hook__(() => {
-      console.log('setTimeout arrow function');
+      __hook__('()', console, [
+        'log',
+        ['setTimeout arrow function']
+      ], 'examples/example4.js');
     }, this, args, 'examples/example4.js')), 1000);
-  hook.setTimeout('__hook__', [[
-      'examples/example4.js',
-      {}
-    ]], 'method')('console.log("setTimeout string")', 1000);
+  __hook__('()', hook, [
+    'setTimeout',
+    [
+      '__hook__',
+      [[
+          'examples/example4.js',
+          {}
+        ]],
+      'method'
+    ]
+  ], 'examples/example4.js')('console.log("setTimeout string")', 1000);
   let f1 = (...args) =>
     (__hook__(() => {
-      console.log('setTimeout f1');
+      __hook__('()', console, [
+        'log',
+        ['setTimeout f1']
+      ], 'examples/example4.js,f1');
     }, this, args, 'examples/example4.js,f1'));
-  hook.setTimeout('__hook__', [[
-      'examples/example4.js',
-      {}
-    ]], 'method')(f1, 1000);
+  __hook__('()', hook, [
+    'setTimeout',
+    [
+      '__hook__',
+      [[
+          'examples/example4.js',
+          {}
+        ]],
+      'method'
+    ]
+  ], 'examples/example4.js')(f1, 1000);
   setInterval(function X() {
     return __hook__(() => {
-      console.log('setInterval function');
+      __hook__('()', console, [
+        'log',
+        ['setInterval function']
+      ], 'examples/example4.js,X');
     }, this, arguments, 'examples/example4.js,X');
   }, 1000);
   setInterval((...args) =>
     (__hook__(() => {
-      console.log('setInterval arrow function');
+      __hook__('()', console, [
+        'log',
+        ['setInterval arrow function']
+      ], 'examples/example4.js');
     }, this, args, 'examples/example4.js')), 1000);
-  hook.setInterval('__hook__', [[
-      'examples/example4.js',
-      {}
-    ]], 'method')('console.log("setInterval string")', 1000);
+  __hook__('()', hook, [
+    'setInterval',
+    [
+      '__hook__',
+      [[
+          'examples/example4.js',
+          {}
+        ]],
+      'method'
+    ]
+  ], 'examples/example4.js')('console.log("setInterval string")', 1000);
   let f2 = (...args) =>
     (__hook__(() => {
-      console.log('setInterval f2');
+      __hook__('()', console, [
+        'log',
+        ['setInterval f2']
+      ], 'examples/example4.js,f2');
     }, this, args, 'examples/example4.js,f2'));
-  hook.setInterval('__hook__', [[
-      'examples/example4.js',
-      {}
-    ]], 'method')(f2, 1000);
+  __hook__('()', hook, [
+    'setInterval',
+    [
+      '__hook__',
+      [[
+          'examples/example4.js',
+          {}
+        ]],
+      'method'
+    ]
+  ], 'examples/example4.js')(f2, 1000);
 }
