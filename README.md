@@ -165,13 +165,102 @@ Thin Hook Preprocessor (experimental)
 ### Hook Callback Function (customizable)
 
 ```javascript
-  // Built-in Minimal Hook Callback Function
-  hook.__hook__ = function __hook_except_properties__(f, thisArg, args, context, newTarget) {
+  // Built-in Minimal Hook Callback Function without hooking properties (hook-property=false)
+  hook.__hook_except_properties__ = function __hook_except_properties__(f, thisArg, args, context, newTarget) {
     return newTarget
       ? Reflect.construct(f, args)
       : thisArg
         ? f.apply(thisArg, args)
         : f(...args);
+  }
+```
+
+```javascript
+  // Built-in Minimal Hook Callback Function with hooking properties (hook-property=true) - default
+  hook.__hook__ = function __hook__(f, thisArg, args, context, newTarget) {
+    let result;
+    if (typeof f === 'function') {
+      result = newTarget
+        ? Reflect.construct(f, args)
+        : thisArg
+          ? f.apply(thisArg, args)
+          : f(...args);
+    }
+    else {
+      // property access
+      switch (f) {
+      // getter
+      case '.':
+      case '[]':
+        result = thisArg[args[0]];
+        break;
+      // funcation call
+      case '()':
+        result = thisArg[args[0]].apply(thisArg, args[1]);
+        break;
+      // unary operators
+      case 'p++':
+        result = thisArg[args[0]]++;
+        break;
+      case '++p':
+        result = ++thisArg[args[0]];
+        break;
+      case 'p--':
+        result = thisArg[args[0]]--;
+        break;
+      case '--p':
+        result = --thisArg[args[0]];
+        break;
+      case 'delete':
+        result = delete thisArg[args[0]];
+        break;
+      // assignment operators
+      case '=':
+        result = thisArg[args[0]] = args[1];
+        break;
+      case '+=':
+        result = thisArg[args[0]] += args[1];
+        break;
+      case '-=':
+        result = thisArg[args[0]] -= args[1];
+        break;
+      case '*=':
+        result = thisArg[args[0]] *= args[1];
+        break;
+      case '/=':
+        result = thisArg[args[0]] /= args[1];
+        break;
+      case '%=':
+        result = thisArg[args[0]] %= args[1];
+        break;
+      case '**=':
+        result = thisArg[args[0]] **= args[1];
+        break;
+      case '<<=':
+        result = thisArg[args[0]] <<= args[1];
+        break;
+      case '>>=':
+        result = thisArg[args[0]] >>= args[1];
+        break;
+      case '>>>=':
+        result = thisArg[args[0]] >>>= args[1];
+        break;
+      case '&=':
+        result = thisArg[args[0]] &= args[1];
+        break;
+      case '^=':
+        result = thisArg[args[0]] ^= args[1];
+        break;
+      case '|=':
+        result = thisArg[args[0]] |= args[1];
+        break;
+      // default (invalid operator)
+      default:
+        result = null;
+        break;
+      }
+    }
+    return result;
   }
 ```
 
