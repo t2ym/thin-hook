@@ -215,8 +215,8 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
 ```html
 <html>
   <head>
-    <script src="../thin-hook/hook.min.js?version=1&no-hook=true&hook-name=__hook__&fallback-page=index-no-sw.html&service-worker-ready=true"></script>
-    <!-- Hook Callback Function -->
+    <script src="../thin-hook/hook.min.js?version=1&no-hook=true&hook-name=__hook__&fallback-page=index-no-sw.html&hook-property=false&service-worker-ready=true"></script>
+    <!-- Hook Callback Function witout hooking properties -->
     <script no-hook>
       window.__hook__ = function __hook__(f, thisArg, args, context, newTarget) {
         ...
@@ -236,8 +236,8 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
 ```html
 <html>
   <head>
-    <script src="../thin-hook/hook.min.js?version=1&no-hook=true&hook-name=__hook__&fallback-page=index-no-sw.html&service-worker-ready=false"></script></head></html><!--
-    <C!-- Hook Callback Function --C>
+    <script src="../thin-hook/hook.min.js?version=1&no-hook=true&hook-name=__hook__&fallback-page=index-no-sw.html&hook-property=false&service-worker-ready=false"></script></head></html><!--
+    <C!-- Hook Callback Function without hooking properties --C>
     <script no-hook>
       window.__hook__ = function __hook__(f, thisArg, args, context, newTarget) {
         ...
@@ -363,7 +363,7 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
   - `install`: 'install' event handler. Set version from the `version` parameter
   - `activate`: 'activate' event handler. Clear caches of old versions.
   - `fetch`: 'fetch' event handler. Cache hooked JavaScripts and HTMLs except for the main page loading `hook.min.js`
-    - `<script src="thin-hook/hook.min.js?version=1&sw-root=/&no-hook=true&hook-name=__hook__&discard-hook-errors=true&fallback-page=index-no-sw.html&service-worker-ready=true"></script>`: arguments from the page
+    - `<script src="thin-hook/hook.min.js?version=1&sw-root=/&no-hook=true&hook-name=__hook__&discard-hook-errors=true&fallback-page=index-no-sw.html&hook-property=true&service-worker-ready=true"></script>`: arguments from the page
       - `version`: default `1`. Service Worker cache version. Old caches are flushed when the version is changed in the main page and reloaded. Service Worker is updated when the controlled page is detached after the reloading.
       - `sw-root`: optional. Set Service Worker scope
       - `hook-name`: default `__hook__`. hook callback function name
@@ -393,6 +393,7 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
             - 16. Clear Service Worker(s)
             - 17. Reload the page(s) with no-hook script(s)
             - 18. Check if there are no unauthorized no-hook scripts
+      - `hook-property`: `hookProperty` parameter. `true` if property accessors are hooked
       - `service-worker-ready`: `true` if the entry HTML page is decoded; `false` if encoded. This parameter must be at the end of the URL
     - `<script src="script.js?no-hook=true"></script>`: skip hooking for the source script
     - `<script no-hook>...</script>`: skip hooking for the embedded script
