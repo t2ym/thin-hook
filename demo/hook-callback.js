@@ -176,6 +176,9 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       case '>>=':
         result = thisArg[args[0]] >>= args[1];
         break;
+      case '>>>=':
+        result = thisArg[args[0]] >>>= args[1];
+        break;
       case '&=':
         result = thisArg[args[0]] &= args[1];
         break;
