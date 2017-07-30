@@ -53,6 +53,20 @@ gulp.task('demo', (done) => {
   }, 1000);
 });
 
+gulp.task('build:test', () => {
+  return gulp.src(['test/**/*-test-original.html'], { base: 'test/' })
+    .pipe(through.obj((file, enc, callback) => {
+      let html = String(file.contents);
+      let transformed = hook.serviceWorkerTransformers.encodeHtml(html);
+      file.contents = new Buffer(transformed);
+      callback(null, file);
+    }))
+    .pipe(rename((path) => {
+      path.basename = path.basename.replace(/-original$/, '');
+    }))
+    .pipe(gulp.dest('test/'));
+});
+
 function _trimStartEndRaw(ast) {
   if (ast && typeof ast === 'object') {
     [ 'start', 'end', 'raw' ].forEach(prop => {
@@ -149,5 +163,5 @@ gulp.task('watch', function() {
 });
 
 gulp.task('default', (done) => {
-  runSequence('build', 'examples', 'demo', done);
+  runSequence('build', 'build:test', 'examples', 'demo', done);
 });

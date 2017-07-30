@@ -31,6 +31,8 @@
     "iron-test-helpers": "^2.0.0",
     "chai": "3.5.0",
     "paper-progress": "PolymerElements/paper-progress#^2.0.0",
-    "polymer": "2.0.1"
+    "polymer": "2.0.1",
+    "web-component-tester": "t2ym/web-component-tester#^6.0.0",
+    "scenarist": "^1.1.8"
   }
 }
