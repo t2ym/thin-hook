@@ -498,6 +498,9 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
         - Set `no-hook` Authorization Tickets:
           - `hook.parameters.noHookAuthorization = { '{sha-256 hex hash for authorized no-hook script}': true, ... }`: Set keys from `hook.parameters.noHookAuthorizationPassed` in __both Document and Service Worker threads__
           - `hook.parameters.noHookAuthorization = { '*': true }`: learning mode to detect authorization tickets
+        - Specify URL patterns for `no-hook` scripts:
+          - `hook.parameters.noHook = [ 'no_hook_url_1', 'no_hook_url_2', ... ]`: specify `no-hook` script URLs
+          - `hook.parameters.noHook = [ (url: URL) => !!url.href.match(/{no-hook URL pattern}/), ... ]`: specify `no-hook` script URL detector function(s)
         - Register Custom Event Handler:
           - `if (typeof self === 'object' && self instanceof 'ServiceWorkerGlobalScope') { self.addEventListener('{event_type}', function handler(event) {...})}`
     - register as Service Worker
