@@ -9,11 +9,14 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
   basic.htmlSuite = 'basic';
   basic.test = Suite.scopes.common.classes.ThinHookSuite;
   basic.test = Suite.scopes.common.classes.LoadPage;
+  basic.test = Suite.scopes.common.mixins.Reload;
   basic.test = Suite.scopes.common.mixins.UnregisterServiceWorker;
   basic.test = (base) => class HookApiAvailable extends base {
     async operation() {
+      if (this.hasToSkip) { return; }
     }
     async checkpoint() {
+      if (this.hasToSkip) { return; }
       assert.isOk(hook, 'hook is defined');
     }
   }
@@ -23,7 +26,9 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     // test classes
     LoadPage: {
       HookApiAvailable: {
-        UnregisterServiceWorker: 'HookApiAvailableTest'
+        Reload: {
+          UnregisterServiceWorker: 'HookApiAvailableTest_phase_1; Hook API is available'
+        }
       }
     }
   };

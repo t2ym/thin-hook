@@ -3,6 +3,13 @@
 Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 */
 {
+  WCT.share.__coverage__ = window.__coverage__;
+  let childRunner = WCT._ChildRunner.get(window);
+  if (childRunner) {
+    childRunner.loaded();
+  }
+}
+{
   // common scope
   let scope = 'common';
   let common = new Suite(scope, 'thin hook common scope');
@@ -59,10 +66,31 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
   }
   common.test = (base) => class UnregisterServiceWorker extends base {
     async operation() {
+      if (this.hasToSkip) { return; }
       this.swRegistration = await navigator.serviceWorker.getRegistration('./');
+      if (window.__coverage__) {
+        this.swInstance = this.swRegistration.active;
+        this.swCoverage = await new Promise((resolve, reject) => {
+          var channel = new MessageChannel();
+          channel.port1.onmessage = (event) => {
+            if (event.data.error) {
+              reject(event.data.error);
+            }
+            else {
+              resolve(event.data);
+            }
+          };
+          navigator.serviceWorker.controller.postMessage('coverage', [ channel.port2 ]);
+        });
+        if (this.swCoverage) {
+          WCT.share.__coverage__ = this.swCoverage;
+          console.log('WCT.share = ', WCT.share);
+        }
+      }
       this.swStatus = this.swRegistration ? await this.swRegistration.unregister() : false;
     }
     async checkpoint() {
+      if (this.hasToSkip) { return; }
       assert.isOk(this.swRegistration, 'Service Worker was running');      
       assert.isOk(this.swStatus, 'Service Worker is unregistered successfully');
     }

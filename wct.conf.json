@@ -15,6 +15,15 @@
           "version":      ""
         }
       ]
+    },
+    "istanbul": {
+      "dir": "test/coverage-report",
+      "reporters": ["text-summary", "lcov"],
+      "include": [
+      ],
+      "exclude": [
+        "**/test/**/*"
+      ]
     }
   }
 }
