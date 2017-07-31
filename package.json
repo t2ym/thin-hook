@@ -4,7 +4,7 @@
   "description": "Thin Hook Preprocessor",
   "main": "hook.js",
   "scripts": {
-    "test": "istanbul cover ./node_modules/mocha/bin/_mocha test/test.js --report lcov -- -R spec && wct test/index.html",
+    "test": "wct",
     "build": "gulp"
   },
   "bin": {
@@ -32,6 +32,7 @@
     "sha.js": "^2.4.8"
   },
   "devDependencies": {
+    "@t2ym/web-component-tester": "^6.0.0",
     "babel-cli": "^6.22.2",
     "babel-preset-es2015": "^6.22.0",
     "browserify": "^14.0.0",
@@ -56,20 +57,19 @@
     "gulp-sourcemaps": "^1.9.1",
     "gulp-uglify": "^2.0.0",
     "gulp-util": "^3.0.7",
-    "istanbul": "^0.4.5",
     "json-stringify-safe": "^5.0.1",
     "lcov-result-merger": "^1.2.0",
     "mocha": "^3.2.0",
+    "nyc": "^11.1.0",
     "rollup-plugin-async": "^1.2.0",
     "run-sequence": "^1.2.2",
+    "scenarist": "^1.1.8",
     "strip-bom": "^3.0.0",
     "through2": "^2.0.3",
     "uglify-js": "^2.7.5",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
-    "@t2ym/web-component-tester": "^6.0.0",
-    "wct-istanbul": "^0.12.0",
-    "scenarist": "^1.1.8",
+    "wct-istanbul": "^0.12.2",
     "xliff-conv": "^1.0.10",
     "xmldom": "^0.1.22"
   }

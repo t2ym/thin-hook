@@ -53,7 +53,11 @@ gulp.task('demo', (done) => {
   }, 1000);
 });
 
-gulp.task('build:test', () => {
+gulp.task('build:test', (done) => {
+  runSequence('build:instrument', 'build:coverage', 'build:test-html', done);
+});
+
+gulp.task('build:test-html', () => {
   return gulp.src(['test/**/*-test-original.html'], { base: 'test/' })
     .pipe(through.obj((file, enc, callback) => {
       let html = String(file.contents);
@@ -146,6 +150,83 @@ gulp.task('build', () => {
       callback(null, file);
     }))
     .pipe(gulp.dest('.'));
+});
+
+const exec = require('child_process').exec;
+
+gulp.task('build:instrument', () => {
+  return gulp.src([ 'hook.js', 'lib/*.js' ], { base: '.' })
+    .pipe(through.obj((file, end, callback) => {
+      exec('nyc instrument ' + file.path, { maxBuffer: 10 * 1024 * 1024 }, function (err, stdout, stderr) {
+        if (err) {
+          callback(err)
+        }
+        else {
+          stdout = stdout.replace(/fetch:([ ]?)onFetch/, 'fetch:$1onFetch,' + `
+              message: function onMessage(event) {
+                console.log('ommessage coverage', __coverage__);
+                event.ports[0].postMessage(__coverage__);
+              }
+            `);
+          file.contents = new Buffer(stdout);
+          callback(null, file);
+        }
+      })
+    }))
+    .pipe(gulp.dest('test/coverage'));
+});
+
+gulp.task('build:coverage', () => {
+  return browserify('test/coverage/hook.js', { standalone: 'hook' })
+    .bundle()
+    .pipe(source('hook.min.js'))
+    .pipe(buffer())
+    //.pipe(babel({ "plugins": [ 'babel-plugin-istanbul' ]}))
+    //.pipe(uglify({ mangle: true }))
+    .pipe(through.obj((file, end, callback) => {
+      // robust minification by escodegen's compact option
+      let code = String(file.contents);
+      let espreeOptions = { range: false, tokens: false, comment: false, ecmaVersion: 8 };
+      let originalAst = espree.parse(code, espreeOptions);
+      let unconfigurableGlobalHookAst = espree.parse(
+        "Object.defineProperty(g, 'hook', { configurable: false, enumerable: false, writable: false, value: f() });",
+        espreeOptions).body[0];
+      let serviceWorkerHandlerRegistrationAst = espree.parse(
+        "if (g.constructor.name === 'ServiceWorkerGlobalScope')" +
+        "{ for (let h in hook.serviceWorkerHandlers) { g.addEventListener(h, hook.serviceWorkerHandlers[h]) } }",
+        espreeOptions).body[0];
+      let serviceWorkerRegistrationAst = espree.parse(
+        "if (g.constructor.name === 'Window') { hook.registerServiceWorker(); }", espreeOptions).body[0];
+      let expectedOriginalGlobalHookAst = espree.parse('g.hook = f();', espreeOptions).body[0];
+      _trimStartEndRaw(expectedOriginalGlobalHookAst);
+      _trimStartEndRaw(originalAst.body[0].expression.callee.body.body[0].alternate.alternate.body[2]);
+      assert.equal(
+        JSON.stringify(originalAst.body[0].expression.callee.body.body[0].alternate.alternate.body[2], null, 2),
+        JSON.stringify(expectedOriginalGlobalHookAst, null, 2), 'g.hook = f() exists');
+      // replace g.hook = f() with unconfigurable property definition
+      originalAst.body[0].expression.callee.body.body[0].alternate.alternate.body[2] = unconfigurableGlobalHookAst;
+      // append service worker handler registration code
+      originalAst.body[0].expression.callee.body.body[0].alternate.alternate.body[3] = serviceWorkerHandlerRegistrationAst;
+      // append service worker registration code
+      originalAst.body[0].expression.callee.body.body[0].alternate.alternate.body[4] = serviceWorkerRegistrationAst;
+      _trimStartEndRaw(originalAst);
+      let minifiedCode = escodegen.generate(originalAst, { format: { compact: false } });
+      let minifiedAst = espree.parse(minifiedCode, espreeOptions);
+      _trimStartEndRaw(minifiedAst);
+      let originalAstJson = JSON.stringify(originalAst, null, 2);
+      let minifiedAstJson = JSON.stringify(minifiedAst, null, 2);
+      try {
+        assert.equal(minifiedAstJson, originalAstJson, 'Minified AST is identical to the original AST');
+        file.contents = new Buffer(minifiedCode);
+      }
+      catch (e) {
+        fs.writeFileSync('_originalAst.json', originalAstJson);
+        fs.writeFileSync('_minifiedAst.json', minifiedAstJson);
+        throw e;
+      }
+      callback(null, file);
+    }))
+    .pipe(gulp.dest('test'));
 });
 
 gulp.task('watchdemo', function() {
