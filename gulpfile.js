@@ -154,7 +154,7 @@ gulp.task('watchdemo', function() {
 
 gulp.task('delayed-build', (done) => {
   setTimeout(() => {
-    runSequence('build', 'examples', 'demo', done);
+    runSequence('build', 'build:test', 'examples', 'demo', done);
   }, 1000);
 });
 
