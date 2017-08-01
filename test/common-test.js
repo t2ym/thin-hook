@@ -15,7 +15,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     to replace itself with its "decoded HTML" version with hook.min.js?service-worker-ready=true,
     WCT's childRunner.share object, which has the value of WCT.share BEFORE the reloading of the page,
     has to be updated with that from the "decoded HTML" page.
-    To ahieve thi, childRunner.loaded() handler for DOMContentLoaded event has to be
+    To achieve this, childRunner.loaded() handler for DOMContentLoaded event has to be
     explicitly called again on loading the "decoded HTML" version.
     No waiting for the "load" event is required as the coverage target is only hook.min.js, which has
     already been loaded at the beginning of the page.
