@@ -26,9 +26,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     // test classes
     LoadPage: {
       HookApiAvailable: {
-        Reload: {
-          UnregisterServiceWorker: 'HookApiAvailableTest_phase_1; Hook API is available'
-        }
+        UnregisterServiceWorker: 'HookApiAvailableTest; Hook API is available'
       }
     }
   };

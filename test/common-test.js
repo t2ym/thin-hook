@@ -83,8 +83,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           navigator.serviceWorker.controller.postMessage('coverage', [ channel.port2 ]);
         });
         if (this.swCoverage) {
-          WCT.share.__coverage__ = this.swCoverage;
-          console.log('WCT.share = ', WCT.share);
+          WCT.share.__coverage__service_worker__ = this.swCoverage;
         }
       }
       this.swStatus = this.swRegistration ? await this.swRegistration.unregister() : false;
