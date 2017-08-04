@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/t2ym/thin-hook#readme",
   "dependencies": {
+    "convert-source-map": "^1.5.0",
     "escodegen": "t2ym/escodegen#master",
     "espree": "^3.3.2",
     "htmlparser2": "^3.9.2",
