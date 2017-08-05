@@ -13,13 +13,13 @@
     "16afd3d5aa90cbd026eabcc4f09b1e4207a7042bc1e9be3b36d94415513683ed": true,
     "afdece554cc7287c0e63f8b8eebc005fd4ffce065960db4018aceb66e2b8b758": true,
     "0c038c34881d8cf62db428bda81e55fd7e78317ef531868600234c6251611d5b": true,
-    "e8d617a579bc7c4d331998c09c551f98795131386a8e54eabaffbb4360a25a90": true,
+    "b86581de966bc42c7bf7b941bdd935813543228b4f79d134bbfaad6976f4d422": true,
     "02c107ea633ed697acc12e1b3de1bcf2f0ef7cafe4f048e29553c224656ecd7a": true,
     "e19bada4e6b8306311afabff6305399b3073d6156eccb3b885605f1e8bde93e0": true,
-    "db82c32a68bc3ddbb2232a947c3cdeb88f5ee7ba41d05d686146507687a6897f": true,
     "b0743cace06613ee0d905fccc2fb26cc5b3e3174367fc3528372f5850aee8951": true,
     "a0ab361fa9b16becf45a5b57a90866df74daaef429472069996a0381c055181d": true,
-    "4a04e045dc581167fe1cc3e6141cf7e437fb95bea6616eebe595c3c9b86651df": true
+    "db82c32a68bc3ddbb2232a947c3cdeb88f5ee7ba41d05d686146507687a6897f": true,
+    "40363f822acc2d027004a315f021e9a0ed7fc63fe31606f4056003f9939fe4b2": true
   };
   let hidden;
   const passcode = 'XX02c107ea633ed697acc12e1b3de1bcf2f0ef7cafe4f048e29553c224656ecd7a';
@@ -65,4 +65,9 @@
   if (!noHookAuthorization['*']) {
     Object.seal(hook.parameters.noHookAuthorizationPassed);
   }
+}
+{
+  hook.parameters.sourceMap = [
+    url => location.origin === url.origin && url.pathname.match(/^\/components\/thin-hook\/demo\//)
+  ];
 }
