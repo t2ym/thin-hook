@@ -137,6 +137,12 @@ Thin Hook Preprocessor (experimental)
     Object.seal(hook.parameters.noHookAuthorizationPassed);
   }
 }
+{
+  // source map target filters
+  hook.parameters.sourceMap = [
+    url => location.origin === url.origin && url.pathname.match(/^\/components\/thin-hook\/demo\//)
+  ];
+}
 ```
 
 ```html
@@ -501,6 +507,9 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
         - Specify URL patterns for `no-hook` scripts:
           - `hook.parameters.noHook = [ 'no_hook_url_1', 'no_hook_url_2', ... ]`: specify `no-hook` script URLs
           - `hook.parameters.noHook = [ (url: URL) => !!url.href.match(/{no-hook URL pattern}/), ... ]`: specify `no-hook` script URL detector function(s)
+        - Specify URL patterns for source map target scripts:
+          - `hook.parameters.sourceMap = [ 'source_map_target_url_1', 'source_map_target_url_2', ... ]`: specify source map target script URLs
+          - `hook.parameters.sourceMap = [ (url: URL) => !!url.href.match(/{source map target URL pattern}/), ... ]`: specify source map target script URL detector function(s)
         - Register Custom Event Handler:
           - `if (typeof self === 'object' && self instanceof 'ServiceWorkerGlobalScope') { self.addEventListener('{event_type}', function handler(event) {...})}`
     - register as Service Worker
