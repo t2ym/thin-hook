@@ -21,7 +21,6 @@ onmessage = function onMessage(event) {
           break;
         }
         port.postMessage(JSON.stringify([ id, 'success', result ], null, 0));
-        let end = Date.now();
       }
       catch (e) {
         port.postMessage(JSON.stringify([ id, 'error', e.toString() ], null, 0));
