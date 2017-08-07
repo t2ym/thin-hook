@@ -16,6 +16,7 @@ const hookCallbacks = require('./lib/hook-callback.js')(hook);
 const nativeWrappers = require('./lib/native-wrapper.js')(hook, preprocess);
 
 module.exports = Object.freeze(Object.assign(hook, 
+  preprocess.public,
   hookCallbacks,
   contextGenerators,
   serviceWorker,

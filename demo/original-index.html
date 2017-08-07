@@ -15,9 +15,9 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <script src="../../thin-hook/hook.min.js?version=433&no-hook-authorization=40363f822acc2d027004a315f021e9a0ed7fc63fe31606f4056003f9939fe4b2,ebce9b7fe3b7174bc181aee18701ef5953b39eec806faff95c50e778ddfd8b5b,log-no-hook-authorization&sw-root=/&no-hook=true&hook-name=__hook__&context-generator-name=method2&discard-hook-errors=false&fallback-page=index-fb.html&hook-property=true&service-worker-ready=true"></script>
+  <script src="../../thin-hook/hook.min.js?version=434&no-hook-authorization=391121cabbf5edb9ba18921c3c2d0ce7069269b64e2863b270086da293d1079e,13ad2b1a81ba7aa2efe6a53990550055da12b1684b0214316f88eb9fca7a73f5,log-no-hook-authorization&sw-root=/&no-hook=true&hook-name=__hook__&context-generator-name=method2&discard-hook-errors=false&fallback-page=index-fb.html&hook-property=true&service-worker-ready=true"></script>
   <script context-generator src="no-hook-authorization.js?no-hook=true"></script>
-  <script context-generator src="hash-context-generator.js?no-hook=true"></script>
+  <script context-generator src="context-generator.js?no-hook=true"></script>
   <script context-generator no-hook>
   {
     hook.parameters.cors = [
@@ -36,14 +36,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         'hook-native-api.js?no-hook=true'
       ]
     };
-    hook.contextGenerators.method2 = function generateMethodContext2(astPath) {
-      return astPath.map(([ path, node ], index) => node && node.type
-        ? (node.id && node.id.name ? node.id.name : (node.key && node.key.name
-          ? (node.kind === 'get' || node.kind === 'set' ? node.kind + ' ' : node.static ? 'static ' : '') + node.key.name : ''))
-        : index === 0 ? path : '').filter(p => p).join(',') +
-          (astPath[astPath.length - 1][1].range ? ':' + astPath[astPath.length - 1][1].range[0] + '-' + astPath[astPath.length - 1][1].range[1] : '');
-    }
-    Object.freeze(hook.contextGenerators);
+    hook.parameters.hookWorker = 'hook-worker.js?no-hook=true';
   }
   </script>
   <script src="hook-callback.js?no-hook=true"></script>

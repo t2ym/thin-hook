@@ -162,12 +162,6 @@ gulp.task('build:instrument', () => {
           callback(err)
         }
         else {
-          stdout = stdout.replace(/fetch:([ ]?)onFetch/, 'fetch:$1onFetch,' + `
-              message: function onMessage(event) {
-                console.log('ommessage coverage', __coverage__);
-                event.ports[0].postMessage(__coverage__);
-              }
-            `);
           file.contents = new Buffer(stdout);
           callback(null, file);
         }
