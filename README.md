@@ -145,6 +145,59 @@ Thin Hook Preprocessor (experimental)
 }
 ```
 
+```javascript
+// Hook worker script (demo/hook-worker.js)
+//
+// Configuration:
+//   hook.parameters.hookWorker = `hook-worker.js?no-hook=true`;
+//
+// On Installation:
+// onMessage(event)
+//   event.data === 'channel': Set up channel to the Service Worker
+//   event.ports[0]: MessagePort to the Service Worker
+//
+// On Processing Requests:
+// event.ports[0].onmessage(hookEvent)
+//   hookEvent.data: JSON string for parameters
+//   JSON.parse(hookEvent.data): [ 'id', 'type', 'code', ... ]
+//     id: string ID for the hooking task
+//     type: 'text/javascript' or 'text/html'
+//
+// On Processing Responses:
+// event.ports[0].postMessage(JSON.stringify([ 'id', 'success', 'processed code' ]))
+// event.ports[0].postMessage(JSON.stringify([ 'id', 'error', 'error message' ]))
+importScripts('../hook.min.js?no-hook=true', 'context-generator.js?no-hook=true');
+onmessage = function onMessage(event) {
+  if (event.data === 'channel') {
+    let port = event.ports[0];
+    port.onmessage = function (hookEvent) {
+      let message = JSON.parse(hookEvent.data);
+      let id = message.shift();
+      let type = message.shift();
+      let parameters = message;
+      let result;
+      try {
+        switch (type) {
+        case 'text/javascript':
+          result = hook(...parameters);
+          break;
+        case 'text/html':
+          result = hook.hookHtml(...parameters);
+          break;
+        default:
+          throw new Error('hookWorker: Unknown type: ' + type);
+          break;
+        }
+        port.postMessage(JSON.stringify([ id, 'success', result ], null, 0));
+      }
+      catch (e) {
+        port.postMessage(JSON.stringify([ id, 'error', e.toString() ], null, 0));
+      }
+    }
+  }
+}
+```
+
 ```html
   <!-- Example Custom Context Generator for Service Worker and Browser Document -->
   <script src="bower_components/thin-hook/hook.min.js?version=1&no-hook=true&hook-name=__hook__&context-generator-name=method2&fallback-page=index-fb.html&service-worker-ready=true"></script>
@@ -400,6 +453,7 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
     - argument `astPath = [ ['script.js', {}], ['root', rootAst], ['body', bodyAst], ..., [0, FunctionExpressionAst] ]`
   - `metaHooking`: Enable meta hooking (run-time hooking of metaprogramming) if true
   - `hookProperty`: Enable hooking of object property accessors if true
+- `hook.hookHtml(html: string, hookName, url, cors, contextGenerator, contextGeneratorScripts, isDecoded, metaHooking = true, scriptOffset = 0, _hookProperty = true, asynchronous = false)`
 - `hook.__hook__(f: function or string, thisArg: object, args: Array, context: string, newTarget: new.target meta property)`
   - minimal hook callback function with property hooking
   - `f`:
@@ -510,6 +564,8 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
         - Specify URL patterns for source map target scripts:
           - `hook.parameters.sourceMap = [ 'source_map_target_url_1', 'source_map_target_url_2', ... ]`: specify source map target script URLs
           - `hook.parameters.sourceMap = [ (url: URL) => !!url.href.match(/{source map target URL pattern}/), ... ]`: specify source map target script URL detector function(s)
+        - Specify URL for hook worker script:
+          - `hook.parameters.hookWorker = 'hook-worker.js?no-hook=true'`: specify hook worker script URL
         - Register Custom Event Handler:
           - `if (typeof self === 'object' && self instanceof 'ServiceWorkerGlobalScope') { self.addEventListener('{event_type}', function handler(event) {...})}`
     - register as Service Worker
