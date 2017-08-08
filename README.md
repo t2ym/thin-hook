@@ -142,6 +142,8 @@ Thin Hook Preprocessor (experimental)
   hook.parameters.sourceMap = [
     url => location.origin === url.origin && url.pathname.match(/^\/components\/thin-hook\/demo\//)
   ];
+  // hook worker script URL
+  hook.parameters.hookWorker = `hook-worker.js?no-hook=true`;
 }
 ```
 
