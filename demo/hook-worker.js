@@ -3,12 +3,20 @@ onmessage = function onMessage(event) {
   if (event.data === 'channel') {
     let port = event.ports[0];
     port.onmessage = function (hookEvent) {
-      let message = JSON.parse(hookEvent.data);
+      let message;
+      try {
+        message = JSON.parse(hookEvent.data);
+      }
+      catch (parseError) {
+        console.error('Hook worker: unknown hookEvent message ', hookEvent.data);
+        return;
+      }
       let id = message.shift();
       let type = message.shift();
       let parameters = message;
       let result;
       try {
+        //console.log('Hook worker: received request ' + id);
         switch (type) {
         case 'text/javascript':
           result = hook(...parameters);
@@ -26,5 +34,8 @@ onmessage = function onMessage(event) {
         port.postMessage(JSON.stringify([ id, 'error', e.toString() ], null, 0));
       }
     }
+  }
+  else {
+    console.error('Hook worker: unknown message ', event.data);
   }
 }
