@@ -6,11 +6,13 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
   var callTree = [['Phrases']];
   // { id: label: group: }
   var data = { nodes: [ { id: 'undefined', label: 'undefined', group: 'undefined' } ], edges: [] };
+  var data2 = { nodes: [ { id: 'undefined', label: 'undefined', group: 'undefined' } ], edges: [] };
   var callTreeLastLength = callTree.length;
   var counter = 0;
   var calleeErrorCounter = 0;
   var log = [];
   var contexts = {};
+  var globalPropertyContexts = {};
   var locationContexts = {};
   var contextTransitions = {};
   var contextReverseTransitions = {};
@@ -23,6 +25,17 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
   var callbackFunctions = new WeakMap();
   var _global = typeof window === 'object' ? window : self;
   _global._data = data;
+  _global._data2 = data2;
+  var _globalPropertyDescriptors = Object.getOwnPropertyDescriptors(_global);
+  var _globalObjects = Object.keys(_globalPropertyDescriptors)
+    .sort()
+    .reduce((acc, curr) => {
+      if (_globalPropertyDescriptors[curr].value && typeof _globalPropertyDescriptors[curr].value !== 'number') {
+        acc.set(_globalPropertyDescriptors[curr].value, curr);
+      }
+      return acc;
+    }, new Map());
+  var globalObjectAccess = {};
   _global.__hook__ = function __hook__(f, thisArg, args, context, newTarget) {
     counter++;
     if (args[0] === pseudoContextArgument) {
@@ -109,6 +122,38 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       }
       if (c !== 1) {
         //console.log('CALLBACK with possibility of ' + c + ' multiple callers for ' + context);
+      }
+    }
+
+    if (typeof f === 'string') {
+      // property access
+      let name = _globalObjects.get(thisArg);
+      if (name) {
+        // thisArg is a global object
+        let forName;
+        let forProp;
+        let id = name + '.' + args[0];
+        if (!globalPropertyContexts[context]) {
+          let group = context.split(/[,:]/)[0];
+          data2.nodes.push({ id: context, label: context, group: group });
+          globalPropertyContexts[context] = true;
+        }
+        if (!globalObjectAccess[name]) {
+          globalObjectAccess[name] = {};
+          data2.nodes.push({ id: name, label: name, group: name });
+        }
+        forName = globalObjectAccess[name];
+        if (!forName[args[0]]) {
+          forName[args[0]] = {};
+          data2.nodes.push({ id: id, label: args[0], group: name });
+          data2.edges.push({ from: name, to: id, arrows: 'to' });
+        }
+        forProp = forName[args[0]];
+        if (!forProp[context]) {
+          forProp[context] = { from: context, to: id, label: 0, arrows: 'to' };
+          data2.edges.push(forProp[context]);
+        }
+        forProp[context].label++;
       }
     }
 

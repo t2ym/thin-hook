@@ -80,10 +80,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       attached: function() {
         this.drawGraph();
         this.intervalId = setInterval(function() {
-          let _lastEdges = window._data.edges.length;
-          if (_lastEdges - this._lastEdges >= 1000) {
+          let _lastEdges = window._data2.edges.length;
+          if (_lastEdges - this._lastEdges >= 100) {
             this._lastEdges = _lastEdges;
-            this.network.setData(window._data);
+            this.network.setData(window._data2);
           }
         }.bind(this), 60000);
       },
@@ -125,8 +125,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             improvedLayout: false
           }
         };
-        this.network = new vis.Network(container, window._data, options);
-        this._lastEdges = window._data.edges.length;
+        this.network = new vis.Network(container, window._data2, options);
+        this._lastEdges = window._data2.edges.length;
         this.progress = 0;
         this.network.addEventListener('stabilizationProgress', this.onProgressBindThis = this.onProgress.bind(this));
         this.network.addEventListener('stabilizationIterationsDone', this.onFinishBindThis = this.onFinish.bind(this));
