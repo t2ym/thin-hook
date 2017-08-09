@@ -152,52 +152,8 @@ Thin Hook Preprocessor (experimental)
 //
 // Configuration:
 //   hook.parameters.hookWorker = `hook-worker.js?no-hook=true`;
-//
-// On Installation:
-// onMessage(event)
-//   event.data === 'channel': Set up channel to the Service Worker
-//   event.ports[0]: MessagePort to the Service Worker
-//
-// On Processing Requests:
-// event.ports[0].onmessage(hookEvent)
-//   hookEvent.data: JSON string for parameters
-//   JSON.parse(hookEvent.data): [ 'id', 'type', 'code', ... ]
-//     id: string ID for the hooking task
-//     type: 'text/javascript' or 'text/html'
-//
-// On Processing Responses:
-// event.ports[0].postMessage(JSON.stringify([ 'id', 'success', 'processed code' ]))
-// event.ports[0].postMessage(JSON.stringify([ 'id', 'error', 'error message' ]))
 importScripts('../hook.min.js?no-hook=true', 'context-generator.js?no-hook=true');
-onmessage = function onMessage(event) {
-  if (event.data === 'channel') {
-    let port = event.ports[0];
-    port.onmessage = function (hookEvent) {
-      let message = JSON.parse(hookEvent.data);
-      let id = message.shift();
-      let type = message.shift();
-      let parameters = message;
-      let result;
-      try {
-        switch (type) {
-        case 'text/javascript':
-          result = hook(...parameters);
-          break;
-        case 'text/html':
-          result = hook.hookHtml(...parameters);
-          break;
-        default:
-          throw new Error('hookWorker: Unknown type: ' + type);
-          break;
-        }
-        port.postMessage(JSON.stringify([ id, 'success', result ], null, 0));
-      }
-      catch (e) {
-        port.postMessage(JSON.stringify([ id, 'error', e.toString() ], null, 0));
-      }
-    }
-  }
-}
+onmessage = hook.hookWorkerHandler;
 ```
 
 ```html
@@ -576,6 +532,8 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
 - `hook.serviceWorkerTransformers`:
   - `encodeHtml(html: string)`: encode HTML for Service Worker
   - `decodeHtml(html: string)`: decode encoded HTML for Service Worker
+- `hook.hookWorkerHandler(event)`: onmessage handler for Hook Workers
+  - Usage: `onmessage = hook.hookWorkerHandler` in Hook Worker script
 - `hook.registerServiceWorker(fallbackUrl: string = './index-no-service-worker.html', reloadTimeout: number = 500, inactiveReloadTimeout: number = 1000)`:
   - Automatically called on loading `hook.min.js` on browsers
   - `fallbackUrl`: fallback URL for browsers without Service Worker
