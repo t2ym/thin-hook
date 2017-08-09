@@ -35,6 +35,12 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       }
       return acc;
     }, new Map());
+  var _objectStaticPropertyDescriptors = Object.getOwnPropertyDescriptors(Object);
+  var _objectPropertyDescriptors = Object.getOwnPropertyDescriptors(Object.prototype);
+  var _arrayStaticPropertyDescriptors = Object.getOwnPropertyDescriptors(Array);
+  var _arrayPropertyDescriptors = Object.getOwnPropertyDescriptors(Array.prototype);
+  var _stringStaticPropertyDescriptors = Object.getOwnPropertyDescriptors(String);
+  var _stringPropertyDescriptors = Object.getOwnPropertyDescriptors(String.prototype);
   var globalObjectAccess = {};
   _global.__hook__ = function __hook__(f, thisArg, args, context, newTarget) {
     counter++;
@@ -128,11 +134,56 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     if (typeof f === 'string') {
       // property access
       let name = _globalObjects.get(thisArg);
+      let isStatic = true;
+      let ctor;
+      if (!name) {
+        ctor = thisArg.constructor;
+        name = _globalObjects.get(ctor);
+        if (name) {
+          isStatic = false;
+        }
+      }
+      if (name === 'Object') {
+        if (isStatic) {
+          if (!_objectStaticPropertyDescriptors[args[0]]) {
+            name = null;
+          }
+        }
+        else {
+          if (!_objectPropertyDescriptors[args[0]]) {
+            name = null;
+          }
+        }
+      }
+      else if (name === 'Array') {
+        if (isStatic) {
+          if (!_arrayStaticPropertyDescriptors[args[0]]) {
+            name = null;
+          }
+        }
+        else {
+          if (!_arrayPropertyDescriptors[args[0]]) {
+            name = null;
+          }
+        }
+      }
+      else if (name === 'String') {
+        if (isStatic) {
+          if (!_stringStaticPropertyDescriptors[args[0]]) {
+            name = null;
+          }
+        }
+        else {
+          if (!_stringPropertyDescriptors[args[0]]) {
+            name = null;
+          }
+        }
+      }
       if (name) {
-        // thisArg is a global object
+        // thisArg is a global object or an instance of one
         let forName;
         let forProp;
-        let id = name + '.' + args[0];
+        let id = isStatic ? name + '.' + args[0] : name + '.prototype.' + args[0];
         if (!globalPropertyContexts[context]) {
           let group = context.split(/[,:]/)[0];
           data2.nodes.push({ id: context, label: context, group: group });
@@ -143,10 +194,18 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           data2.nodes.push({ id: name, label: name, group: name });
         }
         forName = globalObjectAccess[name];
+        /*
+        // skip property name for generating a simpler graph
+        if (!forName[context]) {
+          forName[context] = { from: context, to: name, label: 0, arrows: 'to' };
+          data2.edges.push(forName[context]);
+        }
+        forName[context].label++;
+        */
         if (!forName[args[0]]) {
           forName[args[0]] = {};
           data2.nodes.push({ id: id, label: args[0], group: name });
-          data2.edges.push({ from: name, to: id, arrows: 'to' });
+          data2.edges.push({ from: name, to: id, dashes: true, arrows: 'to' });
         }
         forProp = forName[args[0]];
         if (!forProp[context]) {
