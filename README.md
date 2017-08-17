@@ -403,7 +403,7 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
 
 ## API (Tentative)
 
-- `hook(code: string, hookName: string = '__hook__', initialContext: Array = [], contextGeneratorName: string = 'method', metaHooking: boolean = true, hookProperty: boolean = true)`
+- `hook(code: string, hookName: string = '__hook__', initialContext: Array = [], contextGeneratorName: string = 'method', metaHooking: boolean = true, hookProperty: boolean = true, sourceMap: object = null, asynchronous: boolean = false, compact: boolean = false)`
   - `code`: input JavaScript as string
   - `hookName`: name of hook callback function
   - `initialContext`: typically `[ ['script.js', {}] ]`
@@ -411,6 +411,9 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
     - argument `astPath = [ ['script.js', {}], ['root', rootAst], ['body', bodyAst], ..., [0, FunctionExpressionAst] ]`
   - `metaHooking`: Enable meta hooking (run-time hooking of metaprogramming) if true
   - `hookProperty`: Enable hooking of object property accessors if true
+  - `sourceMap`: Source map parameter in an object. `{ pathname: 'path/to/script_source.js'}` Default: null
+  - `asynchronous`: Return a Promise if true. Default: false
+  - `compact`: Generate compact code if true. Default: false
 - `hook.hookHtml(html: string, hookName, url, cors, contextGenerator, contextGeneratorScripts, isDecoded, metaHooking = true, scriptOffset = 0, _hookProperty = true, asynchronous = false)`
 - `hook.__hook__(f: function or string, thisArg: object, args: Array, context: string, newTarget: new.target meta property)`
   - minimal hook callback function with property hooking
@@ -500,7 +503,8 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
             - 16. Clear Service Worker(s)
             - 17. Reload the page(s) with no-hook script(s)
             - 18. Check if there are no unauthorized no-hook scripts
-      - `hook-property`: `hookProperty` parameter. `true` if property accessors are hooked
+      - `hook-property`: `hookProperty` parameter. `true` if property accessors are hooked. The value affects the default value of the `hookProperty` parameter for `hook()`
+      - `compact`: `compact` parameter. Generate compact code if `true`. The value affects the default value of the `compact` parameter for `hook()`
       - `service-worker-ready`: `true` if the entry HTML page is decoded; `false` if encoded. This parameter must be at the end of the URL
     - `<script src="script.js?no-hook=true"></script>`: skip hooking for the source script
     - `<script no-hook>...</script>`: skip hooking for the embedded script
