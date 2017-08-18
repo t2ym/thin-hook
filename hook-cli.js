@@ -99,9 +99,11 @@ for (let i = 2; i < process.argv.length; i++) {
   }
   if (process.argv[i].match(/[.]js$/)) {
     let code = fs.readFileSync(process.argv[i], 'UTF-8');
+    let start = Date.now();
     let gen = hook(code, hookName, [ [ process.argv[i], contexts ] ], contextGenerator, metaHooking);
+    let end = Date.now();
     let outPath = path.join(path.dirname(process.argv[i]), 'hooked.' + path.basename(process.argv[i]));
-    console.log('Hooked: ', outPath);
+    console.log('Hooked: ', outPath, ' in ' + (end - start) + 'ms');
     fs.writeFileSync(outPath, gen);
   }
   else if (process.argv[i].match(/[.]html?$/)) {
