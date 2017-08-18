@@ -16,6 +16,7 @@ const chai = require('chai');
 const assert = chai.assert;
 const espree = require('espree');
 const escodegen = require('escodegen');
+const createHash = require('sha.js');
 
 const hook = require('./hook.js');
 
@@ -38,6 +39,17 @@ gulp.task('demo', (done) => {
   setTimeout(() => {
     return gulp.src(['demo/original-index.html'], { base: 'demo' })
       //.pipe(sourcemaps.init())
+      .pipe(through.obj((file, enc, callback) => {
+        const hash = hook.utils.createHash('sha256');
+        let html = String(file.contents);
+        let hookScript = fs.readFileSync('hook.min.js', 'UTF-8');
+        hash.update(hookScript);
+        let digest = hash.digest('hex');
+        html = html.replace(/no-hook-authorization=([a-z0-9]*),/, 'no-hook-authorization=' + digest + ',');
+        file.contents = new Buffer(html);
+        callback(null, file);
+      }))
+      .pipe(gulp.dest('demo'))
       .pipe(through.obj((file, enc, callback) => {
         let html = String(file.contents);
         let transformed = hook.serviceWorkerTransformers.encodeHtml(html);
