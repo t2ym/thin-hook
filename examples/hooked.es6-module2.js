@@ -1,7 +1,7 @@
 import Test from './es6-module.js';
 function f(a) {
   return __hook__(a => {
-    let t = new Test(a);
+    let t = __hook__(Test, null, [a], 'examples/es6-module2.js,f,t', true);
     __hook__('()', console, [
       'log',
       [
