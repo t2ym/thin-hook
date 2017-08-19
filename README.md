@@ -362,7 +362,7 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
 
 - Functions
 - Object Shorthand Methods (`{ m() {} }`)
-- ES6 Classes (`constructor`, `super`, `this`)
+- ES6 Classes (`constructor`, `super`, `this`, `new`)
 - ES6 Modules (`import`, `export`);
 - Expressions in Template Literals(`` `${(v => v * v)(x)}` ``)
 - Generator Functions (`function *g() { yield X }`)
@@ -410,10 +410,11 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
   - `contextGeneratorName`: function property name in `hook.contextGenerators`
     - argument `astPath = [ ['script.js', {}], ['root', rootAst], ['body', bodyAst], ..., [0, FunctionExpressionAst] ]`
   - `metaHooking`: Enable meta hooking (run-time hooking of metaprogramming) if true
-  - `hookProperty`: Enable hooking of object property accessors if true
+  - `hookProperty`: Enable hooking of object property accessors and new operators if true
   - `sourceMap`: Source map parameter in an object. `{ pathname: 'path/to/script_source.js'}` Default: null
   - `asynchronous`: Return a Promise if true. Default: false
   - `compact`: Generate compact code if true. Default: false
+    - Note: `sourceMap` is disabled when `compact` is true
 - `hook.hookHtml(html: string, hookName, url, cors, contextGenerator, contextGeneratorScripts, isDecoded, metaHooking = true, scriptOffset = 0, _hookProperty = true, asynchronous = false)`
 - `hook.__hook__(f: function or string, thisArg: object, args: Array, context: string, newTarget: new.target meta property)`
   - minimal hook callback function with property hooking
