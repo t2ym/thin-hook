@@ -5,6 +5,10 @@
 
 Thin Hook Preprocessor (experimental)
 
+### Native API Access Graph generated via hook callback function (view2 of thin-hook/demo/index.html)
+
+<img src="https://raw.githubusercontent.com/wiki/t2ym/thin-hook/native_api_access_graph.png" width="768px">
+
 [Demo](https://t2ym.github.io/thin-hook/components/thin-hook/demo/index.html) on GitHub Pages
 
 ### Input
