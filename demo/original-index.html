@@ -15,7 +15,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <script src="../../thin-hook/hook.min.js?version=434&no-hook-authorization=57cfe53fb6b50c99379582f89a32aa8d0b65d4c18d6c3f76229f9db12cef7d08,6dfdfbf9d4fa32b13af304e11170f4d6a001a5e4f5a8fe02ce0c14d18ca080d4,log-no-hook-authorization&sw-root=/&no-hook=true&hook-name=__hook__&context-generator-name=method2&discard-hook-errors=false&fallback-page=index-fb.html&hook-property=true&compact=false&service-worker-ready=true"></script>
+  <script src="../../thin-hook/hook.min.js?version=434&no-hook-authorization=dcab57c5dce2234f6b46e3fc01796f8f5a8d8d494b5f57a7dfeb751bc014c4b3,44838cc3e2bb7096affaa4079cbc7116134dc82e3fd7dc4744ffaf2d61526a37,log-no-hook-authorization&sw-root=/&no-hook=true&hook-name=__hook__&context-generator-name=method2&discard-hook-errors=false&fallback-page=index-fb.html&hook-property=true&compact=false&service-worker-ready=true"></script>
   <script context-generator src="no-hook-authorization.js?no-hook=true"></script>
   <script context-generator src="context-generator.js?no-hook=true"></script>
   <script context-generator no-hook>
@@ -167,6 +167,11 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         console.log('thenFunc3', values)
         chai.assert.deepEqual(values, [ 3, 4 ], 'Promise.all([asyncFunc2(), asyncFunc3()]) resolves to [ 3, 4 ]');
       });
+    }
+    {
+      function f() {
+        let d = new Date(2017, 7);
+      }
     }
   </script>
   <script type="module" src="es6-module2.js"></script>
