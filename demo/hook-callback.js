@@ -31,7 +31,10 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     .sort()
     .reduce((acc, curr) => {
       if (_globalPropertyDescriptors[curr].value && typeof _globalPropertyDescriptors[curr].value !== 'number') {
-        acc.set(_globalPropertyDescriptors[curr].value, curr);
+        let existing = acc.get(_globalPropertyDescriptors[curr].value);
+        if (!existing || (existing.length > curr.length)) {
+          acc.set(_globalPropertyDescriptors[curr].value, curr);
+        }
       }
       return acc;
     }, new Map());
@@ -213,6 +216,28 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           data2.edges.push(forProp[context]);
         }
         forProp[context].label++;
+      }
+    }
+    else if (newTarget) {
+      let name = _globalObjects.get(f);
+      if (name) {
+        // new operator for a global class
+        let forName;
+        if (!globalPropertyContexts[context]) {
+          let group = context.split(/[,:]/)[0];
+          data2.nodes.push({ id: '/' + context, label: context, group: group });
+          globalPropertyContexts[context] = true;
+        }
+        if (!globalObjectAccess[name]) {
+          globalObjectAccess[name] = {};
+          data2.nodes.push({ id: name, label: name, group: name });
+        }
+        forName = globalObjectAccess[name];
+        if (!forName[context]) {
+          forName[context] = { from: '/' + context, to: name, label: 0, arrows: 'to' };
+          data2.edges.push(forName[context]);
+        }
+        forName[context].label++;
       }
     }
 
