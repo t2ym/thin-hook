@@ -78,14 +78,32 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       behaviors: [ BehaviorsStore.I18nBehavior ],
 
       attached: function() {
-        this.drawGraph();
+        this._lastEdges = 0;
         this.intervalId = setInterval(function() {
-          let _lastEdges = window._data2.edges.length;
-          if (_lastEdges - this._lastEdges >= 100) {
-            this._lastEdges = _lastEdges;
-            this.network.setData(window._data2);
+          if (this.isSelected()) {
+            let _lastEdges = this.getData().edges.length;
+            let now = Date.now();
+            if (_lastEdges - this._lastEdges >= 1000
+              || (now - this._lastDraw >= 120000 && _lastEdges - this._lastEdges >= 100)
+              || this._lastEdges === 0) {
+              //console.log('drawGraph _lastEdges = ', _lastEdges, 'this._lastEdges = ', this._lastEdges, 'now - this._lastDraw = ', now - this._lastDraw);
+              this._lastEdges = _lastEdges;
+              this._lastDraw = now;
+              this.drawGraph();
+            }
           }
-        }.bind(this), 60000);
+          else {
+            if (this._lastEdges > 0) {
+              //console.log('Reset');
+              this.network.setData({ nodes: [], edges: [] });
+              this.network.removeEventListener('stabilizationProgress', this.onProgressBindThis);
+              this.network.removeEventListener('stabilizationIterationsDone', this.onFinishBindThis);
+              this.progress = 0;
+              this._lastDraw = Date.now();
+              this._lastEdges = 0;
+            }
+          }
+        }.bind(this), 100);
       },
 
       detached: function() {
@@ -93,6 +111,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           clearInterval(this.intervalId);
           this.intervalId = undefined;
         }
+      },
+
+      isSelected: function() {
+        return this.classList.contains('iron-selected');
+      },
+
+      getData: function() {
+        return window._data2;
       },
 
       drawGraph: function() {
@@ -125,8 +151,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             improvedLayout: false
           }
         };
-        this.network = new vis.Network(container, window._data2, options);
-        this._lastEdges = window._data2.edges.length;
+        this.network = new vis.Network(container, this.getData(), options);
+        this._lastEdges = this.getData().edges.length;
         this.progress = 0;
         this.network.addEventListener('stabilizationProgress', this.onProgressBindThis = this.onProgress.bind(this));
         this.network.addEventListener('stabilizationIterationsDone', this.onFinishBindThis = this.onFinish.bind(this));
