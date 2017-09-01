@@ -26,13 +26,26 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
   var _global = typeof window === 'object' ? window : self;
   _global._data = data;
   _global._data2 = data2;
-  var _globalPropertyDescriptors = Object.getOwnPropertyDescriptors(_global);
+  var _globalPropertyDescriptors = {};
+  {
+    let o = _global;
+    while (o) {
+      Object.assign(_globalPropertyDescriptors, Object.getOwnPropertyDescriptors(_global));
+      o = Object.getPrototypeOf(o);
+    }
+  }
   var _globalObjects = Object.keys(_globalPropertyDescriptors)
     .sort()
     .reduce((acc, curr) => {
+      const globalObjectNames = ['top', 'global', 'self', 'window'];
       if (_globalPropertyDescriptors[curr].value && typeof _globalPropertyDescriptors[curr].value !== 'number') {
         let existing = acc.get(_globalPropertyDescriptors[curr].value);
-        if (!existing || (existing.length > curr.length)) {
+        if (globalObjectNames.indexOf(curr) >= 0) {
+          if (globalObjectNames.indexOf(existing) < globalObjectNames.indexOf(curr)) {
+            acc.set(_globalPropertyDescriptors[curr].value, curr);
+          }
+        }
+        else if (!existing || (existing.length > curr.length)) {
           acc.set(_globalPropertyDescriptors[curr].value, curr);
         }
       }
