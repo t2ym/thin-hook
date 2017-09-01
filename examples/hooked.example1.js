@@ -1,4 +1,4 @@
-class A1 {
+hook.global(__hook__, 'examples/example1.js,A1', 'A1', 'class').A1 = class A1 {
   constructor(x, y, z) {
     return __hook__((x, y = 3, z = 5) => {
       __hook__('=', this, [
@@ -25,8 +25,8 @@ class A1 {
       return a + b + c + 1;
     }, this, arguments, 'examples/example1.js,A1,method2');
   }
-}
-class X1 extends A1 {
+};
+hook.global(__hook__, 'examples/example1.js,X1', 'X1', 'class').X1 = class X1 extends hook.global(__hook__, 'examples/example1.js,X1', 'A1', 'get').A1 {
   constructor(x, y, z) {
     return __hook__((x, y, z = 9) => {
       super(x, y, z);
@@ -86,8 +86,8 @@ class X1 extends A1 {
       return a + b + c;
     }, this, arguments, 'examples/example1.js,X1,static smethod');
   }
-}
-class Y1 extends X1 {
+};
+hook.global(__hook__, 'examples/example1.js,Y1', 'Y1', 'class').Y1 = class Y1 extends hook.global(__hook__, 'examples/example1.js,Y1', 'X1', 'get').X1 {
   constructor(x, y, z) {
     return __hook__((x = 3, y = x * 3, z = x * y * 5) => {
       super(x, y, z);
@@ -101,26 +101,26 @@ class Y1 extends X1 {
       ], 'examples/example1.js,Y1,constructor');
     }, null, arguments, 'examples/example1.js,Y1,constructor');
   }
-}
-let o = {
+};
+hook.global(__hook__, 'examples/example1.js', 'o', 'let').o = {
   *generator() {
     yield* __hook__(function* () {
       yield 1;
       yield 2;
-    }, this, arguments, 'examples/example1.js,o,generator');
+    }, this, arguments, 'examples/example1.js,generator');
   }
 };
-function f(a, b, c) {
+hook.global(__hook__, 'examples/example1.js,f', 'f', 'function').f = function f(a, b, c) {
   return __hook__((a, b, c) => {
     return a + b + c;
   }, this, arguments, 'examples/example1.js,f');
-}
-async function afunc(a, b, c) {
+};
+hook.global(__hook__, 'examples/example1.js,afunc', 'afunc', 'function').afunc = async function afunc(a, b, c) {
   return __hook__(async (a, b, c) => {
     return a + b + c;
   }, this, arguments, 'examples/example1.js,afunc');
-}
-function* gfunc(a, b, c) {
+};
+hook.global(__hook__, 'examples/example1.js,gfunc', 'gfunc', 'function').gfunc = function* gfunc(a, b, c) {
   yield* __hook__(function* (a, b, c) {
     // comment for gfunc
     yield* [
@@ -129,13 +129,13 @@ function* gfunc(a, b, c) {
       c
     ];
   }, this, arguments, 'examples/example1.js,gfunc');
-}
-function destructuring([x, , [y], z], [a, b, c]) {
+};
+hook.global(__hook__, 'examples/example1.js,destructuring', 'destructuring', 'function').destructuring = function destructuring([x, , [y], z], [a, b, c]) {
   return __hook__(([x, , [y = 2], z = 3], [a, b = 5, c = 6]) => {
     return x + y + z + a + b + c;
   }, this, arguments, 'examples/example1.js,destructuring');
-}
-function d() {
+};
+hook.global(__hook__, 'examples/example1.js,d', 'd', 'function').d = function d() {
   return __hook__(() => {
     return function descructuringWithObjects({
       a,
@@ -155,13 +155,13 @@ function d() {
       }, this, arguments, 'examples/example1.js,d,descructuringWithObjects');
     }({
       b: 2,
-      c: undefined,
+      c: hook.global(__hook__, 'examples/example1.js,d,c', 'undefined', 'get').undefined,
       x: 4,
       y: 5
     }, [
       ,
       7,
-      undefined
+      hook.global(__hook__, 'examples/example1.js,d', 'undefined', 'get').undefined
     ]);
   }, this, arguments, 'examples/example1.js,d');
-}
+};
