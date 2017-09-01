@@ -15,7 +15,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <script src="../../thin-hook/hook.min.js?version=435&no-hook-authorization=9d26a1f0661921073eb5d6cd9435c292c478748bc2b2330ecc95fbf135beba12,44838cc3e2bb7096affaa4079cbc7116134dc82e3fd7dc4744ffaf2d61526a37,log-no-hook-authorization&sw-root=/&no-hook=true&hook-name=__hook__&context-generator-name=method2&discard-hook-errors=false&fallback-page=index-fb.html&hook-property=true&compact=false&service-worker-ready=false"></script></head></html><!--
+  <script src="../../thin-hook/hook.min.js?version=435&no-hook-authorization=0bf898b4cb706954c8e9536524c5683a6e827deeebb673a0f5d9878ea7652b43,721655a419b44bba3c522daeb05af7f444ddca826ee04f080dbefbc2be648ad3,log-no-hook-authorization&sw-root=/&no-hook=true&hook-name=__hook__&context-generator-name=method2&discard-hook-errors=false&fallback-page=index-fb.html&hook-property=true&hook-global=true&compact=false&service-worker-ready=false"></script></head></html><!--
   <script context-generator src="no-hook-authorization.js?no-hook=true"></script>
   <script context-generator src="context-generator.js?no-hook=true"></script>
   <script context-generator no-hook>
@@ -40,8 +40,20 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
   </script>
   <script src="hook-callback.js?no-hook=true"></script>
   <script src="../../webcomponentsjs/webcomponents-lite.js?no-hook=true"></script>
-  <script src="hook-native-api.js?no-hook=true"></script>
   <script src="../../chai/chai.js?no-hook=true"></script>
+  <script no-hook>
+    (function () {
+      // Native eval() function is bound to the local scope
+      let a = 2;
+      let b = eval('a + 3');
+      let c = eval('let d = 4; d + 2');
+      let e = eval('(function f(x) { return x + 3; })(c)');
+      let f = eval('if (e > 3) { c + 3; } else { b + 2; }');
+      console.log(a, b, c, e, f); // 2 5 6 9 9
+      chai.assert.deepEqual([a, b, c, e, f], [2, 5, 6, 9, 9], 'native eval results');
+    })();
+  </script>
+  <script src="hook-native-api.js?no-hook=true"></script>
   <C!-- <script no-hook>(function ff() { alert('invalid no-hook script that should not be executed'); })()</script> --C>
   <script>
     {
@@ -183,25 +195,12 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       window.e = 19;
       let a = 2;
       let b = eval('a + 3');
-      let c = eval('let d = 4; d + 2');
+      let c = eval('var d = 4; d + 2');
       let e = eval('(function f(x) { return x + 3; })(c)');
       let f = eval('if (e > 3) { c + 3; } else { b + 2; }');
       // hooked window.eval() in a no-hook script is bound to the global scope, not to the local one
       console.log(a, b, c, e, f); // 2 12 6 15 15
       chai.assert.deepEqual([a, b, c, e, f], [2, 12, 6, 15, 15], 'hooked eval results');
-    }
-    {
-      let wrapper = (script, eval) => eval(script);
-      let a = 2;
-      let b = eval('a + 3', wrapper);
-      let c = eval('let d = 4; d + 2', wrapper);
-      let e = eval('(function f(x) { return x + 3; })(c)', wrapper);
-      let f = eval('if (e > 3) { c + 3; } else { b + 2; }', wrapper);
-      // Use this locally bound arrow function wrapper as the second argument to bound the hooked eval to the local scope
-      // Eventually, there should be a better way to use the native eval, or other native APIs in general, in no-hook scripts more naturally
-      // The easiest way is to put all the no-hook scripts BEFORE hooking the platform with hook.hook(hook.eval(...))
-      console.log(a, b, c, e, f); // 2 5 6 9 9
-      chai.assert.deepEqual([a, b, c, e, f], [2, 5, 6, 9, 9], 'hooked eval results');
     }
   </script>
   <script src="web-worker-client.js"></script>
