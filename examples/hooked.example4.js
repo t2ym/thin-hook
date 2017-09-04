@@ -1,5 +1,5 @@
 {
-  hook.global(__hook__, 'examples/example4.js', 'setTimeout', 'get').setTimeout(function X() {
+  hook.global(__hook__, 'examples/example4.js', 'setTimeout', 'get')._p_setTimeout(function X() {
     return __hook__(() => {
       __hook__('()', console, [
         'log',
@@ -7,7 +7,7 @@
       ], 'examples/example4.js,X');
     }, this, arguments, 'examples/example4.js,X');
   }, 1000);
-  hook.global(__hook__, 'examples/example4.js', 'setTimeout', 'get').setTimeout((...args) =>
+  hook.global(__hook__, 'examples/example4.js', 'setTimeout', 'get')._p_setTimeout((...args) =>
     (__hook__(() => {
       __hook__('()', console, [
         'log',
@@ -43,7 +43,7 @@
       'method'
     ]
   ], 'examples/example4.js')(f1, 1000);
-  hook.global(__hook__, 'examples/example4.js', 'setInterval', 'get').setInterval(function X() {
+  hook.global(__hook__, 'examples/example4.js', 'setInterval', 'get')._p_setInterval(function X() {
     return __hook__(() => {
       __hook__('()', console, [
         'log',
@@ -51,7 +51,7 @@
       ], 'examples/example4.js,X');
     }, this, arguments, 'examples/example4.js,X');
   }, 1000);
-  hook.global(__hook__, 'examples/example4.js', 'setInterval', 'get').setInterval((...args) =>
+  hook.global(__hook__, 'examples/example4.js', 'setInterval', 'get')._p_setInterval((...args) =>
     (__hook__(() => {
       __hook__('()', console, [
         'log',
