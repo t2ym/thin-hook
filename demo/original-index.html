@@ -15,7 +15,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <script src="../../thin-hook/hook.min.js?version=435&no-hook-authorization=0afc974d610bb56a77768b9dcd7e089d4b84a46ab287e2a1c8825f407995de69,721655a419b44bba3c522daeb05af7f444ddca826ee04f080dbefbc2be648ad3,log-no-hook-authorization&sw-root=/&no-hook=true&hook-name=__hook__&context-generator-name=method2&discard-hook-errors=false&fallback-page=index-fb.html&hook-property=true&hook-global=true&compact=false&service-worker-ready=true"></script>
+  <script src="../../thin-hook/hook.min.js?version=435&no-hook-authorization=602ad971e936915de4a72bad6a3489581beb692dcee9c0a4ffc9cced91fa463c,13ae2c9fc2405a113f3174691001c042275b84166fef3f5d1e96b2bfdf3a8f86,log-no-hook-authorization&sw-root=/&no-hook=true&hook-name=__hook__&context-generator-name=method2&discard-hook-errors=false&fallback-page=index-fb.html&hook-property=true&hook-global=true&hook-prefix=_pp_&compact=false&service-worker-ready=true"></script>
   <script context-generator src="no-hook-authorization.js?no-hook=true"></script>
   <script context-generator src="context-generator.js?no-hook=true"></script>
   <script context-generator no-hook>
@@ -185,6 +185,23 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         let d = new Date(2017, 7);
       }
     }
+  </script>
+  <script>
+    const globalConstant = 'constant value';
+    let globalVariable = 'value';
+    class globalClass {}
+    try {
+      globalConstant = 'override constant value';
+    }
+    catch (e) {
+      // "Assignment to constant variable" is not thrown in the emulated environment
+    }
+    finally {
+      chai.assert.equal(globalConstant, 'constant value', 'global constant value is unchanged');
+    }
+    chai.assert.equal(Object.getPrototypeOf(new globalClass()).constructor.name, 'globalClass', 'global class can be instantiated');
+    globalVariable = 'new value';
+    chai.assert.equal(globalVariable, 'new value', 'global variable is changed');
   </script>
   <script type="module" src="es6-module2.js"></script>
   <script no-hook>
