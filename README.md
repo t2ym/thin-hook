@@ -407,7 +407,7 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
 
 ## API (Tentative)
 
-- `hook(code: string, hookName: string = '__hook__', initialContext: Array = [], contextGeneratorName: string = 'method', metaHooking: boolean = true, hookProperty: boolean = true, sourceMap: object = null, asynchronous: boolean = false, compact: boolean = false, hookGlobal: boolean = true, initialScope: object = null)`
+- `hook(code: string, hookName: string = '__hook__', initialContext: Array = [], contextGeneratorName: string = 'method', metaHooking: boolean = true, hookProperty: boolean = true, sourceMap: object = null, asynchronous: boolean = false, compact: boolean = false, hookGlobal: boolean = true, hookPrefix: string = '_p_', initialScope: object = null)`
   - `code`: input JavaScript as string
   - `hookName`: name of hook callback function
   - `initialContext`: typically `[ ['script.js', {}] ]`
@@ -420,6 +420,8 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
   - `compact`: Generate compact code if true. Default: false
     - Note: `sourceMap` is disabled when `compact` is true
   - `hookGlobal`: Hook global variable access. Must be enabled with `hookProperty`. Default: true
+  - `hookPrefix`: Prefix for `hook.global()._p_GlobalVariable` proxy accessors. Default: `_p_`
+    - Note: `hook.global()` return the global object with `get/set` accessors for the prefixed name
   - `initialScope`: Initial scope object (`{ vname: true, ... }`) for hooked eval scripts. Default: null
 - `hook.hookHtml(html: string, hookName, url, cors, contextGenerator, contextGeneratorScripts, isDecoded, metaHooking = true, scriptOffset = 0, _hookProperty = true, asynchronous = false)`
 - `hook.__hook__(f: function or string, thisArg: object, args: Array, context: string, newTarget: new.target meta property)`
@@ -448,7 +450,7 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
   - `method(astPath: Array)`: context as `'script.js,Class,Method'`
   - custom context generator function has to be added to this object with its unique contextGeneratorName
 - Hooked Native APIs: Automatically applied in `hook()` preprocessing
-  - `hook.global(hookCallback: function = hookName, context: string, name: string, type: string).name`: hooked global variable accessor when `hookGlobal` is true
+  - `hook.global(hookCallback: function = hookName, context: string, name: string, type: string)._p_name`: hooked global variable accessor when `hookGlobal` is true
     - `type`: one of `'var', 'function', 'let', 'const', 'class', 'get', 'set', 'delete', 'typeof'`
   - `hook.Function(hookName, initialContext: Array = [['Function', {}]], contextGeneratorName)`: hooked Function constructor
     - Usage: `(new (hook.Function('__hook__', [['window,Function', {}]], 'method'))('return function f() {}'))()`
@@ -514,6 +516,7 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
             - 18. Check if there are no unauthorized no-hook scripts
       - `hook-property`: `hookProperty` parameter. `true` if property accessors are hooked. The value affects the default value of the `hookProperty` parameter for `hook()`
       - `hook-global`: `hookGlobal` parameter. `true` if global variables are hooked. The value affects the default value of the `hookGlobal` parameter for `hook()`
+      - `hook-prefix`: `hookPrefix` parameter. Prefix accessor names of `hook.global()._p_GlobalVariableName` with the value. Default: `_p_`
       - `compact`: `compact` parameter. Generate compact code if `true`. The value affects the default value of the `compact` parameter for `hook()`
       - `service-worker-ready`: `true` if the entry HTML page is decoded; `false` if encoded. This parameter must be at the end of the URL
     - `<script src="script.js?no-hook=true"></script>`: skip hooking for the source script
