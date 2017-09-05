@@ -1,7 +1,7 @@
 hook.global(__hook__, 'examples/global.js', 'gvv', 'get')._p_gvv;
 hook.global(__hook__, 'examples/global.js', 'gvv1', 'get')._p_gvv1, hook.global(__hook__, 'examples/global.js', 'gvv2', 'get')._p_gvv2;
 hook.global(__hook__, 'examples/global.js', 'gv0', 'var')._p_gv0, [hook.global(__hook__, 'examples/global.js', 'gv00', 'var')._p_gv00] = ['gv00'];
-[hook.global(__hook__, 'examples/global.js', 'ga', 'var')._p_ga, ...gb] = [
+[hook.global(__hook__, 'examples/global.js', 'ga', 'var')._p_ga, ...(hook.global(__hook__, 'examples/global.js', 'gb', 'var'))._p_gb] = [
   3,
   4,
   5
