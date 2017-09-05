@@ -15,7 +15,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <script src="../../thin-hook/hook.min.js?version=435&no-hook-authorization=8fd3c1a788b6d4e74697431e269d24659e1c8c654d01d2bfeec533c1703b1d33,fe51502be1f865c1d75bd9bb3f571e4905563cdf6473097395262080a33560be,log-no-hook-authorization&sw-root=/&no-hook=true&hook-name=__hook__&context-generator-name=method2&discard-hook-errors=false&fallback-page=index-fb.html&hook-property=true&hook-global=true&hook-prefix=_pp_&compact=false&service-worker-ready=true"></script>
+  <script src="../../thin-hook/hook.min.js?version=435&no-hook-authorization=48c4365a33c042a00b41eb09d764ee6ef7ea9052deff514ff3467753767bdbd8,fe51502be1f865c1d75bd9bb3f571e4905563cdf6473097395262080a33560be,log-no-hook-authorization&sw-root=/&no-hook=true&hook-name=__hook__&context-generator-name=method2&discard-hook-errors=false&fallback-page=index-fb.html&hook-property=true&hook-global=true&hook-prefix=_pp_&compact=false&service-worker-ready=true"></script>
   <script context-generator src="no-hook-authorization.js?no-hook=true"></script>
   <script context-generator src="context-generator.js?no-hook=true"></script>
   <script context-generator no-hook>
@@ -235,6 +235,102 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     }
   </script>
   <script>
+    var gvv, gvv1, gvv2;
+    gvv;
+    gvv1, gvv2;
+    var gv0, [gv00] = [ 0 ];
+    var [ga, ...gb] = [3, 4, 5];
+    let [ga1, ...[gb1, gb2]] = [3, 4, 5];
+    chai.assert.deepEqual(
+      [gvv, gvv1, gvv2, gv0, gv00, ga, gb, ga1, gb1, gb2],
+      [undefined, undefined, undefined, undefined, 0, 3, [4,5], 3, 4, 5], 'gvv, gvv1, gvv2, gv0, gv00, ga, gb, ga1, gb1, gb2 have expected values');
+    gv0;
+    var gv = 1;
+    var [ gv2, gv3 ] = [ 9, 10 ];
+    gv4 = gv;
+    gv2++;
+    var { x: xx, z: { u: uu, v: vv }, q } = { x: 11, z: { u: 12, v: 13 }, q: 14 };
+    function gf() { var local1 = 1; let local2 = 2; }
+    let gl = 2;
+    const gc = 3;
+    chai.assert.deepEqual(
+      [gv, gv2, gv3, gv4, xx, uu, vv, q, gl, gc],
+      [1, 10, 10, 1, 11, 12, 13, 14, 2, 3], 'gv, gv2, gv3, gv4, xx, uu, vv, q, gl, gc have expected values');
+    class gC2 {}
+    class gC4 {}
+    class gC extends gC2 {}
+    var gC3 = class gC3 extends gC4 {};
+    new gC(gl, gv);
+    addEventListener('load', function onloadHandler (event) {});
+    onload = function onloadHandler () {};
+    chai.assert.equal(typeof gC, 'function', 'typeof gC is function');
+    chai.assert.equal(gC.name, 'gC', 'name of gC is gC');
+    chai.assert.equal(typeof gC2, 'function', 'typeof gC2 is function');
+    chai.assert.equal(gC2.name, 'gC2', 'name of gC2 is gC2');
+    chai.assert.equal(typeof gC3, 'function', 'typeof gC3 is function');
+    chai.assert.equal(gC3.name, 'gC3', 'name of gC3 is gC3');
+    chai.assert.equal(typeof gC4, 'function', 'typeof gC4 is function');
+    chai.assert.equal(gC4.name, 'gC4', 'name of gC4 is gC4');
+    chai.assert.isOk((new gC()) instanceof gC2, 'new gC() is an instance of gC2');
+    chai.assert.isOk((new gC3()) instanceof gC4, 'new gC3() is an instance of gC4');
+    {
+      let lf = (arg1, arg2 = gv2, [arg3, arg4 = gv4], { p0, p1: arg5, p2: arg6 = gv2, p3: { p4: arg7 = gl }}) => {
+        chai.assert(
+          [arg1, arg2, arg3, arg4, p0, arg5, arg6, arg7],
+          [1, 2, 3, 1, 'p0', 5, 10, 7], 'arguments arg1, arg2, arg3, arg4, p0, arg5, arg6, arg7 have expected values');
+      };
+      lf(1,2,[3],{p0:'p0',p1:5,p3: {p4:7}});
+    }
+    const v2 = 'v2', v4 = 'v4';
+    async function gfunc (a1, a2 = gv2) {
+      let l1, l2 = 1, [ l3, [ l4 ] ] = [ 3, [ 4 ] ];
+      [ gv2, l1, [ gv3, l2 ] ] = [ 2, 1, [ 3, 2 ]];
+      ({ v1: gv2, v2: l3, p: { v3: gv3, v4: l4 } } = { v1: gv2, [v2]: l3, p: { v3: gv3, [v4]: l4} });
+      gv3++;
+      ++gv3;
+      gv3--;
+      --gv3;
+      l2++;
+      gv3 = l2;
+      l2 = gv3;
+      [ l1 = l2, gv = l2, gv2 = gv3, l3 = gv3 ] = [ gv, l1, gv2, l2 ];
+      gv0;
+      l1 = Promise.resolve(1);
+      gv0 = Promise.resolve(0);
+      let l12 = await l1;
+      let l5 = await gv0;
+      chai.assert(
+        [a1, a2, l1, l2, l3, l4, gv2, gv3, v2, v4, gv0, l12, l5],
+        [1, 10, 1, 2, 3, 4, 3, 2, 'v2', 'v4', undefined, 1, 0], 'l1, l2, l3, l4, gv2, gv3, v2, v4, gv0, l12, l5 have expected values');
+      gv = l1 + l2;
+      gv2 = l2 + gv2 + l3 - gv3;
+      let lC1 = class lC1 extends gC3 {};
+      class lC2 extends gC3 {}
+      class lC3 {};
+      let lC4 = class lC4 {};
+      class lC5 extends lC4 {}
+      let lC6 = class lC6 extends lC5 {};
+      l1 = l2 ? l3 : l4;
+      gv = gv0 ? gv2 : gv3;
+      l1 = gv0 ? l2 : gv3;
+      do {
+        let ll1;
+        gv--;
+      }
+      while (gv);
+      do {
+        let ll2;
+        ll1 = 1; // global assignment
+      }
+      while (ll1 === gv);
+      return gv;
+    }
+    gfunc(1).then((result) => {
+      console.log('gfunc done');
+      chai.assert.equal(result, 0, 'async gfunc returns 0');
+      chai.assert.equal(ll1, 1, 'global ll1 is 1');
+    });
+    chai.assert.equal(typeof gfunc, 'function', 'typeof gfunc is function');
     const globalConstant = 'constant value';
     let globalVariable = 'value';
     class globalClass {}
