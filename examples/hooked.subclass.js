@@ -7,13 +7,13 @@
     }
     static isArray(target) {
       return __hook__(target => {
-        let result = super.isArray(target);
+        let result = __hook__(super.isArray, this, [target], 'examples/subclass.js,A,static isArray,result');
         return result;
       }, this, arguments, 'examples/subclass.js,A,static isArray');
     }
     map(...args) {
       return __hook__((...args) => {
-        let result = super.map(...args);
+        let result = __hook__(super.map, this, [...args], 'examples/subclass.js,A,map,result');
         return result;
       }, this, arguments, 'examples/subclass.js,A,map');
     }
@@ -26,13 +26,13 @@
     }
     static isArray(target) {
       return __hook__(target => {
-        let result = super.isArray(target);
+        let result = __hook__(super.isArray, this, [target], 'examples/subclass.js,AA,static isArray,result');
         return result;
       }, this, arguments, 'examples/subclass.js,AA,static isArray');
     }
     map(...args) {
       return __hook__((...args) => {
-        let result = super.map(...args);
+        let result = __hook__(super.map, this, [...args], 'examples/subclass.js,AA,map,result');
         return result;
       }, this, arguments, 'examples/subclass.js,AA,map');
     }
