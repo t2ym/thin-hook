@@ -15,7 +15,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <script src="../../thin-hook/hook.min.js?version=435&no-hook-authorization=4ec3b5be2697001b539f3e16ef95a6f9509b2d6844bc50194cccd954d03b16a7,7121efeaab0c5b46b6ce2a1454801aedae7cedd06b19a9e839f6ab6de2d68dc3,log-no-hook-authorization&sw-root=/&no-hook=true&hook-name=__hook__&context-generator-name=method2&discard-hook-errors=false&fallback-page=index-fb.html&hook-property=true&hook-global=true&hook-prefix=_pp_&compact=false&service-worker-ready=true"></script>
+  <script src="../../thin-hook/hook.min.js?version=435&no-hook-authorization=8fd3c1a788b6d4e74697431e269d24659e1c8c654d01d2bfeec533c1703b1d33,fe51502be1f865c1d75bd9bb3f571e4905563cdf6473097395262080a33560be,log-no-hook-authorization&sw-root=/&no-hook=true&hook-name=__hook__&context-generator-name=method2&discard-hook-errors=false&fallback-page=index-fb.html&hook-property=true&hook-global=true&hook-prefix=_pp_&compact=false&service-worker-ready=true"></script>
   <script context-generator src="no-hook-authorization.js?no-hook=true"></script>
   <script context-generator src="context-generator.js?no-hook=true"></script>
   <script context-generator no-hook>
@@ -215,7 +215,23 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       let aa = new AA(1, 2, 3);
       chai.assert.isOk(AA.isArray(aa), 'new AA() is Array');
       chai.assert.isOk(aa instanceof Array, 'new AA() is an instanceof Array');
+      chai.assert.isOk(aa instanceof A, 'new AA() is an instanceof class A');
+      chai.assert.isOk(aa instanceof AA, 'new AA() is an instanceof class AA');
       chai.assert.deepEqual(aa.map(item => item + 3), [4,5,6], '(new AA()).map() works');
+    }
+    {
+      let baseObject = {
+        method(x, y) {
+          return x + y;
+        }
+      };
+      let subObject = {
+        method(x, y) {
+          return super.method(x, y) * 2;
+        }
+      };
+      Object.setPrototypeOf(subObject, baseObject);
+      chai.assert.equal(subObject.method(2, 3), 10, 'subObject.method(2, 3) = 10');
     }
   </script>
   <script>
