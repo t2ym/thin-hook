@@ -233,6 +233,11 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     }
     else if (newTarget) {
       let name = _globalObjects.get(f);
+      let superClass = f;
+      while (!name && typeof superClass === 'function') {
+        superClass = Object.getPrototypeOf(superClass);
+        name = _globalObjects.get(superClass);
+      }
       if (name) {
         // new operator for a global class
         let forName;
