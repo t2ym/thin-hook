@@ -34,6 +34,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       o = Object.getPrototypeOf(o);
     }
   }
+  var _globalMethods = new Map();
   var _globalObjects = Object.keys(_globalPropertyDescriptors)
     .sort()
     .reduce((acc, curr) => {
@@ -47,6 +48,21 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         }
         else if (!existing || (existing.length > curr.length)) {
           acc.set(_globalPropertyDescriptors[curr].value, curr);
+          let properties = Object.getOwnPropertyDescriptors(_globalPropertyDescriptors[curr].value);
+          let prop;
+          for (prop in properties) {
+            if (typeof properties[prop].value === 'function') {
+              _globalMethods.set(properties[prop].value, [curr, prop]);
+            }
+          }
+          if (_globalPropertyDescriptors[curr].value.prototype) {
+            properties = Object.getOwnPropertyDescriptors(_globalPropertyDescriptors[curr].value.prototype);
+            for (prop in properties) {
+              if (typeof properties[prop].value === 'function') {
+                _globalMethods.set(properties[prop].value, [curr, 'prototype', prop]);
+              }
+            }
+          }
         }
       }
       return acc;
@@ -256,6 +272,38 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           data2.edges.push(forName[context]);
         }
         forName[context].label++;
+      }
+    }
+    else {
+      let name = _globalMethods.get(f);
+      if (name) {
+        // call of a native method
+        let forName;
+        let forProp;
+        let id = name.join('.');
+        let prop = name[name.length - 1];
+        let obj = name[0];
+        if (!globalPropertyContexts[context]) {
+          let group = context.split(/[,:]/)[0];
+          data2.nodes.push({ id: '/' + context, label: context, group: group });
+          globalPropertyContexts[context] = true;
+        }
+        if (!globalObjectAccess[obj]) {
+          globalObjectAccess[obj] = {};
+          data2.nodes.push({ id: obj, label: obj, group: obj });
+        }
+        forName = globalObjectAccess[obj];
+        if (!forName[prop]) {
+          forName[prop] = {};
+          data2.nodes.push({ id: id, label: prop, group: obj });
+          data2.edges.push({ from: obj, to: id, dashes: true, arrows: 'to' });
+        }
+        forProp = forName[prop];
+        if (!forProp[context]) {
+          forProp[context] = { from: context, to: id, label: 0, arrows: 'to' };
+          data2.edges.push(forProp[context]);
+        }
+        forProp[context].label++;
       }
     }
 
