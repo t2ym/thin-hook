@@ -74,6 +74,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
   var _stringStaticPropertyDescriptors = Object.getOwnPropertyDescriptors(String);
   var _stringPropertyDescriptors = Object.getOwnPropertyDescriptors(String.prototype);
   var globalObjectAccess = {};
+  let _blackListObjects = { window: { caches: true, CacheStorage: true }, caches: true, CacheStorage: true };
   _global.__hook__ = function __hook__(f, thisArg, args, context, newTarget) {
     counter++;
     if (args[0] === pseudoContextArgument) {
@@ -175,6 +176,17 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           isStatic = false;
         }
       }
+      let _blackList = _blackListObjects[name];
+      if (_blackList) {
+        if (typeof _blackList === 'object') {
+          if (_blackList[args[0]]) {
+            throw new Error('Permission Denied: Cannot access ' + name + '.' + args[0]);
+          }
+        }
+        else {
+          throw new Error('Permission Denied: Cannot access ' + name);
+        }
+      }
       if (name === 'Object') {
         if (isStatic) {
           if (!_objectStaticPropertyDescriptors[args[0]]) {
@@ -254,6 +266,12 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         superClass = Object.getPrototypeOf(superClass);
         name = _globalObjects.get(superClass);
       }
+      let _blackList = _blackListObjects[name];
+      if (_blackList) {
+        if (typeof _blackList === 'boolean') {
+          throw new Error('Permission Denied: Cannot access ' + name);
+        }
+      }
       if (name) {
         // new operator for a global class
         let forName;
@@ -283,6 +301,17 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         let id = name.join('.');
         let prop = name[name.length - 1];
         let obj = name[0];
+        let _blackList = _blackListObjects[obj];
+        if (_blackList) {
+          if (typeof _blackList === 'object') {
+            if (_blackList[prop]) {
+              throw new Error('Permission Denied: Cannot access ' + obj + '.' + prop);
+            }
+          }
+          else {
+            throw new Error('Permission Denied: Cannot access ' + obj);
+          }
+        }
         if (!globalPropertyContexts[context]) {
           let group = context.split(/[,:]/)[0];
           data2.nodes.push({ id: '/' + context, label: context, group: group });

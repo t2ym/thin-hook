@@ -15,7 +15,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <script src="../../thin-hook/hook.min.js?version=435&no-hook-authorization=48c4365a33c042a00b41eb09d764ee6ef7ea9052deff514ff3467753767bdbd8,fe51502be1f865c1d75bd9bb3f571e4905563cdf6473097395262080a33560be,log-no-hook-authorization&sw-root=/&no-hook=true&hook-name=__hook__&context-generator-name=method2&discard-hook-errors=false&fallback-page=index-fb.html&hook-property=true&hook-global=true&hook-prefix=_pp_&compact=false&service-worker-ready=false"></script></head></html><!--
+  <script src="../../thin-hook/hook.min.js?version=435&no-hook-authorization=48c4365a33c042a00b41eb09d764ee6ef7ea9052deff514ff3467753767bdbd8,6f40b5246ebee8fddc428ad4df4830a73c889d4110c8090ad10ed7d236767b72,log-no-hook-authorization&sw-root=/&no-hook=true&hook-name=__hook__&context-generator-name=method2&discard-hook-errors=false&fallback-page=index-fb.html&hook-property=true&hook-global=true&hook-prefix=_pp_&compact=false&service-worker-ready=false"></script></head></html><!--
   <script context-generator src="no-hook-authorization.js?no-hook=true"></script>
   <script context-generator src="context-generator.js?no-hook=true"></script>
   <script context-generator no-hook>
@@ -346,6 +346,12 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     chai.assert.equal(Object.getPrototypeOf(new globalClass()).constructor.name, 'globalClass', 'global class can be instantiated');
     globalVariable = 'new value';
     chai.assert.equal(globalVariable, 'new value', 'global variable is changed');
+    chai.assert.throws(() => {
+      caches.keys().then(keys => console.log(keys));
+    }, /^Permission Denied:/);
+    chai.assert.throws(() => {
+      let c = caches;
+    }, /^Permission Denied:/);
   </script>
   <script type="module" src="es6-module2.js"></script>
   <script no-hook>
