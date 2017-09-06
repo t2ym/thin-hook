@@ -38,7 +38,8 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
   var _globalObjects = Object.keys(_globalPropertyDescriptors)
     .sort()
     .reduce((acc, curr) => {
-      const globalObjectNames = ['top', 'global', 'self', 'window'];
+      const globalObjectNames = ['_global', 'top', 'global', 'self', 'window'];
+      const globalProperties = { history: true, navigator: true, applicationCache: true, crypto: true, localStorage: true, indexedDB: true, caches: true, sessionStorage: true, document: true };
       if (_globalPropertyDescriptors[curr].value && typeof _globalPropertyDescriptors[curr].value !== 'number') {
         let existing = acc.get(_globalPropertyDescriptors[curr].value);
         if (globalObjectNames.indexOf(curr) >= 0) {
@@ -60,6 +61,36 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             for (prop in properties) {
               if (typeof properties[prop].value === 'function') {
                 _globalMethods.set(properties[prop].value, [curr, 'prototype', prop]);
+              }
+            }
+          }
+        }
+      }
+      else if (_globalPropertyDescriptors[curr].get && typeof _globalPropertyDescriptors[curr].get === 'function' && _global[curr] && !_globalPropertyDescriptors[curr].set) {
+        let existing = acc.get(_global[curr]);
+        if (globalObjectNames.indexOf(curr) >= 0) {
+          if (globalObjectNames.indexOf(existing) < globalObjectNames.indexOf(curr)) {
+            if (_global[curr]) {
+              acc.set(_global[curr], curr);
+            }
+          }
+        }
+        else if (!existing || (existing.length > curr.length)) {
+          if (globalProperties[curr]) {
+            acc.set(_global[curr], curr);
+            let properties = Object.getOwnPropertyDescriptors(_global[curr]);
+            let prop;
+            for (prop in properties) {
+              if (typeof properties[prop].value === 'function') {
+                _globalMethods.set(properties[prop].value, [curr, prop]);
+              }
+            }
+            if (_global[curr].prototype) {
+              properties = Object.getOwnPropertyDescriptors(_global[curr].prototype);
+              for (prop in properties) {
+                if (typeof properties[prop].value === 'function') {
+                  _globalMethods.set(properties[prop].value, [curr, 'prototype', prop]);
+                }
               }
             }
           }
