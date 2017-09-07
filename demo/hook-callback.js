@@ -443,6 +443,38 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       case '|=':
         result = thisArg[args[0]] |= args[1];
         break;
+      // getter for super
+      case 's.':
+      case 's[]':
+        result = args[1](args[0]);
+        break;
+      // super method call
+      case 's()':
+        result = args[2](args[0]).apply(thisArg, args[1]);
+        break;
+      // unary operators for super
+      case 's++':
+      case '++s':
+      case 's--':
+      case '--s':
+        result = args[1].apply(thisArg, args);
+        break;
+      // assignment operators for super
+      case 's=':
+      case 's+=':
+      case 's-=':
+      case 's*=':
+      case 's/=':
+      case 's%=':
+      case 's**=':
+      case 's<<=':
+      case 's>>=':
+      case 's>>>=':
+      case 's&=':
+      case 's^=':
+      case 's|=':
+        result = args[2].apply(thisArg, args);
+        break;
       // default (invalid operator)
       default:
         result = null;
