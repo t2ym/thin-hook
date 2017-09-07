@@ -207,6 +207,15 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           isStatic = false;
         }
       }
+      if (!name && f.indexOf('s') >= 0) {
+        isStatic = typeof thisArg === 'function';
+        ctor = isStatic ? thisArg : thisArg.constructor;
+        name = _globalObjects.get(ctor);
+        while (!name && typeof ctor === 'function') {
+          ctor = Object.getPrototypeOf(ctor);
+          name = _globalObjects.get(ctor);
+        }
+      }
       let _blackList = _blackListObjects[name];
       if (_blackList) {
         if (typeof _blackList === 'object') {
