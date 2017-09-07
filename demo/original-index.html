@@ -15,7 +15,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <script src="../../thin-hook/hook.min.js?version=446&no-hook-authorization=48c4365a33c042a00b41eb09d764ee6ef7ea9052deff514ff3467753767bdbd8,fb0060ceafd875076f25b8e147bd606c9dc8f2d22c0fec9abef6db07727cc335,log-no-hook-authorization&sw-root=/&no-hook=true&hook-name=__hook__&context-generator-name=method2&discard-hook-errors=false&fallback-page=index-fb.html&hook-property=true&hook-global=true&hook-prefix=_pp_&compact=false&service-worker-ready=true"></script>
+  <script src="../../thin-hook/hook.min.js?version=446&no-hook-authorization=1d046697642ff8112de36a4fcc3eab8ecdc410b69eb90dcddde9239378d89ebe,61d7237ae38792d0224f86a378315f64d2df5b62d34fdf221c5603e628114e5f,log-no-hook-authorization&sw-root=/&no-hook=true&hook-name=__hook__&context-generator-name=method2&discard-hook-errors=false&fallback-page=index-fb.html&hook-property=true&hook-global=true&hook-prefix=_pp_&compact=false&service-worker-ready=true"></script>
   <script context-generator src="no-hook-authorization.js?no-hook=true"></script>
   <script context-generator src="context-generator.js?no-hook=true"></script>
   <script context-generator no-hook>
@@ -198,6 +198,18 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           let result = super.map(...args);
           return result;
         }
+        static get sprop() {
+          return 'value of A.sprop';
+        }
+        get prop() {
+          return 'value of A.prop';
+        }
+        get nprop() {
+          return this._nprop;
+        }
+        set nprop(value) {
+          this._nprop = value;
+        }
       }
       class AA extends A {
         constructor(...args) {
@@ -211,6 +223,22 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           let result = super.map(...args);
           return result;
         }
+        static get sprop() {
+          return super.sprop + ' via AA';
+        }
+        get prop() {
+          return super.prop + ' via AA';
+        }
+        check() {
+          let result = [];
+          super.nprop = 1;
+          result.push(super.nprop); // 1
+          super.nprop += 1;
+          result.push(super.nprop); // 2
+          super.nprop++;
+          result.push(super.nprop); // 3
+          return result;
+        }
       }
       let aa = new AA(1, 2, 3);
       chai.assert.isOk(AA.isArray(aa), 'new AA() is Array');
@@ -218,6 +246,9 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       chai.assert.isOk(aa instanceof A, 'new AA() is an instanceof class A');
       chai.assert.isOk(aa instanceof AA, 'new AA() is an instanceof class AA');
       chai.assert.deepEqual(aa.map(item => item + 3), [4,5,6], '(new AA()).map() works');
+      chai.assert.equal(AA.sprop, 'value of A.sprop via AA', 'get super.sprop');
+      chai.assert.equal(aa.prop, 'value of A.prop via AA', 'get super.prop');
+      chai.assert.deepEqual(aa.check(), [1,2,3], 'operations on super.nprop are fine');
     }
     {
       let baseObject = {
