@@ -275,6 +275,38 @@ onmessage = hook.hookWorkerHandler;
       case '|=':
         result = thisArg[args[0]] |= args[1];
         break;
+      // getter for super
+      case 's.':
+      case 's[]':
+        result = args[1](args[0]);
+        break;
+      // super method call
+      case 's()':
+        result = args[2](args[0]).apply(thisArg, args[1]);
+        break;
+      // unary operators for super
+      case 's++':
+      case '++s':
+      case 's--':
+      case '--s':
+        result = args[1].apply(thisArg, args);
+        break;
+      // assignment operators for super
+      case 's=':
+      case 's+=':
+      case 's-=':
+      case 's*=':
+      case 's/=':
+      case 's%=':
+      case 's**=':
+      case 's<<=':
+      case 's>>=':
+      case 's>>>=':
+      case 's&=':
+      case 's^=':
+      case 's|=':
+        result = args[2].apply(thisArg, args);
+        break;
       // default (invalid operator)
       default:
         result = null;
@@ -434,6 +466,10 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
       - `=`, `+=`, ...: assignment operation (`o.prop = value`)
       - `p++`, `++p`, `p--`, `--p`: postfixed/prefixed increment/decrement operation (`o.prop++`)
       - `delete`: delete operation (`delete o.prop`)
+      - `s.`: get property of super (`super.prop`)
+      - `s()`: call super method (`super.method()`)
+      - `s=`, `s+=`, ...: assignment operation for super (`super.prop = value`)
+      - `s++`, `++s`, `s--`, `--s`: postfixed/prefixed increment/decrement operation for super (`super.prop++`)
   - `thisArg`: `this` object for the function or the operation
   - `args`:
     - arguments for the function
