@@ -9,9 +9,13 @@
   let subObject = {
     method(x, y) {
       return __hook__((x, y) => {
-        return __hook__(super.method, this, [
-          x,
-          y
+        return __hook__('s()', this, [
+          'method',
+          [
+            x,
+            y
+          ],
+          p => super[p]
         ], 'examples/super.js,subObject,method') * 2;
       }, this, arguments, 'examples/super.js,subObject,method');
     }

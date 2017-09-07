@@ -65,10 +65,14 @@ hook.global(__hook__, 'examples/example1.js,X1', 'X1', 'class')._p_X1 = class X1
   }
   method(a, b, c) {
     return __hook__((a, b = 0, c = b + 3) => {
-      return __hook__(super.method2, this, [
-        a,
-        b,
-        c
+      return __hook__('s()', this, [
+        'method2',
+        [
+          a,
+          b,
+          c
+        ],
+        p => super[p]
       ], 'examples/example1.js,X1,method') + 1;
     }, this, arguments, 'examples/example1.js,X1,method');
   }
