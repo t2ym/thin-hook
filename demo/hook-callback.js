@@ -200,6 +200,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       let name = _globalObjects.get(thisArg);
       let isStatic = true;
       let ctor;
+      let property = args[0] === 'constructor' ? '__constructor__' : args[0];
       if (!name) {
         ctor = thisArg.constructor;
         name = _globalObjects.get(ctor);
@@ -219,7 +220,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       let _blackList = _blackListObjects[name];
       if (_blackList) {
         if (typeof _blackList === 'object') {
-          if (_blackList[args[0]]) {
+          if (_blackList[property]) {
             throw new Error('Permission Denied: Cannot access ' + name + '.' + args[0]);
           }
         }
@@ -229,36 +230,39 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       }
       if (name === 'Object') {
         if (isStatic) {
-          if (!_objectStaticPropertyDescriptors[args[0]]) {
+          if (!_objectStaticPropertyDescriptors[property]) {
             name = null;
           }
         }
         else {
-          if (!_objectPropertyDescriptors[args[0]]) {
+          if (!_objectPropertyDescriptors[property]) {
+            name = null;
+          }
+          else {
             name = null;
           }
         }
       }
       else if (name === 'Array') {
         if (isStatic) {
-          if (!_arrayStaticPropertyDescriptors[args[0]]) {
+          if (!_arrayStaticPropertyDescriptors[property]) {
             name = null;
           }
         }
         else {
-          if (!_arrayPropertyDescriptors[args[0]]) {
+          if (!_arrayPropertyDescriptors[property]) {
             name = null;
           }
         }
       }
       else if (name === 'String') {
         if (isStatic) {
-          if (!_stringStaticPropertyDescriptors[args[0]]) {
+          if (!_stringStaticPropertyDescriptors[property]) {
             name = null;
           }
         }
         else {
-          if (!_stringPropertyDescriptors[args[0]]) {
+          if (!_stringPropertyDescriptors[property]) {
             name = null;
           }
         }
@@ -286,12 +290,12 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         }
         forName[context].label++;
         */
-        if (!forName[args[0]]) {
-          forName[args[0]] = {};
+        if (!forName[property]) {
+          forName[property] = {};
           data2.nodes.push({ id: id, label: args[0], group: name });
           data2.edges.push({ from: name, to: id, dashes: true, arrows: 'to' });
         }
-        forProp = forName[args[0]];
+        forProp = forName[property];
         if (!forProp[context]) {
           forProp[context] = { from: context, to: id, label: 0, arrows: 'to' };
           data2.edges.push(forProp[context]);
