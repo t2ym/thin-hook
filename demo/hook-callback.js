@@ -26,6 +26,16 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
   var _global = typeof window === 'object' ? window : self;
   _global._data = data;
   _global._data2 = data2;
+  _global.DummyClass = class DummyClass {
+    constructor(n) { this._n = n; }
+    static get isDummy() { return true }
+    get dummyProperty() { return n; }
+  };
+  _global.DummyClass2 = class DummyClass2 {
+    constructor(n) { this._n = n; }
+    static get isDummy() { return true }
+    dummyMethod() { return n; }
+  };
   var _globalPropertyDescriptors = {};
   {
     let o = _global;
@@ -105,7 +115,289 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
   var _stringStaticPropertyDescriptors = Object.getOwnPropertyDescriptors(String);
   var _stringPropertyDescriptors = Object.getOwnPropertyDescriptors(String.prototype);
   var globalObjectAccess = {};
-  let _blackListObjects = { window: { caches: true, CacheStorage: true }, caches: true, CacheStorage: true };
+  var _blackListObjects = {
+    caches: true,
+    navigator: {
+      serviceWorker: true,
+      usb: true,
+      geolocation: true,
+    },
+    location: {
+      reload: true,
+      $__proto__$: true,
+    },
+    DummyClass: true,
+    DummyClass2: {
+      isDummy: true,
+      dummyMethod: true,
+    }
+  };
+  Object.assign(_blackListObjects, { window: _blackListObjects, self: _blackListObjects });
+  const _escapePlatformProperties = new Map();
+  const _unescapePlatformProperties = new Map();
+  Object.getOwnPropertyNames(Object.prototype).concat(['prototype']).forEach(n => {
+    _escapePlatformProperties.set(n, '$' + n + '$');
+    _unescapePlatformProperties.set('$' + n + '$', n);
+  });
+  const S_GLOBAL = Symbol('global'); // global object
+  const S_PROTOTYPE = Symbol('prototype'); // prototype object
+  const S_DEFAULT = Symbol('default'); // default policy
+  const S_OBJECT = Symbol('object'); // parent object
+  const S_CONSTRUCT = Symbol('construct'); // new operation
+  const S_UNSPECIFIED = Symbol('unspecified'); // no property is specified
+  const S_ALL = Symbol('all properties'); // all properties are specified
+  const S_TARGETED = Symbol('targeted properties'); // properties are targeted
+  const operatorNormalizer = {
+    '.': '.',
+    '[]': '.',
+    '()': '()',
+    'p++': '=',
+    '++p': '=',
+    'p--': '=',
+    '--p': '=',
+    'delete': '=',
+    '=': '=',
+    '+=': '=',
+    '-=': '=',
+    '*=': '=',
+    '/=': '=',
+    '%=': '=',
+    '**=': '=',
+    '<<=': '=',
+    '>>=': '=',
+    '>>>=': '=',
+    '&=': '=',
+    '^=': '=',
+    '|=': '=',
+    's.': '.',
+    's[]': '.',
+    's()': '()',
+    's++': '=',
+    '++s': '=',
+    's--': '=',
+    '--s': '=',
+    's=': '=',
+    's+=': '=',
+    's-=': '=',
+    's*=': '=',
+    's/=': '=',
+    's%=': '=',
+    's**=': '=',
+    's<<=': '=',
+    's>>=': '=',
+    's>>>=': '=',
+    's&=': '=',
+    's^=': '=',
+    's|=': '=',
+  };
+  const targetNormalizer = {
+    'f': 'xtf', // thisArg may not be this object for f
+    'n': 'xfN',
+    '.': 'rtp',
+    '=': 'wtp',
+    '()': {
+      Object: {
+        [S_DEFAULT]: 'xtp',
+        create: 'r0-',
+        getOwnPropertyDescriptor: 'r01',
+        getOwnPropertyDescriptors: 'r0*',
+        getOwnPropertyNames: 'r0*',
+        getOwnPropertySymbols: 'r0*',
+        getPrototypeOf: 'r0P',
+        keys: 'r0*',
+        entries: 'r0*',
+        values: 'r0*',
+        defineProperty: 'w01',
+        defineProperties: 'w0.',
+        setPrototypeOf: 'w0P',
+        freeze: 'w0*',
+        seal: 'w0*',
+        assign: 'w0.',
+        [S_PROTOTYPE]: {
+          [S_DEFAULT]: 'xtp',
+          $hasOwnProperty$: 'rt0',
+          $__lookupGetter__$: 'rt0',
+          $__lookupSetter__$: 'wt0',
+          $__defineGetter__$: 'wt0',
+          $__defineSetter__$: 'wt0',
+          $propertyIsEnumerable$: 'rt0',
+        }
+      },
+      Reflect: {
+        [S_DEFAULT]: 'xtp',
+        get: 'r01',
+        getPrototypeOf: 'r0P',
+        has: 'r01',
+        getOwnPropertyDescriptor: 'r01',
+        isExtensible: 'r0-',
+        ownKeys: 'r0*',
+        defineProperty: 'w01',
+        deleteProperty: 'w01',
+        set: 'w01',
+        setPrototypeOf: 'w0P',
+        preventExtensions: 'w0*',
+        construct: 'x0N',
+        apply: 'x10',
+        [S_PROTOTYPE]: 'xtp'
+      },
+      Function: {
+        [S_DEFAULT]: 'xtp',
+        [S_PROTOTYPE]: {
+          [S_DEFAULT]: 'xtp',
+          apply: 'x0t',
+          call: 'x0t',
+        }
+      },
+      [S_DEFAULT]: 'xtp'
+    }
+  };
+  const targetNormalizerMap = new Map();
+  for (let t of Object.getOwnPropertyNames(targetNormalizer['()']).concat(Object.getOwnPropertySymbols(targetNormalizer['()']))) {
+    let target;
+    let f;
+    if (typeof t === 'string') {
+      if (typeof targetNormalizer['()'][t] === 'object') {
+        for (let sp of Object.getOwnPropertyNames(targetNormalizer['()'][t]).concat(Object.getOwnPropertySymbols(targetNormalizer['()'][t]))) {
+          if (typeof sp === 'string') {
+            target = targetNormalizer['()'][t][sp];
+            f = _global[t][_unescapePlatformProperties.get(sp) || sp];
+            targetNormalizerMap.set(f, target);
+          }
+          else if (sp === S_PROTOTYPE) {
+            if (typeof targetNormalizer['()'][t][sp] === 'object') {
+              for (let p of Object.getOwnPropertyNames(targetNormalizer['()'][t][sp]).concat(Object.getOwnPropertySymbols(targetNormalizer['()'][t][sp]))) {
+                if (typeof p === 'string') {
+                  target = targetNormalizer['()'][t][sp][p];
+                  f = _global[t].prototype[_unescapePlatformProperties.get(p) || p];
+                  targetNormalizerMap.set(f, target);
+                }
+                else if (p === S_DEFAULT) {
+                  target = targetNormalizer['()'][t][sp][p];
+                  f = _global[t].prototype;
+                  targetNormalizerMap.set(f, target);
+                }
+              }
+            }
+            else {
+              target = targetNormalizer['()'][t][sp];
+              f = _global[t].prototype;
+              targetNormalizerMap.set(f, target);
+            }
+          }
+          else if (sp === S_DEFAULT) {
+            if (typeof targetNormalizer['()'][t][sp] === 'object') {
+              for (let p of Object.getOwnPropertyNames(targetNormalizer['()'][t][sp]).concat(Object.getOwnPropertySymbols(targetNormalizer['()'][t][sp]))) {
+                if (typeof p === 'string') {
+                  target = targetNormalizer['()'][t][sp][p];
+                  f = _global[t][_unescapePlatformProperties.get(p) || p];
+                  targetNormalizerMap.set(f, target);
+                }
+                else if (p === S_DEFAULT) {
+                  target = targetNormalizer['()'][t][sp][p];
+                  f = _global[t];
+                  targetNormalizerMap.set(f, target);
+                }
+              }
+            }
+            else {
+              target = targetNormalizer['()'][t][sp];
+              f = _global[t];
+              targetNormalizerMap.set(f, target);
+            }
+          }
+        }
+      }
+      else {
+        target = targetNormalizer['()'][t];
+        f = _global[t];
+        targetNormalizerMap.set(f, target);
+      }
+    }
+    else if (t === S_DEFAULT) {
+      if (typeof targetNormalizer['()'][t] === 'object') {
+        // TODO
+      }
+      else {
+        target = targetNormalizer['()'][t];
+        f = _global;
+        targetNormalizerMap.set(f, target);
+      }        
+    }
+  }
+  // TODO: Access control list is not implemented yet
+  /*
+  const contextNormalizer = {
+    '/components/iron-location/iron-location.html,script@1800,_updateUrl': '@route_manipulator',
+    '/components/iron-location/iron-location.html,script@1800,_globalOnClick': '@route_manipulator',
+    '/components/thin-hook/demo/web-worker-client.js,worker': '@worker_manipulator',
+    '/components/thin-hook/demo/web-worker-client.js': '@worker_manipulator',
+  };
+  const acl = {
+    // blacklist objects/classes
+    caches: '---',
+    CacheStorage: '---',
+    ServiceWorkerContainer: '---',
+    // blacklist properties
+    navigator: {
+      [S_OBJECT]: 'r--',
+      [S_DEFAULT]: 'r--',
+      serviceWorker: '---',
+      usb: '---',
+      geolocation: '---',
+    },
+    // read-only except for manipulators
+    location: {
+      [S_OBJECT]: 'r--',
+      [S_DEFAULT]: 'r--',
+      href: {
+        [S_DEFAULT]: 'r--',
+        '@route_manipulator': 'rw-',
+      }
+    },
+    // call-only for manipulators
+    history: {
+      [S_OBJECT]: 'r--',
+      [S_DEFAULT]: 'rwx',
+      replaceState: {
+        [S_DEFAULT]: '---',
+        '@route_manipulator': '--x',
+      },
+      pushState: {
+        [S_DEFAULT]: '---',
+        '@route_manipulator': '--x',
+      }
+    },
+    Worker: {
+      [S_OBJECT]: 'r--',
+      [S_DEFAULT]: 'r--',
+      '@worker_manipulator': 'r-x',
+      [S_PROTOTYPE]: {
+        [S_DEFAULT]: '---',
+        '@worker_manipulator': 'rwx',
+      }
+    },
+    // default for global objects
+    [S_GLOBAL]: {
+      [S_OBJECT]: 'r--',
+      [S_DEFAULT]: 'rwx',
+      $__proto__$: 'r--',
+      $prototype$: 'r--',
+      $constructor$: 'r-x',
+      [S_PROTOTYPE]: {
+        [S_OBJECT]: 'r--',
+        [S_DEFAULT]: 'rwx',
+        $__proto__$: 'r--',
+        $prototype$: 'r--',
+        $constructor$: 'r-x',
+      }
+    },
+    // default for non-global objects
+    [S_DEFAULT]: {
+      [S_OBJECT]: 'rwx',
+      [S_DEFAULT]: 'rwx',
+    }
+  };
+  */
   _global.__hook__ = function __hook__(f, thisArg, args, context, newTarget) {
     counter++;
     if (args[0] === pseudoContextArgument) {
@@ -196,20 +488,20 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     }
 
     if (typeof f === 'string') {
+      /*
+      if (context === '/components/thin-hook/demo/normalize.js' && args[0] === 'getPrototypeOf') {
+        debugger;
+      }
+      */
       // property access
       let name = _globalObjects.get(thisArg);
-      let isStatic = true;
+      let isStatic = typeof thisArg === 'function';
       let ctor;
-      let property = args[0] === 'constructor' ? '__constructor__' : args[0];
-      if (!name) {
+      if (!name && thisArg instanceof Object) {
         ctor = thisArg.constructor;
         name = _globalObjects.get(ctor);
-        if (name) {
-          isStatic = false;
-        }
       }
       if (!name && f.indexOf('s') >= 0) {
-        isStatic = typeof thisArg === 'function';
         ctor = isStatic ? thisArg : thisArg.constructor;
         name = _globalObjects.get(ctor);
         while (!name && typeof ctor === 'function') {
@@ -217,25 +509,145 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           name = _globalObjects.get(ctor);
         }
       }
+      let rawProperty = args[0];
+      let property = _escapePlatformProperties.get(rawProperty) || rawProperty;
+      let op = operatorNormalizer[f];
+      let target = targetNormalizer[op];
+      if (typeof target === 'object') {
+        target = targetNormalizerMap.get(thisArg[args[0]]);
+        if (!target) {
+          let type;
+          if (typeof thisArg === 'object') {
+            type = thisArg.constructor.prototype;
+          }
+          else {
+            type = thisArg;
+          }
+          while (!target && typeof type === 'function') {
+            target = targetNormalizerMap.get(type);
+            type = Object.getPrototypeOf(type);
+          }
+        }
+        let argsMap = {
+          f: f,
+          t: thisArg,
+          p: args[0],
+          0: args[1][0],
+          1: args[1][1],
+          c: context,
+          n: newTarget,
+          P: '__proto__', // pending
+          T: 'prototype', // pending
+          C: 'constructor', // pending
+          N: S_CONSTRUCT, // pending
+          '-': S_UNSPECIFIED, // pending
+          '*': S_ALL, // pending
+          '.': S_TARGETED, // pending { prop1: {}, prop2: {}, ... }
+        };
+        if (typeof target === 'string') {
+          let optype = target[0]; // r, w, x
+          let _t = argsMap[target[1]];
+          let _p = argsMap[target[2]];
+          if (_t instanceof Object) {
+            name = _globalObjects.get(_t);
+            isStatic = typeof _t === 'function';
+            if (!name) {
+              ctor = _t.constructor;
+              name = _globalObjects.get(ctor);
+              if (name) {
+                isStatic = false;
+              }
+            }
+            if (!name && f.indexOf('s') >= 0) {
+              isStatic = typeof _t === 'function';
+              ctor = isStatic ? _t : _t.constructor;
+              name = _globalObjects.get(ctor);
+              while (!name && typeof ctor === 'function') {
+                ctor = Object.getPrototypeOf(ctor);
+                name = _globalObjects.get(ctor);
+              }
+            }
+            if (name) {
+              property = rawProperty = undefined;
+              if (typeof _p === 'string') {
+                rawProperty = _p;
+                property = _escapePlatformProperties.get(rawProperty) || rawProperty;
+              }
+              else if (typeof _p === 'symbol') {
+                switch (_p) {
+                case S_UNSPECIFIED:
+                  property = _p;
+                  break;
+                case S_TARGETED:
+                  if (args[1][1] instanceof Object) {
+                    rawProperty = [];
+                    for (let i = 1; i < args[1].length; i++) {
+                      // TODO: Are inherited properties targeted?
+                      rawProperty = rawProperty.concat(Object.keys(args[1][i]));
+                    }
+                    property = rawProperty.map(p => _escapePlatformProperties.get(p) || p);
+                  }
+                  break;
+                case S_ALL:
+                  property = _p;
+                  break;
+                default:
+                  break;
+                }
+              }
+              else {
+              }
+            }
+          }
+          else {
+            // TODO: target is not an Object instance
+          }
+        }
+      }
+      // TODO: For robust security, the exception should not provide any information on the blocked objects/properties.
       let _blackList = _blackListObjects[name];
       if (_blackList) {
         if (typeof _blackList === 'object') {
-          if (_blackList[property]) {
-            throw new Error('Permission Denied: Cannot access ' + name + '.' + args[0]);
+          if (property) {
+            if (typeof property === 'string') {
+              if (typeof _blackList[property] === 'boolean') {
+                //throw new Error('Permission Denied: Cannot access');
+                throw new Error('Permission Denied: Cannot access ' + name + '.' + rawProperty);
+              }
+            }
+            else if (Array.isArray(property)) {
+              for (let i = 0; i < property.length; i++) {
+                if (typeof _blackList[property[i]] === 'boolean') {
+                  //throw new Error('Permission Denied: Cannot access');
+                  throw new Error('Permission Denied: Cannot access ' + name + '.' + (_unescapePlatformProperties.get(property[i]) || property[i]));
+                }
+              }
+            }
+            else if (property === S_ALL) {
+              //throw new Error('Permission Denied: Cannot access');
+              throw new Error('Permission Denied: Cannot access ' + name + '.*');
+            }
+            else if (property === S_UNSPECIFIED) {
+              // OK
+            }
+          }
+          else {
+            // OK
           }
         }
         else {
+          //throw new Error('Permission Denied: Cannot access');
           throw new Error('Permission Denied: Cannot access ' + name);
         }
       }
       if (name === 'Object') {
         if (isStatic) {
-          if (!_objectStaticPropertyDescriptors[property]) {
+          if (!_objectStaticPropertyDescriptors[rawProperty]) {
             name = null;
           }
         }
         else {
-          if (!_objectPropertyDescriptors[property]) {
+          if (!_objectPropertyDescriptors[rawProperty]) {
             name = null;
           }
           else {
@@ -245,24 +657,24 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       }
       else if (name === 'Array') {
         if (isStatic) {
-          if (!_arrayStaticPropertyDescriptors[property]) {
+          if (!_arrayStaticPropertyDescriptors[rawProperty]) {
             name = null;
           }
         }
         else {
-          if (!_arrayPropertyDescriptors[property]) {
+          if (!_arrayPropertyDescriptors[rawProperty]) {
             name = null;
           }
         }
       }
       else if (name === 'String') {
         if (isStatic) {
-          if (!_stringStaticPropertyDescriptors[property]) {
+          if (!_stringStaticPropertyDescriptors[rawProperty]) {
             name = null;
           }
         }
         else {
-          if (!_stringPropertyDescriptors[property]) {
+          if (!_stringPropertyDescriptors[rawProperty]) {
             name = null;
           }
         }
@@ -271,7 +683,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         // thisArg is a global object or an instance of one
         let forName;
         let forProp;
-        let id = isStatic ? name + '.' + args[0] : name + '.prototype.' + args[0];
+        let id;
         if (!globalPropertyContexts[context]) {
           let group = context.split(/[,:]/)[0];
           data2.nodes.push({ id: context, label: context, group: group });
@@ -282,25 +694,47 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           data2.nodes.push({ id: name, label: name, group: name });
         }
         forName = globalObjectAccess[name];
-        /*
-        // skip property name for generating a simpler graph
-        if (!forName[context]) {
-          forName[context] = { from: context, to: name, label: 0, arrows: 'to' };
-          data2.edges.push(forName[context]);
+        if (typeof property === 'string') {
+          id = isStatic
+            ? name + '.' + rawProperty
+            : name + '.prototype.' + rawProperty
+          if (!forName[property]) {
+            forName[property] = {};
+            data2.nodes.push({ id: id, label: (_unescapePlatformProperties.get(property) || property), group: name });
+            data2.edges.push({ from: name, to: id, dashes: true, arrows: 'to' });
+          }
+          forProp = forName[property];
+          if (!forProp[context]) {
+            forProp[context] = { from: context, to: id, label: 0, arrows: 'to' };
+            data2.edges.push(forProp[context]);
+          }
+          forProp[context].label++;
         }
-        forName[context].label++;
-        */
-        if (!forName[property]) {
-          forName[property] = {};
-          data2.nodes.push({ id: id, label: args[0], group: name });
-          data2.edges.push({ from: name, to: id, dashes: true, arrows: 'to' });
+        else if (Array.isArray(property)) {
+          for (let i = 0; i < property.length; i++) {
+            rawProperty = _unescapePlatformProperties.get(property[i]) || property[i];
+            id = isStatic ? name + '.' + rawProperty : name + '.prototype.' + rawProperty;
+            if (!forName[property[i]]) {
+              forName[property[i]] = {};
+              data2.nodes.push({ id: id, label: rawProperty, group: name });
+              data2.edges.push({ from: name, to: id, dashes: true, arrows: 'to' });
+            }
+            forProp = forName[property[i]];
+            if (!forProp[context]) {
+              forProp[context] = { from: context, to: id, label: 0, arrows: 'to' };
+              data2.edges.push(forProp[context]);
+            }
+            forProp[context].label++;
+          }
         }
-        forProp = forName[property];
-        if (!forProp[context]) {
-          forProp[context] = { from: context, to: id, label: 0, arrows: 'to' };
-          data2.edges.push(forProp[context]);
+        else {
+          forName = globalObjectAccess[name];
+          if (!forName[context]) {
+            forName[context] = { from: '/' + context, to: name, label: 0, arrows: 'to' };
+            data2.edges.push(forName[context]);
+          }
+          forName[context].label++;
         }
-        forProp[context].label++;
       }
     }
     else if (newTarget) {
@@ -348,7 +782,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         let _blackList = _blackListObjects[obj];
         if (_blackList) {
           if (typeof _blackList === 'object') {
-            if (_blackList[prop]) {
+            if (typeof _blackList[prop] === 'boolean') {
               throw new Error('Permission Denied: Cannot access ' + obj + '.' + prop);
             }
           }
