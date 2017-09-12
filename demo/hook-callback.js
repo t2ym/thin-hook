@@ -508,6 +508,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       // property access
       let name = _globalObjects.get(thisArg);
       let isStatic = typeof thisArg === 'function';
+      let normalizedThisArg = thisArg;
       let ctor;
       if (!name && thisArg instanceof Object) {
         ctor = thisArg.constructor;
@@ -570,6 +571,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           if (_t instanceof Object) {
             name = _globalObjects.get(_t);
             isStatic = typeof _t === 'function';
+            normalizedThisArg = _t;
             if (!name) {
               ctor = _t.constructor;
               name = _globalObjects.get(ctor);
@@ -581,9 +583,11 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
               isStatic = typeof _t === 'function';
               ctor = isStatic ? _t : _t.constructor;
               name = _globalObjects.get(ctor);
+              normalizedThisArg = ctor;
               while (!name && typeof ctor === 'function') {
                 ctor = Object.getPrototypeOf(ctor);
                 name = _globalObjects.get(ctor);
+                normalizedThisArg = ctor;
               }
             }
             if (name) {
@@ -723,7 +727,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         }
         forName = globalObjectAccess[name];
         if (typeof property === 'string') {
-          id = isStatic
+          id = isStatic || typeof normalizedThisArg === 'object'
             ? name + '.' + rawProperty
             : name + '.prototype.' + rawProperty
           if (!forName[property]) {
@@ -741,7 +745,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         else if (Array.isArray(property)) {
           for (let i = 0; i < property.length; i++) {
             rawProperty = _unescapePlatformProperties.get(property[i]) || property[i];
-            id = isStatic ? name + '.' + rawProperty : name + '.prototype.' + rawProperty;
+            id = isStatic || typeof normalizedThisArg === 'object' ? name + '.' + rawProperty : name + '.prototype.' + rawProperty;
             if (!forName[property[i]]) {
               forName[property[i]] = {};
               data2.nodes.push({ id: id, label: rawProperty, group: name });
