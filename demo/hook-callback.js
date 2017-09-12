@@ -115,7 +115,9 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
   var _stringStaticPropertyDescriptors = Object.getOwnPropertyDescriptors(String);
   var _stringPropertyDescriptors = Object.getOwnPropertyDescriptors(String.prototype);
   var globalObjectAccess = {};
-  var _blackListObjects = {
+  var _blacklistObjects = {};
+  /*
+  {
     caches: true,
     navigator: {
       serviceWorker: true,
@@ -132,7 +134,8 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       dummyMethod: true,
     }
   };
-  Object.assign(_blackListObjects, { window: _blackListObjects, self: _blackListObjects });
+  Object.assign(_blacklistObjects, { window: _blacklistObjects, self: _blacklistObjects });
+  */
   const _escapePlatformProperties = new Map();
   const _unescapePlatformProperties = new Map();
   Object.getOwnPropertyNames(Object.prototype).concat(['prototype']).forEach(n => {
@@ -143,6 +146,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
   const S_PROTOTYPE = Symbol('prototype'); // prototype object
   const S_DEFAULT = Symbol('default'); // default policy
   const S_OBJECT = Symbol('object'); // parent object
+  const S_FUNCTION = Symbol('function'); // function
   const S_CONSTRUCT = Symbol('construct'); // new operation
   const S_UNSPECIFIED = Symbol('unspecified'); // no property is specified
   const S_ALL = Symbol('all properties'); // all properties are specified
@@ -324,31 +328,47 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       }        
     }
   }
-  // TODO: Access control list is not implemented yet
-  /*
+  // TODO: Access control list is too hard to maintain. An easier, automated, and modular approach is preferable. 
   const contextNormalizer = {
     '/components/iron-location/iron-location.html,script@1800,_updateUrl': '@route_manipulator',
     '/components/iron-location/iron-location.html,script@1800,_globalOnClick': '@route_manipulator',
     '/components/thin-hook/demo/web-worker-client.js,worker': '@worker_manipulator',
     '/components/thin-hook/demo/web-worker-client.js': '@worker_manipulator',
+    '/components/thin-hook/demo/normalize.js': '@normalization_checker',
+    '/components/dexie/dist/dexie.min.js,r': '@custom_error_constructor_creator',
+    '/components/firebase/firebase-app.js': '@custom_error_constructor_creator',
+    '/components/firebase/firebase-auth.js,t': '@custom_error_constructor_creator',
+    '/components/polymer/lib/utils/templatize.html,script@695,upgradeTemplate': '@template_element_prototype_setter',
   };
   const acl = {
     // blacklist objects/classes
     caches: '---',
-    CacheStorage: '---',
-    ServiceWorkerContainer: '---',
     // blacklist properties
+    window: {
+      [S_OBJECT]: 'r--',
+      [S_DEFAULT]: 'rwx',
+      [S_ALL]: '---',
+      caches: '---',
+    },
     navigator: {
       [S_OBJECT]: 'r--',
       [S_DEFAULT]: 'r--',
+      [S_ALL]: '---',
       serviceWorker: '---',
       usb: '---',
       geolocation: '---',
+      'a_new_navigator_property': {
+        [S_DEFAULT]: '---',
+        '@normalization_checker': 'rw-',
+      }
     },
     // read-only except for manipulators
     location: {
       [S_OBJECT]: 'r--',
       [S_DEFAULT]: 'r--',
+      [S_ALL]: '---',
+      reload: '---',
+      $__proto__$: '---',
       href: {
         [S_DEFAULT]: 'r--',
         '@route_manipulator': 'rw-',
@@ -358,6 +378,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     history: {
       [S_OBJECT]: 'r--',
       [S_DEFAULT]: 'rwx',
+      [S_ALL]: '---',
       replaceState: {
         [S_DEFAULT]: '---',
         '@route_manipulator': '--x',
@@ -370,22 +391,58 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     Worker: {
       [S_OBJECT]: 'r--',
       [S_DEFAULT]: 'r--',
+      [S_ALL]: '---',
       '@worker_manipulator': 'r-x',
       [S_PROTOTYPE]: {
         [S_DEFAULT]: '---',
+        [S_ALL]: '---',
         '@worker_manipulator': 'rwx',
       }
+    },
+    Error: {
+      [S_OBJECT]: 'r-x',
+      [S_DEFAULT]: 'r-x',
+      [S_ALL]: 'r--',
+      [S_PROTOTYPE]: {
+        [S_DEFAULT]: 'r-x',
+        [S_ALL]: '---',
+        $constructor$: {
+          [S_DEFAULT]: 'r-x',
+          '@custom_error_constructor_creator': 'rwx',
+        },
+      }
+    },
+    HTMLTemplateElement: {
+      [S_OBJECT]: 'r-x',
+      [S_DEFAULT]: 'r--',
+      [S_ALL]: 'r--',
+      [S_PROTOTYPE]: {
+        [S_DEFAULT]: 'rwx',
+        [S_ALL]: '---',
+        $__proto__$: {
+          [S_DEFAULT]: 'r--',
+          '@template_element_prototype_setter': 'rw-',
+        },
+      }
+    },
+    DummyClass: '---',
+    DummyClass2: {
+      [S_DEFAULT]: 'r-x',
+      isDummy: '---',
+      dummyMethod: '---',
     },
     // default for global objects
     [S_GLOBAL]: {
       [S_OBJECT]: 'r--',
       [S_DEFAULT]: 'rwx',
+      [S_ALL]: 'r--',
       $__proto__$: 'r--',
       $prototype$: 'r--',
       $constructor$: 'r-x',
       [S_PROTOTYPE]: {
         [S_OBJECT]: 'r--',
         [S_DEFAULT]: 'rwx',
+        [S_ALL]: 'r--',
         $__proto__$: 'r--',
         $prototype$: 'r--',
         $constructor$: 'r-x',
@@ -395,9 +452,113 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     [S_DEFAULT]: {
       [S_OBJECT]: 'rwx',
       [S_DEFAULT]: 'rwx',
+      [S_ALL]: 'rwx',
     }
   };
-  */
+  const opTypeMap = {
+    r: 0, w: 1, x: 2
+  };
+  function applyAcl(name, isStatic, isObject, property, opType, context) {
+    let _context, _acl, __acl, _property, tmp;
+    while (_context = contextNormalizer[context]) {
+      context = _context;
+      if (context[0] === '@') {
+        break;
+      }
+    }
+    context = _context ? context : S_DEFAULT;
+    _acl = name
+      ? name === 'Object' && isObject
+        ? acl[S_DEFAULT]
+        : acl[name] || acl[S_GLOBAL] || acl[S_DEFAULT]
+      : acl[S_DEFAULT];
+    if (typeof _acl === 'object') {
+      if (typeof property === 'undefined' || property === '') {
+        _acl = context === S_DEFAULT
+          ? _acl[S_OBJECT] || _acl[S_DEFAULT]
+          : _acl[context] || _acl[S_OBJECT] || _acl[S_DEFAULT];
+      }
+      else {
+        if (!isStatic) {
+          _acl = _acl[S_PROTOTYPE] || _acl;
+        }
+        if (typeof _acl === 'object') {
+          switch (property) {
+          case S_ALL:
+            _acl = _acl[context] || _acl[S_ALL] || _acl[S_DEFAULT];
+            if (typeof _acl === 'object') {
+              _acl = _acl[S_ALL] || _acl[S_DEFAULT];
+            }
+            break;
+          case S_UNSPECIFIED:
+            _acl = _acl[context] || _acl[S_DEFAULT];
+            if (typeof _acl === 'object') {
+              _acl = _acl[S_DEFAULT];
+            }
+            break;
+          case S_FUNCTION:
+            _acl = _acl[context] || _acl[S_DEFAULT];
+            if (typeof _acl === 'object') {
+              _acl = _acl[S_DEFAULT];
+            }
+            break;
+          default:
+            switch (typeof property) {
+            case 'string':
+            case 'number':
+            case 'symbol':
+            case 'function':
+            case 'boolean':
+            case 'undefined':
+              _acl = _acl[property] || _acl[context] || _acl[S_DEFAULT];
+              if (typeof _acl === 'object') {
+                _acl = _acl[context] || _acl[S_DEFAULT];
+              }
+              break;
+            case 'object':
+              if (Array.isArray(property)) {
+                tmp = [];
+                for (_property of property) {
+                  __acl = _acl[_property] || _acl[context] || _acl[S_DEFAULT];
+                  if (typeof __acl === 'object') {
+                    __acl = __acl[context] || __acl[S_DEFAULT];
+                  }
+                  tmp.push(__acl);
+                }
+                _acl = tmp;
+              }
+              else {
+                _acl = _acl[property] || _acl[context] || _acl[S_DEFAULT];
+                if (typeof _acl === 'object') {
+                  _acl = _acl[context] || _acl[S_DEFAULT];
+                }
+              }
+              break;
+            default:
+              _acl = '---';
+              break;
+            }
+            break;
+          }
+        }
+      }
+    }
+    switch (typeof _acl) {
+    case 'string':
+      return _acl[opTypeMap[opType]] === opType;
+    case 'object':
+      tmp = opTypeMap[opType];
+      for (__acl of _acl) {
+        if (__acl[tmp] !== opType) {
+          return false;
+        }
+      }
+      return true;
+    case 'undefined':
+    default:
+      return false;
+    }
+  }
   _global.__hook__ = function __hook__(f, thisArg, args, context, newTarget) {
     counter++;
     if (args[0] === pseudoContextArgument) {
@@ -501,7 +662,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     if (typeof f === 'string') {
       //#PROFILE function normalizeOperation() {
       /*
-      if (context === '/components/thin-hook/demo/normalize.js' && args[0] === 'getPrototypeOf') {
+      if (context === '/components/firebase/firebase-auth.js,zj' && args[0] === 0) {
         debugger;
       }
       */
@@ -529,9 +690,10 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       let property = _escapePlatformProperties.get(rawProperty) || rawProperty;
       let op = operatorNormalizer[f];
       let target = targetNormalizer[op];
+      let opType;
       if (typeof target === 'object') {
         //#PROFILE function targetNormalizerMapGet() {
-        target = targetNormalizerMap.get(thisArg[args[0]]);
+        target = typeof args[0] === 'string' ? targetNormalizerMap.get(thisArg[args[0]]) : undefined;
         if (!target) {
           let type;
           if (typeof thisArg === 'object') {
@@ -540,7 +702,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           else {
             type = thisArg;
           }
-          while (!target && typeof type === 'function') {
+          while (!target && type) {
             target = targetNormalizerMap.get(type);
             type = Object.getPrototypeOf(type);
           }
@@ -565,10 +727,18 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         };
         if (typeof target === 'string') {
           //#PROFILE function applyTargetMap() {
-          let optype = target[0]; // r, w, x
+          opType = target[0]; // r, w, x
           let _t = argsMap[target[1]];
           let _p = argsMap[target[2]];
-          if (_t instanceof Object) {
+          switch (typeof _t) {
+          case 'object':
+          case 'string':
+          case 'function':
+          case 'symbol':
+          case 'boolean':
+            if (_t === null) {
+              break;
+            }
             name = _globalObjects.get(_t);
             isStatic = typeof _t === 'function';
             normalizedThisArg = _t;
@@ -592,11 +762,17 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             }
             if (name) {
               property = rawProperty = undefined;
-              if (typeof _p === 'string') {
+              switch (typeof _p) {
+              case 'string':
                 rawProperty = _p;
                 property = _escapePlatformProperties.get(rawProperty) || rawProperty;
-              }
-              else if (typeof _p === 'symbol') {
+                break;
+              case 'number':
+              case 'boolean':
+              case 'undefined':
+                property = rawProperty = _p;
+                break;
+              case 'symbol':
                 switch (_p) {
                 case S_UNSPECIFIED:
                   property = _p;
@@ -615,35 +791,77 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
                   property = _p;
                   break;
                 default:
+                  property = rawProperty = _p;
                   break;
                 }
-              }
-              else {
+                break;
+              case 'function':
+                if (normalizedThisArg === _global) {
+                  let _globalObj = _globalObjects.get(_p);
+                  if (_globalObj) {
+                    rawProperty = _globalObj;
+                    property = _escapePlatformProperties.get(rawProperty) || rawProperty;
+                  }
+                  else {
+                    property = rawProperty = S_FUNCTION;
+                  }
+                }
+                else {
+                  let _method = _globalMethods.get(_p);
+                  if (_method && _method[0] === name) {
+                    rawProperty = _method[_method.length - 1];
+                    property = _escapePlatformProperties.get(rawProperty) || rawProperty;
+                  }
+                  else {
+                    property = rawProperty = S_FUNCTION;
+                  }
+                }
+                break;
+              case 'object':
+                property = rawProperty = _p; // TODO: proper handling
+                break;
+              default:
+                break;
               }
             }
-          }
-          else {
-            // TODO: target is not an Object instance
+            break;
+          case 'undefined':
+            break;
+          case 'number': // TODO: proper handling
+            break;
+          default:
+            break;
           }
           //#PROFILE }
           //#PROFILE applyTargetMap();
         }
       }
+      else if (typeof target === 'string') {
+        opType = target[0];
+      }
+      if (!applyAcl(name, isStatic, typeof normalizedThisArg === 'object', property, opType, context)) {
+        //if (name === 'Array') {
+        //  console.error('ACL: denied name =', name, 'isStatic =', isStatic, 'isObject = ', (typeof normalizedThisArg === 'object'), 'property =', property, 'opType =', opType, 'context = ', context);
+        //  debugger;
+        //  applyAcl(name, isStatic, typeof normalizedThisArg === 'object', property, opType, context);
+        //}
+        throw new Error('Permission Denied: Cannot access ' + name);
+      }
       // TODO: For robust security, the exception should not provide any information on the blocked objects/properties.
       //#PROFILE function handleBlacklistProperty() {
-      let _blackList = _blackListObjects[name];
-      if (_blackList) {
-        if (typeof _blackList === 'object') {
+      let _blacklist = _blacklistObjects[name];
+      if (_blacklist) {
+        if (typeof _blacklist === 'object') {
           if (property) {
             if (typeof property === 'string') {
-              if (typeof _blackList[property] === 'boolean') {
+              if (typeof _blacklist[property] === 'boolean') {
                 //throw new Error('Permission Denied: Cannot access');
                 throw new Error('Permission Denied: Cannot access ' + name + '.' + rawProperty);
               }
             }
             else if (Array.isArray(property)) {
               for (let i = 0; i < property.length; i++) {
-                if (typeof _blackList[property[i]] === 'boolean') {
+                if (typeof _blacklist[property[i]] === 'boolean') {
                   //throw new Error('Permission Denied: Cannot access');
                   throw new Error('Permission Denied: Cannot access ' + name + '.' + (_unescapePlatformProperties.get(property[i]) || property[i]));
                 }
@@ -781,9 +999,15 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         superClass = Object.getPrototypeOf(superClass);
         name = _globalObjects.get(superClass);
       }
-      let _blackList = _blackListObjects[name];
-      if (_blackList) {
-        if (typeof _blackList === 'boolean') {
+      if (!applyAcl(name, true, false, S_UNSPECIFIED, 'x', context)) {
+        throw new Error('Permission Denied: Cannot access ' + name);
+        //console.error('ACL: denied name =', name, 'isStatic =', true, 'isObject = ', false, 'property =', S_UNSPECIFIED, 'opType =', 'x', 'context = ', context);
+        //debugger;
+        //applyAcl(name, true, false, S_UNSPECIFIED, 'x', context);
+      }
+      let _blacklist = _blacklistObjects[name];
+      if (_blacklist) {
+        if (typeof _blacklist === 'boolean') {
           throw new Error('Permission Denied: Cannot access ' + name);
         }
       }
@@ -819,10 +1043,16 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         let id = name.join('.');
         let prop = name[name.length - 1];
         let obj = name[0];
-        let _blackList = _blackListObjects[obj];
-        if (_blackList) {
-          if (typeof _blackList === 'object') {
-            if (typeof _blackList[prop] === 'boolean') {
+        if (!applyAcl(name, true, false, S_UNSPECIFIED, 'x', context)) {
+          throw new Error('Permission Denied: Cannot access ' + name);
+          //console.error('ACL: denied name =', name, 'isStatic =', true, 'isObject = ', false, 'property =', S_UNSPECIFIED, 'opType =', 'x', 'context = ', context);
+          //debugger;
+          //applyAcl(name, true, false, S_UNSPECIFIED, 'x', context);
+        }
+        let _blacklist = _blacklistObjects[obj];
+        if (_blacklist) {
+          if (typeof _blacklist === 'object') {
+            if (typeof _blacklist[prop] === 'boolean') {
               throw new Error('Permission Denied: Cannot access ' + obj + '.' + prop);
             }
           }
