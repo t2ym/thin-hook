@@ -404,12 +404,16 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       return context;
     }
     let _lastContext = lastContext;
+    //#PROFILE function setContexts() {
     if (!contexts[context]) {
       let group = context.split(/[,:]/)[0];
       let node = { id: context, label: context, group: group };
       data.nodes.push(node);
     }
     contexts[context] = true;
+    //#PROFILE }
+    //#PROFILE setContexts();
+    //#PROFILE function registerAsyncCallback() {
     if ((context === 'setTimeout' || context === 'setInterval' || context.indexOf('Promise') === 0 || context === 'EventTarget,addEventListener') && args) {
       for(let i = 0; i < 2; i++) {
         if (typeof args[i] === 'function') {
@@ -451,6 +455,9 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         }
       }
     }
+    //#PROFILE }
+    //#PROFILE registerAsyncCallback();
+    //#PROFILE function registerContextTransition() {
     lastContext = context;
     contextStack.push(context);
     //contextStackLog[contextStack.join(' -> ')] = true;
@@ -473,7 +480,10 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     contextTransitions[_lastContext][context] = true;
     contextReverseTransitions[context] = contextReverseTransitions[context] || {};
     contextReverseTransitions[context][_lastContext] = true;
+    //#PROFILE }
+    //#PROFILE registerContextTransition();
 
+    /*
     if (callbacks[context]) {
       let c = 0;
       for (let asyncEventContext in callbacks[context]) {
@@ -486,8 +496,10 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         //console.log('CALLBACK with possibility of ' + c + ' multiple callers for ' + context);
       }
     }
+    */
 
     if (typeof f === 'string') {
+      //#PROFILE function normalizeOperation() {
       /*
       if (context === '/components/thin-hook/demo/normalize.js' && args[0] === 'getPrototypeOf') {
         debugger;
@@ -502,18 +514,22 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         name = _globalObjects.get(ctor);
       }
       if (!name && f.indexOf('s') >= 0) {
+        //#PROFILE function trackSuperConstructors() {
         ctor = isStatic ? thisArg : thisArg.constructor;
         name = _globalObjects.get(ctor);
         while (!name && typeof ctor === 'function') {
           ctor = Object.getPrototypeOf(ctor);
           name = _globalObjects.get(ctor);
         }
+        //#PROFILE }
+        //#PROFILE trackSuperConstructors();
       }
       let rawProperty = args[0];
       let property = _escapePlatformProperties.get(rawProperty) || rawProperty;
       let op = operatorNormalizer[f];
       let target = targetNormalizer[op];
       if (typeof target === 'object') {
+        //#PROFILE function targetNormalizerMapGet() {
         target = targetNormalizerMap.get(thisArg[args[0]]);
         if (!target) {
           let type;
@@ -528,6 +544,8 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             type = Object.getPrototypeOf(type);
           }
         }
+        //#PROFILE }
+        //#PROFILE targetNormalizerMapGet();
         let argsMap = {
           f: f,
           t: thisArg,
@@ -545,6 +563,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           '.': S_TARGETED, // pending { prop1: {}, prop2: {}, ... }
         };
         if (typeof target === 'string') {
+          //#PROFILE function applyTargetMap() {
           let optype = target[0]; // r, w, x
           let _t = argsMap[target[1]];
           let _p = argsMap[target[2]];
@@ -602,9 +621,12 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           else {
             // TODO: target is not an Object instance
           }
+          //#PROFILE }
+          //#PROFILE applyTargetMap();
         }
       }
       // TODO: For robust security, the exception should not provide any information on the blocked objects/properties.
+      //#PROFILE function handleBlacklistProperty() {
       let _blackList = _blackListObjects[name];
       if (_blackList) {
         if (typeof _blackList === 'object') {
@@ -640,6 +662,9 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           throw new Error('Permission Denied: Cannot access ' + name);
         }
       }
+      //#PROFILE }
+      //#PROFILE handleBlacklistProperty();
+      //#PROFILE function excludePrimitiveObjectProperties() {
       if (name === 'Object') {
         if (isStatic) {
           if (!_objectStaticPropertyDescriptors[rawProperty]) {
@@ -679,7 +704,10 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           }
         }
       }
+      //#PROFILE }
+      //#PROFILE excludePrimitiveObjectProperties();
       if (name) {
+        //#PROFILE function updateAccessGraph() {
         // thisArg is a global object or an instance of one
         let forName;
         let forProp;
@@ -735,9 +763,14 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           }
           forName[context].label++;
         }
+        //#PROFILE }
+        //#PROFILE updateAccessGraph();
       }
+      //#PROFILE }
+      //#PROFILE normalizeOperation();
     }
     else if (newTarget) {
+      //#PROFILE function handleNewOperation() {
       let name = _globalObjects.get(f);
       let superClass = f;
       while (!name && typeof superClass === 'function') {
@@ -769,8 +802,11 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         }
         forName[context].label++;
       }
+      //#PROFILE }
+      //#PROFILE handleNewOperation();
     }
     else {
+      //#PROFILE function handleFunctionCall() {
       let name = _globalMethods.get(f);
       if (name) {
         // call of a native method
@@ -812,27 +848,39 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         }
         forProp[context].label++;
       }
+      //#PROFILE }
+      //#PROFILE handleFunctionCall();
     }
 
     let result;
     if (typeof f === 'function') {
+      //#PROFILE function callFunction() {
       result = newTarget
         ? Reflect.construct(f, args)
         : thisArg
           ? f.apply(thisArg, args)
           : f(...args);
+      //#PROFILE }
+      //#PROFILE callFunction();
     }
     else {
+      //#PROFILE function accessProperty() {
       // property access
       switch (f) {
       // getter
       case '.':
       case '[]':
+        //#PROFILE function getProperty() {
         result = thisArg[args[0]];
+        //#PROFILE }
+        //#PROFILE getProperty();
         break;
       // funcation call
       case '()':
+        //#PROFILE function callProperty() {
         result = thisArg[args[0]].apply(thisArg, args[1]);
+        //#PROFILE }
+        //#PROFILE callProperty();
         break;
       // unary operators
       case 'p++':
@@ -852,7 +900,10 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         break;
       // assignment operators
       case '=':
+        //#PROFILE function assignProperty() {
         result = thisArg[args[0]] = args[1];
+        //#PROFILE }
+        //#PROFILE assignProperty();
         break;
       case '+=':
         result = thisArg[args[0]] += args[1];
@@ -927,6 +978,8 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         result = null;
         break;
       }
+      //#PROFILE }
+      //#PROFILE accessProperty();
     }
     lastContext = _lastContext;
     // if (contextStack[contextStack.length - 1] !== context) { debugger; }
