@@ -1,6 +1,7 @@
 'use strict';
 
 const gulp = require('gulp');
+const gulpif = require('gulp-if');
 const runSequence = require('run-sequence');
 const babel = require('gulp-babel');
 const rename = require('gulp-rename');
@@ -35,6 +36,9 @@ gulp.task('examples', () => {
     .pipe(gulp.dest('./examples'));
 });
 
+let lastHtml = '';
+let currentHtml = '';
+
 gulp.task('demo', (done) => {
   setTimeout(() => {
     return gulp.src(['demo/original-index.html'], { base: 'demo' })
@@ -45,11 +49,17 @@ gulp.task('demo', (done) => {
         let hookScript = fs.readFileSync('hook.min.js', 'UTF-8');
         hash.update(hookScript);
         let digest = hash.digest('hex');
-        html = html.replace(/no-hook-authorization=([a-z0-9]*),/, 'no-hook-authorization=' + digest + ',');
+        const hash2 = hook.utils.createHash('sha256');
+        let hookCallbackScript = fs.readFileSync('demo/hook-callback.js', 'UTF-8');
+        hash2.update(hookCallbackScript);
+        let digest2 = hash2.digest('hex');
+        html = html.replace(/no-hook-authorization=([a-z0-9]*),([a-z0-9]*),/, 'no-hook-authorization=' + digest + ',' + digest2 + ',');
+        lastHtml = currentHtml;
+        currentHtml = html;
         file.contents = new Buffer(html);
         callback(null, file);
       }))
-      .pipe(gulp.dest('demo'))
+      .pipe(gulpif(lastHtml !== currentHtml, gulp.dest('demo')))
       .pipe(through.obj((file, enc, callback) => {
         let html = String(file.contents);
         let transformed = hook.serviceWorkerTransformers.encodeHtml(html);
@@ -235,8 +245,14 @@ gulp.task('build:coverage', () => {
     .pipe(gulp.dest('test'));
 });
 
+gulp.task('delayed-demo', (done) => {
+  setTimeout(() => {
+    runSequence('demo', done);
+  }, 1000);
+});
+
 gulp.task('watchdemo', function() {
-  gulp.watch(['demo/original-index.html'], ['demo']);
+  gulp.watch(['demo/original-index.html', 'demo/hook-callback.js'], ['delayed-demo']);
 });
 
 gulp.task('delayed-build', (done) => {
