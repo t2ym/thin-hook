@@ -250,6 +250,14 @@
     Reflect.apply(DummyClass2.dummyMethod, new DummyClass2(1), []);
   }, /^Permission Denied:/);
 
+  // Global function btoa is blocked in this context
+  chai.assert.throws(() => {
+    btoa('abc');
+  }, /^Permission Denied:/);
+  chai.assert.throws(() => {
+    let f = btoa;
+  }, /^Permission Denied:/);
+
   // Jailbreak trials
 
   // __hook__ is in the blacklist
