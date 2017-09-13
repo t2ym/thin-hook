@@ -5,8 +5,8 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 {
   var callTree = [['Phrases']];
   // { id: label: group: }
-  var data = { nodes: [ { id: 'undefined', label: 'undefined', group: 'undefined' } ], edges: [] };
-  var data2 = { nodes: [ { id: 'undefined', label: 'undefined', group: 'undefined' } ], edges: [] };
+  const data = { nodes: [ { id: 'undefined', label: 'undefined', group: 'undefined' } ], edges: [] };
+  const data2 = { nodes: [ { id: 'undefined', label: 'undefined', group: 'undefined' } ], edges: [] };
   var callTreeLastLength = callTree.length;
   var counter = 0;
   var calleeErrorCounter = 0;
@@ -23,7 +23,8 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
   var reverseCallbacks = {};
   var pseudoContextArgument = Symbol('callback context');
   var callbackFunctions = new WeakMap();
-  var _global = typeof window === 'object' ? window : self;
+  _global = typeof window === 'object' ? window : self;
+  Object.defineProperty(_global, '_global', { configurable: false, enumerable: false, writable: false, value: _global });
   _global._data = data;
   _global._data2 = data2;
   _global.DummyClass = class DummyClass {
@@ -339,16 +340,51 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '/components/firebase/firebase-app.js': '@custom_error_constructor_creator',
     '/components/firebase/firebase-auth.js,t': '@custom_error_constructor_creator',
     '/components/polymer/lib/utils/templatize.html,script@695,upgradeTemplate': '@template_element_prototype_setter',
+    '/components/thin-hook/demo/my-view2.html,script@2442,getData': '@hook_visualizer',
+    '/components/thin-hook/demo/my-view2.html,script@2442,attached,_lastEdges': '@hook_visualizer',
+    '/components/thin-hook/demo/my-view2.html,script@2442,drawGraph': '@hook_visualizer',
   };
   const acl = {
     // blacklist objects/classes
     caches: '---',
+    __hook__: '---', // TODO: ineffective
     // blacklist properties
+    hook: {
+      [S_OBJECT]: 'r--',
+      [S_DEFAULT]: '---',
+      [S_ALL]: '---',
+      Function: '--x',
+      eval: '--x',
+      setTimeout: '--x',
+      setInterval: '--x',
+    },
     window: {
       [S_OBJECT]: 'r--',
       [S_DEFAULT]: 'rwx',
       [S_ALL]: '---',
       caches: '---',
+      __hook__: '---',
+      hook: '---',
+      _data: {
+        [S_DEFAULT]: '---',
+        '@hook_visualizer': 'r--',
+      },
+      _data2: {
+        [S_DEFAULT]: '---',
+        '@hook_visualizer': 'r--',
+      },
+      globalObjectAccess: {
+        [S_DEFAULT]: '---',
+        '@normalization_checker': 'r--',
+      }
+    },
+    _data: {
+      [S_DEFAULT]: '---',
+      '@hook_visualizer': 'r--',
+    },
+    _data2: {
+      [S_DEFAULT]: '---',
+      '@hook_visualizer': 'r--',
     },
     navigator: {
       [S_OBJECT]: 'r--',
@@ -455,6 +491,39 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       [S_ALL]: 'rwx',
     }
   };
+  // protect hook-callback.js variables
+  [
+    'callTree',
+    'callTreeLastLength',
+    'counter',
+    'calleeErrorCounter',
+    'log',
+    'contexts',
+    'globalPropertyContexts',
+    'locationContexts',
+    'contextTransitions',
+    'contextReverseTransitions',
+    'lastContext;',
+    'contextStack',
+    'contextStackLog',
+    'callbacks',
+    'reverseCallbacks',
+    'pseudoContextArgument',
+    'callbackFunctions',
+    '_globalPropertyDescriptors',
+    '_globalMethods',
+    '_globalObjects',
+    '_objectStaticPropertyDescriptors',
+    '_objectPropertyDescriptors',
+    '_arrayStaticPropertyDescriptors',
+    '_arrayPropertyDescriptors',
+    '_stringStaticPropertyDescriptors',
+    '_stringPropertyDescriptors',
+    '_blacklistObjects',
+  ].forEach(n => {
+    Object.assign(acl, { [n]: '---' });
+    Object.assign(acl.window, { [n]: '---' });
+  });
   const opTypeMap = {
     r: 0, w: 1, x: 2
   };
@@ -559,7 +628,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       return false;
     }
   }
-  _global.__hook__ = function __hook__(f, thisArg, args, context, newTarget) {
+  Object.defineProperty(_global, '__hook__', { configurable: false, enumerable: false, writable: false, value: function __hook__(f, thisArg, args, context, newTarget) {
     counter++;
     if (args[0] === pseudoContextArgument) {
       return context;
@@ -662,7 +731,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     if (typeof f === 'string') {
       //#PROFILE function normalizeOperation() {
       /*
-      if (context === '/components/firebase/firebase-auth.js,zj' && args[0] === 0) {
+      if (context === '/components/thin-hook/demo/my-view2.html,script@2442,getData' && args[0] === '_data2') {
         debugger;
       }
       */
@@ -1219,7 +1288,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     // if (contextStack[contextStack.length - 1] !== context) { debugger; }
     contextStack.pop();
     return result;
-  }
+  }});
 
   function showContextStackLog() {
     let asyncCalls = Object.keys(contextStackLog).filter(c => c.match(/(setTimeout|setInterval|Promise)/g));

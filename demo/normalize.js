@@ -250,6 +250,58 @@
     Reflect.apply(DummyClass2.dummyMethod, new DummyClass2(1), []);
   }, /^Permission Denied:/);
 
+  // Jailbreak trials
+
+  // __hook__ is in the blacklist
+
+  chai.assert.throws(() => {
+    let h = window.__hook__;
+  }, /^Permission Denied:/);
+
+  chai.assert.throws(() => {
+    window.__hook__ = null;
+  }, /^Permission Denied:/);
+
+  __hook__ = null;
+  chai.assert.isOk(__hook__, '__hook__ cannot be changed');
+
+  // Access to hook is restricted
+
+  chai.assert.throws(() => { window.hook; }, /^Permission Denied:/);
+  chai.assert.throws(() => { window.hook = null; }, /^Permission Denied:/);
+  chai.assert.throws(() => { hook.hookHtml; }, /^Permission Denied:/);
+  chai.assert.throws(() => { hook.__hook__; }, /^Permission Denied:/);
+  chai.assert.throws(() => { hook.__hook_except_properties__; }, /^Permission Denied:/);
+  chai.assert.throws(() => { hook.contextGenerators; }, /^Permission Denied:/);
+  chai.assert.throws(() => { hook.serviceWorkerHandlers; }, /^Permission Denied:/);
+  chai.assert.throws(() => { hook.serviceWorkerTransformers; }, /^Permission Denied:/);
+  chai.assert.throws(() => { hook.hookWorkerHandler; }, /^Permission Denied:/);
+  chai.assert.throws(() => { hook.registerServiceWorker; }, /^Permission Denied:/);
+  chai.assert.throws(() => { hook.hook; }, /^Permission Denied:/);
+  chai.assert.throws(() => { hook.global; }, /^Permission Denied:/);
+  chai.assert.throws(() => { hook.global(__hook__, '/components/thin-hook/demo/normalize.js', 'a', 'get')._pp_a; }, /^Permission Denied:/);
+  chai.assert.throws(() => { hook.Function; }, /^Permission Denied:/);
+  chai.assert.throws(() => { hook.eval; }, /^Permission Denied:/);
+  chai.assert.throws(() => { hook.setTimeout; }, /^Permission Denied:/);
+  chai.assert.throws(() => { hook.setInterval; }, /^Permission Denied:/);
+  chai.assert.throws(() => { hook.Node; }, /^Permission Denied:/);
+  chai.assert.throws(() => { hook.Element; }, /^Permission Denied:/);
+  chai.assert.throws(() => { hook.HTMLAnchorElement; }, /^Permission Denied:/);
+  chai.assert.throws(() => { hook.HTMLAreaElement; }, /^Permission Denied:/);
+  chai.assert.throws(() => { hook.HTMLScriptElement; }, /^Permission Denied:/);
+  chai.assert.throws(() => { hook.Document; }, /^Permission Denied:/);
+  chai.assert.throws(() => { hook.utils; }, /^Permission Denied:/);
+  chai.assert.throws(() => { hook.parameters; }, /^Permission Denied:/);
+
+  chai.assert.equal((new (hook.Function('__hook__', [['window,Function', {}]], 'method'))('return function f(n) { return n + 1; }'))()(2), 3, 'hook.Function() can be called');
+  chai.assert.equal(typeof hook.setTimeout('__hook__', [['setTimeout', {}]], 'method'), 'function', 'hook.setTimeout() returns a function');
+  chai.assert.equal(typeof hook.setInterval('__hook__', [['setInterval', {}]], 'method'), 'function', 'hook.setInterval() returns a function');
+  chai.assert.equal(typeof hook.eval('__hook__', [['eval', {}]], 'method'), 'function', 'hook.eval() returns a function');
+
+  // global variables in hook-callback.js is in the blacklist
+  chai.assert.throws(() => { contexts; }, /^Permission Denied:/);
+  chai.assert.throws(() => { window.contexts; }, /^Permission Denied:/);
+
 }
 () => {
   let target, property, value, attributes, proto, prototype, receiver, args, arg1, arg2, p, v;
