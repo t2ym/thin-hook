@@ -36,7 +36,7 @@ gulp.task('examples', () => {
     .pipe(gulp.dest('./examples'));
 });
 
-let lastHtml = '';
+let lastHtml = 'old';
 let currentHtml = '';
 
 gulp.task('demo', (done) => {
