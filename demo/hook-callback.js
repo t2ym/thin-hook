@@ -49,13 +49,20 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
   var _globalObjects = Object.keys(_globalPropertyDescriptors)
     .sort()
     .reduce((acc, curr) => {
-      const globalObjectNames = ['_global', 'top', 'global', 'self', 'window'];
+      const globalObjectNames = ['_global', 'frames', 'top', 'global', 'self', 'window'];
       const globalProperties = { history: true, navigator: true, applicationCache: true, crypto: true, localStorage: true, indexedDB: true, caches: true, sessionStorage: true, document: true };
       if (_globalPropertyDescriptors[curr].value && typeof _globalPropertyDescriptors[curr].value !== 'number') {
         let existing = acc.get(_globalPropertyDescriptors[curr].value);
         if (globalObjectNames.indexOf(curr) >= 0) {
           if (globalObjectNames.indexOf(existing) < globalObjectNames.indexOf(curr)) {
             acc.set(_globalPropertyDescriptors[curr].value, curr);
+            let properties = Object.getOwnPropertyDescriptors(_globalPropertyDescriptors[curr].value);
+            let prop;
+            for (prop in properties) {
+              if (typeof properties[prop].value === 'function') {
+                _globalMethods.set(properties[prop].value, [curr, prop]);
+              }
+            }
           }
         }
         else if (!existing || (existing.length > curr.length)) {
@@ -83,6 +90,13 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           if (globalObjectNames.indexOf(existing) < globalObjectNames.indexOf(curr)) {
             if (_global[curr]) {
               acc.set(_global[curr], curr);
+              let properties = Object.getOwnPropertyDescriptors(_global[curr]);
+              let prop;
+              for (prop in properties) {
+                if (typeof properties[prop].value === 'function') {
+                  _globalMethods.set(properties[prop].value, [curr, prop]);
+                }
+              }
             }
           }
         }
@@ -378,6 +392,10 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       globalObjectAccess: {
         [S_DEFAULT]: '---',
         '@normalization_checker': 'r--',
+      },
+      btoa: {
+        [S_DEFAULT]: 'r-x',
+        '@normalization_checker': '---',
       }
     },
     _data: {
@@ -1114,11 +1132,11 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         let id = name.join('.');
         let prop = name[name.length - 1];
         let obj = name[0];
-        if (!applyAcl(name, true, false, S_UNSPECIFIED, 'x', context)) {
-          throw new Error('Permission Denied: Cannot access ' + name);
-          //console.error('ACL: denied name =', name, 'isStatic =', true, 'isObject = ', false, 'property =', S_UNSPECIFIED, 'opType =', 'x', 'context = ', context);
+        if (!applyAcl(obj, name[1] !== 'prototype', false, prop, 'x', context)) {
+          throw new Error('Permission Denied: Cannot access ' + obj);
+          //console.error('ACL: denied name =', name, 'isStatic =', name[1] !== 'prototype', 'isObject = ', false, 'property =', prop, 'opType =', 'x', 'context = ', context);
           //debugger;
-          //applyAcl(name, true, false, S_UNSPECIFIED, 'x', context);
+          //applyAcl(obj, name[1] !== 'prototype', false, prop, 'x', context);
         }
         let _blacklist = _blacklistObjects[obj];
         if (_blacklist) {
