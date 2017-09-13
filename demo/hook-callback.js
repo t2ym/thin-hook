@@ -348,6 +348,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     // blacklist objects/classes
     caches: '---',
     __hook__: '---', // TODO: ineffective
+    __unexpected_access_to_hook_callback_function__: '---',
     // blacklist properties
     hook: {
       [S_OBJECT]: 'r--',
@@ -364,6 +365,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       [S_ALL]: '---',
       caches: '---',
       __hook__: '---',
+      __unexpected_access_to_hook_callback_function__: '---',
       hook: '---',
       _data: {
         [S_DEFAULT]: '---',

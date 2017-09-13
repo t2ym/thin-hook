@@ -262,8 +262,9 @@
     window.__hook__ = null;
   }, /^Permission Denied:/);
 
-  __hook__ = null;
-  chai.assert.isOk(__hook__, '__hook__ cannot be changed');
+  chai.assert.throws(() => {
+    typeof __hook__;
+  }, /^Permission Denied:/);
 
   // Access to hook is restricted
 
@@ -279,7 +280,10 @@
   chai.assert.throws(() => { hook.registerServiceWorker; }, /^Permission Denied:/);
   chai.assert.throws(() => { hook.hook; }, /^Permission Denied:/);
   chai.assert.throws(() => { hook.global; }, /^Permission Denied:/);
-  chai.assert.throws(() => { hook.global(__hook__, '/components/thin-hook/demo/normalize.js', 'a', 'get')._pp_a; }, /^Permission Denied:/);
+  chai.assert.throws(() => {
+    let __unexpected_access_to_hook_callback_function__;
+    hook.global(__hook__, '/components/thin-hook/demo/normalize.js', 'a', 'get')._pp_a;
+  }, /^Permission Denied:/);
   chai.assert.throws(() => { hook.Function; }, /^Permission Denied:/);
   chai.assert.throws(() => { hook.eval; }, /^Permission Denied:/);
   chai.assert.throws(() => { hook.setTimeout; }, /^Permission Denied:/);
