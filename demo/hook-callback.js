@@ -36,11 +36,12 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     }
   }
   var _globalMethods = new Map();
+  const excludedGlobalProperties = { isSecureContext: true };
   var _globalObjects = Object.keys(_globalPropertyDescriptors)
     .sort()
     .reduce((acc, curr) => {
       const globalObjectNames = ['_global', 'frames', 'top', 'global', 'self', 'window'];
-      const globalProperties = { history: true, navigator: true, applicationCache: true, crypto: true, localStorage: true, indexedDB: true, caches: true, sessionStorage: true, document: true };
+      //const globalProperties = { history: true, navigator: true, applicationCache: true, crypto: true, localStorage: true, indexedDB: true, caches: true, sessionStorage: true, document: true };
       if (_globalPropertyDescriptors[curr].value && typeof _globalPropertyDescriptors[curr].value !== 'number') {
         let existing = acc.get(_globalPropertyDescriptors[curr].value);
         if (globalObjectNames.indexOf(curr) >= 0) {
@@ -91,7 +92,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           }
         }
         else if (!existing || (existing.length > curr.length)) {
-          if (globalProperties[curr]) {
+          if (!excludedGlobalProperties[curr]) {
             acc.set(_global[curr], curr);
             let properties = Object.getOwnPropertyDescriptors(_global[curr]);
             let prop;
