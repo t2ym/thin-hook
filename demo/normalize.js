@@ -230,7 +230,26 @@
     Reflect.setPrototypeOf(location, null);
   }, /^Permission Denied:/);
 
+  // DClass is not in the blacklist
+
+  window.DClass = class DClass {
+    constructor(n) { this._n = n; }
+    static get isDummy() { return true }
+    get dummyProperty() { return this._n; }
+  };
+  DClass.isDummy;
+  chai.assert.isOk(globalObjectAccess.DClass.isDummy['/components/thin-hook/demo/normalize.js'], 'Access to DClass.isDummy is traced');
+  (new DClass(1)).dummyProperty;
+  chai.assert.isOk(globalObjectAccess.DClass['/components/thin-hook/demo/normalize.js'], 'Access to new DClass() is traced');
+  chai.assert.isOk(globalObjectAccess.DClass.dummyProperty['/components/thin-hook/demo/normalize.js'], 'Access to (new DClass()).dummyProperty is traced');
+
   // DummyClass is in the blacklist
+
+  window.DummyClass = class DummyClass {
+    constructor(n) { this._n = n; }
+    static get isDummy() { return true }
+    get dummyProperty() { return this._n; }
+  };
 
   chai.assert.throws(() => {
     new DummyClass(1);
@@ -241,6 +260,12 @@
   }, /^Permission Denied:/);
 
   // DummyClass2.isDummy DummyClass2.dummyProperty is in the blacklist
+
+  window.DummyClass2 = class DummyClass2 {
+    constructor(n) { this._n = n; }
+    static get isDummy() { return true }
+    dummyMethod() { return this._n; }
+  };
 
   chai.assert.throws(() => {
     DummyClass2.isDummy;

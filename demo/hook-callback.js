@@ -27,16 +27,6 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
   Object.defineProperty(_global, '_global', { configurable: false, enumerable: false, writable: false, value: _global });
   _global._data = data;
   _global._data2 = data2;
-  _global.DummyClass = class DummyClass {
-    constructor(n) { this._n = n; }
-    static get isDummy() { return true }
-    get dummyProperty() { return n; }
-  };
-  _global.DummyClass2 = class DummyClass2 {
-    constructor(n) { this._n = n; }
-    static get isDummy() { return true }
-    dummyMethod() { return n; }
-  };
   var _globalPropertyDescriptors = {};
   {
     let o = _global;
@@ -213,7 +203,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     'f': 'xtf', // thisArg may not be this object for f
     'n': 'xfN',
     '.': 'rtp',
-    '=': 'wtp',
+    '=': 'wtpv',
     '()': {
       Object: {
         [S_DEFAULT]: 'xtp',
@@ -226,12 +216,12 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         keys: 'r0*',
         entries: 'r0*',
         values: 'r0*',
-        defineProperty: 'w01',
-        defineProperties: 'w0.',
+        defineProperty: 'w01v',
+        defineProperties: 'w0.v',
         setPrototypeOf: 'w0P',
         freeze: 'w0*',
         seal: 'w0*',
-        assign: 'w0.',
+        assign: 'w0.v',
         [S_PROTOTYPE]: {
           [S_DEFAULT]: 'xtp',
           $hasOwnProperty$: 'rt0',
@@ -250,9 +240,9 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         getOwnPropertyDescriptor: 'r01',
         isExtensible: 'r0-',
         ownKeys: 'r0*',
-        defineProperty: 'w01',
+        defineProperty: 'w01v',
         deleteProperty: 'w01',
-        set: 'w01',
+        set: 'w01v',
         setPrototypeOf: 'w0P',
         preventExtensions: 'w0*',
         construct: 'x0N',
@@ -357,6 +347,9 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '/components/thin-hook/demo/my-view2.html,script@2442,getData': '@hook_visualizer',
     '/components/thin-hook/demo/my-view2.html,script@2442,attached,_lastEdges': '@hook_visualizer',
     '/components/thin-hook/demo/my-view2.html,script@2442,drawGraph': '@hook_visualizer',
+    '/components/web-animations-js/web-animations-next-lite.min.js': '@web_animations_next_lite',
+    '/components/polymerfire/firebase-app.html,script@802,__computeApp': '@firebase_app_initializer',
+    '/components/live-localizer/live-localizer-browser-storage.html,script@3348,modelReady': '@Dexie_instantiator',
   };
   const acl = {
     // blacklist objects/classes
@@ -481,11 +474,43 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         },
       }
     },
+    // blocked private API
     DummyClass: '---',
     DummyClass2: {
       [S_DEFAULT]: 'r-x',
       isDummy: '---',
       dummyMethod: '---',
+    },
+    // 3rd party API
+    firebase: {
+      [S_DEFAULT]: 'rwx', // Note: Internal and external accesses are not distinguished
+      initializeApp: {
+        [S_DEFAULT]: '---', // Note: No others can initialize firebase app
+        '@firebase_app_initializer': 'r-x', // Note: polymerfire can solely initialize firebase app
+      }
+    },
+    Dexie: {
+      [S_OBJECT]: {
+        [S_DEFAULT]: 'rw-', // Note: Internal and external accesses are not distinguished
+        '@Dexie_instantiator': 'r-x', // Note: No others can instantiate Dexie
+      },
+      [S_DEFAULT]: 'rwx', // Note: Internal and external accesses are not distinguished
+    },
+    SequenceEffect: {
+      [S_DEFAULT]: 'r-x',
+      '@web_animations_next_lite': 'rwx',
+      $prototype$: {
+        [S_DEFAULT]: 'r--',
+        '@web_animations_next_lite': 'rw-',
+      }
+    },
+    GroupEffect: {
+      [S_DEFAULT]: 'r-x',
+      '@web_animations_next_lite': 'rwx',
+      $prototype$: {
+        [S_DEFAULT]: 'r--',
+        '@web_animations_next_lite': 'rw-',
+      }
     },
     // default for global objects
     [S_GLOBAL]: {
@@ -780,6 +805,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       let op = operatorNormalizer[f];
       let target = targetNormalizer[op];
       let opType;
+      let globalAssignments = {};
       if (typeof target === 'object') {
         //#PROFILE function targetNormalizerMapGet() {
         target = typeof args[0] === 'string' ? targetNormalizerMap.get(thisArg[args[0]]) : undefined;
@@ -855,6 +881,62 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
               case 'string':
                 rawProperty = _p;
                 property = _escapePlatformProperties.get(rawProperty) || rawProperty;
+                if (target[3] === 'v') {
+                  switch (name) {
+                  case 'window':
+                  case 'self':
+                    switch (target) {
+                    case 'w01v':
+                      switch (args[0]) {
+                      case 'defineProperty': // Object.defineProperty(window, 'property', { value: v }); Reflect.defineProperty(window, 'property', { value: v })
+                        if (args[1][2] && args[1][2].value instanceof Object) {
+                          globalAssignments[rawProperty] = args[1][2].value;
+                        }
+                        break;
+                      case 'set': // Reflect.set(window, 'property', v)
+                        if (args[1][2] instanceof Object) {
+                          globalAssignments[rawProperty] = args[1][2];
+                        }
+                        break;
+                      default:
+                        break;
+                      }
+                      break;
+                    case 'w0.v':
+                      let props;
+                      switch (args[0]) {
+                      case 'defineProperties': // Object.defineProperties(window, { 'property': { value: v } })
+                        props = args[1][1];
+                        for (let p in props) {
+                          if (props[p] && props[p].value instanceof Object) {
+                            globalAssignments[p] = props[p].value;
+                          }
+                        }
+                        break;
+                      case 'assign': // Object.assign(window, { 'property': v })
+                        for (let i = 1; i < args[1].length; i++) {
+                          props = args[1][i];
+                          if (props instanceof Object) {
+                            for (let p in props) {
+                              if (props[p] instanceof Object) {
+                                globalAssignments[p] = props[p];
+                              }
+                            }
+                          }
+                        }
+                        break;
+                      default:
+                        break;
+                      }
+                      break;
+                    default:
+                      break;
+                    }
+                    break;
+                  default:
+                    break;
+                  }
+                }
                 break;
               case 'number':
               case 'boolean':
@@ -927,6 +1009,18 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       }
       else if (typeof target === 'string') {
         opType = target[0];
+        switch (name) {
+        case 'window':
+        case 'self':
+          if (target === 'wtpv') { // window.property = v
+            if (f === '=' && args[1] instanceof Object) {
+              globalAssignments[rawProperty] = args[1];
+            }
+          }
+          break;
+        default:
+          break;
+        }
       }
       if (!applyAcl(name, isStatic, typeof normalizedThisArg === 'object', property, opType, context)) {
         //if (name === 'Array') {
@@ -975,6 +1069,26 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       }
       //#PROFILE }
       //#PROFILE handleBlacklistProperty();
+      for (let gprop in globalAssignments) {
+        //console.log('global assignment ', gprop);
+        let gvalue = globalAssignments[gprop];
+        _globalObjects.set(gvalue, gprop);
+        let _properties = Object.getOwnPropertyDescriptors(gvalue);
+        let _prop;
+        for (_prop in _properties) {
+          if (typeof _properties[_prop].value === 'function') {
+            _globalMethods.set(_properties[_prop].value, [gprop, _prop]);
+          }
+        }
+        if (gvalue.prototype) {
+          _properties = Object.getOwnPropertyDescriptors(gvalue.prototype);
+          for (_prop in _properties) {
+            if (typeof _properties[_prop].value === 'function') {
+              _globalMethods.set(_properties[_prop].value, [gprop, 'prototype', _prop]);
+            }
+          }
+        }
+      }
       //#PROFILE function excludePrimitiveObjectProperties() {
       if (name === 'Object') {
         if (isStatic) {
