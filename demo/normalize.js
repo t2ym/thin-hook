@@ -379,9 +379,13 @@
   // Object methods are detected even via subclasses
 
   chai.assert.throws(() => {
-    (class O extends Object {}).getOwnPropertyDescriptor(navigator, 'serviceWorker', {});
+    (class O extends Object {}).getOwnPropertyDescriptor(navigator, 'serviceWorker');
   }, /^Permission Denied:/);
 
+  chai.assert.throws(() => {
+    (class O extends Object {}).defineProperty(navigator, 'a_new_property', { configurable: true, enumerable: true, value: 1 });
+  }, /^Permission Denied:/);
+  
 }
 () => {
   let target, property, value, attributes, proto, prototype, receiver, args, arg1, arg2, p, v;
