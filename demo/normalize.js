@@ -262,9 +262,9 @@
   // DummyClass2.isDummy DummyClass2.dummyProperty is in the blacklist
 
   window.DummyClass2 = class DummyClass2 {
-    constructor(n) { this._n = n; }
+    constructor(n) { /*this._n = n;*/ }
     static get isDummy() { return true }
-    dummyMethod() { return this._n; }
+    dummyMethod() { return 1; /*this._n;*/ }
   };
 
   chai.assert.throws(() => {
@@ -273,6 +273,22 @@
 
   chai.assert.throws(() => {
     Reflect.apply(DummyClass2.dummyMethod, new DummyClass2(1), []);
+  }, /^Permission Denied:/);
+
+  chai.assert.throws(() => {
+    try {
+      let obj = new DummyClass2(1);
+      let _get = Reflect.get;
+      let _prototype = DummyClass2.prototype;
+      console.error('_prototype', _prototype);
+      let _dummyMethod = _get(_prototype, 'dummyMethod');
+      console.error('_dummyMethod', _dummyMethod);
+      let obj2 = new (class C2 extends DummyClass2 {})();
+      _dummyMethod.apply(obj2);
+    }
+    catch (e) {
+      throw e;
+    }
   }, /^Permission Denied:/);
 
   // Global function btoa is blocked in this context
@@ -338,6 +354,27 @@
   // global variables in hook-callback.js is in the blacklist
   chai.assert.throws(() => { contexts; }, /^Permission Denied:/);
   chai.assert.throws(() => { window.contexts; }, /^Permission Denied:/);
+
+  // Object.getOwnPropertyDescriptor is not readable
+
+  chai.assert.throws(() => {
+    let getDesc = Object.getOwnPropertyDescriptor;
+    let desc = getDesc.apply(Object, [window, 'caches']);
+    let _caches = desc.get.apply(window);
+    _caches.open().then(() => console.error('caches.open()'));
+  }, /^Permission Denied:/);
+
+  // Reflect.get is not readable
+
+  chai.assert.throws(() => {
+    let _get = Reflect.get;
+    let _constructor = _get.apply(Reflect, [navigator, 'constructor']);
+    let _prototype = _get.apply(Reflect, [_constructor, 'prototype']);
+    let _getDesc = Object.getOwnPropertyDescriptor;
+    let desc = _getDesc.apply(Object, [_prototype, 'serviceWorker']);
+    let _serviceWorker = desc.get.apply(navigator);
+    _serviceWorker.register().then(() => console.error('navigator.serviceWorker.register()'));
+  }, /^Permission Denied:/);  
 
 }
 () => {

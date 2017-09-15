@@ -351,6 +351,26 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '/components/web-animations-js/web-animations-next-lite.min.js': '@web_animations_next_lite',
     '/components/polymerfire/firebase-app.html,script@802,__computeApp': '@firebase_app_initializer',
     '/components/live-localizer/live-localizer-browser-storage.html,script@3348,modelReady': '@Dexie_instantiator',
+    '/components/deepcopy/build/deepcopy.min.js,u': '@Object_keys_reader',
+    '/components/dexie/dist/dexie.min.js,jn': '@Object_keys_reader',
+    '/components/dexie/dist/dexie.min.js,Pn': '@Object_getPrototypeOf_reader',
+    '/components/dexie/dist/dexie.min.js,In': '@Object_getOwnPropertyDescriptor_reader',
+    '/components/firebase/firebase-auth.js,Xb': '@Object_defineProperty_reader',
+    '/components/dexie/dist/dexie.min.js,Cn': '@Object_method_reader',
+    '/components/firebase/firebase-database.js,u,t': '@Object_setPrototypeOf_reader',
+    '/components/firebase/firebase-database.js,lt,t': '@Object_setPrototypeOf_reader',
+    '/components/firebase/firebase-database.js,St,t': '@Object_setPrototypeOf_reader',
+    '/components/firebase/firebase-database.js,Ut,t': '@Object_setPrototypeOf_reader',
+    '/components/firebase/firebase-database.js,Zt,t': '@Object_setPrototypeOf_reader',
+    '/components/firebase/firebase-database.js,ie,t': '@Object_setPrototypeOf_reader',
+    '/components/firebase/firebase-database.js,Ln,t': '@Object_setPrototypeOf_reader',
+    '/components/firebase/firebase-database.js,Qn,t': '@Object_setPrototypeOf_reader',
+    '/components/firebase/firebase-database.js,Er,t': '@Object_setPrototypeOf_reader',
+    '/components/firebase/firebase-database.js,jr,t': '@Object_setPrototypeOf_reader',
+    '/components/firebase/firebase-database.js,Gr,t': '@Object_setPrototypeOf_reader',
+    '/components/firebase/firebase-messaging.js,k,e': '@Object_setPrototypeOf_reader',
+    '/components/firebase/firebase-messaging.js,P,e': '@Object_setPrototypeOf_reader',
+    '/components/polymer/lib/mixins/element-mixin.html,script@926,createPropertyFromConfig': '@Object_static_method_reader', // bug?
   };
   const acl = {
     // blacklist objects/classes
@@ -399,6 +419,53 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     _data2: {
       [S_DEFAULT]: '---',
       '@hook_visualizer': 'r--',
+    },
+    Reflect: {
+      [S_OBJECT]: 'r--',
+      [S_DEFAULT]: '--x',
+    },
+    Object: {
+      [S_OBJECT]: 'r--',
+      [S_DEFAULT]: '--x',
+      '@Object_static_method_reader': 'r--',
+      create: 'r-x',
+      keys: {
+        [S_DEFAULT]: '--x',
+        '@Object_keys_reader': 'r--',
+      },
+      getPrototypeOf: {
+        [S_DEFAULT]: '--x',
+        '@Object_getPrototypeOf_reader': 'r--',
+      },
+      setPrototypeOf: {
+        [S_DEFAULT]: '--x',
+        '@Object_setPrototypeOf_reader': 'r--',
+      },
+      getOwnPropertyDescriptor: {
+        [S_DEFAULT]: '--x',
+        '@Object_getOwnPropertyDescriptor_reader': 'r--',
+      },
+      defineProperty: {
+        [S_DEFAULT]: '--x',
+        '@Object_defineProperty_reader': 'r--',
+      },
+      $prototype$: 'r--',
+      [S_PROTOTYPE]: {
+        [S_DEFAULT]: 'rwx',
+        $toString$: 'r-x',
+        $__proto__$: { [S_DEFAULT]: 'r-x', },
+        $constructor$: { [S_DEFAULT]: 'r-x', },
+        $__defineGetter__$: { [S_DEFAULT]: '--x', '@Object_method_reader': 'r-x', },
+        $__defineSetter__$: { [S_DEFAULT]: '--x', '@Object_method_reader': 'r-x', },
+        $__lookupGetter__$: { [S_DEFAULT]: '--x', '@Object_method_reader': 'r-x', },
+        $__lookupSetter__$: { [S_DEFAULT]: '--x', '@Object_method_reader': 'r-x', },
+        $hasOwnProperty$: { [S_DEFAULT]: '--x', '@Object_method_reader': 'r-x', },
+        $isPrototypeOf$: { [S_DEFAULT]: '--x', '@Object_method_reader': 'r-x', },
+        $propertyIsEnumerable$: { [S_DEFAULT]: '--x', '@Object_method_reader': 'r-x', },
+        $toLocaleString$: { [S_DEFAULT]: '--x', '@Object_method_reader': 'r-x', },
+        $toString$: { [S_DEFAULT]: '--x', '@Object_method_reader': 'r-x', },
+        $valueOf$: { [S_DEFAULT]: '--x', '@Object_method_reader': 'r-x', },
+      }
     },
     navigator: {
       [S_OBJECT]: 'r--',
@@ -1024,11 +1091,11 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         }
       }
       if (!applyAcl(name, isStatic, typeof normalizedThisArg === 'object', property, opType, context)) {
-        //if (name === 'Array') {
-        //  console.error('ACL: denied name =', name, 'isStatic =', isStatic, 'isObject = ', (typeof normalizedThisArg === 'object'), 'property =', property, 'opType =', opType, 'context = ', context);
-        //  debugger;
-        //  applyAcl(name, isStatic, typeof normalizedThisArg === 'object', property, opType, context);
-        //}
+        // if (name === 'Object') {
+        //   console.error('ACL: denied name =', name, 'isStatic =', isStatic, 'isObject = ', (typeof normalizedThisArg === 'object'), 'property =', property, 'opType =', opType, 'context = ', context);
+        //   debugger;
+        //   applyAcl(name, isStatic, typeof normalizedThisArg === 'object', property, opType, context);
+        // }
         throw new Error('Permission Denied: Cannot access ' + name);
       }
       // TODO: For robust security, the exception should not provide any information on the blocked objects/properties.
