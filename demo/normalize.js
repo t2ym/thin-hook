@@ -376,6 +376,12 @@
     _serviceWorker.register().then(() => console.error('navigator.serviceWorker.register()'));
   }, /^Permission Denied:/);  
 
+  // Object methods are detected even via subclasses
+
+  chai.assert.throws(() => {
+    (class O extends Object {}).getOwnPropertyDescriptor(navigator, 'serviceWorker', {});
+  }, /^Permission Denied:/);
+
 }
 () => {
   let target, property, value, attributes, proto, prototype, receiver, args, arg1, arg2, p, v;
