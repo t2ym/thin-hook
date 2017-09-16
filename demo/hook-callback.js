@@ -142,6 +142,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
   };
   Object.assign(_blacklistObjects, { window: _blacklistObjects, self: _blacklistObjects });
   */
+  const _boundFunctions = new WeakMap();
   const _escapePlatformProperties = new Map();
   const _unescapePlatformProperties = new Map();
   Object.getOwnPropertyNames(Object.prototype).concat(['prototype']).forEach(n => {
@@ -256,6 +257,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           [S_DEFAULT]: 'xtp',
           apply: 'x0t',
           call: 'x0t',
+          bind: 'r0tb',
         }
       },
       [S_DEFAULT]: 'xtp'
@@ -341,6 +343,8 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '/components/thin-hook/demo/web-worker-client.js,worker': '@worker_manipulator',
     '/components/thin-hook/demo/web-worker-client.js': '@worker_manipulator',
     '/components/thin-hook/demo/normalize.js': '@normalization_checker',
+    '/components/thin-hook/demo/normalize.js,bindCheck': '@bind_normalization_checker',
+    '/components/thin-hook/demo/normalize.js,bindCheck,boundF': '@bind_normalization_checker',
     '/components/dexie/dist/dexie.min.js,r': '@custom_error_constructor_creator',
     '/components/firebase/firebase-app.js': '@custom_error_constructor_creator',
     '/components/firebase/firebase-auth.js,t': '@custom_error_constructor_creator',
@@ -410,6 +414,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       btoa: {
         [S_DEFAULT]: 'r-x',
         '@normalization_checker': '---',
+        '@bind_normalization_checker': 'r--',
       }
     },
     _data: {
@@ -423,31 +428,38 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     Reflect: {
       [S_OBJECT]: 'r--',
       [S_DEFAULT]: '--x',
+      '@bind_normalization_checker': 'r-x',
     },
     Object: {
       [S_OBJECT]: 'r--',
       [S_DEFAULT]: '--x',
       '@Object_static_method_reader': 'r--',
+      '@bind_normalization_checker': 'r-x',
       create: 'r-x',
       keys: {
         [S_DEFAULT]: '--x',
         '@Object_keys_reader': 'r--',
+        '@bind_normalization_checker': 'r-x',
       },
       getPrototypeOf: {
         [S_DEFAULT]: '--x',
         '@Object_getPrototypeOf_reader': 'r--',
+        '@bind_normalization_checker': 'r-x',
       },
       setPrototypeOf: {
         [S_DEFAULT]: '--x',
         '@Object_setPrototypeOf_reader': 'r--',
+        '@bind_normalization_checker': 'r-x',
       },
       getOwnPropertyDescriptor: {
         [S_DEFAULT]: '--x',
         '@Object_getOwnPropertyDescriptor_reader': 'r--',
+        '@bind_normalization_checker': 'r-x',
       },
       defineProperty: {
         [S_DEFAULT]: '--x',
         '@Object_defineProperty_reader': 'r--',
+        '@bind_normalization_checker': 'r-x',
       },
       $prototype$: 'r--',
       [S_PROTOTYPE]: {
@@ -477,7 +489,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       'a_new_navigator_property': {
         [S_DEFAULT]: '---',
         '@normalization_checker': 'rw-',
-      }
+      },
     },
     // read-only except for manipulators
     location: {
@@ -542,12 +554,31 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         },
       }
     },
+    Array: {
+      [S_DEFAULT]: 'r-x',
+      [S_PROTOTYPE]: {
+        [S_DEFAULT]: 'rwx',
+        map: {
+          [S_DEFAULT]: 'r-x',
+          '@bind_normalization_checker': 'r--',
+        },
+      },
+    },
+    Function: {
+      [S_OBJECT]: 'r-x',
+      [S_DEFAULT]: 'rwx',
+      '@bind_normalization_checker': 'r-x',
+    },
+    btoa: {
+      [S_DEFAULT]: 'r-x',
+    },
     // blocked private API
     DummyClass: '---',
     DummyClass2: {
       [S_DEFAULT]: 'r-x',
       isDummy: '---',
       dummyMethod: '---',
+      dummyMethod2: 'r--',
     },
     // 3rd party API
     firebase: {
@@ -841,25 +872,39 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     }
     */
 
-    if (typeof f === 'string') {
+    let _f = f;
+    let boundParameters = _boundFunctions.get(f);
+    if (boundParameters) {
+      _f = '()';
+    }
+    if (typeof _f === 'string') {
       //#PROFILE function normalizeOperation() {
       /*
-      if (context === '/components/thin-hook/demo/my-view2.html,script@2442,getData' && args[0] === '_data2') {
+      if (context === '/components/thin-hook/demo/my-view2.html,script@2442,getData' && _f === '()' && args[0] === 'bind') {
         debugger;
       }
       */
       // property access
-      let name = _globalObjects.get(thisArg);
-      let isStatic = typeof thisArg === 'function';
       let normalizedThisArg = thisArg;
+      let _args = args;
+      if (boundParameters) {
+        normalizedThisArg = boundParameters.normalizedThisArg;
+        _args = [ boundParameters.property, boundParameters.args.concat(args) ];
+      }
+      let name = _globalObjects.get(normalizedThisArg);
+      let isStatic = typeof normalizedThisArg === 'function';
+      if (boundParameters) {
+        isStatic = boundParameters.isStatic;
+        name = boundParameters.name;
+      }
       let ctor;
-      if (!name && thisArg instanceof Object) {
-        ctor = thisArg.constructor;
+      if (!name && normalizedThisArg instanceof Object) {
+        ctor = normalizedThisArg.constructor;
         name = _globalObjects.get(ctor);
       }
-      if (!name && f.indexOf('s') >= 0) {
+      if (!name && _f.indexOf('s') >= 0) {
         //#PROFILE function trackSuperConstructors() {
-        ctor = isStatic ? thisArg : thisArg.constructor;
+        ctor = isStatic ? normalizedThisArg : normalizedThisArg.constructor;
         name = _globalObjects.get(ctor);
         while (!name && typeof ctor === 'function') {
           ctor = Object.getPrototypeOf(ctor);
@@ -868,45 +913,65 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         //#PROFILE }
         //#PROFILE trackSuperConstructors();
       }
-      let rawProperty = args[0];
+      let rawProperty = _args[0];
       let property = _escapePlatformProperties.get(rawProperty) || rawProperty;
-      let op = operatorNormalizer[f];
+      let op = operatorNormalizer[_f];
       let target = targetNormalizer[op];
       let opType;
       let globalAssignments = {};
       if (typeof target === 'object') {
         //#PROFILE function targetNormalizerMapGet() {
-        target = typeof args[0] === 'string' ? targetNormalizerMap.get(thisArg[args[0]]) : undefined;
-        if (!target) {
-          let type;
-          if (typeof thisArg === 'object') {
-            type = thisArg.constructor.prototype;
+        if (normalizedThisArg instanceof Object) {
+          switch (typeof _args[0]) {
+          case 'string':
+            if (boundParameters) {
+              target = targetNormalizerMap.get(boundParameters.f);
+            }
+            else {
+              target = targetNormalizerMap.get(normalizedThisArg[_args[0]]);
+            }
+            break;
+          case 'function':
+            target = targetNormalizerMap.get(_args[0]);
+            break;
+          default:
+            target = undefined;
+            break;
           }
-          else {
-            type = thisArg;
+          if (!target) {
+            let type;
+            if (typeof normalizedThisArg === 'object') {
+              type = normalizedThisArg.constructor.prototype;
+            }
+            else {
+              type = normalizedThisArg;
+            }
+            while (!target && type) {
+              target = targetNormalizerMap.get(type);
+              type = Object.getPrototypeOf(type);
+            }
           }
-          while (!target && type) {
-            target = targetNormalizerMap.get(type);
-            type = Object.getPrototypeOf(type);
-          }
+        }
+        else if (typeof _args[0] === 'function') {
+          target = targetNormalizerMap.get(_args[0]);
         }
         //#PROFILE }
         //#PROFILE targetNormalizerMapGet();
         let argsMap = {
-          f: f,
-          t: thisArg,
-          p: args[0],
-          0: args[1][0],
-          1: args[1][1],
+          f: _f,
+          t: normalizedThisArg,
+          p: _args[0],
+          0: _args[1][0],
+          1: _args[1][1],
           c: context,
           n: newTarget,
-          P: '__proto__', // pending
-          T: 'prototype', // pending
-          C: 'constructor', // pending
-          N: S_CONSTRUCT, // pending
-          '-': S_UNSPECIFIED, // pending
-          '*': S_ALL, // pending
-          '.': S_TARGETED, // pending { prop1: {}, prop2: {}, ... }
+          P: '__proto__',
+          T: 'prototype',
+          C: 'constructor',
+          N: S_CONSTRUCT,
+          '-': S_UNSPECIFIED,
+          '*': S_ALL,
+          '.': S_TARGETED, // { prop1: {}, prop2: {}, ... }
         };
         if (typeof target === 'string') {
           //#PROFILE function applyTargetMap() {
@@ -932,7 +997,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
                 isStatic = false;
               }
             }
-            if (!name && f.indexOf('s') >= 0) {
+            if (!name && _f.indexOf('s') >= 0) {
               isStatic = typeof _t === 'function';
               ctor = isStatic ? _t : _t.constructor;
               name = _globalObjects.get(ctor);
@@ -955,15 +1020,15 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
                   case 'self':
                     switch (target) {
                     case 'w01v':
-                      switch (args[0]) {
+                      switch (_args[0]) {
                       case 'defineProperty': // Object.defineProperty(window, 'property', { value: v }); Reflect.defineProperty(window, 'property', { value: v })
-                        if (args[1][2] && args[1][2].value instanceof Object) {
-                          globalAssignments[rawProperty] = args[1][2].value;
+                        if (_args[1][2] && _args[1][2].value instanceof Object) {
+                          globalAssignments[rawProperty] = _args[1][2].value;
                         }
                         break;
                       case 'set': // Reflect.set(window, 'property', v)
-                        if (args[1][2] instanceof Object) {
-                          globalAssignments[rawProperty] = args[1][2];
+                        if (_args[1][2] instanceof Object) {
+                          globalAssignments[rawProperty] = _args[1][2];
                         }
                         break;
                       default:
@@ -972,9 +1037,9 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
                       break;
                     case 'w0.v':
                       let props;
-                      switch (args[0]) {
+                      switch (_args[0]) {
                       case 'defineProperties': // Object.defineProperties(window, { 'property': { value: v } })
-                        props = args[1][1];
+                        props = _args[1][1];
                         for (let p in props) {
                           if (props[p] && props[p].value instanceof Object) {
                             globalAssignments[p] = props[p].value;
@@ -982,8 +1047,8 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
                         }
                         break;
                       case 'assign': // Object.assign(window, { 'property': v })
-                        for (let i = 1; i < args[1].length; i++) {
-                          props = args[1][i];
+                        for (let i = 1; i < _args[1].length; i++) {
+                          props = _args[1][i];
                           if (props instanceof Object) {
                             for (let p in props) {
                               if (props[p] instanceof Object) {
@@ -1017,11 +1082,11 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
                   property = _p;
                   break;
                 case S_TARGETED:
-                  if (args[1][1] instanceof Object) {
+                  if (_args[1][1] instanceof Object) {
                     rawProperty = [];
-                    for (let i = 1; i < args[1].length; i++) {
+                    for (let i = 1; i < _args[1].length; i++) {
                       // TODO: Are inherited properties targeted?
-                      rawProperty = rawProperty.concat(Object.keys(args[1][i]));
+                      rawProperty = rawProperty.concat(Object.keys(_args[1][i]));
                     }
                     property = rawProperty.map(p => _escapePlatformProperties.get(p) || p);
                   }
@@ -1047,9 +1112,16 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
                 }
                 else {
                   let _method = _globalMethods.get(_p);
-                  if (_method && _method[0] === name) {
-                    rawProperty = _method[_method.length - 1];
-                    property = _escapePlatformProperties.get(rawProperty) || rawProperty;
+                  if (_method) {
+                    if (_method[0] === name) {
+                      rawProperty = _method[_method.length - 1];
+                      property = _escapePlatformProperties.get(rawProperty) || rawProperty;
+                    }
+                    else {
+                      name = _method[0]; // Overwrite name, e.g., Array.prototype.map.call(document.querySelectorAll('div'), (node) => node.name); 'NodeList' is overwritten by 'Array'
+                      rawProperty = _method[_method.length - 1];
+                      property = _escapePlatformProperties.get(rawProperty) || rawProperty;
+                    }
                   }
                   else {
                     property = rawProperty = S_FUNCTION;
@@ -1081,8 +1153,8 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         case 'window':
         case 'self':
           if (target === 'wtpv') { // window.property = v
-            if (f === '=' && args[1] instanceof Object) {
-              globalAssignments[rawProperty] = args[1];
+            if (_f === '=' && _args[1] instanceof Object) {
+              globalAssignments[rawProperty] = _args[1];
             }
           }
           break;
@@ -1137,6 +1209,23 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       }
       //#PROFILE }
       //#PROFILE handleBlacklistProperty();
+      if (typeof target === 'string' && target[3] === 'b') {
+        let _method = _globalMethods.get(thisArg);
+        boundParameters = {
+          f: thisArg,
+          name: name,
+          thisArg: args[1][0],
+          normalizedThisArg: _method
+            ? _method[1] === 'prototype'
+              ? { constructor: _global[_method[0]] }
+              : _global[_method[0]]
+            : args[1][0],
+          isStatic: _method ? (_method[1] !== 'prototype') : (typeof args[1][0] === 'function'),
+          property: typeof rawProperty === 'string' ? rawProperty : thisArg,
+          args: args[1].slice(1),
+        };
+        f = 'bind';
+      }
       for (let gprop in globalAssignments) {
         //console.log('global assignment ', gprop);
         let gvalue = globalAssignments[gprop];
@@ -1386,6 +1475,11 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         result = thisArg[args[0]].apply(thisArg, args[1]);
         //#PROFILE }
         //#PROFILE callProperty();
+        break;
+      case 'bind':
+        let _boundFunction = thisArg[args[0]](...args[1]);
+        _boundFunctions.set(_boundFunction, boundParameters);
+        result = (..._args) => __hook__(_boundFunction, null, _args, context);
         break;
       // unary operators
       case 'p++':

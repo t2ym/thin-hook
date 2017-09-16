@@ -265,6 +265,7 @@
     constructor(n) { /*this._n = n;*/ }
     static get isDummy() { return true }
     dummyMethod() { return 1; /*this._n;*/ }
+    dummyMethod2() { return 2; /*this._n;*/ }
   };
 
   chai.assert.throws(() => {
@@ -290,6 +291,49 @@
       throw e;
     }
   }, /^Permission Denied:/);
+
+  function bindCheck() {
+
+    // DummyClass2.dummyMethod2 is readable but not callable
+    // DummyClass2.dummyMethod2.bind(obj) is treated as a calling operation and prohibited by 'r--' policy
+
+    chai.assert.throws(() => {
+      let obj = new DummyClass2(1);
+      let f = obj.dummyMethod2.bind(obj); // Note: In general, uncallable methods should not be readable.
+      console.error('Bound DummyClass2.dummyMethod2 can be called, returing ', f());
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      let boundF = Object.defineProperty.bind(Object, navigator);
+      boundF('prop1', { value: 'x' });
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      let boundF = Array.prototype.map.bind(['a']);
+      console.error('Bound Array.prototype.map returns ', boundF(item => item + ' '));
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      let boundF = Array.prototype.map.bind(document.querySelectorAll('div')); // ACL for Array, not NodeList
+      console.error('Bound Array.prototype.map returns ', boundF(item => item + ' ')); // ACL for Array, not NodeList
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      let boundF = btoa.bind(window, 'hello, world');
+      console.error('Bound btoa returns ', boundF());
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      btoa.bind = function () {};
+    }, /^Permission Denied:/);
+
+    Function = Function; // Ad-hoc workaround to make hooked Function handled by ACL
+    chai.assert.throws(() => {
+      btoa.constructor.prototype.bind = function () {};
+    }, /^Permission Denied:/);
+
+  }
+  bindCheck();
 
   // Global function btoa is blocked in this context
   chai.assert.throws(() => {
@@ -385,7 +429,7 @@
   chai.assert.throws(() => {
     (class O extends Object {}).defineProperty(navigator, 'a_new_property', { configurable: true, enumerable: true, value: 1 });
   }, /^Permission Denied:/);
-  
+
 }
 () => {
   let target, property, value, attributes, proto, prototype, receiver, args, arg1, arg2, p, v;
