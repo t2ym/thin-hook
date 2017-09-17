@@ -309,6 +309,16 @@
     }, /^Permission Denied:/);
 
     chai.assert.throws(() => {
+      let boundF = Object.defineProperty.bind(Object).bind(Object, navigator).bind(Object, 'prop1').bind(Object, { value: 'x' });
+      boundF();
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      let boundF = Object.assign.bind(Object).bind(Object, navigator).bind(Object, { 'prop1': 'x' }).bind(Object, { 'prop2': 'y' });
+      boundF();
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
       let boundF = Array.prototype.map.bind(['a']);
       console.error('Bound Array.prototype.map returns ', boundF(item => item + ' '));
     }, /^Permission Denied:/);
@@ -316,6 +326,14 @@
     chai.assert.throws(() => {
       let boundF = Array.prototype.map.bind(document.querySelectorAll('div')); // ACL for Array, not NodeList
       console.error('Bound Array.prototype.map returns ', boundF(item => item + ' ')); // ACL for Array, not NodeList
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      let boundF = Array.prototype.concat.bind(
+        Array.prototype.map.bind(document.querySelectorAll('script')).bind([], item => item.src)())
+        .bind(['ignored'], ['appended1', 'appended2'])
+        .bind(['ignored2'], ['appended3', 'appended4']); // ACL for Array, not NodeList
+      console.error('Bound Array.prototype.concat returns ', boundF()); // ACL for Array, not NodeList
     }, /^Permission Denied:/);
 
     chai.assert.throws(() => {
