@@ -15,7 +15,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <script src="../../thin-hook/hook.min.js?version=446&no-hook-authorization=51f1a5f3467a81bcd8671b5d8ee3816ebbdc16b2a0e6cef3147ba5f640237fda,12c8ee1740f6cc062c21ae923b418bc168ff991918e4ed9ab66082edb402515d,ac6829695f63a70cdc1a59c2f7391f0816c34e1e960c65a96cb8d92d8d592400,log-no-hook-authorization&sw-root=/&no-hook=true&hook-name=__hook__&context-generator-name=method&discard-hook-errors=false&fallback-page=index-fb.html&hook-property=true&hook-global=true&hook-prefix=_pp_&compact=true&service-worker-ready=false"></script></head></html><!--
+  <script src="../../thin-hook/hook.min.js?version=446&no-hook-authorization=2b1086a8cb7a66dbe9af1f2be69a6e488fabc5697fb5cf9507335dd236f8d6da,1a208cb0605af25fe8b7cfad2f878f886db6c8fb4bc2e0ae3f445ea399e943aa,e97c311229f6923c16230a52e7849ebfb91d11d39110eba5f24e488f7310d9b2,log-no-hook-authorization&sw-root=/&no-hook=true&hook-name=__hook__&context-generator-name=method&discard-hook-errors=false&fallback-page=index-fb.html&hook-property=true&hook-global=true&hook-prefix=_pp_&compact=true&service-worker-ready=false"></script></head></html><!--
   <script context-generator src="no-hook-authorization.js?no-hook=true"></script>
   <script context-generator src="context-generator.js?no-hook=true"></script>
   <script context-generator no-hook>
@@ -40,8 +40,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
   </script>
   <script src="hook-callback.js?no-hook=true"></script>
   <script src="../../webcomponentsjs/webcomponents-lite.js?no-hook=true"></script>
-  <script src="../../chai/chai.js?no-hook=true"></script>
-  <script no-hook>
+  <C!-- <script no-hook>
     (function () {
       // Native eval() function is bound to the local scope
       let a = 2;
@@ -52,9 +51,10 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       console.log(a, b, c, e, f); // 2 5 6 9 9
       chai.assert.deepEqual([a, b, c, e, f], [2, 5, 6, 9, 9], 'native eval results');
     })();
-  </script>
+  </script> --C>
   <script src="hook-native-api.js?no-hook=true"></script>
   <C!-- <script no-hook>(function ff() { alert('invalid no-hook script that should not be executed'); })()</script> --C>
+  <script src="../../chai/chai.js"></script>
   <script src="normalize.js"></script>
   <script>
     {
