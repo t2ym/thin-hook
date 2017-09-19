@@ -345,6 +345,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '/components/thin-hook/demo/normalize.js': '@normalization_checker',
     '/components/thin-hook/demo/normalize.js,bindCheck': '@bind_normalization_checker',
     '/components/thin-hook/demo/normalize.js,bindCheck,boundF': '@bind_normalization_checker',
+    '/components/thin-hook/demo/normalize.js,bindCheck,b': '@bind_normalization_checker',
     '/components/dexie/dist/dexie.min.js,r': '@custom_error_constructor_creator',
     '/components/firebase/firebase-app.js': '@custom_error_constructor_creator',
     '/components/firebase/firebase-auth.js,t': '@custom_error_constructor_creator',
@@ -358,6 +359,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '/components/deepcopy/build/deepcopy.min.js,u': '@Object_keys_reader',
     '/components/dexie/dist/dexie.min.js,jn': '@Object_keys_reader',
     '/components/dexie/dist/dexie.min.js,Pn': '@Object_getPrototypeOf_reader',
+    '/components/firebase/firebase-app.js,p': '@Object_getPrototypeOf_reader',
     '/components/dexie/dist/dexie.min.js,In': '@Object_getOwnPropertyDescriptor_reader',
     '/components/firebase/firebase-auth.js,Xb': '@Object_defineProperty_reader',
     '/components/dexie/dist/dexie.min.js,Cn': '@Object_method_reader',
@@ -375,6 +377,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '/components/firebase/firebase-messaging.js,k,e': '@Object_setPrototypeOf_reader',
     '/components/firebase/firebase-messaging.js,P,e': '@Object_setPrototypeOf_reader',
     '/components/polymer/lib/mixins/element-mixin.html,script@926,createPropertyFromConfig': '@Object_static_method_reader', // bug?
+    '/components/chai/chai.js': '@custom_error_constructor_creator',
   };
   const acl = {
     // blacklist objects/classes
@@ -533,7 +536,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       [S_DEFAULT]: 'r-x',
       [S_ALL]: 'r--',
       [S_PROTOTYPE]: {
-        [S_DEFAULT]: 'r-x',
+        [S_DEFAULT]: 'rwx',
         [S_ALL]: '---',
         $constructor$: {
           [S_DEFAULT]: 'r-x',
@@ -565,9 +568,25 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       },
     },
     Function: {
-      [S_OBJECT]: 'r-x',
+      [S_OBJECT]: '--x',
       [S_DEFAULT]: 'rwx',
       '@bind_normalization_checker': 'r-x',
+      $__proto__$: 'r--',
+      $prototype$: 'r--',
+      $constructor$: 'r-x',
+      [S_PROTOTYPE] : {
+        [S_DEFAULT]: 'rwx',
+        [S_ALL]: 'r--',
+        $__proto__$: 'rw-',
+        $prototype$: 'rw-',
+        $constructor$: 'r-x',
+        apply: 'r-x',
+        call: 'r-x',
+        bind: {
+          [S_DEFAULT]: 'r-x',
+          '@bind_normalization_checker': '--x',
+        }
+      },
     },
     btoa: {
       [S_DEFAULT]: 'r-x',
@@ -875,6 +894,43 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     let _f = f;
     let boundParameters = _boundFunctions.get(f);
     if (boundParameters) {
+      if (!boundParameters._args) {
+        // Merge multiple binding operations
+        let _boundParametersList = [boundParameters];
+        let _normalizedThisArg = boundParameters.normalizedThisArg;
+        let _originalF = boundParameters.f;
+        let _boundParameters = _boundFunctions.get(boundParameters.f);
+        let _args;
+        if (_boundParameters) {
+          while (_boundParameters) {
+            _boundParametersList.push(_boundParameters);
+            _boundParameters = _boundFunctions.get(_boundParameters.f);
+          }
+          // _boundParametersList = [lastBind, ..., firstBind]
+          _args = [];
+          _normalizedThisArg = _boundParametersList[_boundParametersList.length - 1].normalizedThisArg;
+          _originalF = _boundParametersList[_boundParametersList.length - 1].f;
+          while (_boundParameters = _boundParametersList.pop()) {
+            if (!_boundParameters._normalizedThisArg) {
+              _boundParameters._normalizedThisArg = _normalizedThisArg;
+            }
+            if (!_boundParameters._originalF) {
+              _boundParameters._f = _originalF;
+            }
+            if (_boundParameters._args) {
+              _args = _boundParameters._args;
+            }
+            else {
+              _boundParameters._args = _args = _args.concat(_boundParameters.args);
+            }
+          }
+        }
+        else {
+          boundParameters._args = boundParameters.args;
+          boundParameters._normalizedThisArg = _normalizedThisArg;
+          boundParameters._f = _originalF;
+        }
+      }
       _f = '()';
     }
     if (typeof _f === 'string') {
@@ -888,8 +944,8 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       let normalizedThisArg = thisArg;
       let _args = args;
       if (boundParameters) {
-        normalizedThisArg = boundParameters.normalizedThisArg;
-        _args = [ boundParameters.property, boundParameters.args.concat(args) ];
+        normalizedThisArg = boundParameters._normalizedThisArg;
+        _args = [ boundParameters._f, boundParameters._args.concat(args) ];
       }
       let name = _globalObjects.get(normalizedThisArg);
       let isStatic = typeof normalizedThisArg === 'function';
@@ -898,10 +954,6 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         name = boundParameters.name;
       }
       let ctor;
-      if (!name && normalizedThisArg instanceof Object) {
-        ctor = normalizedThisArg.constructor;
-        name = _globalObjects.get(ctor);
-      }
       if (!name && _f.indexOf('s') >= 0) {
         //#PROFILE function trackSuperConstructors() {
         ctor = isStatic ? normalizedThisArg : normalizedThisArg.constructor;
@@ -912,6 +964,13 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         }
         //#PROFILE }
         //#PROFILE trackSuperConstructors();
+      }
+      if (!name && normalizedThisArg instanceof Object) {
+        ctor = normalizedThisArg.constructor;
+        name = _globalObjects.get(ctor);
+        if (name) {
+          isStatic = false;
+        }
       }
       let rawProperty = _args[0];
       let property = _escapePlatformProperties.get(rawProperty) || rawProperty;
@@ -925,7 +984,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           switch (typeof _args[0]) {
           case 'string':
             if (boundParameters) {
-              target = targetNormalizerMap.get(boundParameters.f);
+              target = targetNormalizerMap.get(boundParameters._f);
             }
             else {
               target = targetNormalizerMap.get(normalizedThisArg[_args[0]]);
@@ -1401,7 +1460,8 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         let forName;
         let forProp;
         let id = name.join('.');
-        let prop = name[name.length - 1];
+        let rawProp = name[name.length - 1];
+        let prop = _escapePlatformProperties.get(rawProp) || rawProp;
         let obj = name[0];
         if (!applyAcl(obj, name[1] !== 'prototype', false, prop, 'x', context)) {
           throw new Error('Permission Denied: Cannot access ' + obj);
@@ -1432,7 +1492,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         forName = globalObjectAccess[obj];
         if (!forName[prop]) {
           forName[prop] = {};
-          data2.nodes.push({ id: id, label: prop, group: obj });
+          data2.nodes.push({ id: id, label: rawProp, group: obj });
           data2.edges.push({ from: obj, to: id, dashes: true, arrows: 'to' });
         }
         forProp = forName[prop];
@@ -1479,7 +1539,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       case 'bind':
         let _boundFunction = thisArg[args[0]](...args[1]);
         _boundFunctions.set(_boundFunction, boundParameters);
-        result = (..._args) => __hook__(_boundFunction, null, _args, context);
+        result = _boundFunction;
         break;
       // unary operators
       case 'p++':
