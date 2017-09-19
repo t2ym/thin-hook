@@ -292,10 +292,24 @@
     }
   }, /^Permission Denied:/);
 
+  chai.assert.throws(() => {
+    let obj = new DummyClass2(1);
+    let f = obj.dummyMethod2; // Note: In general, uncallable methods should not be readable.
+    function indirectCall() {
+      console.error('DummyClass2.dummyMethod2 can be indirectly called, returing ', f());
+    }
+    indirectCall();
+  }, /^Permission Denied:/);
+
   function bindCheck() {
 
     // DummyClass2.dummyMethod2 is readable but not callable
     // DummyClass2.dummyMethod2.bind(obj) is treated as a calling operation and prohibited by 'r--' policy
+
+    chai.assert.throws(() => {
+      let obj = new DummyClass2(1);
+      let b = obj.dummyMethod2.bind;
+    }, /^Permission Denied:/);
 
     chai.assert.throws(() => {
       let obj = new DummyClass2(1);
@@ -315,7 +329,10 @@
 
     chai.assert.throws(() => {
       let boundF = Object.assign.bind(Object).bind(Object, navigator).bind(Object, { 'prop1': 'x' }).bind(Object, { 'prop2': 'y' });
-      boundF();
+      function fromDifferentContext() {
+        boundF();
+      }
+      fromDifferentContext();
     }, /^Permission Denied:/);
 
     chai.assert.throws(() => {
@@ -345,7 +362,6 @@
       btoa.bind = function () {};
     }, /^Permission Denied:/);
 
-    Function = Function; // Ad-hoc workaround to make hooked Function handled by ACL
     chai.assert.throws(() => {
       btoa.constructor.prototype.bind = function () {};
     }, /^Permission Denied:/);
