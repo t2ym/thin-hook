@@ -29,7 +29,11 @@ hook.global(__hook__, 'examples/example1.js,A1', 'A1', 'class')._p_A1 = class A1
 hook.global(__hook__, 'examples/example1.js,X1', 'X1', 'class')._p_X1 = class X1 extends hook.global(__hook__, 'examples/example1.js,X1', 'A1', 'get')._p_A1 {
   constructor(x, y, z) {
     return __hook__((x, y, z = 9) => {
-      super(x, y, z);
+      __hook__((...args) => super(...args), null, [
+        x,
+        y,
+        z
+      ], 'examples/example1.js,X1,constructor', 0);
       __hook__('=', this, [
         'xyz',
         {
@@ -55,7 +59,13 @@ hook.global(__hook__, 'examples/example1.js,X1', 'X1', 'class')._p_X1 = class X1
         p * 2,
         n * 3
       ], this, args, 'examples/example1.js,X1,a,u');
-      return x(nn) + y(p) + __hook__('.', z(p, nn), ['p'], 'examples/example1.js,X1,a') + __hook__('.', u(p, nn), [1], 'examples/example1.js,X1,a');
+      return __hook__(x, this, [nn], 'examples/example1.js,X1,a', 0) + __hook__(y, this, [p], 'examples/example1.js,X1,a', 0) + __hook__('.', __hook__(z, this, [
+        p,
+        nn
+      ], 'examples/example1.js,X1,a', 0), ['p'], 'examples/example1.js,X1,a') + __hook__('.', __hook__(u, this, [
+        p,
+        nn
+      ], 'examples/example1.js,X1,a', 0), [1], 'examples/example1.js,X1,a');
     }, this, arguments, 'examples/example1.js,X1,a');
   }
   get b() {
@@ -79,7 +89,11 @@ hook.global(__hook__, 'examples/example1.js,X1', 'X1', 'class')._p_X1 = class X1
   async amethod(a, b, c) {
     return __hook__(async (a, b = a + 3, c = b + 3) => {
       let afunc = async (...args) => __hook__(async (x, y, z) => x * y * z, this, args, 'examples/example1.js,X1,amethod,afunc');
-      return await afunc(a, b, c);
+      return await __hook__(afunc, this, [
+        a,
+        b,
+        c
+      ], 'examples/example1.js,X1,amethod', 0);
     }, this, arguments, 'examples/example1.js,X1,amethod');
   }
   *gmethod(a, b, c) {
@@ -98,7 +112,11 @@ hook.global(__hook__, 'examples/example1.js,X1', 'X1', 'class')._p_X1 = class X1
 hook.global(__hook__, 'examples/example1.js,Y1', 'Y1', 'class')._p_Y1 = class Y1 extends hook.global(__hook__, 'examples/example1.js,Y1', 'X1', 'get')._p_X1 {
   constructor(x, y, z) {
     return __hook__((x = 3, y = x * 3, z = x * y * 5) => {
-      super(x, y, z);
+      __hook__((...args) => super(...args), null, [
+        x,
+        y,
+        z
+      ], 'examples/example1.js,Y1,constructor', 0);
       __hook__('=', this, [
         'XYZ',
         {
@@ -145,7 +163,7 @@ hook.global(__hook__, 'examples/example1.js,destructuring', 'destructuring', 'fu
 };
 hook.global(__hook__, 'examples/example1.js,d', 'd', 'function')._p_d = function d() {
   return __hook__(() => {
-    return function descructuringWithObjects({
+    return __hook__(function descructuringWithObjects({
       a,
       b,
       c,
@@ -161,15 +179,18 @@ hook.global(__hook__, 'examples/example1.js,d', 'd', 'function')._p_d = function
       }, [f = 6, g = 0, h = 8]) => {
         return a === 1 && b === 2 && c === 3 && d === 4 && e === 5 && f === 6 && g === 7 && h === 8;
       }, this, arguments, 'examples/example1.js,d,descructuringWithObjects');
-    }({
-      b: 2,
-      c: hook.global(__hook__, 'examples/example1.js,d,c', 'undefined', 'get')._p_undefined,
-      x: 4,
-      y: 5
-    }, [
-      ,
-      7,
-      hook.global(__hook__, 'examples/example1.js,d', 'undefined', 'get')._p_undefined
-    ]);
+    }, this, [
+      {
+        b: 2,
+        c: hook.global(__hook__, 'examples/example1.js,d,c', 'undefined', 'get')._p_undefined,
+        x: 4,
+        y: 5
+      },
+      [
+        ,
+        7,
+        hook.global(__hook__, 'examples/example1.js,d', 'undefined', 'get')._p_undefined
+      ]
+    ], 'examples/example1.js,d', 0);
   }, this, arguments, 'examples/example1.js,d');
 };

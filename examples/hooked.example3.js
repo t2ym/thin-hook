@@ -1,7 +1,7 @@
 hook.global(__hook__, 'examples/example3.js,NewFunction', 'NewFunction', 'class')._p_NewFunction = class NewFunction {
   adderGenerator(base) {
     return __hook__(base => {
-      return new (__hook__('()', hook, [
+      return __hook__(new (__hook__('()', hook, [
         'Function',
         [
           '__hook__',
@@ -14,15 +14,18 @@ hook.global(__hook__, 'examples/example3.js,NewFunction', 'NewFunction', 'class'
       ], 'examples/example3.js,NewFunction,adderGenerator'))('base', `return function generatedAdd(a, b) {
       let plus = (x, y) => base + x + y;
       return plus(a, b);
-    }`)(base);
+    }`), this, [base], 'examples/example3.js,NewFunction,adderGenerator', 0);
     }, this, arguments, 'examples/example3.js,NewFunction,adderGenerator');
   }
   addMethod(base, x, y) {
     return __hook__((base, x, y) => {
-      return __hook__('()', this, [
+      return __hook__(__hook__('()', this, [
         'adderGenerator',
         [base]
-      ], 'examples/example3.js,NewFunction,addMethod')(x, y);
+      ], 'examples/example3.js,NewFunction,addMethod'), this, [
+        x,
+        y
+      ], 'examples/example3.js,NewFunction,addMethod', 0);
     }, this, arguments, 'examples/example3.js,NewFunction,addMethod');
   }
 };

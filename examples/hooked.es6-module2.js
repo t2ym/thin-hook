@@ -19,4 +19,4 @@ function f(a) {
     ], 'examples/es6-module2.js,f');
   }, this, arguments, 'examples/es6-module2.js,f');
 }
-f(2);
+__hook__(f, this, [2], 'examples/es6-module2.js', 0);

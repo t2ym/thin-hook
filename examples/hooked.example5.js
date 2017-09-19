@@ -20,17 +20,17 @@
         'sin',
         [1]
       ], 'examples/example5.js') }
-    function f(1) = ${ function f(v) {
+    function f(1) = ${ __hook__(function f(v) {
         return __hook__(v => {
           return __hook__('()', S, [
             'sin',
             [v]
           ], 'examples/example5.js,f');
         }, this, arguments, 'examples/example5.js,f');
-      }(1) }
-    (v => S.sin(v))(1) = ${ ((...args) => __hook__(v => __hook__('()', S, [
+      }, this, [1], 'examples/example5.js', 0) }
+    (v => S.sin(v))(1) = ${ __hook__((...args) => __hook__(v => __hook__('()', S, [
         'sin',
         [v]
-      ], 'examples/example5.js'), this, args, 'examples/example5.js'))(1) }`]
+      ], 'examples/example5.js'), this, args, 'examples/example5.js'), this, [1], 'examples/example5.js', 0) }`]
   ], 'examples/example5.js');
 }
