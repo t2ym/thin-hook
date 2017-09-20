@@ -120,6 +120,8 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
   var _arrayPropertyDescriptors = Object.getOwnPropertyDescriptors(Array.prototype);
   var _stringStaticPropertyDescriptors = Object.getOwnPropertyDescriptors(String);
   var _stringPropertyDescriptors = Object.getOwnPropertyDescriptors(String.prototype);
+  var _functionStaticPropertyDescriptors = Object.getOwnPropertyDescriptors(Function);
+  var _functionPropertyDescriptors = Object.getOwnPropertyDescriptors(Function.prototype);
   var globalObjectAccess = {};
   var _blacklistObjects = {};
   /*
@@ -350,9 +352,9 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '/components/firebase/firebase-app.js': '@custom_error_constructor_creator',
     '/components/firebase/firebase-auth.js,t': '@custom_error_constructor_creator',
     '/components/polymer/lib/utils/templatize.html,script@695,upgradeTemplate': '@template_element_prototype_setter',
-    '/components/thin-hook/demo/my-view2.html,script@2442,getData': '@hook_visualizer',
-    '/components/thin-hook/demo/my-view2.html,script@2442,attached,_lastEdges': '@hook_visualizer',
-    '/components/thin-hook/demo/my-view2.html,script@2442,drawGraph': '@hook_visualizer',
+    '/components/thin-hook/demo/my-view2.html,script@2513,getData': '@hook_visualizer',
+    '/components/thin-hook/demo/my-view2.html,script@2513,attached,_lastEdges': '@hook_visualizer',
+    '/components/thin-hook/demo/my-view2.html,script@2513,drawGraph': '@hook_visualizer',
     '/components/web-animations-js/web-animations-next-lite.min.js': '@web_animations_next_lite',
     '/components/polymerfire/firebase-app.html,script@802,__computeApp': '@firebase_app_initializer',
     '/components/live-localizer/live-localizer-browser-storage.html,script@3348,modelReady': '@Dexie_instantiator',
@@ -682,6 +684,8 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '_arrayPropertyDescriptors',
     '_stringStaticPropertyDescriptors',
     '_stringPropertyDescriptors',
+    '_functionStaticPropertyDescriptors',
+    '_functionPropertyDescriptors',
     '_blacklistObjects',
   ].forEach(n => {
     Object.assign(acl, { [n]: '---' });
@@ -1306,44 +1310,37 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         }
       }
       //#PROFILE function excludePrimitiveObjectProperties() {
-      if (name === 'Object') {
-        if (isStatic) {
-          if (!_objectStaticPropertyDescriptors[rawProperty]) {
-            name = null;
-          }
-        }
-        else {
+      switch (name) {
+      case 'Object':
+        if (!isStatic) {
           if (!_objectPropertyDescriptors[rawProperty]) {
             name = null;
           }
-          else {
-            name = null;
-          }
         }
-      }
-      else if (name === 'Array') {
-        if (isStatic) {
-          if (!_arrayStaticPropertyDescriptors[rawProperty]) {
-            name = null;
-          }
-        }
-        else {
+        break;
+      case 'Array':
+        if (!isStatic) {
           if (!_arrayPropertyDescriptors[rawProperty]) {
             name = null;
           }
         }
-      }
-      else if (name === 'String') {
-        if (isStatic) {
-          if (!_stringStaticPropertyDescriptors[rawProperty]) {
-            name = null;
-          }
-        }
-        else {
+        break;
+      case 'String':
+        if (!isStatic) {
           if (!_stringPropertyDescriptors[rawProperty]) {
             name = null;
           }
         }
+        break;
+      case 'Function':
+        if (!isStatic) {
+          if (!_functionPropertyDescriptors[rawProperty]) {
+            name = null;
+          }
+        }
+        break;
+      default:
+        break;
       }
       //#PROFILE }
       //#PROFILE excludePrimitiveObjectProperties();
