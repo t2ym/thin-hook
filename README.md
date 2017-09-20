@@ -215,6 +215,14 @@ onmessage = hook.hookWorkerHandler;
       case '[]':
         result = thisArg[args[0]];
         break;
+      // enumeration
+      case '*':
+        result = thisArg;
+        break;
+      // property existence
+      case 'in':
+        result = args[0] in thisArg;
+        break;
       // funcation call
       case '()':
         result = thisArg[args[0]].apply(thisArg, args[1]);
@@ -462,6 +470,8 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
     - `function`: target function to hook
     - `string`: property operation to hook
       - `.`: get property (`o.prop`)
+      - `*`: iterate over (`for (p in o)`, `for (p of o)`)
+      - `in`: property existence (`'p' in o`)
       - `()`: function call (`o.func()`)
       - `=`, `+=`, ...: assignment operation (`o.prop = value`)
       - `p++`, `++p`, `p--`, `--p`: postfixed/prefixed increment/decrement operation (`o.prop++`)
