@@ -163,6 +163,8 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
   const operatorNormalizer = {
     '.': '.',
     '[]': '.',
+    'in': '.',
+    '*': '*',
     '()': '()',
     'p++': '=',
     '++p': '=',
@@ -207,6 +209,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     'f': 'xtf', // thisArg may not be this object for f
     'n': 'xfN',
     '.': 'rtp',
+    '*': 'rt*',
     '=': 'wtpv',
     '()': {
       Object: {
@@ -380,6 +383,8 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '/components/firebase/firebase-messaging.js,P,e': '@Object_setPrototypeOf_reader',
     '/components/polymer/lib/mixins/element-mixin.html,script@926,createPropertyFromConfig': '@Object_static_method_reader', // bug?
     '/components/chai/chai.js': '@custom_error_constructor_creator',
+    '/components/chai/chai.js,hasProtoSupport': '@Object__proto__reader',
+    '/components/dexie/dist/dexie.min.js,p': '@Object_static_method_user',
   };
   const acl = {
     // blacklist objects/classes
@@ -439,7 +444,9 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       [S_OBJECT]: 'r--',
       [S_DEFAULT]: '--x',
       '@Object_static_method_reader': 'r--',
+      '@Object_static_method_user': 'r-x',
       '@bind_normalization_checker': 'r-x',
+      $__proto__$: 'r--',
       create: 'r-x',
       keys: {
         [S_DEFAULT]: '--x',
@@ -601,6 +608,10 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       dummyMethod: '---',
       dummyMethod2: 'r--',
     },
+    UniterableArray: {
+      [S_DEFAULT]: 'rwx',
+      [S_ALL]: '---',
+    },
     // 3rd party API
     firebase: {
       [S_DEFAULT]: 'rwx', // Note: Internal and external accesses are not distinguished
@@ -721,7 +732,9 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         if (typeof _acl === 'object') {
           switch (property) {
           case S_ALL:
-            _acl = _acl[context] || _acl[S_ALL] || _acl[S_DEFAULT];
+            _acl = context === S_DEFAULT
+              ? _acl[S_ALL] || _acl[S_DEFAULT]
+              : _acl[context] || _acl[S_ALL] || _acl[S_DEFAULT];
             if (typeof _acl === 'object') {
               _acl = _acl[S_ALL] || _acl[S_DEFAULT];
             }
@@ -1212,6 +1225,9 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       }
       else if (typeof target === 'string') {
         opType = target[0];
+        if (target[2] === '*') {
+          property = rawProperty = S_ALL;
+        }
         switch (name) {
         case 'window':
         case 'self':
@@ -1226,7 +1242,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         }
       }
       if (!applyAcl(name, isStatic, typeof normalizedThisArg === 'object', property, opType, context)) {
-        // if (name === 'Object') {
+        // if (name === 'Object' && context.startsWith('/components/dexie/dist/dexie.min.js')) {
         //   console.error('ACL: denied name =', name, 'isStatic =', isStatic, 'isObject = ', (typeof normalizedThisArg === 'object'), 'property =', property, 'opType =', opType, 'context = ', context);
         //   debugger;
         //   applyAcl(name, isStatic, typeof normalizedThisArg === 'object', property, opType, context);
@@ -1525,6 +1541,14 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         result = thisArg[args[0]];
         //#PROFILE }
         //#PROFILE getProperty();
+        break;
+      // enumeration
+      case '*':
+        result = thisArg;
+        break;
+      // property existence
+      case 'in':
+        result = args[0] in thisArg;
         break;
       // funcation call
       case '()':
