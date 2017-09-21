@@ -1,9 +1,13 @@
 let gA1 = [ 1, 2 ];
 let gX1 = { a: 1, b: 2 };
+let { gU, ...gRestP } = { u: 1, v: 2, w: 3 };
+let [ gA, ...gRestE ] = [ 1, 2, 3 ];
 {
   let a2 = [ 3, 4, ...gA1 ];
   let y = { c: 3, ...gX1 };
   let z = { a: 1, ...{ a: 1, b: 2, ...(function () { return y; })() } };
+  let { u, ...restP } = { u: 1, v: 2, w: 3 };
+  let [ a3, ...restE ] = [ 1, 2, 3 ];
 
   chai.assert.throws(() => {
     let w = { ...window };
