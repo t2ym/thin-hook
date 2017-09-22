@@ -156,10 +156,10 @@ hook.global(__hook__, 'examples/example1.js,gfunc', 'gfunc', 'function')._p_gfun
     ];
   }, this, arguments, 'examples/example1.js,gfunc');
 };
-hook.global(__hook__, 'examples/example1.js,destructuring', 'destructuring', 'function')._p_destructuring = function destructuring([x, , [y], z], [a, b, c]) {
+hook.global(__hook__, 'examples/example1.js,destructuring', 'destructuring', 'function')._p_destructuring = function destructuring(...args) {
   return __hook__(([x, , [y = 2], z = 3], [a, b = 5, c = 6]) => {
     return x + y + z + a + b + c;
-  }, this, arguments, 'examples/example1.js,destructuring');
+  }, this, args, 'examples/example1.js,destructuring');
 };
 hook.global(__hook__, 'examples/example1.js,d', 'd', 'function')._p_d = function d() {
   return __hook__(() => {
