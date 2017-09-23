@@ -14,19 +14,19 @@ hook.global(__hook__, 'examples/example3.js,NewFunction', 'NewFunction', 'class'
       ], 'examples/example3.js,NewFunction,adderGenerator'))('base', `return function generatedAdd(a, b) {
       let plus = (x, y) => base + x + y;
       return plus(a, b);
-    }`), this, [base], 'examples/example3.js,NewFunction,adderGenerator', 0);
-    }, this, arguments, 'examples/example3.js,NewFunction,adderGenerator');
+    }`), null, [base], 'examples/example3.js,NewFunction,adderGenerator', 0);
+    }, null, arguments, 'examples/example3.js,NewFunction,adderGenerator');
   }
   addMethod(base, x, y) {
     return __hook__((base, x, y) => {
       return __hook__(__hook__('()', this, [
         'adderGenerator',
         [base]
-      ], 'examples/example3.js,NewFunction,addMethod'), this, [
+      ], 'examples/example3.js,NewFunction,addMethod'), null, [
         x,
         y
       ], 'examples/example3.js,NewFunction,addMethod', 0);
-    }, this, arguments, 'examples/example3.js,NewFunction,addMethod');
+    }, null, arguments, 'examples/example3.js,NewFunction,addMethod');
   }
 };
 hook.global(__hook__, 'examples/example3.js,ReflectConstructFunction', 'ReflectConstructFunction', 'class')._p_ReflectConstructFunction = class ReflectConstructFunction {

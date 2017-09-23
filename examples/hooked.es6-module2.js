@@ -17,6 +17,6 @@ function f(a) {
         't.a is 2'
       ]
     ], 'examples/es6-module2.js,f');
-  }, this, arguments, 'examples/es6-module2.js,f');
+  }, null, arguments, 'examples/es6-module2.js,f');
 }
-__hook__(f, this, [2], 'examples/es6-module2.js', 0);
+__hook__(f, null, [2], 'examples/es6-module2.js', 0);

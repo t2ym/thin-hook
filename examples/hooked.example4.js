@@ -5,7 +5,7 @@
         'log',
         ['setTimeout function']
       ], 'examples/example4.js,X');
-    }, this, arguments, 'examples/example4.js,X');
+    }, null, arguments, 'examples/example4.js,X');
   }, 1000);
   hook.global(__hook__, 'examples/example4.js', 'setTimeout', 'get')._p_setTimeout((...args) =>
     (__hook__(() => {
@@ -13,7 +13,7 @@
         'log',
         ['setTimeout arrow function']
       ], 'examples/example4.js');
-    }, this, args, 'examples/example4.js')), 1000);
+    }, null, args, 'examples/example4.js')), 1000);
   __hook__('()', hook, [
     'setTimeout',
     [
@@ -31,7 +31,7 @@
         'log',
         ['setTimeout f1']
       ], 'examples/example4.js,f1');
-    }, this, args, 'examples/example4.js,f1'));
+    }, null, args, 'examples/example4.js,f1'));
   __hook__('()', hook, [
     'setTimeout',
     [
@@ -49,7 +49,7 @@
         'log',
         ['setInterval function']
       ], 'examples/example4.js,X');
-    }, this, arguments, 'examples/example4.js,X');
+    }, null, arguments, 'examples/example4.js,X');
   }, 1000);
   hook.global(__hook__, 'examples/example4.js', 'setInterval', 'get')._p_setInterval((...args) =>
     (__hook__(() => {
@@ -57,7 +57,7 @@
         'log',
         ['setInterval arrow function']
       ], 'examples/example4.js');
-    }, this, args, 'examples/example4.js')), 1000);
+    }, null, args, 'examples/example4.js')), 1000);
   __hook__('()', hook, [
     'setInterval',
     [
@@ -75,7 +75,7 @@
         'log',
         ['setInterval f2']
       ], 'examples/example4.js,f2');
-    }, this, args, 'examples/example4.js,f2'));
+    }, null, args, 'examples/example4.js,f2'));
   __hook__('()', hook, [
     'setInterval',
     [

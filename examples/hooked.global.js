@@ -31,7 +31,7 @@ hook.global(__hook__, 'examples/global.js,gf', 'gf', 'function')._p_gf = functio
   return __hook__(() => {
     var local1 = 1;
     let local2 = 2;
-  }, this, arguments, 'examples/global.js,gf');
+  }, null, arguments, 'examples/global.js,gf');
 };
 hook.global(__hook__, 'examples/global.js', 'gl', 'let')._p_gl = 2;
 hook.global(__hook__, 'examples/global.js', 'gc', 'const')._p_gc = 3;
@@ -46,11 +46,11 @@ __hook__(gC, null, [
 hook.global(__hook__, 'examples/global.js', 'importScripts', 'get')._p_importScripts('a.js');
 hook.global(__hook__, 'examples/global.js', 'addEventListener', 'get')._p_addEventListener('load', function onloadHandler(event) {
   return __hook__(event => {
-  }, this, arguments, 'examples/global.js,onloadHandler');
+  }, null, arguments, 'examples/global.js,onloadHandler');
 });
 hook.global(__hook__, 'examples/global.js', 'onload', 'set')._p_onload = function onloadHandler() {
   return __hook__(() => {
-  }, this, arguments, 'examples/global.js,onloadHandler');
+  }, null, arguments, 'examples/global.js,onloadHandler');
 };
 hook.global(__hook__, 'examples/global.js', 'lf', 'let')._p_lf = (...args) =>
   (__hook__((arg1, arg2 = hook.global(__hook__, 'examples/global.js', 'gv2', 'get')._p_gv2, [arg3, arg4 = hook.global(__hook__, 'examples/global.js', 'gv4', 'get')._p_gv4], {
@@ -61,7 +61,7 @@ hook.global(__hook__, 'examples/global.js', 'lf', 'let')._p_lf = (...args) =>
     }
   }) => {
     hook.global(__hook__, 'examples/global.js', 'gc', 'get')._p_gc;
-  }, this, args, 'examples/global.js'));
+  }, null, args, 'examples/global.js'));
 hook.global(__hook__, 'examples/global.js,gfunc', 'gfunc', 'function')._p_gfunc = async function gfunc(a1, a2) {
   return __hook__(async (a1, a2 = hook.global(__hook__, 'examples/global.js,gfunc', 'gv2', 'get')._p_gv2) => {
     let l1, l2 = 1, [l3, [l4]] = [
@@ -133,5 +133,5 @@ hook.global(__hook__, 'examples/global.js,gfunc', 'gfunc', 'function')._p_gfunc 
       let ll2;
       hook.global(__hook__, 'examples/global.js,gfunc', 'll1', 'set')._p_ll1 = 1;  // global assignment
     } while (l1 === hook.global(__hook__, 'examples/global.js,gfunc', 'gv', 'get')._p_gv);
-  }, this, arguments, 'examples/global.js,gfunc');
+  }, null, arguments, 'examples/global.js,gfunc');
 };

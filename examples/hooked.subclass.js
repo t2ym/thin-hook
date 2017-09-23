@@ -13,7 +13,7 @@
           p => super[p]
         ], 'examples/subclass.js,A,static isArray,result');
         return result;
-      }, this, arguments, 'examples/subclass.js,A,static isArray');
+      }, null, arguments, 'examples/subclass.js,A,static isArray');
     }
     map(...args) {
       return __hook__((...args) => {
@@ -23,22 +23,22 @@
           p => super[p]
         ], 'examples/subclass.js,A,map,result');
         return result;
-      }, this, arguments, 'examples/subclass.js,A,map');
+      }, null, arguments, 'examples/subclass.js,A,map');
     }
     static get sprop() {
       return __hook__(() => {
         return 'value of A.sprop';
-      }, this, arguments, 'examples/subclass.js,A,get sprop');
+      }, null, arguments, 'examples/subclass.js,A,get sprop');
     }
     get prop() {
       return __hook__(() => {
         return 'value of A.prop';
-      }, this, arguments, 'examples/subclass.js,A,get prop');
+      }, null, arguments, 'examples/subclass.js,A,get prop');
     }
     get nprop() {
       return __hook__(() => {
         return __hook__('.', this, ['_nprop'], 'examples/subclass.js,A,get nprop');
-      }, this, arguments, 'examples/subclass.js,A,get nprop');
+      }, null, arguments, 'examples/subclass.js,A,get nprop');
     }
     set nprop(value) {
       return __hook__(value => {
@@ -46,7 +46,7 @@
           '_nprop',
           value
         ], 'examples/subclass.js,A,set nprop');
-      }, this, arguments, 'examples/subclass.js,A,set nprop');
+      }, null, arguments, 'examples/subclass.js,A,set nprop');
     }
   }
   class AA extends A {
@@ -63,7 +63,7 @@
           p => super[p]
         ], 'examples/subclass.js,AA,static isArray,result');
         return result;
-      }, this, arguments, 'examples/subclass.js,AA,static isArray');
+      }, null, arguments, 'examples/subclass.js,AA,static isArray');
     }
     map(...args) {
       return __hook__((...args) => {
@@ -73,7 +73,7 @@
           p => super[p]
         ], 'examples/subclass.js,AA,map,result');
         return result;
-      }, this, arguments, 'examples/subclass.js,AA,map');
+      }, null, arguments, 'examples/subclass.js,AA,map');
     }
     static get sprop() {
       return __hook__(() => {
@@ -81,7 +81,7 @@
           'sprop',
           p => super[p]
         ], 'examples/subclass.js,AA,get sprop') + ' via AA';
-      }, this, arguments, 'examples/subclass.js,AA,get sprop');
+      }, null, arguments, 'examples/subclass.js,AA,get sprop');
     }
     get prop() {
       return __hook__(() => {
@@ -89,7 +89,7 @@
           'prop',
           p => super[p]
         ], 'examples/subclass.js,AA,get prop') + ' via AA';
-      }, this, arguments, 'examples/subclass.js,AA,get prop');
+      }, null, arguments, 'examples/subclass.js,AA,get prop');
     }
     check() {
       return __hook__(() => {
@@ -133,7 +133,7 @@
         ], 'examples/subclass.js,AA,check');
         // 3
         return result;
-      }, this, arguments, 'examples/subclass.js,AA,check');
+      }, null, arguments, 'examples/subclass.js,AA,check');
     }
   }
   let aa = __hook__(AA, null, [

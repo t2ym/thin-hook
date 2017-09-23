@@ -24,8 +24,8 @@ hook.global(__hook__, 'examples/spread.js', 'gX1', 'let')._p_gX1 = {
       ...__hook__('*', __hook__(function () {
         return __hook__(() => {
           return y;
-        }, this, arguments, 'examples/spread.js,z');
-      }, this, [], 'examples/spread.js,z', 0), [], 'examples/spread.js,z')
+        }, null, arguments, 'examples/spread.js,z');
+      }, null, [], 'examples/spread.js,z', 0), [], 'examples/spread.js,z')
     }, [], 'examples/spread.js,z')
   };
   __hook__('in', z, ['a'], 'examples/spread.js');

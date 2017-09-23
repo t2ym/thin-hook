@@ -10,7 +10,7 @@ class Test {
   get a() {
     return __hook__(() => {
       return __hook__('.', this, ['_a'], 'examples/es6-module.js,Test,get a');
-    }, this, arguments, 'examples/es6-module.js,Test,get a');
+    }, null, arguments, 'examples/es6-module.js,Test,get a');
   }
 }
 export default Test;

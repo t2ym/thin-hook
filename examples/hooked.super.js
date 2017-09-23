@@ -3,7 +3,7 @@
     method(x, y) {
       return __hook__((x, y) => {
         return x + y;
-      }, this, arguments, 'examples/super.js,baseObject,method');
+      }, null, arguments, 'examples/super.js,baseObject,method');
     }
   };
   let subObject = {
@@ -17,7 +17,7 @@
           ],
           p => super[p]
         ], 'examples/super.js,subObject,method') * 2;
-      }, this, arguments, 'examples/super.js,subObject,method');
+      }, null, arguments, 'examples/super.js,subObject,method');
     }
   };
   __hook__('()', Object, [
