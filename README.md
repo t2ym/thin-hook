@@ -200,7 +200,7 @@ onmessage = hook.hookWorkerHandler;
   // Built-in Minimal Hook Callback Function with hooking properties (hook-property=true) - default
   hook.__hook__ = function __hook__(f, thisArg, args, context, newTarget) {
     let result;
-    if (typeof f === 'function') {
+    if (typeof f !== 'string') {
       result = newTarget
         ? Reflect.construct(f, args)
         : thisArg
@@ -317,6 +317,7 @@ onmessage = hook.hookWorkerHandler;
         break;
       // default (invalid operator)
       default:
+        f(); // throw TypeError: f is not a function
         result = null;
         break;
       }
