@@ -1520,7 +1520,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     }
 
     let result;
-    if (typeof f === 'function') {
+    if (typeof f !== 'string') {
       //#PROFILE function callFunction() {
       result = newTarget
         ? Reflect.construct(f, args)
@@ -1655,6 +1655,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         break;
       // default (invalid operator)
       default:
+        f(); // throw TypeError: f is not a function
         result = null;
         break;
       }
