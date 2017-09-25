@@ -29,7 +29,8 @@ hook.global(__hook__, 'examples/example1.js,A1', 'A1', 'class')._p_A1 = class A1
 hook.global(__hook__, 'examples/example1.js,X1', 'X1', 'class')._p_X1 = class X1 extends hook.global(__hook__, 'examples/example1.js,X1', 'A1', 'get')._p_A1 {
   constructor(x, y, z) {
     return __hook__((x, y, z = 9) => {
-      __hook__((...args) => super(...args), null, [
+      __hook__((newTarget, ...args) => super(...args), null, [
+        new.target,
         x,
         y,
         z
@@ -112,7 +113,8 @@ hook.global(__hook__, 'examples/example1.js,X1', 'X1', 'class')._p_X1 = class X1
 hook.global(__hook__, 'examples/example1.js,Y1', 'Y1', 'class')._p_Y1 = class Y1 extends hook.global(__hook__, 'examples/example1.js,Y1', 'X1', 'get')._p_X1 {
   constructor(x, y, z) {
     return __hook__((x = 3, y = x * 3, z = x * y * 5) => {
-      __hook__((...args) => super(...args), null, [
+      __hook__((newTarget, ...args) => super(...args), null, [
+        new.target,
         x,
         y,
         z

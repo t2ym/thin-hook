@@ -43,11 +43,14 @@ __hook__(gC, null, [
   hook.global(__hook__, 'examples/global.js', 'gl', 'get')._p_gl,
   hook.global(__hook__, 'examples/global.js', 'gv', 'get')._p_gv
 ], 'examples/global.js', true);
-hook.global(__hook__, 'examples/global.js', 'importScripts', 'get')._p_importScripts('a.js');
-hook.global(__hook__, 'examples/global.js', 'addEventListener', 'get')._p_addEventListener('load', function onloadHandler(event) {
-  return __hook__(event => {
-  }, null, arguments, 'examples/global.js,onloadHandler');
-});
+__hook__(importScripts, null, ['a.js'], 'examples/global.js', 0);
+__hook__(addEventListener, null, [
+  'load',
+  function onloadHandler(event) {
+    return __hook__(event => {
+    }, null, arguments, 'examples/global.js,onloadHandler');
+  }
+], 'examples/global.js', 0);
 hook.global(__hook__, 'examples/global.js', 'onload', 'set')._p_onload = function onloadHandler() {
   return __hook__(() => {
   }, null, arguments, 'examples/global.js,onloadHandler');

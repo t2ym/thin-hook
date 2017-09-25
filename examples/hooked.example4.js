@@ -1,19 +1,25 @@
 {
-  hook.global(__hook__, 'examples/example4.js', 'setTimeout', 'get')._p_setTimeout(function X() {
-    return __hook__(() => {
-      __hook__('()', console, [
-        'log',
-        ['setTimeout function']
-      ], 'examples/example4.js,X');
-    }, null, arguments, 'examples/example4.js,X');
-  }, 1000);
-  hook.global(__hook__, 'examples/example4.js', 'setTimeout', 'get')._p_setTimeout((...args) =>
-    (__hook__(() => {
-      __hook__('()', console, [
-        'log',
-        ['setTimeout arrow function']
-      ], 'examples/example4.js');
-    }, null, args, 'examples/example4.js')), 1000);
+  __hook__(setTimeout, null, [
+    function X() {
+      return __hook__(() => {
+        __hook__('()', console, [
+          'log',
+          ['setTimeout function']
+        ], 'examples/example4.js,X');
+      }, null, arguments, 'examples/example4.js,X');
+    },
+    1000
+  ], 'examples/example4.js', 0);
+  __hook__(setTimeout, null, [
+    (...args) =>
+      (__hook__(() => {
+        __hook__('()', console, [
+          'log',
+          ['setTimeout arrow function']
+        ], 'examples/example4.js');
+      }, null, args, 'examples/example4.js')),
+    1000
+  ], 'examples/example4.js', 0);
   __hook__('()', hook, [
     'setTimeout',
     [
@@ -43,21 +49,27 @@
       'method'
     ]
   ], 'examples/example4.js')(f1, 1000);
-  hook.global(__hook__, 'examples/example4.js', 'setInterval', 'get')._p_setInterval(function X() {
-    return __hook__(() => {
-      __hook__('()', console, [
-        'log',
-        ['setInterval function']
-      ], 'examples/example4.js,X');
-    }, null, arguments, 'examples/example4.js,X');
-  }, 1000);
-  hook.global(__hook__, 'examples/example4.js', 'setInterval', 'get')._p_setInterval((...args) =>
-    (__hook__(() => {
-      __hook__('()', console, [
-        'log',
-        ['setInterval arrow function']
-      ], 'examples/example4.js');
-    }, null, args, 'examples/example4.js')), 1000);
+  __hook__(setInterval, null, [
+    function X() {
+      return __hook__(() => {
+        __hook__('()', console, [
+          'log',
+          ['setInterval function']
+        ], 'examples/example4.js,X');
+      }, null, arguments, 'examples/example4.js,X');
+    },
+    1000
+  ], 'examples/example4.js', 0);
+  __hook__(setInterval, null, [
+    (...args) =>
+      (__hook__(() => {
+        __hook__('()', console, [
+          'log',
+          ['setInterval arrow function']
+        ], 'examples/example4.js');
+      }, null, args, 'examples/example4.js')),
+    1000
+  ], 'examples/example4.js', 0);
   __hook__('()', hook, [
     'setInterval',
     [
