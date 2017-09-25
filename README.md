@@ -200,6 +200,69 @@ onmessage = hook.hookWorkerHandler;
   // Built-in Minimal Hook Callback Function with hooking properties (hook-property=true) - default
   hook.__hook__ = function __hook__(f, thisArg, args, context, newTarget) {
     let result;
+    let args1 = args[1]; // for '()'
+    function * gen() {}
+    switch (f) {
+    case Function:
+      args = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args);
+      break;
+    case '()':
+      switch (thisArg) {
+      case Reflect:
+        switch (args[0]) {
+        case 'construct':
+          if (args[1]) {
+            switch (args[1][0]) {
+            case Function:
+              // TODO: args[1][2] as newTarget
+              args1 = [args[1][0], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][1])];
+              break;
+            default:
+              if (args[1][0].prototype instanceof Function) {
+                args1 = [args[1][0], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][1], args[1][0].prototype.constructor === gen.constructor)];
+              }
+              break;
+            }
+          }
+          break;
+        case 'apply':
+          if (args[1]) {
+            switch (args[1][0]) {
+            case Function:
+              args1 = [args[1][0], args[1][1], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][2])];
+              break;
+            default:
+              break;
+            }
+          }
+          break;
+        default:
+          break;
+        }
+        break;
+      case Function:
+        thisArg = hook.Function('__hook__', [[context, {}]]);
+        break;
+      default:
+        break;
+      }
+      break;
+    default:
+      if (f.prototype instanceof Function && newTarget) {
+        args = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args, f.prototype.constructor === gen.constructor);
+      }
+      else if (typeof f === 'function') {
+        try {
+          if (f.toString().match(/\(newTarget, ?[.][.][.]args\) ?=> ?super\([.][.][.]args\)/)) {
+            if (args[0] && Object.getPrototypeOf(args[0]) === Function) {
+              args = [ args[0], ...hook.FunctionArguments('__hook__', [[context, {}]], 'method', args.slice(1)) ];
+            }
+          }
+        }
+        catch (e) { }
+      }
+      break;
+    }
     if (typeof f !== 'string') {
       result = newTarget
         ? Reflect.construct(f, args)
@@ -225,7 +288,7 @@ onmessage = hook.hookWorkerHandler;
         break;
       // funcation call
       case '()':
-        result = thisArg[args[0]].apply(thisArg, args[1]);
+        result = thisArg[args[0]].apply(thisArg, args1);
         break;
       // unary operators
       case 'p++':
@@ -499,8 +562,15 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
 - Hooked Native APIs: Automatically applied in `hook()` preprocessing
   - `hook.global(hookCallback: function = hookName, context: string, name: string, type: string)._p_name`: hooked global variable accessor when `hookGlobal` is true
     - `type`: one of `'var', 'function', 'let', 'const', 'class', 'get', 'set', 'delete', 'typeof'`
-  - `hook.Function(hookName, initialContext: Array = [['Function', {}]], contextGeneratorName)`: hooked Function constructor
+  - `hook.Function(hookName, initialContext: Array = [['Function', {}]], contextGeneratorName)`: hooked Function constructor for use in hook callback function `__hook__`
     - Usage: `(new (hook.Function('__hook__', [['window,Function', {}]], 'method'))('return function f() {}'))()`
+    - Notes:
+      - Avoid replacing the native API `window.Function` for better transparency (now commented out in the `demo/hook-native-api.js`)
+      - **NOT automatically applied in the hooking**
+      - Applied in the hook callback function (`__hook__`) instead
+  - `hook.FunctionArguments(hookName, initialContext: Array = [['Function', {}]], contextGeneratorName = 'method', args, isGenerator = false)`: generate hooked Function arguments to hand to Function constructor for use in hook callback function `__hook__`
+    - Usage: `hook.FunctionArguments('__hook__', [['window,Function', {}]], 'method', ['return function f() {}'])`
+    - Returns hooked `args` in a cloned `Array`
   - `hook.eval(hookName, initialContext: Array = [['eval', {}]], contextGeneratorName)`: hooked eval function
     - Usage: `hook.eval('__hook__', [['eval', {}]], 'method'))('1 + 2', (script, eval) => eval(script))`
     - Note: In no-hook scripts with the hooked global `eval` function via `hook.hook(hook.eval(...))`, the evaluation is bound to the global scope unless the wrapper arrow function `(script, eval) => eval(script)` is defined in the local scope and specifed as the second argument of each `eval()` call
