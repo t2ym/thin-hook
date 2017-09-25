@@ -43,6 +43,10 @@ let [ gA, ...gRestE ] = [ 1, 2, 3 ];
     for (let p of a) {}
   }, /^Permission Denied:/);
 
+  chai.assert.throws(function () {
+    (new Function ('\'use strict\'; eval(\'for (var i = 0 in {}) {}\');'))();
+  });
+
 }
 () => {
 

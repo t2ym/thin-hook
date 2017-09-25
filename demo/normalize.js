@@ -464,6 +464,37 @@
     (class O extends Object {}).defineProperty(navigator, 'a_new_property', { configurable: true, enumerable: true, value: 1 });
   }, /^Permission Denied:/);
 
+  {
+    let foo, bar;
+    let a = { foo: 1, bar: 2 };
+    a[Symbol.unscopables] = { bar: true };
+    with (a) {
+      let v1 = foo;
+      let v2 = typeof bar;
+      foo = 3;
+      chai.assert.equal(v1, 1, 'foo is 1');
+      chai.assert.equal(v2, 'undefined', 'typeof bar is undefined');
+    }
+    chai.assert.equal(a.foo, 3, 'a.foo is 3');
+  }
+
+/*
+  {
+    let bar;
+    let a = { foo: 1, bar: 2 };
+    a[Symbol.unscopables] = { bar: true };
+    with (a) {
+      //let v1 = Reflect.has(a, 'foo') && !(a[Symbol.unscopables] && a[Symbol.unscopables]['foo'])
+      let v1 = hook.scoped('foo', a, { a: true, bar: true }) ? __hook__('.', a, ['foo'], 'context') : hook.global(__hook__, 'context', 'foo', 'get')._p_foo;
+      let v2 = hook.scoped('bar', a, { a: true, bar: true }) ? typeof __hook__('.', a, ['bar'], 'context') : typeof bar;
+      hook.scoped('foo', a, { a: true, bar: true }) ? __hook__('=', a, ['foo', 3], 'context') : (hook.global(__hook__, 'context', 'foo', 'set')._p_foo = 3);
+      chai.assert.equal(v1, 1, 'foo is 1');
+      chai.assert.equal(v2, 'undefined', 'typeof bar is undefined');
+    }
+    chai.assert.equal(a.foo, 3, 'a.foo is 3');
+  }
+*/
+
 }
 () => {
   let target, property, value, attributes, proto, prototype, receiver, args, arg1, arg2, p, v;

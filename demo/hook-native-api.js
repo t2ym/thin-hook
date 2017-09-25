@@ -3,7 +3,7 @@
 Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 */
 [
-  'Function',
+  //'Function',
   'eval',
   'setTimeout',
   'setInterval',
@@ -18,4 +18,4 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     hook.hook(hook[name]('__hook__', [[name, {}]], 'method'));
   }
 });
-hook.global(__hook__, 'hook-native-api.js', 'Function', 'set')._pp_Function = hook.global(__hook__, 'hook-native-api.js', 'Function', 'get')._pp_Function;
+//hook.global(__hook__, 'hook-native-api.js', 'Function', 'set')._pp_Function = hook.global(__hook__, 'hook-native-api.js', 'Function', 'get')._pp_Function;

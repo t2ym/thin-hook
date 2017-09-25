@@ -348,6 +348,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '/components/thin-hook/demo/web-worker-client.js,worker': '@worker_manipulator',
     '/components/thin-hook/demo/web-worker-client.js': '@worker_manipulator',
     '/components/thin-hook/demo/normalize.js': '@normalization_checker',
+    '/components/thin-hook/demo/normalize.js,f': '@normalization_checker',
     '/components/thin-hook/demo/normalize.js,bindCheck': '@bind_normalization_checker',
     '/components/thin-hook/demo/normalize.js,bindCheck,boundF': '@bind_normalization_checker',
     '/components/thin-hook/demo/normalize.js,bindCheck,b': '@bind_normalization_checker',
@@ -396,7 +397,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       [S_OBJECT]: 'r--',
       [S_DEFAULT]: '---',
       [S_ALL]: '---',
-      Function: '--x',
+      Function: '---',
       eval: '--x',
       setTimeout: '--x',
       setInterval: '--x',
@@ -1170,6 +1171,10 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
                 case S_ALL:
                   property = _p;
                   break;
+                case S_CONSTRUCT:
+                  rawProperty = 'constructor';
+                  property = S_UNSPECIFIED;
+                  break;
                 default:
                   property = rawProperty = _p;
                   break;
@@ -1520,6 +1525,69 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     }
 
     let result;
+    let args1 = args[1]; // for '()'
+    function *gen() {}
+    switch (f) {
+    case Function:
+      args = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args);
+      break;
+    case '()':
+      switch (thisArg) {
+      case Reflect:
+        switch (args[0]) {
+        case 'construct':
+          if (args[1]) {
+            switch (args[1][0]) {
+            case Function:
+              // TODO: args[1][2] as newTarget
+              args1 = [args[1][0], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][1])];
+              break;
+            default:
+              if (args[1][0].prototype instanceof Function) {
+                args1 = [args[1][0], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][1], args[1][0].prototype.constructor === gen.constructor)];
+              }
+              break;
+            }
+          }
+          break;
+        case 'apply':
+          if (args[1]) {
+            switch (args[1][0]) {
+            case Function:
+              args1 = [args[1][0], args[1][1], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][2])];
+              break;
+            default:
+              break;
+            }
+          }
+          break;
+        default:
+          break;
+        }
+        break;
+      case Function:
+        thisArg = hook.Function('__hook__', [[context, {}]]);
+        break;
+      default:
+        break;
+      }
+      break;
+    default:
+      if (f.prototype instanceof Function && newTarget) {
+        args = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args, f.prototype.constructor === gen.constructor);
+      }
+      else if (typeof f === 'function' && f.toString().match(/\(newTarget, ?[.][.][.]args\) ?=> ?super\([.][.][.]args\)/)) {
+        try {
+          if (f.toString().match(/\(newTarget, ?[.][.][.]args\) ?=> ?super\([.][.][.]args\)/)) {
+            if (args[0] && Object.getPrototypeOf(args[0]) === Function) {
+              args = [ args[0], ...hook.FunctionArguments('__hook__', [[context, {}]], 'method', args.slice(1)) ];
+            }
+          }
+        }
+        catch (e) { }
+      }
+      break;
+    }
     if (typeof f !== 'string') {
       //#PROFILE function callFunction() {
       result = newTarget
@@ -1553,7 +1621,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       // funcation call
       case '()':
         //#PROFILE function callProperty() {
-        result = thisArg[args[0]].apply(thisArg, args[1]);
+        result = thisArg[args[0]].apply(thisArg, args1);
         //#PROFILE }
         //#PROFILE callProperty();
         break;
