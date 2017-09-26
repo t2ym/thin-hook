@@ -1576,15 +1576,10 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       if (f.prototype instanceof Function && newTarget) {
         args = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args, f.prototype.constructor === gen.constructor);
       }
-      else if (typeof f === 'function' && f.toString().match(/\(newTarget, ?[.][.][.]args\) ?=> ?super\([.][.][.]args\)/)) {
-        try {
-          if (f.toString().match(/\(newTarget, ?[.][.][.]args\) ?=> ?super\([.][.][.]args\)/)) {
-            if (args[0] && Object.getPrototypeOf(args[0]) === Function) {
-              args = [ args[0], ...hook.FunctionArguments('__hook__', [[context, {}]], 'method', args.slice(1)) ];
-            }
-          }
+      else if (typeof f === 'function' && newTarget === '') {
+        if (args[0] && Object.getPrototypeOf(args[0]) === Function) {
+          args = [ args[0], ...hook.FunctionArguments('__hook__', [[context, {}]], 'method', args.slice(1)) ];
         }
-        catch (e) { }
       }
       break;
     }
