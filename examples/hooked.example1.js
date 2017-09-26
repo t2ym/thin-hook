@@ -34,7 +34,7 @@ hook.global(__hook__, 'examples/example1.js,X1', 'X1', 'class')._p_X1 = class X1
         x,
         y,
         z
-      ], 'examples/example1.js,X1,constructor', 0);
+      ], 'examples/example1.js,X1,constructor', '');
       __hook__('=', this, [
         'xyz',
         {
@@ -118,7 +118,7 @@ hook.global(__hook__, 'examples/example1.js,Y1', 'Y1', 'class')._p_Y1 = class Y1
         x,
         y,
         z
-      ], 'examples/example1.js,Y1,constructor', 0);
+      ], 'examples/example1.js,Y1,constructor', '');
       __hook__('=', this, [
         'XYZ',
         {

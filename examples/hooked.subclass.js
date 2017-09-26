@@ -5,7 +5,7 @@
         __hook__((newTarget, ...args) => super(...args), null, [
           new.target,
           ...args
-        ], 'examples/subclass.js,A,constructor', 0);
+        ], 'examples/subclass.js,A,constructor', '');
       }, null, arguments, 'examples/subclass.js,A,constructor');
     }
     static isArray(target) {
@@ -58,7 +58,7 @@
         __hook__((newTarget, ...args) => super(...args), null, [
           new.target,
           ...args
-        ], 'examples/subclass.js,AA,constructor', 0);
+        ], 'examples/subclass.js,AA,constructor', '');
       }, null, arguments, 'examples/subclass.js,AA,constructor');
     }
     static isArray(target) {
