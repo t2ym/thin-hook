@@ -423,8 +423,10 @@
   chai.assert.throws(() => { hook.Document; }, /^Permission Denied:/);
   chai.assert.throws(() => { hook.utils; }, /^Permission Denied:/);
   chai.assert.throws(() => { hook.parameters; }, /^Permission Denied:/);
+  chai.assert.throws(() => {
+    new hook.Function('__hook__', [['Function', {}]], 'method')
+  }, /^Permission Denied:/);
 
-  chai.assert.equal((new (hook.Function('__hook__', [['window,Function', {}]], 'method'))('return function f(n) { return n + 1; }'))()(2), 3, 'hook.Function() can be called');
   chai.assert.equal(typeof hook.setTimeout('__hook__', [['setTimeout', {}]], 'method'), 'function', 'hook.setTimeout() returns a function');
   chai.assert.equal(typeof hook.setInterval('__hook__', [['setInterval', {}]], 'method'), 'function', 'hook.setInterval() returns a function');
   chai.assert.equal(typeof hook.eval('__hook__', [['eval', {}]], 'method'), 'function', 'hook.eval() returns a function');
