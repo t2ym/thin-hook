@@ -253,12 +253,14 @@ onmessage = hook.hookWorkerHandler;
       }
       break;
     default:
-      if (f.prototype instanceof Function && newTarget) {
-        args = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args, f.prototype.constructor === gen.constructor);
-      }
-      else if (typeof f === 'function' && newTarget === '') {
-        if (args[0] && Object.getPrototypeOf(args[0]) === Function) {
-          args = [ args[0], ...hook.FunctionArguments('__hook__', [[context, {}]], 'method', args.slice(1)) ];
+      if (typeof f === 'function') {
+        if (f.prototype instanceof Function && newTarget) {
+          args = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args, f.prototype.constructor === gen.constructor);
+        }
+        else if (newTarget === '') {
+          if (args[0] && Object.getPrototypeOf(args[0]) === Function) {
+            args = [ args[0], ...hook.FunctionArguments('__hook__', [[context, {}]], 'method', args.slice(1)) ];
+          }
         }
       }
       break;
