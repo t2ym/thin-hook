@@ -197,8 +197,32 @@ onmessage = hook.hookWorkerHandler;
 ```
 
 ```javascript
+  // the global object
+  const _global = (new Function('return this'))();
+
   // Built-in Minimal Hook Callback Function with hooking properties (hook-property=true) - default
-  hook.__hook__ = function __hook__(f, thisArg, args, context, newTarget) {
+  function __hook__(f, thisArg, args, context, newTarget) {
+    let normalizedThisArg = thisArg;
+    if (newTarget === false) { // resolve the scope in 'with' statement body
+      let varName = args[0];
+      let __with__ = thisArg;
+      let scope = _global;
+      let _scope;
+      let i;
+      for (i = 0; i < __with__.length; i++) {
+        _scope = __with__[i];
+        if (Reflect.has(_scope, varName)) {
+          if (_scope[Symbol.unscopables] && _scope[Symbol.unscopables][varName]) {
+            continue;
+          }
+          else {
+            scope = _scope;
+            break;
+          }
+        }
+      }
+      thisArg = normalizedThisArg = scope;
+    }
     let result;
     let args1 = args[1]; // for '()'
     function * gen() {}
@@ -380,6 +404,51 @@ onmessage = hook.hookWorkerHandler;
       case 's|=':
         result = args[2].apply(thisArg, args);
         break;
+      // getter in 'with' statement body
+      case 'w.':
+      case 'w[]':
+        result = args[1]();
+        break;
+      // function call in 'with' statement body
+      case 'w()':
+        result = args[2](args[1]);
+        break;
+      // constructor call in 'with' statement body
+      case 'wnew':
+        result = args[2](args[1]);
+        break;
+      // unary operators in 'with' statement body
+      case 'w++':
+      case '++w':
+      case 'w--':
+      case '--w':
+        result = args[1]();
+        break;
+      // unary operators in 'with' statement body
+      case 'wtypeof':
+      case 'wdelete':
+        result = args[1]();
+        break;
+      // LHS value in 'with' statement body (__hook__('w.=', __with__, ['p', { set ['='](v) { p = v } } ], 'context', false)['='])
+      case 'w.=':
+        result = args[1];
+        break;
+      // assignment operators in 'with' statement body
+      case 'w=':
+      case 'w+=':
+      case 'w-=':
+      case 'w*=':
+      case 'w/=':
+      case 'w%=':
+      case 'w**=':
+      case 'w<<=':
+      case 'w>>=':
+      case 'w>>>=':
+      case 'w&=':
+      case 'w^=':
+      case 'w|=':
+        result = args[2](args[1]);
+        break;
       // default (invalid operator)
       default:
         f(); // throw TypeError: f is not a function
@@ -546,6 +615,7 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
       - `s()`: call super method (`super.method()`)
       - `s=`, `s+=`, ...: assignment operation for super (`super.prop = value`)
       - `s++`, `++s`, `s--`, `--s`: postfixed/prefixed increment/decrement operation for super (`super.prop++`)
+      - `w.`, `w=`, `w()`, `w++`, ...: operations on variables in within `with` statements
   - `thisArg`: `this` object for the function or the operation
   - `args`:
     - arguments for the function
@@ -553,7 +623,12 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
     - `[ property, value ]` for property assignment operations
     - `[ property, [...args] ]` for function call operations
   - `context`: context in the script
-  - `newTarget`: `new.target` meta property for constructor calls; `null` for other calls
+  - `newTarget`: `new.target` meta property for constructor calls;
+    - `true` for new calls
+    - Falsy values for non-`new` operations for faster detection of the operations
+      - `false` for `with` statement calls
+      - `0` for function calls
+      - `undefined` for other calls
 - `hook.__hook_except_properties__(f, thisArg, args, context, newTarget)`
   - minimal hook callback function without property hooking
 - `hook.contextGenerators`: object. Context Generator Functions
@@ -597,6 +672,8 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
     - `set href`: Script in URL `"javascript:{script in URL}"` is hooked
   - `hook.Document(hookName, initialContext: Array = [['Document', {}]], contextGeneratorName)`: hook `write` function
     - `write('<sc' + 'ript>{script in string}</sc' + 'ript>')`: Script in HTML fragment is hooked
+  - `hook.with(scope: Object, ...scopes: Array of Object)`: Hook `with` statement scope object
+    - `with (hook.with(obj, { v1: true, v2: true, ...})) {}`
 - `hook.hook(target: Class, ...)`: hook platform global object with `target`
   - Usage: `['Function','setTimeout','setInterval',...].forEach(name => hook.hook(hook.Function('__hook__', [[name, {}]], 'method'))`
 - `hook.serviceWorkerHandlers`: Service Worker event handlers
