@@ -466,37 +466,48 @@
     (class O extends Object {}).defineProperty(navigator, 'a_new_property', { configurable: true, enumerable: true, value: 1 });
   }, /^Permission Denied:/);
 
+
+  // Nested 'with' statements
   {
-    let foo, bar;
-    let a = { foo: 1, bar: 2 };
-    a[Symbol.unscopables] = { bar: true };
+    let a = { foo: 1, bar: 2, [Symbol.unscopables]: { bar: true } };
     with (a) {
-      let v1 = foo;
-      let v2 = typeof bar;
-      foo = 3;
-      chai.assert.equal(v1, 1, 'foo is 1');
-      chai.assert.equal(v2, 'undefined', 'typeof bar is undefined');
+      let x = 3;
+      let b = { y: 4, z: 5, u: 7, [Symbol.unscopables]: { z: true } };
+      with (b) {
+        let v1 = foo;
+        let v2 = typeof bar;
+        let v3 = y;
+        let v4 = typeof z;
+        let u = 11;
+        let v5 = u;
+        foo = 3;
+        y = 6;
+        chai.assert.equal(v1, 1, 'foo is 1');
+        chai.assert.equal(v2, 'undefined', 'typeof bar is undefined');
+        chai.assert.equal(v3, 4, 'y is 4');
+        chai.assert.equal(v5, 11, 'u is 11');
+        chai.assert.equal(v4, 'undefined', 'typeof z is undefined');
+        with ({ z:1, u: 2, [Symbol.unscopables]: { u: true } }) {
+          let v6 = z;
+          let v7 = u;
+          chai.assert.equal(v6, 1, 'z is 1');
+          chai.assert.equal(v7, 11, 'u is 11');
+          x = y;
+        }
+      }
+      chai.assert.equal(b.y, 6, 'b.y is 6');
     }
     chai.assert.equal(a.foo, 3, 'a.foo is 3');
   }
 
-/*
-  {
-    let bar;
-    let a = { foo: 1, bar: 2 };
-    a[Symbol.unscopables] = { bar: true };
-    with (a) {
-      //let v1 = Reflect.has(a, 'foo') && !(a[Symbol.unscopables] && a[Symbol.unscopables]['foo'])
-      let v1 = hook.scoped('foo', a, { a: true, bar: true }) ? __hook__('.', a, ['foo'], 'context') : hook.global(__hook__, 'context', 'foo', 'get')._p_foo;
-      let v2 = hook.scoped('bar', a, { a: true, bar: true }) ? typeof __hook__('.', a, ['bar'], 'context') : typeof bar;
-      hook.scoped('foo', a, { a: true, bar: true }) ? __hook__('=', a, ['foo', 3], 'context') : (hook.global(__hook__, 'context', 'foo', 'set')._p_foo = 3);
-      chai.assert.equal(v1, 1, 'foo is 1');
-      chai.assert.equal(v2, 'undefined', 'typeof bar is undefined');
-    }
-    chai.assert.equal(a.foo, 3, 'a.foo is 3');
-  }
-*/
+  // ACL works even for scoped variables via 'with' statement
 
+  chai.assert.throws(() => {
+    let sw;
+    with (navigator) {
+      sw = serviceWorker;
+    }
+  }, /^Permission Denied:/)
 }
 () => {
   let target, property, value, attributes, proto, prototype, receiver, args, arg1, arg2, p, v;
