@@ -204,6 +204,30 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     's&=': '=',
     's^=': '=',
     's|=': '=',
+    'w.': '.',
+    'w[]': '.',
+    'w()': '()',
+    'wnew': '()',
+    'w++': '=',
+    '++w': '=',
+    'w--': '=',
+    '--w': '=',
+    'wtypeof': '.',
+    'wdelete': '=',
+    'w.=': '=',
+    'w=': '=',
+    'w+=': '=',
+    'w-=': '=',
+    'w*=': '=',
+    'w/=': '=',
+    'w%=': '=',
+    'w**=': '=',
+    'w<<=': '=',
+    'w>>=': '=',
+    'w>>>=': '=',
+    'w&=': '=',
+    'w^=': '=',
+    'w|=': '=',
   };
   const targetNormalizer = {
     'f': 'xtf', // thisArg may not be this object for f
@@ -961,6 +985,26 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       // property access
       let normalizedThisArg = thisArg;
       let _args = args;
+      if (newTarget === false) { // resolve the scope in 'with' statement body
+        let varName = args[0];
+        let __with__ = thisArg;
+        let scope = _global;
+        let _scope;
+        let i;
+        for (i = 0; i < __with__.length; i++) {
+          _scope = __with__[i];
+          if (Reflect.has(_scope, varName)) {
+            if (_scope[Symbol.unscopables] && _scope[Symbol.unscopables][varName]) {
+              continue;
+            }
+            else {
+              scope = _scope;
+              break;
+            }
+          }
+        }
+        thisArg = normalizedThisArg = scope;
+      }
       if (boundParameters) {
         normalizedThisArg = boundParameters._normalizedThisArg;
         _args = [ boundParameters._f, boundParameters._args.concat(args) ];
@@ -1722,6 +1766,51 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       case 's^=':
       case 's|=':
         result = args[2].apply(thisArg, args);
+        break;
+      // getter in 'with' statement body
+      case 'w.':
+      case 'w[]':
+        result = args[1]();
+        break;
+      // function call in 'with' statement body
+      case 'w()':
+        result = args[2](args[1]);
+        break;
+      // constructor call in 'with' statement body
+      case 'wnew':
+        result = args[2](args[1]);
+        break;
+      // unary operators in 'with' statement body
+      case 'w++':
+      case '++w':
+      case 'w--':
+      case '--w':
+        result = args[1]();
+        break;
+      // unary operators in 'with' statement body
+      case 'wtypeof':
+      case 'wdelete':
+        result = args[1]();
+        break;
+      // LHS value in 'with' statement body (__hook__('w.=', __with__, ['p', { set ['='](v) { p = v } } ], 'context', false)['='])
+      case 'w.=':
+        result = args[1];
+        break;
+      // assignment operators in 'with' statement body
+      case 'w=':
+      case 'w+=':
+      case 'w-=':
+      case 'w*=':
+      case 'w/=':
+      case 'w%=':
+      case 'w**=':
+      case 'w<<=':
+      case 'w>>=':
+      case 'w>>>=':
+      case 'w&=':
+      case 'w^=':
+      case 'w|=':
+        result = args[2](args[1]);
         break;
       // default (invalid operator)
       default:
