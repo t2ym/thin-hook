@@ -828,4 +828,37 @@ with (hook.with({
       () => y
     ], 'examples/with.js', false), [], 'examples/with.js')
   });
+  let {
+    A,
+    ...B
+  } = {
+    A: __hook__('w.', __with__, [
+      'y',
+      () => y
+    ], 'examples/with.js,A', false),
+    p: __hook__('w.', __with__, [
+      'a2',
+      () => a2
+    ], 'examples/with.js,p', false),
+    ...__hook__('*', __hook__('w.', __with__, [
+      'y',
+      () => y
+    ], 'examples/with.js', false), [], 'examples/with.js')
+  };
+  let [p1, p2 = __hook__('w.', __with__, [
+      'y',
+      () => y
+    ], 'examples/with.js', false), ...p3] = [
+    2,
+    ,
+    5,
+    __hook__('.', __hook__('w.', __with__, [
+      'z',
+      () => z
+    ], 'examples/with.js', false), ['a'], 'examples/with.js'),
+    ...__hook__('w.', __with__, [
+      'a2',
+      () => a2
+    ], 'examples/with.js', false)
+  ];
 }
