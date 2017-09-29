@@ -64,7 +64,7 @@ let [ gA, ...gRestE ] = [ 1, 2, 3 ];
   function ff() {
     let gA1 = [ 1, 2 ];
     let gX1 = { a: 1, b: 2 };
-    with ({ gA1: [ 5, 6 ], gX1: { a: 4, b: 5 } }) {
+    with ({ gA1: [ 5, 6 ], gX1: { a: 4, b: 5 }, v1: 1, v2: 2, v3: 3 }) {
       let a2 = [ 3, 4, ...gA1 ];
       chai.assert.deepEqual(a2, [ 3, 4, 5, 6 ], 'a2 is [ 3,4,5,6 ]');
       let y = { c: 3, ...gX1 };
@@ -83,6 +83,13 @@ let [ gA, ...gRestE ] = [ 1, 2, 3 ];
         l2.push(p);
       }
       chai.assert.deepEqual(l2, [3,4,5,6], 'a2 lists [3,4,5,6]');
+      [ v1, ...v3 ] = [ v1 + 1, ...[v2 + 1, v3]];
+      chai.assert.equal(v1, 2, 'v1 is 2');
+      chai.assert.equal(v2, 2, 'v2 is 2');
+      chai.assert.deepEqual(v3, [3, 3], 'v3 is [3,3]');
+      ({p, ...gX1} = { p: gA1, ...y });
+      chai.assert.deepEqual(p, [5,6], 'p is [5,6]');
+      chai.assert.deepEqual(gX1, { c: 3, a: 4, b: 5 }, 'gX1 is { c: 3, a: 4, b: 5 }');
     }
   }
   ff();
