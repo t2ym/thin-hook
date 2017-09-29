@@ -107,5 +107,6 @@ with ({ gA1: [ 5, 6 ], gX1: { a: 4, b: 5 } }) {
     l2.push(p);
   }
   chai.assert.deepEqual(l2, [3,4,5,6], 'a2 lists [3,4,5,6]');
+  ({ x, ...y } = { x: x, ...y });
 }
 

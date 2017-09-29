@@ -50,7 +50,10 @@ hook.global(__hook__, 'examples/spread.js,ff', 'ff', 'function')._p_ff = functio
       let a2 = [
         3,
         4,
-        ...gA1
+        ...__hook__('w.', __with__, [
+          'gA1',
+          () => gA1
+        ], 'examples/spread.js,ff,a2', false)
       ];
       __hook__('()', __hook__('.', __hook__('w.', __with__, [
         'chai',
@@ -73,7 +76,10 @@ hook.global(__hook__, 'examples/spread.js,ff', 'ff', 'function')._p_ff = functio
       ], 'examples/spread.js,ff');
       let y = {
         c: 3,
-        ...__hook__('*', hook.global(__hook__, 'examples/spread.js,ff,y', 'gX1', 'get')._p_gX1, [], 'examples/spread.js,ff,y')
+        ...__hook__('*', __hook__('w.', __with__, [
+          'gX1',
+          () => gX1
+        ], 'examples/spread.js,ff,y', false), [], 'examples/spread.js,ff,y')
       };
       __hook__('()', __hook__('.', __hook__('w.', __with__, [
         'chai',

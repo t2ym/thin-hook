@@ -483,12 +483,25 @@
               return x;
             }
           }
-        ], 'examples/with.js', false)['='], ...y] = [
+        ], 'examples/with.js', false)['='], ...(__hook__('w.=', __with__, [
+          'y',
+          {
+            set ['='](v) {
+              y = v;
+            },
+            get ['=']() {
+              return y;
+            }
+          }
+        ], 'examples/with.js', false))['=']] = [
         __hook__('w.', __with__, [
           'x',
           () => x
         ], 'examples/with.js', false),
-        ...y
+        ...__hook__('w.', __with__, [
+          'y',
+          () => y
+        ], 'examples/with.js', false)
       ];
       let o = {
         [__hook__('w.', __with__, [
@@ -580,7 +593,10 @@ with (hook.with({
   let a2 = [
     3,
     4,
-    ...gA1
+    ...__hook__('w.', __with__, [
+      'gA1',
+      () => gA1
+    ], 'examples/with.js,a2', false)
   ];
   __hook__('()', __hook__('.', __hook__('w.', __with__, [
     'chai',
@@ -603,7 +619,10 @@ with (hook.with({
   ], 'examples/with.js');
   let y = {
     c: 3,
-    ...__hook__('*', hook.global(__hook__, 'examples/with.js,y', 'gX1', 'get')._p_gX1, [], 'examples/with.js,y')
+    ...__hook__('*', __hook__('w.', __with__, [
+      'gX1',
+      () => gX1
+    ], 'examples/with.js,y', false), [], 'examples/with.js,y')
   };
   __hook__('()', __hook__('.', __hook__('w.', __with__, [
     'chai',
@@ -776,4 +795,37 @@ with (hook.with({
       'a2 lists [3,4,5,6]'
     ]
   ], 'examples/with.js');
+  ({
+    x: __hook__('w.=', __with__, [
+      'x',
+      {
+        set ['='](v) {
+          x = v;
+        },
+        get ['=']() {
+          return x;
+        }
+      }
+    ], 'examples/with.js,x', false)['='],
+    ...(__hook__('w.=', __with__, [
+      'y',
+      {
+        set ['='](v) {
+          y = v;
+        },
+        get ['=']() {
+          return y;
+        }
+      }
+    ], 'examples/with.js', false))['=']
+  } = {
+    x: __hook__('w.', __with__, [
+      'x',
+      () => x
+    ], 'examples/with.js,x', false),
+    ...__hook__('*', __hook__('w.', __with__, [
+      'y',
+      () => y
+    ], 'examples/with.js', false), [], 'examples/with.js')
+  });
 }
