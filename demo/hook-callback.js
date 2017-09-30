@@ -416,16 +416,11 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     caches: '---',
     __hook__: '---', // TODO: ineffective
     __unexpected_access_to_hook_callback_function__: '---',
+    __unexpected_access_to_hook_with_object__: '---',
+    __unexpected_access_to_hook_alias_object__: '---',
+    hook: '---',
+    $hook$: '---',
     // blacklist properties
-    hook: {
-      [S_OBJECT]: 'r--',
-      [S_DEFAULT]: '---',
-      [S_ALL]: '---',
-      Function: '---',
-      eval: '--x',
-      setTimeout: '--x',
-      setInterval: '--x',
-    },
     window: {
       [S_OBJECT]: 'r--',
       [S_DEFAULT]: 'rwx',
@@ -433,7 +428,10 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       caches: '---',
       __hook__: '---',
       __unexpected_access_to_hook_callback_function__: '---',
+      __unexpected_access_to_hook_with_object__: '---',
+      __unexpected_access_to_hook_alias_object__: '---',
       hook: '---',
+      $hook$: '---',
       _data: {
         [S_DEFAULT]: '---',
         '@hook_visualizer': 'r--',

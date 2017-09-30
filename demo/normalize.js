@@ -393,7 +393,7 @@
     typeof __hook__;
   }, /^Permission Denied:/);
 
-  // Access to hook is restricted
+  // Access to hook is prohibited
 
   chai.assert.throws(() => { window.hook; }, /^Permission Denied:/);
   chai.assert.throws(() => { window.hook = null; }, /^Permission Denied:/);
@@ -427,9 +427,31 @@
     new hook.Function('__hook__', [['Function', {}]], 'method')
   }, /^Permission Denied:/);
 
-  chai.assert.equal(typeof hook.setTimeout('__hook__', [['setTimeout', {}]], 'method'), 'function', 'hook.setTimeout() returns a function');
-  chai.assert.equal(typeof hook.setInterval('__hook__', [['setInterval', {}]], 'method'), 'function', 'hook.setInterval() returns a function');
-  chai.assert.equal(typeof hook.eval('__hook__', [['eval', {}]], 'method'), 'function', 'hook.eval() returns a function');
+  chai.assert.throws(() => {
+    hook.setTimeout('__hook__', [['setTimeout', {}]], 'method');
+  }, /^Permission Denied:/);
+  chai.assert.throws(() => {
+    hook.setInterval('__hook__', [['setInterval', {}]], 'method');
+  }, /^Permission Denied:/);
+  chai.assert.throws(() => {
+    hook.eval('__hook__', [['eval', {}]], 'method');
+  }, /^Permission Denied:/);
+
+  chai.assert.equal(function () {
+    let hook = 1;
+    return hook;
+  }(), 1, 'local hook variable is allowed');
+
+  // Access to hook alias $hook$ is prohibited
+
+  chai.assert.throws(() => {
+    $hook$.setTimeout('__hook__', [['setTimeout', {}]], 'method');
+  }, /__unexpected_access_to_hook_alias_object__/);
+
+  chai.assert.equal(function () {
+    let $hook$ = null;
+    return eval('2');
+  }(), 2, 'local $hook$ variable does not affect hooked eval');
 
   // global variables in hook-callback.js is in the blacklist
   chai.assert.throws(() => { contexts; }, /^Permission Denied:/);
