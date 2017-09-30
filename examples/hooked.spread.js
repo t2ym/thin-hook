@@ -1,8 +1,8 @@
-hook.global(__hook__, 'examples/spread.js', 'gA1', 'let')._p_gA1 = [
+$hook$.global(__hook__, 'examples/spread.js', 'gA1', 'let')._p_gA1 = [
   1,
   2
 ];
-hook.global(__hook__, 'examples/spread.js', 'gX1', 'let')._p_gX1 = {
+$hook$.global(__hook__, 'examples/spread.js', 'gX1', 'let')._p_gX1 = {
   a: 1,
   b: 2
 };
@@ -10,11 +10,11 @@ hook.global(__hook__, 'examples/spread.js', 'gX1', 'let')._p_gX1 = {
   let a2 = [
     3,
     4,
-    ...hook.global(__hook__, 'examples/spread.js,a2', 'gA1', 'get')._p_gA1
+    ...$hook$.global(__hook__, 'examples/spread.js,a2', 'gA1', 'get')._p_gA1
   ];
   let y = {
     c: 3,
-    ...__hook__('*', hook.global(__hook__, 'examples/spread.js,y', 'gX1', 'get')._p_gX1, [], 'examples/spread.js,y')
+    ...__hook__('*', $hook$.global(__hook__, 'examples/spread.js,y', 'gX1', 'get')._p_gX1, [], 'examples/spread.js,y')
   };
   let z = {
     a: 1,
@@ -35,9 +35,9 @@ hook.global(__hook__, 'examples/spread.js', 'gX1', 'let')._p_gX1 = {
   for (p of __hook__('*', a2, [], 'examples/spread.js')) {
   }
 }
-hook.global(__hook__, 'examples/spread.js,ff', 'ff', 'function')._p_ff = function ff() {
+$hook$.global(__hook__, 'examples/spread.js,ff', 'ff', 'function')._p_ff = function ff() {
   return __hook__(() => {
-    with (hook.with({
+    with ($hook$.with({
         gA1: [
           5,
           6

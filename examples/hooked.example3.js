@@ -1,4 +1,4 @@
-hook.global(__hook__, 'examples/example3.js,NewFunction', 'NewFunction', 'class')._p_NewFunction = class NewFunction {
+$hook$.global(__hook__, 'examples/example3.js,NewFunction', 'NewFunction', 'class')._p_NewFunction = class NewFunction {
   adderGenerator(base) {
     return __hook__(base => {
       return __hook__(__hook__(Function, null, [
@@ -22,13 +22,13 @@ hook.global(__hook__, 'examples/example3.js,NewFunction', 'NewFunction', 'class'
     }, null, arguments, 'examples/example3.js,NewFunction,addMethod');
   }
 };
-hook.global(__hook__, 'examples/example3.js,ReflectConstructFunction', 'ReflectConstructFunction', 'class')._p_ReflectConstructFunction = class ReflectConstructFunction {
+$hook$.global(__hook__, 'examples/example3.js,ReflectConstructFunction', 'ReflectConstructFunction', 'class')._p_ReflectConstructFunction = class ReflectConstructFunction {
   constructor() {
     return __hook__(() => {
       let c = __hook__('()', Reflect, [
         'construct',
         [
-          hook.global(__hook__, 'examples/example3.js,ReflectConstructFunction,constructor,c', 'Function', 'get')._p_Function,
+          $hook$.global(__hook__, 'examples/example3.js,ReflectConstructFunction,constructor,c', 'Function', 'get')._p_Function,
           ['return class C { m(x) { return x + 1; } }'],
           new.target
         ]
@@ -36,7 +36,7 @@ hook.global(__hook__, 'examples/example3.js,ReflectConstructFunction', 'ReflectC
       let c2 = __hook__('()', Reflect, [
         'construct',
         [
-          hook.global(__hook__, 'examples/example3.js,ReflectConstructFunction,constructor,c2', 'Function', 'get')._p_Function,
+          $hook$.global(__hook__, 'examples/example3.js,ReflectConstructFunction,constructor,c2', 'Function', 'get')._p_Function,
           ['return class C { m(x) { return x + 1; } }'],
           new.target
         ]

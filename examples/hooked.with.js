@@ -1,12 +1,12 @@
 {
-  hook.global(__hook__, 'examples/with.js', 'gVar1', 'var')._p_gVar1 = 1;
-  let gg = hook.global(__hook__, 'examples/with.js,gg', 'gVar1', 'get')._p_gVar1;
+  $hook$.global(__hook__, 'examples/with.js', 'gVar1', 'var')._p_gVar1 = 1;
+  let gg = $hook$.global(__hook__, 'examples/with.js,gg', 'gVar1', 'get')._p_gVar1;
   let a = {
     foo: 1,
     bar: 2,
     [__hook__('.', Symbol, ['unscopables'], 'examples/with.js,a')]: { bar: true }
   };
-  with (hook.with(a, {
+  with ($hook$.with(a, {
       gg: true,
       a: true
     })) {
@@ -22,7 +22,7 @@
         () => Symbol
       ], 'examples/with.js,b', false), ['unscopables'], 'examples/with.js,b')]: { z: true }
     };
-    with (hook.with(__hook__('w.', __with__, [
+    with ($hook$.with(__hook__('w.', __with__, [
         'b',
         () => b
       ], 'examples/with.js', false), {
@@ -287,7 +287,7 @@
           'typeof z is undefined'
         ]
       ], 'examples/with.js');
-      with (hook.with({
+      with ($hook$.with({
           z: 1,
           u: 2,
           [__hook__('.', __hook__('w.', __with__, [
@@ -572,15 +572,15 @@
     ]
   ], 'examples/with.js');
 }
-hook.global(__hook__, 'examples/with.js', 'gA1', 'let')._p_gA1 = [
+$hook$.global(__hook__, 'examples/with.js', 'gA1', 'let')._p_gA1 = [
   1,
   2
 ];
-hook.global(__hook__, 'examples/with.js', 'gX1', 'let')._p_gX1 = {
+$hook$.global(__hook__, 'examples/with.js', 'gX1', 'let')._p_gX1 = {
   a: 1,
   b: 2
 };
-with (hook.with({
+with ($hook$.with({
     gA1: [
       5,
       6
