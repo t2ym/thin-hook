@@ -12,7 +12,7 @@ const preprocess = require('./lib/preprocess.js')(espree, escodegen, htmlparser,
 const hook = preprocess.hook;
 const serviceWorker = require('./lib/service-worker.js')(hook, preprocess);
 const contextGenerators = require('./lib/context-generator.js')(hook);
-const hookCallbacks = require('./lib/hook-callback.js')(hook);
+const hookCallbacks = require('./lib/hook-callback.js')(hook, preprocess);
 const nativeWrappers = require('./lib/native-wrapper.js')(hook, preprocess);
 
 module.exports = Object.freeze(Object.assign(hook, 
