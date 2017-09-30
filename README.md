@@ -411,11 +411,11 @@ onmessage = hook.hookWorkerHandler;
         break;
       // function call in 'with' statement body
       case 'w()':
-        result = args[2](args[1]);
+        result = args[2](...args[1]);
         break;
       // constructor call in 'with' statement body
       case 'wnew':
-        result = args[2](args[1]);
+        result = args[2](...args[1]);
         break;
       // unary operators in 'with' statement body
       case 'w++':
@@ -631,6 +631,12 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
       - `undefined` for other calls
 - `hook.__hook_except_properties__(f, thisArg, args, context, newTarget)`
   - minimal hook callback function without property hooking
+- `hook.hookCallbackCompatibilityTest(__hook__ = window[hookName], throwError = true, checkTypeError = true)`
+  - run-time test suite for hook callback function
+  - Usage: `window.__hook__ = function __hook__ (...) {}; hook.hookCallbackCompatibilityTest();`
+  - An error is thrown on compatibility test failure.
+  - `false` is returned on a test failure if `throwError = false`
+  - tests on non-callable object's function call are skipped if `checkTypeError = false`
 - `hook.contextGenerators`: object. Context Generator Functions
   - `null()`: context as `''`
   - `astPath(astPath: Array)`: context as `'script.js,[root]Program,body,astType,...'`
