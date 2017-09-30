@@ -1772,11 +1772,11 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         break;
       // function call in 'with' statement body
       case 'w()':
-        result = args[2](args[1]);
+        result = args[2](...args[1]);
         break;
       // constructor call in 'with' statement body
       case 'wnew':
-        result = args[2](args[1]);
+        result = args[2](...args[1]);
         break;
       // unary operators in 'with' statement body
       case 'w++':
@@ -1824,6 +1824,8 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     contextStack.pop();
     return result;
   }});
+
+  hook.hookCallbackCompatibilityTest();
 
   function showContextStackLog() {
     let asyncCalls = Object.keys(contextStackLog).filter(c => c.match(/(setTimeout|setInterval|Promise)/g));

@@ -515,6 +515,9 @@
           chai.assert.equal(v6, 1, 'z is 1');
           chai.assert.equal(v7, 11, 'u is 11');
           x = y;
+          let f = function f(a, b) { return a + b; };
+          let v8 = f(v6, v7);
+          chai.assert.equal(v8, 12, 'v8 is 12');
         }
       }
       chai.assert.equal(b.y, 6, 'b.y is 6');
