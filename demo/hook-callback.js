@@ -184,6 +184,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '&=': '=',
     '^=': '=',
     '|=': '=',
+    '.=': '=',
     's.': '.',
     's[]': '.',
     's()': '()',
@@ -1732,6 +1733,10 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         break;
       case '|=':
         result = thisArg[args[0]] |= args[1];
+        break;
+      // LHS property access
+      case '.=':
+        result = { set ['='](v) { thisArg[args[0]] = v; }, get ['=']() { return thisArg[args[0]]; } };
         break;
       // getter for super
       case 's.':
