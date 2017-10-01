@@ -372,6 +372,10 @@ onmessage = hook.hookWorkerHandler;
       case '|=':
         result = thisArg[args[0]] |= args[1];
         break;
+      // LHS property access
+      case '.=':
+        result = { set ['='](v) { thisArg[args[0]] = v; }, get ['=']() { return thisArg[args[0]]; } };
+        break;
       // getter for super
       case 's.':
       case 's[]':
