@@ -405,11 +405,11 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '/components/firebase/firebase-database.js,Er,t': '@Object_setPrototypeOf_reader',
     '/components/firebase/firebase-database.js,jr,t': '@Object_setPrototypeOf_reader',
     '/components/firebase/firebase-database.js,Gr,t': '@Object_setPrototypeOf_reader',
-    '/components/firebase/firebase-messaging.js,k,e': '@Object_setPrototypeOf_reader',
-    '/components/firebase/firebase-messaging.js,P,e': '@Object_setPrototypeOf_reader',
+    '/components/firebase/firebase-messaging.js,24,k,e': '@Object_setPrototypeOf_reader',
+    '/components/firebase/firebase-messaging.js,24,P,e': '@Object_setPrototypeOf_reader',
     '/components/polymer/lib/mixins/element-mixin.html,script@926,createPropertyFromConfig': '@Object_static_method_reader', // bug?
-    '/components/chai/chai.js': '@custom_error_constructor_creator',
-    '/components/chai/chai.js,hasProtoSupport': '@Object__proto__reader',
+    '/components/chai/chai.js,30': '@custom_error_constructor_creator',
+    '/components/chai/chai.js,9,hasProtoSupport': '@Object__proto__reader',
     '/components/dexie/dist/dexie.min.js,p': '@Object_static_method_user',
   };
   const acl = {
