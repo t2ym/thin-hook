@@ -26,7 +26,7 @@ Usage: ${cmd} [--hook={hookName}] [--context={contextGenarator}] targets ...
 
 Options:
   --hook={hookName} : Hook callback. Default: __hook__
-  --context={contextGenerator} : Context generator. Valid values: method cachedMethod cachedMethodDebugnull astPath hash hashAstPath. Default: method
+  --context={contextGenerator} : Context generator. Valid values: method cachedMethod cachedMethodDebug null astPath hash hashAstPath. Default: method
   --metaHooking={metaHooking}: Enable meta hooking (run-time hooking for metaprogramming) if true. Default: true
   --hashSalt={hashSalt} : Salt for hash generator. Default: __hashSalt__
   --contextsJson={contexts.json} : Path to contexts.json. Default: contexts.json
