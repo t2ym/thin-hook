@@ -53,7 +53,7 @@
       let method = 'method';
       class B {}
       class C extends B {
-        [method]() {}
+        ['method']() {}
       }
       let CC = class CC extends B {
         [method]() {}

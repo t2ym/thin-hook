@@ -23,7 +23,7 @@
   $hook$.setTimeout('__hook__', [[
       'examples/example4.js',
       {}
-    ]], 'method')('console.log("setTimeout string")', 1000);
+    ]], 'cachedMethod')('console.log("setTimeout string")', 1000);
   let f1 = (...args) =>
     (__hook__(() => {
       __hook__('()', console, [
@@ -34,7 +34,7 @@
   $hook$.setTimeout('__hook__', [[
       'examples/example4.js',
       {}
-    ]], 'method')(f1, 1000);
+    ]], 'cachedMethod')(f1, 1000);
   __hook__(setInterval, null, [
     function X() {
       return __hook__(() => {
@@ -59,7 +59,7 @@
   $hook$.setInterval('__hook__', [[
       'examples/example4.js',
       {}
-    ]], 'method')('console.log("setInterval string")', 1000);
+    ]], 'cachedMethod')('console.log("setInterval string")', 1000);
   let f2 = (...args) =>
     (__hook__(() => {
       __hook__('()', console, [
@@ -70,5 +70,5 @@
   $hook$.setInterval('__hook__', [[
       'examples/example4.js',
       {}
-    ]], 'method')(f2, 1000);
+    ]], 'cachedMethod')(f2, 1000);
 }

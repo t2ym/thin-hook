@@ -372,12 +372,9 @@
         'B',
         () => B
       ], 'examples/with.js,C', false) {
-        [__hook__('w.', __with__, [
-          'method',
-          () => method
-        ], 'examples/with.js,C,method', false)]() {
+        ['method']() {
           return __hook__(() => {
-          }, null, arguments, 'examples/with.js,C');
+          }, null, arguments, 'examples/with.js,C,method');
         }
       }
       let CC = class CC extends __hook__('w.', __with__, [
@@ -389,7 +386,7 @@
           () => method
         ], 'examples/with.js,CC,CC,method', false)]() {
           return __hook__(() => {
-          }, null, arguments, 'examples/with.js,CC,CC');
+          }, null, arguments, 'examples/with.js,CC,CC,method');
         }
       };
       function f1(aa, bb) {
@@ -510,7 +507,7 @@
         ], 'examples/with.js,o,comp', false)]: __hook__('w.', __with__, [
           'x',
           () => x
-        ], 'examples/with.js,o', false),
+        ], 'examples/with.js,o,comp', false),
         nonComputed: __hook__('w.', __with__, [
           'y',
           () => y
