@@ -27,7 +27,7 @@ gulp.task('examples', () => {
     .pipe(through.obj((file, enc, callback) => {
       let code = String(file.contents);
       let basename = path.basename(file.path);
-      let hooked = hook(code, '__hook__', [ [ 'examples/' + basename, {} ] ], 'method');
+      let hooked = hook(code, '__hook__', [ [ 'examples/' + basename, {} ] ], 'cachedMethod');
       file.contents = new Buffer(hooked);
       callback(null, file);
     }))
