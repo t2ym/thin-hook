@@ -157,17 +157,10 @@ $hook$.global(__hook__, 'examples/spread.js,ff', 'ff', 'function')._p_ff = funct
               return p;
             }
           }
-        ], 'examples/spread.js,ff', false)['='] in __hook__('*', __hook__('w.=', __with__, [
+        ], 'examples/spread.js,ff', false)['='] in __hook__('*', __hook__('w.', __with__, [
           'z',
-          {
-            set ['='](v) {
-              z = v;
-            },
-            get ['=']() {
-              return z;
-            }
-          }
-        ], 'examples/spread.js,ff', false)['='], [], 'examples/spread.js,ff')) {
+          () => z
+        ], 'examples/spread.js,ff', false), [], 'examples/spread.js,ff')) {
         __hook__('()', __hook__('w.', __with__, [
           'l1',
           () => l1
@@ -211,17 +204,10 @@ $hook$.global(__hook__, 'examples/spread.js,ff', 'ff', 'function')._p_ff = funct
               return p;
             }
           }
-        ], 'examples/spread.js,ff', false)['='] of __hook__('*', __hook__('w.=', __with__, [
+        ], 'examples/spread.js,ff', false)['='] of __hook__('*', __hook__('w.', __with__, [
           'a2',
-          {
-            set ['='](v) {
-              a2 = v;
-            },
-            get ['=']() {
-              return a2;
-            }
-          }
-        ], 'examples/spread.js,ff', false)['='], [], 'examples/spread.js,ff')) {
+          () => a2
+        ], 'examples/spread.js,ff', false), [], 'examples/spread.js,ff')) {
         __hook__('()', __hook__('w.', __with__, [
           'l2',
           () => l2

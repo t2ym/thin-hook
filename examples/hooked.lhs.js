@@ -100,6 +100,10 @@ __hook__('()', __hook__('.', chai, ['assert'], 'examples/lhs.js'), [
     'global LHS values'
   ]
 ], 'examples/lhs.js');
+for ($hook$.global(__hook__, 'examples/lhs.js', '_GV2', 'set')._p__GV2 in __hook__('*', $hook$.global(__hook__, 'examples/lhs.js', '_GV1', 'get')._p__GV1, [], 'examples/lhs.js')) {
+}
+for ($hook$.global(__hook__, 'examples/lhs.js', '_GV1', 'set')._p__GV1 of __hook__('*', $hook$.global(__hook__, 'examples/lhs.js', '_GV2', 'get')._p__GV2, [], 'examples/lhs.js')) {
+}
 $hook$.global(__hook__, 'examples/lhs.js', '_GO1', 'let')._p__GO1 = {}, $hook$.global(__hook__, 'examples/lhs.js', '_GO2', 'let')._p__GO2 = {};
 ({
   p1: __hook__('.=', _GO1, ['p1'], 'examples/lhs.js,p1')['='],
@@ -231,6 +235,10 @@ $hook$.global(__hook__, 'examples/lhs.js,lhsvalues', 'lhsvalues', 'function')._p
         'global LHS values'
       ]
     ], 'examples/lhs.js,lhsvalues');
+    for (lv2 in __hook__('*', lv1, [], 'examples/lhs.js,lhsvalues')) {
+    }
+    for (lv1 of __hook__('*', lv2, [], 'examples/lhs.js,lhsvalues')) {
+    }
     let lO1 = {}, lO2 = {};
     ({
       p1: __hook__('.=', lO1, ['p1'], 'examples/lhs.js,lhsvalues,p1')['='],
@@ -566,6 +574,36 @@ $hook$.global(__hook__, 'examples/lhs.js,lhsvalues', 'lhsvalues', 'function')._p
           'global LHS values'
         ]
       ], 'examples/lhs.js,lhsvalues');
+      for (__hook__('w.=', __with__, [
+          'wv2',
+          {
+            set ['='](v) {
+              wv2 = v;
+            },
+            get ['=']() {
+              return wv2;
+            }
+          }
+        ], 'examples/lhs.js,lhsvalues', false)['='] in __hook__('*', __hook__('w.', __with__, [
+          'wv1',
+          () => wv1
+        ], 'examples/lhs.js,lhsvalues', false), [], 'examples/lhs.js,lhsvalues')) {
+      }
+      for (__hook__('w.=', __with__, [
+          'wv1',
+          {
+            set ['='](v) {
+              wv1 = v;
+            },
+            get ['=']() {
+              return wv1;
+            }
+          }
+        ], 'examples/lhs.js,lhsvalues', false)['='] of __hook__('*', __hook__('w.', __with__, [
+          'wv2',
+          () => wv2
+        ], 'examples/lhs.js,lhsvalues', false), [], 'examples/lhs.js,lhsvalues')) {
+      }
       let wO1 = {}, wO2 = {};
       ({
         p1: __hook__('.=', __hook__('w.', __with__, [

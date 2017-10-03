@@ -156,17 +156,10 @@
               return x;
             }
           }
-        ], 'examples/with.js', false)['='] in __hook__('*', __hook__('w.=', __with__, [
+        ], 'examples/with.js', false)['='] in __hook__('*', __hook__('w.', __with__, [
           'y',
-          {
-            set ['='](v) {
-              y = v;
-            },
-            get ['=']() {
-              return y;
-            }
-          }
-        ], 'examples/with.js', false)['='], [], 'examples/with.js')) {
+          () => y
+        ], 'examples/with.js', false), [], 'examples/with.js')) {
       }
       for (__hook__('w.=', __with__, [
           'x',
@@ -178,17 +171,10 @@
               return x;
             }
           }
-        ], 'examples/with.js', false)['='] of __hook__('*', __hook__('w.=', __with__, [
+        ], 'examples/with.js', false)['='] of __hook__('*', __hook__('w.', __with__, [
           'y',
-          {
-            set ['='](v) {
-              y = v;
-            },
-            get ['=']() {
-              return y;
-            }
-          }
-        ], 'examples/with.js', false)['='], [], 'examples/with.js')) {
+          () => y
+        ], 'examples/with.js', false), [], 'examples/with.js')) {
       }
       switch (__hook__('w.', __with__, [
           'x',
@@ -697,17 +683,10 @@ with ($hook$.with({
           return p;
         }
       }
-    ], 'examples/with.js', false)['='] in __hook__('*', __hook__('w.=', __with__, [
+    ], 'examples/with.js', false)['='] in __hook__('*', __hook__('w.', __with__, [
       'z',
-      {
-        set ['='](v) {
-          z = v;
-        },
-        get ['=']() {
-          return z;
-        }
-      }
-    ], 'examples/with.js', false)['='], [], 'examples/with.js')) {
+      () => z
+    ], 'examples/with.js', false), [], 'examples/with.js')) {
     __hook__('()', __hook__('w.', __with__, [
       'l1',
       () => l1
@@ -751,17 +730,10 @@ with ($hook$.with({
           return p;
         }
       }
-    ], 'examples/with.js', false)['='] of __hook__('*', __hook__('w.=', __with__, [
+    ], 'examples/with.js', false)['='] of __hook__('*', __hook__('w.', __with__, [
       'a2',
-      {
-        set ['='](v) {
-          a2 = v;
-        },
-        get ['=']() {
-          return a2;
-        }
-      }
-    ], 'examples/with.js', false)['='], [], 'examples/with.js')) {
+      () => a2
+    ], 'examples/with.js', false), [], 'examples/with.js')) {
     __hook__('()', __hook__('w.', __with__, [
       'l2',
       () => l2

@@ -14,6 +14,8 @@ let [_GV11, ..._GV12] = [_GV7, ..._GV8];
 [_GV7['p3']['pp3'], ...[_GV8['p4'], _GV1[_GV2]]] = [_GV1.p1 = 1, ...[_GV2['p2'], _GV3[_GV2]]];
 chai.assert.equal(JSON.stringify([ _GV1, _GV2, _GV3, _GV4, _GV5, _GV6, _GV7, _GV8, _GV9, _GV10, _GV11, _GV12 ], null, 0),
   '[{"p1":1},[9],{"p1":1},[9],1,[9],{"p3":{"pp3":1}},[6,1,2],{"p3":{"pp3":1}},[6,1,2],{"p3":{"pp3":1}},[6,1,2]]', 'global LHS values');
+for (_GV2 in _GV1) {}
+for (_GV1 of _GV2) {}
 let _GO1 = {}, _GO2 = {};
 ({p1: _GO1.p1, ..._GO2} = {p1: 1, p2: 2, p3: 3})
 chai.assert.equal(JSON.stringify([_GO1, _GO2], null, 0), '[{"p1":1},{"p2":2,"p3":3}]', 'global LHS object values');
@@ -34,6 +36,8 @@ function lhsvalues() {
   [lv7['p3']['pp3'], ...[lv8['p4'], lv1[lv2]]] = [lv1.p1 = 1, ...[lv2['p2'], lv3[lv2]]];
   chai.assert.equal(JSON.stringify([ lv1, lv2, lv3, lv4, lv5, lv6, lv7, lv8, lv9, lv10, lv11, lv12 ], null, 0),
     '[{"p1":1},[9],{"p1":1},[9],1,[9],{"p3":{"pp3":1}},[6,1,2],{"p3":{"pp3":1}},[6,1,2],{"p3":{"pp3":1}},[6,1,2]]', 'global LHS values');
+  for (lv2 in lv1) {}
+  for (lv1 of lv2) {}
   let lO1 = {}, lO2 = {};
   ({p1: lO1.p1, ...lO2} = {p1: 1, p2: 2, p3: 3})
   chai.assert.equal(JSON.stringify([lO1, lO2], null, 0), '[{"p1":1},{"p2":2,"p3":3}]', 'global LHS object values');
@@ -55,6 +59,8 @@ function lhsvalues() {
     [wv7['p3']['pp3'], ...[wv8['p4'], wv1[wv2]]] = [wv1.p1 = 1, ...[wv2['p2'], wv3[wv2]]];
     chai.assert.equal(JSON.stringify([ wv1, wv2, wv3, wv4, wv5, wv6, wv7, wv8, wv9, wv10, wv11, wv12 ], null, 0),
       '[{"p1":1},[9],{"p1":1},[9],1,[9],{"p3":{"pp3":1}},[6,1,2],{"p3":{"pp3":1}},[6,1,2],{"p3":{"pp3":1}},[6,1,2]]', 'global LHS values');
+    for (wv2 in wv1) {}
+    for (wv1 of wv2) {}
     let wO1 = {}, wO2 = {};
     ({p1: wO1.p1, ...wO2} = {p1: 1, p2: 2, p3: 3})
     chai.assert.equal(JSON.stringify([wO1, wO2], null, 0), '[{"p1":1},{"p2":2,"p3":3}]', 'global LHS object values');
