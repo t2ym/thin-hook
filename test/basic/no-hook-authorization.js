@@ -18,4 +18,5 @@
         '/socket.io/socket.io.js'
       ].filter((path) => url.pathname.indexOf(path) === 0).length > 0
   ];
+  hook.parameters.hookWorker = 'hook-worker.js?no-hook=true';
 }

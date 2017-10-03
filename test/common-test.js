@@ -76,6 +76,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
   }
   common.test = (base) => class LoadPage extends base {
     async operation() {
+      await hook._collectHookWorkerCoverage();
     }
     async checkpoint() {
     }
@@ -104,6 +105,20 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             in a single sub suite by setting WCT.share.__coverage__* as other coverage data
           */
           WCT.share.__coverage__service_worker__ = this.swCoverage;
+        }
+        this.hwCoverage = await hook._collectHookWorkerCoverage();
+        if (this.hwCoverage.length > 0) {
+          this.hwCoverage.forEach((coverage, index) => {
+            if (coverage) {
+              WCT.share['__coverage__hook_worker_' + index + '__'] = coverage;
+            }
+            else {
+              throw new Error('UnregisterServiceWorker: empty hook worker coverage for index = ' + index);
+            }
+          });
+        }
+        else {
+          throw new Error('UnregisterServiceWorker: no hook worker coverage data');
         }
       }
       this.swStatus = this.swRegistration ? await this.swRegistration.unregister() : false;

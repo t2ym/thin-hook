@@ -236,7 +236,7 @@ gulp.task('build:coverage', () => {
       // append service worker registration code
       originalAst.body[0].expression.callee.body.body[0].alternate.alternate.body[5] = serviceWorkerRegistrationAst;
       _trimStartEndRaw(originalAst);
-      let minifiedCode = escodegen.generate(originalAst, { format: { compact: false } });
+      let minifiedCode = escodegen.generate(originalAst, { format: { compact: true } });
       let minifiedAst = espree.parse(minifiedCode, espreeOptions);
       _trimStartEndRaw(minifiedAst);
       let originalAstJson = JSON.stringify(originalAst, null, 2);
