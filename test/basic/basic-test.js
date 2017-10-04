@@ -179,7 +179,14 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         BlockStatement: [
           // block scope
           { name: 'empty', code: '{}', hooked: '{}' },
-          { code: '{ 1; }', hooked: '{1;}' },
+          { name: 'block scope', code: '{ let a; }', hooked: '{let a;}' },
+          // FunctionBody
+          {
+            name: 'FunctionBody',
+            code: '(function f() {return 1})',
+            hooked: `(function f(){return __hook__(()=>{return 1;},null,arguments,\'${this.context},f\');});`,
+            eval: 'call'
+          },
         ],
         ArrayExpression: [
           { name: 'empty Array', code: `[]`, hooked: `[];` },
