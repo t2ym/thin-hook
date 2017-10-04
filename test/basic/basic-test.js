@@ -267,6 +267,12 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             hooked: `with($hook$.with({a:2},{})){while(__hook__('w--',__with__,['a',()=>a--],'HookApiTest',false)){};__hook__('w.',__with__,['a',()=>a],'HookApiTest',false);}`,
           },
         ],
+        DoWhileStatement: [
+          {
+            code: 'with({a: 2}) { do { 1; } while (a--); a; }',
+            hooked: `with($hook$.with({a:2},{})){do{1;}while(__hook__('w--',__with__,['a',()=>a--],'HookApiTest',false));__hook__('w.',__with__,['a',()=>a],'HookApiTest',false);}`,
+          }
+        ],
         ArrayExpression: [
           { name: 'empty Array', code: `[]`, hooked: `[];` },
           { name: 'Array', code: `[1,'a',true]`, hooked: `[1,'a',true];` },
