@@ -285,6 +285,25 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             hooked: `with($hook$.with({a:0,b:{x:1,y:2}},{})){let c=0;for(__hook__('w.=',__with__,['a',{set ['='](v){a=v;},get ['='](){return a;}}],'HookApiTest',false)['=']in __hook__('*',__hook__('w.',__with__,['b',()=>b],'HookApiTest',false),[],'HookApiTest')){__hook__('w+=',__with__,['c',__hook__('.',__hook__('w.',__with__,['b',()=>b],'HookApiTest',false),[__hook__('w.',__with__,['a',()=>a],'HookApiTest',false)],'HookApiTest'),v=>c+=v],'HookApiTest',false);}__hook__('w.',__with__,['c',()=>c],'HookApiTest',false);}`,
           },
         ],
+        VariableDeclaration: [
+          {
+            code: 'var a = 2; a;',
+            hooked: `$hook$.global(__hook__,'HookApiTest','a','var')._pp_a=2;$hook$.global(__hook__,'HookApiTest','a','get')._pp_a;`,
+          },
+          {
+            code: '{ let a = 3; a; }',
+            hooked: `{let a=3;a;}`,
+          },
+          {
+            code: '{ const a = 4; a; }',
+            hooked: `{const a=4;a;}`,
+          },
+          {
+            code: '(function () { var a = 10; return a; })',
+            hooked: `(function(){return __hook__(()=>{var a=10;return a;},null,arguments,'HookApiTest');});`,
+            eval: 'call',
+          }
+        ],
         ArrayExpression: [
           { name: 'empty Array', code: `[]`, hooked: `[];` },
           { name: 'Array', code: `[1,'a',true]`, hooked: `[1,'a',true];` },
