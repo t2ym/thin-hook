@@ -242,6 +242,12 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             hooked: `$hook$.global(__hook__,'HookApiTest','a','var')._pp_a=1;switch($hook$.global(__hook__,'HookApiTest','a','get')._pp_a){case 1:1;break;default:2;break;}`,
           },
         ],
+        SwitchCase: [
+          {
+            code: 'var a = 1, b = 2; switch (a) { case b: 1; break; default: 2; break; }',
+            hooked: `$hook$.global(__hook__,'HookApiTest','a','var')._pp_a=1,$hook$.global(__hook__,'HookApiTest','b','var')._pp_b=2;switch($hook$.global(__hook__,'HookApiTest','a','get')._pp_a){case $hook$.global(__hook__,'HookApiTest','b','get')._pp_b:1;break;default:2;break;}`,
+          },
+        ],
         ArrayExpression: [
           { name: 'empty Array', code: `[]`, hooked: `[];` },
           { name: 'Array', code: `[1,'a',true]`, hooked: `[1,'a',true];` },
