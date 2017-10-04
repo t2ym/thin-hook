@@ -321,6 +321,36 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             hooked: `__hook__('.',{get a(){return __hook__(()=>{return 1;},null,arguments,'HookApiTest,get a');},set a(v){return __hook__(v=>{__hook__('=',this,['_a',v],'HookApiTest,set a');},null,arguments,'HookApiTest,set a');}},['a'],'HookApiTest');`,
           },
         ],
+        UnaryExpression: [
+          {
+            code: 'with({a:2}){-a;}',
+            hooked: `with($hook$.with({a:2},{})){-__hook__('w.',__with__,['a',()=>a],'HookApiTest',false);}`,
+          },
+          {
+            code: 'with({a:2}){+a;}',
+            hooked: `with($hook$.with({a:2},{})){+__hook__('w.',__with__,['a',()=>a],'HookApiTest',false);}`,
+          },
+          {
+            code: 'with({a:2}){!a;}',
+            hooked: `with($hook$.with({a:2},{})){!__hook__('w.',__with__,['a',()=>a],'HookApiTest',false);}`,
+          },
+          {
+            code: 'with({a:2}){~a;}',
+            hooked: `with($hook$.with({a:2},{})){~__hook__('w.',__with__,['a',()=>a],'HookApiTest',false);}`,
+          },
+          {
+            code: 'with({a:2}){typeof a;}',
+            hooked: `with($hook$.with({a:2},{})){__hook__('wtypeof',__with__,['a',()=>typeof a],'HookApiTest',false);}`,
+          },
+          {
+            code: 'with({a:2}){delete a;}',
+            hooked: `with($hook$.with({a:2},{})){__hook__('wdelete',__with__,['a',()=>delete a],'HookApiTest',false);}`,
+          },
+          {
+            code: 'with({a:2}){void a;}',
+            hooked: `with($hook$.with({a:2},{})){void __hook__('w.',__with__,['a',()=>a],'HookApiTest',false);}`,
+          },
+        ],
       };
     }
     * iteration() {
