@@ -184,7 +184,7 @@ const exec = require('child_process').exec;
 gulp.task('build:instrument', () => {
   return gulp.src([ 'hook.js', 'lib/*.js' ], { base: '.' })
     .pipe(through.obj((file, end, callback) => {
-      exec('nyc instrument ' + file.path, { maxBuffer: 10 * 1024 * 1024 }, function (err, stdout, stderr) {
+      exec('nyc instrument ' + path.relative(file.cwd, file.path), { maxBuffer: 10 * 1024 * 1024 }, function (err, stdout, stderr) {
         if (err) {
           callback(err)
         }
