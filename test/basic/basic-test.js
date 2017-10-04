@@ -271,7 +271,13 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           {
             code: 'with({a: 2}) { do { 1; } while (a--); a; }',
             hooked: `with($hook$.with({a:2},{})){do{1;}while(__hook__('w--',__with__,['a',()=>a--],'HookApiTest',false));__hook__('w.',__with__,['a',()=>a],'HookApiTest',false);}`,
-          }
+          },
+        ],
+        ForStatement: [
+          {
+            code: 'with({a: 0, b: 2, c: 0}) { for(a;b;c) { break; } b; }',
+            hooked: `with($hook$.with({a:0,b:2,c:0},{})){for(__hook__('w.=',__with__,['a',{set ['='](v){a=v;},get ['='](){return a;}}],'HookApiTest',false)['='];__hook__('w.',__with__,['b',()=>b],'HookApiTest',false);__hook__('w.',__with__,['c',()=>c],'HookApiTest',false)){break;}__hook__('w.',__with__,['b',()=>b],'HookApiTest',false);}`,
+          },
         ],
         ArrayExpression: [
           { name: 'empty Array', code: `[]`, hooked: `[];` },
