@@ -261,6 +261,12 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             hooked: `try{$hook$.global(__hook__,'HookApiTest','x','get')._pp_x;}catch(e){__hook__('.',e,['name'],'HookApiTest');}`,
           },
         ],
+        WhileStatement: [
+          {
+            code: 'with({a: 2}) { while (a-- > 0) {}; a; }',
+            hooked: `with($hook$.with({a:2},{})){while(__hook__('w--',__with__,['a',()=>a--],'HookApiTest',false)>0){};__hook__('w.',__with__,['a',()=>a],'HookApiTest',false);}`,
+          },
+        ],
         ArrayExpression: [
           { name: 'empty Array', code: `[]`, hooked: `[];` },
           { name: 'Array', code: `[1,'a',true]`, hooked: `[1,'a',true];` },
