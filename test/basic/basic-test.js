@@ -208,6 +208,15 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             options: 'initialScope', customOptionParams: { initialScope: { i: true, j: true, k: true } },
           },
         ],
+        BreakStatement: [
+          { name: 'no label', code: 'for (let i = 0; i < 3; i++) { break; }', hooked: 'for(let i=0;i<3;i++){break;}' },
+          {
+            name: 'labeled',
+            code: 'let i = 0, j = 0, k = 0; label1: while (i++ < 3) { k += i; label2: while (j++ < 3) { k += j; break label1; } } k;',
+            hooked: 'let i=0,j=0,k=0;label1:while(i++<3){k+=i;label2:while(j++<3){k+=j;break label1;}}k;',
+            options: 'initialScope', customOptionParams: { initialScope: { i: true, j: true, k: true } },
+          },
+        ],
         ArrayExpression: [
           { name: 'empty Array', code: `[]`, hooked: `[];` },
           { name: 'Array', code: `[1,'a',true]`, hooked: `[1,'a',true];` },
