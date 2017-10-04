@@ -351,6 +351,24 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             hooked: `with($hook$.with({a:2},{})){void __hook__('w.',__with__,['a',()=>a],'HookApiTest',false);}`,
           },
         ],
+        UpdateExpression: [
+          {
+            code: 'with({a:2}){a++;}',
+            hooked: `with($hook$.with({a:2},{})){__hook__('w++',__with__,['a',()=>a++],'HookApiTest',false);}`,
+          },
+          {
+            code: 'with({a:2}){a--;}',
+            hooked: `with($hook$.with({a:2},{})){__hook__('w--',__with__,['a',()=>a--],'HookApiTest',false);}`,
+          },
+          {
+            code: 'with({a:2}){++a;}',
+            hooked: `with($hook$.with({a:2},{})){__hook__('++w',__with__,['a',()=>++a],'HookApiTest',false);}`,
+          },
+          {
+            code: 'with({a:2}){--a;}',
+            hooked: `with($hook$.with({a:2},{})){__hook__('--w',__with__,['a',()=>--a],'HookApiTest',false);}`,
+          },
+        ],
       };
     }
     * iteration() {
