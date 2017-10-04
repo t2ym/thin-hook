@@ -172,6 +172,10 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             eval: 'call'
           },
         ],
+        ExpressionStatement: [
+          { code: '1;', hooked: '1;' },
+          { code: 'a;', hooked: 'a;', eval: 'throw', options: 'initialScope', customOptionParams: { initialScope: { a: true } } },
+        ],
         ArrayExpression: [
           { name: 'empty Array', code: `[]`, hooked: `[];` },
           { name: 'Array', code: `[1,'a',true]`, hooked: `[1,'a',true];` },
