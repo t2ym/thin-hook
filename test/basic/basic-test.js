@@ -255,6 +255,12 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             eval: 'throw',
           },
         ],
+        TryStatement: [
+          {
+            code: 'try { x; } catch (e) { e.name; }',
+            hooked: `try{$hook$.global(__hook__,'HookApiTest','x','get')._pp_x;}catch(e){__hook__('.',e,['name'],'HookApiTest');}`,
+          },
+        ],
         ArrayExpression: [
           { name: 'empty Array', code: `[]`, hooked: `[];` },
           { name: 'Array', code: `[1,'a',true]`, hooked: `[1,'a',true];` },
