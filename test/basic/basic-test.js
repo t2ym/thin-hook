@@ -33,53 +33,53 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     }
     async checkpoint() {
       if (this.hasToSkip) { return; }
+      assert.isOk(hook, 'hook is defined');
+      assert.isOk(hook instanceof Function, 'hook is an instance of Function');
       const hookApiList = {
-        hook: {
-          hookHtml: Function,
-          contextGenerators: {
-            'null': Function,
-            'astPath': Function,
-            'method': Function,
-            'cachedMethod': Function,
-            'cachedMethodDebug': Function,
-          },
-          __hook__: Function,
-          __hook_except_properties__: Function,
-          hookCallbackCompatibilityTest: Function,
-          hook: Function,
-          global: Function,
-          Function: Function,
-          FunctionArguments: Function,
-          eval: Function,
-          setTimeout: Function,
-          setInterval: Function,
-          Node: Function,
-          Element: Function,
-          HTMLAnchorElement: Function,
-          HTMLAreaElement: Function,
-          HTMLScriptElement: Function,
-          Document: Function,
-          with: Function,
-          serviceWorkerHandlers: {
-            install: Function,
-            activate: Function,
-            message: Function,
-            fetch: Function,
-          },
-          serviceWorkerTransformers: {
-            encodeHtml: Function,
-            decodeHtml: Function,
-          },
-          hookWorkerHandler: Function,
-          _collectHookWorkerCoverage: Function,
-          registerServiceWorker: Function,
-          utils: {
-            createHash: Function,
-          },
-          parameters: Object,
-        }
+        hookHtml: Function,
+        contextGenerators: {
+          'null': Function,
+          'astPath': Function,
+          'method': Function,
+          'cachedMethod': Function,
+          'cachedMethodDebug': Function,
+        },
+        __hook__: Function,
+        __hook_except_properties__: Function,
+        hookCallbackCompatibilityTest: Function,
+        hook: Function,
+        global: Function,
+        Function: Function,
+        FunctionArguments: Function,
+        eval: Function,
+        setTimeout: Function,
+        setInterval: Function,
+        Node: Function,
+        Element: Function,
+        HTMLAnchorElement: Function,
+        HTMLAreaElement: Function,
+        HTMLScriptElement: Function,
+        Document: Function,
+        with: Function,
+        serviceWorkerHandlers: {
+          install: Function,
+          activate: Function,
+          message: Function,
+          fetch: Function,
+        },
+        serviceWorkerTransformers: {
+          encodeHtml: Function,
+          decodeHtml: Function,
+        },
+        hookWorkerHandler: Function,
+        _collectHookWorkerCoverage: Function,
+        registerServiceWorker: Function,
+        utils: {
+          createHash: Function,
+        },
+        parameters: Object,
       };
-      this.checkApi(window, hookApiList, 'hook');
+      this.checkApi(hook, hookApiList.hook, 'hook');
     }
   }
   basic.test = {
