@@ -226,6 +226,16 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             options: 'initialScope', customOptionParams: { initialScope: { i: true, j: true, k: true } },
           },
         ],
+        IfStatement: [
+          {
+            code: 'var a = 1, b = 2; if (a < b) { a; }',
+            hooked: `$hook$.global(__hook__,'HookApiTest','a','var')._pp_a=1,$hook$.global(__hook__,'HookApiTest','b','var')._pp_b=2;if($hook$.global(__hook__,'HookApiTest','a','get')._pp_a<$hook$.global(__hook__,'HookApiTest','b','get')._pp_b){$hook$.global(__hook__,'HookApiTest','a','get')._pp_a;}`,
+          },
+          {
+            code: 'var a = 3, b = 2; if (a < b) { a; } else { b; }',
+            hooked: `$hook$.global(__hook__,'HookApiTest','a','var')._pp_a=3,$hook$.global(__hook__,'HookApiTest','b','var')._pp_b=2;if($hook$.global(__hook__,'HookApiTest','a','get')._pp_a<$hook$.global(__hook__,'HookApiTest','b','get')._pp_b){$hook$.global(__hook__,'HookApiTest','a','get')._pp_a;}else{$hook$.global(__hook__,'HookApiTest','b','get')._pp_b;}`,
+          },
+        ],
         ArrayExpression: [
           { name: 'empty Array', code: `[]`, hooked: `[];` },
           { name: 'Array', code: `[1,'a',true]`, hooked: `[1,'a',true];` },
@@ -321,6 +331,9 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       }
     }
     async checkpoint(parameters) {
+      if (this.hooked !== parameters.hooked) {
+        console.log(this.hooked);
+      }
       assert.equal(this.hooked, parameters.hooked, 'hooked "' + parameters.code + '"');
       if (this.originalResult instanceof Object) {
         assert.equal(JSON.stringify(this.result, null, 0), JSON.stringify(this.originalResult, null, 0), 'hooked result from hooked "' + name + '"');
