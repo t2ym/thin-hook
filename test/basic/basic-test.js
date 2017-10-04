@@ -263,8 +263,8 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         ],
         WhileStatement: [
           {
-            code: 'with({a: 2}) { while (a-- > 0) {}; a; }',
-            hooked: `with($hook$.with({a:2},{})){while(__hook__('w--',__with__,['a',()=>a--],'HookApiTest',false)>0){};__hook__('w.',__with__,['a',()=>a],'HookApiTest',false);}`,
+            code: 'with({a: 2}) { while (a--) {}; a; }',
+            hooked: `with($hook$.with({a:2},{})){while(__hook__('w--',__with__,['a',()=>a--],'HookApiTest',false)){};__hook__('w.',__with__,['a',()=>a],'HookApiTest',false);}`,
           },
         ],
         ArrayExpression: [
