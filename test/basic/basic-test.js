@@ -315,6 +315,11 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         ObjectExpression: [
           { name: 'Object', code: `({})`, hooked: `({});` },
           { name: 'Object', code: `({a:1,b:2})`, hooked: `({a:1,b:2});` },
+          {
+            name: 'accessors',
+            code: `({get a() { return 1; }, set a(v) { this._a = v; }}).a`,
+            hooked: `__hook__('.',{get a(){return __hook__(()=>{return 1;},null,arguments,'HookApiTest,get a');},set a(v){return __hook__(v=>{__hook__('=',this,['_a',v],'HookApiTest,set a');},null,arguments,'HookApiTest,set a');}},['a'],'HookApiTest');`,
+          },
         ],
       };
     }
