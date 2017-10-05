@@ -506,6 +506,24 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
               `$hook$.global(__hook__,'HookApiTest','a','set')._pp_a&=$hook$.global(__hook__,'HookApiTest','b','get')._pp_b;`,
           },
         ],
+        LogicalExpression: [
+          {
+            code: `{ let a = false, b = true; a && b; a || b; }`,
+            hooked: `{let a=false,b=true;a&&b;a||b;}`,
+          },
+          {
+            code: `with ({a:false,b:true}) { a && b; a || b; }`,
+            hooked: `with($hook$.with({a:false,b:true},{})){` +
+              `__hook__('w.',__with__,['a',()=>a],'HookApiTest',false)&&__hook__('w.',__with__,['b',()=>b],'HookApiTest',false);` +
+              `__hook__('w.',__with__,['a',()=>a],'HookApiTest',false)||__hook__('w.',__with__,['b',()=>b],'HookApiTest',false);}`,
+          },
+          {
+            code: `var a = false, b = true; a && b; a || b;`,
+            hooked: `$hook$.global(__hook__,'HookApiTest','a','var')._pp_a=false,$hook$.global(__hook__,'HookApiTest','b','var')._pp_b=true;` +
+              `$hook$.global(__hook__,'HookApiTest','a','get')._pp_a&&$hook$.global(__hook__,'HookApiTest','b','get')._pp_b;` +
+              `$hook$.global(__hook__,'HookApiTest','a','get')._pp_a||$hook$.global(__hook__,'HookApiTest','b','get')._pp_b;`,
+          },
+        ],
       };
     }
     * iteration() {
