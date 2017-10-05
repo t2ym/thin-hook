@@ -596,6 +596,21 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             hooked: `$hook$.global(__hook__,'HookApiTest','a','var')._pp_a=class{};__hook__(a,null,[1],'HookApiTest',true);`,
           },
         ],
+        SequenceExpression: [
+          {
+            code: `{ let a, b; a, b; }`,
+            hooked: `{let a,b;a,b;}`,
+          },
+          {
+            code: `with ({a:1,b:2}) { a, b; }`,
+            hooked: `with($hook$.with({a:1,b:2},{})){__hook__('w.',__with__,['a',()=>a],'HookApiTest',false),__hook__('w.',__with__,['b',()=>b],'HookApiTest',false);}`,
+          },
+          {
+            code: `var a, b; a, b;`,
+            hooked: `$hook$.global(__hook__,'HookApiTest','a','var')._pp_a,$hook$.global(__hook__,'HookApiTest','b','var')._pp_b;` +
+              `$hook$.global(__hook__,'HookApiTest','a','get')._pp_a,$hook$.global(__hook__,'HookApiTest','b','get')._pp_b;`,
+          },
+        ],
       };
     }
     * iteration() {
