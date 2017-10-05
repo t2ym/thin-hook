@@ -562,6 +562,23 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
               `$hook$.global(__hook__,'HookApiTest','a','get')._pp_a?$hook$.global(__hook__,'HookApiTest','b','get')._pp_b:$hook$.global(__hook__,'HookApiTest','c','get')._pp_c;`,
           },
         ],
+        CallExpression: [
+          {
+            code: `{ let a = 1, f = function (a) { return a + 1; }; f(a); }`,
+            hooked: `{let a=1,f=function(a){return __hook__(a=>{return a+1;},null,arguments,'HookApiTest,f');};__hook__(f,null,[a],'HookApiTest',0);}`,
+          },
+          {
+            code: `{ function f(a) { return a + 1; } with ({a:1}) { f(a); } }`,
+            hooked: `{function f(a){return __hook__(a=>{return a+1;},null,arguments,'HookApiTest,f');}` +
+              `with($hook$.with({a:1},{f:true})){__hook__('w()',__with__,['f',[__hook__('w.',__with__,['a',()=>a],'HookApiTest',false)],(...args)=>f(...args)],'HookApiTest',false);}}`,
+          },
+          {
+            code: `var a = 1, f = function (a) { return a + 1; }; f(a);`,
+            hooked: `$hook$.global(__hook__,'HookApiTest','a','var')._pp_a=1,` +
+              `$hook$.global(__hook__,'HookApiTest','f','var')._pp_f=function(a){return __hook__(a=>{return a+1;},null,arguments,'HookApiTest');};` +
+              `__hook__(f,null,[$hook$.global(__hook__,'HookApiTest','a','get')._pp_a],'HookApiTest',0);`,
+          },
+        ],
       };
     }
     * iteration() {
