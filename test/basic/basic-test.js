@@ -365,10 +365,20 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             hooked: `{const a=4;a;}`,
           },
           {
+            code: 'let a = 3;',
+            hooked: `$hook$.global(__hook__,'HookApiTest','a','let')._pp_a=3;`,
+            eval: () => true,
+          },
+          {
+            code: 'const a = 4;',
+            hooked: `$hook$.global(__hook__,'HookApiTest','a','const')._pp_a=4;`,
+            eval: () => true,
+          },
+          {
             code: '(function () { var a = 10; return a; })',
             hooked: `(function(){return __hook__(()=>{var a=10;return a;},null,arguments,'HookApiTest');});`,
             eval: 'call',
-          }
+          },
         ],
         ThisExpression: [
           { code: 'this === window', hooked: `this===$hook$.global(__hook__,'HookApiTest','window','get')._pp_window;` },
