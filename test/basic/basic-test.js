@@ -388,6 +388,35 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           { name: 'Array', code: `[1,'a',true]`, hooked: `[1,'a',true];` },
           { name: 'Array', code: `[1,,true]`, hooked: `[1,,true];` },
         ],
+        SpreadElement: [
+          {
+            code: `{ let a = [3, 4]; [1, 2, ...a] }`,
+            hooked: `{let a=[3,4];[1,2,...a];}`,
+          },
+          {
+            code: `{ with ({a:[3, 4]}) { [1, 2, ...a] } }`,
+            hooked: `{with($hook$.with({a:[3,4]},{})){[1,2,...__hook__('w.',__with__,['a',()=>a],'HookApiTest',false)];}}`,
+          },
+          {
+            code: `var a = [3, 4]; [1, 2, ...a]`,
+            hooked: `$hook$.global(__hook__,'HookApiTest','a','var')._pp_a=[3,4];[1,2,...$hook$.global(__hook__,'HookApiTest','a','get')._pp_a];`,
+          },
+          {
+            code: `{ let a = [3, 4], f = a => a; f(1, 2, ...a); }`,
+            hooked: `{let a=[3,4],f=(...args)=>__hook__(a=>a,null,args,'HookApiTest,f');__hook__(f,null,[1,2,...a],'HookApiTest',0);}`,
+          },
+          {
+            code: `{ let a = [3, 4], f = a => a; with ({}) { f(1, 2, ...a); } }`,
+            hooked: `{let a=[3,4],f=(...args)=>__hook__(a=>a,null,args,'HookApiTest,f');with($hook$.with({},{a:true,f:true})){` +
+              `__hook__('w()',__with__,['f',[1,2,...__hook__('w.',__with__,['a',()=>a],'HookApiTest',false)],(...args)=>f(...args)],'HookApiTest',false);}}`,
+          },
+          {
+            code: `var a = [3, 4], f = a => a; f(1, 2, ...a);`,
+            hooked: `$hook$.global(__hook__,'HookApiTest','a','var')._pp_a=[3,4],` +
+              `$hook$.global(__hook__,'HookApiTest','f','var')._pp_f=(...args)=>__hook__(a=>a,null,args,'HookApiTest');` +
+              `__hook__(f,null,[1,2,...$hook$.global(__hook__,'HookApiTest','a','get')._pp_a],'HookApiTest',0);`,
+          },
+        ],
         ObjectExpression: [
           { name: 'Object', code: `({})`, hooked: `({});` },
           { name: 'Object', code: `({a:1,b:2})`, hooked: `({a:1,b:2});` },
