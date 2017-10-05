@@ -609,6 +609,17 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
               `__hook__('=',a,['b',2],'HookApiTest');` +
               `__hook__('=',a,[$hook$.global(__hook__,'HookApiTest','b','get')._pp_b,2],'HookApiTest');`,
           },
+          {
+            code: `{ class b { constructor(p) { this._p = p; } get p() { return this._p; }} class c extends b { get p() { let _p = 'p'; return super[_p] + super['p'] + super.p; } } (new c(1)).p; }`,
+            hooked: `{class b{constructor(p){return __hook__(p=>{__hook__('=',this,['_p',p],'HookApiTest,b,constructor');},null,arguments,'HookApiTest,b,constructor');}` +
+              `get p(){return __hook__(()=>{return __hook__('.',this,['_p'],'HookApiTest,b,get p');},null,arguments,'HookApiTest,b,get p');}}` +
+              `class c extends b{get p(){return __hook__(()=>{let _p='p';return ` +
+                `__hook__('s.',this,[_p,p=>super[p]],'HookApiTest,c,get p')+` +
+                `__hook__('s.',this,['p',p=>super[p]],'HookApiTest,c,get p')+` +
+                `__hook__('s.',this,['p',p=>super[p]],'HookApiTest,c,get p');},null,arguments,'HookApiTest,c,get p');}}` +
+                `__hook__('.',__hook__(c,null,[1],'HookApiTest',true),['p'],'HookApiTest');}`,
+            //options: 'compact=false',
+          },
         ],
         ConditionalExpression: [
           {
