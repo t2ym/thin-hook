@@ -381,6 +381,82 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             hooked: `with($hook$.with({a:2},{})){__hook__('--w',__with__,['a',()=>--a],'HookApiTest',false);}`,
           },
         ],
+        BinaryExpression: [
+          {
+            code: '{ let a = 1, b = 2; a + b; a - b; a / b; a * b; a % b; a | b; a ^ b; a & b; a == b; a != b; a === b; a !== b; a < b; a <= b; a > b; a >= b; a << b; a >> b; a >>> b; }',
+            hooked: `{let a=1,b=2;a+b;a-b;a/b;a*b;a%b;a|b;a^b;a&b;a==b;a!=b;a===b;a!==b;a<b;a<=b;a>b;a>=b;a<<b;a>>b;a>>>b;}`,
+          },
+          {
+            code: 'with ({a:1,b:2}) { a + b; a - b; a / b; a * b; a % b; a | b; a ^ b; a & b; a == b; a != b; a === b; a !== b; a < b; a <= b; a > b; a >= b; a << b; a >> b; a >>> b; }',
+            hooked: `with($hook$.with({a:1,b:2},{})){` +
+              `__hook__('w.',__with__,['a',()=>a],'HookApiTest',false)+__hook__('w.',__with__,['b',()=>b],'HookApiTest',false);` +
+              `__hook__('w.',__with__,['a',()=>a],'HookApiTest',false)-__hook__('w.',__with__,['b',()=>b],'HookApiTest',false);` +
+              `__hook__('w.',__with__,['a',()=>a],'HookApiTest',false)/__hook__('w.',__with__,['b',()=>b],'HookApiTest',false);` +
+              `__hook__('w.',__with__,['a',()=>a],'HookApiTest',false)*__hook__('w.',__with__,['b',()=>b],'HookApiTest',false);` +
+              `__hook__('w.',__with__,['a',()=>a],'HookApiTest',false)%__hook__('w.',__with__,['b',()=>b],'HookApiTest',false);` +
+              `__hook__('w.',__with__,['a',()=>a],'HookApiTest',false)|__hook__('w.',__with__,['b',()=>b],'HookApiTest',false);` +
+              `__hook__('w.',__with__,['a',()=>a],'HookApiTest',false)^__hook__('w.',__with__,['b',()=>b],'HookApiTest',false);` +
+              `__hook__('w.',__with__,['a',()=>a],'HookApiTest',false)&__hook__('w.',__with__,['b',()=>b],'HookApiTest',false);` +
+              `__hook__('w.',__with__,['a',()=>a],'HookApiTest',false)==__hook__('w.',__with__,['b',()=>b],'HookApiTest',false);` +
+              `__hook__('w.',__with__,['a',()=>a],'HookApiTest',false)!=__hook__('w.',__with__,['b',()=>b],'HookApiTest',false);` +
+              `__hook__('w.',__with__,['a',()=>a],'HookApiTest',false)===__hook__('w.',__with__,['b',()=>b],'HookApiTest',false);` +
+              `__hook__('w.',__with__,['a',()=>a],'HookApiTest',false)!==__hook__('w.',__with__,['b',()=>b],'HookApiTest',false);` +
+              `__hook__('w.',__with__,['a',()=>a],'HookApiTest',false)<__hook__('w.',__with__,['b',()=>b],'HookApiTest',false);` +
+              `__hook__('w.',__with__,['a',()=>a],'HookApiTest',false)<=__hook__('w.',__with__,['b',()=>b],'HookApiTest',false);` +
+              `__hook__('w.',__with__,['a',()=>a],'HookApiTest',false)>__hook__('w.',__with__,['b',()=>b],'HookApiTest',false);` +
+              `__hook__('w.',__with__,['a',()=>a],'HookApiTest',false)>=__hook__('w.',__with__,['b',()=>b],'HookApiTest',false);` +
+              `__hook__('w.',__with__,['a',()=>a],'HookApiTest',false)<<__hook__('w.',__with__,['b',()=>b],'HookApiTest',false);` +
+              `__hook__('w.',__with__,['a',()=>a],'HookApiTest',false)>>__hook__('w.',__with__,['b',()=>b],'HookApiTest',false);` +
+              `__hook__('w.',__with__,['a',()=>a],'HookApiTest',false)>>>__hook__('w.',__with__,['b',()=>b],'HookApiTest',false);}`,
+          },
+          {
+            code: 'var a = 1, b = 2; a + b; a - b; a / b; a * b; a % b; a | b; a ^ b; a & b; a == b; a != b; a === b; a !== b; a < b; a <= b; a > b; a >= b; a << b; a >> b; a >>> b;',
+            hooked: `$hook$.global(__hook__,'HookApiTest','a','var')._pp_a=1,$hook$.global(__hook__,'HookApiTest','b','var')._pp_b=2;` +
+              `$hook$.global(__hook__,'HookApiTest','a','get')._pp_a+$hook$.global(__hook__,'HookApiTest','b','get')._pp_b;` +
+              `$hook$.global(__hook__,'HookApiTest','a','get')._pp_a-$hook$.global(__hook__,'HookApiTest','b','get')._pp_b;` +
+              `$hook$.global(__hook__,'HookApiTest','a','get')._pp_a/$hook$.global(__hook__,'HookApiTest','b','get')._pp_b;` +
+              `$hook$.global(__hook__,'HookApiTest','a','get')._pp_a*$hook$.global(__hook__,'HookApiTest','b','get')._pp_b;` +
+              `$hook$.global(__hook__,'HookApiTest','a','get')._pp_a%$hook$.global(__hook__,'HookApiTest','b','get')._pp_b;` +
+              `$hook$.global(__hook__,'HookApiTest','a','get')._pp_a|$hook$.global(__hook__,'HookApiTest','b','get')._pp_b;` +
+              `$hook$.global(__hook__,'HookApiTest','a','get')._pp_a^$hook$.global(__hook__,'HookApiTest','b','get')._pp_b;` +
+              `$hook$.global(__hook__,'HookApiTest','a','get')._pp_a&$hook$.global(__hook__,'HookApiTest','b','get')._pp_b;` +
+              `$hook$.global(__hook__,'HookApiTest','a','get')._pp_a==$hook$.global(__hook__,'HookApiTest','b','get')._pp_b;` +
+              `$hook$.global(__hook__,'HookApiTest','a','get')._pp_a!=$hook$.global(__hook__,'HookApiTest','b','get')._pp_b;` +
+              `$hook$.global(__hook__,'HookApiTest','a','get')._pp_a===$hook$.global(__hook__,'HookApiTest','b','get')._pp_b;` +
+              `$hook$.global(__hook__,'HookApiTest','a','get')._pp_a!==$hook$.global(__hook__,'HookApiTest','b','get')._pp_b;` +
+              `$hook$.global(__hook__,'HookApiTest','a','get')._pp_a<$hook$.global(__hook__,'HookApiTest','b','get')._pp_b;` +
+              `$hook$.global(__hook__,'HookApiTest','a','get')._pp_a<=$hook$.global(__hook__,'HookApiTest','b','get')._pp_b;` +
+              `$hook$.global(__hook__,'HookApiTest','a','get')._pp_a>$hook$.global(__hook__,'HookApiTest','b','get')._pp_b;` +
+              `$hook$.global(__hook__,'HookApiTest','a','get')._pp_a>=$hook$.global(__hook__,'HookApiTest','b','get')._pp_b;` +
+              `$hook$.global(__hook__,'HookApiTest','a','get')._pp_a<<$hook$.global(__hook__,'HookApiTest','b','get')._pp_b;` +
+              `$hook$.global(__hook__,'HookApiTest','a','get')._pp_a>>$hook$.global(__hook__,'HookApiTest','b','get')._pp_b;` +
+              `$hook$.global(__hook__,'HookApiTest','a','get')._pp_a>>>$hook$.global(__hook__,'HookApiTest','b','get')._pp_b;`,
+          },
+          {
+            code: `{ let a = 'a', b = { a: 1 }; a in b; }`,
+            hooked: `{let a='a',b={a:1};__hook__('in',b,[a],'HookApiTest');}`,
+          },
+          {
+            code: `with ({a:'a', b:{ a: 1 }}) { a in b; }`,
+            hooked: `with($hook$.with({a:'a',b:{a:1}},{})){__hook__('in',__hook__('w.',__with__,['b',()=>b],'HookApiTest',false),[__hook__('w.',__with__,['a',()=>a],'HookApiTest',false)],'HookApiTest');}`,
+          },
+          {
+            code: `var a = 'a', b = { a: 1 }; a in b;`,
+            hooked: `$hook$.global(__hook__,'HookApiTest','a','var')._pp_a='a',$hook$.global(__hook__,'HookApiTest','b','var')._pp_b={a:1};__hook__('in',$hook$.global(__hook__,'HookApiTest','b','get')._pp_b,[$hook$.global(__hook__,'HookApiTest','a','get')._pp_a],'HookApiTest');`,
+          },
+          {
+            code: `{ let a = {}; a instanceof Object; }`,
+            hooked: `{let a={};a instanceof $hook$.global(__hook__,'HookApiTest','Object','get')._pp_Object;}`,
+          },
+          {
+            code: `with ({a:{}}) { a instanceof Object; }`,
+            hooked: `with($hook$.with({a:{}},{})){__hook__('w.',__with__,['a',()=>a],'HookApiTest',false)instanceof __hook__('w.',__with__,['Object',()=>Object],'HookApiTest',false);}`,
+          },
+          {
+            code: `var a = {}; a instanceof Object;`,
+            hooked: `$hook$.global(__hook__,'HookApiTest','a','var')._pp_a={};$hook$.global(__hook__,'HookApiTest','a','get')._pp_a instanceof $hook$.global(__hook__,'HookApiTest','Object','get')._pp_Object;`,
+          },
+        ],
       };
     }
     * iteration() {
