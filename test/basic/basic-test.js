@@ -115,6 +115,9 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         case 'initialScope':
           options[10] = customOptionParams.initialScope;
           break;
+        case 'compact=false':
+          options[7] = false;
+          break;
         default:
           break;
         }
@@ -655,6 +658,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       delete this.result;
       delete this.hooked;
       this.hooked = hook(code, ...parameters.options);
+      //console.log(this.hooked);
       if (asynchronous) {
         this.originalResult = await evaluator(code);
         this.result = await evaluator(this.hooked);
