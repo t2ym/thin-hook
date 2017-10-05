@@ -426,6 +426,24 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             hooked: `__hook__('.',{get a(){return __hook__(()=>{return 1;},null,arguments,'HookApiTest,get a');},set a(v){return __hook__(v=>{__hook__('=',this,['_a',v],'HookApiTest,set a');},null,arguments,'HookApiTest,set a');}},['a'],'HookApiTest');`,
           },
         ],
+        Property: [
+          {
+            code: `{ let a = 1, b = 2; ({ m(p) { return p; }, [a]: b }); }`,
+            hooked: `{let a=1,b=2;({m(p){return __hook__(p=>{return p;},null,arguments,'HookApiTest,m');},[a]:b});}`,
+          },
+          {
+            code: `{ with ({a:1,b:2}) { ({ m(p) { return p; }, [a]: b }); } }`,
+            hooked: `{with($hook$.with({a:1,b:2},{})){` +
+              `({m(p){return __hook__(p=>{return __hook__('w.',__with__,['p',()=>p],'HookApiTest,m',false);},null,arguments,'HookApiTest,m');},` +
+              `[__hook__('w.',__with__,['a',()=>a],'HookApiTest,a',false)]:__hook__('w.',__with__,['b',()=>b],'HookApiTest,a',false)});}}`,
+          },
+          {
+            code: `var a = 1, b = 2; ({ m(p) { return p; }, [a]: b });`,
+            hooked: `$hook$.global(__hook__,'HookApiTest','a','var')._pp_a=1,$hook$.global(__hook__,'HookApiTest','b','var')._pp_b=2;` +
+              `({m(p){return __hook__(p=>{return p;},null,arguments,'HookApiTest,m');},` +
+              `[$hook$.global(__hook__,'HookApiTest,a','a','get')._pp_a]:$hook$.global(__hook__,'HookApiTest,a','b','get')._pp_b});`,
+          },
+        ],
         UnaryExpression: [
           {
             code: 'with({a:2}){-a;}',
