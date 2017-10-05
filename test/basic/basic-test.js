@@ -276,7 +276,19 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         ForStatement: [
           {
             code: 'with({a: 0, b: 2, c: 0}) { for(a;b;c) { break; } b; }',
-            hooked: `with($hook$.with({a:0,b:2,c:0},{})){for(__hook__('w.=',__with__,['a',{set ['='](v){a=v;},get ['='](){return a;}}],'HookApiTest',false)['='];__hook__('w.',__with__,['b',()=>b],'HookApiTest',false);__hook__('w.',__with__,['c',()=>c],'HookApiTest',false)){break;}__hook__('w.',__with__,['b',()=>b],'HookApiTest',false);}`,
+            hooked: `with($hook$.with({a:0,b:2,c:0},{})){for(__hook__('w.',__with__,['a',()=>a],'HookApiTest',false);__hook__('w.',__with__,['b',()=>b],'HookApiTest',false);__hook__('w.',__with__,['c',()=>c],'HookApiTest',false)){break;}__hook__('w.',__with__,['b',()=>b],'HookApiTest',false);}`,
+          },
+          {
+            code: 'with({a: 0, b: 2, c: 0}) { for(a=1;b;c++) { break; } b; }',
+            hooked: `with($hook$.with({a:0,b:2,c:0},{})){for(__hook__('w=',__with__,['a',1,v=>a=v],'HookApiTest',false);__hook__('w.',__with__,['b',()=>b],'HookApiTest',false);__hook__('w++',__with__,['c',()=>c++],'HookApiTest',false)){break;}__hook__('w.',__with__,['b',()=>b],'HookApiTest',false);}`,
+          },
+          {
+            code: 'with({b: 2, c: 0}) { for(let a=1;b>c;c++) { break; } c; }',
+            hooked: `with($hook$.with({b:2,c:0},{})){for(let a=1;__hook__('w.',__with__,['b',()=>b],'HookApiTest',false)>__hook__('w.',__with__,['c',()=>c],'HookApiTest',false);__hook__('w++',__with__,['c',()=>c++],'HookApiTest',false)){break;}__hook__('w.',__with__,['c',()=>c],'HookApiTest',false);}`,
+          },
+          {
+            code: 'var [a,b,c] = [0,2,0]; for(a;b;c) { break; } b;',
+            hooked: `[$hook$.global(__hook__,'HookApiTest','a','var')._pp_a,$hook$.global(__hook__,'HookApiTest','b','var')._pp_b,$hook$.global(__hook__,'HookApiTest','c','var')._pp_c]=[0,2,0];for($hook$.global(__hook__,'HookApiTest','a','get')._pp_a;$hook$.global(__hook__,'HookApiTest','b','get')._pp_b;$hook$.global(__hook__,'HookApiTest','c','get')._pp_c){break;}$hook$.global(__hook__,'HookApiTest','b','get')._pp_b;`,
           },
         ],
         ForInStatement: [
