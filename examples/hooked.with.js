@@ -128,17 +128,10 @@
         'x',
         () => x
       ], 'examples/with.js', false));
-      for (__hook__('w.=', __with__, [
+      for (__hook__('w.', __with__, [
           'x',
-          {
-            set ['='](v) {
-              x = v;
-            },
-            get ['=']() {
-              return x;
-            }
-          }
-        ], 'examples/with.js', false)['=']; __hook__('w.', __with__, [
+          () => x
+        ], 'examples/with.js', false); __hook__('w.', __with__, [
           'y',
           () => y
         ], 'examples/with.js', false); __hook__('w.', __with__, [
