@@ -320,6 +320,17 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         ],
         WithStatement: [
           { name: 'simple', code: 'with ({a:1}) {a;}', hooked: `with($hook$.with({a:1},{})){__hook__('w.',__with__,['a',()=>a],'HookApiTest',false);}` },
+          {
+            name: 'nested',
+            code: `var o0 = { z: 1 }; { with (o0) { let o1 = { a: 2 }; with (o1) { let o2 = { b: 3 }; with (o2) { a + b + z; } } } }`,
+            hooked: `$hook$.global(__hook__,'HookApiTest','o0','var')._pp_o0={z:1};{` +
+              `with($hook$.with($hook$.global(__hook__,'HookApiTest','o0','get')._pp_o0,{})){let o1={a:2};` +
+              `with($hook$.with(__hook__('w.',__with__,['o1',()=>o1],'HookApiTest',false),{o1:true},...__with__)){let o2={b:3};` +
+              `with($hook$.with(__hook__('w.',__with__,['o2',()=>o2],'HookApiTest',false),{o2:true},...__with__)){` +
+              `__hook__('w.',__with__,['a',()=>a],'HookApiTest',false)+` +
+              `__hook__('w.',__with__,['b',()=>b],'HookApiTest',false)+` +
+              `__hook__('w.',__with__,['z',()=>z],'HookApiTest',false);}}}}`,
+          },
         ],
         ReturnStatement: [
           {
