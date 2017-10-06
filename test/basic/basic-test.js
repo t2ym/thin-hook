@@ -1107,6 +1107,30 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
               `__hook__('.',__hook__(c,null,[1],'HookApiTest',true),['p'],'HookApiTest');}`,
           },
         ],
+        AwaitExpression: [
+          {
+            code: `{ async function f() { return 1; } async function f2() { return await f(); } f2(); }`,
+            hooked: `{async function f(){return __hook__(async()=>{return 1;},null,arguments,'HookApiTest,f');}` +
+              `async function f2(){return __hook__(async()=>{return await __hook__(f,null,[],'HookApiTest,f2',0);},null,arguments,'HookApiTest,f2');}` +
+              `__hook__(f2,null,[],'HookApiTest',0);}`,
+            asynchronous: true,
+          },
+          {
+            code: `{ with ({}) { async function f() { return 1; } async function f2() { return await f(); } f2(); } }`,
+            hooked: `{with($hook$.with({},{})){` +
+              `async function f(){return __hook__(async()=>{return 1;},null,arguments,'HookApiTest,f');}` +
+              `async function f2(){return __hook__(async()=>{return await __hook__('w()',__with__,['f',[],(...args)=>f(...args)],'HookApiTest,f2',false);},null,arguments,'HookApiTest,f2');}` +
+              `__hook__('w()',__with__,['f2',[],(...args)=>f2(...args)],'HookApiTest',false);}}`,
+            asynchronous: true,
+          },
+          {
+            code: `async function f() { return 1; } async function f2() { return await f(); } f2();`,
+            hooked: `$hook$.global(__hook__,'HookApiTest,f','f','function')._pp_f=async function f(){return __hook__(async()=>{return 1;},null,arguments,'HookApiTest,f');};` +
+              `$hook$.global(__hook__,'HookApiTest,f2','f2','function')._pp_f2=async function f2(){return __hook__(async()=>{return await __hook__(f,null,[],'HookApiTest,f2',0);},null,arguments,'HookApiTest,f2');};` +
+              `__hook__(f2,null,[],'HookApiTest',0);`,
+            asynchronous: true,
+          },
+        ],
         NewExpression: [
           {
             code: `{ let a = class {}; new a(1); }`,
