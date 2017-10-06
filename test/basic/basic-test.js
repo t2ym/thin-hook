@@ -947,6 +947,27 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             code: 'with({a:2}){void a;}',
             hooked: `with($hook$.with({a:2},{})){void __hook__('w.',__with__,['a',()=>a],'HookApiTest',false);}`,
           },
+          {
+            code: `{ let o = { p: 1, q: 2 }; delete o.p; delete o['q']; o; }`,
+            hooked: `{let o={p:1,q:2};__hook__('delete',o,['p'],'HookApiTest');__hook__('delete',o,['q'],'HookApiTest');o;}`,
+          },
+          {
+            code: `{ with ({o:{ p: 1, q: 2 }}) { delete o.p; o; } }`,
+            hooked: `{with($hook$.with({o:{p:1,q:2}},{})){__hook__('delete',__hook__('w.',__with__,['o',()=>o],'HookApiTest',false),['p'],'HookApiTest');` +
+              `__hook__('w.',__with__,['o',()=>o],'HookApiTest',false);}}`,
+          },
+          {
+            code: `var o = { p: 1, q: 2 }; delete o.p; o;`,
+            hooked: `$hook$.global(__hook__,'HookApiTest','o','var')._pp_o={p:1,q:2};` +
+              `__hook__('delete',o,['p'],'HookApiTest');$hook$.global(__hook__,'HookApiTest','o','get')._pp_o;`,
+          },
+          {
+            code: `var oo = 1; !oo; typeof oo; delete oo; true;`,
+            hooked: `$hook$.global(__hook__,'HookApiTest','oo','var')._pp_oo=1;` +
+              `!$hook$.global(__hook__,'HookApiTest','oo','get')._pp_oo;` +
+              `typeof $hook$.global(__hook__,'HookApiTest','oo','typeof')._pp_oo;` +
+              `$hook$.global(__hook__,'HookApiTest','oo','delete');true;`,
+          },
         ],
         UpdateExpression: [
           {
