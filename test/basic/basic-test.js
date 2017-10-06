@@ -239,6 +239,23 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             hooked: `$hook$.global(__hook__,'HookApiTest,f','f','function')._pp_f=function*f(v){yield*__hook__(function*(v){yield v;},this,arguments,'HookApiTest,f');};` +
               `__hook__('()',__hook__(f,null,[],'HookApiTest',0),['next',[]],'HookApiTest');`,
           },
+          {
+            code: '{ async function f() {return 1} f(); }',
+            hooked: `{async function f(){return __hook__(async()=>{return 1;},null,arguments,'HookApiTest,f');}__hook__(f,null,[],'HookApiTest',0);}`,
+            asynchronous: true,
+          },
+          {
+            code: '{ with({}) { async function f() {return 1} f(); } }',
+            hooked: `{with($hook$.with({},{})){async function f(){return __hook__(async()=>{return 1;},null,arguments,'HookApiTest,f');}` +
+              `__hook__('w()',__with__,['f',[],(...args)=>f(...args)],'HookApiTest',false);}}`,
+            asynchronous: true,
+          },
+          {
+            code: 'async function f() {return 1} f();',
+            hooked: `$hook$.global(__hook__,'HookApiTest,f','f','function')._pp_f=async function f(){return __hook__(async()=>{return 1;},null,arguments,'HookApiTest,f');};` +
+              `__hook__(f,null,[],'HookApiTest',0);`,
+            asynchronous: true,
+          },
         ],
         FunctionExpression: [
           {
