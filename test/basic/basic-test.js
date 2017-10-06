@@ -1325,6 +1325,13 @@ export const name7 = 3, name8 = 4;`,
             eval: () => true,
           },
         ],
+        ExportAllDeclaration: [
+          {
+            code: `export * from 'module.js';`,
+            hooked: `export*from'module.js';`,
+            eval: () => true,
+          },
+        ],
       };
     }
     * iteration() {
