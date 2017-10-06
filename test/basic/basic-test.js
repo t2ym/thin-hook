@@ -979,6 +979,19 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
               `$hook$.global(__hook__,'HookApiTest','a','set')._pp_a^=$hook$.global(__hook__,'HookApiTest','b','get')._pp_b;` +
               `$hook$.global(__hook__,'HookApiTest','a','set')._pp_a&=$hook$.global(__hook__,'HookApiTest','b','get')._pp_b;`,
           },
+          {
+            code: `{ let a = 2, b = 3; a **= b; }`,
+            hooked: `{let a=2,b=3;a**=b;}`,
+          },
+          {
+            code: `{ with ({a:2,b:3}) { a **= b; } }`,
+            hooked: `{with($hook$.with({a:2,b:3},{})){__hook__('w**=',__with__,['a',__hook__('w.',__with__,['b',()=>b],'HookApiTest',false),v=>a**=v],'HookApiTest',false);}}`,
+          },
+          {
+            code: `var a = 2, b = 3; a **= b;`,
+            hooked: `$hook$.global(__hook__,'HookApiTest','a','var')._pp_a=2,$hook$.global(__hook__,'HookApiTest','b','var')._pp_b=3;` +
+              `$hook$.global(__hook__,'HookApiTest','a','set')._pp_a**=$hook$.global(__hook__,'HookApiTest','b','get')._pp_b;`,
+          },
         ],
         LogicalExpression: [
           {
