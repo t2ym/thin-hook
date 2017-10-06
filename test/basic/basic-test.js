@@ -637,6 +637,30 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
               `$hook$.global(__hook__,'HookApiTest','e','get')._pp_e,` +
               `$hook$.global(__hook__,'HookApiTest','f','get')._pp_f];`,
           },
+          {
+            code: `{ function f(...a) { return a; } f(1,2,3); }`,
+            hooked: `{function f(...a){return __hook__((...a)=>{return a;},null,arguments,'HookApiTest,f');}__hook__(f,null,[1,2,3],'HookApiTest',0);}`,
+          },
+          {
+            code: `{ (function f(...a) { return a; })(1,2,3); }`,
+            hooked: `{__hook__(function f(...a){return __hook__((...a)=>{return a;},null,arguments,'HookApiTest,f');},null,[1,2,3],'HookApiTest',0);}`,
+          },
+          {
+            code: `{ ((...a) => a)(1,2,3); }`,
+            hooked: `{__hook__((...args)=>__hook__((...a)=>a,null,args,'HookApiTest'),null,[1,2,3],'HookApiTest',0);}`,
+          },
+          {
+            code: `{ function f([...a]) { return a; } f([1,2,3]); }`,
+            hooked: `{function f(...args){return __hook__(([...a])=>{return a;},null,args,'HookApiTest,f');}__hook__(f,null,[[1,2,3]],'HookApiTest',0);}`,
+          },
+          {
+            code: `{ (function f([...a]) { return a; })([1,2,3]); }`,
+            hooked: `{__hook__(function f(...args){return __hook__(([...a])=>{return a;},null,args,'HookApiTest,f');},null,[[1,2,3]],'HookApiTest',0);}`,
+          },
+          {
+            code: `{ (([...a]) => a)([1,2,3]); }`,
+            hooked: `{__hook__((...args)=>__hook__(([...a])=>a,null,args,'HookApiTest'),null,[[1,2,3]],'HookApiTest',0);}`,
+          },
         ],
         SpreadElement: [
           {
