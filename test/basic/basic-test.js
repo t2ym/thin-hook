@@ -1292,6 +1292,11 @@ export const name7 = 3, name8 = 4;`,
             options: 'compact=false',
             eval: () => true,
           },
+          {
+            code: `export { name1, name2 as alias2 } from 'module.js';`,
+            hooked: `export{undefined,undefined as alias2}from'module.js';`,
+            eval: () => true,
+          },
         ],
         ExportDefaultDeclaration: [
           {
