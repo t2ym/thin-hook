@@ -294,6 +294,10 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             hooked: `$hook$.global(__hook__,'HookApiTest','a','var')._pp_a=[1];` +
               `{with($hook$.with({},{})){__hook__('()',function*f(){yield*__hook__(function*(){yield*__hook__('w.',__with__,['a',()=>a],'HookApiTest,f',false);},this,arguments,'HookApiTest,f');}(),['next',[]],'HookApiTest');}}`,
           },
+          {
+            code: '(function * f(v) {yield;})().next();',
+            hooked: `__hook__('()',__hook__(function*f(v){yield*__hook__(function*(v){yield;},this,arguments,'HookApiTest,f');},null,[],'HookApiTest',0),['next',[]],'HookApiTest');`,
+          },
         ],
         LabeledStatement: [
           {
