@@ -1285,6 +1285,31 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
                 `p=>{__hook__((newTarget,...args)=>super(...args),null,[new.target,p],'HookApiTest,c,constructor','');},null,arguments,'HookApiTest,c,constructor');}}` +
               `__hook__('.',__hook__(c,null,[1],'HookApiTest',true),['p'],'HookApiTest');}`,
           },
+          {
+            code: `{ class b { m(p) { return p + 1; } } class c extends b { m(p) { return super.m(p) + super['m'](p); } } (new c()).m(1); }`,
+            hooked: `{class b{m(p){return __hook__(p=>{return p+1;},null,arguments,'HookApiTest,b,m');}}` +
+              `class c extends b{m(p){return __hook__(p=>{return __hook__('s()',this,['m',[p],p=>super[p]],'HookApiTest,c,m')+` +
+              `__hook__('s()',this,['m',[p],p=>super[p]],'HookApiTest,c,m');},null,arguments,'HookApiTest,c,m');}}` +
+              `__hook__('()',__hook__(c,null,[],'HookApiTest',true),['m',[1]],'HookApiTest');}`,
+          },
+          {
+            code: `{ with ({}) { let o = { f: function f() { return 1; } }; o.f() + o['f'](); } }`,
+            hooked: `{with($hook$.with({},{})){let o={f:function f(){return __hook__(()=>{return 1;},null,arguments,'HookApiTest,o,f,f');}};` +
+              `__hook__('()',__hook__('w.',__with__,['o',()=>o],'HookApiTest',false),['f',[]],'HookApiTest')+` +
+              `__hook__('()',__hook__('w.',__with__,['o',()=>o],'HookApiTest',false),['f',[]],'HookApiTest');}}`,
+          },
+          {
+            code: `{ let a = 1; eval('1'); }`,
+            hooked: `{let a=1;$hook$.eval('__hook__',[['HookApiTest',{}]],'cachedMethod',{a:true})('1',(script,eval)=>eval(script));}`,
+            eval: () => true,
+          },
+          {
+            code: `var a; new Promise(resolve => { a = resolve; setTimeout('let resolve = a; a = null; resolve(1);', 100); });`,
+            hooked: `$hook$.global(__hook__,'HookApiTest','a','var')._pp_a;` +
+              `__hook__(Promise,null,[(...args)=>(__hook__(resolve=>{$hook$.global(__hook__,'HookApiTest','a','set')._pp_a=resolve;` +
+              `$hook$.setTimeout('__hook__',[['HookApiTest',{}]],'cachedMethod')('let resolve = a; a = null; resolve(1);',100);},null,args,'HookApiTest'))],'HookApiTest',true);`,
+            asynchronous: true,
+          },
         ],
         AwaitExpression: [
           {
