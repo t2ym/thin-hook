@@ -950,6 +950,22 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         ],
         UpdateExpression: [
           {
+            code: `{ let a = 2, b = { p: 3 }; a++; b.p++; b['p']++; [a,b]; }`,
+            hooked: `{let a=2,b={p:3};a++;__hook__('p++',b,['p'],'HookApiTest');__hook__('p++',b,['p'],'HookApiTest');[a,b];}`,
+          },
+          {
+            code: `{ with ({a:2,b:{p:3}}) { a++; b.p++; [a,b]; } }`,
+            hooked: `{with($hook$.with({a:2,b:{p:3}},{})){__hook__('w++',__with__,['a',()=>a++],'HookApiTest',false);__hook__('p++',__hook__('w.',__with__,['b',()=>b],'HookApiTest',false),['p'],'HookApiTest');[__hook__('w.',__with__,['a',()=>a],'HookApiTest',false),__hook__('w.',__with__,['b',()=>b],'HookApiTest',false)];}}`,
+          },
+          {
+            code: `var a = 2, b = { p: 3 }; a++; b.p++; [a,b];`,
+            hooked: `$hook$.global(__hook__,'HookApiTest','a','var')._pp_a=2,` +
+              `$hook$.global(__hook__,'HookApiTest','b','var')._pp_b={p:3};` +
+              `$hook$.global(__hook__,'HookApiTest','a','set')._pp_a++;` +
+              `__hook__('p++',b,['p'],'HookApiTest');` +
+              `[$hook$.global(__hook__,'HookApiTest','a','get')._pp_a,$hook$.global(__hook__,'HookApiTest','b','get')._pp_b];`,
+          },
+          {
             code: 'with({a:2}){a++;}',
             hooked: `with($hook$.with({a:2},{})){__hook__('w++',__with__,['a',()=>a++],'HookApiTest',false);}`,
           },
@@ -964,6 +980,32 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           {
             code: 'with({a:2}){--a;}',
             hooked: `with($hook$.with({a:2},{})){__hook__('--w',__with__,['a',()=>--a],'HookApiTest',false);}`,
+          },
+          {
+            code: `{ class c { static get m() { return this._m; } static set m(v) { this._m = v; } } class c2 extends c { static get m2() { return ++super['m']; } } c2.m = 2; c2.m2; }`,
+            hooked: `{class c{static get m(){return __hook__(()=>{return __hook__('.',this,['_m'],'HookApiTest,c,get m');},null,arguments,'HookApiTest,c,get m');}` +
+              `static set m(v){return __hook__(v=>{__hook__('=',this,['_m',v],'HookApiTest,c,set m');},null,arguments,'HookApiTest,c,set m');}}` +
+              `class c2 extends c{static get m2(){return __hook__(()=>{return __hook__('++s',this,['m',p=>++super[p]],'HookApiTest,c2,get m2');},null,arguments,'HookApiTest,c2,get m2');}}` +
+              `__hook__('=',c2,['m',2],'HookApiTest');__hook__('.',c2,['m2'],'HookApiTest');}`,
+          },
+          {
+            code: `{ with ({}) { class c { static get m() { return this._m; } static set m(v) { this._m = v; } } class c2 extends c { static get m2() { return ++super.m; } } c2.m = 2; c2.m2; } }`,
+            hooked: `{with($hook$.with({},{})){class c{static get m(){return __hook__(()=>{return __hook__('.',this,['_m'],'HookApiTest,c,get m');},null,arguments,'HookApiTest,c,get m');}` +
+              `static set m(v){return __hook__(v=>{__hook__('=',this,['_m',__hook__('w.',__with__,['v',()=>v],'HookApiTest,c,set m',false)],'HookApiTest,c,set m');},null,arguments,'HookApiTest,c,set m');}}` +
+              `class c2 extends __hook__('w.',__with__,['c',()=>c],'HookApiTest,c2',false){` +
+              `static get m2(){return __hook__(()=>{return __hook__('++s',this,['m',p=>++super[p]],'HookApiTest,c2,get m2');},null,arguments,'HookApiTest,c2,get m2');}}` +
+              `__hook__('=',c2,['m',2],'HookApiTest');__hook__('.',__hook__('w.',__with__,['c2',()=>c2],'HookApiTest',false),['m2'],'HookApiTest');}}`,
+          },
+          {
+            code: `class c { static get m() { return this._m; } static set m(v) { this._m = v; } } class c2 extends c { static get m2() { return ++super.m; } } c2.m = 2; c2.m2;`,
+            hooked: `$hook$.global(__hook__,'HookApiTest,c','c','class')._pp_c=` +
+              `class c{static get m(){return __hook__(()=>{return __hook__('.',this,['_m'],'HookApiTest,c,get m');},null,arguments,'HookApiTest,c,get m');}` +
+              `static set m(v){return __hook__(v=>{__hook__('=',this,['_m',v],'HookApiTest,c,set m');},null,arguments,'HookApiTest,c,set m');}};` +
+              `$hook$.global(__hook__,'HookApiTest,c2','c2','class')._pp_c2=` +
+              `class c2 extends $hook$.global(__hook__,'HookApiTest,c2','c','get')._pp_c{` +
+              `static get m2(){return __hook__(()=>{return __hook__('++s',this,['m',p=>++super[p]],'HookApiTest,c2,get m2');},null,arguments,'HookApiTest,c2,get m2');}};` +
+              `__hook__('=',c2,['m',2],'HookApiTest');__hook__('.',c2,['m2'],'HookApiTest');`,
+            eval: () => true,
           },
         ],
         BinaryExpression: [
