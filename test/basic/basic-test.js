@@ -255,6 +255,46 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             eval: 'call'
           },
         ],
+        YieldExpression: [
+          {
+            code: '(function * f(v) {yield v;})().next(1);',
+            hooked: `__hook__('()',__hook__(function*f(v){yield*__hook__(function*(v){yield v;},this,arguments,'HookApiTest,f');},null,[],'HookApiTest',0),['next',[1]],'HookApiTest');`,
+          },
+          {
+            code: '{ with ({}) { (function * f(v) {yield v;})(1).next(); } }',
+            hooked: `{with($hook$.with({},{})){__hook__('()',` +
+              `function*f(v){yield*__hook__(function*(v){yield __hook__('w.',__with__,['v',()=>v],'HookApiTest,f',false);},this,arguments,'HookApiTest,f');}(1),['next',[]],'HookApiTest');}}`,
+          },
+          {
+            code: '(function * f(v) {yield *v;})([1]).next();',
+            hooked: `__hook__('()',__hook__(function*f(v){yield*__hook__(function*(v){yield*v;},this,arguments,'HookApiTest,f');},null,[[1]],'HookApiTest',0),['next',[]],'HookApiTest');`,
+          },
+          {
+            code: '{ with ({}) { (function * f(v) {yield *v;})([1]).next(); } }',
+            hooked: `{with($hook$.with({},{})){__hook__('()',` +
+              `function*f(v){yield*__hook__(function*(v){yield*__hook__('w.',__with__,['v',()=>v],'HookApiTest,f',false);},this,arguments,'HookApiTest,f');}([1]),['next',[]],'HookApiTest');}}`,
+          },
+          {
+            code: 'var a = 1; (function * f() {yield a;})().next();',
+            hooked: `$hook$.global(__hook__,'HookApiTest','a','var')._pp_a=1;` +
+              `__hook__('()',__hook__(function*f(){yield*__hook__(function*(){yield $hook$.global(__hook__,'HookApiTest,f','a','get')._pp_a;},this,arguments,'HookApiTest,f');},null,[],'HookApiTest',0),['next',[]],'HookApiTest');`,
+          },
+          {
+            code: 'var a = [1]; (function * f() {yield *a;})().next();',
+            hooked: `$hook$.global(__hook__,'HookApiTest','a','var')._pp_a=[1];` +
+              `__hook__('()',__hook__(function*f(){yield*__hook__(function*(){yield*$hook$.global(__hook__,'HookApiTest,f','a','get')._pp_a;},this,arguments,'HookApiTest,f');},null,[],'HookApiTest',0),['next',[]],'HookApiTest');`,
+          },
+          {
+            code: 'var a = 1; { with({}) { (function * f() {yield a;})().next(); } }',
+            hooked: `$hook$.global(__hook__,'HookApiTest','a','var')._pp_a=1;` +
+              `{with($hook$.with({},{})){__hook__('()',function*f(){yield*__hook__(function*(){yield __hook__('w.',__with__,['a',()=>a],'HookApiTest,f',false);},this,arguments,'HookApiTest,f');}(),['next',[]],'HookApiTest');}}`,
+          },
+          {
+            code: 'var a = [1]; { with({}) { (function * f() {yield *a;})().next(); } }',
+            hooked: `$hook$.global(__hook__,'HookApiTest','a','var')._pp_a=[1];` +
+              `{with($hook$.with({},{})){__hook__('()',function*f(){yield*__hook__(function*(){yield*__hook__('w.',__with__,['a',()=>a],'HookApiTest,f',false);},this,arguments,'HookApiTest,f');}(),['next',[]],'HookApiTest');}}`,
+          },
+        ],
         LabeledStatement: [
           {
             code: 'let i = 0, j = 0, k = 0; label1: while (i++ < 3) { k += i; label2: while (j++ < 3) { k += j; break label1; } } k;',
