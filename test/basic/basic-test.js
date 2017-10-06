@@ -1093,6 +1093,38 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
               `$hook$.global(__hook__,'HookApiTest','a','get')._pp_a,$hook$.global(__hook__,'HookApiTest','b','get')._pp_b;`,
           },
         ],
+        ClassDeclaration: [
+          {
+            code: `{ class a {} class b extends a {} }`,
+            hooked: `{class a{}class b extends a{}}`,
+          },
+          {
+            code: `{ with ({}) { class a {} class b extends a {} } }`,
+            hooked: `{with($hook$.with({},{})){class a{}class b extends __hook__('w.',__with__,['a',()=>a],'HookApiTest,b',false){}}}`,
+          },
+          {
+            code: `class a {} class b extends a {}`,
+            hooked: `$hook$.global(__hook__,'HookApiTest,a','a','class')._pp_a=class a{};` +
+              `$hook$.global(__hook__,'HookApiTest,b','b','class')._pp_b=class b extends $hook$.global(__hook__,'HookApiTest,b','a','get')._pp_a{};`,
+            eval: () => true,
+          },
+        ],
+        ClassExpression: [
+          {
+            code: `{ let a = class a {}; let b = class b extends a {}; }`,
+            hooked: `{let a=class a{};let b=class b extends a{};}`,
+          },
+          {
+            code: `{ with ({}) { let a = class a {}; let b = class b extends a {}; } }`,
+            hooked: `{with($hook$.with({},{})){let a=class a{};let b=class b extends __hook__('w.',__with__,['a',()=>a],'HookApiTest,b,b',false){};}}`,
+          },
+          {
+            code: `var a = class a {}; var b = class b extends a {};`,
+            hooked: `$hook$.global(__hook__,'HookApiTest','a','var')._pp_a=class a{};` +
+              `$hook$.global(__hook__,'HookApiTest','b','var')._pp_b=class b extends $hook$.global(__hook__,'HookApiTest,b','a','get')._pp_a{};`,
+            eval: () => true,
+          },
+        ],
       };
     }
     * iteration() {
