@@ -761,6 +761,37 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
               `__hook__(f,null,[1,2,...$hook$.global(__hook__,'HookApiTest','a','get')._pp_a],'HookApiTest',0);`,
           },
         ],
+        ExperimentalSpreadProperty: [
+          {
+            code: `{ let o = {a:1,b:2}; o = {c:3,...o}; }`,
+            hooked: `{let o={a:1,b:2};o={c:3,...__hook__('*',o,[],'HookApiTest')};}`,
+          },
+          {
+            code: `{ with ({o:{a:1,b:2}}) { o = {c:3,...o}; } }`,
+            hooked: `{with($hook$.with({o:{a:1,b:2}},{})){` +
+              `__hook__('w=',__with__,['o',{c:3,...__hook__('*',__hook__('w.',__with__,['o',()=>o],'HookApiTest',false),[],'HookApiTest')},v=>o=v],'HookApiTest',false);}}`,
+          },
+          {
+            code: `var o = {a:1,b:2}; o = {c:3,...o};`,
+            hooked: `$hook$.global(__hook__,'HookApiTest','o','var')._pp_o={a:1,b:2};` +
+              `$hook$.global(__hook__,'HookApiTest','o','set')._pp_o={c:3,...__hook__('*',$hook$.global(__hook__,'HookApiTest','o','get')._pp_o,[],'HookApiTest')};`,
+          },
+          {
+            code: `{ let o = {a:1,b:{c:4}}; o = {c:3,...o.b}; }`,
+            hooked: `{let o={a:1,b:{c:4}};o={c:3,...__hook__('*',__hook__('.',o,['b'],'HookApiTest'),[],'HookApiTest')};}`,
+          },
+          {
+            code: `{ with ({o:{a:1,b:{c:4}}}) { o = {c:3,...o.b}; } }`,
+            hooked: `{with($hook$.with({o:{a:1,b:{c:4}}},{})){` +
+              `__hook__('w=',__with__,['o',{c:3,` +
+              `...__hook__('*',__hook__('.',__hook__('w.',__with__,['o',()=>o],'HookApiTest',false),['b'],'HookApiTest'),[],'HookApiTest')},v=>o=v],'HookApiTest',false);}}`,
+          },
+          {
+            code: `var o = {a:1,b:{c:4}}; o = {c:3,...o.b};`,
+            hooked: `$hook$.global(__hook__,'HookApiTest','o','var')._pp_o={a:1,b:{c:4}};` +
+              `$hook$.global(__hook__,'HookApiTest','o','set')._pp_o={c:3,...__hook__('*',__hook__('.',o,['b'],'HookApiTest'),[],'HookApiTest')};`,
+          },
+        ],
         ObjectExpression: [
           { name: 'Object', code: `({})`, hooked: `({});` },
           { name: 'Object', code: `({a:1,b:2})`, hooked: `({a:1,b:2});` },
