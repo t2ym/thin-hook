@@ -1179,6 +1179,15 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             hooked: `$hook$.global(__hook__,'HookApiTest','a','var')._pp_a=2,$hook$.global(__hook__,'HookApiTest','b','var')._pp_b=3;` +
               `$hook$.global(__hook__,'HookApiTest','a','set')._pp_a**=$hook$.global(__hook__,'HookApiTest','b','get')._pp_b;`,
           },
+          {
+            code: `{ class c { static get m() { return this._m; } static set m(v) { this._m = v; } } ` +
+              `class c2 extends c { static get m2() { super['m'] = super.m; return super.m = super['m']; } } c2.m = 2; c2.m2; }`,
+            hooked: `{class c{static get m(){return __hook__(()=>{return __hook__('.',this,['_m'],'HookApiTest,c,get m');},null,arguments,'HookApiTest,c,get m');}` +
+              `static set m(v){return __hook__(v=>{__hook__('=',this,['_m',v],'HookApiTest,c,set m');},null,arguments,'HookApiTest,c,set m');}}` +
+              `class c2 extends c{static get m2(){return __hook__(()=>{__hook__('s=',this,['m',__hook__('s.',this,['m',p=>super[p]],'HookApiTest,c2,get m2'),(p,v)=>super[p]=v],'HookApiTest,c2,get m2');` +
+              `return __hook__('s=',this,['m',__hook__('s.',this,['m',p=>super[p]],'HookApiTest,c2,get m2'),(p,v)=>super[p]=v],'HookApiTest,c2,get m2');},null,arguments,'HookApiTest,c2,get m2');}}` +
+              `__hook__('=',c2,['m',2],'HookApiTest');__hook__('.',c2,['m2'],'HookApiTest');}`,
+          },
         ],
         LogicalExpression: [
           {
