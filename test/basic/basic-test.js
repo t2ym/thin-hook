@@ -679,6 +679,59 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             hooked: `{__hook__((...args)=>__hook__(([...a])=>a,null,args,'HookApiTest'),null,[[1,2,3]],'HookApiTest',0);}`,
           },
         ],
+        ExperimentalRestProperty: [
+          {
+            code: `{ let {p1, ...b} = {p1: 1, p2: 2, p3: 3}; [p1, b]; }`,
+            hooked: `{let {p1,...b}={p1:1,p2:2,p3:3};[p1,b];}`,
+          },
+          {
+            code: `{ with ({}) { let {p1, ...b} = {p1: 1, p2: 2, p3: 3}; [p1, b]; } }`,
+            hooked: `{with($hook$.with({},{})){let {p1,...b}={p1:1,p2:2,p3:3};` +
+              `[__hook__('w.',__with__,['p1',()=>p1],'HookApiTest',false),__hook__('w.',__with__,['b',()=>b],'HookApiTest',false)];}}`,
+          },
+          {
+            code: `var {p1, ...b} = {p1: 1, p2: 2, p3: 3}; [p1, b];`,
+            hooked: `({p1:$hook$.global(__hook__,'HookApiTest,p1','p1','var')._pp_p1,...($hook$.global(__hook__,'HookApiTest','b','var'))._pp_b}=` +
+              `{p1:1,p2:2,p3:3});` +
+              `[$hook$.global(__hook__,'HookApiTest','p1','get')._pp_p1,$hook$.global(__hook__,'HookApiTest','b','get')._pp_b];`,
+          },
+          {
+            code: `{ let p1, b; ({p1, ...b} = {p1: 1, p2: 2, p3: 3}); [p1, b]; }`,
+            hooked: `{let p1,b;({p1,...b}={p1:1,p2:2,p3:3});[p1,b];}`,
+          },
+          {
+            code: `{ with ({}) { let p1, b; ({p1, ...b} = {p1: 1, p2: 2, p3: 3}); [p1, b]; } }`,
+            hooked: `{with($hook$.with({},{})){let p1,b;` +
+              `({p1:__hook__('w.=',__with__,['p1',{set ['='](v){p1=v;},get ['='](){return p1;}}],'HookApiTest,p1',false)['='],` +
+              `...(__hook__('w.=',__with__,['b',{set ['='](v){b=v;},get ['='](){return b;}}],'HookApiTest',false))['=']}={p1:1,p2:2,p3:3});` +
+              `[__hook__('w.',__with__,['p1',()=>p1],'HookApiTest',false),__hook__('w.',__with__,['b',()=>b],'HookApiTest',false)];}}`,
+          },
+          {
+            code: `var p1, b; ({p1, ...b} = {p1: 1, p2: 2, p3: 3}); [p1, b];`,
+            hooked: `$hook$.global(__hook__,'HookApiTest','p1','var')._pp_p1,$hook$.global(__hook__,'HookApiTest','b','var')._pp_b;` +
+              `({p1:$hook$.global(__hook__,'HookApiTest,p1','p1','set')._pp_p1,` +
+              `...($hook$.global(__hook__,'HookApiTest','b','set'))._pp_b}={p1:1,p2:2,p3:3});` +
+              `[$hook$.global(__hook__,'HookApiTest','p1','get')._pp_p1,$hook$.global(__hook__,'HookApiTest','b','get')._pp_b];`,
+          },
+          {
+            code: `{ let p1, b = {}; ({p1, ...b.p} = {p1: 1, p2: 2, p3: 3}); [p1, b]; }`,
+            hooked: `{let p1,b={};({p1,...(__hook__('.=',b,['p'],'HookApiTest'))['=']}={p1:1,p2:2,p3:3});[p1,b];}`,
+          },
+          {
+            code: `{ with ({p1:0,b:{}}) { ({p1, ...b.p} = {p1: 1, p2: 2, p3: 3}); [p1, b]; } }`,
+            hooked: `{with($hook$.with({p1:0,b:{}},{})){` +
+              `({p1:__hook__('w.=',__with__,['p1',{set ['='](v){p1=v;},get ['='](){return p1;}}],'HookApiTest,p1',false)['='],` +
+              `...(__hook__('.=',__hook__('w.',__with__,['b',()=>b],'HookApiTest',false),['p'],'HookApiTest'))['=']}={p1:1,p2:2,p3:3});` +
+              `[__hook__('w.',__with__,['p1',()=>p1],'HookApiTest',false),__hook__('w.',__with__,['b',()=>b],'HookApiTest',false)];}}`,
+          },
+          {
+            code: `var p1, b = {}; ({p1, ...b.p} = {p1: 1, p2: 2, p3: 3}); [p1, b];`,
+            hooked: `$hook$.global(__hook__,'HookApiTest','p1','var')._pp_p1,$hook$.global(__hook__,'HookApiTest','b','var')._pp_b={};` +
+              `({p1:$hook$.global(__hook__,'HookApiTest,p1','p1','set')._pp_p1,` +
+              `...(__hook__('.=',b,['p'],'HookApiTest'))['=']}={p1:1,p2:2,p3:3});` +
+              `[$hook$.global(__hook__,'HookApiTest','p1','get')._pp_p1,$hook$.global(__hook__,'HookApiTest','b','get')._pp_b];`,
+          },
+        ],
         SpreadElement: [
           {
             code: `{ let a = [3, 4]; [1, 2, ...a] }`,
