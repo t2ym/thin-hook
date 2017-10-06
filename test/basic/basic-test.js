@@ -1204,6 +1204,25 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             eval: () => true,
           },
         ],
+        MetaProperty: [
+          {
+            code: `{ class c { constructor() { this.nt = new.target; } } (new c()).nt === c; }`,
+            hooked: `{class c{constructor(){return __hook__(()=>{__hook__('=',this,['nt',new.target],'HookApiTest,c,constructor');},null,arguments,'HookApiTest,c,constructor');}}` +
+              `__hook__('.',__hook__(c,null,[],'HookApiTest',true),['nt'],'HookApiTest')===c;}`,
+          },
+          {
+            code: `{ with ({}) { class c { constructor() { this.nt = new.target; } } (new c()).nt === c; } }`,
+            hooked: `{with($hook$.with({},{})){class c{constructor(){return __hook__(()=>{__hook__('=',this,['nt',new.target],'HookApiTest,c,constructor');},null,arguments,'HookApiTest,c,constructor');}}` +
+              `__hook__('.',__hook__('wnew',__with__,['c',[],(...args)=>new c(...args)],'HookApiTest',false),['nt'],'HookApiTest')===__hook__('w.',__with__,['c',()=>c],'HookApiTest',false);}}`,
+          },
+          {
+            code: `class c { constructor() { this.nt = new.target; } } (new c()).nt === c;`,
+            hooked: `$hook$.global(__hook__,'HookApiTest,c','c','class')._pp_c=` +
+              `class c{constructor(){return __hook__(()=>{__hook__('=',this,['nt',new.target],'HookApiTest,c,constructor');},null,arguments,'HookApiTest,c,constructor');}};` +
+              `__hook__('.',__hook__(c,null,[],'HookApiTest',true),['nt'],'HookApiTest')===$hook$.global(__hook__,'HookApiTest','c','get')._pp_c;`,
+            eval: () => true,
+          },
+        ],
       };
     }
     * iteration() {
