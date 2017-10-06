@@ -165,6 +165,48 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             hooked: "$hook$.global(__hook__,'HookApiTest','a','var')._pp_a=1;`a = ${$hook$.global(__hook__,'HookApiTest','a','get')._pp_a};`;",
           },
         ],
+        TaggedTemplateExpression: [
+          {
+            code: "{ let a = 1, b = 2, c; function tag(str, p1, p2, p3) { return str[0] + p1 + str[1] + p2 + str[2] + (p1 + p2) + str[3]; } tag`plus: ${a} + ${b} = ${c};`; }",
+            hooked: "{let a=1,b=2,c;function tag(str,p1,p2,p3){return " +
+              "__hook__((str,p1,p2,p3)=>{return " +
+              "__hook__('.',str,[0],'HookApiTest,tag')+p1+" +
+              "__hook__('.',str,[1],'HookApiTest,tag')+p2+" +
+              "__hook__('.',str,[2],'HookApiTest,tag')+(p1+p2)+" +
+              "__hook__('.',str,[3],'HookApiTest,tag');},null,arguments,'HookApiTest,tag');}" +
+              "tag`plus: ${a} + ${b} = ${c};`;}",
+          },
+          {
+            code: "{ let a = 1, b = 2, c; function tag(str, p1, p2, p3) { return str[0] + p1 + str[1] + p2 + str[2] + (p1 + p2) + str[3]; } with ({}) { tag`plus: ${a} + ${b} = ${c};`; } }",
+            hooked: "{let a=1,b=2,c;" +
+              "function tag(str,p1,p2,p3){return " +
+              "__hook__((str,p1,p2,p3)=>{return __hook__('.',str,[0],'HookApiTest,tag')+p1+" +
+              "__hook__('.',str,[1],'HookApiTest,tag')+p2+" +
+              "__hook__('.',str,[2],'HookApiTest,tag')+(p1+p2)+" +
+              "__hook__('.',str,[3],'HookApiTest,tag');},null,arguments,'HookApiTest,tag');}" +
+              "with($hook$.with({},{a:true,b:true,c:true,tag:true})){" +
+              "__hook__('w.',__with__,['tag',()=>tag],'HookApiTest',false)" +
+              "`plus: ${__hook__('w.',__with__,['a',()=>a],'HookApiTest',false)} + " +
+              "${__hook__('w.',__with__,['b',()=>b],'HookApiTest',false)} = " +
+              "${__hook__('w.',__with__,['c',()=>c],'HookApiTest',false)};`;}}",
+          },
+          {
+            code: "var a = 1, b = 2, c, tag = function (str, p1, p2, p3) { return str[0] + p1 + str[1] + p2 + str[2] + (p1 + p2) + str[3]; }; tag`plus: ${a} + ${b} = ${c};`;",
+            hooked: "$hook$.global(__hook__,'HookApiTest','a','var')._pp_a=1," +
+              "$hook$.global(__hook__,'HookApiTest','b','var')._pp_b=2," +
+              "$hook$.global(__hook__,'HookApiTest','c','var')._pp_c," +
+              "$hook$.global(__hook__,'HookApiTest','tag','var')._pp_tag=" +
+              "function(str,p1,p2,p3){return __hook__((str,p1,p2,p3)=>{return " +
+              "__hook__('.',str,[0],'HookApiTest')+p1+" +
+              "__hook__('.',str,[1],'HookApiTest')+p2+" +
+              "__hook__('.',str,[2],'HookApiTest')+(p1+p2)+" +
+              "__hook__('.',str,[3],'HookApiTest');},null,arguments,'HookApiTest');};" +
+              "$hook$.global(__hook__,'HookApiTest','tag','get')._pp_tag" +
+              "`plus: ${$hook$.global(__hook__,'HookApiTest','a','get')._pp_a} + " +
+              "${$hook$.global(__hook__,'HookApiTest','b','get')._pp_b} = " +
+              "${$hook$.global(__hook__,'HookApiTest','c','get')._pp_c};`;",
+          },
+        ],
         Identifier: [
           { code: 'a', hooked: 'a;', eval: 'throw', options: 'initialScope', customOptionParams: { initialScope: { a: true } } },
         ],
