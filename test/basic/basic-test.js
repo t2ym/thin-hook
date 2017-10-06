@@ -151,6 +151,20 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           { name: 'null', code: `null`, hooked: `null;` },
           { name: 'RegExp', code: `/^a$/`, hooked: `/^a$/;` },
         ],
+        TemplateLiteral: [
+          {
+            code: '{ let a = 1; `a = ${a};`; }',
+            hooked: '{let a=1;`a = ${a};`;}',
+          },
+          {
+            code: '{ with ({a:1}) { `a = ${a};`; } }',
+            hooked: "{with($hook$.with({a:1},{})){`a = ${__hook__('w.',__with__,['a',()=>a],'HookApiTest',false)};`;}}",
+          },
+          {
+            code: 'var a = 1; `a = ${a};`;',
+            hooked: "$hook$.global(__hook__,'HookApiTest','a','var')._pp_a=1;`a = ${$hook$.global(__hook__,'HookApiTest','a','get')._pp_a};`;",
+          },
+        ],
         Identifier: [
           { code: 'a', hooked: 'a;', eval: 'throw', options: 'initialScope', customOptionParams: { initialScope: { a: true } } },
         ],
