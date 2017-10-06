@@ -200,6 +200,32 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
               `function*f(v){yield*__hook__(function*(v){yield __hook__('w.',__with__,['v',()=>v],'HookApiTest,f',false);},this,arguments,'HookApiTest,f');}(),['next',[]],'HookApiTest');}}`,
           },
         ],
+        ArrowFunctionExpression: [
+          {
+            code: `{ p => p; (p) => { return p; }; (p1, p2) => [p1, p2]; (p1, p2) => ({ p1: p1, p2: p2 }); (p) => { var v1; let v2; const v3 = 1; }; }`,
+            hooked: `{(...args)=>__hook__(p=>p,null,args,'HookApiTest');` +
+              `(...args)=>(__hook__(p=>{return p;},null,args,'HookApiTest'));` +
+              `(...args)=>__hook__((p1,p2)=>[p1,p2],null,args,'HookApiTest');` +
+              `(...args)=>__hook__((p1,p2)=>({p1:p1,p2:p2}),null,args,'HookApiTest');` +
+              `(...args)=>(__hook__(p=>{var v1;let v2;const v3=1;},null,args,'HookApiTest'));}`,
+          },
+          {
+            code: `{ with({}) { p => p; (p) => { return p; }; (p1, p2) => [p1, p2]; (p1, p2) => ({ p1: p1, p2: p2 }); (p) => { var v1; let v2; const v3 = 1; }; } }`,
+            hooked: `{with($hook$.with({},{})){(...args)=>__hook__(p=>p,null,args,'HookApiTest');` +
+              `(...args)=>(__hook__(p=>{return __hook__('w.',__with__,['p',()=>p],'HookApiTest',false);},null,args,'HookApiTest'));` +
+              `(...args)=>__hook__((p1,p2)=>[__hook__('w.',__with__,['p1',()=>p1],'HookApiTest',false),__hook__('w.',__with__,['p2',()=>p2],'HookApiTest',false)],null,args,'HookApiTest');` +
+              `(...args)=>__hook__((p1,p2)=>({p1:__hook__('w.',__with__,['p1',()=>p1],'HookApiTest,p1',false),p2:__hook__('w.',__with__,['p2',()=>p2],'HookApiTest,p2',false)}),null,args,'HookApiTest');` +
+              `(...args)=>(__hook__(p=>{var v1;let v2;const v3=1;},null,args,'HookApiTest'));}}`,
+          },
+          {
+            code: `p => p; (p) => { return p; }; (p1, p2) => [p1, p2]; (p1, p2) => ({ p1: p1, p2: p2 }); (p) => { var v1; let v2; const v3 = 1; };`,
+            hooked: `(...args)=>__hook__(p=>p,null,args,'HookApiTest');` +
+              `(...args)=>(__hook__(p=>{return p;},null,args,'HookApiTest'));` +
+              `(...args)=>__hook__((p1,p2)=>[p1,p2],null,args,'HookApiTest');` +
+              `(...args)=>__hook__((p1,p2)=>({p1:p1,p2:p2}),null,args,'HookApiTest');` +
+              `(...args)=>(__hook__(p=>{var v1;let v2;const v3=1;},null,args,'HookApiTest'));`,
+          },
+        ],
         ExpressionStatement: [
           { code: '1;', hooked: '1;' },
           { code: 'a;', hooked: 'a;', eval: 'throw', options: 'initialScope', customOptionParams: { initialScope: { a: true } } },
