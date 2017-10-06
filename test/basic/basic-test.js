@@ -417,17 +417,30 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             code: 'var a = 0, b = 1; if (a) { a; } else { b; }',
             hooked: `$hook$.global(__hook__,'HookApiTest','a','var')._pp_a=0,$hook$.global(__hook__,'HookApiTest','b','var')._pp_b=1;if($hook$.global(__hook__,'HookApiTest','a','get')._pp_a){$hook$.global(__hook__,'HookApiTest','a','get')._pp_a;}else{$hook$.global(__hook__,'HookApiTest','b','get')._pp_b;}`,
           },
+          {
+            code: `{ let a = 1; with ({}) { if (a) { a; } } }`,
+            hooked: `{let a=1;with($hook$.with({},{a:true})){if(__hook__('w.',__with__,['a',()=>a],'HookApiTest',false)){__hook__('w.',__with__,['a',()=>a],'HookApiTest',false);}}}`,
+          },
         ],
         SwitchStatement: [
           {
             code: 'var a = 1; switch (a) { case 1: 1; break; default: 2; break; }',
             hooked: `$hook$.global(__hook__,'HookApiTest','a','var')._pp_a=1;switch($hook$.global(__hook__,'HookApiTest','a','get')._pp_a){case 1:1;break;default:2;break;}`,
           },
+          {
+            code: '{ let a = 1; with({}) { switch (a) { case 1: 1; break; default: 2; break; } } }',
+            hooked: `{let a=1;with($hook$.with({},{a:true})){switch(__hook__('w.',__with__,['a',()=>a],'HookApiTest',false)){case 1:1;break;default:2;break;}}}`,
+          },
         ],
         SwitchCase: [
           {
             code: 'var a = 1, b = 2; switch (a) { case b: 1; break; default: 2; break; }',
             hooked: `$hook$.global(__hook__,'HookApiTest','a','var')._pp_a=1,$hook$.global(__hook__,'HookApiTest','b','var')._pp_b=2;switch($hook$.global(__hook__,'HookApiTest','a','get')._pp_a){case $hook$.global(__hook__,'HookApiTest','b','get')._pp_b:1;break;default:2;break;}`,
+          },
+          {
+            code: '{ let a = 1, b = 2; with ({}) { switch (a) { case b: 1; break; default: 2; break; } } }',
+            hooked: `{let a=1,b=2;with($hook$.with({},{a:true,b:true})){` +
+              `switch(__hook__('w.',__with__,['a',()=>a],'HookApiTest',false)){case __hook__('w.',__with__,['b',()=>b],'HookApiTest',false):1;break;default:2;break;}}}`,
           },
         ],
         ThrowStatement: [
@@ -447,6 +460,11 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           {
             code: 'with({a: 2}) { while (a--) {}; a; }',
             hooked: `with($hook$.with({a:2},{})){while(__hook__('w--',__with__,['a',()=>a--],'HookApiTest',false)){};__hook__('w.',__with__,['a',()=>a],'HookApiTest',false);}`,
+          },
+          {
+            code: 'with({a: 2}) { while (a) { a -= 2; break; }; a; }',
+            hooked: `with($hook$.with({a:2},{})){while(__hook__('w.',__with__,['a',()=>a],'HookApiTest',false)){` +
+              `__hook__('w-=',__with__,['a',2,v=>a-=v],'HookApiTest',false);break;};__hook__('w.',__with__,['a',()=>a],'HookApiTest',false);}`,
           },
         ],
         DoWhileStatement: [
