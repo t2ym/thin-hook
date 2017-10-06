@@ -1223,6 +1223,40 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             eval: () => true,
           },
         ],
+        ImportDeclaration: [
+          {
+            // From https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import
+            code: `import defaultExport from "module-name";
+import * as name1 from "module-name";
+import { export0 } from "module-name";
+import { export1 as alias1 } from "module-name";
+import { export2 , export3 } from "module-name";
+import { export4 , export5 as alias2 } from "module-name";
+import defaultExport2, { export6, export7 as alias3 } from "module-name";
+import defaultExport3, * as name2 from "module-name";
+import "module-name";`,
+            hooked: `import defaultExport from 'module-name';
+import * as name1 from 'module-name';
+import { export0 } from 'module-name';
+import { export1 as alias1 } from 'module-name';
+import {
+  export2,
+  export3
+} from 'module-name';
+import {
+  export4,
+  export5 as alias2
+} from 'module-name';
+import defaultExport2, {
+  export6,
+  export7 as alias3
+} from 'module-name';
+import defaultExport3, * as name2 from 'module-name';
+import 'module-name';`,
+            options: 'compact=false',
+            eval: () => true,
+          },
+        ],
       };
     }
     * iteration() {
