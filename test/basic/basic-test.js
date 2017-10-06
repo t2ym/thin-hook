@@ -1291,7 +1291,39 @@ export let name5 = __hook__('.', name1, ['name'], 'HookApiTest,name5'), name6 = 
 export const name7 = 3, name8 = 4;`,
             options: 'compact=false',
             eval: () => true,
-          }
+          },
+        ],
+        ExportDefaultDeclaration: [
+          {
+            code: `export default function () {}`,
+            hooked: `export default function (){return __hook__(()=>{},null,arguments,'HookApiTest');}`,
+            eval: () => true,
+          },
+          {
+            code: `export default class C {}`,
+            hooked: `export default class C{}`,
+            eval: () => true,
+          },
+          {
+            code: `export default 'abc';`,
+            hooked: `export default'abc';`,
+            eval: () => true,
+          },
+          {
+            code: `class C {} export default C;`,
+            hooked: `class C{}export default C;`,
+            eval: () => true,
+          },
+          {
+            code: `class C {} export { C as default };`,
+            hooked: `class C{}export{C as default};`,
+            eval: () => true,
+          },
+          {
+            code: `class C {} export default C.name;`,
+            hooked: `class C{}export default __hook__('.',C,['name'],'HookApiTest');`,
+            eval: () => true,
+          },
         ],
       };
     }
