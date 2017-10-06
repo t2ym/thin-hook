@@ -1257,6 +1257,42 @@ import 'module-name';`,
             eval: () => true,
           },
         ],
+        ExportNamedDeclaration: [
+          {
+            code: `function name1() {}
+class name2 {}
+let name3 = 1;
+const name4 = 2;
+export { name1, name2, name3, name4 };
+export { name1 as alias1, name2 as alias2, name3 as alias3, name4 as alias4 };
+export let name5 = name1.name, name6 = name2.name;
+export const name7 = 3, name8 = 4;`,
+            hooked: `function name1() {
+  return __hook__(() => {
+  }, null, arguments, 'HookApiTest,name1');
+}
+class name2 {
+}
+let name3 = 1;
+const name4 = 2;
+export {
+  name1,
+  name2,
+  name3,
+  name4
+};
+export {
+  name1 as alias1,
+  name2 as alias2,
+  name3 as alias3,
+  name4 as alias4
+};
+export let name5 = __hook__('.', name1, ['name'], 'HookApiTest,name5'), name6 = __hook__('.', name2, ['name'], 'HookApiTest,name6');
+export const name7 = 3, name8 = 4;`,
+            options: 'compact=false',
+            eval: () => true,
+          }
+        ],
       };
     }
     * iteration() {
