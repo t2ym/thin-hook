@@ -209,6 +209,11 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         ],
         Identifier: [
           { code: 'a', hooked: 'a;', eval: 'throw', options: 'initialScope', customOptionParams: { initialScope: { a: true } } },
+          {
+            code: `{ let __hook__, __with__, $hook$; }`,
+            hooked: `{let __unexpected_access_to_hook_callback_function__,__unexpected_access_to_hook_with_object__,__unexpected_access_to_hook_alias_object__;}`,
+            eval: () => true,
+          },
         ],
         // Function
         FunctionDeclaration: [
