@@ -1739,6 +1739,11 @@ export const name7 = 3, name8 = 4;`,
             hooked: `class C{}export default __hook__('.',C,['name'],'HookApiTest');`,
             eval: () => true,
           },
+          {
+            code: `export default Date;`,
+            hooked: `export default $hook$.global(__hook__,'HookApiTest','Date','get')._pp_Date;`,
+            eval: () => true,
+          },
         ],
         ExportAllDeclaration: [
           {
