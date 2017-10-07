@@ -331,6 +331,11 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
               `__hook__('w.',__with__,['b',()=>b],'HookApiTest',false)+` +
               `__hook__('w.',__with__,['z',()=>z],'HookApiTest',false);}}}}`,
           },
+          {
+            code: `{ let b = 1, o = { a: 1, b: 2, [Symbol.unscopables]: { b: true } }; with (o) { a + b; } }`,
+            hooked: `{let b=1,o={a:1,b:2,[__hook__('.',Symbol,['unscopables'],'HookApiTest,o')]:{b:true}};` +
+              `with($hook$.with(o,{b:true,o:true})){__hook__('w.',__with__,['a',()=>a],'HookApiTest',false)+__hook__('w.',__with__,['b',()=>b],'HookApiTest',false);}}`,
+          },
         ],
         ReturnStatement: [
           {
@@ -1388,6 +1393,53 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
               `$hook$.setTimeout('__hook__',[['HookApiTest',{}]],'cachedMethod')('let resolve = a; a = null; resolve(1);',100);},null,args,'HookApiTest'))],'HookApiTest',true);`,
             asynchronous: true,
           },
+          {
+            code: `{ let f = Reflect.construct(Function, ['return (a,b) => a + b;'])(); f(1,2); }`,
+            hooked: `{let f=__hook__(__hook__('()',Reflect,['construct',[$hook$.global(__hook__,'HookApiTest,f','Function','get')._pp_Function,['return (a,b) => a + b;']]],'HookApiTest,f'),null,[],'HookApiTest,f',0);` +
+              `__hook__(f,null,[1,2],'HookApiTest',0);}`,
+          },
+          {
+            code: `{ class F extends Function {} let f = Reflect.construct(F, ['return (a,b) => a + b;'])(); f(1,2); }`,
+            hooked: `{class F extends $hook$.global(__hook__,'HookApiTest,F','Function','get')._pp_Function{}` +
+              `let f=__hook__(__hook__('()',Reflect,['construct',[F,['return (a,b) => a + b;']]],'HookApiTest,f'),null,[],'HookApiTest,f',0);__hook__(f,null,[1,2],'HookApiTest',0);}`,
+          },
+          {
+            code: `{ function F() {} let f = Reflect.construct(Function, ['return (a,b) => a + b;'], F)(); f(1,2); }`,
+            hooked: `{function F(){return __hook__(()=>{},null,arguments,'HookApiTest,F');}` +
+              `let f=__hook__(__hook__('()',Reflect,['construct',[$hook$.global(__hook__,'HookApiTest,f','Function','get')._pp_Function,['return (a,b) => a + b;'],F]],'HookApiTest,f'),null,[],'HookApiTest,f',0);` +
+              `__hook__(f,null,[1,2],'HookApiTest',0);}`,
+          },
+          {
+            code: `{ function F2() {} class F extends Function {} let f = Reflect.construct(F, ['return (a,b) => a + b;'], F2)(); f(1,2); }`,
+            hooked: `{function F2(){return __hook__(()=>{},null,arguments,'HookApiTest,F2');}` +
+              `class F extends $hook$.global(__hook__,'HookApiTest,F','Function','get')._pp_Function{}` +
+              `let f=__hook__(__hook__('()',Reflect,['construct',[F,['return (a,b) => a + b;'],F2]],'HookApiTest,f'),null,[],'HookApiTest,f',0);` +
+              `__hook__(f,null,[1,2],'HookApiTest',0);}`,
+          },
+          {
+            code: `{ class F extends Function {} let f = new F('return (a,b) => a + b;')(); f(1,2); }`,
+            hooked: `{class F extends $hook$.global(__hook__,'HookApiTest,F','Function','get')._pp_Function{}` +
+              `let f=__hook__(__hook__(F,null,['return (a,b) => a + b;'],'HookApiTest,f',true),null,[],'HookApiTest,f',0);__hook__(f,null,[1,2],'HookApiTest',0);}`,
+          },
+          {
+            code: `{ class F extends Function { constructor(...args) { super(...args); } } let f = new F('return (a,b) => a + b;')(); f(1,2); }`,
+            hooked: `{class F extends $hook$.global(__hook__,'HookApiTest,F','Function','get')._pp_Function{` +
+              `constructor(...args){return __hook__((...args)=>{__hook__((newTarget,...args)=>super(...args),null,[new.target,...args],'HookApiTest,F,constructor','');},null,arguments,'HookApiTest,F,constructor');}}` +
+              `let f=__hook__(__hook__(F,null,['return (a,b) => a + b;'],'HookApiTest,f',true),null,[],'HookApiTest,f',0);__hook__(f,null,[1,2],'HookApiTest',0);}`,
+          },
+          {
+            code: `{ let f = Function('return (a,b) => a + b;')(); f(1,2); }`,
+            hooked: `{let f=__hook__(__hook__(Function,null,['return (a,b) => a + b;'],'HookApiTest,f',0),null,[],'HookApiTest,f',0);__hook__(f,null,[1,2],'HookApiTest',0);}`,
+          },
+          {
+            code: `{ let f = Function.apply(null, ['return (a,b) => a + b;'])(); f(1,2); }`,
+            hooked: `{let f=__hook__(__hook__('()',Function,['apply',[null,['return (a,b) => a + b;']]],'HookApiTest,f'),null,[],'HookApiTest,f',0);__hook__(f,null,[1,2],'HookApiTest',0);}`,
+          },
+          {
+            code: `{ let f = Reflect.apply(Function, null, ['return (a,b) => a + b;'])(); f(1,2); }`,
+            hooked: `{let f=__hook__(__hook__('()',Reflect,['apply',[$hook$.global(__hook__,'HookApiTest,f','Function','get')._pp_Function,null,['return (a,b) => a + b;']]],'HookApiTest,f'),null,[],'HookApiTest,f',0);` +
+              `__hook__(f,null,[1,2],'HookApiTest',0);}`,
+          },
         ],
         AwaitExpression: [
           {
@@ -1425,6 +1477,10 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           {
             code: `var a = class {}; new a(1);`,
             hooked: `$hook$.global(__hook__,'HookApiTest','a','var')._pp_a=class{};__hook__(a,null,[1],'HookApiTest',true);`,
+          },
+          {
+            code: `{ let f = (new Function('return (a,b) => a + b;'))(); f(1,2); }`,
+            hooked: `{let f=__hook__(__hook__(Function,null,['return (a,b) => a + b;'],'HookApiTest,f',true),null,[],'HookApiTest,f',0);__hook__(f,null,[1,2],'HookApiTest',0);}`,
           },
         ],
         SequenceExpression: [
