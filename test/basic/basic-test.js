@@ -863,13 +863,18 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             code: `{ let { _a: a, _b: b = a, c, _d: [d], _e: { _f: f }, _g: o } = { _a: 1, _b: 2, c: 3, _d: [4], _e: {_f: 5}, _g: 6 }; [a,b,c,d,f,o]; }`,
             hooked: `{let {_a:a,_b:b=a,c,_d:[d],_e:{_f:f},_g:o}={_a:1,_b:2,c:3,_d:[4],_e:{_f:5},_g:6};[a,b,c,d,f,o];}`,
           },
-          /* Issue #136
           {
             code: `{ with ({}) { let { _a: a, _b: b = a, c, _d: [d], _e: { _f: f }, _g: o } = { _a: 1, _b: 2, c: 3, _d: [4], _e: {_f: 5}, _g: 6 }; [a,b,c,d,f,o]; } }`,
-            hooked: ``,
-            //options: 'compact=false',
+            hooked: `{with($hook$.with({},{})){` +
+              `let {_a:a,_b:b=__hook__('w.',__with__,['a',()=>a],'HookApiTest,_b',false),c,_d:[d],_e:{_f:f},_g:o}=` +
+              `{_a:1,_b:2,c:3,_d:[4],_e:{_f:5},_g:6};` +
+              `[__hook__('w.',__with__,['a',()=>a],'HookApiTest',false),` +
+              `__hook__('w.',__with__,['b',()=>b],'HookApiTest',false),` +
+              `__hook__('w.',__with__,['c',()=>c],'HookApiTest',false),` +
+              `__hook__('w.',__with__,['d',()=>d],'HookApiTest',false),` +
+              `__hook__('w.',__with__,['f',()=>f],'HookApiTest',false),` +
+              `__hook__('w.',__with__,['o',()=>o],'HookApiTest',false)];}}`,
           },
-          */
           {
             code: `var { _a: a, _b: b = a, c, _d: [d], _e: { _f: f }, _g: o } = { _a: 1, _b: 2, c: 3, _d: [4], _e: {_f: 5}, _g: 6 }; [a,b,c,d,f,o];`,
             hooked: `({_a:$hook$.global(__hook__,'HookApiTest,_a','a','var')._pp_a,` +
