@@ -1,5 +1,5 @@
-[![npm](https://img.shields.io/npm/v/thin-hook.svg)](https://www.npmjs.com/package/thin-hook)
-[![Bower](https://img.shields.io/bower/v/thin-hook.svg)](https://github.com/t2ym/thin-hook)
+[![npm version](https://badge.fury.io/js/thin-hook.svg)](https://badge.fury.io/js/thin-hook)
+[![Bower version](https://badge.fury.io/bo/thin-hook.svg)](https://badge.fury.io/bo/thin-hook)
 
 # thin-hook
 
