@@ -1572,7 +1572,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     function *gen() {}
     switch (f) {
     case Function:
-      args = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args);
+      args = hook.FunctionArguments('__hook__', [[context, {}]], 'cachedMethod', args);
       break;
     case '()':
       switch (thisArg) {
@@ -1582,14 +1582,14 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           if (args[1]) {
             switch (args[1][0]) {
             case Function:
-              args1 = [args[1][0], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][1])];
+              args1 = [args[1][0], hook.FunctionArguments('__hook__', [[context, {}]], 'cachedMethod', args[1][1])];
               if (args[1][2]) {
                 args1.push(args[1][2]);
               }
               break;
             default:
               if (args[1][0].prototype instanceof Function) {
-                args1 = [args[1][0], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][1], args[1][0].prototype.constructor === gen.constructor)];
+                args1 = [args[1][0], hook.FunctionArguments('__hook__', [[context, {}]], 'cachedMethod', args[1][1], args[1][0].prototype.constructor === gen.constructor)];
                 if (args[1][2]) {
                   args1.push(args[1][2]);
                 }
@@ -1602,7 +1602,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           if (args[1]) {
             switch (args[1][0]) {
             case Function:
-              args1 = [args[1][0], args[1][1], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][2])];
+              args1 = [args[1][0], args[1][1], hook.FunctionArguments('__hook__', [[context, {}]], 'cachedMethod', args[1][2])];
               break;
             default:
               break;
@@ -1623,11 +1623,11 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     default:
       if (typeof f === 'function') {
         if (f.prototype instanceof Function && newTarget) {
-          args = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args, f.prototype.constructor === gen.constructor);
+          args = hook.FunctionArguments('__hook__', [[context, {}]], 'cachedMethod', args, f.prototype.constructor === gen.constructor);
         }
         else if (newTarget === '') {
           if (args[0] && Object.getPrototypeOf(args[0]) === Function) {
-            args = [ args[0], ...hook.FunctionArguments('__hook__', [[context, {}]], 'method', args.slice(1)) ];
+            args = [ args[0], ...hook.FunctionArguments('__hook__', [[context, {}]], 'cachedMethod', args.slice(1)) ];
           }
         }
       }
