@@ -490,6 +490,11 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             code: 'var [a,b,c] = [0,2,0]; for(a;b;c) { break; } b;',
             hooked: `[$hook$.global(__hook__,'HookApiTest','a','var')._pp_a,$hook$.global(__hook__,'HookApiTest','b','var')._pp_b,$hook$.global(__hook__,'HookApiTest','c','var')._pp_c]=[0,2,0];for($hook$.global(__hook__,'HookApiTest','a','get')._pp_a;$hook$.global(__hook__,'HookApiTest','b','get')._pp_b;$hook$.global(__hook__,'HookApiTest','c','get')._pp_c){break;}$hook$.global(__hook__,'HookApiTest','b','get')._pp_b;`,
           },
+          {
+            code: `for (var i = 1, j = 2; i < j; i++) {}`,
+            hooked: `for($hook$.global(__hook__,'HookApiTest','i','var')._pp_i=1,$hook$.global(__hook__,'HookApiTest','j','var')._pp_j=2;` +
+              `$hook$.global(__hook__,'HookApiTest','i','get')._pp_i<$hook$.global(__hook__,'HookApiTest','j','get')._pp_j;$hook$.global(__hook__,'HookApiTest','i','set')._pp_i++){}`,
+          }
         ],
         ForInStatement: [
           {
