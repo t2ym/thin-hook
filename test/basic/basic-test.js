@@ -1351,12 +1351,11 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
               `$hook$.global(__hook__,'HookApiTest','f','var')._pp_f=function(a){return __hook__(a=>{return a+1;},null,arguments,'HookApiTest');};` +
               `__hook__(f,null,[$hook$.global(__hook__,'HookApiTest','a','get')._pp_a],'HookApiTest',0);`,
           },
-          /* Issue #133
           {
             code: `{ with ({a:1,f:function f(a) { return a + 1; }}) { f(a); } }`,
-            hooked: ``,
+            hooked: `{with($hook$.with({a:1,f:function f(a){return __hook__(a=>{return a+1;},null,arguments,'HookApiTest,f,f');}},{}))` +
+              `{__hook__('w()',__with__,['f',[__hook__('w.',__with__,['a',()=>a],'HookApiTest',false)],(...args)=>f(...args)],'HookApiTest',false);}}`,
           },
-          */
           {
             code: `{ class b { constructor(p) { this.p = p; } } class c extends b { constructor(p) { super(p); } } (new c(1)).p; }`,
             hooked: `{class b{constructor(p){return __hook__(p=>{__hook__('=',this,['p',p],'HookApiTest,b,constructor');},null,arguments,'HookApiTest,b,constructor');}}` +
