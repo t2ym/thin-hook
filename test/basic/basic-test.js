@@ -599,12 +599,15 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             code: `{ let [a, b = a, [c], {_d: d}] = [1, 2, [3], {_d:4}]; [a,b,c,d]; }`,
             hooked: `{let [a,b=a,[c],{_d:d}]=[1,2,[3],{_d:4}];[a,b,c,d];}`,
           },
-          /* Issue #137
           {
             code: `{ with ({}) { let [a, b = a, [c], {_d: d}] = [1, 2, [3], {_d:4}]; [a,b,c,d]; } }`,
-            hooked: ``,
+            hooked: `{with($hook$.with({},{})){` +
+              `let [a,b=__hook__('w.',__with__,['a',()=>a],'HookApiTest',false),[c],{_d:d}]=[1,2,[3],{_d:4}];` +
+              `[__hook__('w.',__with__,['a',()=>a],'HookApiTest',false),` +
+              `__hook__('w.',__with__,['b',()=>b],'HookApiTest',false),` +
+              `__hook__('w.',__with__,['c',()=>c],'HookApiTest',false),` +
+              `__hook__('w.',__with__,['d',()=>d],'HookApiTest',false)];}}`,
           },
-          */
           {
             code: `var [a, b = a, [c], {_d: d}] = [1, 2, [3], {_d:4}]; [a,b,c,d];`,
             hooked: `[$hook$.global(__hook__,'HookApiTest','a','var')._pp_a,` +
