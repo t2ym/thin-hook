@@ -1471,6 +1471,11 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             hooked: `{let f=__hook__(__hook__('()',Reflect,['apply',[$hook$.global(__hook__,'HookApiTest,f','Function','get')._pp_Function,null,['return (a,b) => a + b;']]],'HookApiTest,f'),null,[],'HookApiTest,f',0);` +
               `__hook__(f,null,[1,2],'HookApiTest',0);}`,
           },
+          {
+            code: `importScripts('../thin-hook/hook.min.js?no-hook=true');`,
+            hooked: `importScripts('../thin-hook/hook.min.js?no-hook=true');`,
+            eval: () => true,
+          },
         ],
         AwaitExpression: [
           {
