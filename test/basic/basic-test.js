@@ -573,6 +573,24 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             hooked: `(function(){return __hook__(()=>{var a=10;return a;},null,arguments,'HookApiTest');});`,
             eval: 'call',
           },
+          {
+            name: 'assuming globalVariable1 has been declared',
+            code: `let globalVariable1 = 2; undefined;`,
+            hooked: `$hook$.global(__hook__,'HookApiTest','globalVariable1','let')._pp_globalVariable1=2;$hook$.global(__hook__,'HookApiTest','undefined','get')._pp_undefined;`,
+            eval: (script) => { try { HookApiTest.nativeEval('var globalVariable1 = 1;' + script) } catch (e) { return e.name; } },
+          },
+          {
+            name: 'assuming globalVariable1 has been declared',
+            code: `const globalVariable1 = 2; undefined;`,
+            hooked: `$hook$.global(__hook__,'HookApiTest','globalVariable1','const')._pp_globalVariable1=2;$hook$.global(__hook__,'HookApiTest','undefined','get')._pp_undefined;`,
+            eval: (script) => { try { HookApiTest.nativeEval('var globalVariable1 = 1;' + script) } catch (e) { return e.name; } },
+          },
+          {
+            name: 'assuming globalVariable1 has been declared',
+            code: `class globalVariable1 {}; undefined;`,
+            hooked: `$hook$.global(__hook__,'HookApiTest,globalVariable1','globalVariable1','class')._pp_globalVariable1=class globalVariable1{};;$hook$.global(__hook__,'HookApiTest','undefined','get')._pp_undefined;`,
+            eval: (script) => { try { HookApiTest.nativeEval('var globalVariable1 = 1;' + script) } catch (e) { return e.name; } },
+          },
         ],
         VariableDeclarator: [
           {
@@ -1878,6 +1896,7 @@ export const name7 = 3, name8 = 4;`,
       delete this.originalResult;
       delete this.result;
       delete this.hooked;
+      this.name = name;
       this.hooked = hook(code, ...parameters.options);
       try {
         if (asynchronous) {
@@ -1900,10 +1919,10 @@ export const name7 = 3, name8 = 4;`,
       }
       assert.equal(this.hooked, parameters.hooked, 'hooked "' + parameters.code + '"');
       if (this.originalResult instanceof Object) {
-        assert.equal(JSON.stringify(this.result, null, 0), JSON.stringify(this.originalResult, null, 0), 'hooked result from hooked "' + name + '"');
+        assert.equal(JSON.stringify(this.result, null, 0), JSON.stringify(this.originalResult, null, 0), 'hooked result from hooked "' + this.name + '"');
       }
       else {
-        assert.equal(this.result, this.originalResult, 'hooked result from hooked "' + name + '"');
+        assert.equal(this.result, this.originalResult, 'hooked result from hooked "' + this.name + '"');
       }
     }
   }
