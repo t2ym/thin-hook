@@ -812,6 +812,10 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
               `...(__hook__('.=',b,['p'],'HookApiTest'))['=']}={p1:1,p2:2,p3:3});` +
               `[$hook$.global(__hook__,'HookApiTest','p1','get')._pp_p1,$hook$.global(__hook__,'HookApiTest','b','get')._pp_b];`,
           },
+          {
+            code: `{ function f() { let {...p} = { a: 1 }; return p; } f(); }`,
+            hooked: `{function f(){return __hook__(()=>{let {...p}={a:1};return p;},null,arguments,'HookApiTest,f');}__hook__(f,null,[],'HookApiTest',0);}`,
+          },
         ],
         SpreadElement: [
           {
