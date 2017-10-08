@@ -816,6 +816,10 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             code: `{ function f() { let {...p} = { a: 1 }; return p; } f(); }`,
             hooked: `{function f(){return __hook__(()=>{let {...p}={a:1};return p;},null,arguments,'HookApiTest,f');}__hook__(f,null,[],'HookApiTest',0);}`,
           },
+          {
+            code: `{ function f({...p}) { return p; } f({a:1}); }`,
+            hooked: `{function f({...p}){return __hook__(({...p})=>{return p;},null,arguments,'HookApiTest,f');}__hook__(f,null,[{a:1}],'HookApiTest',0);}`,
+          },
         ],
         SpreadElement: [
           {
