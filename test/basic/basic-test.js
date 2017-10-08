@@ -665,6 +665,17 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
               `$hook$.global(__hook__,'HookApiTest','d','get')._pp_d,` +
               `__hook__('.',e,['p'],'HookApiTest')];`,
           },
+          {
+            code: `{ function * f([a,b,{c=3},[d=4],...[...e]]) { yield * [a,b,c,d,...e]; } let x = []; for (let v of f([1,2,{y:3},[],5,6])) { x.push(v); } x; }`,
+            hooked: `{function*f(...args){yield*__hook__(function*([a,b,{c=3},[d=4],...[...e]]){yield*[a,b,c,d,...e];},this,args,'HookApiTest,f');}` +
+              `let x=[];for(let v of __hook__('*',__hook__(f,null,[[1,2,{y:3},[],5,6]],'HookApiTest',0),[],'HookApiTest')){__hook__('()',x,['push',[v]],'HookApiTest');}x;}`,
+          },
+          {
+            code: `{ function f(a,b,{y:{xy:yy=7,zy:zy=8,zz=2,uu},c=3},[d=4],...[...e]) { return [a,b,yy,zz,uu,c,d,...e]; } f(1,2,{y:{xy:9,uu:0}},[],5,6); }`,
+            hooked: `{function f(a,b,{y:{xy:yy,zy:zy,zz,uu},c},[d],...[...e]){` +
+              `return __hook__((a,b,{y:{xy:yy=7,zy:zy=8,zz=2,uu},c=3},[d=4],...[...e])=>{return[a,b,yy,zz,uu,c,d,...e];},null,arguments,'HookApiTest,f');}` +
+              `__hook__(f,null,[1,2,{y:{xy:9,uu:0}},[],5,6],'HookApiTest',0);}`,
+          },
         ],
         RestElement: [
           {
