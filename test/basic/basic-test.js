@@ -1316,6 +1316,12 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
               `return __hook__('s=',this,['m',__hook__('s.',this,['m',p=>super[p]],'HookApiTest,c2,get m2'),(p,v)=>super[p]=v],'HookApiTest,c2,get m2');},null,arguments,'HookApiTest,c2,get m2');}}` +
               `__hook__('=',c2,['m',2],'HookApiTest');__hook__('.',c2,['m2'],'HookApiTest');}`,
           },
+          {
+            name: 'implicit declaration',
+            code: `delete aaa; aaa = 2; { let b = aaa; delete b; delete aaa; b; }`,
+            hooked: `$hook$.global(__hook__,'HookApiTest','aaa','delete');$hook$.global(__hook__,'HookApiTest','aaa','set')._pp_aaa=2;` +
+              `{let b=$hook$.global(__hook__,'HookApiTest,b','aaa','get')._pp_aaa;delete b;$hook$.global(__hook__,'HookApiTest','aaa','delete');b;}`,
+          },
         ],
         LogicalExpression: [
           {
