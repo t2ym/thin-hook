@@ -1100,6 +1100,10 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
               `typeof $hook$.global(__hook__,'HookApiTest','oo','typeof')._pp_oo;` +
               `$hook$.global(__hook__,'HookApiTest','oo','delete');true;`,
           },
+          {
+            code: `typeof inexistentGlobalVariable;`,
+            hooked: `typeof $hook$.global(__hook__,'HookApiTest','inexistentGlobalVariable','typeof')._pp_inexistentGlobalVariable;`,
+          },
         ],
         UpdateExpression: [
           {
