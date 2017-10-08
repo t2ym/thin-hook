@@ -676,6 +676,11 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
               `return __hook__((a,b,{y:{xy:yy=7,zy:zy=8,zz=2,uu},c=3},[d=4],...[...e])=>{return[a,b,yy,zz,uu,c,d,...e];},null,arguments,'HookApiTest,f');}` +
               `__hook__(f,null,[1,2,{y:{xy:9,uu:0}},[],5,6],'HookApiTest',0);}`,
           },
+          {
+            code: `{ function f([a,,[b]]) { let [c,,[d]] = [4,5,[6]]; let e, g; [e,,[g]] = [7,8,[9]]; return [a,b,c,d,e,g]; } f([1,2,[3]]); }`,
+            hooked: `{function f(...args){return __hook__(([a,,[b]])=>{let [c,,[d]]=[4,5,[6]];let e,g;[e,,[g]]=[7,8,[9]];return[a,b,c,d,e,g];},null,args,'HookApiTest,f');}` +
+              `__hook__(f,null,[[1,2,[3]]],'HookApiTest',0);}`,
+          },
         ],
         RestElement: [
           {
