@@ -563,9 +563,10 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             eval: () => true,
           },
           {
-            code: 'const a = 4;',
-            hooked: `$hook$.global(__hook__,'HookApiTest','a','const')._pp_a=4;`,
-            eval: () => true,
+            code: 'const constantVariable = 4; { let a = constantVariable; }',
+            hooked: `$hook$.global(__hook__,'HookApiTest','constantVariable','const')._pp_constantVariable=4;` +
+              `{let a=$hook$.global(__hook__,'HookApiTest,a','constantVariable','get')._pp_constantVariable;}`,
+            eval: (script) => { if (script.toString().indexOf('__hook__') >= 0) { HookApiTest.nativeEval(script); } return true; },
           },
           {
             code: '(function () { var a = 10; return a; })',
