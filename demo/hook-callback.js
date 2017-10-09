@@ -185,6 +185,30 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '^=': '=',
     '|=': '=',
     '.=': '=',
+    '#.': '.',
+    '#[]': '.',
+    '#in': '.',
+    '#*': '*',
+    '#()': '()',
+    '#p++': '=',
+    '#++p': '=',
+    '#p--': '=',
+    '#--p': '=',
+    '#delete': '=',
+    '#=': '=',
+    '#+=': '=',
+    '#-=': '=',
+    '#*=': '=',
+    '#/=': '=',
+    '#%=': '=',
+    '#**=': '=',
+    '#<<=': '=',
+    '#>>=': '=',
+    '#>>>=': '=',
+    '#&=': '=',
+    '#^=': '=',
+    '#|=': '=',
+    '#.=': '=',
     's.': '.',
     's[]': '.',
     's()': '()',
@@ -831,6 +855,32 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     default:
       return false;
     }
+  }
+  class StrictModeWrapper {
+    static ['#.'](o, p) { return o[p]; }
+    static ['#[]'](o, p) { return o[p]; }
+    static ['#*'](o) { return o; }
+    static ['#in'](o, p) { return p in o; }
+    static ['#()'](o, p, a) { return o[p].apply(o, a); }
+    static ['#p++'](o, p) { return o[p]++; }
+    static ['#++p'](o, p) { return ++o[p]; }
+    static ['#p--'](o, p) { return o[p]--; }
+    static ['#--p'](o, p) { return --o[p]; }
+    static ['#delete'](o, p) { return delete o[p]; }
+    static ['#='](o, p, v) { return o[p] = v; }
+    static ['#+='](o, p, v) { return o[p] += v; }
+    static ['#-='](o, p, v) { return o[p] -= v; }
+    static ['#*='](o, p, v) { return o[p] *= v; }
+    static ['#/='](o, p, v) { return o[p] /= v; }
+    static ['#%='](o, p, v) { return o[p] %= v; }
+    static ['#**='](o, p, v) { return o[p] **= v; }
+    static ['#<<='](o, p, v) { return o[p] <<= v; }
+    static ['#>>='](o, p, v) { return o[p] >>= v; }
+    static ['#>>>='](o, p, v) { return o[p] >>>= v; }
+    static ['#&='](o, p, v) { return o[p] &= v; }
+    static ['#^='](o, p, v) { return o[p] ^= v; }
+    static ['#|='](o, p, v) { return o[p] |= v; }
+    static ['#.='](o, p) { return { set ['='](v) { o[p] = v; }, get ['=']() { return o[p]; } }; }
   }
   Object.defineProperty(_global, '__hook__', { configurable: false, enumerable: false, writable: false, value: function __hook__(f, thisArg, args, context, newTarget) {
     counter++;
@@ -1737,6 +1787,84 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       // LHS property access
       case '.=':
         result = { set ['='](v) { thisArg[args[0]] = v; }, get ['=']() { return thisArg[args[0]]; } };
+        break;
+      // strict mode operators prefixed with '#'
+      // getter
+      case '#.':
+      case '#[]':
+        result = StrictModeWrapper['#.'](thisArg, args[0]);
+        break;
+      // enumeration
+      case '#*':
+        result = StrictModeWrapper['#*'](thisArg);
+        break;
+      // property existence
+      case '#in':
+        result = StrictModeWrapper['#in'](thisArg, args[0]);
+        break;
+      // funcation call
+      case '#()':
+        result = StrictModeWrapper['#()'](thisArg, args[0], args1);
+        break;
+      // unary operators
+      case '#p++':
+        result = StrictModeWrapper['#p++'](thisArg, args[0]);
+        break;
+      case '#++p':
+        result = StrictModeWrapper['#++p'](thisArg, args[0]);
+        break;
+      case '#p--':
+        result = StrictModeWrapper['#p--'](thisArg, args[0]);
+        break;
+      case '#--p':
+        result = StrictModeWrapper['#--p'](thisArg, args[0]);
+        break;
+      case '#delete':
+        result = StrictModeWrapper['#delete'](thisArg, args[0]);
+        break;
+      // assignment operators
+      case '#=':
+        result = StrictModeWrapper['#='](thisArg, args[0], args[1]);
+        break;
+      case '#+=':
+        result = StrictModeWrapper['#+='](thisArg, args[0], args[1]);
+        break;
+      case '#-=':
+        result = StrictModeWrapper['#-='](thisArg, args[0], args[1]);
+        break;
+      case '#*=':
+        result = StrictModeWrapper['#*='](thisArg, args[0], args[1]);
+        break;
+      case '#/=':
+        result = StrictModeWrapper['#/='](thisArg, args[0], args[1]);
+        break;
+      case '#%=':
+        result = StrictModeWrapper['#%='](thisArg, args[0], args[1]);
+        break;
+      case '#**=':
+        result = StrictModeWrapper['#**='](thisArg, args[0], args[1]);
+        break;
+      case '#<<=':
+        result = StrictModeWrapper['#<<='](thisArg, args[0], args[1]);
+        break;
+      case '#>>=':
+        result = StrictModeWrapper['#>>='](thisArg, args[0], args[1]);
+        break;
+      case '#>>>=':
+        result = StrictModeWrapper['#>>>='](thisArg, args[0], args[1]);
+        break;
+      case '#&=':
+        result = StrictModeWrapper['#&='](thisArg, args[0], args[1]);
+        break;
+      case '#^=':
+        result = StrictModeWrapper['#^='](thisArg, args[0], args[1]);
+        break;
+      case '#|=':
+        result = StrictModeWrapper['#|='](thisArg, args[0], args[1]);
+        break;
+      // LHS property access
+      case '#.=':
+        result = StrictModeWrapper['#.='](thisArg, args[0]);
         break;
       // getter for super
       case 's.':
