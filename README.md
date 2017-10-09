@@ -208,6 +208,34 @@ onmessage = hook.hookWorkerHandler;
   // the global object
   const _global = (new Function('return this'))();
 
+  // helper for strict mode
+  class StrictModeWrapper {
+    static ['#.'](o, p) { return o[p]; }
+    static ['#[]'](o, p) { return o[p]; }
+    static ['#*'](o) { return o; }
+    static ['#in'](o, p) { return p in o; }
+    static ['#()'](o, p, a) { return o[p].apply(o, a); }
+    static ['#p++'](o, p) { return o[p]++; }
+    static ['#++p'](o, p) { return ++o[p]; }
+    static ['#p--'](o, p) { return o[p]--; }
+    static ['#--p'](o, p) { return --o[p]; }
+    static ['#delete'](o, p) { return delete o[p]; }
+    static ['#='](o, p, v) { return o[p] = v; }
+    static ['#+='](o, p, v) { return o[p] += v; }
+    static ['#-='](o, p, v) { return o[p] -= v; }
+    static ['#*='](o, p, v) { return o[p] *= v; }
+    static ['#/='](o, p, v) { return o[p] /= v; }
+    static ['#%='](o, p, v) { return o[p] %= v; }
+    static ['#**='](o, p, v) { return o[p] **= v; }
+    static ['#<<='](o, p, v) { return o[p] <<= v; }
+    static ['#>>='](o, p, v) { return o[p] >>= v; }
+    static ['#>>>='](o, p, v) { return o[p] >>>= v; }
+    static ['#&='](o, p, v) { return o[p] &= v; }
+    static ['#^='](o, p, v) { return o[p] ^= v; }
+    static ['#|='](o, p, v) { return o[p] |= v; }
+    static ['#.='](o, p) { return { set ['='](v) { o[p] = v; }, get ['=']() { return o[p]; } }; }
+  }
+
   // Built-in Minimal Hook Callback Function with hooking properties (hook-property=true) - default
   function __hook__(f, thisArg, args, context, newTarget) {
     let normalizedThisArg = thisArg;
@@ -383,6 +411,84 @@ onmessage = hook.hookWorkerHandler;
       // LHS property access
       case '.=':
         result = { set ['='](v) { thisArg[args[0]] = v; }, get ['=']() { return thisArg[args[0]]; } };
+        break;
+      // strict mode operators prefixed with '#'
+      // getter
+      case '#.':
+      case '#[]':
+        result = StrictModeWrapper['#.'](thisArg, args[0]);
+        break;
+      // enumeration
+      case '#*':
+        result = StrictModeWrapper['#*'](thisArg);
+        break;
+      // property existence
+      case '#in':
+        result = StrictModeWrapper['#in'](thisArg, args[0]);
+        break;
+      // funcation call
+      case '#()':
+        result = StrictModeWrapper['#()'](thisArg, args[0], args1);
+        break;
+      // unary operators
+      case '#p++':
+        result = StrictModeWrapper['#p++'](thisArg, args[0]);
+        break;
+      case '#++p':
+        result = StrictModeWrapper['#++p'](thisArg, args[0]);
+        break;
+      case '#p--':
+        result = StrictModeWrapper['#p--'](thisArg, args[0]);
+        break;
+      case '#--p':
+        result = StrictModeWrapper['#--p'](thisArg, args[0]);
+        break;
+      case '#delete':
+        result = StrictModeWrapper['#delete'](thisArg, args[0]);
+        break;
+      // assignment operators
+      case '#=':
+        result = StrictModeWrapper['#='](thisArg, args[0], args[1]);
+        break;
+      case '#+=':
+        result = StrictModeWrapper['#+='](thisArg, args[0], args[1]);
+        break;
+      case '#-=':
+        result = StrictModeWrapper['#-='](thisArg, args[0], args[1]);
+        break;
+      case '#*=':
+        result = StrictModeWrapper['#*='](thisArg, args[0], args[1]);
+        break;
+      case '#/=':
+        result = StrictModeWrapper['#/='](thisArg, args[0], args[1]);
+        break;
+      case '#%=':
+        result = StrictModeWrapper['#%='](thisArg, args[0], args[1]);
+        break;
+      case '#**=':
+        result = StrictModeWrapper['#**='](thisArg, args[0], args[1]);
+        break;
+      case '#<<=':
+        result = StrictModeWrapper['#<<='](thisArg, args[0], args[1]);
+        break;
+      case '#>>=':
+        result = StrictModeWrapper['#>>='](thisArg, args[0], args[1]);
+        break;
+      case '#>>>=':
+        result = StrictModeWrapper['#>>>='](thisArg, args[0], args[1]);
+        break;
+      case '#&=':
+        result = StrictModeWrapper['#&='](thisArg, args[0], args[1]);
+        break;
+      case '#^=':
+        result = StrictModeWrapper['#^='](thisArg, args[0], args[1]);
+        break;
+      case '#|=':
+        result = StrictModeWrapper['#|='](thisArg, args[0], args[1]);
+        break;
+      // LHS property access
+      case '#.=':
+        result = StrictModeWrapper['#.='](thisArg, args[0]);
         break;
       // getter for super
       case 's.':
