@@ -8,6 +8,11 @@ Thin Hook Preprocessor (experimental)
 ## Notes
 - **[Context Generator Compatibility]** Since [0.0.148](https://github.com/t2ym/thin-hook/releases/tag/0.0.148) with [#144](https://github.com/t2ym/thin-hook/issues/144), the old context generator `"method"` is renamed as `"oldMethod"` and the `"cachedMethod"` is renamed as `"method"` and become the new default context generator. The `"cachedMethod"` remains as an alias for the new `"method"` context generator. There are slight changes in the new `"method"` context generator. A warning message is shown on the debug console to notify the change.
 
+| old name | new name | feature |
+|:-----:|:-----:|:-----|
+| `method` | `oldMethod` | `script.js,Class,method` |
+| `cachedMethod` | `method` | `script.js,Class,method` including computed property names |
+
 ### Native API Access Graph generated via hook callback function (view2 of thin-hook/demo/)
 
 <img src="https://raw.githubusercontent.com/wiki/t2ym/thin-hook/native_api_access_graph.png" width="768px">
