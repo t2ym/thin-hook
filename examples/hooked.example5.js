@@ -2,7 +2,7 @@
   class S {
     static sin(v) {
       return __hook__(v => {
-        return __hook__('()', Math, [
+        return __hook__('#()', Math, [
           'sin',
           [v]
         ], 'examples/example5.js,S,static sin');

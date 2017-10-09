@@ -40,12 +40,12 @@
     }
     get nprop() {
       return __hook__(() => {
-        return __hook__('.', this, ['_nprop'], 'examples/subclass.js,A,get nprop');
+        return __hook__('#.', this, ['_nprop'], 'examples/subclass.js,A,get nprop');
       }, null, arguments, 'examples/subclass.js,A,get nprop');
     }
     set nprop(value) {
       return __hook__(value => {
-        __hook__('=', this, [
+        __hook__('#=', this, [
           '_nprop',
           value
         ], 'examples/subclass.js,A,set nprop');
@@ -105,7 +105,7 @@
           1,
           (p, v) => super[p] = v
         ], 'examples/subclass.js,AA,check');
-        __hook__('()', result, [
+        __hook__('#()', result, [
           'push',
           [__hook__('s.', this, [
               'nprop',
@@ -118,7 +118,7 @@
           1,
           (p, v) => super[p] += v
         ], 'examples/subclass.js,AA,check');
-        __hook__('()', result, [
+        __hook__('#()', result, [
           'push',
           [__hook__('s.', this, [
               'nprop',
@@ -130,7 +130,7 @@
           'nprop',
           p => super[p]++
         ], 'examples/subclass.js,AA,check');
-        __hook__('()', result, [
+        __hook__('#()', result, [
           'push',
           [__hook__('s.', this, [
               'nprop',

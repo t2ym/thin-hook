@@ -1,15 +1,15 @@
 $hook$.global(__hook__, 'examples/example1.js,A1', 'A1', 'class')._p_A1 = class A1 {
   constructor(x, y, z) {
     return __hook__((x, y = 3, z = 5) => {
-      __hook__('=', this, [
+      __hook__('#=', this, [
         'x',
         x
       ], 'examples/example1.js,A1,constructor');
-      __hook__('=', this, [
+      __hook__('#=', this, [
         'y',
         y
       ], 'examples/example1.js,A1,constructor');
-      __hook__('=', this, [
+      __hook__('#=', this, [
         'z',
         z
       ], 'examples/example1.js,A1,constructor');
@@ -35,7 +35,7 @@ $hook$.global(__hook__, 'examples/example1.js,X1', 'X1', 'class')._p_X1 = class 
         y,
         z
       ], 'examples/example1.js,X1,constructor', '');
-      __hook__('=', this, [
+      __hook__('#=', this, [
         'xyz',
         {
           x: x,
@@ -47,10 +47,10 @@ $hook$.global(__hook__, 'examples/example1.js,X1', 'X1', 'class')._p_X1 = class 
   }
   a(p, nn) {
     return __hook__((p = 1, nn = 3) => {
-      let x = (...args) => __hook__(n => __hook__('.', this, ['b'], 'examples/example1.js,X1,a,x') + n, null, args, 'examples/example1.js,X1,a,x');
+      let x = (...args) => __hook__(n => __hook__('#.', this, ['b'], 'examples/example1.js,X1,a,x') + n, null, args, 'examples/example1.js,X1,a,x');
       let y = (...args) =>
         (__hook__(n => {
-          return __hook__('.', this, ['b'], 'examples/example1.js,X1,a,y') + n;
+          return __hook__('#.', this, ['b'], 'examples/example1.js,X1,a,y') + n;
         }, null, args, 'examples/example1.js,X1,a,y'));
       let z = (...args) => __hook__((p, n) => ({
         p: p * 2,
@@ -60,10 +60,10 @@ $hook$.global(__hook__, 'examples/example1.js,X1', 'X1', 'class')._p_X1 = class 
         p * 2,
         n * 3
       ], null, args, 'examples/example1.js,X1,a,u');
-      return __hook__(x, null, [nn], 'examples/example1.js,X1,a', 0) + __hook__(y, null, [p], 'examples/example1.js,X1,a', 0) + __hook__('.', __hook__(z, null, [
+      return __hook__(x, null, [nn], 'examples/example1.js,X1,a', 0) + __hook__(y, null, [p], 'examples/example1.js,X1,a', 0) + __hook__('#.', __hook__(z, null, [
         p,
         nn
-      ], 'examples/example1.js,X1,a', 0), ['p'], 'examples/example1.js,X1,a') + __hook__('.', __hook__(u, null, [
+      ], 'examples/example1.js,X1,a', 0), ['p'], 'examples/example1.js,X1,a') + __hook__('#.', __hook__(u, null, [
         p,
         nn
       ], 'examples/example1.js,X1,a', 0), [1], 'examples/example1.js,X1,a');
@@ -119,7 +119,7 @@ $hook$.global(__hook__, 'examples/example1.js,Y1', 'Y1', 'class')._p_Y1 = class 
         y,
         z
       ], 'examples/example1.js,Y1,constructor', '');
-      __hook__('=', this, [
+      __hook__('#=', this, [
         'XYZ',
         {
           x: x,
