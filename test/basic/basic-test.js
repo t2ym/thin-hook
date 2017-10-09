@@ -1669,21 +1669,29 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           },
           {
             code: `var m = 'm', p = 'p'; class a { constructor(p) { this._p = p; } [m](a) { this._p += a; } get [p]() { return this._p; } set [p](v) { this._p = v; } }`,
-            hooked: `$hook$.global(__hook__,'HookApiTest','m','var')._pp_m='m',$hook$.global(__hook__,'HookApiTest','p','var')._pp_p='p';` +
-              `$hook$.global(__hook__,'HookApiTest,a','a','class')._pp_a=class a{` +
-              `constructor(p){return __hook__(p=>{__hook__('#=',this,['_p',p],'HookApiTest,a,constructor');},null,arguments,'HookApiTest,a,constructor');}` +
-              `[$hook$.global(__hook__,'HookApiTest,a,m','m','get')._pp_m](a){return __hook__(a=>{__hook__('#+=',this,['_p',a],'HookApiTest,a,m');},null,arguments,'HookApiTest,a,m');}` +
-              `get[$hook$.global(__hook__,'HookApiTest,a,get p','p','get')._pp_p](){return __hook__(()=>{return __hook__('#.',this,['_p'],'HookApiTest,a,get p');},null,arguments,'HookApiTest,a,get p');}` +
-              `set[$hook$.global(__hook__,'HookApiTest,a,set p','p','get')._pp_p](v){return __hook__(v=>{__hook__('#=',this,['_p',v],'HookApiTest,a,set p');},null,arguments,'HookApiTest,a,set p');}};`,
+            hooked: `$hook$.global(__hook__,'HookApiTest','m','var')._pp_m='m',` +
+              `$hook$.global(__hook__,'HookApiTest','p','var')._pp_p='p';` +
+              `$hook$.global(__hook__,'HookApiTest,a','a','class')._pp_a=` +
+              `class a{constructor(p){return __hook__(p=>{__hook__('#=',this,['_p',p],'HookApiTest,a,constructor');},null,arguments,'HookApiTest,a,constructor');}` +
+              `[$hook$.global(__hook__,'HookApiTest,a,m','m','#get').S_pp_m](a){return ` +
+              `__hook__(a=>{__hook__('#+=',this,['_p',a],'HookApiTest,a,m');},null,arguments,'HookApiTest,a,m');}` +
+              `get[$hook$.global(__hook__,'HookApiTest,a,get p','p','#get').S_pp_p](){return __hook__(()=>{return ` +
+              `__hook__('#.',this,['_p'],'HookApiTest,a,get p');},null,arguments,'HookApiTest,a,get p');}` +
+              `set[$hook$.global(__hook__,'HookApiTest,a,set p','p','#get').S_pp_p](v){return __hook__(v=>{` +
+              `__hook__('#=',this,['_p',v],'HookApiTest,a,set p');},null,arguments,'HookApiTest,a,set p');}};`,
             eval: () => true,
           },
           {
             code: `var m = 'm', p = 'p'; class a { static [m](a) { this._p += a; } static get [p]() { return this._p; } static set [p](v) { this._p = v; } }`,
-            hooked: `$hook$.global(__hook__,'HookApiTest','m','var')._pp_m='m',$hook$.global(__hook__,'HookApiTest','p','var')._pp_p='p';` +
-              `$hook$.global(__hook__,'HookApiTest,a','a','class')._pp_a=class a{` +
-              `static[$hook$.global(__hook__,'HookApiTest,a,static m','m','get')._pp_m](a){return __hook__(a=>{__hook__('#+=',this,['_p',a],'HookApiTest,a,static m');},null,arguments,'HookApiTest,a,static m');}` +
-              `static get[$hook$.global(__hook__,'HookApiTest,a,get p','p','get')._pp_p](){return __hook__(()=>{return __hook__('#.',this,['_p'],'HookApiTest,a,get p');},null,arguments,'HookApiTest,a,get p');}` +
-              `static set[$hook$.global(__hook__,'HookApiTest,a,set p','p','get')._pp_p](v){return __hook__(v=>{__hook__('#=',this,['_p',v],'HookApiTest,a,set p');},null,arguments,'HookApiTest,a,set p');}};`,
+            hooked: `$hook$.global(__hook__,'HookApiTest','m','var')._pp_m='m',` +
+              `$hook$.global(__hook__,'HookApiTest','p','var')._pp_p='p';` +
+              `$hook$.global(__hook__,'HookApiTest,a','a','class')._pp_a=` +
+              `class a{static[$hook$.global(__hook__,'HookApiTest,a,static m','m','#get').S_pp_m](a){return ` +
+              `__hook__(a=>{__hook__('#+=',this,['_p',a],'HookApiTest,a,static m');},null,arguments,'HookApiTest,a,static m');}` +
+              `static get[$hook$.global(__hook__,'HookApiTest,a,get p','p','#get').S_pp_p](){return __hook__(()=>{return ` +
+              `__hook__('#.',this,['_p'],'HookApiTest,a,get p');},null,arguments,'HookApiTest,a,get p');}` +
+              `static set[$hook$.global(__hook__,'HookApiTest,a,set p','p','#get').S_pp_p](v){return __hook__(v=>{` +
+              `__hook__('#=',this,['_p',v],'HookApiTest,a,set p');},null,arguments,'HookApiTest,a,set p');}};`,
             eval: () => true,
           },
         ],
@@ -1814,7 +1822,7 @@ export const name7 = 3, name8 = 4;`,
           },
           {
             code: `export default Date;`,
-            hooked: `export default $hook$.global(__hook__,'HookApiTest','Date','get')._pp_Date;`,
+            hooked: `export default $hook$.global(__hook__,'HookApiTest','Date','#get').S_pp_Date;`,
             eval: () => true,
           },
         ],
