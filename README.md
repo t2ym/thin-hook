@@ -644,9 +644,10 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
 - `hook.contextGenerators`: object. Context Generator Functions
   - `null()`: context as `''`
   - `astPath(astPath: Array)`: context as `'script.js,[root]Program,body,astType,...'`
-  - `method(astPath: Array)`: context as `'script.js,Class,Method'` (still the default for compatibility; to be renamed like `oldMethod`)
-  - `cachedMethod(astPath: Array)`: context as `'script.js,Class,Method'` with caching, including computed method variable name
-  - `cachedMethodDebug(astPath: Array)`: context as `'script.js,Class,Method'`, comparing contexts with those by "method" in console.warn() messages
+  - `method(astPath: Array)`: context as `'script.js,Class,Method'` with caching, including computed method variable name
+  - `cachedMethod(astPath: Array)`: alias for `method`
+  - `cachedMethodDebug(astPath: Array)`: context as `'script.js,Class,Method'`, comparing contexts with those by "oldMethod" in console.warn() messages
+  - `oldMethod(astPath: Array)`: context as `'script.js,Class,Method'` for compatibility
   - custom context generator function has to be added to this object with its unique contextGeneratorName
 - Hooked Native APIs: Automatically applied in `hook()` preprocessing
   - `hook.global(hookCallback: function = hookName, context: string, name: string, type: string)._p_name`: hooked global variable accessor when `hookGlobal` is true
