@@ -12,6 +12,7 @@ Thin Hook Preprocessor (experimental)
 |:-----:|:-----:|:-----|
 | `method` | `oldMethod` | `script.js,Class,method` |
 | `cachedMethod` | `method` | `script.js,Class,method` including computed property names |
+- **[Hook Callback Compatibility]** Since [0.0.149](https://github.com/t2ym/thin-hook/releases/tag/0.0.149) with [#123](https://github.com/t2ym/thin-hook/issues/123), the hook callback function has to support new operators for hooking in strict mode. See below for the updated hook callback function `hook.__hook__`. `hook.hookCallbackCompatibilityTest()` can detect if the target hook callback function is compatible or not. 
 
 ### Native API Access Graph generated via hook callback function (view2 of thin-hook/demo/)
 
