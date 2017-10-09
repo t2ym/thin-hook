@@ -1399,6 +1399,11 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             hooked: `$hook$.global(__hook__,'HookApiTest','aaa','delete');$hook$.global(__hook__,'HookApiTest','aaa','set')._pp_aaa=2;` +
               `{let b=$hook$.global(__hook__,'HookApiTest,b','aaa','get')._pp_aaa;delete b;$hook$.global(__hook__,'HookApiTest','aaa','delete');b;}`,
           },
+          {
+            code: `'use strict'; try { __inexistentGlobalVariable = 1; } catch (e) { e.name; }`,
+            hooked: `'use strict';try{$hook$.global(__hook__,'HookApiTest','__inexistentGlobalVariable','#set').S_pp___inexistentGlobalVariable=1;}` +
+              `catch(e){__hook__('#.',e,['name'],'HookApiTest');}`,
+          },
         ],
         LogicalExpression: [
           {
@@ -1517,12 +1522,10 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           {
             code: `{ let a = 1; eval('1'); }`,
             hooked: `{let a=1;$hook$.eval('__hook__',[['HookApiTest',{}]],'method',{a:true})('1',(script,eval)=>eval(script));}`,
-            eval: () => true,
           },
           {
             code: `'use strict'; eval('1');`,
             hooked: `'use strict';$hook$.eval('__hook__',[['HookApiTest',{}]],'method',{$use_strict$:true})('1',(script,_eval)=>_eval(script));`,
-            eval: () => true,
           },
           {
             code: `var a; new Promise(resolve => { a = resolve; setTimeout('let resolve = a; a = null; resolve(1);', 100); });`,
