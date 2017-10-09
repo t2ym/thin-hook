@@ -262,6 +262,16 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
               `__hook__(f,null,[],'HookApiTest',0);`,
             asynchronous: true,
           },
+          {
+            code: `'use strict'; function f() { return 1; } f();`,
+            hooked: `'use strict';$hook$.global(__hook__,'HookApiTest,f','f','#function').S_pp_f=function f(){return __hook__(()=>{return 1;},null,arguments,'HookApiTest,f');};` +
+              `__hook__(f,null,[],'HookApiTest',0);`,
+          },
+          {
+            code: `{ function f() { 'use strict'; return Date; } f(); }`,
+            hooked: `{function f(){'use strict';return __hook__(()=>{return $hook$.global(__hook__,'HookApiTest,f','Date','#get').S_pp_Date;},null,arguments,'HookApiTest,f');}` +
+              `__hook__(f,null,[],'HookApiTest',0);}`,
+          },
         ],
         FunctionExpression: [
           {
@@ -277,6 +287,14 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             code: '{ with ({}) { (function * f(v) {yield v})().next(); } }',
             hooked: `{with($hook$.with({},{})){__hook__('()',` +
               `function*f(v){yield*__hook__(function*(v){yield __hook__('w.',__with__,['v',()=>v],'HookApiTest,f',false);},this,arguments,'HookApiTest,f');}(),['next',[]],'HookApiTest');}}`,
+          },
+          {
+            code: `var f = function f() { 'use strict'; let o = {a:1}; o.a; Date; Date.now(); return o; }; f();`,
+            hooked: `$hook$.global(__hook__,'HookApiTest','f','var')._pp_f=` +
+              `function f(){'use strict';return __hook__(()=>{let o={a:1};__hook__('#.',o,['a'],'HookApiTest,f');` +
+              `$hook$.global(__hook__,'HookApiTest,f','Date','#get').S_pp_Date;` +
+              `__hook__('#()',Date,['now',[]],'HookApiTest,f');return o;},null,arguments,'HookApiTest,f');};` +
+              `__hook__(f,null,[],'HookApiTest',0);`,
           },
         ],
         ArrowFunctionExpression: [
@@ -544,6 +562,14 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
               `for($hook$.global(__hook__,'HookApiTest','a','var')._pp_a of __hook__('*',$hook$.global(__hook__,'HookApiTest','b','get')._pp_b,[],'HookApiTest')){` +
               `$hook$.global(__hook__,'HookApiTest','c','set')._pp_c+=$hook$.global(__hook__,'HookApiTest','a','get')._pp_a;}`,
           },
+          {
+            code: `'use strict'; var b = [1, 2], c = 0; for (var a of b) { c += a; }`,
+            hooked: `'use strict';` +
+              `$hook$.global(__hook__,'HookApiTest','b','#var').S_pp_b=[1,2],` +
+              `$hook$.global(__hook__,'HookApiTest','c','#var').S_pp_c=0;` +
+              `for($hook$.global(__hook__,'HookApiTest','a','var').S_pp_a of __hook__('#*',$hook$.global(__hook__,'HookApiTest','b','#get').S_pp_b,[],'HookApiTest')){` +
+              `$hook$.global(__hook__,'HookApiTest','c','#set').S_pp_c+=$hook$.global(__hook__,'HookApiTest','a','#get').S_pp_a;}`,
+          },
         ],
         VariableDeclaration: [
           {
@@ -562,6 +588,13 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             code: 'let a = 3;',
             hooked: `$hook$.global(__hook__,'HookApiTest','a','let')._pp_a=3;`,
             eval: () => true,
+          },
+          {
+            code: `'use strict'; var g = 1; g = 2; g;`,
+            hooked: `'use strict';` +
+              `$hook$.global(__hook__,'HookApiTest','g','#var').S_pp_g=1;` +
+              `$hook$.global(__hook__,'HookApiTest','g','#set').S_pp_g=2;` +
+              `$hook$.global(__hook__,'HookApiTest','g','#get').S_pp_g;`,
           },
           {
             code: 'const constantVariable = 4; { let a = constantVariable; }',
@@ -905,6 +938,11 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             hooked: `$hook$.global(__hook__,'HookApiTest','o','var')._pp_o={a:1,b:{c:4}};` +
               `$hook$.global(__hook__,'HookApiTest','o','set')._pp_o={c:3,...__hook__('*',__hook__('.',o,['b'],'HookApiTest'),[],'HookApiTest')};`,
           },
+          {
+            code: `'use strict'; var o = {a:1}; ({b:2,...o});`,
+            hooked: `'use strict';` +
+              `$hook$.global(__hook__,'HookApiTest','o','#var').S_pp_o={a:1};({b:2,...__hook__('#*',$hook$.global(__hook__,'HookApiTest','o','#get').S_pp_o,[],'HookApiTest')});`,
+          },
         ],
         ObjectExpression: [
           { name: 'Object', code: `({})`, hooked: `({});` },
@@ -1179,6 +1217,14 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
               `__hook__('=',c2,['m',2],'HookApiTest');__hook__('.',c2,['m2'],'HookApiTest');`,
             eval: () => true,
           },
+          {
+            code: `{ function f() { 'use strict'; let o = {a:1,b:2}; o.a++; --o.a; delete o.b; return o; } f() }`,
+            hooked: `{function f(){'use strict';return __hook__(()=>{let o={a:1,b:2};` +
+              `__hook__('#p++',o,['a'],'HookApiTest,f');` +
+              `__hook__('#--p',o,['a'],'HookApiTest,f');` +
+              `__hook__('#delete',o,['b'],'HookApiTest,f');return o;},null,arguments,'HookApiTest,f');}` +
+              `__hook__(f,null,[],'HookApiTest',0);}`,
+          },
         ],
         BinaryExpression: [
           {
@@ -1255,6 +1301,13 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           {
             code: `var a = 'a', b = { a: 1 }; a in b;`,
             hooked: `$hook$.global(__hook__,'HookApiTest','a','var')._pp_a='a',$hook$.global(__hook__,'HookApiTest','b','var')._pp_b={a:1};__hook__('in',$hook$.global(__hook__,'HookApiTest','b','get')._pp_b,[$hook$.global(__hook__,'HookApiTest','a','get')._pp_a],'HookApiTest');`,
+          },
+          {
+            code: `'use strict'; var a = 'a', b = { a: 1 }; a in b;`,
+            hooked: `'use strict';` +
+              `$hook$.global(__hook__,'HookApiTest','a','#var').S_pp_a='a',` +
+              `$hook$.global(__hook__,'HookApiTest','b','#var').S_pp_b={a:1};` +
+              `__hook__('#in',$hook$.global(__hook__,'HookApiTest','b','#get').S_pp_b,[$hook$.global(__hook__,'HookApiTest','a','#get').S_pp_a],'HookApiTest');`,
           },
           {
             code: `{ let a = {}; a instanceof Object; }`,
@@ -1397,6 +1450,13 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
               `__hook__('.',__hook__(c,null,[1],'HookApiTest',true),['p'],'HookApiTest');}`,
             //options: 'compact=false',
           },
+          {
+            code: `{ class a { static m() { [this._name] = [this.name]; return this._name; } } a.m(); }`,
+            hooked: `{class a{static m(){return __hook__(()=>{[__hook__('#.=',this,['_name'],'HookApiTest,a,static m')['=']]=` +
+              `[__hook__('#.',this,['name'],'HookApiTest,a,static m')];` +
+              `return __hook__('#.',this,['_name'],'HookApiTest,a,static m');},null,arguments,'HookApiTest,a,static m');}}` +
+              `__hook__('()',a,['m',[]],'HookApiTest');}`,
+          },
         ],
         ConditionalExpression: [
           {
@@ -1457,6 +1517,11 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           {
             code: `{ let a = 1; eval('1'); }`,
             hooked: `{let a=1;$hook$.eval('__hook__',[['HookApiTest',{}]],'method',{a:true})('1',(script,eval)=>eval(script));}`,
+            eval: () => true,
+          },
+          {
+            code: `'use strict'; eval('1');`,
+            hooked: `'use strict';$hook$.eval('__hook__',[['HookApiTest',{}]],'method',{$use_strict$:true})('1',(script,_eval)=>_eval(script));`,
             eval: () => true,
           },
           {
@@ -1591,6 +1656,13 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
               `$hook$.global(__hook__,'HookApiTest,b','b','class')._pp_b=class b extends $hook$.global(__hook__,'HookApiTest,b','a','get')._pp_a{};`,
             eval: () => true,
           },
+          {
+            code: `'use strict'; class a {} class b extends a {}`,
+            hooked: `'use strict';` +
+              `$hook$.global(__hook__,'HookApiTest,a','a','#class').S_pp_a=class a{};` +
+              `$hook$.global(__hook__,'HookApiTest,b','b','#class').S_pp_b=class b extends $hook$.global(__hook__,'HookApiTest,b','a','#get').S_pp_a{};`,
+            eval: () => true,
+          },
         ],
         ClassExpression: [
           {
@@ -1605,6 +1677,13 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             code: `var a = class a {}; var b = class b extends a {};`,
             hooked: `$hook$.global(__hook__,'HookApiTest','a','var')._pp_a=class a{};` +
               `$hook$.global(__hook__,'HookApiTest','b','var')._pp_b=class b extends $hook$.global(__hook__,'HookApiTest,b','a','get')._pp_a{};`,
+            eval: () => true,
+          },
+          {
+            code: `'use strict'; var a = class a {}; var b = class b extends a {};`,
+            hooked: `'use strict';` +
+              `$hook$.global(__hook__,'HookApiTest','a','#var').S_pp_a=class a{};` +
+              `$hook$.global(__hook__,'HookApiTest','b','#var').S_pp_b=class b extends $hook$.global(__hook__,'HookApiTest,b','a','#get').S_pp_a{};`,
             eval: () => true,
           },
         ],
