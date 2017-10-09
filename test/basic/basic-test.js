@@ -43,6 +43,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           'method': Function,
           'cachedMethod': Function,
           'cachedMethodDebug': Function,
+          'oldMethod': Function,
         },
         __hook__: Function,
         __hook_except_properties__: Function,
@@ -93,7 +94,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       return [
         '__hook__', // [0] hookName
         [[this.context, {}]], // [1] initialContext
-        'cachedMethod', // [2] contextGeneratorName
+        'method', // [2] contextGeneratorName
         true, // [3] metaHooking
         true, // [4] _hookProperty
         null, // [5] _sourceMap
@@ -1456,14 +1457,14 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           },
           {
             code: `{ let a = 1; eval('1'); }`,
-            hooked: `{let a=1;$hook$.eval('__hook__',[['HookApiTest',{}]],'cachedMethod',{a:true})('1',(script,eval)=>eval(script));}`,
+            hooked: `{let a=1;$hook$.eval('__hook__',[['HookApiTest',{}]],'method',{a:true})('1',(script,eval)=>eval(script));}`,
             eval: () => true,
           },
           {
             code: `var a; new Promise(resolve => { a = resolve; setTimeout('let resolve = a; a = null; resolve(1);', 100); });`,
             hooked: `$hook$.global(__hook__,'HookApiTest','a','var')._pp_a;` +
               `__hook__(Promise,null,[(...args)=>(__hook__(resolve=>{$hook$.global(__hook__,'HookApiTest','a','set')._pp_a=resolve;` +
-              `$hook$.setTimeout('__hook__',[['HookApiTest',{}]],'cachedMethod')('let resolve = a; a = null; resolve(1);',100);},null,args,'HookApiTest'))],'HookApiTest',true);`,
+              `$hook$.setTimeout('__hook__',[['HookApiTest',{}]],'method')('let resolve = a; a = null; resolve(1);',100);},null,args,'HookApiTest'))],'HookApiTest',true);`,
             asynchronous: true,
           },
           {
