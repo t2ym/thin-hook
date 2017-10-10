@@ -432,9 +432,34 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '/components/firebase/firebase-messaging.js,24,k,e': '@Object_setPrototypeOf_reader',
     '/components/firebase/firebase-messaging.js,24,P,e': '@Object_setPrototypeOf_reader',
     '/components/polymer/lib/mixins/element-mixin.html,script@926,createPropertyFromConfig': '@Object_static_method_reader', // bug?
+    '/components/polymer/lib/legacy/legacy-element-mixin.html,script@1013,LegacyElement,fire': '@Event_detail_writer',
+    '/components/polymer/lib/mixins/property-effects.html,script@914,setupBindings': '@HTMLElement___dataHost_writer',
+    '/components/polymer/lib/legacy/polymer.dom.html,script@701': '@Event___domApi_writer',
+    '/components/polymer/lib/legacy/polymer.dom.html,script@701,forwardMethods': '@DocumentFragment_querySelector_reader',
     '/components/chai/chai.js,30': '@custom_error_constructor_creator',
     '/components/chai/chai.js,9,hasProtoSupport': '@Object__proto__reader',
     '/components/dexie/dist/dexie.min.js,p': '@Object_static_method_user',
+    '/components/webcomponentsjs/webcomponents-lite.js': '@Object_assign_reader',
+    '/components/webcomponentsjs/webcomponents-lite.js,Xa,b': '@Event_ja_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,rc,get composed': '@Event_ja_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,lc': '@Event__target_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,Ja': '@Event_composed_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,kc': '@Event_composedPath_executor',
+    '/components/webcomponentsjs/webcomponents-lite.js,rc,get target': '@Event_composedPath_executor',
+    '/components/webcomponentsjs/webcomponents-lite.js,rc,composedPath': '@Event_ya_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,rc,stopPropagation': '@Event_ka_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,rc,get relatedTarget': '@Event_za_reader',
+    '/components/webcomponentsjs/webcomponents-lite.js,nd,b': '@HTMLElement_proto_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,rd': '@CustomEvent_reader',
+    '/components/webcomponentsjs/webcomponents-lite.js,I': '@HTMLElement_blur_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,bc': '@HTMLElement___shady_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,u': '@HTMLElement_insertAdjacentElement_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,l': '@DocumentFragment_$__proto__$_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,Ra': '@DocumentFragment_querySelectorAll_reader',
+    '/components/webcomponentsjs/webcomponents-lite.js,la': '@HTMLElement___shady_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,bc': '@HTMLElement___shady_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,Wb': '@HTMLElement___shady_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,lc,d': '@Event_prototype_reader',
   };
   const acl = {
     // blacklist objects/classes
@@ -521,6 +546,10 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         '@Object_defineProperty_reader': 'r--',
         '@bind_normalization_checker': 'r-x',
       },
+      assign: {
+        [S_DEFAULT]: '--x',
+        '@Object_assign_reader': 'r-x',
+      },
       $prototype$: 'r--',
       [S_PROTOTYPE]: {
         [S_DEFAULT]: 'rwx',
@@ -601,6 +630,39 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         },
       }
     },
+    HTMLElement: {
+      [S_DEFAULT]: 'r-x',
+      [S_PROTOTYPE]: {
+        [S_DEFAULT]: 'rwx', // Note: Loose ACL but normal for custom elements; Other native APIs have to be protected specifically.
+        $__proto__$: {
+          [S_DEFAULT]: 'r--',
+          '@HTMLElement_proto_writer': 'rw-',
+        },
+        textContent: 'rw-',
+        blur: {
+          [S_DEFAULT]: 'r-x',
+          '@HTMLElement_blur_writer': 'rwx',
+        },
+        __shady: {
+          [S_DEFAULT]: 'r-x',
+          '@HTMLElement___shady_writer': 'rwx',
+          '@Object_assign_reader': 'rwx',
+        },
+        insertAdjacentElement: {
+          [S_DEFAULT]: 'r-x',
+          '@HTMLElement_insertAdjacentElement_writer': 'rwx',
+        },
+        type: 'rw-',
+        __dataHost: {
+          [S_DEFAULT]: 'r-x',
+          '@HTMLElement___dataHost_writer': 'rwx',
+        },
+        __domApi: {
+          [S_DEFAULT]: 'r-x',
+          '@Event___domApi_writer': 'rwx',
+        },
+      },
+    },
     HTMLTemplateElement: {
       [S_OBJECT]: 'r-x',
       [S_DEFAULT]: 'r--',
@@ -643,6 +705,233 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           [S_DEFAULT]: 'r-x',
           '@bind_normalization_checker': '--x',
         }
+      },
+    },
+    Event: {
+      [S_DEFAULT]: 'r-x',
+      [S_PROTOTYPE]: {
+        [S_DEFAULT]: 'r--',
+        $__proto__$: {
+          [S_DEFAULT]: 'r--',
+          '@Event__target_writer': 'rw-',
+        },
+        initEvent: {
+          [S_DEFAULT]: 'r-x',
+          '@Object_assign_reader': 'rwx',
+        },
+        __patchProto: {
+          [S_DEFAULT]: 'r--',
+          '@Event__target_writer': 'rw-',
+        },
+        __target: {
+          [S_DEFAULT]: 'r--',
+          '@Event__target_writer': 'rw-',
+        },
+        target: {
+          [S_DEFAULT]: 'r--',
+          '@Event__target_writer': 'rw-',
+          '@Event_composed_writer': 'rw-',
+        },
+        relatedTarget: {
+          [S_DEFAULT]: 'r--',
+          '@Event_composed_writer': 'rw-',
+        },
+        composed: {
+          [S_DEFAULT]: 'r--',
+          '@Event_composed_writer': 'rw-',
+        },
+        composedPath: {
+          [S_DEFAULT]: 'r-x',
+          '@Event_composed_writer': 'rw-',
+          '@Event_composedPath_executor': 'rwx',
+        },
+        stopPropagation: {
+          [S_DEFAULT]: 'r-x',
+          '@Event_composed_writer': 'rwx',
+        },
+        stopImmediatePropagation: {
+          [S_DEFAULT]: 'r-x',
+          '@Event_composed_writer': 'rwx',
+        },
+        preventDefault: {
+          [S_DEFAULT]: 'r-x',
+        },
+        defaultPrevented: {
+          [S_DEFAULT]: 'r-x',
+          '@Object_assign_reader': 'rwx',
+        },
+        Bb: {
+          [S_DEFAULT]: '---',
+          '@Event__target_writer': 'rw-',
+        },
+        ja: {
+          [S_DEFAULT]: '---',
+          '@Event_ja_writer': 'rw-',
+        },
+        ya: {
+          [S_DEFAULT]: '---',
+          '@Event_ya_writer': 'rw-',
+        },
+        za: {
+          [S_DEFAULT]: '---',
+          '@Event_za_reader': 'r--',
+          '@Event__target_writer': 'rw-',
+        },
+        ka: {
+          [S_DEFAULT]: 'r-x',
+          '@Event_ka_writer': 'rwx',
+        },
+        detail: {
+          [S_DEFAULT]: 'r-x',
+          '@Event_detail_writer': 'rwx',
+        },
+        __domApi: {
+          [S_DEFAULT]: 'r-x',
+          '@Event___domApi_writer': 'rwx',
+        },
+      },
+    },
+    CustomEvent: {
+      [S_DEFAULT]: 'r-x',
+      [S_PROTOTYPE]: {
+        [S_DEFAULT]: 'r-x',
+        $__proto__$: {
+          [S_DEFAULT]: 'r--',
+          '@Event__target_writer': 'rw-',
+        },
+        __patchProto: {
+          [S_DEFAULT]: 'r--',
+          '@Event__target_writer': 'rw-',
+        },
+        composed: {
+          [S_DEFAULT]: 'r--',
+          '@Event_composed_writer': 'rw-',
+        },
+        composedPath: {
+          [S_DEFAULT]: 'r--',
+          '@Event_composed_writer': 'rw-',
+          '@Event_composedPath_executor': 'rwx',
+        },
+        stopPropagation: {
+          [S_DEFAULT]: 'r-x',
+          '@Event_composed_writer': 'rwx',
+        },
+        stopImmediatePropagation: {
+          [S_DEFAULT]: 'r-x',
+          '@Event_composed_writer': 'rwx',
+        },
+        target: {
+          [S_DEFAULT]: 'r--',
+          '@Event_composed_writer': 'rw-',
+        },
+        relatedTarget: {
+          [S_DEFAULT]: 'r--',
+          '@Event_composed_writer': 'rw-',
+        },
+        __target: {
+          [S_DEFAULT]: 'r--',
+          '@Event__target_writer': 'rw-',
+        },
+        ja: {
+          [S_DEFAULT]: 'r--',
+          '@Event_ja_writer': 'rw-',
+        },
+        za: {
+          [S_DEFAULT]: 'r--',
+          '@Event__target_writer': 'rw-',
+        },
+        Bb: {
+          [S_DEFAULT]: 'r--',
+          '@Event__target_writer': 'rw-',
+        },
+        ya: {
+          [S_DEFAULT]: 'r--',
+          '@Event_ya_writer': 'rw-',
+        },
+      },
+    },
+    FocusEvent: {
+      [S_DEFAULT]: 'r-x',
+      [S_PROTOTYPE]: {
+        $__proto__$: {
+          [S_DEFAULT]: 'r-x',
+          '@Event__target_writer': 'rwx',
+        },
+      },
+    },
+    DocumentFragment: {
+      [S_DEFAULT]: 'r-x',
+      [S_PROTOTYPE]: {
+        [S_DEFAULT]: 'rwx', // NOTE: loose ACL; TODO: ineffective?
+        $__proto__$: {
+          [S_DEFAULT]: 'r--',
+          '@DocumentFragment_$__proto__$_writer': 'rw-',
+        },
+        '@Object_assign_reader': 'rwx',
+        querySelector: {
+          [S_DEFAULT]: '--x',
+          '@HTMLElement_blur_writer': 'rwx',
+          '@DocumentFragment_querySelector_reader': 'r-x',
+        },
+        querySelectorAll: {
+          [S_DEFAULT]: '--x',
+          '@HTMLElement_blur_writer': 'rwx',
+          '@DocumentFragment_querySelectorAll_reader': 'r-x',
+          '@DocumentFragment_querySelector_reader': 'r-x',
+        },
+        removeChild: 'r-x', // Note: loose ACL
+        _renderRoot: {
+          [S_DEFAULT]: 'r-x',
+          '@Object_assign_reader': 'rwx',
+        },
+        Ea: {
+          [S_DEFAULT]: 'r-x',
+          '@Object_assign_reader': 'rwx',
+        },
+        C: {
+          [S_DEFAULT]: 'r-x',
+          '@Object_assign_reader': 'rwx',
+        },
+        hb: {
+          [S_DEFAULT]: 'r-x',
+          '@Object_assign_reader': 'rwx',
+        },
+        h: {
+          [S_DEFAULT]: 'r-x',
+          '@Object_assign_reader': 'rwx',
+        },
+        v: {
+          [S_DEFAULT]: 'r-x',
+          '@Object_assign_reader': 'rwx',
+        },
+        l: {
+          [S_DEFAULT]: 'r-x',
+          '@Object_assign_reader': 'rwx',
+        },
+        f: {
+          [S_DEFAULT]: 'r-x',
+          '@Object_assign_reader': 'rwx',
+        },
+        c: {
+          [S_DEFAULT]: 'r-x',
+          '@Object_assign_reader': 'rwx',
+        },
+        g: {
+          [S_DEFAULT]: 'r-x',
+          '@Object_assign_reader': 'rwx',
+        },
+        s: {
+          [S_DEFAULT]: 'r-x',
+          '@Object_assign_reader': 'rwx',
+        },
+        u: {
+          [S_DEFAULT]: 'r-x',
+          '@Object_assign_reader': 'rwx',
+        },
+        I: {
+          [S_DEFAULT]: 'r-x',
+          '@Object_assign_reader': 'rwx',
+        },
       },
     },
     btoa: {
@@ -1345,6 +1634,34 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         //   debugger;
         //   applyAcl(name, isStatic, typeof normalizedThisArg === 'object', property, opType, context);
         // }
+        /*
+        if (typeof property === 'string') {
+          console.warn(isStatic ?
+`
+  '${context}': '${contextNormalizer[context] || '@' + name + '_' + property + '_' + (opType === 'w' ? 'writer' : 'executor')}',
+
+${name}: {
+  ${property}: {
+    [S_DEFAULT]: 'r-x',
+    '${contextNormalizer[context] || '@' + name + '_' + property + '_' + (opType === 'w' ? 'writer' : 'executor')}': 'rwx',
+  },
+},
+` :
+`
+  '${context}': '${contextNormalizer[context] || '@' + name + '_' + property + '_' + (opType === 'w' ? 'writer' : 'executor')}',
+
+${name}: {
+  [S_PROTOTYPE]: {
+    ${property}: {
+      [S_DEFAULT]: 'r-x',
+      '${contextNormalizer[context] || '@' + name + '_' + property + '_' + (opType === 'w' ? 'writer' : 'executor')}': 'rwx',
+    },
+  },
+},
+`);
+        }
+        throw new Error('Permission Denied: Cannot access ' + opType + ' ' + name + (isStatic ? '.' : '.prototype.') + (typeof property === 'string' ? property : '') + ' from ' + context);
+        */
         throw new Error('Permission Denied: Cannot access ' + name);
       }
       // TODO: For robust security, the exception should not provide any information on the blocked objects/properties.
