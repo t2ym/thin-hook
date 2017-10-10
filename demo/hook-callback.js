@@ -710,7 +710,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     Event: {
       [S_DEFAULT]: 'r-x',
       [S_PROTOTYPE]: {
-        [S_DEFAULT]: 'r--',
+        [S_DEFAULT]: 'rwx', // Note: Ad-hoc loose ACL
         $__proto__$: {
           [S_DEFAULT]: 'r--',
           '@Event__target_writer': 'rw-',
@@ -782,7 +782,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           '@Event_ka_writer': 'rwx',
         },
         detail: {
-          [S_DEFAULT]: 'r-x',
+          [S_DEFAULT]: 'rwx', // TODO: Ad-hoc Loose ACL
           '@Event_detail_writer': 'rwx',
         },
         __domApi: {
@@ -853,6 +853,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     FocusEvent: {
       [S_DEFAULT]: 'r-x',
       [S_PROTOTYPE]: {
+        [S_DEFAULT]: 'rwx', // TODO: Ad-hoc loose ACL
         $__proto__$: {
           [S_DEFAULT]: 'r-x',
           '@Event__target_writer': 'rwx',
