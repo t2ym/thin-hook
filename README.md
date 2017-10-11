@@ -263,9 +263,13 @@ onmessage = hook.hookWorkerHandler;
     let result;
     let args1 = args[1]; // for '()'
     function * gen() {}
+    let GeneratorFunction = gen.constructor;
     switch (f) {
     case Function:
       args = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args);
+      break;
+    case GeneratorFunction:
+      args = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args, true);
       break;
     case '()':
       switch (thisArg) {
@@ -282,7 +286,7 @@ onmessage = hook.hookWorkerHandler;
               break;
             default:
               if (args[1][0].prototype instanceof Function) {
-                args1 = [args[1][0], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][1], args[1][0].prototype.constructor === gen.constructor)];
+                args1 = [args[1][0], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][1], args[1][0].prototype instanceof GeneratorFunction)];
                 if (args[1][2]) {
                   args1.push(args[1][2]);
                 }
@@ -297,7 +301,13 @@ onmessage = hook.hookWorkerHandler;
             case Function:
               args1 = [args[1][0], args[1][1], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][2])];
               break;
+            case GeneratorFunction:
+              args1 = [args[1][0], args[1][1], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][2], true)];
+              break;
             default:
+              if (args[1][0].prototype instanceof Function) {
+                args1 = [args[1][0], args[1][1], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][2], args[1][0].prototype instanceof GeneratorFunction)];
+              }
               break;
             }
           }
@@ -307,16 +317,43 @@ onmessage = hook.hookWorkerHandler;
         }
         break;
       case Function:
-        thisArg = hook.Function('__hook__', [[context, {}]]);
+        switch (args[0]) {
+        case 'apply':
+          args1 = [args[1][0], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][1])];
+          break;
+        case 'call':
+          args1 = [args[1][0], ...hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1].slice(1))];
+          break;
+        default:
+          break;
+        }
+        break;
+      case GeneratorFunction:
+        switch (args[0]) {
+        case 'apply':
+          args1 = [args[1][0], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][1], true)];
+          break;
+        case 'call':
+          args1 = [args[1][0], ...hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1].slice(1), true)];
+          break;
+        default:
+          break;
+        }
         break;
       default:
+        if (thisArg instanceof GeneratorFunction && args[0] === 'constructor') {
+          args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1], true);
+        }
+        else if (thisArg instanceof Function && args[0] === 'constructor') {
+          args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1]);
+        }
         break;
       }
       break;
     default:
       if (typeof f === 'function') {
         if (f.prototype instanceof Function && newTarget) {
-          args = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args, f.prototype.constructor === gen.constructor);
+          args = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args, f.prototype instanceof GeneratorFunction);
         }
         else if (newTarget === '') {
           if (args[0] && Object.getPrototypeOf(args[0]) === Function) {
