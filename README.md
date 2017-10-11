@@ -215,7 +215,7 @@ onmessage = hook.hookWorkerHandler;
     static ['#[]'](o, p) { return o[p]; }
     static ['#*'](o) { return o; }
     static ['#in'](o, p) { return p in o; }
-    static ['#()'](o, p, a) { return o[p].apply(o, a); }
+    static ['#()'](o, p, a) { return o[p](...a); }
     static ['#p++'](o, p) { return o[p]++; }
     static ['#++p'](o, p) { return ++o[p]; }
     static ['#p--'](o, p) { return o[p]--; }
@@ -351,7 +351,7 @@ onmessage = hook.hookWorkerHandler;
         break;
       // funcation call
       case '()':
-        result = thisArg[args[0]].apply(thisArg, args1);
+        result = thisArg[args[0]](...args1);
         break;
       // unary operators
       case 'p++':
