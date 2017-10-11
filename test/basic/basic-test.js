@@ -1569,12 +1569,26 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
               `let f=__hook__(__hook__(F,null,['return (a,b) => a + b;'],'HookApiTest,f',true),null,[],'HookApiTest,f',0);__hook__(f,null,[1,2],'HookApiTest',0);}`,
           },
           {
+            code: `{ class F extends Function { constructor(p1,p2,script) { super(p1,script); } } let f = new F('p1', 'p2', 'return (a,b) => p1 + a + b;')(3, 4); f(1,2); }`,
+            hooked: `{class F extends $hook$.global(__hook__,'HookApiTest,F','Function','get')._pp_Function{constructor(p1,p2,script){return ` +
+              `__hook__((p1,p2,script)=>{__hook__((newTarget,...args)=>super(...args),null,[new.target,p1,script],'HookApiTest,F,constructor','');},null,arguments,'HookApiTest,F,constructor');}}` +
+              `let f=__hook__(__hook__(F,null,['p1','p2','return (a,b) => p1 + a + b;'],'HookApiTest,f',true),null,[3,4],'HookApiTest,f',0);__hook__(f,null,[1,2],'HookApiTest',0);}`,
+          },
+          {
             code: `{ let f = Function('return (a,b) => a + b;')(); f(1,2); }`,
             hooked: `{let f=__hook__(__hook__(Function,null,['return (a,b) => a + b;'],'HookApiTest,f',0),null,[],'HookApiTest,f',0);__hook__(f,null,[1,2],'HookApiTest',0);}`,
           },
           {
+            code: `{ let f = Function('"use strict"; return (a,b) => a + b;')(); f(1,2); }`,
+            hooked: `{let f=__hook__(__hook__(Function,null,['"use strict"; return (a,b) => a + b;'],'HookApiTest,f',0),null,[],'HookApiTest,f',0);__hook__(f,null,[1,2],'HookApiTest',0);}`,
+          },
+          {
             code: `{ let f = Function.apply(null, ['return (a,b) => a + b;'])(); f(1,2); }`,
             hooked: `{let f=__hook__(__hook__('()',Function,['apply',[null,['return (a,b) => a + b;']]],'HookApiTest,f'),null,[],'HookApiTest,f',0);__hook__(f,null,[1,2],'HookApiTest',0);}`,
+          },
+          {
+            code: `{ let f = Function.apply(null, ['"use strict"; return (a,b) => a + b;'])(); f(1,2); }`,
+            hooked: `{let f=__hook__(__hook__('()',Function,['apply',[null,['"use strict"; return (a,b) => a + b;']]],'HookApiTest,f'),null,[],'HookApiTest,f',0);__hook__(f,null,[1,2],'HookApiTest',0);}`,
           },
           {
             code: `{ let f = Reflect.apply(Function, null, ['return (a,b) => a + b;'])(); f(1,2); }`,
@@ -1627,6 +1641,10 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           {
             code: `{ let f = (new Function('return (a,b) => a + b;'))(); f(1,2); }`,
             hooked: `{let f=__hook__(__hook__(Function,null,['return (a,b) => a + b;'],'HookApiTest,f',true),null,[],'HookApiTest,f',0);__hook__(f,null,[1,2],'HookApiTest',0);}`,
+          },
+          {
+            code: `{ let f = (new Function('"use strict"; return (a,b) => a + b;'))(); f(1,2); }`,
+            hooked: `{let f=__hook__(__hook__(Function,null,['"use strict"; return (a,b) => a + b;'],'HookApiTest,f',true),null,[],'HookApiTest,f',0);__hook__(f,null,[1,2],'HookApiTest',0);}`,
           },
         ],
         SequenceExpression: [
