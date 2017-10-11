@@ -1591,6 +1591,10 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             hooked: `{let f=__hook__(__hook__('()',Function,['apply',[null,['return (a,b) => a + b;']]],'HookApiTest,f'),null,[],'HookApiTest,f',0);__hook__(f,null,[1,2],'HookApiTest',0);}`,
           },
           {
+            code: `{ let f = Function.call(null, 'return (a,b) => a + b;')(); f(1,2); }`,
+            hooked: `{let f=__hook__(__hook__('()',Function,['call',[null,'return (a,b) => a + b;']],'HookApiTest,f'),null,[],'HookApiTest,f',0);__hook__(f,null,[1,2],'HookApiTest',0);}`,
+          },
+          {
             code: `{ let f = Function.apply(null, ['"use strict"; return (a,b) => a + b;'])(); f(1,2); }`,
             hooked: `{let f=__hook__(__hook__('()',Function,['apply',[null,['"use strict"; return (a,b) => a + b;']]],'HookApiTest,f'),null,[],'HookApiTest,f',0);__hook__(f,null,[1,2],'HookApiTest',0);}`,
           },
@@ -1598,6 +1602,27 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             code: `{ let f = Reflect.apply(Function, null, ['return (a,b) => a + b;'])(); f(1,2); }`,
             hooked: `{let f=__hook__(__hook__('()',Reflect,['apply',[$hook$.global(__hook__,'HookApiTest,f','Function','get')._pp_Function,null,['return (a,b) => a + b;']]],'HookApiTest,f'),null,[],'HookApiTest,f',0);` +
               `__hook__(f,null,[1,2],'HookApiTest',0);}`,
+          },
+          {
+            code: `{ let GeneratorFunction = (function *(){}).constructor; let f = Reflect.apply(GeneratorFunction, null, ['Date.now(); yield 1; yield 2']); [...f()]; }`,
+            hooked: `{let GeneratorFunction=__hook__('.',` +
+              `function*(){yield*__hook__(function*(){},this,arguments,'HookApiTest,GeneratorFunction');},['constructor'],'HookApiTest,GeneratorFunction');` +
+              `let f=__hook__('()',Reflect,['apply',[GeneratorFunction,null,['Date.now(); yield 1; yield 2']]],'HookApiTest,f');[...__hook__(f,null,[],'HookApiTest',0)];}`,
+          },
+          {
+            code: `{ let GeneratorFunction = (function *(){}).constructor;` +
+              `let GeneratorFunctionSubclass = function (...args) { return GeneratorFunction(...args);};` +
+              `Object.setPrototypeOf(GeneratorFunctionSubclass, GeneratorFunction);` +
+              `Object.setPrototypeOf(GeneratorFunctionSubclass.prototype, GeneratorFunction.prototype);` +
+              `let f = Reflect.apply(GeneratorFunctionSubclass, null, ['Date.now(); yield 1; yield 2']); [...f()]; }`,
+            hooked: `{let GeneratorFunction=__hook__('.',` +
+              `function*(){yield*__hook__(function*(){},this,arguments,'HookApiTest,GeneratorFunction');},['constructor'],'HookApiTest,GeneratorFunction');` +
+              `let GeneratorFunctionSubclass=` +
+              `function(...args){return __hook__((...args)=>{return __hook__(GeneratorFunction,null,[...args],'HookApiTest,GeneratorFunctionSubclass',0);},null,arguments,'HookApiTest,GeneratorFunctionSubclass');};` +
+              `__hook__('()',Object,['setPrototypeOf',[GeneratorFunctionSubclass,GeneratorFunction]],'HookApiTest');` +
+              `__hook__('()',Object,['setPrototypeOf',[__hook__('.',GeneratorFunctionSubclass,['prototype'],'HookApiTest'),` +
+              `__hook__('.',GeneratorFunction,['prototype'],'HookApiTest')]],'HookApiTest');` +
+              `let f=__hook__('()',Reflect,['apply',[GeneratorFunctionSubclass,null,['Date.now(); yield 1; yield 2']]],'HookApiTest,f');[...__hook__(f,null,[],'HookApiTest',0)];}`,
           },
           {
             code: `importScripts('../thin-hook/hook.min.js?no-hook=true');`,
@@ -1655,9 +1680,47 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             hooked: `{__hook__(__hook__(Function,null,[],'HookApiTest',true),null,[],'HookApiTest',0);}`,
           },
           {
+            code: `{ function f() {} f.constructor('v1', 'v2', 'Date.now(); return (a,b) => v1 + v2 + a + b;')(3,4)(1,2); }`,
+            hooked: `{function f(){return __hook__(()=>{},null,arguments,'HookApiTest,f');}` +
+              `__hook__(__hook__(__hook__('()',f,['constructor',['v1','v2','Date.now(); return (a,b) => v1 + v2 + a + b;']],'HookApiTest'),null,[3,4],'HookApiTest',0),null,[1,2],'HookApiTest',0);}`,
+          },
+          {
             code: `{ function * generator() {} [...(new generator.constructor('v1', 'v2', 'yield v1; yield v2;')(1,2))]; }`,
             hooked: `{function*generator(){yield*__hook__(function*(){},this,arguments,'HookApiTest,generator');}` +
               `[...__hook__(__hook__(__hook__('.',generator,['constructor'],'HookApiTest'),null,['v1','v2','yield v1; yield v2;'],'HookApiTest',true),null,[1,2],'HookApiTest',0)];}`,
+          },
+          {
+            code: `{ function * generator() {} (new generator.constructor('v1', 'v2', 'Date.now(); yield v1; yield v2;')); }`,
+            hooked: `{function*generator(){yield*__hook__(function*(){},this,arguments,'HookApiTest,generator');}` +
+              `__hook__(__hook__('.',generator,['constructor'],'HookApiTest'),null,['v1','v2','Date.now(); yield v1; yield v2;'],'HookApiTest',true);}`,
+            eval: (script) => { let result = _nativeEval(script); console.log(result.toString()); return [...result(1,2)]; },
+          },
+          {
+            code: `{ function * generator() {} generator.constructor('v1', 'v2', 'Date.now(); yield v1; yield v2;'); }`,
+            hooked: `{function*generator(){yield*__hook__(function*(){},this,arguments,'HookApiTest,generator');}` +
+              `__hook__('()',generator,['constructor',['v1','v2','Date.now(); yield v1; yield v2;']],'HookApiTest');}`,
+            eval: (script) => { let result = _nativeEval(script); console.log(result.toString()); return [...result(1,2)]; },
+          },
+          {
+            code: `{ let GeneratorFunction = (function * generator() {}).constructor; GeneratorFunction('v1', 'v2', 'Date.now(); yield v1; yield v2;'); }`,
+            hooked: `{let GeneratorFunction=__hook__('.',` +
+              `function*generator(){yield*__hook__(function*(){},this,arguments,'HookApiTest,GeneratorFunction,generator');},['constructor'],'HookApiTest,GeneratorFunction');` +
+              `__hook__(GeneratorFunction,null,['v1','v2','Date.now(); yield v1; yield v2;'],'HookApiTest',0);}`,
+            eval: (script) => { let result = _nativeEval(script); console.log(result.toString()); return [...result(1,2)]; },
+          },
+          {
+            code: `{ let GeneratorFunction = (function * generator() {}).constructor; GeneratorFunction.call(GeneratorFunction, 'v1', 'v2', 'Date.now(); yield v1; yield v2;'); }`,
+            hooked: `{let GeneratorFunction=__hook__('.',` +
+              `function*generator(){yield*__hook__(function*(){},this,arguments,'HookApiTest,GeneratorFunction,generator');},['constructor'],'HookApiTest,GeneratorFunction');` +
+              `__hook__('()',GeneratorFunction,['call',[GeneratorFunction,'v1','v2','Date.now(); yield v1; yield v2;']],'HookApiTest');}`,
+            eval: (script) => { let result = _nativeEval(script); console.log(result.toString()); return [...result(1,2)]; },
+          },
+          {
+            code: `{ let GeneratorFunction = (function * generator() {}).constructor; GeneratorFunction.apply(GeneratorFunction, ['v1', 'v2', 'Date.now(); yield v1; yield v2;']); }`,
+            hooked: `{let GeneratorFunction=__hook__('.',` +
+              `function*generator(){yield*__hook__(function*(){},this,arguments,'HookApiTest,GeneratorFunction,generator');},['constructor'],'HookApiTest,GeneratorFunction');` +
+              `__hook__('()',GeneratorFunction,['apply',[GeneratorFunction,['v1','v2','Date.now(); yield v1; yield v2;']]],'HookApiTest');}`,
+            eval: (script) => { let result = _nativeEval(script); console.log(result.toString()); return [...result(1,2)]; },
           },
         ],
         SequenceExpression: [
