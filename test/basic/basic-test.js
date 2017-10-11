@@ -1646,6 +1646,11 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             code: `{ let f = (new Function('"use strict"; return (a,b) => a + b;'))(); f(1,2); }`,
             hooked: `{let f=__hook__(__hook__(Function,null,['"use strict"; return (a,b) => a + b;'],'HookApiTest,f',true),null,[],'HookApiTest,f',0);__hook__(f,null,[1,2],'HookApiTest',0);}`,
           },
+          {
+            code: `{ function * generator() {} [...(new generator.constructor('v1', 'v2', 'yield v1; yield v2;')(1,2))]; }`,
+            hooked: `{function*generator(){yield*__hook__(function*(){},this,arguments,'HookApiTest,generator');}` +
+              `[...__hook__(__hook__(__hook__('.',generator,['constructor'],'HookApiTest'),null,['v1','v2','yield v1; yield v2;'],'HookApiTest',true),null,[1,2],'HookApiTest',0)];}`,
+          },
         ],
         SequenceExpression: [
           {
