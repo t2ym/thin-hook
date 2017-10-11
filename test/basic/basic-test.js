@@ -1540,6 +1540,10 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
               `__hook__(f,null,[1,2],'HookApiTest',0);}`,
           },
           {
+            code: `{ Reflect.construct(Function, [])(); }`,
+            hooked: `{__hook__(__hook__('()',Reflect,['construct',[$hook$.global(__hook__,'HookApiTest','Function','get')._pp_Function,[]]],'HookApiTest'),null,[],'HookApiTest',0);}`,
+          },
+          {
             code: `{ class F extends Function {} let f = Reflect.construct(F, ['return (a,b) => a + b;'])(); f(1,2); }`,
             hooked: `{class F extends $hook$.global(__hook__,'HookApiTest,F','Function','get')._pp_Function{}` +
               `let f=__hook__(__hook__('()',Reflect,['construct',[F,['return (a,b) => a + b;']]],'HookApiTest,f'),null,[],'HookApiTest,f',0);__hook__(f,null,[1,2],'HookApiTest',0);}`,
@@ -1645,6 +1649,10 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           {
             code: `{ let f = (new Function('"use strict"; return (a,b) => a + b;'))(); f(1,2); }`,
             hooked: `{let f=__hook__(__hook__(Function,null,['"use strict"; return (a,b) => a + b;'],'HookApiTest,f',true),null,[],'HookApiTest,f',0);__hook__(f,null,[1,2],'HookApiTest',0);}`,
+          },
+          {
+            code: `{ new Function()(); }`,
+            hooked: `{__hook__(__hook__(Function,null,[],'HookApiTest',true),null,[],'HookApiTest',0);}`,
           },
           {
             code: `{ function * generator() {} [...(new generator.constructor('v1', 'v2', 'yield v1; yield v2;')(1,2))]; }`,
