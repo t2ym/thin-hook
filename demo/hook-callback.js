@@ -1172,6 +1172,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     static ['#|='](o, p, v) { return o[p] |= v; }
     static ['#.='](o, p) { return { set ['='](v) { o[p] = v; }, get ['=']() { return o[p]; } }; }
   }
+  const GeneratorFunction = (function * () {}).constructor;
   Object.defineProperty(_global, '__hook__', { configurable: false, enumerable: false, writable: false, value: function __hook__(f, thisArg, args, context, newTarget) {
     counter++;
     if (args[0] === pseudoContextArgument) {
@@ -1937,8 +1938,6 @@ ${name}: {
 
     let result;
     let args1 = args[1]; // for '()'
-    function * gen() {}
-    let GeneratorFunction = gen.constructor;
     switch (f) {
     case Function:
       args = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args);
