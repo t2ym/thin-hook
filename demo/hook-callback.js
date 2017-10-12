@@ -2397,8 +2397,6 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     }
     let result;
     let args1 = args[1]; // for '()'
-    function * gen() {}
-    let GeneratorFunction = gen.constructor;
     switch (f) {
     case Function:
       args = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args);
