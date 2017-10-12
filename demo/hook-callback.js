@@ -1038,6 +1038,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '_blacklistObjects',
     'showContextStackLog',
     'hookBenchmark',
+    '__hook__2',
   ].forEach(n => {
     Object.assign(acl, { [n]: '---' });
     Object.assign(acl.window, { [n]: '---' });
@@ -2372,22 +2373,403 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     console.log(asyncCalls);
   }
 
-  function hookBenchmark() {
+  let __hook__2 = function __hook__2(f, thisArg, args, context, newTarget) {
+    let normalizedThisArg = thisArg;
+    if (newTarget === false) { // resolve the scope in 'with' statement body
+      let varName = args[0];
+      let __with__ = thisArg;
+      let scope = _global;
+      let _scope;
+      let i;
+      for (i = 0; i < __with__.length; i++) {
+        _scope = __with__[i];
+        if (Reflect.has(_scope, varName)) {
+          if (_scope[Symbol.unscopables] && _scope[Symbol.unscopables][varName]) {
+            continue;
+          }
+          else {
+            scope = _scope;
+            break;
+          }
+        }
+      }
+      thisArg = normalizedThisArg = scope;
+    }
+    let result;
+    let args1 = args[1]; // for '()'
+    function * gen() {}
+    let GeneratorFunction = gen.constructor;
+    switch (f) {
+    case Function:
+      args = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args);
+      break;
+    case GeneratorFunction:
+      args = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args, true);
+      break;
+    case '()':
+      switch (thisArg) {
+      case Reflect:
+        switch (args[0]) {
+        case 'construct':
+          if (args[1]) {
+            switch (args[1][0]) {
+            case Function:
+              args1 = [args[1][0], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][1])];
+              if (args[1][2]) {
+                args1.push(args[1][2]);
+              }
+              break;
+            default:
+              if (args[1][0].prototype instanceof Function) {
+                args1 = [args[1][0], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][1], args[1][0].prototype instanceof GeneratorFunction)];
+                if (args[1][2]) {
+                  args1.push(args[1][2]);
+                }
+              }
+              break;
+            }
+          }
+          break;
+        case 'apply':
+          if (args[1]) {
+            switch (args[1][0]) {
+            case Function:
+              args1 = [args[1][0], args[1][1], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][2])];
+              break;
+            case GeneratorFunction:
+              args1 = [args[1][0], args[1][1], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][2], true)];
+              break;
+            default:
+              if (args[1][0].prototype instanceof Function) {
+                args1 = [args[1][0], args[1][1], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][2], args[1][0].prototype instanceof GeneratorFunction)];
+              }
+              break;
+            }
+          }
+          break;
+        default:
+          break;
+        }
+        break;
+      case Function:
+        switch (args[0]) {
+        case 'apply':
+          args1 = [args[1][0], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][1])];
+          break;
+        case 'call':
+          args1 = [args[1][0], ...hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1].slice(1))];
+          break;
+        default:
+          break;
+        }
+        break;
+      case GeneratorFunction:
+        switch (args[0]) {
+        case 'apply':
+          args1 = [args[1][0], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][1], true)];
+          break;
+        case 'call':
+          args1 = [args[1][0], ...hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1].slice(1), true)];
+          break;
+        default:
+          break;
+        }
+        break;
+      default:
+        if (thisArg instanceof GeneratorFunction && args[0] === 'constructor') {
+          args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1], true);
+        }
+        else if (thisArg instanceof Function && args[0] === 'constructor') {
+          args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1]);
+        }
+        break;
+      }
+      break;
+    default:
+      if (typeof f === 'function') {
+        if (f.prototype instanceof Function && newTarget) {
+          args = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args, f.prototype instanceof GeneratorFunction);
+        }
+        else if (newTarget === '') {
+          if (args[0] && Object.getPrototypeOf(args[0]) === Function) {
+            args = [ args[0], ...hook.FunctionArguments('__hook__', [[context, {}]], 'method', args.slice(1)) ];
+          }
+        }
+      }
+      break;
+    }
+    if (typeof f !== 'string') {
+      result = newTarget
+        ? Reflect.construct(f, args)
+        : thisArg
+          ? f.apply(thisArg, args)
+          : f(...args);
+    }
+    else {
+      // property access
+      switch (f) {
+      // getter
+      case '.':
+      case '[]':
+        result = thisArg[args[0]];
+        break;
+      // enumeration
+      case '*':
+        result = thisArg;
+        break;
+      // property existence
+      case 'in':
+        result = args[0] in thisArg;
+        break;
+      // funcation call
+      case '()':
+        result = thisArg[args[0]](...args1);
+        break;
+      // unary operators
+      case 'p++':
+        result = thisArg[args[0]]++;
+        break;
+      case '++p':
+        result = ++thisArg[args[0]];
+        break;
+      case 'p--':
+        result = thisArg[args[0]]--;
+        break;
+      case '--p':
+        result = --thisArg[args[0]];
+        break;
+      case 'delete':
+        result = delete thisArg[args[0]];
+        break;
+      // assignment operators
+      case '=':
+        result = thisArg[args[0]] = args[1];
+        break;
+      case '+=':
+        result = thisArg[args[0]] += args[1];
+        break;
+      case '-=':
+        result = thisArg[args[0]] -= args[1];
+        break;
+      case '*=':
+        result = thisArg[args[0]] *= args[1];
+        break;
+      case '/=':
+        result = thisArg[args[0]] /= args[1];
+        break;
+      case '%=':
+        result = thisArg[args[0]] %= args[1];
+        break;
+      case '**=':
+        result = thisArg[args[0]] **= args[1];
+        break;
+      case '<<=':
+        result = thisArg[args[0]] <<= args[1];
+        break;
+      case '>>=':
+        result = thisArg[args[0]] >>= args[1];
+        break;
+      case '>>>=':
+        result = thisArg[args[0]] >>>= args[1];
+        break;
+      case '&=':
+        result = thisArg[args[0]] &= args[1];
+        break;
+      case '^=':
+        result = thisArg[args[0]] ^= args[1];
+        break;
+      case '|=':
+        result = thisArg[args[0]] |= args[1];
+        break;
+      // LHS property access
+      case '.=':
+        result = { set ['='](v) { thisArg[args[0]] = v; }, get ['=']() { return thisArg[args[0]]; } };
+        break;
+      // strict mode operators prefixed with '#'
+      // getter
+      case '#.':
+      case '#[]':
+        result = StrictModeWrapper['#.'](thisArg, args[0]);
+        break;
+      // enumeration
+      case '#*':
+        result = StrictModeWrapper['#*'](thisArg);
+        break;
+      // property existence
+      case '#in':
+        result = StrictModeWrapper['#in'](thisArg, args[0]);
+        break;
+      // funcation call
+      case '#()':
+        result = StrictModeWrapper['#()'](thisArg, args[0], args1);
+        break;
+      // unary operators
+      case '#p++':
+        result = StrictModeWrapper['#p++'](thisArg, args[0]);
+        break;
+      case '#++p':
+        result = StrictModeWrapper['#++p'](thisArg, args[0]);
+        break;
+      case '#p--':
+        result = StrictModeWrapper['#p--'](thisArg, args[0]);
+        break;
+      case '#--p':
+        result = StrictModeWrapper['#--p'](thisArg, args[0]);
+        break;
+      case '#delete':
+        result = StrictModeWrapper['#delete'](thisArg, args[0]);
+        break;
+      // assignment operators
+      case '#=':
+        result = StrictModeWrapper['#='](thisArg, args[0], args[1]);
+        break;
+      case '#+=':
+        result = StrictModeWrapper['#+='](thisArg, args[0], args[1]);
+        break;
+      case '#-=':
+        result = StrictModeWrapper['#-='](thisArg, args[0], args[1]);
+        break;
+      case '#*=':
+        result = StrictModeWrapper['#*='](thisArg, args[0], args[1]);
+        break;
+      case '#/=':
+        result = StrictModeWrapper['#/='](thisArg, args[0], args[1]);
+        break;
+      case '#%=':
+        result = StrictModeWrapper['#%='](thisArg, args[0], args[1]);
+        break;
+      case '#**=':
+        result = StrictModeWrapper['#**='](thisArg, args[0], args[1]);
+        break;
+      case '#<<=':
+        result = StrictModeWrapper['#<<='](thisArg, args[0], args[1]);
+        break;
+      case '#>>=':
+        result = StrictModeWrapper['#>>='](thisArg, args[0], args[1]);
+        break;
+      case '#>>>=':
+        result = StrictModeWrapper['#>>>='](thisArg, args[0], args[1]);
+        break;
+      case '#&=':
+        result = StrictModeWrapper['#&='](thisArg, args[0], args[1]);
+        break;
+      case '#^=':
+        result = StrictModeWrapper['#^='](thisArg, args[0], args[1]);
+        break;
+      case '#|=':
+        result = StrictModeWrapper['#|='](thisArg, args[0], args[1]);
+        break;
+      // LHS property access
+      case '#.=':
+        result = StrictModeWrapper['#.='](thisArg, args[0]);
+        break;
+      // getter for super
+      case 's.':
+      case 's[]':
+        result = args[1](args[0]);
+        break;
+      // super method call
+      case 's()':
+        result = args[2](args[0]).apply(thisArg, args[1]);
+        break;
+      // unary operators for super
+      case 's++':
+      case '++s':
+      case 's--':
+      case '--s':
+        result = args[1].apply(thisArg, args);
+        break;
+      // assignment operators for super
+      case 's=':
+      case 's+=':
+      case 's-=':
+      case 's*=':
+      case 's/=':
+      case 's%=':
+      case 's**=':
+      case 's<<=':
+      case 's>>=':
+      case 's>>>=':
+      case 's&=':
+      case 's^=':
+      case 's|=':
+        result = args[2].apply(thisArg, args);
+        break;
+      // getter in 'with' statement body
+      case 'w.':
+      case 'w[]':
+        result = args[1]();
+        break;
+      // function call in 'with' statement body
+      case 'w()':
+        result = args[2](...args[1]);
+        break;
+      // constructor call in 'with' statement body
+      case 'wnew':
+        result = args[2](...args[1]);
+        break;
+      // unary operators in 'with' statement body
+      case 'w++':
+      case '++w':
+      case 'w--':
+      case '--w':
+        result = args[1]();
+        break;
+      // unary operators in 'with' statement body
+      case 'wtypeof':
+      case 'wdelete':
+        result = args[1]();
+        break;
+      // LHS value in 'with' statement body (__hook__('w.=', __with__, ['p', { set ['='](v) { p = v } } ], 'context', false)['='])
+      case 'w.=':
+        result = args[1];
+        break;
+      // assignment operators in 'with' statement body
+      case 'w=':
+      case 'w+=':
+      case 'w-=':
+      case 'w*=':
+      case 'w/=':
+      case 'w%=':
+      case 'w**=':
+      case 'w<<=':
+      case 'w>>=':
+      case 'w>>>=':
+      case 'w&=':
+      case 'w^=':
+      case 'w|=':
+        result = args[2](args[1]);
+        break;
+      // default (invalid operator)
+      default:
+        f(); // throw TypeError: f is not a function
+        result = null;
+        break;
+      }
+    }
+    return result;
+  }
+
+  _global.__hook__2 = __hook__2;
+  _globalObjects.set(__hook__2, '__hook__2');
+
+  function hookBenchmark(h = __hook__, r = 10000000, flags = [[false,false,false,true],[false,false,false,false],[false,true,false,false],[true,true,false,false]]) {
+    let backup = [generateGraph,trackCallback,checkBlacklist,minimalHook];
     let f = function(a) { return a; }
     let o = {a:1,f:f};
-    [[false,false,false,true],[false,false,false,false],[false,true,false,false],[true,true,false,false]].forEach(params => {
+    flags.forEach(params => {
       [generateGraph,trackCallback,checkBlacklist,minimalHook] = params;
       let paramNames = ['generateGraph','trackCallback','checkBlacklist','minimalHook'];
       let start = Date.now();
-      for (let i = 0; i < 10000000; i++) {
-        __hook__('.', o, ['a'], 'context');
-        __hook__('=', o, ['a',i], 'context');
-        __hook__('()', o, ['f', [i]], 'context');
-        __hook__(f, null, [i], 'context');
+      for (let i = 0; i < r; i++) {
+        h('.', o, ['a'], 'context');
+        h('=', o, ['a',i], 'context');
+        h('()', o, ['f', [i]], 'context');
+        h(f, null, [i], 'context');
       }
       let end = Date.now();
       console.log('hookBenchmark in ' + (end - start) + 'ms with ' + params.map((p,i) => paramNames[i] + ':' + p).join(', '));
     });
-    [generateGraph,trackCallback,checkBlacklist,minimalHook] = [true,true,false,false];
+    [generateGraph,trackCallback,checkBlacklist,minimalHook] = backup;
   }
 }
