@@ -1036,6 +1036,8 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '_functionStaticPropertyDescriptors',
     '_functionPropertyDescriptors',
     '_blacklistObjects',
+    'showContextStackLog',
+    'hookBenchmark',
   ].forEach(n => {
     Object.assign(acl, { [n]: '---' });
     Object.assign(acl.window, { [n]: '---' });
@@ -1173,158 +1175,16 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     static ['#.='](o, p) { return { set ['='](v) { o[p] = v; }, get ['=']() { return o[p]; } }; }
   }
   const GeneratorFunction = (function * () {}).constructor;
+  let generateGraph = true;
+  let trackCallback = true;
+  let checkBlacklist = false;
+  let minimalHook = false;
   Object.defineProperty(_global, '__hook__', { configurable: false, enumerable: false, writable: false, value: function __hook__(f, thisArg, args, context, newTarget) {
-    counter++;
-    if (args[0] === pseudoContextArgument) {
-      return context;
-    }
-    let _lastContext = lastContext;
-    //#PROFILE function setContexts() {
-    if (!contexts[context]) {
-      let group = context.split(/[,:]/)[0];
-      let node = { id: context, label: context, group: group };
-      data.nodes.push(node);
-    }
-    contexts[context] = true;
-    //#PROFILE }
-    //#PROFILE setContexts();
-    //#PROFILE function registerAsyncCallback() {
-    if ((context === 'setTimeout' || context === 'setInterval' || context.indexOf('Promise') === 0 || context === 'EventTarget,addEventListener') && args) {
-      for(let i = 0; i < 2; i++) {
-        if (typeof args[i] === 'function') {
-          let cbContext = callbackFunctions.get(args[i]);
-          if (typeof cbContext === 'undefined') {
-            cbContext = args[i].toString().indexOf('__hook__') >= 0;
-            if (cbContext) {
-              cbContext = args[i](pseudoContextArgument);
-            }
-            callbackFunctions.set(args[i], cbContext);
-          }
-          if (cbContext) {
-            reverseCallbacks[lastContext] = reverseCallbacks[lastContext] || {};
-            reverseCallbacks[lastContext][context] = reverseCallbacks[lastContext][context] || {};
-            if (!reverseCallbacks[lastContext][context][cbContext]) {
-              let edge = { from: lastContext, to: cbContext, label: context, dashes: true, arrows: 'to' };
-              data.edges.push(edge);
-            }
-            reverseCallbacks[lastContext][context][cbContext] = args[i];
-            callbacks[cbContext] = callbacks[cbContext] || {};
-            callbacks[cbContext][context] = callbacks[cbContext][context] || {};
-            callbacks[cbContext][context][lastContext] = args[i];
-            //console.log('Registering CALLBACK ' + lastContext + ' -> ' + context + ' -> callback ' + cbContext, args[i]);
-          }
-        }
-        else if (i === 0 && (context === 'setTimeout' || context === 'setInterval') && typeof args[i] === 'string') {
-          let lines = args[i].split(/\n/);
-          let match = lines[lines.length - 1].match(/}, this, args, '([^']*)'\)\)\)\(\);/);
-          if (match) {
-            let cbContext = match[1];
-            reverseCallbacks[lastContext] = reverseCallbacks[lastContext] || {};
-            reverseCallbacks[lastContext][context] = reverseCallbacks[lastContext][context] || {};
-            reverseCallbacks[lastContext][context][cbContext] = args[i];
-            callbacks[cbContext] = callbacks[cbContext] || {};
-            callbacks[cbContext][context] = callbacks[cbContext][context] || {};
-            callbacks[cbContext][context][lastContext] = args[i];
-            //console.log('Registering CALLBACK script ' + lastContext + ' -> ' + context + ' -> callback script ' + cbContext, args[i]);
-          }
-        }
-      }
-    }
-    //#PROFILE }
-    //#PROFILE registerAsyncCallback();
-    //#PROFILE function registerContextTransition() {
-    lastContext = context;
-    contextStack.push(context);
-    //contextStackLog[contextStack.join(' -> ')] = true;
-    contextTransitions[_lastContext] = contextTransitions[_lastContext] || {};
-    if (!contextTransitions[_lastContext][context]) {
-      if (_lastContext) {
-        let edge = { from: _lastContext, to: context, arrows: 'to' };
-        data.edges.push(edge);
-      }
-      else {
-        if (callbacks[context]) {
-          // async callback
-        }
-        else {
-          let edge = { from: 'undefined', to: context, arrows: 'to' };
-          data.edges.push(edge);
-        }
-      }
-    }
-    contextTransitions[_lastContext][context] = true;
-    contextReverseTransitions[context] = contextReverseTransitions[context] || {};
-    contextReverseTransitions[context][_lastContext] = true;
-    //#PROFILE }
-    //#PROFILE registerContextTransition();
-
-    /*
-    if (callbacks[context]) {
-      let c = 0;
-      for (let asyncEventContext in callbacks[context]) {
-        for (let callerContext in callbacks[context][asyncEventContext]) {
-          c++;
-          //console.log('Async CALLBACK ' + callerContext + ' -> ' + asyncEventContext + ' -> ' + context);
-        }
-      }
-      if (c !== 1) {
-        //console.log('CALLBACK with possibility of ' + c + ' multiple callers for ' + context);
-      }
-    }
-    */
-
-    let _f = f;
-    let boundParameters = _boundFunctions.get(f);
-    if (boundParameters) {
-      if (!boundParameters._args) {
-        // Merge multiple binding operations
-        let _boundParametersList = [boundParameters];
-        let _normalizedThisArg = boundParameters.normalizedThisArg;
-        let _originalF = boundParameters.f;
-        let _boundParameters = _boundFunctions.get(boundParameters.f);
-        let _args;
-        if (_boundParameters) {
-          while (_boundParameters) {
-            _boundParametersList.push(_boundParameters);
-            _boundParameters = _boundFunctions.get(_boundParameters.f);
-          }
-          // _boundParametersList = [lastBind, ..., firstBind]
-          _args = [];
-          _normalizedThisArg = _boundParametersList[_boundParametersList.length - 1].normalizedThisArg;
-          _originalF = _boundParametersList[_boundParametersList.length - 1].f;
-          while (_boundParameters = _boundParametersList.pop()) {
-            if (!_boundParameters._normalizedThisArg) {
-              _boundParameters._normalizedThisArg = _normalizedThisArg;
-            }
-            if (!_boundParameters._originalF) {
-              _boundParameters._f = _originalF;
-            }
-            if (_boundParameters._args) {
-              _args = _boundParameters._args;
-            }
-            else {
-              _boundParameters._args = _args = _args.concat(_boundParameters.args);
-            }
-          }
-        }
-        else {
-          boundParameters._args = boundParameters.args;
-          boundParameters._normalizedThisArg = _normalizedThisArg;
-          boundParameters._f = _originalF;
-        }
-      }
-      _f = '()';
-    }
-    if (typeof _f === 'string') {
-      //#PROFILE function normalizeOperation() {
-      /*
-      if (context === '/components/thin-hook/demo/my-view2.html,script@2442,getData' && _f === '()' && args[0] === 'bind') {
-        debugger;
-      }
-      */
-      // property access
+    let _lastContext;
+    let _f;
+    let boundParameters;
+    if (minimalHook) {
       let normalizedThisArg = thisArg;
-      let _args = args;
       if (newTarget === false) { // resolve the scope in 'with' statement body
         let varName = args[0];
         let __with__ = thisArg;
@@ -1345,178 +1205,362 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         }
         thisArg = normalizedThisArg = scope;
       }
-      if (boundParameters) {
-        normalizedThisArg = boundParameters._normalizedThisArg;
-        _args = [ boundParameters._f, boundParameters._args.concat(args) ];
+    }
+    else {
+      counter++;
+      if (args[0] === pseudoContextArgument) {
+        return context;
       }
-      let name = _globalObjects.get(normalizedThisArg);
-      let isStatic = typeof normalizedThisArg === 'function';
-      if (boundParameters) {
-        isStatic = boundParameters.isStatic;
-        name = boundParameters.name;
+      _lastContext = lastContext;
+      if (generateGraph) {
+        //#PROFILE function setContexts() {
+        if (!contexts[context]) {
+          let group = context.split(/[,:]/)[0];
+          let node = { id: context, label: context, group: group };
+          data.nodes.push(node);
+          contexts[context] = true;
+        }
+        //#PROFILE }
+        //#PROFILE setContexts();
       }
-      let ctor;
-      if (!name && _f.indexOf('s') >= 0) {
-        //#PROFILE function trackSuperConstructors() {
-        ctor = isStatic ? normalizedThisArg : normalizedThisArg.constructor;
-        name = _globalObjects.get(ctor);
-        while (!name && typeof ctor === 'function') {
-          ctor = Object.getPrototypeOf(ctor);
+
+      if (trackCallback) {
+        //#PROFILE function registerAsyncCallback() {
+        if ((context === 'setTimeout' || context === 'setInterval' || context.indexOf('Promise') === 0 || context === 'EventTarget,addEventListener') && args) {
+          for(let i = 0; i < 2; i++) {
+            if (typeof args[i] === 'function') {
+              let cbContext = callbackFunctions.get(args[i]);
+              if (typeof cbContext === 'undefined') {
+                cbContext = args[i].toString().indexOf('__hook__') >= 0;
+                if (cbContext) {
+                  cbContext = args[i](pseudoContextArgument);
+                }
+                callbackFunctions.set(args[i], cbContext);
+              }
+              if (cbContext) {
+                reverseCallbacks[lastContext] = reverseCallbacks[lastContext] || {};
+                reverseCallbacks[lastContext][context] = reverseCallbacks[lastContext][context] || {};
+                if (!reverseCallbacks[lastContext][context][cbContext]) {
+                  let edge = { from: lastContext, to: cbContext, label: context, dashes: true, arrows: 'to' };
+                  data.edges.push(edge);
+                }
+                reverseCallbacks[lastContext][context][cbContext] = args[i];
+                callbacks[cbContext] = callbacks[cbContext] || {};
+                callbacks[cbContext][context] = callbacks[cbContext][context] || {};
+                callbacks[cbContext][context][lastContext] = args[i];
+                //console.log('Registering CALLBACK ' + lastContext + ' -> ' + context + ' -> callback ' + cbContext, args[i]);
+              }
+            }
+            else if (i === 0 && (context === 'setTimeout' || context === 'setInterval') && typeof args[i] === 'string') {
+              let lines = args[i].split(/\n/);
+              let match = lines[lines.length - 1].match(/}, this, args, '([^']*)'\)\)\)\(\);/);
+              if (match) {
+                let cbContext = match[1];
+                reverseCallbacks[lastContext] = reverseCallbacks[lastContext] || {};
+                reverseCallbacks[lastContext][context] = reverseCallbacks[lastContext][context] || {};
+                reverseCallbacks[lastContext][context][cbContext] = args[i];
+                callbacks[cbContext] = callbacks[cbContext] || {};
+                callbacks[cbContext][context] = callbacks[cbContext][context] || {};
+                callbacks[cbContext][context][lastContext] = args[i];
+                //console.log('Registering CALLBACK script ' + lastContext + ' -> ' + context + ' -> callback script ' + cbContext, args[i]);
+              }
+            }
+          }
+        }
+        //#PROFILE }
+        //#PROFILE registerAsyncCallback();
+      }    
+      lastContext = context;
+      contextStack.push(context);
+      if (generateGraph) {
+        //#PROFILE function registerContextTransition() {
+        //contextStackLog[contextStack.join(' -> ')] = true;
+        contextTransitions[_lastContext] = contextTransitions[_lastContext] || {};
+        if (!contextTransitions[_lastContext][context]) {
+          if (_lastContext) {
+            let edge = { from: _lastContext, to: context, arrows: 'to' };
+            data.edges.push(edge);
+          }
+          else {
+            if (callbacks[context]) {
+              // async callback
+            }
+            else {
+              let edge = { from: 'undefined', to: context, arrows: 'to' };
+              data.edges.push(edge);
+            }
+          }
+        }
+        contextTransitions[_lastContext][context] = true;
+        contextReverseTransitions[context] = contextReverseTransitions[context] || {};
+        contextReverseTransitions[context][_lastContext] = true;
+        //#PROFILE }
+        //#PROFILE registerContextTransition();
+      }
+
+      /*
+      if (callbacks[context]) {
+        let c = 0;
+        for (let asyncEventContext in callbacks[context]) {
+          for (let callerContext in callbacks[context][asyncEventContext]) {
+            c++;
+            //console.log('Async CALLBACK ' + callerContext + ' -> ' + asyncEventContext + ' -> ' + context);
+          }
+        }
+        if (c !== 1) {
+          //console.log('CALLBACK with possibility of ' + c + ' multiple callers for ' + context);
+        }
+      }
+      */
+
+      _f = f;
+      boundParameters = _boundFunctions.get(f);
+      if (boundParameters) {
+        if (!boundParameters._args) {
+          // Merge multiple binding operations
+          let _boundParametersList = [boundParameters];
+          let _normalizedThisArg = boundParameters.normalizedThisArg;
+          let _originalF = boundParameters.f;
+          let _boundParameters = _boundFunctions.get(boundParameters.f);
+          let _args;
+          if (_boundParameters) {
+            while (_boundParameters) {
+              _boundParametersList.push(_boundParameters);
+              _boundParameters = _boundFunctions.get(_boundParameters.f);
+            }
+            // _boundParametersList = [lastBind, ..., firstBind]
+            _args = [];
+            _normalizedThisArg = _boundParametersList[_boundParametersList.length - 1].normalizedThisArg;
+            _originalF = _boundParametersList[_boundParametersList.length - 1].f;
+            while (_boundParameters = _boundParametersList.pop()) {
+              if (!_boundParameters._normalizedThisArg) {
+                _boundParameters._normalizedThisArg = _normalizedThisArg;
+              }
+              if (!_boundParameters._originalF) {
+                _boundParameters._f = _originalF;
+              }
+              if (_boundParameters._args) {
+                _args = _boundParameters._args;
+              }
+              else {
+                _boundParameters._args = _args = _args.concat(_boundParameters.args);
+              }
+            }
+          }
+          else {
+            boundParameters._args = boundParameters.args;
+            boundParameters._normalizedThisArg = _normalizedThisArg;
+            boundParameters._f = _originalF;
+          }
+        }
+        _f = '()';
+      }
+      if (typeof _f === 'string') {
+        //#PROFILE function normalizeOperation() {
+        /*
+        if (context === '/components/thin-hook/demo/my-view2.html,script@2442,getData' && _f === '()' && args[0] === 'bind') {
+          debugger;
+        }
+        */
+        // property access
+        let normalizedThisArg = thisArg;
+        let _args = args;
+        if (newTarget === false) { // resolve the scope in 'with' statement body
+          let varName = args[0];
+          let __with__ = thisArg;
+          let scope = _global;
+          let _scope;
+          let i;
+          for (i = 0; i < __with__.length; i++) {
+            _scope = __with__[i];
+            if (Reflect.has(_scope, varName)) {
+              if (_scope[Symbol.unscopables] && _scope[Symbol.unscopables][varName]) {
+                continue;
+              }
+              else {
+                scope = _scope;
+                break;
+              }
+            }
+          }
+          thisArg = normalizedThisArg = scope;
+        }
+        if (boundParameters) {
+          normalizedThisArg = boundParameters._normalizedThisArg;
+          _args = [ boundParameters._f, boundParameters._args.concat(args) ];
+        }
+        let name = _globalObjects.get(normalizedThisArg);
+        let isStatic = typeof normalizedThisArg === 'function';
+        if (boundParameters) {
+          isStatic = boundParameters.isStatic;
+          name = boundParameters.name;
+        }
+        let ctor;
+        if (!name && _f.indexOf('s') >= 0) {
+          //#PROFILE function trackSuperConstructors() {
+          ctor = isStatic ? normalizedThisArg : normalizedThisArg.constructor;
           name = _globalObjects.get(ctor);
-        }
-        //#PROFILE }
-        //#PROFILE trackSuperConstructors();
-      }
-      if (!name && normalizedThisArg instanceof Object) {
-        ctor = normalizedThisArg.constructor;
-        name = _globalObjects.get(ctor);
-        if (name) {
-          isStatic = false;
-        }
-      }
-      let rawProperty = _args[0];
-      let property = _escapePlatformProperties.get(rawProperty) || rawProperty;
-      let op = operatorNormalizer[_f];
-      let target = targetNormalizer[op];
-      let opType;
-      let globalAssignments = {};
-      if (typeof target === 'object') {
-        //#PROFILE function targetNormalizerMapGet() {
-        if (normalizedThisArg instanceof Object) {
-          switch (typeof _args[0]) {
-          case 'string':
-            if (boundParameters) {
-              target = targetNormalizerMap.get(boundParameters._f);
-            }
-            else {
-              target = targetNormalizerMap.get(normalizedThisArg[_args[0]]);
-            }
-            break;
-          case 'function':
-            target = targetNormalizerMap.get(_args[0]);
-            break;
-          default:
-            target = undefined;
-            break;
+          while (!name && typeof ctor === 'function') {
+            ctor = Object.getPrototypeOf(ctor);
+            name = _globalObjects.get(ctor);
           }
-          if (!target) {
-            let type;
-            if (typeof normalizedThisArg === 'object') {
-              type = normalizedThisArg.constructor.prototype;
-            }
-            else {
-              type = normalizedThisArg;
-            }
-            while (!target && type) {
-              target = targetNormalizerMap.get(type);
-              type = Object.getPrototypeOf(type);
-            }
+          //#PROFILE }
+          //#PROFILE trackSuperConstructors();
+        }
+        if (!name && normalizedThisArg instanceof Object) {
+          ctor = normalizedThisArg.constructor;
+          name = _globalObjects.get(ctor);
+          if (name) {
+            isStatic = false;
           }
         }
-        else if (typeof _args[0] === 'function') {
-          target = targetNormalizerMap.get(_args[0]);
-        }
-        //#PROFILE }
-        //#PROFILE targetNormalizerMapGet();
-        let argsMap = {
-          f: _f,
-          t: normalizedThisArg,
-          p: _args[0],
-          0: _args[1][0],
-          1: _args[1][1],
-          c: context,
-          n: newTarget,
-          P: '__proto__',
-          T: 'prototype',
-          C: 'constructor',
-          N: S_CONSTRUCT,
-          '-': S_UNSPECIFIED,
-          '*': S_ALL,
-          '.': S_TARGETED, // { prop1: {}, prop2: {}, ... }
-        };
-        if (typeof target === 'string') {
-          //#PROFILE function applyTargetMap() {
-          opType = target[0]; // r, w, x
-          let _t = argsMap[target[1]];
-          let _p = argsMap[target[2]];
-          switch (typeof _t) {
-          case 'object':
-          case 'string':
-          case 'function':
-          case 'symbol':
-          case 'boolean':
-            if (_t === null) {
+        let rawProperty = _args[0];
+        let property = _escapePlatformProperties.get(rawProperty) || rawProperty;
+        let op = operatorNormalizer[_f];
+        let target = targetNormalizer[op];
+        let opType;
+        let globalAssignments = {};
+        if (typeof target === 'object') {
+          //#PROFILE function targetNormalizerMapGet() {
+          if (normalizedThisArg instanceof Object) {
+            switch (typeof _args[0]) {
+            case 'string':
+              if (boundParameters) {
+                target = targetNormalizerMap.get(boundParameters._f);
+              }
+              else {
+                target = targetNormalizerMap.get(normalizedThisArg[_args[0]]);
+              }
+              break;
+            case 'function':
+              target = targetNormalizerMap.get(_args[0]);
+              break;
+            default:
+              target = undefined;
               break;
             }
-            name = _globalObjects.get(_t);
-            isStatic = typeof _t === 'function';
-            normalizedThisArg = _t;
-            if (!name) {
-              ctor = _t.constructor;
-              name = _globalObjects.get(ctor);
-              if (name) {
-                isStatic = false;
+            if (!target) {
+              let type;
+              if (typeof normalizedThisArg === 'object') {
+                type = normalizedThisArg.constructor.prototype;
+              }
+              else {
+                type = normalizedThisArg;
+              }
+              while (!target && type) {
+                target = targetNormalizerMap.get(type);
+                type = Object.getPrototypeOf(type);
               }
             }
-            if (!name && _f.indexOf('s') >= 0) {
+          }
+          else if (typeof _args[0] === 'function') {
+            target = targetNormalizerMap.get(_args[0]);
+          }
+          //#PROFILE }
+          //#PROFILE targetNormalizerMapGet();
+          let argsMap = {
+            f: _f,
+            t: normalizedThisArg,
+            p: _args[0],
+            0: _args[1][0],
+            1: _args[1][1],
+            c: context,
+            n: newTarget,
+            P: '__proto__',
+            T: 'prototype',
+            C: 'constructor',
+            N: S_CONSTRUCT,
+            '-': S_UNSPECIFIED,
+            '*': S_ALL,
+            '.': S_TARGETED, // { prop1: {}, prop2: {}, ... }
+          };
+          if (typeof target === 'string') {
+            //#PROFILE function applyTargetMap() {
+            opType = target[0]; // r, w, x
+            let _t = argsMap[target[1]];
+            let _p = argsMap[target[2]];
+            switch (typeof _t) {
+            case 'object':
+            case 'string':
+            case 'function':
+            case 'symbol':
+            case 'boolean':
+              if (_t === null) {
+                break;
+              }
+              name = _globalObjects.get(_t);
               isStatic = typeof _t === 'function';
-              ctor = isStatic ? _t : _t.constructor;
-              name = _globalObjects.get(ctor);
-              normalizedThisArg = ctor;
-              while (!name && typeof ctor === 'function') {
-                ctor = Object.getPrototypeOf(ctor);
+              normalizedThisArg = _t;
+              if (!name) {
+                ctor = _t.constructor;
+                name = _globalObjects.get(ctor);
+                if (name) {
+                  isStatic = false;
+                }
+              }
+              if (!name && _f.indexOf('s') >= 0) {
+                isStatic = typeof _t === 'function';
+                ctor = isStatic ? _t : _t.constructor;
                 name = _globalObjects.get(ctor);
                 normalizedThisArg = ctor;
+                while (!name && typeof ctor === 'function') {
+                  ctor = Object.getPrototypeOf(ctor);
+                  name = _globalObjects.get(ctor);
+                  normalizedThisArg = ctor;
+                }
               }
-            }
-            if (name) {
-              property = rawProperty = undefined;
-              switch (typeof _p) {
-              case 'string':
-                rawProperty = _p;
-                property = _escapePlatformProperties.get(rawProperty) || rawProperty;
-                if (target[3] === 'v') {
-                  switch (name) {
-                  case 'window':
-                  case 'self':
-                    switch (target) {
-                    case 'w01v':
-                      switch (_args[0]) {
-                      case 'defineProperty': // Object.defineProperty(window, 'property', { value: v }); Reflect.defineProperty(window, 'property', { value: v })
-                        if (_args[1][2] && _args[1][2].value instanceof Object) {
-                          globalAssignments[rawProperty] = _args[1][2].value;
-                        }
-                        break;
-                      case 'set': // Reflect.set(window, 'property', v)
-                        if (_args[1][2] instanceof Object) {
-                          globalAssignments[rawProperty] = _args[1][2];
-                        }
-                        break;
-                      default:
-                        break;
-                      }
-                      break;
-                    case 'w0.v':
-                      let props;
-                      switch (_args[0]) {
-                      case 'defineProperties': // Object.defineProperties(window, { 'property': { value: v } })
-                        props = _args[1][1];
-                        for (let p in props) {
-                          if (props[p] && props[p].value instanceof Object) {
-                            globalAssignments[p] = props[p].value;
+              if (name) {
+                property = rawProperty = undefined;
+                switch (typeof _p) {
+                case 'string':
+                  rawProperty = _p;
+                  property = _escapePlatformProperties.get(rawProperty) || rawProperty;
+                  if (target[3] === 'v') {
+                    switch (name) {
+                    case 'window':
+                    case 'self':
+                      switch (target) {
+                      case 'w01v':
+                        switch (_args[0]) {
+                        case 'defineProperty': // Object.defineProperty(window, 'property', { value: v }); Reflect.defineProperty(window, 'property', { value: v })
+                          if (_args[1][2] && _args[1][2].value instanceof Object) {
+                            globalAssignments[rawProperty] = _args[1][2].value;
                           }
+                          break;
+                        case 'set': // Reflect.set(window, 'property', v)
+                          if (_args[1][2] instanceof Object) {
+                            globalAssignments[rawProperty] = _args[1][2];
+                          }
+                          break;
+                        default:
+                          break;
                         }
                         break;
-                      case 'assign': // Object.assign(window, { 'property': v })
-                        for (let i = 1; i < _args[1].length; i++) {
-                          props = _args[1][i];
-                          if (props instanceof Object) {
-                            for (let p in props) {
-                              if (props[p] instanceof Object) {
-                                globalAssignments[p] = props[p];
+                      case 'w0.v':
+                        let props;
+                        switch (_args[0]) {
+                        case 'defineProperties': // Object.defineProperties(window, { 'property': { value: v } })
+                          props = _args[1][1];
+                          for (let p in props) {
+                            if (props[p] && props[p].value instanceof Object) {
+                              globalAssignments[p] = props[p].value;
+                            }
+                          }
+                          break;
+                        case 'assign': // Object.assign(window, { 'property': v })
+                          for (let i = 1; i < _args[1].length; i++) {
+                            props = _args[1][i];
+                            if (props instanceof Object) {
+                              for (let p in props) {
+                                if (props[p] instanceof Object) {
+                                  globalAssignments[p] = props[p];
+                                }
                               }
                             }
                           }
+                          break;
+                        default:
+                          break;
                         }
                         break;
                       default:
@@ -1526,299 +1570,411 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
                     default:
                       break;
                     }
-                    break;
-                  default:
-                    break;
-                  }
-                }
-                break;
-              case 'number':
-              case 'boolean':
-              case 'undefined':
-                property = rawProperty = _p;
-                break;
-              case 'symbol':
-                switch (_p) {
-                case S_UNSPECIFIED:
-                  property = _p;
-                  break;
-                case S_TARGETED:
-                  if (_args[1][1] instanceof Object) {
-                    rawProperty = [];
-                    for (let i = 1; i < _args[1].length; i++) {
-                      // TODO: Are inherited properties targeted?
-                      rawProperty = rawProperty.concat(Object.keys(_args[1][i]));
-                    }
-                    property = rawProperty.map(p => _escapePlatformProperties.get(p) || p);
                   }
                   break;
-                case S_ALL:
-                  property = _p;
-                  break;
-                case S_CONSTRUCT:
-                  rawProperty = 'constructor';
-                  property = S_UNSPECIFIED;
-                  break;
-                default:
+                case 'number':
+                case 'boolean':
+                case 'undefined':
                   property = rawProperty = _p;
                   break;
-                }
-                break;
-              case 'function':
-                if (normalizedThisArg === _global) {
-                  let _globalObj = _globalObjects.get(_p);
-                  if (_globalObj) {
-                    rawProperty = _globalObj;
-                    property = _escapePlatformProperties.get(rawProperty) || rawProperty;
+                case 'symbol':
+                  switch (_p) {
+                  case S_UNSPECIFIED:
+                    property = _p;
+                    break;
+                  case S_TARGETED:
+                    if (_args[1][1] instanceof Object) {
+                      rawProperty = [];
+                      for (let i = 1; i < _args[1].length; i++) {
+                        // TODO: Are inherited properties targeted?
+                        rawProperty = rawProperty.concat(Object.keys(_args[1][i]));
+                      }
+                      property = rawProperty.map(p => _escapePlatformProperties.get(p) || p);
+                    }
+                    break;
+                  case S_ALL:
+                    property = _p;
+                    break;
+                  case S_CONSTRUCT:
+                    rawProperty = 'constructor';
+                    property = S_UNSPECIFIED;
+                    break;
+                  default:
+                    property = rawProperty = _p;
+                    break;
                   }
-                  else {
-                    property = rawProperty = S_FUNCTION;
-                  }
-                }
-                else {
-                  let _method = _globalMethods.get(_p);
-                  if (_method) {
-                    if (_method[0] === name) {
-                      rawProperty = _method[_method.length - 1];
+                  break;
+                case 'function':
+                  if (normalizedThisArg === _global) {
+                    let _globalObj = _globalObjects.get(_p);
+                    if (_globalObj) {
+                      rawProperty = _globalObj;
                       property = _escapePlatformProperties.get(rawProperty) || rawProperty;
                     }
                     else {
-                      name = _method[0]; // Overwrite name, e.g., Array.prototype.map.call(document.querySelectorAll('div'), (node) => node.name); 'NodeList' is overwritten by 'Array'
-                      rawProperty = _method[_method.length - 1];
-                      property = _escapePlatformProperties.get(rawProperty) || rawProperty;
+                      property = rawProperty = S_FUNCTION;
                     }
                   }
                   else {
-                    property = rawProperty = S_FUNCTION;
+                    let _method = _globalMethods.get(_p);
+                    if (_method) {
+                      if (_method[0] === name) {
+                        rawProperty = _method[_method.length - 1];
+                        property = _escapePlatformProperties.get(rawProperty) || rawProperty;
+                      }
+                      else {
+                        name = _method[0]; // Overwrite name, e.g., Array.prototype.map.call(document.querySelectorAll('div'), (node) => node.name); 'NodeList' is overwritten by 'Array'
+                        rawProperty = _method[_method.length - 1];
+                        property = _escapePlatformProperties.get(rawProperty) || rawProperty;
+                      }
+                    }
+                    else {
+                      property = rawProperty = S_FUNCTION;
+                    }
                   }
+                  break;
+                case 'object':
+                  property = rawProperty = _p; // TODO: proper handling
+                  break;
+                default:
+                  break;
                 }
-                break;
-              case 'object':
-                property = rawProperty = _p; // TODO: proper handling
-                break;
-              default:
-                break;
+              }
+              break;
+            case 'undefined':
+              break;
+            case 'number': // TODO: proper handling
+              break;
+            default:
+              break;
+            }
+            //#PROFILE }
+            //#PROFILE applyTargetMap();
+          }
+        }
+        else if (typeof target === 'string') {
+          opType = target[0];
+          if (target[2] === '*') {
+            property = rawProperty = S_ALL;
+          }
+          switch (name) {
+          case 'window':
+          case 'self':
+            if (target === 'wtpv') { // window.property = v
+              if (_f === '=' && _args[1] instanceof Object) {
+                globalAssignments[rawProperty] = _args[1];
               }
             }
-            break;
-          case 'undefined':
-            break;
-          case 'number': // TODO: proper handling
             break;
           default:
             break;
           }
-          //#PROFILE }
-          //#PROFILE applyTargetMap();
         }
-      }
-      else if (typeof target === 'string') {
-        opType = target[0];
-        if (target[2] === '*') {
-          property = rawProperty = S_ALL;
-        }
-        switch (name) {
-        case 'window':
-        case 'self':
-          if (target === 'wtpv') { // window.property = v
-            if (_f === '=' && _args[1] instanceof Object) {
-              globalAssignments[rawProperty] = _args[1];
-            }
-          }
-          break;
-        default:
-          break;
-        }
-      }
-      if (!applyAcl(name, isStatic, typeof normalizedThisArg === 'object', property, opType, context)) {
-        // if (name === 'Object' && context.startsWith('/components/dexie/dist/dexie.min.js')) {
-        //   console.error('ACL: denied name =', name, 'isStatic =', isStatic, 'isObject = ', (typeof normalizedThisArg === 'object'), 'property =', property, 'opType =', opType, 'context = ', context);
-        //   debugger;
-        //   applyAcl(name, isStatic, typeof normalizedThisArg === 'object', property, opType, context);
-        // }
-        /*
-        if (typeof property === 'string') {
-          console.warn(isStatic ?
-`
-  '${context}': '${contextNormalizer[context] || '@' + name + '_' + property + '_' + (opType === 'w' ? 'writer' : 'executor')}',
+        if (!applyAcl(name, isStatic, typeof normalizedThisArg === 'object', property, opType, context)) {
+          // if (name === 'Object' && context.startsWith('/components/dexie/dist/dexie.min.js')) {
+          //   console.error('ACL: denied name =', name, 'isStatic =', isStatic, 'isObject = ', (typeof normalizedThisArg === 'object'), 'property =', property, 'opType =', opType, 'context = ', context);
+          //   debugger;
+          //   applyAcl(name, isStatic, typeof normalizedThisArg === 'object', property, opType, context);
+          // }
+          /*
+          if (typeof property === 'string') {
+            console.warn(isStatic ?
+  `
+    '${context}': '${contextNormalizer[context] || '@' + name + '_' + property + '_' + (opType === 'w' ? 'writer' : 'executor')}',
 
-${name}: {
-  ${property}: {
-    [S_DEFAULT]: 'r-x',
-    '${contextNormalizer[context] || '@' + name + '_' + property + '_' + (opType === 'w' ? 'writer' : 'executor')}': 'rwx',
-  },
-},
-` :
-`
-  '${context}': '${contextNormalizer[context] || '@' + name + '_' + property + '_' + (opType === 'w' ? 'writer' : 'executor')}',
-
-${name}: {
-  [S_PROTOTYPE]: {
+  ${name}: {
     ${property}: {
       [S_DEFAULT]: 'r-x',
       '${contextNormalizer[context] || '@' + name + '_' + property + '_' + (opType === 'w' ? 'writer' : 'executor')}': 'rwx',
     },
   },
-},
-`);
+  ` :
+  `
+    '${context}': '${contextNormalizer[context] || '@' + name + '_' + property + '_' + (opType === 'w' ? 'writer' : 'executor')}',
+
+  ${name}: {
+    [S_PROTOTYPE]: {
+      ${property}: {
+        [S_DEFAULT]: 'r-x',
+        '${contextNormalizer[context] || '@' + name + '_' + property + '_' + (opType === 'w' ? 'writer' : 'executor')}': 'rwx',
+      },
+    },
+  },
+  `);
+          }
+          throw new Error('Permission Denied: Cannot access ' + opType + ' ' + name + (isStatic ? '.' : '.prototype.') + (typeof property === 'string' ? property : '') + ' from ' + context);
+          */
+          throw new Error('Permission Denied: Cannot access ' + name);
         }
-        throw new Error('Permission Denied: Cannot access ' + opType + ' ' + name + (isStatic ? '.' : '.prototype.') + (typeof property === 'string' ? property : '') + ' from ' + context);
-        */
-        throw new Error('Permission Denied: Cannot access ' + name);
-      }
-      // TODO: For robust security, the exception should not provide any information on the blocked objects/properties.
-      //#PROFILE function handleBlacklistProperty() {
-      let _blacklist = _blacklistObjects[name];
-      if (_blacklist) {
-        if (typeof _blacklist === 'object') {
-          if (property) {
-            if (typeof property === 'string') {
-              if (typeof _blacklist[property] === 'boolean') {
-                //throw new Error('Permission Denied: Cannot access');
-                throw new Error('Permission Denied: Cannot access ' + name + '.' + rawProperty);
+        if (checkBlacklist) {
+          // TODO: For robust security, the exception should not provide any information on the blocked objects/properties.
+          //#PROFILE function handleBlacklistProperty() {
+          let _blacklist = _blacklistObjects[name];
+          if (_blacklist) {
+            if (typeof _blacklist === 'object') {
+              if (property) {
+                if (typeof property === 'string') {
+                  if (typeof _blacklist[property] === 'boolean') {
+                    //throw new Error('Permission Denied: Cannot access');
+                    throw new Error('Permission Denied: Cannot access ' + name + '.' + rawProperty);
+                  }
+                }
+                else if (Array.isArray(property)) {
+                  for (let i = 0; i < property.length; i++) {
+                    if (typeof _blacklist[property[i]] === 'boolean') {
+                      //throw new Error('Permission Denied: Cannot access');
+                      throw new Error('Permission Denied: Cannot access ' + name + '.' + (_unescapePlatformProperties.get(property[i]) || property[i]));
+                    }
+                  }
+                }
+                else if (property === S_ALL) {
+                  //throw new Error('Permission Denied: Cannot access');
+                  throw new Error('Permission Denied: Cannot access ' + name + '.*');
+                }
+                else if (property === S_UNSPECIFIED) {
+                  // OK
+                }
               }
+              else {
+                // OK
+              }
+            }
+            else {
+              //throw new Error('Permission Denied: Cannot access');
+              throw new Error('Permission Denied: Cannot access ' + name);
+            }
+          }
+        }
+        //#PROFILE }
+        //#PROFILE handleBlacklistProperty();
+        if (typeof target === 'string' && target[3] === 'b') {
+          let _method = _globalMethods.get(thisArg);
+          boundParameters = {
+            f: thisArg,
+            name: name,
+            thisArg: args[1][0],
+            normalizedThisArg: _method
+              ? _method[1] === 'prototype'
+                ? { constructor: _global[_method[0]] }
+                : _global[_method[0]]
+              : args[1][0],
+            isStatic: _method ? (_method[1] !== 'prototype') : (typeof args[1][0] === 'function'),
+            property: typeof rawProperty === 'string' ? rawProperty : thisArg,
+            args: args[1].slice(1),
+          };
+          f = 'bind';
+        }
+        for (let gprop in globalAssignments) {
+          //console.log('global assignment ', gprop);
+          let gvalue = globalAssignments[gprop];
+          _globalObjects.set(gvalue, gprop);
+          let _properties = Object.getOwnPropertyDescriptors(gvalue);
+          let _prop;
+          for (_prop in _properties) {
+            if (typeof _properties[_prop].value === 'function') {
+              _globalMethods.set(_properties[_prop].value, [gprop, _prop]);
+            }
+          }
+          if (gvalue.prototype) {
+            _properties = Object.getOwnPropertyDescriptors(gvalue.prototype);
+            for (_prop in _properties) {
+              if (typeof _properties[_prop].value === 'function') {
+                _globalMethods.set(_properties[_prop].value, [gprop, 'prototype', _prop]);
+              }
+            }
+          }
+        }
+        if (generateGraph) {
+          //#PROFILE function excludePrimitiveObjectProperties() {
+          switch (name) {
+          case 'Object':
+            if (!isStatic) {
+              if (!_objectPropertyDescriptors[rawProperty]) {
+                name = null;
+              }
+            }
+            break;
+          case 'Array':
+            if (!isStatic) {
+              if (!_arrayPropertyDescriptors[rawProperty]) {
+                name = null;
+              }
+            }
+            break;
+          case 'String':
+            if (!isStatic) {
+              if (!_stringPropertyDescriptors[rawProperty]) {
+                name = null;
+              }
+            }
+            break;
+          case 'Function':
+            if (!isStatic) {
+              if (!_functionPropertyDescriptors[rawProperty]) {
+                name = null;
+              }
+            }
+            break;
+          default:
+            break;
+          }
+          //#PROFILE }
+          //#PROFILE excludePrimitiveObjectProperties();
+          if (name) {
+            //#PROFILE function updateAccessGraph() {
+            // thisArg is a global object or an instance of one
+            let forName;
+            let forProp;
+            let id;
+            if (!globalPropertyContexts[context]) {
+              let group = context.split(/[,:]/)[0];
+              data2.nodes.push({ id: context, label: context, group: group });
+              globalPropertyContexts[context] = true;
+            }
+            if (!globalObjectAccess[name]) {
+              globalObjectAccess[name] = {};
+              data2.nodes.push({ id: name, label: name, group: name });
+            }
+            forName = globalObjectAccess[name];
+            if (typeof property === 'string') {
+              id = isStatic || typeof normalizedThisArg === 'object'
+                ? name + '.' + rawProperty
+                : name + '.prototype.' + rawProperty
+              if (!forName[property]) {
+                forName[property] = {};
+                data2.nodes.push({ id: id, label: (_unescapePlatformProperties.get(property) || property), group: name });
+                data2.edges.push({ from: name, to: id, dashes: true, arrows: 'to' });
+              }
+              forProp = forName[property];
+              if (!forProp[context]) {
+                forProp[context] = { from: context, to: id, label: 0, arrows: 'to' };
+                data2.edges.push(forProp[context]);
+              }
+              forProp[context].label++;
             }
             else if (Array.isArray(property)) {
               for (let i = 0; i < property.length; i++) {
-                if (typeof _blacklist[property[i]] === 'boolean') {
-                  //throw new Error('Permission Denied: Cannot access');
-                  throw new Error('Permission Denied: Cannot access ' + name + '.' + (_unescapePlatformProperties.get(property[i]) || property[i]));
+                rawProperty = _unescapePlatformProperties.get(property[i]) || property[i];
+                id = isStatic || typeof normalizedThisArg === 'object' ? name + '.' + rawProperty : name + '.prototype.' + rawProperty;
+                if (!forName[property[i]]) {
+                  forName[property[i]] = {};
+                  data2.nodes.push({ id: id, label: rawProperty, group: name });
+                  data2.edges.push({ from: name, to: id, dashes: true, arrows: 'to' });
                 }
+                forProp = forName[property[i]];
+                if (!forProp[context]) {
+                  forProp[context] = { from: context, to: id, label: 0, arrows: 'to' };
+                  data2.edges.push(forProp[context]);
+                }
+                forProp[context].label++;
               }
             }
-            else if (property === S_ALL) {
-              //throw new Error('Permission Denied: Cannot access');
-              throw new Error('Permission Denied: Cannot access ' + name + '.*');
+            else {
+              forName = globalObjectAccess[name];
+              if (!forName[context]) {
+                forName[context] = { from: '/' + context, to: name, label: 0, arrows: 'to' };
+                data2.edges.push(forName[context]);
+              }
+              forName[context].label++;
             }
-            else if (property === S_UNSPECIFIED) {
-              // OK
-            }
-          }
-          else {
-            // OK
+            //#PROFILE }
+            //#PROFILE updateAccessGraph();
           }
         }
-        else {
-          //throw new Error('Permission Denied: Cannot access');
+        //#PROFILE }
+        //#PROFILE normalizeOperation();
+      }
+      else if (newTarget) {
+        //#PROFILE function handleNewOperation() {
+        let name = _globalObjects.get(f);
+        let superClass = f;
+        while (!name && typeof superClass === 'function') {
+          superClass = Object.getPrototypeOf(superClass);
+          name = _globalObjects.get(superClass);
+        }
+        if (!applyAcl(name, true, false, S_UNSPECIFIED, 'x', context)) {
           throw new Error('Permission Denied: Cannot access ' + name);
+          //console.error('ACL: denied name =', name, 'isStatic =', true, 'isObject = ', false, 'property =', S_UNSPECIFIED, 'opType =', 'x', 'context = ', context);
+          //debugger;
+          //applyAcl(name, true, false, S_UNSPECIFIED, 'x', context);
         }
-      }
-      //#PROFILE }
-      //#PROFILE handleBlacklistProperty();
-      if (typeof target === 'string' && target[3] === 'b') {
-        let _method = _globalMethods.get(thisArg);
-        boundParameters = {
-          f: thisArg,
-          name: name,
-          thisArg: args[1][0],
-          normalizedThisArg: _method
-            ? _method[1] === 'prototype'
-              ? { constructor: _global[_method[0]] }
-              : _global[_method[0]]
-            : args[1][0],
-          isStatic: _method ? (_method[1] !== 'prototype') : (typeof args[1][0] === 'function'),
-          property: typeof rawProperty === 'string' ? rawProperty : thisArg,
-          args: args[1].slice(1),
-        };
-        f = 'bind';
-      }
-      for (let gprop in globalAssignments) {
-        //console.log('global assignment ', gprop);
-        let gvalue = globalAssignments[gprop];
-        _globalObjects.set(gvalue, gprop);
-        let _properties = Object.getOwnPropertyDescriptors(gvalue);
-        let _prop;
-        for (_prop in _properties) {
-          if (typeof _properties[_prop].value === 'function') {
-            _globalMethods.set(_properties[_prop].value, [gprop, _prop]);
-          }
-        }
-        if (gvalue.prototype) {
-          _properties = Object.getOwnPropertyDescriptors(gvalue.prototype);
-          for (_prop in _properties) {
-            if (typeof _properties[_prop].value === 'function') {
-              _globalMethods.set(_properties[_prop].value, [gprop, 'prototype', _prop]);
+        if (checkBlacklist) {
+          let _blacklist = _blacklistObjects[name];
+          if (_blacklist) {
+            if (typeof _blacklist === 'boolean') {
+              throw new Error('Permission Denied: Cannot access ' + name);
             }
           }
         }
-      }
-      //#PROFILE function excludePrimitiveObjectProperties() {
-      switch (name) {
-      case 'Object':
-        if (!isStatic) {
-          if (!_objectPropertyDescriptors[rawProperty]) {
-            name = null;
-          }
-        }
-        break;
-      case 'Array':
-        if (!isStatic) {
-          if (!_arrayPropertyDescriptors[rawProperty]) {
-            name = null;
-          }
-        }
-        break;
-      case 'String':
-        if (!isStatic) {
-          if (!_stringPropertyDescriptors[rawProperty]) {
-            name = null;
-          }
-        }
-        break;
-      case 'Function':
-        if (!isStatic) {
-          if (!_functionPropertyDescriptors[rawProperty]) {
-            name = null;
-          }
-        }
-        break;
-      default:
-        break;
-      }
-      //#PROFILE }
-      //#PROFILE excludePrimitiveObjectProperties();
-      if (name) {
-        //#PROFILE function updateAccessGraph() {
-        // thisArg is a global object or an instance of one
-        let forName;
-        let forProp;
-        let id;
-        if (!globalPropertyContexts[context]) {
-          let group = context.split(/[,:]/)[0];
-          data2.nodes.push({ id: context, label: context, group: group });
-          globalPropertyContexts[context] = true;
-        }
-        if (!globalObjectAccess[name]) {
-          globalObjectAccess[name] = {};
-          data2.nodes.push({ id: name, label: name, group: name });
-        }
-        forName = globalObjectAccess[name];
-        if (typeof property === 'string') {
-          id = isStatic || typeof normalizedThisArg === 'object'
-            ? name + '.' + rawProperty
-            : name + '.prototype.' + rawProperty
-          if (!forName[property]) {
-            forName[property] = {};
-            data2.nodes.push({ id: id, label: (_unescapePlatformProperties.get(property) || property), group: name });
-            data2.edges.push({ from: name, to: id, dashes: true, arrows: 'to' });
-          }
-          forProp = forName[property];
-          if (!forProp[context]) {
-            forProp[context] = { from: context, to: id, label: 0, arrows: 'to' };
-            data2.edges.push(forProp[context]);
-          }
-          forProp[context].label++;
-        }
-        else if (Array.isArray(property)) {
-          for (let i = 0; i < property.length; i++) {
-            rawProperty = _unescapePlatformProperties.get(property[i]) || property[i];
-            id = isStatic || typeof normalizedThisArg === 'object' ? name + '.' + rawProperty : name + '.prototype.' + rawProperty;
-            if (!forName[property[i]]) {
-              forName[property[i]] = {};
-              data2.nodes.push({ id: id, label: rawProperty, group: name });
-              data2.edges.push({ from: name, to: id, dashes: true, arrows: 'to' });
+        if (generateGraph) {
+          if (name) {
+            // new operator for a global class
+            let forName;
+            if (!globalPropertyContexts[context]) {
+              let group = context.split(/[,:]/)[0];
+              data2.nodes.push({ id: '/' + context, label: context, group: group });
+              globalPropertyContexts[context] = true;
             }
-            forProp = forName[property[i]];
+            if (!globalObjectAccess[name]) {
+              globalObjectAccess[name] = {};
+              data2.nodes.push({ id: name, label: name, group: name });
+            }
+            forName = globalObjectAccess[name];
+            if (!forName[context]) {
+              forName[context] = { from: '/' + context, to: name, label: 0, arrows: 'to' };
+              data2.edges.push(forName[context]);
+            }
+            forName[context].label++;
+          }
+        }
+        //#PROFILE }
+        //#PROFILE handleNewOperation();
+      }
+      else {
+        //#PROFILE function handleFunctionCall() {
+        let name = _globalMethods.get(f);
+        if (name) {
+          // call of a native method
+          let forName;
+          let forProp;
+          let id = name.join('.');
+          let rawProp = name[name.length - 1];
+          let prop = _escapePlatformProperties.get(rawProp) || rawProp;
+          let obj = name[0];
+          if (!applyAcl(obj, name[1] !== 'prototype', false, prop, 'x', context)) {
+            throw new Error('Permission Denied: Cannot access ' + obj);
+            //console.error('ACL: denied name =', name, 'isStatic =', name[1] !== 'prototype', 'isObject = ', false, 'property =', prop, 'opType =', 'x', 'context = ', context);
+            //debugger;
+            //applyAcl(obj, name[1] !== 'prototype', false, prop, 'x', context);
+          }
+          let _blacklist = _blacklistObjects[obj];
+          if (_blacklist) {
+            if (typeof _blacklist === 'object') {
+              if (typeof _blacklist[prop] === 'boolean') {
+                throw new Error('Permission Denied: Cannot access ' + obj + '.' + prop);
+              }
+            }
+            else {
+              throw new Error('Permission Denied: Cannot access ' + obj);
+            }
+          }
+          if (generateGraph) {
+            if (!globalPropertyContexts[context]) {
+              let group = context.split(/[,:]/)[0];
+              data2.nodes.push({ id: '/' + context, label: context, group: group });
+              globalPropertyContexts[context] = true;
+            }
+            if (!globalObjectAccess[obj]) {
+              globalObjectAccess[obj] = {};
+              data2.nodes.push({ id: obj, label: obj, group: obj });
+            }
+            forName = globalObjectAccess[obj];
+            if (!forName[prop]) {
+              forName[prop] = {};
+              data2.nodes.push({ id: id, label: rawProp, group: obj });
+              data2.edges.push({ from: obj, to: id, dashes: true, arrows: 'to' });
+            }
+            forProp = forName[prop];
             if (!forProp[context]) {
               forProp[context] = { from: context, to: id, label: 0, arrows: 'to' };
               data2.edges.push(forProp[context]);
@@ -1826,114 +1982,9 @@ ${name}: {
             forProp[context].label++;
           }
         }
-        else {
-          forName = globalObjectAccess[name];
-          if (!forName[context]) {
-            forName[context] = { from: '/' + context, to: name, label: 0, arrows: 'to' };
-            data2.edges.push(forName[context]);
-          }
-          forName[context].label++;
-        }
         //#PROFILE }
-        //#PROFILE updateAccessGraph();
+        //#PROFILE handleFunctionCall();
       }
-      //#PROFILE }
-      //#PROFILE normalizeOperation();
-    }
-    else if (newTarget) {
-      //#PROFILE function handleNewOperation() {
-      let name = _globalObjects.get(f);
-      let superClass = f;
-      while (!name && typeof superClass === 'function') {
-        superClass = Object.getPrototypeOf(superClass);
-        name = _globalObjects.get(superClass);
-      }
-      if (!applyAcl(name, true, false, S_UNSPECIFIED, 'x', context)) {
-        throw new Error('Permission Denied: Cannot access ' + name);
-        //console.error('ACL: denied name =', name, 'isStatic =', true, 'isObject = ', false, 'property =', S_UNSPECIFIED, 'opType =', 'x', 'context = ', context);
-        //debugger;
-        //applyAcl(name, true, false, S_UNSPECIFIED, 'x', context);
-      }
-      let _blacklist = _blacklistObjects[name];
-      if (_blacklist) {
-        if (typeof _blacklist === 'boolean') {
-          throw new Error('Permission Denied: Cannot access ' + name);
-        }
-      }
-      if (name) {
-        // new operator for a global class
-        let forName;
-        if (!globalPropertyContexts[context]) {
-          let group = context.split(/[,:]/)[0];
-          data2.nodes.push({ id: '/' + context, label: context, group: group });
-          globalPropertyContexts[context] = true;
-        }
-        if (!globalObjectAccess[name]) {
-          globalObjectAccess[name] = {};
-          data2.nodes.push({ id: name, label: name, group: name });
-        }
-        forName = globalObjectAccess[name];
-        if (!forName[context]) {
-          forName[context] = { from: '/' + context, to: name, label: 0, arrows: 'to' };
-          data2.edges.push(forName[context]);
-        }
-        forName[context].label++;
-      }
-      //#PROFILE }
-      //#PROFILE handleNewOperation();
-    }
-    else {
-      //#PROFILE function handleFunctionCall() {
-      let name = _globalMethods.get(f);
-      if (name) {
-        // call of a native method
-        let forName;
-        let forProp;
-        let id = name.join('.');
-        let rawProp = name[name.length - 1];
-        let prop = _escapePlatformProperties.get(rawProp) || rawProp;
-        let obj = name[0];
-        if (!applyAcl(obj, name[1] !== 'prototype', false, prop, 'x', context)) {
-          throw new Error('Permission Denied: Cannot access ' + obj);
-          //console.error('ACL: denied name =', name, 'isStatic =', name[1] !== 'prototype', 'isObject = ', false, 'property =', prop, 'opType =', 'x', 'context = ', context);
-          //debugger;
-          //applyAcl(obj, name[1] !== 'prototype', false, prop, 'x', context);
-        }
-        let _blacklist = _blacklistObjects[obj];
-        if (_blacklist) {
-          if (typeof _blacklist === 'object') {
-            if (typeof _blacklist[prop] === 'boolean') {
-              throw new Error('Permission Denied: Cannot access ' + obj + '.' + prop);
-            }
-          }
-          else {
-            throw new Error('Permission Denied: Cannot access ' + obj);
-          }
-        }
-        if (!globalPropertyContexts[context]) {
-          let group = context.split(/[,:]/)[0];
-          data2.nodes.push({ id: '/' + context, label: context, group: group });
-          globalPropertyContexts[context] = true;
-        }
-        if (!globalObjectAccess[obj]) {
-          globalObjectAccess[obj] = {};
-          data2.nodes.push({ id: obj, label: obj, group: obj });
-        }
-        forName = globalObjectAccess[obj];
-        if (!forName[prop]) {
-          forName[prop] = {};
-          data2.nodes.push({ id: id, label: rawProp, group: obj });
-          data2.edges.push({ from: obj, to: id, dashes: true, arrows: 'to' });
-        }
-        forProp = forName[prop];
-        if (!forProp[context]) {
-          forProp[context] = { from: context, to: id, label: 0, arrows: 'to' };
-          data2.edges.push(forProp[context]);
-        }
-        forProp[context].label++;
-      }
-      //#PROFILE }
-      //#PROFILE handleFunctionCall();
     }
 
     let result;
@@ -2306,9 +2357,11 @@ ${name}: {
       //#PROFILE }
       //#PROFILE accessProperty();
     }
-    lastContext = _lastContext;
-    // if (contextStack[contextStack.length - 1] !== context) { debugger; }
-    contextStack.pop();
+    if (!minimalHook) {
+      lastContext = _lastContext;
+      // if (contextStack[contextStack.length - 1] !== context) { debugger; }
+      contextStack.pop();
+    }
     return result;
   }});
 
@@ -2317,5 +2370,24 @@ ${name}: {
   function showContextStackLog() {
     let asyncCalls = Object.keys(contextStackLog).filter(c => c.match(/(setTimeout|setInterval|Promise)/g));
     console.log(asyncCalls);
+  }
+
+  function hookBenchmark() {
+    let f = function(a) { return a; }
+    let o = {a:1,f:f};
+    [[false,false,false,true],[false,false,false,false],[false,true,false,false],[true,true,false,false]].forEach(params => {
+      [generateGraph,trackCallback,checkBlacklist,minimalHook] = params;
+      let paramNames = ['generateGraph','trackCallback','checkBlacklist','minimalHook'];
+      let start = Date.now();
+      for (let i = 0; i < 10000000; i++) {
+        __hook__('.', o, ['a'], 'context');
+        __hook__('=', o, ['a',i], 'context');
+        __hook__('()', o, ['f', [i]], 'context');
+        __hook__(f, null, [i], 'context');
+      }
+      let end = Date.now();
+      console.log('hookBenchmark in ' + (end - start) + 'ms with ' + params.map((p,i) => paramNames[i] + ':' + p).join(', '));
+    });
+    [generateGraph,trackCallback,checkBlacklist,minimalHook] = [true,true,false,false];
   }
 }
