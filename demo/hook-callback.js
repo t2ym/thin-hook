@@ -1043,7 +1043,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
   const opTypeMap = {
     r: 0, w: 1, x: 2
   };
-  function applyAcl(name, isStatic, isObject, property, opType, context) {
+  const applyAcl = function applyAcl(name, isStatic, isObject, property, opType, context) {
     let _context, _acl, __acl, _property, tmp;
     while (_context = contextNormalizer[context]) {
       context = _context;
