@@ -2499,11 +2499,15 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       break;
     }
     if (typeof f !== 'string') {
-      result = newTarget
-        ? Reflect.construct(f, args)
-        : thisArg
-          ? f.apply(thisArg, args)
-          : f(...args);
+      if (newTarget) {
+        result = Reflect.construct(f, args);
+      }
+      else if (thisArg) {
+        result = f.apply(thisArg, args);
+      }
+      else {
+        result = f(...args);
+      }
     }
     else {
       // property access
@@ -2760,15 +2764,32 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     flags.forEach(params => {
       [generateGraph,trackCallback,checkBlacklist,minimalHook] = params;
       let paramNames = ['generateGraph','trackCallback','checkBlacklist','minimalHook'];
+      let results = [];
       let start = Date.now();
       for (let i = 0; i < r; i++) {
         h('.', o, ['a'], 'context');
-        h('=', o, ['a',i], 'context');
-        h('()', o, ['f', [i]], 'context');
-        h(f, null, [i], 'context');
       }
       let end = Date.now();
-      console.log('hookBenchmark in ' + (end - start) + 'ms with ' + params.map((p,i) => paramNames[i] + ':' + p).join(', '));
+      results.push(['.', end - start]);
+      start = Date.now();
+      for (let i = 0; i < r; i++) {
+        h('=', o, ['a',i], 'context');
+      }
+      end = Date.now();
+      results.push(['=', end - start]);
+      start = Date.now();
+      for (let i = 0; i < r; i++) {
+        h('()', o, ['f', [i]], 'context');
+      }
+      end = Date.now();
+      results.push(['()', end - start]);
+      start = Date.now();
+      for (let i = 0; i < r; i++) {
+        h(f, null, [i], 'context');
+      }
+      end = Date.now();
+      results.push(['f', end - start]);
+      console.log('hookBenchmark ' + results.map((result) => result[0] + ' in ' + result[1] + 'ms (' + (new Intl.NumberFormat()).format(parseInt(1000 * r / result[1])) +' op/s)').join(', ') + ' with ' + params.map((p,i) => paramNames[i] + ':' + p).join(', '));
     });
     [generateGraph,trackCallback,checkBlacklist,minimalHook] = backup;
   }
