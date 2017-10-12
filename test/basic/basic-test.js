@@ -734,6 +734,79 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             hooked: `{function f(...args){return __hook__(([a,,[b]])=>{let [c,,[d]]=[4,5,[6]];let e,g;[e,,[g]]=[7,8,[9]];return[a,b,c,d,e,g];},null,args,'HookApiTest,f');}` +
               `__hook__(f,null,[[1,2,[3]]],'HookApiTest',0);}`,
           },
+          {
+            code: `{ let result = 0; for (var [i,j] of [[1,2],[3,4]]) { result += i + j; } result; }`,
+            hooked: `{let result=0;for(` +
+              `[$hook$.global(__hook__,'HookApiTest','i','var')._pp_i,$hook$.global(__hook__,'HookApiTest','j','var')._pp_j]of ` +
+              `__hook__('*',[[1,2],[3,4]],[],'HookApiTest')){result+=$hook$.global(__hook__,'HookApiTest','i','get')._pp_i+$hook$.global(__hook__,'HookApiTest','j','get')._pp_j;}result;}`,
+          },
+          {
+            code: `{ let result = 0; for (let [i,j] of [[1,2],[3,4]]) { result += i + j; } result; }`,
+            hooked: `{let result=0;for(let [i,j]of __hook__('*',[[1,2],[3,4]],[],'HookApiTest')){result+=i+j;}result;}`,
+          },
+          {
+            code: `{ let result = 0; var i,j; for ([i,j] of [[1,2],[3,4]]) { result += i + j; } result; }`,
+            hooked: `{let result=0;$hook$.global(__hook__,'HookApiTest','i','var')._pp_i,$hook$.global(__hook__,'HookApiTest','j','var')._pp_j;` +
+              `for([$hook$.global(__hook__,'HookApiTest','i','set')._pp_i,$hook$.global(__hook__,'HookApiTest','j','set')._pp_j]` +
+              `of __hook__('*',[[1,2],[3,4]],[],'HookApiTest')){result+=$hook$.global(__hook__,'HookApiTest','i','get')._pp_i+$hook$.global(__hook__,'HookApiTest','j','get')._pp_j;}result;}`,
+          },
+          {
+            code: `{ let result = 0; let i,j; for ([i,j] of [[1,2],[3,4]]) { result += i + j; } result; }`,
+            hooked: `{let result=0;let i,j;for([i,j]of __hook__('*',[[1,2],[3,4]],[],'HookApiTest')){result+=i+j;}result;}`,
+          },
+          {
+            code: `{ let result = 0; for (var [i,j] = [3,4]; i && j; i--, j--) { result += i + j; } result; }`,
+            hooked: `{let result=0;for(` +
+              `[$hook$.global(__hook__,'HookApiTest','i','var')._pp_i,$hook$.global(__hook__,'HookApiTest','j','var')._pp_j]=[3,4];` +
+              `$hook$.global(__hook__,'HookApiTest','i','get')._pp_i&&$hook$.global(__hook__,'HookApiTest','j','get')._pp_j;` +
+              `$hook$.global(__hook__,'HookApiTest','i','set')._pp_i--,$hook$.global(__hook__,'HookApiTest','j','set')._pp_j--)` +
+              `{result+=$hook$.global(__hook__,'HookApiTest','i','get')._pp_i+$hook$.global(__hook__,'HookApiTest','j','get')._pp_j;}result;}`,
+          },
+          {
+            code: `{ let result = 0; for (let [i,j] = [3,4]; i && j; i--, j--) { result += i + j; } result; }`,
+            hooked: `{let result=0;for(let [i,j]=[3,4];i&&j;i--,j--){result+=i+j;}result;}`,
+          },
+          {
+            code: `{ let result = 0; var i,j; for ([i,j] = [3,4]; i && j; i--, j--) { result += i + j; } result; }`,
+            hooked: `{let result=0;$hook$.global(__hook__,'HookApiTest','i','var')._pp_i,$hook$.global(__hook__,'HookApiTest','j','var')._pp_j;` +
+              `for([$hook$.global(__hook__,'HookApiTest','i','set')._pp_i,$hook$.global(__hook__,'HookApiTest','j','set')._pp_j]=[3,4];` +
+              `$hook$.global(__hook__,'HookApiTest','i','get')._pp_i&&$hook$.global(__hook__,'HookApiTest','j','get')._pp_j;` +
+              `$hook$.global(__hook__,'HookApiTest','i','set')._pp_i--,$hook$.global(__hook__,'HookApiTest','j','set')._pp_j--)` +
+              `{result+=$hook$.global(__hook__,'HookApiTest','i','get')._pp_i+$hook$.global(__hook__,'HookApiTest','j','get')._pp_j;}result;}`,
+          },
+          {
+            code: `{ let result = 0; with({}) { for (let [i,j] = [3,4]; i && j; i--, j--) { result += i + j; } result; } }`,
+            hooked: `{let result=0;with($hook$.with({},{result:true})){for(let [i,j]=[3,4];` +
+              `__hook__('w.',__with__,['i',()=>i],'HookApiTest',false)&&__hook__('w.',__with__,['j',()=>j],'HookApiTest',false);` +
+              `__hook__('w--',__with__,['i',()=>i--],'HookApiTest',false),__hook__('w--',__with__,['j',()=>j--],'HookApiTest',false))` +
+              `{__hook__('w+=',__with__,['result',__hook__('w.',__with__,['i',()=>i],'HookApiTest',false)+__hook__('w.',__with__,['j',()=>j],'HookApiTest',false),v=>result+=v],'HookApiTest',false);}__hook__('w.',__with__,['result',()=>result],'HookApiTest',false);}}`,
+          },
+          {
+            code: `{ let result = 0; let i, j; with({}) { for ([i,j] = [3,4]; i && j; i--, j--) { result += i + j; } result; } }`,
+            hooked: `{let result=0;let i,j;with($hook$.with({},{result:true,i:true,j:true})){` +
+              `for([__hook__('w.=',__with__,['i',{set ['='](v){i=v;},get ['='](){return i;}}],'HookApiTest',false)['='],__hook__('w.=',__with__,['j',{set ['='](v){j=v;},get ['='](){return j;}}],'HookApiTest',false)['=']]=[3,4];` +
+              `__hook__('w.',__with__,['i',()=>i],'HookApiTest',false)&&__hook__('w.',__with__,['j',()=>j],'HookApiTest',false);` +
+              `__hook__('w--',__with__,['i',()=>i--],'HookApiTest',false),__hook__('w--',__with__,['j',()=>j--],'HookApiTest',false))` +
+              `{__hook__('w+=',__with__,['result',__hook__('w.',__with__,['i',()=>i],'HookApiTest',false)+` +
+              `__hook__('w.',__with__,['j',()=>j],'HookApiTest',false),v=>result+=v],'HookApiTest',false);}` +
+              `__hook__('w.',__with__,['result',()=>result],'HookApiTest',false);}}`,
+          },
+          {
+            code: `{ let result = 0; with ({}) { for (let [i,j] of [[1,2],[3,4]]) { result += i + j; } result; } }`,
+            hooked: `{let result=0;with($hook$.with({},{result:true})){for(let [i,j]of __hook__('*',[[1,2],[3,4]],[],'HookApiTest')){` +
+              `__hook__('w+=',__with__,['result',__hook__('w.',__with__,['i',()=>i],'HookApiTest',false)+` +
+              `__hook__('w.',__with__,['j',()=>j],'HookApiTest',false),v=>result+=v],'HookApiTest',false);}__hook__('w.',__with__,['result',()=>result],'HookApiTest',false);}}`,
+          },
+          {
+            code: `{ let result = 0; let i,j; with ({}) { for ([i,j] of [[1,2],[3,4]]) { result += i + j; } result; } } `,
+            hooked: `{let result=0;let i,j;with($hook$.with({},{result:true,i:true,j:true})){` +
+              `for([__hook__('w.=',__with__,['i',{set ['='](v){i=v;},get ['='](){return i;}}],'HookApiTest',false)['='],` +
+              `__hook__('w.=',__with__,['j',{set ['='](v){j=v;},get ['='](){return j;}}],'HookApiTest',false)['=']]` +
+              `of __hook__('*',[[1,2],[3,4]],[],'HookApiTest')){` +
+              `__hook__('w+=',__with__,['result',__hook__('w.',__with__,['i',()=>i],'HookApiTest',false)+` +
+              `__hook__('w.',__with__,['j',()=>j],'HookApiTest',false),v=>result+=v],'HookApiTest',false);}` +
+              `__hook__('w.',__with__,['result',()=>result],'HookApiTest',false);}}`,
+          },
         ],
         RestElement: [
           {
@@ -1026,6 +1099,38 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
               `$hook$.global(__hook__,'HookApiTest','d','get')._pp_d,` +
               `$hook$.global(__hook__,'HookApiTest','f','get')._pp_f,` +
               `$hook$.global(__hook__,'HookApiTest','o','get')._pp_o];`,
+          },
+          {
+            code: `{ let result = 0; for (var {i,j} of [{i:1,j:2},{i:3,j:4}]) { result += i + j; } result; }`,
+            hooked: `{let result=0;for({i:$hook$.global(__hook__,'HookApiTest,i','i','var')._pp_i,j:$hook$.global(__hook__,'HookApiTest,j','j','var')._pp_j}` +
+              `of __hook__('*',[{i:1,j:2},{i:3,j:4}],[],'HookApiTest'))` +
+              `{result+=$hook$.global(__hook__,'HookApiTest','i','get')._pp_i+$hook$.global(__hook__,'HookApiTest','j','get')._pp_j;}result;}`,
+          },
+          {
+            code: `{ let result = 0; for (let {i,j} of [{i:1,j:2},{i:3,j:4}]) { result += i + j; } result; }`,
+            hooked: `{let result=0;for(let {i,j}of __hook__('*',[{i:1,j:2},{i:3,j:4}],[],'HookApiTest')){result+=i+j;}result;}`,
+          },
+          {
+            code: `{ let result = 0; var i,j; for ({i,j} of [{i:1,j:2},{i:3,j:4}]) { result += i + j; } result; }`,
+            hooked: `{let result=0;$hook$.global(__hook__,'HookApiTest','i','var')._pp_i,$hook$.global(__hook__,'HookApiTest','j','var')._pp_j;` +
+              `for({i:$hook$.global(__hook__,'HookApiTest,i','i','set')._pp_i,j:$hook$.global(__hook__,'HookApiTest,j','j','set')._pp_j}` +
+              `of __hook__('*',[{i:1,j:2},{i:3,j:4}],[],'HookApiTest'))` +
+              `{result+=$hook$.global(__hook__,'HookApiTest','i','get')._pp_i+$hook$.global(__hook__,'HookApiTest','j','get')._pp_j;}result;}`,
+          },
+          {
+            code: `{ let result = 0; let i,j; for ({i,j} of [{i:1,j:2},{i:3,j:4}]) { result += i + j; } result; }`,
+            hooked: `{let result=0;let i,j;for({i,j}of __hook__('*',[{i:1,j:2},{i:3,j:4}],[],'HookApiTest')){result+=i+j;}result;}`,
+          },
+          {
+            code: `{ let result = 0; for (var {...o} of [{i:1,j:2},{i:3,j:4}]) { result += o.i + o.j; } result; }`,
+            hooked: `{let result=0;for({...($hook$.global(__hook__,'HookApiTest','o','var'))._pp_o}` +
+              `of __hook__('*',[{i:1,j:2},{i:3,j:4}],[],'HookApiTest')){result+=__hook__('.',o,['i'],'HookApiTest')+__hook__('.',o,['j'],'HookApiTest');}result;}`,
+          },
+          {
+            code: `{ let result = 0; var o; for ({...o} of [{i:1,j:2},{i:3,j:4}]) { result += o.i + o.j; } result; }`,
+            hooked: `{let result=0;$hook$.global(__hook__,'HookApiTest','o','var')._pp_o;` +
+              `for({...($hook$.global(__hook__,'HookApiTest','o','set'))._pp_o}` +
+              `of __hook__('*',[{i:1,j:2},{i:3,j:4}],[],'HookApiTest')){result+=__hook__('.',o,['i'],'HookApiTest')+__hook__('.',o,['j'],'HookApiTest');}result;}`,
           },
         ],
         Property: [
