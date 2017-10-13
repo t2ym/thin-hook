@@ -2714,9 +2714,6 @@ ${name}: {
       let name = _globalMethods.get(f);
       if (name) {
         // call of a native method
-        let forName;
-        let forProp;
-        let id = name.join('.');
         let rawProp = name[name.length - 1];
         let prop = _escapePlatformProperties.get(rawProp) || rawProp;
         let obj = name[0];
