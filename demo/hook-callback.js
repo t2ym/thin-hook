@@ -2265,6 +2265,35 @@ ${name}: {
     return result;
   }
 
+  // Issue #155 [demo][hook-callback][Chrome Canary 63.0.3239.0] Map.get() is very slow
+  // Note: Expecting JIT compiler to expand this function inline
+  const _globalObjectsGet = typeof window === 'object'
+    ? function _globalObjectsGet(o) {
+        switch (o) {
+        case undefined: return 'undefined';
+        case Object: return 'Object';
+        case Array: return 'Array';
+        case Function: return 'Function';
+        case Math: return 'Math';
+        case window: return 'window';
+        case RegExp: return 'RegExp';
+        default:
+          return _globalObjects.get(o);
+        }
+      }
+    : function _globalObjectsGet(o) {
+        switch (o) {
+        case undefined: return 'undefined';
+        case Object: return 'Object';
+        case Array: return 'Array';
+        case Function: return 'Function';
+        case Math: return 'Math';
+        case RegExp: return 'RegExp';
+        default:
+          return _globalObjects.get(o);
+        }
+      };
+
   // acl only
   const __hook__acl = function __hook__acl(f, thisArg, args, context, newTarget) {
     let _lastContext;
@@ -2350,7 +2379,7 @@ ${name}: {
         normalizedThisArg = boundParameters._normalizedThisArg;
         _args = [ boundParameters._f, boundParameters._args.concat(args) ];
       }
-      let name = _globalObjects.get(normalizedThisArg);
+      let name = _globalObjectsGet(normalizedThisArg);
       let isStatic = typeof normalizedThisArg === 'function';
       if (boundParameters) {
         isStatic = boundParameters.isStatic;
@@ -2359,15 +2388,15 @@ ${name}: {
       let ctor;
       if (!name && _f.indexOf('s') >= 0) {
         ctor = isStatic ? normalizedThisArg : normalizedThisArg.constructor;
-        name = _globalObjects.get(ctor);
+        name = _globalObjectsGet(ctor);
         while (!name && typeof ctor === 'function') {
           ctor = Object.getPrototypeOf(ctor);
-          name = _globalObjects.get(ctor);
+          name = _globalObjectsGet(ctor);
         }
       }
       if (!name && normalizedThisArg instanceof Object) {
         ctor = normalizedThisArg.constructor;
-        name = _globalObjects.get(ctor);
+        name = _globalObjectsGet(ctor);
         if (name) {
           isStatic = false;
         }
@@ -2442,12 +2471,12 @@ ${name}: {
             if (_t === null) {
               break;
             }
-            name = _globalObjects.get(_t);
+            name = _globalObjectsGet(_t);
             isStatic = typeof _t === 'function';
             normalizedThisArg = _t;
             if (!name) {
               ctor = _t.constructor;
-              name = _globalObjects.get(ctor);
+              name = _globalObjectsGet(ctor);
               if (name) {
                 isStatic = false;
               }
@@ -2455,11 +2484,11 @@ ${name}: {
             if (!name && _f.indexOf('s') >= 0) {
               isStatic = typeof _t === 'function';
               ctor = isStatic ? _t : _t.constructor;
-              name = _globalObjects.get(ctor);
+              name = _globalObjectsGet(ctor);
               normalizedThisArg = ctor;
               while (!name && typeof ctor === 'function') {
                 ctor = Object.getPrototypeOf(ctor);
-                name = _globalObjects.get(ctor);
+                name = _globalObjectsGet(ctor);
                 normalizedThisArg = ctor;
               }
             }
@@ -2560,7 +2589,7 @@ ${name}: {
                 break;
               case 'function':
                 if (normalizedThisArg === _global) {
-                  let _globalObj = _globalObjects.get(_p);
+                  let _globalObj = _globalObjectsGet(_p);
                   if (_globalObj) {
                     rawProperty = _globalObj;
                     property = _escapePlatformProperties.get(rawProperty) || rawProperty;
@@ -2697,7 +2726,7 @@ ${name}: {
       }
     }
     else if (newTarget) {
-      let name = _globalObjects.get(f);
+      let name = _globalObjectsGet(f);
       let superClass = f;
       while (!name && typeof superClass === 'function') {
         superClass = Object.getPrototypeOf(superClass);
