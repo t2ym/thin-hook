@@ -1248,7 +1248,8 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       }
     }    
     lastContext = context;
-    contextStack.push(context);
+    // TODO: Temporarily comment out push() to work around Issue #160.
+    // contextStack.push(context);
     contextTransitions[_lastContext] = contextTransitions[_lastContext] || {};
     if (!contextTransitions[_lastContext][context]) {
       if (_lastContext) {
@@ -2287,7 +2288,8 @@ ${name}: {
     }
     lastContext = _lastContext;
     // if (contextStack[contextStack.length - 1] !== context) { debugger; }
-    contextStack.pop();
+    // TODO: Temporarily comment out pop() to work around Issue #160.
+    // contextStack.pop();
     return result;
   }
 
@@ -2328,7 +2330,8 @@ ${name}: {
     counter++;
     _lastContext = lastContext;
     lastContext = context;
-    contextStack.push(context);
+    // TODO: Temporarily comment out push() to work around Issue #160.
+    // contextStack.push(context);
 
     _f = f;
     boundParameters = _boundFunctions.get(f);
@@ -3166,7 +3169,8 @@ ${name}: {
     }
     lastContext = _lastContext;
     // if (contextStack[contextStack.length - 1] !== context) { debugger; }
-    contextStack.pop();
+    // TODO: Temporarily comment out pop() to work around Issue #160.
+    // contextStack.pop();
     return result;
   }
 
