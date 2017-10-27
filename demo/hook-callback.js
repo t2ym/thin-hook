@@ -401,6 +401,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '/components/thin-hook/demo/normalize.js,bindCheck': '@bind_normalization_checker',
     '/components/thin-hook/demo/normalize.js,bindCheck,boundF': '@bind_normalization_checker',
     '/components/thin-hook/demo/normalize.js,bindCheck,b': '@bind_normalization_checker',
+    '/components/thin-hook/demo/normalize.js,bindCheck,B,static now': '@bind_normalization_checker',
     '/components/dexie/dist/dexie.min.js,r': '@custom_error_constructor_creator',
     '/components/firebase/firebase-app.js': '@custom_error_constructor_creator',
     '/components/firebase/firebase-auth.js,t': '@custom_error_constructor_creator',
@@ -935,6 +936,13 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         },
       },
     },
+    Date: {
+      [S_DEFAULT]: 'r-x',
+      now: {
+        [S_DEFAULT]: 'r-x',
+        '@bind_normalization_checker': 'r--',
+      },
+    },
     btoa: {
       [S_DEFAULT]: 'r-x',
     },
@@ -1272,6 +1280,18 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 
     _f = f;
     boundParameters = _boundFunctions.get(f);
+    if (!boundParameters) {
+      switch (f) {
+      case '()':
+        boundParameters = _boundFunctions.get(thisArg[args[0]]);
+        break;
+      case 's()':
+        boundParameters = _boundFunctions.get(args[2](args[0]));
+        break;
+      default:
+        break;
+      }
+    }
     if (boundParameters) {
       if (!boundParameters._args) {
         // Merge multiple binding operations
@@ -2306,6 +2326,18 @@ ${name}: {
 
     _f = f;
     boundParameters = _boundFunctions.get(f);
+    if (!boundParameters) {
+      switch (f) {
+      case '()':
+        boundParameters = _boundFunctions.get(thisArg[args[0]]);
+        break;
+      case 's()':
+        boundParameters = _boundFunctions.get(args[2](args[0]));
+        break;
+      default:
+        break;
+      }
+    }
     if (boundParameters) {
       if (!boundParameters._args) {
         // Merge multiple binding operations

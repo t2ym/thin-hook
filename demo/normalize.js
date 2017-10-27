@@ -366,6 +366,30 @@
       btoa.constructor.prototype.bind = function () {};
     }, /^Permission Denied:/);
 
+    chai.assert.throws(() => {
+      let d = { now: Date.now.bind(Date) };
+      d.now();
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      class A {}
+      A.now = Date.now.bind(Date);
+      class B extends A {
+        static now() {
+          return super.now();
+        }
+      }
+      B.now();
+    }, /^Permission Denied:/);
+
+/*
+    chai.assert.throw(() => {
+      with ({now:Date.now.bind(Date)}) {
+        now();
+      }
+    }, /^Permission Denied:/);
+*/
+
   }
   bindCheck();
 
