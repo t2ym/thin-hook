@@ -384,6 +384,11 @@
 
 /*
     chai.assert.throw(() => {
+      let d = {now:Date.now};
+      d.now();
+    }, /^Permission Denied:/);
+
+    chai.assert.throw(() => {
       with ({now:Date.now}) {
         now();
       }
