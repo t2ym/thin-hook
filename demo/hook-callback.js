@@ -390,6 +390,12 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       }        
     }
   }
+  const targetNormalizerMapObject = new Map();
+  const isSuperOperator = new Map();
+  for (let op in operatorNormalizer) {
+    targetNormalizerMapObject.set(op, targetNormalizer[operatorNormalizer[op]]);
+    isSuperOperator.set(op, op.indexOf('s') >= 0);
+  }
   // TODO: Access control list is too hard to maintain. An easier, automated, and modular approach is preferable. 
   const contextNormalizer = {
     '/components/iron-location/iron-location.html,script@1800,_updateUrl': '@route_manipulator',
@@ -2418,7 +2424,7 @@ ${name}: {
         name = boundParameters.name;
       }
       let ctor;
-      if (!name && _f.indexOf('s') >= 0) {
+      if (!name && isSuperOperator.get(_f)) {
         ctor = isStatic ? normalizedThisArg : normalizedThisArg.constructor;
         name = _globalObjectsGet(ctor);
         while (!name && typeof ctor === 'function') {
@@ -2435,8 +2441,7 @@ ${name}: {
       }
       let rawProperty = _args[0];
       let property = _escapePlatformProperties.get(rawProperty) || rawProperty;
-      let op = operatorNormalizer[_f];
-      let target = targetNormalizer[op];
+      let target = targetNormalizerMapObject.get(_f);
       let opType;
       let globalAssignments = {};
       if (typeof target === 'object') {
@@ -2513,7 +2518,7 @@ ${name}: {
                 isStatic = false;
               }
             }
-            if (!name && _f.indexOf('s') >= 0) {
+            if (!name && isSuperOperator.get(_f)) {
               isStatic = typeof _t === 'function';
               ctor = isStatic ? _t : _t.constructor;
               name = _globalObjectsGet(ctor);
@@ -2719,7 +2724,7 @@ ${name}: {
         */
         throw new Error('Permission Denied: Cannot access ' + name);
       }
-      if (typeof target === 'string' && target[3] === 'b') {
+      if (typeof target === 'string' && target === 'r0tb') {
         let _method = _globalMethods.get(thisArg);
         boundParameters = {
           f: thisArg,
@@ -3588,6 +3593,7 @@ ${name}: {
     }
     end = Date.now();
     results.push(['f', end - start]);
-    console.log('hookBenchmark ' + results.map((result) => result[0] + ' in ' + result[1] + 'ms (' + (new Intl.NumberFormat()).format(parseInt(1000 * r / result[1])) +' op/s)').join(', ') + ' with ' + h.name);
+    navigator.userAgent.replace(/^.*Chrome\/([^ ]*) .*$/, 'Chrome $1')
+    console.log(navigator.userAgent.replace(/^.*Chrome\/([^ ]*) .*$/, 'Chrome $1') + ' ' + results.map((result) => result[0] + ' in ' + result[1] + 'ms (' + (new Intl.NumberFormat()).format(parseInt(1000 * r / result[1])) +' op/s)').join(', ') + ' with ' + h.name);
   }
 }
