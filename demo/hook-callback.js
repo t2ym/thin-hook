@@ -2443,6 +2443,7 @@ ${name}: {
       let property = _escapePlatformProperties.get(rawProperty) || rawProperty;
       let target = targetNormalizerMapObject.get(_f);
       let opType;
+      let hasGlobalAssignments = false;
       let globalAssignments = {};
       if (typeof target === 'object') {
         if (normalizedThisArg instanceof Object) {
@@ -2535,52 +2536,22 @@ ${name}: {
               case 'string':
                 rawProperty = _p;
                 property = _escapePlatformProperties.get(rawProperty) || rawProperty;
-                if (target[3] === 'v') {
+                switch (target) {
+                case 'w01v':
                   switch (name) {
                   case 'window':
                   case 'self':
-                    switch (target) {
-                    case 'w01v':
-                      switch (_args[0]) {
-                      case 'defineProperty': // Object.defineProperty(window, 'property', { value: v }); Reflect.defineProperty(window, 'property', { value: v })
-                        if (_args[1][2] && _args[1][2].value instanceof Object) {
-                          globalAssignments[rawProperty] = _args[1][2].value;
-                        }
-                        break;
-                      case 'set': // Reflect.set(window, 'property', v)
-                        if (_args[1][2] instanceof Object) {
-                          globalAssignments[rawProperty] = _args[1][2];
-                        }
-                        break;
-                      default:
-                        break;
+                    switch (_args[0]) {
+                    case 'defineProperty': // Object.defineProperty(window, 'property', { value: v }); Reflect.defineProperty(window, 'property', { value: v })
+                      if (_args[1][2] && _args[1][2].value instanceof Object) {
+                        hasGlobalAssignments = true;
+                        globalAssignments[rawProperty] = _args[1][2].value;
                       }
                       break;
-                    case 'w0.v':
-                      let props;
-                      switch (_args[0]) {
-                      case 'defineProperties': // Object.defineProperties(window, { 'property': { value: v } })
-                        props = _args[1][1];
-                        for (let p in props) {
-                          if (props[p] && props[p].value instanceof Object) {
-                            globalAssignments[p] = props[p].value;
-                          }
-                        }
-                        break;
-                      case 'assign': // Object.assign(window, { 'property': v })
-                        for (let i = 1; i < _args[1].length; i++) {
-                          props = _args[1][i];
-                          if (props instanceof Object) {
-                            for (let p in props) {
-                              if (props[p] instanceof Object) {
-                                globalAssignments[p] = props[p];
-                              }
-                            }
-                          }
-                        }
-                        break;
-                      default:
-                        break;
+                    case 'set': // Reflect.set(window, 'property', v)
+                      if (_args[1][2] instanceof Object) {
+                        hasGlobalAssignments = true;
+                        globalAssignments[rawProperty] = _args[1][2];
                       }
                       break;
                     default:
@@ -2590,6 +2561,45 @@ ${name}: {
                   default:
                     break;
                   }
+                  break;
+                case 'w0.v':
+                  switch (name) {
+                  case 'window':
+                  case 'self':
+                    let props;
+                    switch (_args[0]) {
+                    case 'defineProperties': // Object.defineProperties(window, { 'property': { value: v } })
+                      props = _args[1][1];
+                      for (let p in props) {
+                        if (props[p] && props[p].value instanceof Object) {
+                          hasGlobalAssignments = true;
+                          globalAssignments[p] = props[p].value;
+                        }
+                      }
+                      break;
+                    case 'assign': // Object.assign(window, { 'property': v })
+                      for (let i = 1; i < _args[1].length; i++) {
+                        props = _args[1][i];
+                        if (props instanceof Object) {
+                          for (let p in props) {
+                            if (props[p] instanceof Object) {
+                              hasGlobalAssignments = true;
+                              globalAssignments[p] = props[p];
+                            }
+                          }
+                        }
+                      }
+                      break;
+                    default:
+                      break;
+                    }
+                    break;
+                  default:
+                    break;
+                  }
+                  break;
+                default:
+                  break;
                 }
                 break;
               case 'number':
@@ -2680,6 +2690,7 @@ ${name}: {
         case 'self':
           if (target === 'wtpv') { // window.property = v
             if (_f === '=' && _args[1] instanceof Object) {
+              hasGlobalAssignments = true;
               globalAssignments[rawProperty] = _args[1];
             }
           }
@@ -2741,22 +2752,24 @@ ${name}: {
         };
         f = 'bind';
       }
-      for (let gprop in globalAssignments) {
-        //console.log('global assignment ', gprop);
-        let gvalue = globalAssignments[gprop];
-        _globalObjects.set(gvalue, gprop);
-        let _properties = Object.getOwnPropertyDescriptors(gvalue);
-        let _prop;
-        for (_prop in _properties) {
-          if (typeof _properties[_prop].value === 'function') {
-            _globalMethods.set(_properties[_prop].value, [gprop, _prop]);
-          }
-        }
-        if (gvalue.prototype) {
-          _properties = Object.getOwnPropertyDescriptors(gvalue.prototype);
+      if (hasGlobalAssignments) {
+        for (let gprop in globalAssignments) {
+          //console.log('global assignment ', gprop);
+          let gvalue = globalAssignments[gprop];
+          _globalObjects.set(gvalue, gprop);
+          let _properties = Object.getOwnPropertyDescriptors(gvalue);
+          let _prop;
           for (_prop in _properties) {
             if (typeof _properties[_prop].value === 'function') {
-              _globalMethods.set(_properties[_prop].value, [gprop, 'prototype', _prop]);
+              _globalMethods.set(_properties[_prop].value, [gprop, _prop]);
+            }
+          }
+          if (gvalue.prototype) {
+            _properties = Object.getOwnPropertyDescriptors(gvalue.prototype);
+            for (_prop in _properties) {
+              if (typeof _properties[_prop].value === 'function') {
+                _globalMethods.set(_properties[_prop].value, [gprop, 'prototype', _prop]);
+              }
             }
           }
         }
