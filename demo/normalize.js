@@ -44,6 +44,16 @@
   chai.assert.isOk(Object.keys(globalObjectAccess).length ? globalObjectAccess.Array.map['/components/thin-hook/demo/normalize.js,ArraySubclass,map'] : true, 'Array.map.apply() via super.map is normalized');
   chai.assert.isOk(Object.keys(globalObjectAccess).length ? globalObjectAccess.Array.forEach['/components/thin-hook/demo/normalize.js,ArraySubclass,superHasOwnProperty'] : true, 'Array.hasOwnProperty() via super.hasOwnProperty is normalized');
 
+  chai.assert.throws(() => {
+    class ArraySubclass2 extends Array {
+      constructor(...args) {
+        super(...args);
+      }
+    }
+    window.ArraySubclass2 = ArraySubclass2;
+    new ArraySubclass2(1,2,3);
+  }, /^Permission Denied:/);
+
   // window.caches is in the blacklist
 
   chai.assert.throws(() => {

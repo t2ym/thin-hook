@@ -404,6 +404,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '/components/thin-hook/demo/web-worker-client.js': '@worker_manipulator',
     '/components/thin-hook/demo/normalize.js': '@normalization_checker',
     '/components/thin-hook/demo/normalize.js,f': '@normalization_checker',
+    '/components/thin-hook/demo/normalize.js,ArraySubclass2,constructor': '@super_normalization_checker',
     '/components/thin-hook/demo/normalize.js,bindCheck': '@bind_normalization_checker',
     '/components/thin-hook/demo/normalize.js,bindCheck,boundF': '@bind_normalization_checker',
     '/components/thin-hook/demo/normalize.js,bindCheck,b': '@bind_normalization_checker',
@@ -685,6 +686,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     },
     Array: {
       [S_DEFAULT]: 'r-x',
+      '@super_normalization_checker': '---',
       [S_PROTOTYPE]: {
         [S_DEFAULT]: 'rwx',
         map: {
@@ -1929,6 +1931,38 @@ ${name}: {
         }
         forProp[context].label++;
       }
+      else if (newTarget === '') {
+        name = _globalObjectsGet(Object.getPrototypeOf(args[0]));
+        if (name) {
+          // super() call
+          if (!applyAcl(name, true, false, S_UNSPECIFIED, 'x', context)) {
+            throw new Error('Permission Denied: Cannot access ' + name);
+          }
+          let _blacklist = _blacklistObjects[name];
+          if (_blacklist) {
+            if (typeof _blacklist === 'boolean') {
+              throw new Error('Permission Denied: Cannot access ' + name);
+            }
+          }
+          // new operator for a global class
+          let forName;
+          if (!globalPropertyContexts[context]) {
+            let group = context.split(/[,:]/)[0];
+            data2.nodes.push({ id: '/' + context, label: context, group: group });
+            globalPropertyContexts[context] = true;
+          }
+          if (!globalObjectAccess[name]) {
+            globalObjectAccess[name] = {};
+            data2.nodes.push({ id: name, label: name, group: name });
+          }
+          forName = globalObjectAccess[name];
+          if (!forName[context]) {
+            forName[context] = { from: '/' + context, to: name, label: 0, arrows: 'to' };
+            data2.edges.push(forName[context]);
+          }
+          forName[context].label++;
+        }
+      }
     }
 
     let result;
@@ -2804,6 +2838,15 @@ ${name}: {
           //console.error('ACL: denied name =', name, 'isStatic =', name[1] !== 'prototype', 'isObject = ', false, 'property =', prop, 'opType =', 'x', 'context = ', context);
           //debugger;
           //applyAcl(obj, name[1] !== 'prototype', false, prop, 'x', context);
+        }
+      }
+      else if (newTarget === '') {
+        name = _globalObjectsGet(Object.getPrototypeOf(args[0]));
+        if (name) {
+          // super() call
+          if (!applyAcl(name, true, false, S_UNSPECIFIED, 'x', context)) {
+            throw new Error('Permission Denied: Cannot access ' + name);
+          }
         }
       }
     }
