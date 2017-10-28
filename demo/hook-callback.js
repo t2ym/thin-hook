@@ -405,6 +405,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '/components/thin-hook/demo/normalize.js': '@normalization_checker',
     '/components/thin-hook/demo/normalize.js,f': '@normalization_checker',
     '/components/thin-hook/demo/normalize.js,ArraySubclass2,constructor': '@super_normalization_checker',
+    '/components/thin-hook/demo/normalize.js,ArraySubclass4,constructor': '@super_normalization_checker',
     '/components/thin-hook/demo/normalize.js,bindCheck': '@bind_normalization_checker',
     '/components/thin-hook/demo/normalize.js,bindCheck,boundF': '@bind_normalization_checker',
     '/components/thin-hook/demo/normalize.js,bindCheck,b': '@bind_normalization_checker',
@@ -1932,7 +1933,19 @@ ${name}: {
         forProp[context].label++;
       }
       else if (newTarget === '') {
-        name = _globalObjectsGet(Object.getPrototypeOf(args[0]));
+        let obj = Object.getPrototypeOf(args[0]);
+        name = _globalObjectsGet(obj);
+        if (!name) {
+          while (!name) {
+            obj = Object.getPrototypeOf(obj);
+            if (typeof obj === 'function') {
+              name = _globalObjectsGet(obj);
+            }
+            else {
+              break;
+            }
+          }
+        }
         if (name) {
           // super() call
           if (!applyAcl(name, true, false, S_UNSPECIFIED, 'x', context)) {
@@ -2841,7 +2854,19 @@ ${name}: {
         }
       }
       else if (newTarget === '') {
-        name = _globalObjectsGet(Object.getPrototypeOf(args[0]));
+        let obj = Object.getPrototypeOf(args[0]);
+        name = _globalObjectsGet(obj);
+        if (!name) {
+          while (!name) {
+            obj = Object.getPrototypeOf(obj);
+            if (typeof obj === 'function') {
+              name = _globalObjectsGet(obj);
+            }
+            else {
+              break;
+            }
+          }
+        }
         if (name) {
           // super() call
           if (!applyAcl(name, true, false, S_UNSPECIFIED, 'x', context)) {

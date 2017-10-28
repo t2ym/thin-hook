@@ -54,6 +54,18 @@
     new ArraySubclass2(1,2,3);
   }, /^Permission Denied:/);
 
+  chai.assert.throws(() => {
+    class ArraySubclass3 extends Array {
+    }
+    class ArraySubclass4 extends ArraySubclass3 {
+      constructor(...args) {
+        super(...args);
+      }
+    }
+    window.ArraySubclass4 = ArraySubclass4;
+    new ArraySubclass4(1,2,3);
+  }, /^Permission Denied:/);
+
   // window.caches is in the blacklist
 
   chai.assert.throws(() => {
