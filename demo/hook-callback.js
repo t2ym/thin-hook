@@ -1438,26 +1438,44 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         else if (typeof _args[0] === 'function') {
           target = targetNormalizerMap.get(_args[0]);
         }
-        let argsMap = {
-          f: _f,
-          t: normalizedThisArg,
-          p: _args[0],
-          0: _args[1][0],
-          1: _args[1][1],
-          c: context,
-          n: newTarget,
-          P: '__proto__',
-          T: 'prototype',
-          C: 'constructor',
-          N: S_CONSTRUCT,
-          '-': S_UNSPECIFIED,
-          '*': S_ALL,
-          '.': S_TARGETED, // { prop1: {}, prop2: {}, ... }
-        };
         if (typeof target === 'string') {
           opType = target[0]; // r, w, x
-          let _t = argsMap[target[1]];
-          let _p = argsMap[target[2]];
+          let _t;
+          let _p;
+          switch (target[1]) {
+          case 't': _t = normalizedThisArg; break;
+          case '0': _t = _args[1][0]; break;
+          case '1': _t = _args[1][1]; break;
+          case 'f': _t = _f; break;
+          case 'p': _t = _args[0]; break;
+          case 'c': _t = context; break;
+          case 'n': _t = newTarget; break;
+          case 'P': _t = '__proto__'; break;
+          case 'T': _t = 'prototype'; break;
+          case 'C': _t = 'constructor'; break;
+          case 'N': _t = S_CONSTRUCT; break;
+          case '-': _t = S_UNSPECIFIED; break;
+          case '*': _t = S_ALL; break;
+          case '.': _t = S_TARGETED; break; // { prop1: {}, prop2: {}, ... }
+          default: break;
+          }
+          switch (target[2]) {
+          case 'p': _p = _args[0]; break;
+          case '1': _p = _args[1][1]; break;
+          case '*': _p = S_ALL; break;
+          case '.': _p = S_TARGETED; break; // { prop1: {}, prop2: {}, ... }
+          case '-': _p = S_UNSPECIFIED; break;
+          case 't': _p = normalizedThisArg; break;
+          case '0': _p = _args[1][0]; break;
+          case 'f': _p = _f; break;
+          case 'c': _p = context; break;
+          case 'n': _p = newTarget; break;
+          case 'P': _p = '__proto__'; break;
+          case 'T': _p = 'prototype'; break;
+          case 'C': _p = 'constructor'; break;
+          case 'N': _p = S_CONSTRUCT; break;
+          default: break;
+          }
           switch (typeof _t) {
           case 'object':
           case 'string':
@@ -2530,26 +2548,44 @@ ${name}: {
         else if (typeof _args[0] === 'function') {
           target = targetNormalizerMap.get(_args[0]);
         }
-        let argsMap = {
-          f: _f,
-          t: normalizedThisArg,
-          p: _args[0],
-          0: _args[1][0],
-          1: _args[1][1],
-          c: context,
-          n: newTarget,
-          P: '__proto__',
-          T: 'prototype',
-          C: 'constructor',
-          N: S_CONSTRUCT,
-          '-': S_UNSPECIFIED,
-          '*': S_ALL,
-          '.': S_TARGETED, // { prop1: {}, prop2: {}, ... }
-        };
         if (typeof target === 'string') {
           opType = target[0]; // r, w, x
-          let _t = argsMap[target[1]];
-          let _p = argsMap[target[2]];
+          let _t;
+          let _p;
+          switch (target[1]) {
+          case 't': _t = normalizedThisArg; break;
+          case '0': _t = _args[1][0]; break;
+          case '1': _t = _args[1][1]; break;
+          case 'f': _t = _f; break;
+          case 'p': _t = _args[0]; break;
+          case 'c': _t = context; break;
+          case 'n': _t = newTarget; break;
+          case 'P': _t = '__proto__'; break;
+          case 'T': _t = 'prototype'; break;
+          case 'C': _t = 'constructor'; break;
+          case 'N': _t = S_CONSTRUCT; break;
+          case '-': _t = S_UNSPECIFIED; break;
+          case '*': _t = S_ALL; break;
+          case '.': _t = S_TARGETED; break; // { prop1: {}, prop2: {}, ... }
+          default: break;
+          }
+          switch (target[2]) {
+          case 'p': _p = _args[0]; break;
+          case '1': _p = _args[1][1]; break;
+          case '*': _p = S_ALL; break;
+          case '.': _p = S_TARGETED; break; // { prop1: {}, prop2: {}, ... }
+          case '-': _p = S_UNSPECIFIED; break;
+          case 't': _p = normalizedThisArg; break;
+          case '0': _p = _args[1][0]; break;
+          case 'f': _p = _f; break;
+          case 'c': _p = context; break;
+          case 'n': _p = newTarget; break;
+          case 'P': _p = '__proto__'; break;
+          case 'T': _p = 'prototype'; break;
+          case 'C': _p = 'constructor'; break;
+          case 'N': _p = S_CONSTRUCT; break;
+          default: break;
+          }
           switch (typeof _t) {
           case 'object':
           case 'string':
@@ -3679,7 +3715,7 @@ ${name}: {
     end = Date.now();
     results.push(['f', end - start]);
     navigator.userAgent.replace(/^.*Chrome\/([^ ]*) .*$/, 'Chrome $1')
-    console.log(navigator.userAgent.replace(/^.*Chrome\/([^ ]*) .*$/, 'Chrome $1') + ' ' + results.map((result) => result[0] + ' in ' + result[1] + 'ms (' + (new Intl.NumberFormat()).format(parseInt(1000 * r / result[1])) +' op/s)').join(', ') + ' with ' + h.name);
-    console.log(navigator.userAgent.replace(/^.*Chrome\/([^ ]*) .*$/, '| $1 ') + '| 0.0.* | ' + results.map((result) => (new Intl.NumberFormat()).format(parseInt(1000 * r / result[1]))).join(' | ') + ' |');
+    console.log(navigator.userAgent.replace(/^.*Chrome\/([^ ]*) .*$/, 'Chrome $1') + ' ' + results.map((result) => result[0] + ' in ' + result[1] + 'ms (' + (new Intl.NumberFormat()).format(parseInt(1000 * r / result[1])) +' op/s)').join(', ') + ' with ' + h.name + '\n' +
+    navigator.userAgent.replace(/^.*Chrome\/([^ ]*) .*$/, '| $1 ') + '| 0.0.* | ' + results.map((result) => (new Intl.NumberFormat()).format(parseInt(1000 * r / result[1]))).join(' | ') + ' |');
   }
 }
