@@ -1062,7 +1062,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
   const opTypeMap = {
     r: 0, w: 1, x: 2
   };
-  const applyAcl = function applyAcl(name, isStatic, isObject, property, opType, context) {
+  const applyAclOrig = function applyAclOrig(name, isStatic, isObject, property, opType, context) {
     let _context, _acl, __acl, _property, tmp;
     while (_context = contextNormalizer[context]) {
       context = _context;
@@ -1090,20 +1090,20 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           switch (property) {
           case S_ALL:
             _acl = context === S_DEFAULT
-              ? _acl[S_ALL] || _acl[S_DEFAULT]
+              ? _acl[S_ALL] || _acl[S_DEFAULT] // wrong map
               : _acl[context] || _acl[S_ALL] || _acl[S_DEFAULT];
             if (typeof _acl === 'object') {
               _acl = _acl[S_ALL] || _acl[S_DEFAULT];
             }
             break;
           case S_UNSPECIFIED:
-            _acl = _acl[context] || _acl[S_DEFAULT];
+            _acl = _acl[context] || _acl[S_DEFAULT]; // wrong map
             if (typeof _acl === 'object') {
               _acl = _acl[S_DEFAULT];
             }
             break;
           case S_FUNCTION:
-            _acl = _acl[context] || _acl[S_DEFAULT];
+            _acl = _acl[context] || _acl[S_DEFAULT]; // wrong name/wrong map
             if (typeof _acl === 'object') {
               _acl = _acl[S_DEFAULT];
             }
@@ -1118,13 +1118,13 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             case 'undefined':
               _acl = _acl[property] || _acl[context] || _acl[S_DEFAULT];
               if (typeof _acl === 'object') {
-                _acl = _acl[context] || _acl[S_DEFAULT];
+                _acl = _acl[context] || _acl[S_DEFAULT]; // wrong map
               }
               break;
             case 'object':
               if (Array.isArray(property)) {
                 tmp = [];
-                for (_property of property) {
+                for (_property of property) { // wrong map
                   __acl = _acl[_property] || _acl[context] || _acl[S_DEFAULT];
                   if (typeof __acl === 'object') {
                     __acl = __acl[context] || __acl[S_DEFAULT];
@@ -1156,6 +1156,490 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       tmp = opTypeMap[opType];
       for (__acl of _acl) {
         if (__acl[tmp] !== opType) {
+          return false;
+        }
+      }
+      return true;
+    case 'undefined':
+    default:
+      return false;
+    }
+  }
+  function aclToMap(_acl) {
+    switch (typeof _acl) {
+    case 'object':
+      let _aclMap = new Map();
+      for (let p of Object.getOwnPropertyNames(_acl)) {
+        _aclMap.set(p, aclToMap(_acl[p]));
+      }
+      for (let p of Object.getOwnPropertySymbols(_acl)) {
+        _aclMap.set(p, aclToMap(_acl[p]));
+      }
+      return _aclMap;
+    case 'string':
+    default:
+      return _acl;
+    }
+  }
+  var aclMap = aclToMap(acl);
+  const isArray = Array.isArray;
+  const applyAcl = function applyAcl(name, isStatic, isObject, property, opType, context) {
+    let _context, _acl, __acl, _property, tmp;
+    if (Reflect.has(contextNormalizer, context) === true) {
+      context = contextNormalizer[context];
+      if (context[0] !== '@') {
+        while (_context = contextNormalizer[context]) {
+          context = _context;
+          if (context[0] === '@') {
+            break;
+          }
+        }
+        if (context[0] !== '@') {
+          context = S_DEFAULT;
+        }
+      }
+    }
+    else {
+      context = S_DEFAULT;
+    }
+    /*
+    _acl = name
+      ? name === 'Object' && isObject
+        ? aclMap.get(S_DEFAULT)
+        : aclMap.get(name) || aclMap.get(S_GLOBAL) || aclMap.get(S_DEFAULT) // wrong name
+      : aclMap.get(S_DEFAULT);
+      */
+    if (typeof name === 'string') {
+      if (name === 'Object' && isObject === true) {
+        _acl = aclMap.get(S_DEFAULT);
+      }
+      else {
+        if (aclMap.has(name)) {
+          _acl = aclMap.get(name);
+        }
+        else if (aclMap.has(S_GLOBAL)) {
+          _acl = aclMap.get(S_GLOBAL);
+        }
+        else {
+          _acl = aclMap.get(S_DEFAULT);
+        }
+      }
+    }
+    else {
+      _acl = aclMap.get(S_DEFAULT);
+    }
+    if (typeof _acl === 'object') {
+      if (typeof property === 'undefined' || property === '') {
+        /*
+        _acl = context === S_DEFAULT
+          ? _acl.get(S_OBJECT) || _acl.get(S_DEFAULT) // wrong name
+          : _acl.get(context) || _acl.get(S_OBJECT) || _acl.get(S_DEFAULT);
+          */
+        if (context === S_DEFAULT) {
+          if (_acl.has(S_OBJECT)) {
+            _acl = _acl.get(S_OBJECT);
+          }
+          else {
+            _acl = _acl.get(S_DEFAULT);
+          }
+        }
+        else {
+          if (_acl.has(context)) {
+            _acl = _acl.get(context);
+          }
+          else if (_acl.has(S_OBJECT)) {
+            _acl = _acl.get(S_OBJECT);
+          }
+          else {
+            _acl = _acl.get(S_DEFAULT);
+          }
+        }
+      }
+      else {
+        if (isStatic === false) {
+          /*
+          _acl = _acl.get(S_PROTOTYPE) || _acl; // wrong name
+          */
+          if (_acl.has(S_PROTOTYPE)) {
+            _acl = _acl.get(S_PROTOTYPE);
+          }
+        }
+        if (typeof _acl === 'object') {
+          switch (property) {
+          case S_ALL:
+            /*
+            _acl = context === S_DEFAULT
+              ? _acl.get(S_ALL) || _acl.get(S_DEFAULT) // wrong name
+              : _acl.get(context) || _acl.get(S_ALL) || _acl.get(S_DEFAULT);
+              */
+            if (context === S_DEFAULT) {
+              if (_acl.has(S_ALL)) {
+                _acl = _acl.get(S_ALL);
+              }
+              else {
+                _acl = _acl.get(S_DEFAULT);
+              }
+            }
+            else {
+              if (_acl.has(context)) {
+                _acl = _acl.get(context);
+              }
+              else if (_acl.has(S_ALL)) {
+                _acl = _acl.get(S_ALL);
+              }
+              else {
+                _acl = _acl.get(S_DEFAULT);
+              }
+            }
+            if (typeof _acl === 'object') {
+              _acl = _acl.get(S_ALL) || _acl.get(S_DEFAULT);
+            }
+            break;
+          case S_UNSPECIFIED:
+            /*
+            _acl = _acl.get(context) || _acl.get(S_DEFAULT);
+            */
+            if (_acl.has(context)) {
+              _acl = _acl.get(context);
+            }
+            else {
+              _acl = _acl.get(S_DEFAULT);
+            }
+            if (typeof _acl === 'object') {
+              _acl = _acl.get(S_DEFAULT);
+            }
+            break;
+          case S_FUNCTION:
+            /*
+            _acl = _acl.get(context) || _acl.get(S_DEFAULT);
+            */
+            if (_acl.has(context)) {
+              _acl = _acl.get(context);
+            }
+            else {
+              _acl = _acl.get(S_DEFAULT);
+            }
+            if (typeof _acl === 'object') {
+              _acl = _acl.get(S_DEFAULT);
+            }
+            break;
+          default:
+            switch (typeof property) {
+            case 'string':
+            case 'number':
+            case 'symbol':
+            case 'function':
+            case 'boolean':
+            case 'undefined':
+              /*
+              _acl = _acl.get(property) || _acl.get(context) || _acl.get(S_DEFAULT); // wrong name
+              */
+              if (_acl.has(property)) {
+                _acl = _acl.get(property);
+              }
+              else if (_acl.has(context)) {
+                _acl = _acl.get(context);
+              }
+              else {
+                _acl = _acl.get(S_DEFAULT);
+              }
+              if (typeof _acl === 'object') {
+                /*
+                _acl = _acl.get(context) || _acl.get(S_DEFAULT); // wrong name
+                */
+                if (_acl.has(context)) {
+                  _acl = _acl.get(context);
+                }
+                else {
+                  _acl = _acl.get(S_DEFAULT);
+                }
+              }
+              break;
+            case 'object':
+              /*
+              if (property !== null && typeof property[0] === 'string') {
+                //tmp = [];
+              */
+                function getPropertiesAcl(property) {
+                  if (Array.isArray(property)) {
+                    let tmp = [];
+                    for (let _property of property) {
+                      __acl = _acl.get(_property) || _acl.get(context) || _acl.get(S_DEFAULT);
+                      if (typeof __acl === 'object') {
+                        __acl = __acl.get(context) || __acl.get(S_DEFAULT);
+                      }
+                      tmp.push(__acl);
+                    }
+                    return tmp;
+                  }
+                  else {
+                    _acl = _acl.get(property) || _acl.get(context) || _acl.get(S_DEFAULT);
+                    if (typeof _acl === 'object') {
+                      _acl = _acl.get(context) || _acl.get(S_DEFAULT);
+                    }
+                    return _acl;
+                  }
+                }
+                _acl = getPropertiesAcl(property);
+              /*
+              }
+              else {
+                _acl = _acl.get(property) || _acl.get(context) || _acl.get(S_DEFAULT);
+                if (typeof _acl === 'object') {
+                  _acl = _acl.get(context) || _acl.get(S_DEFAULT);
+                }
+              }
+              */
+              break;
+            default:
+              _acl = '---';
+              break;
+            }
+            break;
+          }
+        }
+      }
+    }
+    switch (typeof _acl) {
+    case 'string':
+      return _acl[opTypeMap[opType]] === opType;
+    case 'object':
+      //tmp = opTypeMap[opType];
+      for (__acl of _acl) {
+        if (__acl[opTypeMap[opType]] !== opType) {
+          return false;
+        }
+      }
+      return true;
+    case 'undefined':
+    default:
+      return false;
+    }
+  }
+  const applyAclProperties = function applyAclProperties(name, isStatic, isObject, property, opType, context) {
+    let _context, _acl, __acl, _property, tmp;
+    if (Reflect.has(contextNormalizer, context) === true) {
+      context = contextNormalizer[context];
+      if (context[0] !== '@') {
+        while (_context = contextNormalizer[context]) {
+          context = _context;
+          if (context[0] === '@') {
+            break;
+          }
+        }
+        if (context[0] !== '@') {
+          context = S_DEFAULT;
+        }
+      }
+    }
+    else {
+      context = S_DEFAULT;
+    }
+    /*
+    _acl = name
+      ? name === 'Object' && isObject
+        ? aclMap.get(S_DEFAULT)
+        : aclMap.get(name) || aclMap.get(S_GLOBAL) || aclMap.get(S_DEFAULT) // wrong name
+      : aclMap.get(S_DEFAULT);
+      */
+    if (typeof name === 'string') {
+      if (name === 'Object' && isObject === true) {
+        _acl = aclMap.get(S_DEFAULT);
+      }
+      else {
+        if (aclMap.has(name)) {
+          _acl = aclMap.get(name);
+        }
+        else if (aclMap.has(S_GLOBAL)) {
+          _acl = aclMap.get(S_GLOBAL);
+        }
+        else {
+          _acl = aclMap.get(S_DEFAULT);
+        }
+      }
+    }
+    else {
+      _acl = aclMap.get(S_DEFAULT);
+    }
+    if (typeof _acl === 'object') {
+      if (typeof property === 'undefined' || property === '') {
+        /*
+        _acl = context === S_DEFAULT
+          ? _acl.get(S_OBJECT) || _acl.get(S_DEFAULT) // wrong name
+          : _acl.get(context) || _acl.get(S_OBJECT) || _acl.get(S_DEFAULT);
+          */
+        if (context === S_DEFAULT) {
+          if (_acl.has(S_OBJECT)) {
+            _acl = _acl.get(S_OBJECT);
+          }
+          else {
+            _acl = _acl.get(S_DEFAULT);
+          }
+        }
+        else {
+          if (_acl.has(context)) {
+            _acl = _acl.get(context);
+          }
+          else if (_acl.has(S_OBJECT)) {
+            _acl = _acl.get(S_OBJECT);
+          }
+          else {
+            _acl = _acl.get(S_DEFAULT);
+          }
+        }
+      }
+      else {
+        if (isStatic === false) {
+          /*
+          _acl = _acl.get(S_PROTOTYPE) || _acl; // wrong name
+          */
+          if (_acl.has(S_PROTOTYPE)) {
+            _acl = _acl.get(S_PROTOTYPE);
+          }
+        }
+        if (typeof _acl === 'object') {
+          switch (property) {
+          case S_ALL:
+            /*
+            _acl = context === S_DEFAULT
+              ? _acl.get(S_ALL) || _acl.get(S_DEFAULT) // wrong name
+              : _acl.get(context) || _acl.get(S_ALL) || _acl.get(S_DEFAULT);
+              */
+            if (context === S_DEFAULT) {
+              if (_acl.has(S_ALL)) {
+                _acl = _acl.get(S_ALL);
+              }
+              else {
+                _acl = _acl.get(S_DEFAULT);
+              }
+            }
+            else {
+              if (_acl.has(context)) {
+                _acl = _acl.get(context);
+              }
+              else if (_acl.has(S_ALL)) {
+                _acl = _acl.get(S_ALL);
+              }
+              else {
+                _acl = _acl.get(S_DEFAULT);
+              }
+            }
+            if (typeof _acl === 'object') {
+              _acl = _acl.get(S_ALL) || _acl.get(S_DEFAULT);
+            }
+            break;
+          case S_UNSPECIFIED:
+            /*
+            _acl = _acl.get(context) || _acl.get(S_DEFAULT);
+            */
+            if (_acl.has(context)) {
+              _acl = _acl.get(context);
+            }
+            else {
+              _acl = _acl.get(S_DEFAULT);
+            }
+            if (typeof _acl === 'object') {
+              _acl = _acl.get(S_DEFAULT);
+            }
+            break;
+          case S_FUNCTION:
+            /*
+            _acl = _acl.get(context) || _acl.get(S_DEFAULT);
+            */
+            if (_acl.has(context)) {
+              _acl = _acl.get(context);
+            }
+            else {
+              _acl = _acl.get(S_DEFAULT);
+            }
+            if (typeof _acl === 'object') {
+              _acl = _acl.get(S_DEFAULT);
+            }
+            break;
+          default:
+            switch (typeof property) {
+            case 'string':
+            case 'number':
+            case 'symbol':
+            case 'function':
+            case 'boolean':
+            case 'undefined':
+              /*
+              _acl = _acl.get(property) || _acl.get(context) || _acl.get(S_DEFAULT); // wrong name
+              */
+              if (_acl.has(property)) {
+                _acl = _acl.get(property);
+              }
+              else if (_acl.has(context)) {
+                _acl = _acl.get(context);
+              }
+              else {
+                _acl = _acl.get(S_DEFAULT);
+              }
+              if (typeof _acl === 'object') {
+                /*
+                _acl = _acl.get(context) || _acl.get(S_DEFAULT); // wrong name
+                */
+                if (_acl.has(context)) {
+                  _acl = _acl.get(context);
+                }
+                else {
+                  _acl = _acl.get(S_DEFAULT);
+                }
+              }
+              break;
+            case 'object':
+              /*
+              if (property !== null && typeof property[0] === 'string') {
+                //tmp = [];
+              */
+                function getPropertiesAcl(property) {
+                  if (Array.isArray(property)) {
+                    let tmp = [];
+                    for (let _property of property) {
+                      __acl = _acl.get(_property) || _acl.get(context) || _acl.get(S_DEFAULT);
+                      if (typeof __acl === 'object') {
+                        __acl = __acl.get(context) || __acl.get(S_DEFAULT);
+                      }
+                      tmp.push(__acl);
+                    }
+                    return tmp;
+                  }
+                  else {
+                    _acl = _acl.get(property) || _acl.get(context) || _acl.get(S_DEFAULT);
+                    if (typeof _acl === 'object') {
+                      _acl = _acl.get(context) || _acl.get(S_DEFAULT);
+                    }
+                    return _acl;
+                  }
+                }
+                _acl = getPropertiesAcl(property);
+              /*
+              }
+              else {
+                _acl = _acl.get(property) || _acl.get(context) || _acl.get(S_DEFAULT);
+                if (typeof _acl === 'object') {
+                  _acl = _acl.get(context) || _acl.get(S_DEFAULT);
+                }
+              }
+              */
+              break;
+            default:
+              _acl = '---';
+              break;
+            }
+            break;
+          }
+        }
+      }
+    }
+    switch (typeof _acl) {
+    case 'string':
+      return _acl[opTypeMap[opType]] === opType;
+    case 'object':
+      //tmp = opTypeMap[opType];
+      for (__acl of _acl) {
+        if (__acl[opTypeMap[opType]] !== opType) {
           return false;
         }
       }
@@ -1665,7 +2149,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           break;
         }
       }
-      if (!applyAcl(name, isStatic, typeof normalizedThisArg === 'object', property, opType, context)) {
+      if (!applyAclOrig(name, isStatic, typeof normalizedThisArg === 'object', property, opType, context)) {
         // if (name === 'Object' && context.startsWith('/components/dexie/dist/dexie.min.js')) {
         //   console.error('ACL: denied name =', name, 'isStatic =', isStatic, 'isObject = ', (typeof normalizedThisArg === 'object'), 'property =', property, 'opType =', opType, 'context = ', context);
         //   debugger;
@@ -1869,7 +2353,7 @@ ${name}: {
         superClass = Object.getPrototypeOf(superClass);
         name = _globalObjects.get(superClass);
       }
-      if (!applyAcl(name, true, false, S_UNSPECIFIED, 'x', context)) {
+      if (!applyAclOrig(name, true, false, S_UNSPECIFIED, 'x', context)) {
         throw new Error('Permission Denied: Cannot access ' + name);
         //console.error('ACL: denied name =', name, 'isStatic =', true, 'isObject = ', false, 'property =', S_UNSPECIFIED, 'opType =', 'x', 'context = ', context);
         //debugger;
@@ -1911,7 +2395,7 @@ ${name}: {
         let rawProp = name[name.length - 1];
         let prop = _escapePlatformProperties.get(rawProp) || rawProp;
         let obj = name[0];
-        if (!applyAcl(obj, name[1] !== 'prototype', false, prop, 'x', context)) {
+        if (!applyAclOrig(obj, name[1] !== 'prototype', false, prop, 'x', context)) {
           throw new Error('Permission Denied: Cannot access ' + obj);
           //console.error('ACL: denied name =', name, 'isStatic =', name[1] !== 'prototype', 'isObject = ', false, 'property =', prop, 'opType =', 'x', 'context = ', context);
           //debugger;
@@ -1966,7 +2450,7 @@ ${name}: {
         }
         if (name) {
           // super() call
-          if (!applyAcl(name, true, false, S_UNSPECIFIED, 'x', context)) {
+          if (!applyAclOrig(name, true, false, S_UNSPECIFIED, 'x', context)) {
             throw new Error('Permission Denied: Cannot access ' + name);
           }
           let _blacklist = _blacklistObjects[name];
@@ -2554,7 +3038,7 @@ ${name}: {
           let _p;
           switch (target[1]) {
           case 't': _t = normalizedThisArg; break;
-          case '0': _t = _args[1][0]; break;
+          case '0': _t = _args[1][0]; break; // wrong map
           case '1': _t = _args[1][1]; break;
           case 'f': _t = _f; break;
           case 'p': _t = _args[0]; break;
@@ -2629,7 +3113,7 @@ ${name}: {
                   case 'self':
                     switch (_args[0]) {
                     case 'defineProperty': // Object.defineProperty(window, 'property', { value: v }); Reflect.defineProperty(window, 'property', { value: v })
-                      if (_args[1][2] && _args[1][2].value instanceof Object) {
+                      if (_args[1][2] && _args[1][2].value instanceof Object) { // wrong map
                         hasGlobalAssignments = true;
                         globalAssignments[rawProperty] = _args[1][2].value;
                       }
@@ -2785,7 +3269,7 @@ ${name}: {
           break;
         }
       }
-      if (!applyAcl(name, isStatic, typeof normalizedThisArg === 'object', property, opType, context)) {
+      if (!(Array.isArray(property) ? applyAclProperties : applyAcl)(name, isStatic, typeof normalizedThisArg === 'object', property, opType, context)) {
         // if (name === 'Object' && context.startsWith('/components/dexie/dist/dexie.min.js')) {
         //   console.error('ACL: denied name =', name, 'isStatic =', isStatic, 'isObject = ', (typeof normalizedThisArg === 'object'), 'property =', property, 'opType =', opType, 'context = ', context);
         //   debugger;
@@ -2868,7 +3352,7 @@ ${name}: {
         superClass = Object.getPrototypeOf(superClass);
         name = _globalObjects.get(superClass);
       }
-      if (!applyAcl(name, true, false, S_UNSPECIFIED, 'x', context)) {
+      if (!applyAcl(name || '', true, false, S_UNSPECIFIED, 'x', context)) {
         throw new Error('Permission Denied: Cannot access ' + name);
         //console.error('ACL: denied name =', name, 'isStatic =', true, 'isObject = ', false, 'property =', S_UNSPECIFIED, 'opType =', 'x', 'context = ', context);
         //debugger;
@@ -2882,7 +3366,7 @@ ${name}: {
         let rawProp = name[name.length - 1];
         let prop = _escapePlatformProperties.get(rawProp) || rawProp;
         let obj = name[0];
-        if (!applyAcl(obj, name[1] !== 'prototype', false, prop, 'x', context)) {
+        if (!applyAcl(obj || '', name[1] !== 'prototype', false, prop, 'x', context)) {
           throw new Error('Permission Denied: Cannot access ' + obj);
           //console.error('ACL: denied name =', name, 'isStatic =', name[1] !== 'prototype', 'isObject = ', false, 'property =', prop, 'opType =', 'x', 'context = ', context);
           //debugger;
@@ -2905,7 +3389,7 @@ ${name}: {
         }
         if (name) {
           // super() call
-          if (!applyAcl(name, true, false, S_UNSPECIFIED, 'x', context)) {
+          if (!applyAcl(name || '', true, false, S_UNSPECIFIED, 'x', context)) {
             throw new Error('Permission Denied: Cannot access ' + name);
           }
         }
@@ -3045,13 +3529,13 @@ ${name}: {
         result = thisArg[args[0]](...args1);
         break;
       case 'bind':
-        let _boundFunction = thisArg[args[0]](...args[1]);
+        let _boundFunction = thisArg[args[0]](...args[1]); // wrong map
         _boundFunctions.set(_boundFunction, boundParameters);
         result = _boundFunction;
         break;
       // unary operators
       case 'p++':
-        result = thisArg[args[0]]++;
+        result = thisArg[args[0]]++; // not a Smi; wrong map
         break;
       case '++p':
         result = ++thisArg[args[0]];
@@ -3063,11 +3547,11 @@ ${name}: {
         result = --thisArg[args[0]];
         break;
       case 'delete':
-        result = delete thisArg[args[0]];
+        result = delete thisArg[args[0]]; // wrong map
         break;
       // assignment operators
       case '=':
-        result = thisArg[args[0]] = args[1];
+        result = thisArg[args[0]] = args[1]; // wrong map
         break;
       case '+=':
         result = thisArg[args[0]] += args[1];
@@ -3145,10 +3629,10 @@ ${name}: {
         break;
       // assignment operators
       case '#=':
-        result = StrictModeWrapper['#='](thisArg, args[0], args[1]);
+        result = StrictModeWrapper['#='](thisArg, args[0], args[1]); // wrong map
         break;
       case '#+=':
-        result = StrictModeWrapper['#+='](thisArg, args[0], args[1]);
+        result = StrictModeWrapper['#+='](thisArg, args[0], args[1]); // wrong map
         break;
       case '#-=':
         result = StrictModeWrapper['#-='](thisArg, args[0], args[1]);
@@ -3668,7 +4152,7 @@ ${name}: {
     __hook__min, // minimal (no acl)
   };
 
-  Object.defineProperty(_global, '__hook__', { configurable: false, enumerable: false, writable: false, value: hookCallbacks.__hook__ });
+  Object.defineProperty(_global, '__hook__', { configurable: false, enumerable: false, writable: false, value: hookCallbacks.__hook__acl });
   _globalObjects.set(_global.__hook__, '__hook__');
 
   hook.hookCallbackCompatibilityTest();
