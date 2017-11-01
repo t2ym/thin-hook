@@ -405,6 +405,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '/components/thin-hook/demo/normalize.js': '@normalization_checker',
     '/components/thin-hook/demo/normalize.js,f': '@normalization_checker',
     '/components/thin-hook/demo/normalize.js,get': '@normalization_checker',
+    '/components/thin-hook/demo/Function.js,strictMode': '@normalization_checker',
     '/components/thin-hook/demo/normalize.js,ArraySubclass2,constructor': '@super_normalization_checker',
     '/components/thin-hook/demo/normalize.js,ArraySubclass4,constructor': '@super_normalization_checker',
     '/components/thin-hook/demo/normalize.js,bindCheck': '@bind_normalization_checker',
@@ -2074,6 +2075,7 @@ ${name}: {
       args = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args, true);
       break;
     case '()':
+    case '#()':
       switch (thisArg) {
       case Reflect:
         switch (args[0]) {
@@ -3053,6 +3055,7 @@ ${name}: {
       args = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args, true);
       break;
     case '()':
+    case '#()':
       switch (thisArg) {
       case Reflect:
         switch (args[0]) {
@@ -3446,6 +3449,7 @@ ${name}: {
       args = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args, true);
       break;
     case '()':
+    case '#()':
       switch (thisArg) {
       case Reflect:
         switch (args[0]) {
