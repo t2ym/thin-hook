@@ -137,6 +137,20 @@
   }, /^Permission Denied:/)
 
   chai.assert.throws(() => {
+    let caches = Reflect.apply.apply(Reflect, [ Reflect.get.apply.bind(Reflect.get), Reflect.get, [ Reflect, [ window, 'caches' ] ] ]);
+  }, /^Permission Denied:/)
+
+  chai.assert.throws(() => {
+    let caches = Reflect.get.bind(Reflect, window).apply(Object, ['caches']);
+  }, /^Permission Denied:/)
+
+  chai.assert.throws(() => {
+    let caches = Object.defineProperty({}, 'caches', {
+      get: Reflect.apply(Object.getOwnPropertyDescriptor.bind(Object,window), Object.getOwnPropertyDescriptor, ['caches']).get.bind(window) })
+      .caches;
+  }, /^Permission Denied:/)
+
+  chai.assert.throws(() => {
     Reflect.get.bind(Reflect).apply(Reflect, [ window, 'caches' ]);
   }, /^Permission Denied:/)
 

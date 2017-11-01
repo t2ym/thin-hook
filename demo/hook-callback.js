@@ -405,6 +405,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '/components/thin-hook/demo/normalize.js': '@normalization_checker',
     '/components/thin-hook/demo/normalize.js,f': '@normalization_checker',
     '/components/thin-hook/demo/normalize.js,get': '@normalization_checker',
+    '/components/thin-hook/demo/normalize.js,caches': '@normalization_checker',
     '/components/thin-hook/demo/Function.js,strictMode': '@normalization_checker',
     '/components/thin-hook/demo/Function.js,f3': '@Function_reader',
     '/components/thin-hook/demo/Function.js,strictMode,f3': '@Function_reader',
@@ -1491,10 +1492,10 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           else if (typeof _args[0] === 'function') {
             target = targetNormalizerMap.get(_args[0]);
           }
+          let _t;
+          let _p;
           if (typeof target === 'string') {
             opType = target[0]; // r, w, x
-            let _t;
-            let _p;
             switch (target[1]) {
             case 't': _t = normalizedThisArg; break;
             case '0': _t = _args[1][0]; break;
@@ -1706,21 +1707,35 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 
           }
           if (typeof target === 'string' && target[3] === 'R') {
+            boundParameters = null;
             let _target = target;
+            let _boundArgs;
             _f = normalizedThisArg ? normalizedThisArg[rawProperty] : undefined;
             target = _f ? targetNormalizerMap.get(_f) : undefined;
+            if (typeof target !== 'string') {
+              if (typeof _p === 'function') {
+                let _boundParameters = _boundFunctions.get(_p);
+                if (_boundParameters) {
+                  target = targetNormalizerMap.get(_boundParameters.f);
+                  if (typeof target === 'string') {
+                    rawProperty = _boundParameters.f.name;
+                    _boundArgs = _boundParameters.args;
+                  }
+                }
+              }
+            }
             if (typeof target === 'string') {
               switch (_args[0]) {
               case 'apply':
                 if (_target === 'x10R') {
-                  _args = [ rawProperty, _args[1][2] ];
+                  _args = [ rawProperty, _boundArgs ? _boundArgs.concat(_args[1][2]) : _args[1][2] ];
                 }
                 else {
-                  _args = [ rawProperty, _args[1][1] ];
+                  _args = [ rawProperty, _boundArgs ? _boundArgs.concat(_args[1][1]) : _args[1][1] ];
                 }
                 break;
               case 'call':
-                _args = [ rawProperty, _args[1].slice(1) ];
+                _args = [ rawProperty, _boundArgs ? _boundArgs.concat(_args[1].slice(1)) : _args[1].slice(1) ];
                 break;
               }
               continue;
@@ -2679,10 +2694,10 @@ ${name}: {
           else if (typeof _args[0] === 'function') {
             target = targetNormalizerMap.get(_args[0]);
           }
+          let _t;
+          let _p;
           if (typeof target === 'string') {
             opType = target[0]; // r, w, x
-            let _t;
-            let _p;
             switch (target[1]) {
             case 't': _t = normalizedThisArg; break;
             case '0': _t = _args[1][0]; break;
@@ -2902,21 +2917,35 @@ ${name}: {
             }
           }
           if (typeof target === 'string' && target[3] === 'R') {
+            boundParameters = null;
             let _target = target;
+            let _boundArgs;
             _f = normalizedThisArg ? normalizedThisArg[rawProperty] : undefined;
             target = _f ? targetNormalizerMap.get(_f) : undefined;
+            if (typeof target !== 'string') {
+              if (typeof _p === 'function') {
+                let _boundParameters = _boundFunctions.get(_p);
+                if (_boundParameters) {
+                  target = targetNormalizerMap.get(_boundParameters.f);
+                  if (typeof target === 'string') {
+                    rawProperty = _boundParameters.f.name;
+                    _boundArgs = _boundParameters.args;
+                  }
+                }
+              }
+            }
             if (typeof target === 'string') {
               switch (_args[0]) {
               case 'apply':
                 if (_target === 'x10R') {
-                  _args = [ rawProperty, _args[1][2] ];
+                  _args = [ rawProperty, _boundArgs ? _boundArgs.concat(_args[1][2]) : _args[1][2] ];
                 }
                 else {
-                  _args = [ rawProperty, _args[1][1] ];
+                  _args = [ rawProperty, _boundArgs ? _boundArgs.concat(_args[1][1]) : _args[1][1] ];
                 }
                 break;
               case 'call':
-                _args = [ rawProperty, _args[1].slice(1) ];
+                _args = [ rawProperty, _boundArgs ? _boundArgs.concat(_args[1].slice(1)) : _args[1].slice(1) ];
                 break;
               }
               continue;
