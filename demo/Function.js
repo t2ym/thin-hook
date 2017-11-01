@@ -60,6 +60,10 @@
   chai.assert.isOk(f12.toString().includes('__hook__'), 'Generated function is hooked');
   chai.assert.isOk(Object.keys(globalObjectAccess).length ? globalObjectAccess.window.Function['/components/thin-hook/demo/Function.js,f12'] : true, 'indirect Function.call() call is normalized');
 
+  chai.assert.throws(() => {
+    Function.bind(null);
+  }, /^Permission Denied:/)
+
   class SubclassFunction extends Function {}
   function ES5SubclassFunction (...args) {
     return Object.getPrototypeOf(ES5SubclassFunction)(...args);

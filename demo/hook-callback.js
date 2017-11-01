@@ -406,6 +406,8 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '/components/thin-hook/demo/normalize.js,f': '@normalization_checker',
     '/components/thin-hook/demo/normalize.js,get': '@normalization_checker',
     '/components/thin-hook/demo/Function.js,strictMode': '@normalization_checker',
+    '/components/thin-hook/demo/Function.js,f3': '@Function_reader',
+    '/components/thin-hook/demo/Function.js,strictMode,f3': '@Function_reader',
     '/components/thin-hook/demo/normalize.js,ArraySubclass2,constructor': '@super_normalization_checker',
     '/components/thin-hook/demo/normalize.js,ArraySubclass4,constructor': '@super_normalization_checker',
     '/components/thin-hook/demo/normalize.js,bindCheck': '@bind_normalization_checker',
@@ -493,6 +495,10 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       __unexpected_access_to_hook_alias_object__: '---',
       hook: '---',
       $hook$: '---',
+      Function: {
+        [S_DEFAULT]: '--x',
+        '@Function_reader': 'r-x',
+      },
       _data: {
         [S_DEFAULT]: '---',
         '@hook_visualizer': 'r--',
