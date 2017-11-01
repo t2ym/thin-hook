@@ -160,6 +160,64 @@
     Reflect.get.bind(Reflect).bind(Reflect, window).bind(Reflect, 'caches').call(Reflect);
   }, /^Permission Denied:/)
 
+  chai.assert.throws(function () {
+    'use strict';
+    let o = {};
+    Object.defineProperty(o, 'caches', {
+      get: Object.getOwnPropertyDescriptor.apply(Object, [ window, 'caches' ]).get.bind(window)
+    });
+    o.caches;
+  }, /^Permission Denied:/);
+
+  chai.assert.throws(function () {
+    'use strict';
+    let o = {};
+    Object.defineProperty(o, 'caches', {
+      get: Object.getOwnPropertyDescriptor.call(Object, window, 'caches').get.bind(window)
+    });
+    o.caches;
+  }, /^Permission Denied:/);
+
+  chai.assert.throws(function () {
+    'use strict';
+    Reflect.get.apply(Reflect, [ window, 'caches' ]);
+  }, /^Permission Denied:/)
+
+  chai.assert.throws(function () {
+    'use strict';
+    Reflect.get.call(Reflect, window, 'caches');
+  }, /^Permission Denied:/)
+
+  chai.assert.throws(function () {
+    'use strict';
+    Reflect.get.bind(Reflect).apply(Reflect, [ window, 'caches' ]);
+  }, /^Permission Denied:/)
+
+  chai.assert.throws(function () {
+    'use strict';
+    Reflect.get.bind(Reflect).call(Reflect, window, 'caches');
+  }, /^Permission Denied:/)
+
+  chai.assert.throws(function () {
+    'use strict';
+    Reflect.get.bind(Reflect).bind(Reflect, window).apply(Reflect, ['caches']);
+  }, /^Permission Denied:/)
+
+  chai.assert.throws(function () {
+    'use strict';
+    Reflect.get.bind(Reflect).bind(Reflect, window).call(Reflect, 'caches');
+  }, /^Permission Denied:/)
+
+  chai.assert.throws(function () {
+    'use strict';
+    Reflect.get.bind(Reflect).bind(Reflect, window).bind(Reflect, 'caches').apply(Reflect, []);
+  }, /^Permission Denied:/)
+
+  chai.assert.throws(function () {
+    'use strict';
+    Reflect.get.bind(Reflect).bind(Reflect, window).bind(Reflect, 'caches').call(Reflect);
+  }, /^Permission Denied:/)
+
   chai.assert.throws(() => {
     Object.keys(window);
   }, /^Permission Denied:/);

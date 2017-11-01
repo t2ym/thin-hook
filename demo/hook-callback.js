@@ -1299,6 +1299,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     if (!boundParameters) {
       switch (f) {
       case '()':
+      case '#()':
         if (typeof thisArg === 'function') {
           switch (_args[0]) {
           case 'apply':
@@ -1315,11 +1316,17 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             break;
           default:
             boundParameters = _boundFunctions.get(thisArg[_args[0]]);
+            if (boundParameters) {
+              _args = _args[1];
+            }
             break;
           }
         }
         else {
           boundParameters = _boundFunctions.get(thisArg[_args[0]]);
+          if (boundParameters) {
+            _args = _args[1];
+          }
         }
         break;
       case 's()':
@@ -1678,7 +1685,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             }
 
           }
-          if (target[3] === 'R') {
+          if (typeof target === 'string' && target[3] === 'R') {
             _f = normalizedThisArg ? normalizedThisArg[rawProperty] : undefined;
             if (_f) {
               _boundFunctions.get(_f);
@@ -2463,6 +2470,7 @@ ${name}: {
     if (!boundParameters) {
       switch (f) {
       case '()':
+      case '#()':
         if (typeof thisArg === 'function') {
           switch (_args[0]) {
           case 'apply':
@@ -2479,11 +2487,17 @@ ${name}: {
             break;
           default:
             boundParameters = _boundFunctions.get(thisArg[_args[0]]);
+            if (boundParameters) {
+              _args = _args[1];
+            }
             break;
           }
         }
         else {
           boundParameters = _boundFunctions.get(thisArg[_args[0]]);
+          if (boundParameters) {
+            _args = _args[1];
+          }
         }
         break;
       case 's()':
@@ -2850,7 +2864,7 @@ ${name}: {
               break;
             }
           }
-          if (target[3] === 'R') {
+          if (typeof target === 'string' && target[3] === 'R') {
             _f = normalizedThisArg ? normalizedThisArg[rawProperty] : undefined;
             if (_f) {
               _boundFunctions.get(_f);
