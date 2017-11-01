@@ -272,6 +272,7 @@ onmessage = hook.hookWorkerHandler;
       args = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args, true);
       break;
     case '()':
+    case '#()':
       switch (thisArg) {
       case Reflect:
         switch (args[0]) {
