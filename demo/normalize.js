@@ -145,6 +145,30 @@
   }, /^Permission Denied:/)
 
   chai.assert.throws(() => {
+    Reflect.apply(Reflect.get, Reflect, [ window, 'caches' ]);
+  }, /^Permission Denied:/)
+
+  chai.assert.throws(() => {
+    Reflect.apply(Reflect.get.bind(Reflect), Reflect, [ window, 'caches' ]);
+  }, /^Permission Denied:/)
+
+  chai.assert.throws(() => {
+    Reflect.apply(Reflect.get.bind(Reflect), null, [ window, 'caches' ]);
+  }, /^Permission Denied:/)
+
+  chai.assert.throws(() => {
+    Reflect.apply(Reflect.get.bind(Reflect), undefined, [ window, 'caches' ]);
+  }, /^Permission Denied:/)
+
+  chai.assert.throws(() => {
+    Reflect.apply(Reflect.get.bind(Reflect), Object, [ window, 'caches' ]);
+  }, /^Permission Denied:/)
+
+  chai.assert.throws(() => {
+    Reflect.apply(Reflect.get.bind(Reflect, window), Object, [ 'caches' ]);
+  }, /^Permission Denied:/)
+
+  chai.assert.throws(() => {
     Reflect.get.bind(Reflect).bind(Reflect, window).apply(Reflect, ['caches']);
   }, /^Permission Denied:/)
 

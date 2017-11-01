@@ -302,7 +302,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         setPrototypeOf: 'w0P',
         preventExtensions: 'w0*',
         construct: 'x0N',
-        apply: 'x10',
+        apply: 'x10R',
         [S_PROTOTYPE]: 'xtp'
       },
       Function: {
@@ -1307,7 +1307,8 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       switch (f) {
       case '()':
       case '#()':
-        if (typeof thisArg === 'function') {
+        switch (typeof thisArg) {
+        case 'function':
           switch (_args[0]) {
           case 'apply':
             boundParameters = _boundFunctions.get(thisArg);
@@ -1328,12 +1329,21 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             }
             break;
           }
-        }
-        else {
+          break;
+        case 'object':
+          if (thisArg === Reflect && _args[0] === 'apply') {
+            boundParameters = _boundFunctions.get(_args[1][0]);
+            if (boundParameters) {
+              _args = _args[1][2];
+            }
+            break;
+          }
+        default:
           boundParameters = _boundFunctions.get(thisArg[_args[0]]);
           if (boundParameters) {
             _args = _args[1];
           }
+          break;
         }
         break;
       case 's()':
@@ -1696,15 +1706,18 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 
           }
           if (typeof target === 'string' && target[3] === 'R') {
+            let _target = target;
             _f = normalizedThisArg ? normalizedThisArg[rawProperty] : undefined;
-            if (_f) {
-              _boundFunctions.get(_f);
-            }
             target = _f ? targetNormalizerMap.get(_f) : undefined;
             if (typeof target === 'string') {
               switch (_args[0]) {
               case 'apply':
-                _args = [ rawProperty, _args[1][1] ];
+                if (_target === 'x10R') {
+                  _args = [ rawProperty, _args[1][2] ];
+                }
+                else {
+                  _args = [ rawProperty, _args[1][1] ];
+                }
                 break;
               case 'call':
                 _args = [ rawProperty, _args[1].slice(1) ];
@@ -2482,7 +2495,8 @@ ${name}: {
       switch (f) {
       case '()':
       case '#()':
-        if (typeof thisArg === 'function') {
+        switch (typeof thisArg) {
+        case 'function':
           switch (_args[0]) {
           case 'apply':
             boundParameters = _boundFunctions.get(thisArg);
@@ -2503,12 +2517,21 @@ ${name}: {
             }
             break;
           }
-        }
-        else {
+          break;
+        case 'object':
+          if (thisArg === Reflect && _args[0] === 'apply') {
+            boundParameters = _boundFunctions.get(_args[1][0]);
+            if (boundParameters) {
+              _args = _args[1][2];
+            }
+            break;
+          }
+        default:
           boundParameters = _boundFunctions.get(thisArg[_args[0]]);
           if (boundParameters) {
             _args = _args[1];
           }
+          break;
         }
         break;
       case 's()':
@@ -2879,15 +2902,18 @@ ${name}: {
             }
           }
           if (typeof target === 'string' && target[3] === 'R') {
+            let _target = target;
             _f = normalizedThisArg ? normalizedThisArg[rawProperty] : undefined;
-            if (_f) {
-              _boundFunctions.get(_f);
-            }
             target = _f ? targetNormalizerMap.get(_f) : undefined;
             if (typeof target === 'string') {
               switch (_args[0]) {
               case 'apply':
-                _args = [ rawProperty, _args[1][1] ];
+                if (_target === 'x10R') {
+                  _args = [ rawProperty, _args[1][2] ];
+                }
+                else {
+                  _args = [ rawProperty, _args[1][1] ];
+                }
                 break;
               case 'call':
                 _args = [ rawProperty, _args[1].slice(1) ];
