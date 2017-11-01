@@ -510,6 +510,127 @@
       B.now();
     }, /^Permission Denied:/);
 
+    chai.assert.throws(() => {
+      class A {}
+      A.get = Reflect.get.bind(Reflect);
+      class B extends A {
+        static get(o, p) {
+          return super.get(o, p);
+        }
+      }
+      B.get(window, 'caches');
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      class A {}
+      A.get = Reflect.get.bind(Reflect, window);
+      class B extends A {
+        static get(p) {
+          return super.get(p);
+        }
+      }
+      B.get('caches');
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      class A {}
+      A.get = Reflect.get.bind(Reflect, window, 'caches');
+      class B extends A {
+        static get() {
+          return super.get();
+        }
+      }
+      B.get('');
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      class A {}
+      A.get = Reflect.get;
+      class B extends A {
+        static get(o, p) {
+          return super.get.apply(Reflect, [o, p]);
+        }
+      }
+      B.get(window, 'caches');
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      class A {}
+      A.get = Reflect.get;
+      class B extends A {
+        static get(o, p) {
+          return super.get.call(Reflect, o, p);
+        }
+      }
+      B.get(window, 'caches');
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      class A {}
+      A.get = Reflect.get.bind(Reflect);
+      class B extends A {
+        static get(o, p) {
+          return super.get.apply(null, [o, p]);
+        }
+      }
+      B.get(window, 'caches');
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      class A {}
+      A.get = Reflect.get.bind(Reflect);
+      class B extends A {
+        static get(o, p) {
+          return super.get.call(null, o, p);
+        }
+      }
+      B.get(window, 'caches');
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      class A {}
+      A.get = Reflect.get.bind(Reflect, window);
+      class B extends A {
+        static get(p) {
+          return super.get.apply(null, [p]);
+        }
+      }
+      B.get('caches');
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      class A {}
+      A.get = Reflect.get.bind(Reflect, window);
+      class B extends A {
+        static get(p) {
+          return super.get.call(null, p);
+        }
+      }
+      B.get('caches');
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      class A {}
+      A.get = Reflect.get.bind(Reflect, window, 'caches');
+      class B extends A {
+        static get() {
+          return super.get.apply(null, []);
+        }
+      }
+      B.get('caches');
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      class A {}
+      A.get = Reflect.get.bind(Reflect, window, 'caches');
+      class B extends A {
+        static get() {
+          return super.get.call(null);
+        }
+      }
+      B.get();
+    }, /^Permission Denied:/);
+
 /*
     chai.assert.throw(() => {
       let d = {now:Date.now};

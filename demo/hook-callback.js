@@ -1331,6 +1331,9 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         break;
       case 's()':
         boundParameters = _boundFunctions.get(_args[2](_args[0]));
+        if (boundParameters) {
+          _args = _args[1];
+        }
         break;
       default:
         break;
@@ -2502,6 +2505,9 @@ ${name}: {
         break;
       case 's()':
         boundParameters = _boundFunctions.get(_args[2](_args[0]));
+        if (boundParameters) {
+          _args = _args[1];
+        }
         break;
       default:
         break;
