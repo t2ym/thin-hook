@@ -198,6 +198,58 @@
     Reflect.get.bind(Reflect).bind(Reflect, window).bind(Reflect, 'caches').call(Reflect);
   }, /^Permission Denied:/)
 
+  chai.assert.throws(() => {
+    Function.bind(null)('return window.caches')();
+  }, /^Permission Denied:/)
+
+  chai.assert.throws(() => {
+    const GeneratorFunction = (function*(){}).constructor;
+    GeneratorFunction.bind(null)('yield window.caches;')().next().value;
+  }, /^Permission Denied:/)
+
+  chai.assert.throws(() => {
+    let F = { Function: Function };
+    let O = { Function(...args) { return super.Function(...args); } };
+    Object.setPrototypeOf(O, F);
+    O.Function('return window.caches')();
+  }, /^Permission Denied:/)
+
+  chai.assert.throws(() => {
+    const GeneratorFunction = (function*(){}).constructor;
+    let F = { GeneratorFunction: GeneratorFunction };
+    let O = { GeneratorFunction(...args) { return super.GeneratorFunction(...args); } };
+    Object.setPrototypeOf(O, F);
+    O.GeneratorFunction('return window.caches')().next().value;
+  }, /^Permission Denied:/)
+
+  chai.assert.throws(() => {
+    'use strict';
+    Function.bind(null)('return window.caches')();
+  }, /^Permission Denied:/)
+
+  chai.assert.throws(() => {
+    'use strict';
+    const GeneratorFunction = (function*(){}).constructor;
+    GeneratorFunction.bind(null)('yield window.caches;')().next().value;
+  }, /^Permission Denied:/)
+
+  chai.assert.throws(() => {
+    'use strict';
+    let F = { Function: Function };
+    let O = { Function(...args) { return super.Function(...args); } };
+    Object.setPrototypeOf(O, F);
+    O.Function('return window.caches')();
+  }, /^Permission Denied:/)
+
+  chai.assert.throws(() => {
+    'use strict';
+    const GeneratorFunction = (function*(){}).constructor;
+    let F = { GeneratorFunction: GeneratorFunction };
+    let O = { GeneratorFunction(...args) { return super.GeneratorFunction(...args); } };
+    Object.setPrototypeOf(O, F);
+    O.GeneratorFunction('return window.caches')().next().value;
+  }, /^Permission Denied:/)
+
   chai.assert.throws(function () {
     'use strict';
     let o = {};

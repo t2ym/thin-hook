@@ -406,6 +406,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '/components/thin-hook/demo/normalize.js,f': '@normalization_checker',
     '/components/thin-hook/demo/normalize.js,get': '@normalization_checker',
     '/components/thin-hook/demo/normalize.js,caches': '@normalization_checker',
+    '/components/thin-hook/demo/normalize.js,F,Function': '@normalization_checker',
     '/components/thin-hook/demo/Function.js,strictMode': '@normalization_checker',
     '/components/thin-hook/demo/Function.js,f3': '@Function_reader',
     '/components/thin-hook/demo/Function.js,strictMode,f3': '@Function_reader',
@@ -499,6 +500,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       Function: {
         [S_DEFAULT]: '--x',
         '@Function_reader': 'r-x',
+        '@normalization_checker': 'r-x',
       },
       _data: {
         [S_DEFAULT]: '---',
@@ -2188,6 +2190,30 @@ ${name}: {
         break;
       }
       break;
+    case 's()':
+      switch (args[2](args[0])) {
+      case Function:
+        args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1]);
+        break;
+      case GeneratorFunction:
+        args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1], true);
+        break;
+      default:
+        break;
+      }
+      break;
+    case 'bind':
+      switch (thisArg) {
+      case Function:
+        thisArg = hook.Function('__hook__', [[context, {}]], 'method');
+        break;
+      case GeneratorFunction:
+        thisArg = hook.Function('__hook__', [[context, {}]], 'method', true);
+        break;
+      default:
+        break;
+      }
+      break;
     default:
       if (typeof f === 'function') {
         if (f.prototype instanceof Function && newTarget) {
@@ -2378,7 +2404,7 @@ ${name}: {
         break;
       // super method call
       case 's()':
-        result = args[2](args[0]).apply(thisArg, args[1]);
+        result = args[2](args[0]).apply(thisArg, args1);
         break;
       // unary operators for super
       case 's++':
@@ -3195,6 +3221,30 @@ ${name}: {
         break;
       }
       break;
+    case 's()':
+      switch (args[2](args[0])) {
+      case Function:
+        args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1]);
+        break;
+      case GeneratorFunction:
+        args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1], true);
+        break;
+      default:
+        break;
+      }
+      break;
+    case 'bind':
+      switch (thisArg) {
+      case Function:
+        thisArg = hook.Function('__hook__', [[context, {}]], 'method');
+        break;
+      case GeneratorFunction:
+        thisArg = hook.Function('__hook__', [[context, {}]], 'method', true);
+        break;
+      default:
+        break;
+      }
+      break;
     default:
       if (typeof f === 'function') {
         if (f.prototype instanceof Function && newTarget) {
@@ -3389,7 +3439,7 @@ ${name}: {
         break;
       // super method call
       case 's()':
-        result = args[2](args[0]).apply(thisArg, args[1]);
+        result = args[2](args[0]).apply(thisArg, args1);
         break;
       // unary operators for super
       case 's++':
@@ -3589,6 +3639,30 @@ ${name}: {
         break;
       }
       break;
+    case 's()':
+      switch (args[2](args[0])) {
+      case Function:
+        args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1]);
+        break;
+      case GeneratorFunction:
+        args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1], true);
+        break;
+      default:
+        break;
+      }
+      break;
+    case 'bind':
+      switch (thisArg) {
+      case Function:
+        thisArg = hook.Function('__hook__', [[context, {}]], 'method');
+        break;
+      case GeneratorFunction:
+        thisArg = hook.Function('__hook__', [[context, {}]], 'method', true);
+        break;
+      default:
+        break;
+      }
+      break;
     default:
       if (typeof f === 'function') {
         if (f.prototype instanceof Function && newTarget) {
@@ -3778,7 +3852,7 @@ ${name}: {
         break;
       // super method call
       case 's()':
-        result = args[2](args[0]).apply(thisArg, args[1]);
+        result = args[2](args[0]).apply(thisArg, args1);
         break;
       // unary operators for super
       case 's++':
