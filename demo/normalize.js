@@ -222,6 +222,30 @@
     O.GeneratorFunction('return window.caches')().next().value;
   }, /^Permission Denied:/)
 
+  chai.assert.throws(() => {
+    Function.bind(null).apply(null, ['return window.caches'])();
+  }, /^Permission Denied:/)
+
+  chai.assert.throws(() => {
+    const GeneratorFunction = (function*(){}).constructor;
+    GeneratorFunction.bind(null).call(null, 'yield window.caches;')().next().value;
+  }, /^Permission Denied:/)
+
+  chai.assert.throws(() => {
+    let F = { Function: Function };
+    let O = { Function(...args) { return super.Function.bind(this, ...args).apply(this); } };
+    Object.setPrototypeOf(O, F);
+    O.Function('return window.caches')();
+  }, /^Permission Denied:/)
+
+  chai.assert.throws(() => {
+    const GeneratorFunction = (function*(){}).constructor;
+    let F = { GeneratorFunction: GeneratorFunction };
+    let O = { GeneratorFunction(...args) { return super.GeneratorFunction.bind(this).call(this, ...args); } };
+    Object.setPrototypeOf(O, F);
+    O.GeneratorFunction('return window.caches')().next().value;
+  }, /^Permission Denied:/)
+
   with ({}) {
     chai.assert.throws(() => {
       caches;
