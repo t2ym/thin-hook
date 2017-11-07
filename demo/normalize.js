@@ -222,6 +222,163 @@
     O.GeneratorFunction('return window.caches')().next().value;
   }, /^Permission Denied:/)
 
+  with ({}) {
+    chai.assert.throws(() => {
+      caches;
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      Object.getOwnPropertyDescriptor(window, 'caches');
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      Object.getOwnPropertyDescriptors(window);
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      window.hasOwnProperty('caches');
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      window.__lookupGetter__('caches');
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      window.__lookupSetter__('caches');
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      window.__defineGetter__('caches', function () {});
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      window.__defineSetter__('caches', function () {});
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      window.propertyIsEnumerable('caches');
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      Reflect.get(window, 'caches');
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      Object.defineProperty(window, 'caches', { configurable: true, enumerable: true, value: null });
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      let o = {};
+      Object.defineProperty(o, 'caches', {
+        get: Object.getOwnPropertyDescriptor.apply(Object, [ window, 'caches' ]).get.bind(window)
+      });
+      o.caches;
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      let o = {};
+      Object.defineProperty(o, 'caches', {
+        get: Object.getOwnPropertyDescriptor.call(Object, window, 'caches').get.bind(window)
+      });
+      o.caches;
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      Reflect.get.apply(Reflect, [ window, 'caches' ]);
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      Reflect.get.call(Reflect, window, 'caches');
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      let caches = Reflect.apply.apply(Reflect, [ Reflect.get.apply.bind(Reflect.get), Reflect.get, [ Reflect, [ window, 'caches' ] ] ]);
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      let caches = Reflect.get.bind(Reflect, window).apply(Object, ['caches']);
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      let caches = Object.defineProperty({}, 'caches', {
+        get: Reflect.apply(Object.getOwnPropertyDescriptor.bind(Object,window), Object.getOwnPropertyDescriptor, ['caches']).get.bind(window) })
+        .caches;
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      Reflect.get.bind(Reflect).apply(Reflect, [ window, 'caches' ]);
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      Reflect.get.bind(Reflect).call(Reflect, window, 'caches');
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      Reflect.apply(Reflect.get, Reflect, [ window, 'caches' ]);
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      Reflect.apply(Reflect.get.bind(Reflect), Reflect, [ window, 'caches' ]);
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      Reflect.apply(Reflect.get.bind(Reflect), null, [ window, 'caches' ]);
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      Reflect.apply(Reflect.get.bind(Reflect), undefined, [ window, 'caches' ]);
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      Reflect.apply(Reflect.get.bind(Reflect), Object, [ window, 'caches' ]);
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      Reflect.apply(Reflect.get.bind(Reflect, window), Object, [ 'caches' ]);
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      Reflect.get.bind(Reflect).bind(Reflect, window).apply(Reflect, ['caches']);
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      Reflect.get.bind(Reflect).bind(Reflect, window).call(Reflect, 'caches');
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      Reflect.get.bind(Reflect).bind(Reflect, window).bind(Reflect, 'caches').apply(Reflect, []);
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      Reflect.get.bind(Reflect).bind(Reflect, window).bind(Reflect, 'caches').call(Reflect);
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      Function.bind(null)('return window.caches')();
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      const GeneratorFunction = (function*(){}).constructor;
+      GeneratorFunction.bind(null)('yield window.caches;')().next().value;
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      let F = { Function: Function };
+      let O = { Function(...args) { return super.Function(...args); } };
+      Object.setPrototypeOf(O, F);
+      O.Function('return window.caches')();
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      const GeneratorFunction = (function*(){}).constructor;
+      let F = { GeneratorFunction: GeneratorFunction };
+      let O = { GeneratorFunction(...args) { return super.GeneratorFunction(...args); } };
+      Object.setPrototypeOf(O, F);
+      O.GeneratorFunction('return window.caches')().next().value;
+    }, /^Permission Denied:/)
+
+  }
+
   chai.assert.throws(() => {
     'use strict';
     Function.bind(null)('return window.caches')();
