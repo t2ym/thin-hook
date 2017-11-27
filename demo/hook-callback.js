@@ -1483,7 +1483,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
                 type = normalizedThisArg.constructor.prototype;
               }
               else {
-                type = normalizedThisArg;
+                type = Object.getPrototypeOf(normalizedThisArg);
               }
               while (!target && type) {
                 target = targetNormalizerMap.get(type);
@@ -1556,7 +1556,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
                   isStatic = false;
                 }
               }
-              if (!name && _f.indexOf('s') >= 0) {
+              if (!name && typeof _f === 'string' && _f.indexOf('s') >= 0) {
                 isStatic = typeof _t === 'function';
                 ctor = isStatic ? _t : _t.constructor;
                 name = _globalObjects.get(ctor);
@@ -1737,7 +1737,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
                 }
                 break;
               case 'call':
-                _args = [ rawProperty, _boundArgs ? _boundArgs.concat(_args[1].slice(1)) : _args[1].slice(1) ];
+                _args = [ rawProperty, _boundArgs ? _boundArgs.concat(Array.prototype.slice.call(_args[1], 1)) : Array.prototype.slice.call(_args[1], 1) ];
                 break;
               }
               continue;
@@ -2709,7 +2709,7 @@ ${name}: {
                 type = normalizedThisArg.constructor.prototype;
               }
               else {
-                type = normalizedThisArg;
+                type = Object.getPrototypeOf(normalizedThisArg);
               }
               while (!target && type) {
                 target = targetNormalizerMap.get(type);
@@ -2971,7 +2971,7 @@ ${name}: {
                 }
                 break;
               case 'call':
-                _args = [ rawProperty, _boundArgs ? _boundArgs.concat(_args[1].slice(1)) : _args[1].slice(1) ];
+                _args = [ rawProperty, _boundArgs ? _boundArgs.concat(Array.prototype.slice.call(_args[1], 1)) : Array.prototype.slice.call(_args[1], 1) ];
                 break;
               }
               continue;
