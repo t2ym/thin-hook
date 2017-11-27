@@ -1478,17 +1478,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
               break;
             }
             if (!target) {
-              let type;
-              if (typeof normalizedThisArg === 'object') {
-                type = normalizedThisArg.constructor.prototype;
-              }
-              else {
-                type = Object.getPrototypeOf(normalizedThisArg);
-              }
-              while (!target && type) {
-                target = targetNormalizerMap.get(type);
-                type = Object.getPrototypeOf(type);
-              }
+              target = 'xtp';
             }
           }
           else if (typeof _args[0] === 'function') {
@@ -2704,17 +2694,7 @@ ${name}: {
               break;
             }
             if (!target) {
-              let type;
-              if (typeof normalizedThisArg === 'object') {
-                type = normalizedThisArg.constructor.prototype;
-              }
-              else {
-                type = Object.getPrototypeOf(normalizedThisArg);
-              }
-              while (!target && type) {
-                target = targetNormalizerMap.get(type);
-                type = Object.getPrototypeOf(type);
-              }
+              target = 'xtp'; // [S_DEFAULT]
             }
           }
           else if (typeof _args[0] === 'function') {
