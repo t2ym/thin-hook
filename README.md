@@ -840,6 +840,8 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
     - `write('<sc' + 'ript>{script in string}</sc' + 'ript>')`: Script in HTML fragment is hooked
   - `hook.with(scope: Object, ...scopes: Array of Object)`: Hook `with` statement scope object
     - `with (hook.with(obj, { v1: true, v2: true, ...})) {}`
+  - `hook.importScripts()`: return hooked `importScripts` function for Workers, invalidating extensions other than `.js` and `.mjs`
+    - Note: No arguments to pass
 - `hook.hook(target: Class, ...)`: hook platform global object with `target`
   - Usage: `['Function','setTimeout','setInterval',...].forEach(name => hook.hook(hook.Function('__hook__', [[name, {}]], 'method'))`
 - `hook.serviceWorkerHandlers`: Service Worker event handlers

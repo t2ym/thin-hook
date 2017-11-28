@@ -475,6 +475,8 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '/components/webcomponentsjs/webcomponents-lite.js,bc': '@HTMLElement___shady_writer',
     '/components/webcomponentsjs/webcomponents-lite.js,Wb': '@HTMLElement___shady_writer',
     '/components/webcomponentsjs/webcomponents-lite.js,lc,d': '@Event_prototype_reader',
+    '/components/thin-hook/demo/es6-module2.js,f2,module': '@Module_importer',
+    '/components/thin-hook/demo/es6-module2.js': '@Module_importer',
   };
   const acl = {
     // blacklist objects/classes
@@ -590,6 +592,11 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         $toString$: { [S_DEFAULT]: '--x', '@Object_method_reader': 'r-x', },
         $valueOf$: { [S_DEFAULT]: '--x', '@Object_method_reader': 'r-x', },
       }
+    },
+    import: {
+      [S_OBJECT]: '---',
+      [S_DEFAULT]: '---',
+      '@Module_importer': '--x',
     },
     navigator: {
       [S_OBJECT]: 'r--',
@@ -2089,6 +2096,38 @@ ${name}: {
           forName[context].label++;
         }
       }
+      else if (Number.isNaN(newTarget)) {
+        name = args[0];
+        if (name === 'import()') {
+          // import('module.js')
+          name = 'import'; // Note: virtual object name 'import'
+          if (!applyAcl(name, true, false, S_UNSPECIFIED, 'x', context)) {
+            throw new Error('Permission Denied: Cannot access ' + name);
+          }
+          let _blacklist = _blacklistObjects[name];
+          if (_blacklist) {
+            if (typeof _blacklist === 'boolean') {
+              throw new Error('Permission Denied: Cannot access ' + name);
+            }
+          }
+          let forName;
+          if (!globalPropertyContexts[context]) {
+            let group = context.split(/[,:]/)[0];
+            data2.nodes.push({ id: '/' + context, label: context, group: group });
+            globalPropertyContexts[context] = true;
+          }
+          if (!globalObjectAccess[name]) {
+            globalObjectAccess[name] = {};
+            data2.nodes.push({ id: name, label: name, group: name });
+          }
+          forName = globalObjectAccess[name];
+          if (!forName[context]) {
+            forName[context] = { from: '/' + context, to: name, label: 0, arrows: 'to' };
+            data2.edges.push(forName[context]);
+          }
+          forName[context].label++;
+        }
+      }
     }
 
     let result;
@@ -3105,6 +3144,16 @@ ${name}: {
         }
         if (name) {
           // super() call
+          if (!applyAcl(name, true, false, S_UNSPECIFIED, 'x', context)) {
+            throw new Error('Permission Denied: Cannot access ' + name);
+          }
+        }
+      }
+      else if (Number.isNaN(newTarget)) {
+        name = args[0];
+        if (name === 'import()') {
+          // import('module.js')
+          name = 'import'; // Note: virtual object name 'import'
           if (!applyAcl(name, true, false, S_UNSPECIFIED, 'x', context)) {
             throw new Error('Permission Denied: Cannot access ' + name);
           }

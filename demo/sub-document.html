@@ -11,11 +11,52 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
   <script context-generator src="context-generator.js?no-hook=true"></script>
   <script src="hook-callback.js?no-hook=true"></script>
   <script src="hook-native-api.js?no-hook=true"></script>
+  <script src="../../chai/chai.js"></script>
   <script>
     function f(x) {
       console.log(x * 2);
     }
     f(3);
+  </script>
+  <script id="invalidScript" src="invalidScriptPathStatic.json"></script>
+  <script id="invalidScript2"></script>
+  <script id="invalidScript3"></script>
+  <script>
+    document.write('<scr' + 'ipt id="documentWriteScript" src="invalidScriptPathDocumentWrite.json"></scr' + 'ipt>')
+    window.addEventListener('load', function onLoad (event) {
+      window.removeEventListener('load', onLoad);
+      let invalidScript = document.querySelector('#invalidScript');
+      chai.assert.isNotOk(invalidScript.getAttribute('src'), 'invalidScript.src is empty');
+
+      let invalidScript2 = document.querySelector('#invalidScript2');
+      invalidScript2.setAttribute('src', 'invalidScriptPathSetAttribute.json');
+      chai.assert.isNotOk(invalidScript2.getAttribute('src'), 'invalidScript2.src is empty');
+
+      let invalidScript3 = document.querySelector('#invalidScript3');
+      invalidScript3.src = 'invalidScriptPathSrcProperty.json';
+      chai.assert.isNotOk(invalidScript3.getAttribute('src'), 'invalidScript3.src is empty');
+
+      let newScriptTag1 = document.createElement('script');
+      newScriptTag1.setAttribute('id', 'newScriptTag1SetAttribute');
+      newScriptTag1.setAttribute('src', 'invalidScriptPathCreatedSetAttribute.json');
+      invalidScript.parentElement.insertBefore(newScriptTag1, invalidScript);
+      chai.assert.isNotOk(newScriptTag1.getAttribute('src'), 'newScriptTag1.src is empty');
+
+      let newScriptTag2 = document.createElement('script');
+      newScriptTag2.setAttribute('id', 'newScriptTag2SrcProperty');
+      newScriptTag2.src = 'invalidScriptPathCreatedSrcProperty.json';
+      invalidScript.parentElement.insertBefore(newScriptTag2, invalidScript);
+      chai.assert.isNotOk(newScriptTag2.getAttribute('src'), 'newScriptTag2.src is empty');
+
+      let placeholder = document.createElement('div');
+      placeholder.innerHTML = '<scr' + 'ipt id="invalidScriptPathInnerHTML" src="invalidScriptPathInnerHTML.json">' + '</scr' + 'ipt>' +
+        '<scr' + 'ipt id="scriptTagViaInnerHTML">console.log("script tag via innerHTML")' + '</scr' + 'ipt>';
+      let innerHTMLScriptTags = placeholder.querySelectorAll('script');
+      invalidScript.parentElement.insertBefore(innerHTMLScriptTags[0], invalidScript);
+      invalidScript.parentElement.insertBefore(innerHTMLScriptTags[1], invalidScript);
+      chai.assert.isNotOk(innerHTMLScriptTags[0].getAttribute('src'), 'innerHTMLScriptTags[0].src is empty');
+      chai.assert.isOk(innerHTMLScriptTags[1].innerText.indexOf('__hook__') >= 0, 'innerHTMLScriptTags[1] is hooked');
+    });
   </script>
 </head>
 <body>

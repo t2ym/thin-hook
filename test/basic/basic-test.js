@@ -1995,6 +1995,13 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             eval: () => true,
           },
         ],
+        Import: [
+          {
+            code: `import('module.js').then()`,
+            hooked: `__hook__(\'()\',__hook__((Import,ImportSpecifier)=>import(ImportSpecifier),null,[\'import()\',\'module.js\'],\'HookApiTest\',NaN),[\'then\',[]],\'HookApiTest\');`,
+            eval: () => true,
+          },
+        ],
         ImportDeclaration: [
           {
             // From https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import
