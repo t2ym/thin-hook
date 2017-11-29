@@ -2005,33 +2005,97 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         ImportDeclaration: [
           {
             // From https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import
-            code: `import defaultExport from "module-name";
-import * as name1 from "module-name";
-import { export0 } from "module-name";
-import { export1 as alias1 } from "module-name";
-import { export2 , export3 } from "module-name";
-import { export4 , export5 as alias2 } from "module-name";
-import defaultExport2, { export6, export7 as alias3 } from "module-name";
-import defaultExport3, * as name2 from "module-name";
-import "module-name";`,
-            hooked: `import defaultExport from 'module-name';
-import * as name1 from 'module-name';
-import { export0 } from 'module-name';
-import { export1 as alias1 } from 'module-name';
+            code: `import defaultExport from "module-name.js";
+import * as name1 from "module-name.js";
+import { export0 } from "module-name.js";
+import { export1 as alias1 } from "module-name.js";
+import { export2 , export3 } from "module-name.js";
+import { export4 , export5 as alias2 } from "module-name.js";
+import defaultExport2, { export6, export7 as alias3 } from "module-name.js";
+import defaultExport3, * as name2 from "module-name.js";
+import "module-name.js";`,
+            hooked: `import defaultExport from 'module-name.js';
+import * as name1 from 'module-name.js';
+import { export0 } from 'module-name.js';
+import { export1 as alias1 } from 'module-name.js';
 import {
   export2,
   export3
-} from 'module-name';
+} from 'module-name.js';
 import {
   export4,
   export5 as alias2
-} from 'module-name';
+} from 'module-name.js';
 import defaultExport2, {
   export6,
   export7 as alias3
-} from 'module-name';
-import defaultExport3, * as name2 from 'module-name';
-import 'module-name';`,
+} from 'module-name.js';
+import defaultExport3, * as name2 from 'module-name.js';
+import 'module-name.js';`,
+            options: 'compact=false',
+            eval: () => true,
+          },
+          {
+            // From https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import
+            code: `import defaultExport from "module-name.mjs";
+import * as name1 from "module-name.mjs";
+import { export0 } from "module-name.mjs";
+import { export1 as alias1 } from "module-name.mjs";
+import { export2 , export3 } from "module-name.mjs";
+import { export4 , export5 as alias2 } from "module-name.mjs";
+import defaultExport2, { export6, export7 as alias3 } from "module-name.mjs";
+import defaultExport3, * as name2 from "module-name.mjs";
+import "module-name.mjs";`,
+            hooked: `import defaultExport from 'module-name.mjs';
+import * as name1 from 'module-name.mjs';
+import { export0 } from 'module-name.mjs';
+import { export1 as alias1 } from 'module-name.mjs';
+import {
+  export2,
+  export3
+} from 'module-name.mjs';
+import {
+  export4,
+  export5 as alias2
+} from 'module-name.mjs';
+import defaultExport2, {
+  export6,
+  export7 as alias3
+} from 'module-name.mjs';
+import defaultExport3, * as name2 from 'module-name.mjs';
+import 'module-name.mjs';`,
+            options: 'compact=false',
+            eval: () => true,
+          },
+          {
+            // From https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import
+            code: `import defaultExport from "invalid-module-name";
+import * as name1 from "invalid-module-name";
+import { export0 } from "invalid-module-name";
+import { export1 as alias1 } from "invalid-module-name";
+import { export2 , export3 } from "invalid-module-name";
+import { export4 , export5 as alias2 } from "invalid-module-name";
+import defaultExport2, { export6, export7 as alias3 } from "invalid-module-name";
+import defaultExport3, * as name2 from "invalid-module-name";
+import "invalid-module-name";`,
+            hooked: `import defaultExport from '!!! invalid script url !!!';
+import * as name1 from '!!! invalid script url !!!';
+import { export0 } from '!!! invalid script url !!!';
+import { export1 as alias1 } from '!!! invalid script url !!!';
+import {
+  export2,
+  export3
+} from '!!! invalid script url !!!';
+import {
+  export4,
+  export5 as alias2
+} from '!!! invalid script url !!!';
+import defaultExport2, {
+  export6,
+  export7 as alias3
+} from '!!! invalid script url !!!';
+import defaultExport3, * as name2 from '!!! invalid script url !!!';
+import '!!! invalid script url !!!';`,
             options: 'compact=false',
             eval: () => true,
           },
@@ -2076,6 +2140,16 @@ export const name7 = 3, name8 = 4;`,
             hooked: `export{undefined,undefined as alias2}from'module.js';`,
             eval: () => true,
           },
+          {
+            code: `export { name1, name2 as alias2 } from 'module.mjs';`,
+            hooked: `export{undefined,undefined as alias2}from'module.mjs';`,
+            eval: () => true,
+          },
+          {
+            code: `export { name1, name2 as alias2 } from 'invalid-module';`,
+            hooked: `export{undefined,undefined as alias2}from'!!! invalid script url !!!';`,
+            eval: () => true,
+          },
         ],
         ExportDefaultDeclaration: [
           {
@@ -2118,6 +2192,16 @@ export const name7 = 3, name8 = 4;`,
           {
             code: `export * from 'module.js';`,
             hooked: `export*from'module.js';`,
+            eval: () => true,
+          },
+          {
+            code: `export * from 'module.mjs';`,
+            hooked: `export*from'module.mjs';`,
+            eval: () => true,
+          },
+          {
+            code: `export * from 'invalid-module';`,
+            hooked: `export*from'!!! invalid script url !!!';`,
             eval: () => true,
           },
         ],
