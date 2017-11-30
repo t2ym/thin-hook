@@ -15,7 +15,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <script src="../../thin-hook/hook.min.js?version=478&no-hook-authorization=8ceaa9830fff558b617ca9bf107055d2ed404a0ad05955e6428a7cf55c6c3ed3,cc76d0d4162f58c8b283a22c92fc44362c976e924a0d304a9b49a9915a208028,19fdc301b02a4d4f928a2e5eeca49891f622f91d054cccc5695649353ecd6b6c,log-no-hook-authorization&sw-root=/&no-hook=true&hook-name=__hook__&context-generator-name=method&discard-hook-errors=false&fallback-page=index-fb.html&hook-property=true&hook-global=true&hook-prefix=_pp_&compact=true&service-worker-ready=true"></script>
+  <script src="../../thin-hook/hook.min.js?version=478&no-hook-authorization=473b02f58d2d96f647ce1179f96997e21e302027bb6d33ac156b7d78b27266bf,cc76d0d4162f58c8b283a22c92fc44362c976e924a0d304a9b49a9915a208028,7efb5a988f055ebd9a052211b62f2404ef08c37c426d50ffb77fca0c016ecacd,log-no-hook-authorization&sw-root=/&no-hook=true&hook-name=__hook__&context-generator-name=method&discard-hook-errors=false&fallback-page=index-fb.html&hook-property=true&hook-global=true&hook-prefix=_pp_&compact=true&service-worker-ready=true"></script>
   <script context-generator src="no-hook-authorization.js?no-hook=true"></script>
   <script context-generator src="context-generator.js?no-hook=true"></script>
   <script context-generator no-hook>
@@ -26,6 +26,14 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         let _url = new URL(url);
         return _url.hostname !== location.hostname &&
           !_url.href.match(/^(https:\/\/www.gstatic.com|https:\/\/apis.google.com\/js\/api.js|https:\/\/apis.google.com\/_\/)/);
+      }
+    ];
+    hook.parameters.opaque = [
+      'https://www.gstatic.com/charts/loader.js',
+      (url) => {
+        let _url = new URL(url);
+        return _url.hostname !== location.hostname &&
+          _url.href.match(/^(https:\/\/www.gstatic.com|https:\/\/apis.google.com\/js\/api.js|https:\/\/apis.google.com\/_\/)/);
       }
     ];
     hook.parameters.worker = {
@@ -55,6 +63,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
   <script src="hook-native-api.js?no-hook=true"></script>
   <!-- <script no-hook>(function ff() { alert('invalid no-hook script that should not be executed'); })()</script> -->
   <script src="../../chai/chai.js"></script>
+  <script src="https://www.gstatic.com/charts/loader.js"></script>
   <script src="normalize.js"></script>
   <script src="spread.js"></script>
   <script src="generator.js"></script>
