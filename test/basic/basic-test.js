@@ -272,6 +272,16 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             hooked: `{function f(){'use strict';return __hook__(()=>{return $hook$.global(__hook__,'HookApiTest,f','Date','#get').S_pp_Date;},null,arguments,'HookApiTest,f');}` +
               `__hook__(f,null,[],'HookApiTest',0);}`,
           },
+          {
+            code: `{ function undefined() {} function NaN() {} function Infinity() {} true;}`,
+            hooked: `{function __unexpected_overridden_declaration_of_undefined__(){return __hook__(()=>{},null,arguments,'HookApiTest,__unexpected_overridden_declaration_of_undefined__');}` +
+              `function __unexpected_overridden_declaration_of_NaN__(){return __hook__(()=>{},null,arguments,'HookApiTest,__unexpected_overridden_declaration_of_NaN__');}` +
+              `function __unexpected_overridden_declaration_of_Infinity__(){return __hook__(()=>{},null,arguments,'HookApiTest,__unexpected_overridden_declaration_of_Infinity__');}true;}`,
+          },
+          {
+            code: `{ function f(undefined, NaN, Infinity) {} true; }`,
+            hooked: `{function f(__unexpected_overridden_declaration_of_undefined__,__unexpected_overridden_declaration_of_NaN__,__unexpected_overridden_declaration_of_Infinity__){return __hook__((__unexpected_overridden_declaration_of_undefined__,__unexpected_overridden_declaration_of_NaN__,__unexpected_overridden_declaration_of_Infinity__)=>{},null,arguments,'HookApiTest,f');}true;}`,
+          },
         ],
         FunctionExpression: [
           {
@@ -295,6 +305,16 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
               `$hook$.global(__hook__,'HookApiTest,f','Date','#get').S_pp_Date;` +
               `__hook__('#()',Date,['now',[]],'HookApiTest,f');return o;},null,arguments,'HookApiTest,f');};` +
               `__hook__(f,null,[],'HookApiTest',0);`,
+          },
+          {
+            code: `{ (function undefined() {}); (function NaN() {}); (function Infinity() {}); true;}`,
+            hooked: `{(function __unexpected_overridden_declaration_of_undefined__(){return __hook__(()=>{},null,arguments,'HookApiTest,__unexpected_overridden_declaration_of_undefined__');});` +
+              `(function __unexpected_overridden_declaration_of_NaN__(){return __hook__(()=>{},null,arguments,'HookApiTest,__unexpected_overridden_declaration_of_NaN__');});` +
+              `(function __unexpected_overridden_declaration_of_Infinity__(){return __hook__(()=>{},null,arguments,'HookApiTest,__unexpected_overridden_declaration_of_Infinity__');});true;}`,
+          },
+          {
+            code: `{ (function f(undefined, NaN, Infinity) {}); true; }`,
+            hooked: `{(function f(__unexpected_overridden_declaration_of_undefined__,__unexpected_overridden_declaration_of_NaN__,__unexpected_overridden_declaration_of_Infinity__){return __hook__((__unexpected_overridden_declaration_of_undefined__,__unexpected_overridden_declaration_of_NaN__,__unexpected_overridden_declaration_of_Infinity__)=>{},null,arguments,'HookApiTest,f');});true;}`,
           },
         ],
         ArrowFunctionExpression: [
@@ -625,6 +645,14 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             hooked: `$hook$.global(__hook__,'HookApiTest,globalVariable1','globalVariable1','class')._pp_globalVariable1=class globalVariable1{};;$hook$.global(__hook__,'HookApiTest','undefined','get')._pp_undefined;`,
             eval: (script) => { try { HookApiTest.nativeEval('var globalVariable1 = 1;' + script) } catch (e) { return e.name; } },
           },
+          {
+            code: `{ let undefined, NaN, Infinity; }`,
+            hooked: `{let __unexpected_overridden_declaration_of_undefined__,__unexpected_overridden_declaration_of_NaN__,__unexpected_overridden_declaration_of_Infinity__;}`,
+          },
+          {
+            code: `{ let undefined = 1, NaN = 2, Infinity = 3; }`,
+            hooked: `{let __unexpected_overridden_declaration_of_undefined__=1,__unexpected_overridden_declaration_of_NaN__=2,__unexpected_overridden_declaration_of_Infinity__=3;}`,
+          },
         ],
         VariableDeclarator: [
           {
@@ -807,6 +835,10 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
               `__hook__('w.',__with__,['j',()=>j],'HookApiTest',false),v=>result+=v],'HookApiTest',false);}` +
               `__hook__('w.',__with__,['result',()=>result],'HookApiTest',false);}}`,
           },
+          {
+            code: `{ let [undefined,NaN,Infinity] = [1,2,3]; }`,
+            hooked: `{let [__unexpected_overridden_declaration_of_undefined__,__unexpected_overridden_declaration_of_NaN__,__unexpected_overridden_declaration_of_Infinity__]=[1,2,3];}`,
+          },
         ],
         RestElement: [
           {
@@ -890,6 +922,10 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             code: `{ (([...a]) => a)([1,2,3]); }`,
             hooked: `{__hook__((...args)=>__hook__(([...a])=>a,null,args,'HookApiTest'),null,[[1,2,3]],'HookApiTest',0);}`,
           },
+          {
+            code: `{ let [...undefined] = [], [...NaN] = [], [...Infinity] = []; true; }`,
+            hooked: `{let [...__unexpected_overridden_declaration_of_undefined__]=[],[...__unexpected_overridden_declaration_of_NaN__]=[],[...__unexpected_overridden_declaration_of_Infinity__]=[];true;}`,
+          },
         ],
         ExperimentalRestProperty: [
           {
@@ -950,6 +986,14 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           {
             code: `{ function f({...p}) { return p; } f({a:1}); }`,
             hooked: `{function f({...p}){return __hook__(({...p})=>{return p;},null,arguments,'HookApiTest,f');}__hook__(f,null,[{a:1}],'HookApiTest',0);}`,
+          },
+          {
+            code: `var {...undefined} = {}, {...NaN} = {}, {...Infinity} = {}; true;`,
+            hooked: `({...($hook$.global(__hook__,'HookApiTest','__unexpected_overridden_declaration_of_undefined__','var'))._pp___unexpected_overridden_declaration_of_undefined__}={},{...($hook$.global(__hook__,'HookApiTest','__unexpected_overridden_declaration_of_NaN__','var'))._pp___unexpected_overridden_declaration_of_NaN__}={},{...($hook$.global(__hook__,'HookApiTest','__unexpected_overridden_declaration_of_Infinity__','var'))._pp___unexpected_overridden_declaration_of_Infinity__}={});true;`,
+          },
+          {
+            code: `{ let {...undefined} = {}, {...NaN} = {}, {...Infinity} = {}; true; }`,
+            hooked: `{let {...__unexpected_overridden_declaration_of_undefined__}={},{...__unexpected_overridden_declaration_of_NaN__}={},{...__unexpected_overridden_declaration_of_Infinity__}={};true;}`,
           },
         ],
         SpreadElement: [
@@ -1865,6 +1909,10 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
               `$hook$.global(__hook__,'HookApiTest,b','b','#class').S_pp_b=class b extends $hook$.global(__hook__,'HookApiTest,b','a','#get').S_pp_a{};`,
             eval: () => true,
           },
+          {
+            code: `{ class undefined {} class NaN {} class Infinity {} true; }`,
+            hooked: `{class __unexpected_overridden_declaration_of_undefined__{}class __unexpected_overridden_declaration_of_NaN__{}class __unexpected_overridden_declaration_of_Infinity__{}true;}`,
+          },
         ],
         ClassExpression: [
           {
@@ -1887,6 +1935,10 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
               `$hook$.global(__hook__,'HookApiTest','a','#var').S_pp_a=class a{};` +
               `$hook$.global(__hook__,'HookApiTest','b','#var').S_pp_b=class b extends $hook$.global(__hook__,'HookApiTest,b','a','#get').S_pp_a{};`,
             eval: () => true,
+          },
+          {
+            code: `{ (class undefined {}); (class NaN {}); (class Infinity {}); true; }`,
+            hooked: `{(class __unexpected_overridden_declaration_of_undefined__{});(class __unexpected_overridden_declaration_of_NaN__{});(class __unexpected_overridden_declaration_of_Infinity__{});true;}`,
           },
         ],
         MethodDefinition: [
@@ -2096,6 +2148,22 @@ import defaultExport2, {
 } from '!!! invalid script url !!!';
 import defaultExport3, * as name2 from '!!! invalid script url !!!';
 import '!!! invalid script url !!!';`,
+            options: 'compact=false',
+            eval: () => true,
+          },
+          {
+            code: `import * as undefined from 'module.js';`,
+            hooked: `import * as __unexpected_overridden_declaration_of_undefined__ from 'module.js';`,
+            options: 'compact=false',
+            eval: () => true,
+          },
+          {
+            code: `import { A as undefined, B as NaN, C as Infinity } from 'module.js';`,
+            hooked: `import {
+  A as __unexpected_overridden_declaration_of_undefined__,
+  B as __unexpected_overridden_declaration_of_NaN__,
+  C as __unexpected_overridden_declaration_of_Infinity__
+} from 'module.js';`,
             options: 'compact=false',
             eval: () => true,
           },

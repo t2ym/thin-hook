@@ -13,6 +13,7 @@ Thin Hook Preprocessor (experimental)
 | `method` | `oldMethod` | `script.js,Class,method` |
 | `cachedMethod` | `method` | `script.js,Class,method` including computed property names |
 - **[Hook Callback Compatibility]** Since [0.0.149](https://github.com/t2ym/thin-hook/releases/tag/0.0.149) with [#123](https://github.com/t2ym/thin-hook/issues/123), the hook callback function has to support new operators for hooking in strict mode. See below for the updated hook callback function `hook.__hook__`. `hook.hookCallbackCompatibilityTest()` can detect if the target hook callback function is compatible or not. 
+- **[Opaque URL Authorization]** Since [0.0.178](https://github.com/t2ym/thin-hook/releases/tag/0.0.178) with [#178](https://github.com/t2ym/thin-hook/issues/178), all opaque content URLs must be authorized via `hook.parameters.opaque = [ 'opaque_url', ..., (url) => url.match(/opaque_url_pattern/), ... ]` configuration.
 
 ### Native API Access Graph generated via hook callback function (view2 of thin-hook/demo/)
 
@@ -187,6 +188,15 @@ onmessage = hook.hookWorkerHandler;
     hook.parameters.cors = [
       'https://raw.githubusercontent.com/t2ym/thin-hook/master/examples/example1.js',
       (url) => { let _url = new URL(url); return _url.hostname !== location.hostname && ['www.gstatic.com'].indexOf(_url.hostname) < 0; }
+    ];
+    // Authorized opaque URL list
+    hook.parameters.opaque = [
+      'https://www.gstatic.com/charts/loader.js',
+      (url) => {
+        let _url = new URL(url);
+        return _url.hostname !== location.hostname &&
+          _url.href.match(/^(https:\/\/www.gstatic.com|https:\/\/apis.google.com\/js\/api.js|https:\/\/apis.google.com\/_\/)/);
+      }
     ];
   }
   </script>
@@ -894,6 +904,8 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
         - Set Service Worker parameters:
           - `hook.parameters.cors = [ 'cors_url_1', 'cors_url_2', ... ]`: specify CORS script URLs
           - `hook.parameters.cors = [ (url) => url.match(/cors_url_pattern/), ... ]`: specify CORS script URL detector function(s)
+          - `hook.parameters.opaque = [ 'opaque_url_1', 'opaque_url_2', ... ]`: specify authorized opaque URLs
+          - `hook.parameters.opaque = [ (url) => url.match(/opaque_url_pattern/), ... ]`: specify authorized opaque URL detector function(s)
         - Set `no-hook` Authorization Tickets:
           - `hook.parameters.noHookAuthorization = { '{sha-256 hex hash for authorized no-hook script}': true, ... }`: Set keys from `hook.parameters.noHookAuthorizationPassed` in __both Document and Service Worker threads__
           - `hook.parameters.noHookAuthorization = { '*': true }`: learning mode to detect authorization tickets

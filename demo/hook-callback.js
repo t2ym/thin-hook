@@ -597,6 +597,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       [S_OBJECT]: '---',
       [S_DEFAULT]: '---',
       '@Module_importer': '--x',
+      invalidImportUrl: '---',
     },
     navigator: {
       [S_OBJECT]: 'r--',
@@ -2101,7 +2102,12 @@ ${name}: {
         if (name === 'import()') {
           // import('module.js')
           name = 'import'; // Note: virtual object name 'import'
-          if (!applyAcl(name, true, false, S_UNSPECIFIED, 'x', context)) {
+          let property = S_UNSPECIFIED;
+          if (!args[1] || typeof args[1] !== 'string' ||
+            !args[1].match(/^\s*(([^:\/?#]+):)?(\/\/([^\/?#]*))?([^?#]*[.]m?js)(\?([^#]*))?(#(.*))?\s*$/)) {
+            property = 'invalidImportUrl'; // Note: virtual property 'invalidImportUrl'
+          }
+          if (!applyAcl(name, true, false, property, 'x', context)) {
             throw new Error('Permission Denied: Cannot access ' + name);
           }
           let _blacklist = _blacklistObjects[name];
@@ -3154,7 +3160,12 @@ ${name}: {
         if (name === 'import()') {
           // import('module.js')
           name = 'import'; // Note: virtual object name 'import'
-          if (!applyAcl(name, true, false, S_UNSPECIFIED, 'x', context)) {
+          let property = S_UNSPECIFIED;
+          if (!args[1] || typeof args[1] !== 'string' ||
+            !args[1].match(/^\s*(([^:\/?#]+):)?(\/\/([^\/?#]*))?([^?#]*[.]m?js)(\?([^#]*))?(#(.*))?\s*$/)) {
+            property = 'invalidImportUrl'; // Note: virtual property 'invalidImportUrl'
+          }
+          if (!applyAcl(name, true, false, property, 'x', context)) {
             throw new Error('Permission Denied: Cannot access ' + name);
           }
         }
