@@ -64,6 +64,19 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
   <C!-- <script no-hook>(function ff() { alert('invalid no-hook script that should not be executed'); })()</script> --C>
   <script src="../../chai/chai.js"></script>
   <script src="https://www.gstatic.com/charts/loader.js"></script>
+  <C!--
+  <script src="https://sindresorhus.com/devtools-detect/index.js"></script>
+  <script>
+    // Disable page inspection by forced transition to about:blank page
+    window.addEventListener('devtoolschange', function () {
+      // Optional actions before the forced transition
+      //  #1 Clean up all the caches and the storages for the page
+      //  #2 Encrypt the application status and store it in the browser storage and decrypt it when the page is loaded later
+      //  etc.
+      location = 'about:blank'; // Note: Called even when the Developer Tools pane is already opened on load
+    });
+  </script>
+  --C>
   <script src="normalize.js"></script>
   <script src="spread.js"></script>
   <script src="generator.js"></script>
