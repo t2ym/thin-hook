@@ -65,9 +65,14 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
   <script src="../../chai/chai.js"></script>
   <script src="https://www.gstatic.com/charts/loader.js"></script>
   <!--
+  <script src="https://sindresorhus.com/devtools-detect/index.js"></script>
   <script>
     {
       // Disable page inspection by forced transition to about:blank page
+      window.addEventListener('devtoolschange', function () {
+        // optionally clean up all the caches and the storages for the page before the transition
+        location = 'about:blank'; // Note: Called even when the Developer Tools pane is already opened on load
+      });
       let div = document.createElement('div');
       Object.defineProperty(div, 'id', {
         get: function () {
