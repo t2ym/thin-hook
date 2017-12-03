@@ -1275,8 +1275,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       }
     }    
     lastContext = context;
-    // TODO: Temporarily comment out push() to work around Issue #160.
-    // contextStack.push(context);
+    contextStack.push(context);
     contextTransitions[_lastContext] = contextTransitions[_lastContext] || {};
     if (!contextTransitions[_lastContext][context]) {
       if (_lastContext) {
@@ -1312,27 +1311,45 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     }
     */
 
-    _f = f;
-    boundParameters = _boundFunctions.get(f);
-    if (!boundParameters) {
-      switch (f) {
-      case '()':
-      case '#()':
-        switch (typeof thisArg) {
-        case 'function':
-          switch (_args[0]) {
-          case 'apply':
-            boundParameters = _boundFunctions.get(thisArg);
-            if (boundParameters) {
-              _args = _args[1][1];
+    let result;
+    try {
+      _f = f;
+      boundParameters = _boundFunctions.get(f);
+      if (!boundParameters) {
+        switch (f) {
+        case '()':
+        case '#()':
+          switch (typeof thisArg) {
+          case 'function':
+            switch (_args[0]) {
+            case 'apply':
+              boundParameters = _boundFunctions.get(thisArg);
+              if (boundParameters) {
+                _args = _args[1][1];
+              }
+              break;
+            case 'call':
+              boundParameters = _boundFunctions.get(thisArg);
+              if (boundParameters) {
+                _args = _args[1].slice(1);
+              }
+              break;
+            default:
+              boundParameters = _boundFunctions.get(thisArg[_args[0]]);
+              if (boundParameters) {
+                _args = _args[1];
+              }
+              break;
             }
             break;
-          case 'call':
-            boundParameters = _boundFunctions.get(thisArg);
-            if (boundParameters) {
-              _args = _args[1].slice(1);
+          case 'object':
+            if (thisArg === Reflect && _args[0] === 'apply') {
+              boundParameters = _boundFunctions.get(_args[1][0]);
+              if (boundParameters) {
+                _args = _args[1][2];
+              }
+              break;
             }
-            break;
           default:
             boundParameters = _boundFunctions.get(thisArg[_args[0]]);
             if (boundParameters) {
@@ -1341,278 +1358,266 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             break;
           }
           break;
-        case 'object':
-          if (thisArg === Reflect && _args[0] === 'apply') {
-            boundParameters = _boundFunctions.get(_args[1][0]);
-            if (boundParameters) {
-              _args = _args[1][2];
-            }
-            break;
-          }
-        default:
-          boundParameters = _boundFunctions.get(thisArg[_args[0]]);
+        case 's()':
+          boundParameters = _boundFunctions.get(_args[2](_args[0]));
           if (boundParameters) {
             _args = _args[1];
           }
           break;
+        default:
+          break;
         }
-        break;
-      case 's()':
-        boundParameters = _boundFunctions.get(_args[2](_args[0]));
+      }
+      if (boundParameters) {
+        if (!boundParameters._args) {
+          // Merge multiple binding operations
+          let _boundParametersList = [boundParameters];
+          let _normalizedThisArg = boundParameters.normalizedThisArg;
+          let _originalF = boundParameters.f;
+          let _boundParameters = _boundFunctions.get(boundParameters.f);
+          let _args;
+          if (_boundParameters) {
+            while (_boundParameters) {
+              _boundParametersList.push(_boundParameters);
+              _boundParameters = _boundFunctions.get(_boundParameters.f);
+            }
+            // _boundParametersList = [lastBind, ..., firstBind]
+            _args = [];
+            _normalizedThisArg = _boundParametersList[_boundParametersList.length - 1].normalizedThisArg;
+            _originalF = _boundParametersList[_boundParametersList.length - 1].f;
+            while (_boundParameters = _boundParametersList.pop()) {
+              if (!_boundParameters._normalizedThisArg) {
+                _boundParameters._normalizedThisArg = _normalizedThisArg;
+              }
+              if (!_boundParameters._originalF) {
+                _boundParameters._f = _originalF;
+              }
+              if (_boundParameters._args) {
+                _args = _boundParameters._args;
+              }
+              else {
+                _boundParameters._args = _args = _args.concat(_boundParameters.args);
+              }
+            }
+          }
+          else {
+            boundParameters._args = boundParameters.args;
+            boundParameters._normalizedThisArg = _normalizedThisArg;
+            boundParameters._f = _originalF;
+          }
+        }
+        _f = '()';
+      }
+      if (typeof _f === 'string') {
+        /*
+        if (context === '/components/thin-hook/demo/my-view2.html,script@2442,getData' && _f === '()' && args[0] === 'bind') {
+          debugger;
+        }
+        */
+        // property access
+        if (newTarget === false) { // resolve the scope in 'with' statement body
+          let varName = _args[0];
+          let __with__ = thisArg;
+          let scope = _global;
+          let _scope;
+          let i;
+          for (i = 0; i < __with__.length; i++) {
+            _scope = __with__[i];
+            if (Reflect.has(_scope, varName)) {
+              if (_scope[Symbol.unscopables] && _scope[Symbol.unscopables][varName]) {
+                continue;
+              }
+              else {
+                scope = _scope;
+                break;
+              }
+            }
+          }
+          thisArg = normalizedThisArg = scope;
+        }
         if (boundParameters) {
-          _args = _args[1];
+          normalizedThisArg = boundParameters._normalizedThisArg;
+          _args = [ boundParameters._f, boundParameters._args.concat(_args) ];
         }
-        break;
-      default:
-        break;
-      }
-    }
-    if (boundParameters) {
-      if (!boundParameters._args) {
-        // Merge multiple binding operations
-        let _boundParametersList = [boundParameters];
-        let _normalizedThisArg = boundParameters.normalizedThisArg;
-        let _originalF = boundParameters.f;
-        let _boundParameters = _boundFunctions.get(boundParameters.f);
-        let _args;
-        if (_boundParameters) {
-          while (_boundParameters) {
-            _boundParametersList.push(_boundParameters);
-            _boundParameters = _boundFunctions.get(_boundParameters.f);
-          }
-          // _boundParametersList = [lastBind, ..., firstBind]
-          _args = [];
-          _normalizedThisArg = _boundParametersList[_boundParametersList.length - 1].normalizedThisArg;
-          _originalF = _boundParametersList[_boundParametersList.length - 1].f;
-          while (_boundParameters = _boundParametersList.pop()) {
-            if (!_boundParameters._normalizedThisArg) {
-              _boundParameters._normalizedThisArg = _normalizedThisArg;
-            }
-            if (!_boundParameters._originalF) {
-              _boundParameters._f = _originalF;
-            }
-            if (_boundParameters._args) {
-              _args = _boundParameters._args;
-            }
-            else {
-              _boundParameters._args = _args = _args.concat(_boundParameters.args);
-            }
-          }
+        let name = _globalObjects.get(normalizedThisArg);
+        let isStatic = typeof normalizedThisArg === 'function';
+        if (boundParameters) {
+          isStatic = boundParameters.isStatic;
+          name = boundParameters.name;
         }
-        else {
-          boundParameters._args = boundParameters.args;
-          boundParameters._normalizedThisArg = _normalizedThisArg;
-          boundParameters._f = _originalF;
-        }
-      }
-      _f = '()';
-    }
-    if (typeof _f === 'string') {
-      /*
-      if (context === '/components/thin-hook/demo/my-view2.html,script@2442,getData' && _f === '()' && args[0] === 'bind') {
-        debugger;
-      }
-      */
-      // property access
-      if (newTarget === false) { // resolve the scope in 'with' statement body
-        let varName = _args[0];
-        let __with__ = thisArg;
-        let scope = _global;
-        let _scope;
-        let i;
-        for (i = 0; i < __with__.length; i++) {
-          _scope = __with__[i];
-          if (Reflect.has(_scope, varName)) {
-            if (_scope[Symbol.unscopables] && _scope[Symbol.unscopables][varName]) {
-              continue;
-            }
-            else {
-              scope = _scope;
-              break;
-            }
-          }
-        }
-        thisArg = normalizedThisArg = scope;
-      }
-      if (boundParameters) {
-        normalizedThisArg = boundParameters._normalizedThisArg;
-        _args = [ boundParameters._f, boundParameters._args.concat(_args) ];
-      }
-      let name = _globalObjects.get(normalizedThisArg);
-      let isStatic = typeof normalizedThisArg === 'function';
-      if (boundParameters) {
-        isStatic = boundParameters.isStatic;
-        name = boundParameters.name;
-      }
-      let ctor;
-      if (!name && _f.indexOf('s') >= 0) {
-        ctor = isStatic ? normalizedThisArg : normalizedThisArg.constructor;
-        name = _globalObjects.get(ctor);
-        while (!name && typeof ctor === 'function') {
-          ctor = Object.getPrototypeOf(ctor);
+        let ctor;
+        if (!name && _f.indexOf('s') >= 0) {
+          ctor = isStatic ? normalizedThisArg : normalizedThisArg.constructor;
           name = _globalObjects.get(ctor);
-        }
-      }
-      if (!name && normalizedThisArg instanceof Object) {
-        ctor = normalizedThisArg.constructor;
-        name = _globalObjects.get(ctor);
-        if (name) {
-          isStatic = false;
-        }
-      }
-      let rawProperty = _args[0];
-      let property = _escapePlatformProperties.get(rawProperty) || rawProperty;
-      let op = operatorNormalizer[_f];
-      let target = targetNormalizer[op];
-      let opType;
-      let globalAssignments = {};
-      if (typeof target === 'object') {
-        do {
-          if (normalizedThisArg instanceof Object) {
-            switch (typeof rawProperty) {
-            case 'string':
-              if (boundParameters) {
-                target = targetNormalizerMap.get(boundParameters._f);
-              }
-              else {
-                target = targetNormalizerMap.get(normalizedThisArg[rawProperty]);
-              }
-              break;
-            case 'function':
-              target = targetNormalizerMap.get(rawProperty);
-              break;
-            default:
-              target = undefined;
-              break;
-            }
-            if (!target) {
-              target = 'xtp';
-            }
+          while (!name && typeof ctor === 'function') {
+            ctor = Object.getPrototypeOf(ctor);
+            name = _globalObjects.get(ctor);
           }
-          else if (typeof _args[0] === 'function') {
-            target = targetNormalizerMap.get(_args[0]);
+        }
+        if (!name && normalizedThisArg instanceof Object) {
+          ctor = normalizedThisArg.constructor;
+          name = _globalObjects.get(ctor);
+          if (name) {
+            isStatic = false;
           }
-          let _t;
-          let _p;
-          if (typeof target === 'string') {
-            opType = target[0]; // r, w, x
-            switch (target[1]) {
-            case 't': _t = normalizedThisArg; break;
-            case '0': _t = _args[1][0]; break;
-            case '1': _t = _args[1][1]; break;
-            case 'f': _t = _f; break;
-            case 'p': _t = _args[0]; break;
-            case 'c': _t = context; break;
-            case 'n': _t = newTarget; break;
-            case 'P': _t = '__proto__'; break;
-            case 'T': _t = 'prototype'; break;
-            case 'C': _t = 'constructor'; break;
-            case 'N': _t = S_CONSTRUCT; break;
-            case '-': _t = S_UNSPECIFIED; break;
-            case '*': _t = S_ALL; break;
-            case '.': _t = S_TARGETED; break; // { prop1: {}, prop2: {}, ... }
-            default: break;
-            }
-            switch (target[2]) {
-            case 'p': _p = _args[0]; break;
-            case '1': _p = _args[1][1]; break;
-            case '*': _p = S_ALL; break;
-            case '.': _p = S_TARGETED; break; // { prop1: {}, prop2: {}, ... }
-            case '-': _p = S_UNSPECIFIED; break;
-            case 't': _p = normalizedThisArg; break;
-            case '0': _p = _args[1][0]; break;
-            case 'f': _p = _f; break;
-            case 'c': _p = context; break;
-            case 'n': _p = newTarget; break;
-            case 'P': _p = '__proto__'; break;
-            case 'T': _p = 'prototype'; break;
-            case 'C': _p = 'constructor'; break;
-            case 'N': _p = S_CONSTRUCT; break;
-            default: break;
-            }
-            switch (typeof _t) {
-            case 'object':
-            case 'string':
-            case 'function':
-            case 'symbol':
-            case 'boolean':
-              if (_t === null || _t === undefined) {
-                name = _globalObjectsGet(_global); // non-strict mode default this
-                if (!name) {
-                  break;
+        }
+        let rawProperty = _args[0];
+        let property = _escapePlatformProperties.get(rawProperty) || rawProperty;
+        let op = operatorNormalizer[_f];
+        let target = targetNormalizer[op];
+        let opType;
+        let globalAssignments = {};
+        if (typeof target === 'object') {
+          do {
+            if (normalizedThisArg instanceof Object) {
+              switch (typeof rawProperty) {
+              case 'string':
+                if (boundParameters) {
+                  target = targetNormalizerMap.get(boundParameters._f);
                 }
-              }
-              else {
-                name = _globalObjectsGet(_t);
-              }
-              isStatic = typeof _t === 'function';
-              normalizedThisArg = _t;
-              if (!name) {
-                ctor = _t.constructor;
-                name = _globalObjects.get(ctor);
-                if (name) {
-                  isStatic = false;
+                else {
+                  target = targetNormalizerMap.get(normalizedThisArg[rawProperty]);
                 }
+                break;
+              case 'function':
+                target = targetNormalizerMap.get(rawProperty);
+                break;
+              default:
+                target = undefined;
+                break;
               }
-              if (!name && typeof _f === 'string' && _f.indexOf('s') >= 0) {
+              if (!target) {
+                target = 'xtp';
+              }
+            }
+            else if (typeof _args[0] === 'function') {
+              target = targetNormalizerMap.get(_args[0]);
+            }
+            let _t;
+            let _p;
+            if (typeof target === 'string') {
+              opType = target[0]; // r, w, x
+              switch (target[1]) {
+              case 't': _t = normalizedThisArg; break;
+              case '0': _t = _args[1][0]; break;
+              case '1': _t = _args[1][1]; break;
+              case 'f': _t = _f; break;
+              case 'p': _t = _args[0]; break;
+              case 'c': _t = context; break;
+              case 'n': _t = newTarget; break;
+              case 'P': _t = '__proto__'; break;
+              case 'T': _t = 'prototype'; break;
+              case 'C': _t = 'constructor'; break;
+              case 'N': _t = S_CONSTRUCT; break;
+              case '-': _t = S_UNSPECIFIED; break;
+              case '*': _t = S_ALL; break;
+              case '.': _t = S_TARGETED; break; // { prop1: {}, prop2: {}, ... }
+              default: break;
+              }
+              switch (target[2]) {
+              case 'p': _p = _args[0]; break;
+              case '1': _p = _args[1][1]; break;
+              case '*': _p = S_ALL; break;
+              case '.': _p = S_TARGETED; break; // { prop1: {}, prop2: {}, ... }
+              case '-': _p = S_UNSPECIFIED; break;
+              case 't': _p = normalizedThisArg; break;
+              case '0': _p = _args[1][0]; break;
+              case 'f': _p = _f; break;
+              case 'c': _p = context; break;
+              case 'n': _p = newTarget; break;
+              case 'P': _p = '__proto__'; break;
+              case 'T': _p = 'prototype'; break;
+              case 'C': _p = 'constructor'; break;
+              case 'N': _p = S_CONSTRUCT; break;
+              default: break;
+              }
+              switch (typeof _t) {
+              case 'object':
+              case 'string':
+              case 'function':
+              case 'symbol':
+              case 'boolean':
+                if (_t === null || _t === undefined) {
+                  name = _globalObjectsGet(_global); // non-strict mode default this
+                  if (!name) {
+                    break;
+                  }
+                }
+                else {
+                  name = _globalObjectsGet(_t);
+                }
                 isStatic = typeof _t === 'function';
-                ctor = isStatic ? _t : _t.constructor;
-                name = _globalObjects.get(ctor);
-                normalizedThisArg = ctor;
-                while (!name && typeof ctor === 'function') {
-                  ctor = Object.getPrototypeOf(ctor);
+                normalizedThisArg = _t;
+                if (!name) {
+                  ctor = _t.constructor;
+                  name = _globalObjects.get(ctor);
+                  if (name) {
+                    isStatic = false;
+                  }
+                }
+                if (!name && typeof _f === 'string' && _f.indexOf('s') >= 0) {
+                  isStatic = typeof _t === 'function';
+                  ctor = isStatic ? _t : _t.constructor;
                   name = _globalObjects.get(ctor);
                   normalizedThisArg = ctor;
+                  while (!name && typeof ctor === 'function') {
+                    ctor = Object.getPrototypeOf(ctor);
+                    name = _globalObjects.get(ctor);
+                    normalizedThisArg = ctor;
+                  }
                 }
-              }
-              if (name) {
-                property = rawProperty = undefined;
-                switch (typeof _p) {
-                case 'string':
-                  rawProperty = _p;
-                  property = _escapePlatformProperties.get(rawProperty) || rawProperty;
-                  if (target[3] === 'v') {
-                    switch (name) {
-                    case 'window':
-                    case 'self':
-                      switch (target) {
-                      case 'w01v':
-                        switch (_args[0]) {
-                        case 'defineProperty': // Object.defineProperty(window, 'property', { value: v }); Reflect.defineProperty(window, 'property', { value: v })
-                          if (_args[1][2] && _args[1][2].value instanceof Object) {
-                            globalAssignments[rawProperty] = _args[1][2].value;
-                          }
-                          break;
-                        case 'set': // Reflect.set(window, 'property', v)
-                          if (_args[1][2] instanceof Object) {
-                            globalAssignments[rawProperty] = _args[1][2];
-                          }
-                          break;
-                        default:
-                          break;
-                        }
-                        break;
-                      case 'w0.v':
-                        let props;
-                        switch (_args[0]) {
-                        case 'defineProperties': // Object.defineProperties(window, { 'property': { value: v } })
-                          props = _args[1][1];
-                          for (let p in props) {
-                            if (props[p] && props[p].value instanceof Object) {
-                              globalAssignments[p] = props[p].value;
+                if (name) {
+                  property = rawProperty = undefined;
+                  switch (typeof _p) {
+                  case 'string':
+                    rawProperty = _p;
+                    property = _escapePlatformProperties.get(rawProperty) || rawProperty;
+                    if (target[3] === 'v') {
+                      switch (name) {
+                      case 'window':
+                      case 'self':
+                        switch (target) {
+                        case 'w01v':
+                          switch (_args[0]) {
+                          case 'defineProperty': // Object.defineProperty(window, 'property', { value: v }); Reflect.defineProperty(window, 'property', { value: v })
+                            if (_args[1][2] && _args[1][2].value instanceof Object) {
+                              globalAssignments[rawProperty] = _args[1][2].value;
                             }
+                            break;
+                          case 'set': // Reflect.set(window, 'property', v)
+                            if (_args[1][2] instanceof Object) {
+                              globalAssignments[rawProperty] = _args[1][2];
+                            }
+                            break;
+                          default:
+                            break;
                           }
                           break;
-                        case 'assign': // Object.assign(window, { 'property': v })
-                          for (let i = 1; i < _args[1].length; i++) {
-                            props = _args[1][i];
-                            if (props instanceof Object) {
-                              for (let p in props) {
-                                if (props[p] instanceof Object) {
-                                  globalAssignments[p] = props[p];
+                        case 'w0.v':
+                          let props;
+                          switch (_args[0]) {
+                          case 'defineProperties': // Object.defineProperties(window, { 'property': { value: v } })
+                            props = _args[1][1];
+                            for (let p in props) {
+                              if (props[p] && props[p].value instanceof Object) {
+                                globalAssignments[p] = props[p].value;
+                              }
+                            }
+                            break;
+                          case 'assign': // Object.assign(window, { 'property': v })
+                            for (let i = 1; i < _args[1].length; i++) {
+                              props = _args[1][i];
+                              if (props instanceof Object) {
+                                for (let p in props) {
+                                  if (props[p] instanceof Object) {
+                                    globalAssignments[p] = props[p];
+                                  }
                                 }
                               }
                             }
+                            break;
+                          default:
+                            break;
                           }
                           break;
                         default:
@@ -1622,462 +1627,365 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
                       default:
                         break;
                       }
-                      break;
-                    default:
-                      break;
-                    }
-                  }
-                  break;
-                case 'number':
-                case 'boolean':
-                case 'undefined':
-                  property = rawProperty = _p;
-                  break;
-                case 'symbol':
-                  switch (_p) {
-                  case S_UNSPECIFIED:
-                    property = _p;
-                    break;
-                  case S_TARGETED:
-                    if (_args[1][1] instanceof Object) {
-                      rawProperty = [];
-                      for (let i = 1; i < _args[1].length; i++) {
-                        // TODO: Are inherited properties targeted?
-                        rawProperty = rawProperty.concat(Object.keys(_args[1][i]));
-                      }
-                      property = rawProperty.map(p => _escapePlatformProperties.get(p) || p);
                     }
                     break;
-                  case S_ALL:
-                    property = _p;
-                    break;
-                  case S_CONSTRUCT:
-                    rawProperty = 'constructor';
-                    property = S_UNSPECIFIED;
-                    break;
-                  default:
+                  case 'number':
+                  case 'boolean':
+                  case 'undefined':
                     property = rawProperty = _p;
                     break;
-                  }
-                  break;
-                case 'function':
-                  if (normalizedThisArg === _global) {
-                    let _globalObj = _globalObjects.get(_p);
-                    if (_globalObj) {
-                      rawProperty = _globalObj;
-                      property = _escapePlatformProperties.get(rawProperty) || rawProperty;
+                  case 'symbol':
+                    switch (_p) {
+                    case S_UNSPECIFIED:
+                      property = _p;
+                      break;
+                    case S_TARGETED:
+                      if (_args[1][1] instanceof Object) {
+                        rawProperty = [];
+                        for (let i = 1; i < _args[1].length; i++) {
+                          // TODO: Are inherited properties targeted?
+                          rawProperty = rawProperty.concat(Object.keys(_args[1][i]));
+                        }
+                        property = rawProperty.map(p => _escapePlatformProperties.get(p) || p);
+                      }
+                      break;
+                    case S_ALL:
+                      property = _p;
+                      break;
+                    case S_CONSTRUCT:
+                      rawProperty = 'constructor';
+                      property = S_UNSPECIFIED;
+                      break;
+                    default:
+                      property = rawProperty = _p;
+                      break;
                     }
-                    else {
-                      property = rawProperty = S_FUNCTION;
-                    }
-                  }
-                  else {
-                    let _method = _globalMethods.get(_p);
-                    if (_method) {
-                      if (_method[0] === name) {
-                        rawProperty = _method[_method.length - 1];
+                    break;
+                  case 'function':
+                    if (normalizedThisArg === _global) {
+                      let _globalObj = _globalObjects.get(_p);
+                      if (_globalObj) {
+                        rawProperty = _globalObj;
                         property = _escapePlatformProperties.get(rawProperty) || rawProperty;
                       }
                       else {
-                        name = _method[0]; // Overwrite name, e.g., Array.prototype.map.call(document.querySelectorAll('div'), (node) => node.name); 'NodeList' is overwritten by 'Array'
-                        rawProperty = _method[_method.length - 1];
-                        property = _escapePlatformProperties.get(rawProperty) || rawProperty;
+                        property = rawProperty = S_FUNCTION;
                       }
                     }
                     else {
-                      property = rawProperty = S_FUNCTION;
+                      let _method = _globalMethods.get(_p);
+                      if (_method) {
+                        if (_method[0] === name) {
+                          rawProperty = _method[_method.length - 1];
+                          property = _escapePlatformProperties.get(rawProperty) || rawProperty;
+                        }
+                        else {
+                          name = _method[0]; // Overwrite name, e.g., Array.prototype.map.call(document.querySelectorAll('div'), (node) => node.name); 'NodeList' is overwritten by 'Array'
+                          rawProperty = _method[_method.length - 1];
+                          property = _escapePlatformProperties.get(rawProperty) || rawProperty;
+                        }
+                      }
+                      else {
+                        property = rawProperty = S_FUNCTION;
+                      }
+                    }
+                    break;
+                  case 'object':
+                    property = rawProperty = _p; // TODO: proper handling
+                    break;
+                  default:
+                    break;
+                  }
+                }
+                break;
+              case 'undefined':
+              case 'number':
+              default:
+                normalizedThisArg = _t;
+                rawProperty = _p;
+                break;
+              }
+
+            }
+            if (typeof target === 'string' && target[3] === 'R') {
+              boundParameters = null;
+              let _target = target;
+              let _boundArgs;
+              _f = normalizedThisArg ? normalizedThisArg[rawProperty] : undefined;
+              target = _f ? targetNormalizerMap.get(_f) : undefined;
+              if (typeof target !== 'string') {
+                if (typeof _p === 'function') {
+                  let _boundParameters = _boundFunctions.get(_p);
+                  if (_boundParameters) {
+                    target = targetNormalizerMap.get(_boundParameters.f);
+                    if (typeof target === 'string') {
+                      rawProperty = _boundParameters.f.name;
+                      _boundArgs = _boundParameters.args;
                     }
                   }
-                  break;
-                case 'object':
-                  property = rawProperty = _p; // TODO: proper handling
-                  break;
-                default:
-                  break;
                 }
               }
-              break;
-            case 'undefined':
-            case 'number':
-            default:
-              normalizedThisArg = _t;
-              rawProperty = _p;
-              break;
-            }
-
-          }
-          if (typeof target === 'string' && target[3] === 'R') {
-            boundParameters = null;
-            let _target = target;
-            let _boundArgs;
-            _f = normalizedThisArg ? normalizedThisArg[rawProperty] : undefined;
-            target = _f ? targetNormalizerMap.get(_f) : undefined;
-            if (typeof target !== 'string') {
-              if (typeof _p === 'function') {
-                let _boundParameters = _boundFunctions.get(_p);
-                if (_boundParameters) {
-                  target = targetNormalizerMap.get(_boundParameters.f);
-                  if (typeof target === 'string') {
-                    rawProperty = _boundParameters.f.name;
-                    _boundArgs = _boundParameters.args;
+              if (typeof target === 'string') {
+                switch (_args[0]) {
+                case 'apply':
+                  if (_target === 'x10R') {
+                    _args = [ rawProperty, _boundArgs ? _boundArgs.concat(_args[1][2]) : _args[1][2] ];
                   }
+                  else {
+                    _args = [ rawProperty, _boundArgs ? _boundArgs.concat(_args[1][1]) : _args[1][1] ];
+                  }
+                  break;
+                case 'call':
+                  _args = [ rawProperty, _boundArgs ? _boundArgs.concat(Array.prototype.slice.call(_args[1], 1)) : Array.prototype.slice.call(_args[1], 1) ];
+                  break;
                 }
+                continue;
               }
-            }
-            if (typeof target === 'string') {
-              switch (_args[0]) {
-              case 'apply':
-                if (_target === 'x10R') {
-                  _args = [ rawProperty, _boundArgs ? _boundArgs.concat(_args[1][2]) : _args[1][2] ];
-                }
-                else {
-                  _args = [ rawProperty, _boundArgs ? _boundArgs.concat(_args[1][1]) : _args[1][1] ];
-                }
-                break;
-              case 'call':
-                _args = [ rawProperty, _boundArgs ? _boundArgs.concat(Array.prototype.slice.call(_args[1], 1)) : Array.prototype.slice.call(_args[1], 1) ];
+              else {
                 break;
               }
-              continue;
             }
             else {
               break;
             }
           }
-          else {
+          while (true);
+        }
+        else if (typeof target === 'string') {
+          opType = target[0];
+          if (target[2] === '*') {
+            property = rawProperty = S_ALL;
+          }
+          switch (name) {
+          case 'window':
+          case 'self':
+            if (target === 'wtpv') { // window.property = v
+              if (_f === '=' && _args[1] instanceof Object) {
+                globalAssignments[rawProperty] = _args[1];
+              }
+            }
+            break;
+          default:
             break;
           }
         }
-        while (true);
-      }
-      else if (typeof target === 'string') {
-        opType = target[0];
-        if (target[2] === '*') {
-          property = rawProperty = S_ALL;
+        if (!applyAcl(name, isStatic, typeof normalizedThisArg === 'object', property, opType, context)) {
+          // if (name === 'Object' && context.startsWith('/components/dexie/dist/dexie.min.js')) {
+          //   console.error('ACL: denied name =', name, 'isStatic =', isStatic, 'isObject = ', (typeof normalizedThisArg === 'object'), 'property =', property, 'opType =', opType, 'context = ', context);
+          //   debugger;
+          //   applyAcl(name, isStatic, typeof normalizedThisArg === 'object', property, opType, context);
+          // }
+          /*
+          if (typeof property === 'string') {
+            console.warn(isStatic ?
+  `
+    '${context}': '${contextNormalizer[context] || '@' + name + '_' + property + '_' + (opType === 'w' ? 'writer' : 'executor')}',
+
+  ${name}: {
+    ${property}: {
+      [S_DEFAULT]: 'r-x',
+      '${contextNormalizer[context] || '@' + name + '_' + property + '_' + (opType === 'w' ? 'writer' : 'executor')}': 'rwx',
+    },
+  },
+  ` :
+  `
+    '${context}': '${contextNormalizer[context] || '@' + name + '_' + property + '_' + (opType === 'w' ? 'writer' : 'executor')}',
+
+  ${name}: {
+    [S_PROTOTYPE]: {
+      ${property}: {
+        [S_DEFAULT]: 'r-x',
+        '${contextNormalizer[context] || '@' + name + '_' + property + '_' + (opType === 'w' ? 'writer' : 'executor')}': 'rwx',
+      },
+    },
+  },
+  `);
+          }
+          throw new Error('Permission Denied: Cannot access ' + opType + ' ' + name + (isStatic ? '.' : '.prototype.') + (typeof property === 'string' ? property : '') + ' from ' + context);
+          */
+          throw new Error('Permission Denied: Cannot access ' + name);
+        }
+        let _blacklist = _blacklistObjects[name];
+        if (_blacklist) {
+          if (typeof _blacklist === 'object') {
+            if (property) {
+              if (typeof property === 'string') {
+                if (typeof _blacklist[property] === 'boolean') {
+                  //throw new Error('Permission Denied: Cannot access');
+                  throw new Error('Permission Denied: Cannot access ' + name + '.' + rawProperty);
+                }
+              }
+              else if (Array.isArray(property)) {
+                for (let i = 0; i < property.length; i++) {
+                  if (typeof _blacklist[property[i]] === 'boolean') {
+                    //throw new Error('Permission Denied: Cannot access');
+                    throw new Error('Permission Denied: Cannot access ' + name + '.' + (_unescapePlatformProperties.get(property[i]) || property[i]));
+                  }
+                }
+              }
+              else if (property === S_ALL) {
+                //throw new Error('Permission Denied: Cannot access');
+                throw new Error('Permission Denied: Cannot access ' + name + '.*');
+              }
+              else if (property === S_UNSPECIFIED) {
+                // OK
+              }
+            }
+            else {
+              // OK
+            }
+          }
+          else {
+            //throw new Error('Permission Denied: Cannot access');
+            throw new Error('Permission Denied: Cannot access ' + name);
+          }
+        }
+        if (typeof target === 'string' && target[3] === 'b') {
+          let _method = _globalMethods.get(thisArg);
+          boundParameters = {
+            f: thisArg,
+            name: name,
+            thisArg: args[1][0],
+            normalizedThisArg: _method
+              ? _method[1] === 'prototype'
+                ? { constructor: _global[_method[0]] }
+                : _global[_method[0]]
+              : args[1][0],
+            isStatic: _method ? (_method[1] !== 'prototype') : (typeof args[1][0] === 'function'),
+            property: typeof rawProperty === 'string' ? rawProperty : thisArg,
+            args: args[1].slice(1),
+          };
+          f = 'bind';
+        }
+        for (let gprop in globalAssignments) {
+          //console.log('global assignment ', gprop);
+          let gvalue = globalAssignments[gprop];
+          _globalObjects.set(gvalue, gprop);
+          let _properties = Object.getOwnPropertyDescriptors(gvalue);
+          let _prop;
+          for (_prop in _properties) {
+            if (typeof _properties[_prop].value === 'function') {
+              _globalMethods.set(_properties[_prop].value, [gprop, _prop]);
+            }
+          }
+          if (gvalue.prototype) {
+            _properties = Object.getOwnPropertyDescriptors(gvalue.prototype);
+            for (_prop in _properties) {
+              if (typeof _properties[_prop].value === 'function') {
+                _globalMethods.set(_properties[_prop].value, [gprop, 'prototype', _prop]);
+              }
+            }
+          }
         }
         switch (name) {
-        case 'window':
-        case 'self':
-          if (target === 'wtpv') { // window.property = v
-            if (_f === '=' && _args[1] instanceof Object) {
-              globalAssignments[rawProperty] = _args[1];
+        case 'Object':
+          if (!isStatic) {
+            if (!_objectPropertyDescriptors[rawProperty]) {
+              name = null;
+            }
+          }
+          break;
+        case 'Array':
+          if (!isStatic) {
+            if (!_arrayPropertyDescriptors[rawProperty]) {
+              name = null;
+            }
+          }
+          break;
+        case 'String':
+          if (!isStatic) {
+            if (!_stringPropertyDescriptors[rawProperty]) {
+              name = null;
+            }
+          }
+          break;
+        case 'Function':
+          if (!isStatic) {
+            if (!_functionPropertyDescriptors[rawProperty]) {
+              name = null;
             }
           }
           break;
         default:
           break;
         }
-      }
-      if (!applyAcl(name, isStatic, typeof normalizedThisArg === 'object', property, opType, context)) {
-        // if (name === 'Object' && context.startsWith('/components/dexie/dist/dexie.min.js')) {
-        //   console.error('ACL: denied name =', name, 'isStatic =', isStatic, 'isObject = ', (typeof normalizedThisArg === 'object'), 'property =', property, 'opType =', opType, 'context = ', context);
-        //   debugger;
-        //   applyAcl(name, isStatic, typeof normalizedThisArg === 'object', property, opType, context);
-        // }
-        /*
-        if (typeof property === 'string') {
-          console.warn(isStatic ?
-`
-  '${context}': '${contextNormalizer[context] || '@' + name + '_' + property + '_' + (opType === 'w' ? 'writer' : 'executor')}',
-
-${name}: {
-  ${property}: {
-    [S_DEFAULT]: 'r-x',
-    '${contextNormalizer[context] || '@' + name + '_' + property + '_' + (opType === 'w' ? 'writer' : 'executor')}': 'rwx',
-  },
-},
-` :
-`
-  '${context}': '${contextNormalizer[context] || '@' + name + '_' + property + '_' + (opType === 'w' ? 'writer' : 'executor')}',
-
-${name}: {
-  [S_PROTOTYPE]: {
-    ${property}: {
-      [S_DEFAULT]: 'r-x',
-      '${contextNormalizer[context] || '@' + name + '_' + property + '_' + (opType === 'w' ? 'writer' : 'executor')}': 'rwx',
-    },
-  },
-},
-`);
-        }
-        throw new Error('Permission Denied: Cannot access ' + opType + ' ' + name + (isStatic ? '.' : '.prototype.') + (typeof property === 'string' ? property : '') + ' from ' + context);
-        */
-        throw new Error('Permission Denied: Cannot access ' + name);
-      }
-      let _blacklist = _blacklistObjects[name];
-      if (_blacklist) {
-        if (typeof _blacklist === 'object') {
-          if (property) {
-            if (typeof property === 'string') {
-              if (typeof _blacklist[property] === 'boolean') {
-                //throw new Error('Permission Denied: Cannot access');
-                throw new Error('Permission Denied: Cannot access ' + name + '.' + rawProperty);
-              }
-            }
-            else if (Array.isArray(property)) {
-              for (let i = 0; i < property.length; i++) {
-                if (typeof _blacklist[property[i]] === 'boolean') {
-                  //throw new Error('Permission Denied: Cannot access');
-                  throw new Error('Permission Denied: Cannot access ' + name + '.' + (_unescapePlatformProperties.get(property[i]) || property[i]));
-                }
-              }
-            }
-            else if (property === S_ALL) {
-              //throw new Error('Permission Denied: Cannot access');
-              throw new Error('Permission Denied: Cannot access ' + name + '.*');
-            }
-            else if (property === S_UNSPECIFIED) {
-              // OK
-            }
+        if (name) {
+          let forName;
+          let forProp;
+          let id;
+          if (!globalPropertyContexts[context]) {
+            let group = context.split(/[,:]/)[0];
+            data2.nodes.push({ id: context, label: context, group: group });
+            globalPropertyContexts[context] = true;
           }
-          else {
-            // OK
+          if (!globalObjectAccess[name]) {
+            globalObjectAccess[name] = {};
+            data2.nodes.push({ id: name, label: name, group: name });
           }
-        }
-        else {
-          //throw new Error('Permission Denied: Cannot access');
-          throw new Error('Permission Denied: Cannot access ' + name);
-        }
-      }
-      if (typeof target === 'string' && target[3] === 'b') {
-        let _method = _globalMethods.get(thisArg);
-        boundParameters = {
-          f: thisArg,
-          name: name,
-          thisArg: args[1][0],
-          normalizedThisArg: _method
-            ? _method[1] === 'prototype'
-              ? { constructor: _global[_method[0]] }
-              : _global[_method[0]]
-            : args[1][0],
-          isStatic: _method ? (_method[1] !== 'prototype') : (typeof args[1][0] === 'function'),
-          property: typeof rawProperty === 'string' ? rawProperty : thisArg,
-          args: args[1].slice(1),
-        };
-        f = 'bind';
-      }
-      for (let gprop in globalAssignments) {
-        //console.log('global assignment ', gprop);
-        let gvalue = globalAssignments[gprop];
-        _globalObjects.set(gvalue, gprop);
-        let _properties = Object.getOwnPropertyDescriptors(gvalue);
-        let _prop;
-        for (_prop in _properties) {
-          if (typeof _properties[_prop].value === 'function') {
-            _globalMethods.set(_properties[_prop].value, [gprop, _prop]);
-          }
-        }
-        if (gvalue.prototype) {
-          _properties = Object.getOwnPropertyDescriptors(gvalue.prototype);
-          for (_prop in _properties) {
-            if (typeof _properties[_prop].value === 'function') {
-              _globalMethods.set(_properties[_prop].value, [gprop, 'prototype', _prop]);
-            }
-          }
-        }
-      }
-      switch (name) {
-      case 'Object':
-        if (!isStatic) {
-          if (!_objectPropertyDescriptors[rawProperty]) {
-            name = null;
-          }
-        }
-        break;
-      case 'Array':
-        if (!isStatic) {
-          if (!_arrayPropertyDescriptors[rawProperty]) {
-            name = null;
-          }
-        }
-        break;
-      case 'String':
-        if (!isStatic) {
-          if (!_stringPropertyDescriptors[rawProperty]) {
-            name = null;
-          }
-        }
-        break;
-      case 'Function':
-        if (!isStatic) {
-          if (!_functionPropertyDescriptors[rawProperty]) {
-            name = null;
-          }
-        }
-        break;
-      default:
-        break;
-      }
-      if (name) {
-        let forName;
-        let forProp;
-        let id;
-        if (!globalPropertyContexts[context]) {
-          let group = context.split(/[,:]/)[0];
-          data2.nodes.push({ id: context, label: context, group: group });
-          globalPropertyContexts[context] = true;
-        }
-        if (!globalObjectAccess[name]) {
-          globalObjectAccess[name] = {};
-          data2.nodes.push({ id: name, label: name, group: name });
-        }
-        forName = globalObjectAccess[name];
-        if (typeof property === 'string') {
-          id = isStatic || typeof normalizedThisArg === 'object'
-            ? name + '.' + rawProperty
-            : name + '.prototype.' + rawProperty
-          if (!forName[property]) {
-            forName[property] = {};
-            data2.nodes.push({ id: id, label: (_unescapePlatformProperties.get(property) || property), group: name });
-            data2.edges.push({ from: name, to: id, dashes: true, arrows: 'to' });
-          }
-          forProp = forName[property];
-          if (!forProp[context]) {
-            forProp[context] = { from: context, to: id, label: 0, arrows: 'to' };
-            data2.edges.push(forProp[context]);
-          }
-          forProp[context].label++;
-        }
-        else if (Array.isArray(property)) {
-          for (let i = 0; i < property.length; i++) {
-            rawProperty = _unescapePlatformProperties.get(property[i]) || property[i];
-            id = isStatic || typeof normalizedThisArg === 'object' ? name + '.' + rawProperty : name + '.prototype.' + rawProperty;
-            if (!forName[property[i]]) {
-              forName[property[i]] = {};
-              data2.nodes.push({ id: id, label: rawProperty, group: name });
+          forName = globalObjectAccess[name];
+          if (typeof property === 'string') {
+            id = isStatic || typeof normalizedThisArg === 'object'
+              ? name + '.' + rawProperty
+              : name + '.prototype.' + rawProperty
+            if (!forName[property]) {
+              forName[property] = {};
+              data2.nodes.push({ id: id, label: (_unescapePlatformProperties.get(property) || property), group: name });
               data2.edges.push({ from: name, to: id, dashes: true, arrows: 'to' });
             }
-            forProp = forName[property[i]];
+            forProp = forName[property];
             if (!forProp[context]) {
               forProp[context] = { from: context, to: id, label: 0, arrows: 'to' };
               data2.edges.push(forProp[context]);
             }
             forProp[context].label++;
           }
-        }
-        else {
-          forName = globalObjectAccess[name];
-          if (!forName[context]) {
-            forName[context] = { from: '/' + context, to: name, label: 0, arrows: 'to' };
-            data2.edges.push(forName[context]);
-          }
-          forName[context].label++;
-        }
-      }
-    }
-    else if (newTarget) {
-      let name = _globalObjects.get(f);
-      let superClass = f;
-      while (!name && typeof superClass === 'function') {
-        superClass = Object.getPrototypeOf(superClass);
-        name = _globalObjects.get(superClass);
-      }
-      if (!applyAcl(name, true, false, S_UNSPECIFIED, 'x', context)) {
-        throw new Error('Permission Denied: Cannot access ' + name);
-        //console.error('ACL: denied name =', name, 'isStatic =', true, 'isObject = ', false, 'property =', S_UNSPECIFIED, 'opType =', 'x', 'context = ', context);
-        //debugger;
-        //applyAcl(name, true, false, S_UNSPECIFIED, 'x', context);
-      }
-      let _blacklist = _blacklistObjects[name];
-      if (_blacklist) {
-        if (typeof _blacklist === 'boolean') {
-          throw new Error('Permission Denied: Cannot access ' + name);
-        }
-      }
-      if (name) {
-        // new operator for a global class
-        let forName;
-        if (!globalPropertyContexts[context]) {
-          let group = context.split(/[,:]/)[0];
-          data2.nodes.push({ id: '/' + context, label: context, group: group });
-          globalPropertyContexts[context] = true;
-        }
-        if (!globalObjectAccess[name]) {
-          globalObjectAccess[name] = {};
-          data2.nodes.push({ id: name, label: name, group: name });
-        }
-        forName = globalObjectAccess[name];
-        if (!forName[context]) {
-          forName[context] = { from: '/' + context, to: name, label: 0, arrows: 'to' };
-          data2.edges.push(forName[context]);
-        }
-        forName[context].label++;
-      }
-    }
-    else {
-      let name = _globalMethods.get(f);
-      if (name) {
-        // call of a native method
-        let forName;
-        let forProp;
-        let id = name.join('.');
-        let rawProp = name[name.length - 1];
-        let prop = _escapePlatformProperties.get(rawProp) || rawProp;
-        let obj = name[0];
-        if (!applyAcl(obj, name[1] !== 'prototype', false, prop, 'x', context)) {
-          throw new Error('Permission Denied: Cannot access ' + obj);
-          //console.error('ACL: denied name =', name, 'isStatic =', name[1] !== 'prototype', 'isObject = ', false, 'property =', prop, 'opType =', 'x', 'context = ', context);
-          //debugger;
-          //applyAcl(obj, name[1] !== 'prototype', false, prop, 'x', context);
-        }
-        let _blacklist = _blacklistObjects[obj];
-        if (_blacklist) {
-          if (typeof _blacklist === 'object') {
-            if (typeof _blacklist[prop] === 'boolean') {
-              throw new Error('Permission Denied: Cannot access ' + obj + '.' + prop);
+          else if (Array.isArray(property)) {
+            for (let i = 0; i < property.length; i++) {
+              rawProperty = _unescapePlatformProperties.get(property[i]) || property[i];
+              id = isStatic || typeof normalizedThisArg === 'object' ? name + '.' + rawProperty : name + '.prototype.' + rawProperty;
+              if (!forName[property[i]]) {
+                forName[property[i]] = {};
+                data2.nodes.push({ id: id, label: rawProperty, group: name });
+                data2.edges.push({ from: name, to: id, dashes: true, arrows: 'to' });
+              }
+              forProp = forName[property[i]];
+              if (!forProp[context]) {
+                forProp[context] = { from: context, to: id, label: 0, arrows: 'to' };
+                data2.edges.push(forProp[context]);
+              }
+              forProp[context].label++;
             }
           }
           else {
-            throw new Error('Permission Denied: Cannot access ' + obj);
+            forName = globalObjectAccess[name];
+            if (!forName[context]) {
+              forName[context] = { from: '/' + context, to: name, label: 0, arrows: 'to' };
+              data2.edges.push(forName[context]);
+            }
+            forName[context].label++;
           }
         }
-        if (!globalPropertyContexts[context]) {
-          let group = context.split(/[,:]/)[0];
-          data2.nodes.push({ id: '/' + context, label: context, group: group });
-          globalPropertyContexts[context] = true;
-        }
-        if (!globalObjectAccess[obj]) {
-          globalObjectAccess[obj] = {};
-          data2.nodes.push({ id: obj, label: obj, group: obj });
-        }
-        forName = globalObjectAccess[obj];
-        if (!forName[prop]) {
-          forName[prop] = {};
-          data2.nodes.push({ id: id, label: rawProp, group: obj });
-          data2.edges.push({ from: obj, to: id, dashes: true, arrows: 'to' });
-        }
-        forProp = forName[prop];
-        if (!forProp[context]) {
-          forProp[context] = { from: context, to: id, label: 0, arrows: 'to' };
-          data2.edges.push(forProp[context]);
-        }
-        forProp[context].label++;
       }
-      else if (newTarget === '') {
-        let obj = Object.getPrototypeOf(args[0]);
-        name = _globalObjectsGet(obj);
-        if (!name) {
-          while (!name) {
-            obj = Object.getPrototypeOf(obj);
-            if (typeof obj === 'function') {
-              name = _globalObjectsGet(obj);
-            }
-            else {
-              break;
-            }
+      else if (newTarget) {
+        let name = _globalObjects.get(f);
+        let superClass = f;
+        while (!name && typeof superClass === 'function') {
+          superClass = Object.getPrototypeOf(superClass);
+          name = _globalObjects.get(superClass);
+        }
+        if (!applyAcl(name, true, false, S_UNSPECIFIED, 'x', context)) {
+          throw new Error('Permission Denied: Cannot access ' + name);
+          //console.error('ACL: denied name =', name, 'isStatic =', true, 'isObject = ', false, 'property =', S_UNSPECIFIED, 'opType =', 'x', 'context = ', context);
+          //debugger;
+          //applyAcl(name, true, false, S_UNSPECIFIED, 'x', context);
+        }
+        let _blacklist = _blacklistObjects[name];
+        if (_blacklist) {
+          if (typeof _blacklist === 'boolean') {
+            throw new Error('Permission Denied: Cannot access ' + name);
           }
         }
         if (name) {
-          // super() call
-          if (!applyAcl(name, true, false, S_UNSPECIFIED, 'x', context)) {
-            throw new Error('Permission Denied: Cannot access ' + name);
-          }
-          let _blacklist = _blacklistObjects[name];
-          if (_blacklist) {
-            if (typeof _blacklist === 'boolean') {
-              throw new Error('Permission Denied: Cannot access ' + name);
-            }
-          }
           // new operator for a global class
           let forName;
           if (!globalPropertyContexts[context]) {
@@ -2097,429 +2005,526 @@ ${name}: {
           forName[context].label++;
         }
       }
-      else if (Number.isNaN(newTarget)) {
-        name = args[0];
-        if (name === 'import()') {
-          // import('module.js')
-          name = 'import'; // Note: virtual object name 'import'
-          let property = S_UNSPECIFIED;
-          if (!args[1] || typeof args[1] !== 'string' ||
-            !args[1].match(/^\s*(([^:\/?#]+):)?(\/\/([^\/?#]*))?([^?#]*[.]m?js)(\?([^#]*))?(#(.*))?\s*$/)) {
-            property = 'invalidImportUrl'; // Note: virtual property 'invalidImportUrl'
+      else {
+        let name = _globalMethods.get(f);
+        if (name) {
+          // call of a native method
+          let forName;
+          let forProp;
+          let id = name.join('.');
+          let rawProp = name[name.length - 1];
+          let prop = _escapePlatformProperties.get(rawProp) || rawProp;
+          let obj = name[0];
+          if (!applyAcl(obj, name[1] !== 'prototype', false, prop, 'x', context)) {
+            throw new Error('Permission Denied: Cannot access ' + obj);
+            //console.error('ACL: denied name =', name, 'isStatic =', name[1] !== 'prototype', 'isObject = ', false, 'property =', prop, 'opType =', 'x', 'context = ', context);
+            //debugger;
+            //applyAcl(obj, name[1] !== 'prototype', false, prop, 'x', context);
           }
-          if (!applyAcl(name, true, false, property, 'x', context)) {
-            throw new Error('Permission Denied: Cannot access ' + name);
-          }
-          let _blacklist = _blacklistObjects[name];
+          let _blacklist = _blacklistObjects[obj];
           if (_blacklist) {
-            if (typeof _blacklist === 'boolean') {
-              throw new Error('Permission Denied: Cannot access ' + name);
+            if (typeof _blacklist === 'object') {
+              if (typeof _blacklist[prop] === 'boolean') {
+                throw new Error('Permission Denied: Cannot access ' + obj + '.' + prop);
+              }
+            }
+            else {
+              throw new Error('Permission Denied: Cannot access ' + obj);
             }
           }
-          let forName;
           if (!globalPropertyContexts[context]) {
             let group = context.split(/[,:]/)[0];
             data2.nodes.push({ id: '/' + context, label: context, group: group });
             globalPropertyContexts[context] = true;
           }
-          if (!globalObjectAccess[name]) {
-            globalObjectAccess[name] = {};
-            data2.nodes.push({ id: name, label: name, group: name });
+          if (!globalObjectAccess[obj]) {
+            globalObjectAccess[obj] = {};
+            data2.nodes.push({ id: obj, label: obj, group: obj });
           }
-          forName = globalObjectAccess[name];
-          if (!forName[context]) {
-            forName[context] = { from: '/' + context, to: name, label: 0, arrows: 'to' };
-            data2.edges.push(forName[context]);
+          forName = globalObjectAccess[obj];
+          if (!forName[prop]) {
+            forName[prop] = {};
+            data2.nodes.push({ id: id, label: rawProp, group: obj });
+            data2.edges.push({ from: obj, to: id, dashes: true, arrows: 'to' });
           }
-          forName[context].label++;
+          forProp = forName[prop];
+          if (!forProp[context]) {
+            forProp[context] = { from: context, to: id, label: 0, arrows: 'to' };
+            data2.edges.push(forProp[context]);
+          }
+          forProp[context].label++;
+        }
+        else if (newTarget === '') {
+          let obj = Object.getPrototypeOf(args[0]);
+          name = _globalObjectsGet(obj);
+          if (!name) {
+            while (!name) {
+              obj = Object.getPrototypeOf(obj);
+              if (typeof obj === 'function') {
+                name = _globalObjectsGet(obj);
+              }
+              else {
+                break;
+              }
+            }
+          }
+          if (name) {
+            // super() call
+            if (!applyAcl(name, true, false, S_UNSPECIFIED, 'x', context)) {
+              throw new Error('Permission Denied: Cannot access ' + name);
+            }
+            let _blacklist = _blacklistObjects[name];
+            if (_blacklist) {
+              if (typeof _blacklist === 'boolean') {
+                throw new Error('Permission Denied: Cannot access ' + name);
+              }
+            }
+            // new operator for a global class
+            let forName;
+            if (!globalPropertyContexts[context]) {
+              let group = context.split(/[,:]/)[0];
+              data2.nodes.push({ id: '/' + context, label: context, group: group });
+              globalPropertyContexts[context] = true;
+            }
+            if (!globalObjectAccess[name]) {
+              globalObjectAccess[name] = {};
+              data2.nodes.push({ id: name, label: name, group: name });
+            }
+            forName = globalObjectAccess[name];
+            if (!forName[context]) {
+              forName[context] = { from: '/' + context, to: name, label: 0, arrows: 'to' };
+              data2.edges.push(forName[context]);
+            }
+            forName[context].label++;
+          }
+        }
+        else if (Number.isNaN(newTarget)) {
+          name = args[0];
+          if (name === 'import()') {
+            // import('module.js')
+            name = 'import'; // Note: virtual object name 'import'
+            let property = S_UNSPECIFIED;
+            if (!args[1] || typeof args[1] !== 'string' ||
+              !args[1].match(/^\s*(([^:\/?#]+):)?(\/\/([^\/?#]*))?([^?#]*[.]m?js)(\?([^#]*))?(#(.*))?\s*$/)) {
+              property = 'invalidImportUrl'; // Note: virtual property 'invalidImportUrl'
+            }
+            if (!applyAcl(name, true, false, property, 'x', context)) {
+              throw new Error('Permission Denied: Cannot access ' + name);
+            }
+            let _blacklist = _blacklistObjects[name];
+            if (_blacklist) {
+              if (typeof _blacklist === 'boolean') {
+                throw new Error('Permission Denied: Cannot access ' + name);
+              }
+            }
+            let forName;
+            if (!globalPropertyContexts[context]) {
+              let group = context.split(/[,:]/)[0];
+              data2.nodes.push({ id: '/' + context, label: context, group: group });
+              globalPropertyContexts[context] = true;
+            }
+            if (!globalObjectAccess[name]) {
+              globalObjectAccess[name] = {};
+              data2.nodes.push({ id: name, label: name, group: name });
+            }
+            forName = globalObjectAccess[name];
+            if (!forName[context]) {
+              forName[context] = { from: '/' + context, to: name, label: 0, arrows: 'to' };
+              data2.edges.push(forName[context]);
+            }
+            forName[context].label++;
+          }
         }
       }
-    }
 
-    let result;
-    let args1 = args[1]; // for '()'
-    switch (f) {
-    case Function:
-      args = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args);
-      break;
-    case GeneratorFunction:
-      args = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args, true);
-      break;
-    case '()':
-    case '#()':
-      switch (thisArg) {
-      case Reflect:
-        switch (args[0]) {
-        case 'construct':
-          if (args[1]) {
-            switch (args[1][0]) {
-            case Function:
-              args1 = [args[1][0], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][1])];
-              if (args[1][2]) {
-                args1.push(args[1][2]);
-              }
-              break;
-            default:
-              if (args[1][0].prototype instanceof Function) {
-                args1 = [args[1][0], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][1], args[1][0].prototype instanceof GeneratorFunction)];
+      let args1 = args[1]; // for '()'
+      switch (f) {
+      case Function:
+        args = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args);
+        break;
+      case GeneratorFunction:
+        args = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args, true);
+        break;
+      case '()':
+      case '#()':
+        switch (thisArg) {
+        case Reflect:
+          switch (args[0]) {
+          case 'construct':
+            if (args[1]) {
+              switch (args[1][0]) {
+              case Function:
+                args1 = [args[1][0], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][1])];
                 if (args[1][2]) {
                   args1.push(args[1][2]);
                 }
+                break;
+              default:
+                if (args[1][0].prototype instanceof Function) {
+                  args1 = [args[1][0], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][1], args[1][0].prototype instanceof GeneratorFunction)];
+                  if (args[1][2]) {
+                    args1.push(args[1][2]);
+                  }
+                }
+                break;
               }
-              break;
             }
+            break;
+          case 'apply':
+            if (args[1]) {
+              switch (args[1][0]) {
+              case Function:
+                args1 = [args[1][0], args[1][1], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][2])];
+                break;
+              case GeneratorFunction:
+                args1 = [args[1][0], args[1][1], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][2], true)];
+                break;
+              default:
+                if (args[1][0].prototype instanceof Function) {
+                  args1 = [args[1][0], args[1][1], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][2], args[1][0].prototype instanceof GeneratorFunction)];
+                }
+                break;
+              }
+            }
+            break;
+          default:
+            break;
           }
           break;
-        case 'apply':
-          if (args[1]) {
-            switch (args[1][0]) {
-            case Function:
-              args1 = [args[1][0], args[1][1], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][2])];
-              break;
-            case GeneratorFunction:
-              args1 = [args[1][0], args[1][1], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][2], true)];
-              break;
-            default:
-              if (args[1][0].prototype instanceof Function) {
-                args1 = [args[1][0], args[1][1], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][2], args[1][0].prototype instanceof GeneratorFunction)];
-              }
-              break;
-            }
+        case Function:
+          switch (args[0]) {
+          case 'apply':
+            args1 = [args[1][0], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][1])];
+            break;
+          case 'call':
+            args1 = [args[1][0], ...hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1].slice(1))];
+            break;
+          default:
+            break;
+          }
+          break;
+        case GeneratorFunction:
+          switch (args[0]) {
+          case 'apply':
+            args1 = [args[1][0], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][1], true)];
+            break;
+          case 'call':
+            args1 = [args[1][0], ...hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1].slice(1), true)];
+            break;
+          default:
+            break;
           }
           break;
         default:
+          if (thisArg instanceof GeneratorFunction && args[0] === 'constructor') {
+            args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1], true);
+          }
+          else if (thisArg instanceof Function && args[0] === 'constructor') {
+            args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1]);
+          }
           break;
         }
         break;
-      case Function:
-        switch (args[0]) {
-        case 'apply':
-          args1 = [args[1][0], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][1])];
-          break;
-        case 'call':
-          args1 = [args[1][0], ...hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1].slice(1))];
-          break;
-        default:
-          break;
-        }
-        break;
-      case GeneratorFunction:
-        switch (args[0]) {
-        case 'apply':
-          args1 = [args[1][0], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][1], true)];
-          break;
-        case 'call':
-          args1 = [args[1][0], ...hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1].slice(1), true)];
-          break;
-        default:
-          break;
-        }
-        break;
-      default:
-        if (thisArg instanceof GeneratorFunction && args[0] === 'constructor') {
-          args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1], true);
-        }
-        else if (thisArg instanceof Function && args[0] === 'constructor') {
+      case 's()':
+        switch (args[2](args[0])) {
+        case Function:
           args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1]);
+          break;
+        case GeneratorFunction:
+          args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1], true);
+          break;
+        default:
+          break;
         }
-        break;
-      }
-      break;
-    case 's()':
-      switch (args[2](args[0])) {
-      case Function:
-        args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1]);
-        break;
-      case GeneratorFunction:
-        args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1], true);
-        break;
-      default:
-        break;
-      }
-      break;
-    case 'bind':
-      switch (thisArg) {
-      case Function:
-        thisArg = hook.Function('__hook__', [[context, {}]], 'method');
-        break;
-      case GeneratorFunction:
-        thisArg = hook.Function('__hook__', [[context, {}]], 'method', true);
-        break;
-      default:
-        break;
-      }
-      break;
-    default:
-      if (typeof f === 'function') {
-        if (f.prototype instanceof Function && newTarget) {
-          args = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args, f.prototype instanceof GeneratorFunction);
-        }
-        else if (newTarget === '') {
-          if (args[0] && Object.getPrototypeOf(args[0]) === Function) {
-            args = [ args[0], ...hook.FunctionArguments('__hook__', [[context, {}]], 'method', args.slice(1)) ];
-          }
-        }
-      }
-      break;
-    }
-    if (typeof f !== 'string') {
-      result = newTarget
-        ? Reflect.construct(f, args)
-        : thisArg
-          ? f.apply(thisArg, args)
-          : f(...args);
-    }
-    else {
-      // property access
-      switch (f) {
-      // getter
-      case '.':
-      case '[]':
-        result = thisArg[args[0]];
-        break;
-      // enumeration
-      case '*':
-        result = thisArg;
-        break;
-      // property existence
-      case 'in':
-        result = args[0] in thisArg;
-        break;
-      // funcation call
-      case '()':
-        result = thisArg[args[0]](...args1);
         break;
       case 'bind':
-        let _boundFunction = thisArg[args[0]](...args[1]);
-        _boundFunctions.set(_boundFunction, boundParameters);
-        result = _boundFunction;
+        switch (thisArg) {
+        case Function:
+          thisArg = hook.Function('__hook__', [[context, {}]], 'method');
+          break;
+        case GeneratorFunction:
+          thisArg = hook.Function('__hook__', [[context, {}]], 'method', true);
+          break;
+        default:
+          break;
+        }
         break;
-      // unary operators
-      case 'p++':
-        result = thisArg[args[0]]++;
-        break;
-      case '++p':
-        result = ++thisArg[args[0]];
-        break;
-      case 'p--':
-        result = thisArg[args[0]]--;
-        break;
-      case '--p':
-        result = --thisArg[args[0]];
-        break;
-      case 'delete':
-        result = delete thisArg[args[0]];
-        break;
-      // assignment operators
-      case '=':
-        result = thisArg[args[0]] = args[1];
-        break;
-      case '+=':
-        result = thisArg[args[0]] += args[1];
-        break;
-      case '-=':
-        result = thisArg[args[0]] -= args[1];
-        break;
-      case '*=':
-        result = thisArg[args[0]] *= args[1];
-        break;
-      case '/=':
-        result = thisArg[args[0]] /= args[1];
-        break;
-      case '%=':
-        result = thisArg[args[0]] %= args[1];
-        break;
-      case '**=':
-        result = thisArg[args[0]] **= args[1];
-        break;
-      case '<<=':
-        result = thisArg[args[0]] <<= args[1];
-        break;
-      case '>>=':
-        result = thisArg[args[0]] >>= args[1];
-        break;
-      case '>>>=':
-        result = thisArg[args[0]] >>>= args[1];
-        break;
-      case '&=':
-        result = thisArg[args[0]] &= args[1];
-        break;
-      case '^=':
-        result = thisArg[args[0]] ^= args[1];
-        break;
-      case '|=':
-        result = thisArg[args[0]] |= args[1];
-        break;
-      // LHS property access
-      case '.=':
-        result = { set ['='](v) { thisArg[args[0]] = v; }, get ['=']() { return thisArg[args[0]]; } };
-        break;
-      // strict mode operators prefixed with '#'
-      // getter
-      case '#.':
-      case '#[]':
-        result = StrictModeWrapper['#.'](thisArg, args[0]);
-        break;
-      // enumeration
-      case '#*':
-        result = StrictModeWrapper['#*'](thisArg);
-        break;
-      // property existence
-      case '#in':
-        result = StrictModeWrapper['#in'](thisArg, args[0]);
-        break;
-      // funcation call
-      case '#()':
-        result = StrictModeWrapper['#()'](thisArg, args[0], args1);
-        break;
-      // unary operators
-      case '#p++':
-        result = StrictModeWrapper['#p++'](thisArg, args[0]);
-        break;
-      case '#++p':
-        result = StrictModeWrapper['#++p'](thisArg, args[0]);
-        break;
-      case '#p--':
-        result = StrictModeWrapper['#p--'](thisArg, args[0]);
-        break;
-      case '#--p':
-        result = StrictModeWrapper['#--p'](thisArg, args[0]);
-        break;
-      case '#delete':
-        result = StrictModeWrapper['#delete'](thisArg, args[0]);
-        break;
-      // assignment operators
-      case '#=':
-        result = StrictModeWrapper['#='](thisArg, args[0], args[1]);
-        break;
-      case '#+=':
-        result = StrictModeWrapper['#+='](thisArg, args[0], args[1]);
-        break;
-      case '#-=':
-        result = StrictModeWrapper['#-='](thisArg, args[0], args[1]);
-        break;
-      case '#*=':
-        result = StrictModeWrapper['#*='](thisArg, args[0], args[1]);
-        break;
-      case '#/=':
-        result = StrictModeWrapper['#/='](thisArg, args[0], args[1]);
-        break;
-      case '#%=':
-        result = StrictModeWrapper['#%='](thisArg, args[0], args[1]);
-        break;
-      case '#**=':
-        result = StrictModeWrapper['#**='](thisArg, args[0], args[1]);
-        break;
-      case '#<<=':
-        result = StrictModeWrapper['#<<='](thisArg, args[0], args[1]);
-        break;
-      case '#>>=':
-        result = StrictModeWrapper['#>>='](thisArg, args[0], args[1]);
-        break;
-      case '#>>>=':
-        result = StrictModeWrapper['#>>>='](thisArg, args[0], args[1]);
-        break;
-      case '#&=':
-        result = StrictModeWrapper['#&='](thisArg, args[0], args[1]);
-        break;
-      case '#^=':
-        result = StrictModeWrapper['#^='](thisArg, args[0], args[1]);
-        break;
-      case '#|=':
-        result = StrictModeWrapper['#|='](thisArg, args[0], args[1]);
-        break;
-      // LHS property access
-      case '#.=':
-        result = StrictModeWrapper['#.='](thisArg, args[0]);
-        break;
-      // getter for super
-      case 's.':
-      case 's[]':
-        result = args[1](args[0]);
-        break;
-      // super method call
-      case 's()':
-        result = args[2](args[0]).apply(thisArg, args1);
-        break;
-      // unary operators for super
-      case 's++':
-      case '++s':
-      case 's--':
-      case '--s':
-        result = args[1].apply(thisArg, args);
-        break;
-      // assignment operators for super
-      case 's=':
-      case 's+=':
-      case 's-=':
-      case 's*=':
-      case 's/=':
-      case 's%=':
-      case 's**=':
-      case 's<<=':
-      case 's>>=':
-      case 's>>>=':
-      case 's&=':
-      case 's^=':
-      case 's|=':
-        result = args[2].apply(thisArg, args);
-        break;
-      // getter in 'with' statement body
-      case 'w.':
-      case 'w[]':
-        result = args[1]();
-        break;
-      // function call in 'with' statement body
-      case 'w()':
-        result = args[2](...args[1]);
-        break;
-      // constructor call in 'with' statement body
-      case 'wnew':
-        result = args[2](...args[1]);
-        break;
-      // unary operators in 'with' statement body
-      case 'w++':
-      case '++w':
-      case 'w--':
-      case '--w':
-        result = args[1]();
-        break;
-      // unary operators in 'with' statement body
-      case 'wtypeof':
-      case 'wdelete':
-        result = args[1]();
-        break;
-      // LHS value in 'with' statement body (__hook__('w.=', __with__, ['p', { set ['='](v) { p = v } } ], 'context', false)['='])
-      case 'w.=':
-        result = args[1];
-        break;
-      // assignment operators in 'with' statement body
-      case 'w=':
-      case 'w+=':
-      case 'w-=':
-      case 'w*=':
-      case 'w/=':
-      case 'w%=':
-      case 'w**=':
-      case 'w<<=':
-      case 'w>>=':
-      case 'w>>>=':
-      case 'w&=':
-      case 'w^=':
-      case 'w|=':
-        result = args[2](args[1]);
-        break;
-      // default (invalid operator)
       default:
-        f(); // throw TypeError: f is not a function
-        result = null;
+        if (typeof f === 'function') {
+          if (f.prototype instanceof Function && newTarget) {
+            args = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args, f.prototype instanceof GeneratorFunction);
+          }
+          else if (newTarget === '') {
+            if (args[0] && Object.getPrototypeOf(args[0]) === Function) {
+              args = [ args[0], ...hook.FunctionArguments('__hook__', [[context, {}]], 'method', args.slice(1)) ];
+            }
+          }
+        }
         break;
       }
+      if (typeof f !== 'string') {
+        result = newTarget
+          ? Reflect.construct(f, args)
+          : thisArg
+            ? f.apply(thisArg, args)
+            : f(...args);
+      }
+      else {
+        // property access
+        switch (f) {
+        // getter
+        case '.':
+        case '[]':
+          result = thisArg[args[0]];
+          break;
+        // enumeration
+        case '*':
+          result = thisArg;
+          break;
+        // property existence
+        case 'in':
+          result = args[0] in thisArg;
+          break;
+        // funcation call
+        case '()':
+          result = thisArg[args[0]](...args1);
+          break;
+        case 'bind':
+          let _boundFunction = thisArg[args[0]](...args[1]);
+          _boundFunctions.set(_boundFunction, boundParameters);
+          result = _boundFunction;
+          break;
+        // unary operators
+        case 'p++':
+          result = thisArg[args[0]]++;
+          break;
+        case '++p':
+          result = ++thisArg[args[0]];
+          break;
+        case 'p--':
+          result = thisArg[args[0]]--;
+          break;
+        case '--p':
+          result = --thisArg[args[0]];
+          break;
+        case 'delete':
+          result = delete thisArg[args[0]];
+          break;
+        // assignment operators
+        case '=':
+          result = thisArg[args[0]] = args[1];
+          break;
+        case '+=':
+          result = thisArg[args[0]] += args[1];
+          break;
+        case '-=':
+          result = thisArg[args[0]] -= args[1];
+          break;
+        case '*=':
+          result = thisArg[args[0]] *= args[1];
+          break;
+        case '/=':
+          result = thisArg[args[0]] /= args[1];
+          break;
+        case '%=':
+          result = thisArg[args[0]] %= args[1];
+          break;
+        case '**=':
+          result = thisArg[args[0]] **= args[1];
+          break;
+        case '<<=':
+          result = thisArg[args[0]] <<= args[1];
+          break;
+        case '>>=':
+          result = thisArg[args[0]] >>= args[1];
+          break;
+        case '>>>=':
+          result = thisArg[args[0]] >>>= args[1];
+          break;
+        case '&=':
+          result = thisArg[args[0]] &= args[1];
+          break;
+        case '^=':
+          result = thisArg[args[0]] ^= args[1];
+          break;
+        case '|=':
+          result = thisArg[args[0]] |= args[1];
+          break;
+        // LHS property access
+        case '.=':
+          result = { set ['='](v) { thisArg[args[0]] = v; }, get ['=']() { return thisArg[args[0]]; } };
+          break;
+        // strict mode operators prefixed with '#'
+        // getter
+        case '#.':
+        case '#[]':
+          result = StrictModeWrapper['#.'](thisArg, args[0]);
+          break;
+        // enumeration
+        case '#*':
+          result = StrictModeWrapper['#*'](thisArg);
+          break;
+        // property existence
+        case '#in':
+          result = StrictModeWrapper['#in'](thisArg, args[0]);
+          break;
+        // funcation call
+        case '#()':
+          result = StrictModeWrapper['#()'](thisArg, args[0], args1);
+          break;
+        // unary operators
+        case '#p++':
+          result = StrictModeWrapper['#p++'](thisArg, args[0]);
+          break;
+        case '#++p':
+          result = StrictModeWrapper['#++p'](thisArg, args[0]);
+          break;
+        case '#p--':
+          result = StrictModeWrapper['#p--'](thisArg, args[0]);
+          break;
+        case '#--p':
+          result = StrictModeWrapper['#--p'](thisArg, args[0]);
+          break;
+        case '#delete':
+          result = StrictModeWrapper['#delete'](thisArg, args[0]);
+          break;
+        // assignment operators
+        case '#=':
+          result = StrictModeWrapper['#='](thisArg, args[0], args[1]);
+          break;
+        case '#+=':
+          result = StrictModeWrapper['#+='](thisArg, args[0], args[1]);
+          break;
+        case '#-=':
+          result = StrictModeWrapper['#-='](thisArg, args[0], args[1]);
+          break;
+        case '#*=':
+          result = StrictModeWrapper['#*='](thisArg, args[0], args[1]);
+          break;
+        case '#/=':
+          result = StrictModeWrapper['#/='](thisArg, args[0], args[1]);
+          break;
+        case '#%=':
+          result = StrictModeWrapper['#%='](thisArg, args[0], args[1]);
+          break;
+        case '#**=':
+          result = StrictModeWrapper['#**='](thisArg, args[0], args[1]);
+          break;
+        case '#<<=':
+          result = StrictModeWrapper['#<<='](thisArg, args[0], args[1]);
+          break;
+        case '#>>=':
+          result = StrictModeWrapper['#>>='](thisArg, args[0], args[1]);
+          break;
+        case '#>>>=':
+          result = StrictModeWrapper['#>>>='](thisArg, args[0], args[1]);
+          break;
+        case '#&=':
+          result = StrictModeWrapper['#&='](thisArg, args[0], args[1]);
+          break;
+        case '#^=':
+          result = StrictModeWrapper['#^='](thisArg, args[0], args[1]);
+          break;
+        case '#|=':
+          result = StrictModeWrapper['#|='](thisArg, args[0], args[1]);
+          break;
+        // LHS property access
+        case '#.=':
+          result = StrictModeWrapper['#.='](thisArg, args[0]);
+          break;
+        // getter for super
+        case 's.':
+        case 's[]':
+          result = args[1](args[0]);
+          break;
+        // super method call
+        case 's()':
+          result = args[2](args[0]).apply(thisArg, args1);
+          break;
+        // unary operators for super
+        case 's++':
+        case '++s':
+        case 's--':
+        case '--s':
+          result = args[1].apply(thisArg, args);
+          break;
+        // assignment operators for super
+        case 's=':
+        case 's+=':
+        case 's-=':
+        case 's*=':
+        case 's/=':
+        case 's%=':
+        case 's**=':
+        case 's<<=':
+        case 's>>=':
+        case 's>>>=':
+        case 's&=':
+        case 's^=':
+        case 's|=':
+          result = args[2].apply(thisArg, args);
+          break;
+        // getter in 'with' statement body
+        case 'w.':
+        case 'w[]':
+          result = args[1]();
+          break;
+        // function call in 'with' statement body
+        case 'w()':
+          result = args[2](...args[1]);
+          break;
+        // constructor call in 'with' statement body
+        case 'wnew':
+          result = args[2](...args[1]);
+          break;
+        // unary operators in 'with' statement body
+        case 'w++':
+        case '++w':
+        case 'w--':
+        case '--w':
+          result = args[1]();
+          break;
+        // unary operators in 'with' statement body
+        case 'wtypeof':
+        case 'wdelete':
+          result = args[1]();
+          break;
+        // LHS value in 'with' statement body (__hook__('w.=', __with__, ['p', { set ['='](v) { p = v } } ], 'context', false)['='])
+        case 'w.=':
+          result = args[1];
+          break;
+        // assignment operators in 'with' statement body
+        case 'w=':
+        case 'w+=':
+        case 'w-=':
+        case 'w*=':
+        case 'w/=':
+        case 'w%=':
+        case 'w**=':
+        case 'w<<=':
+        case 'w>>=':
+        case 'w>>>=':
+        case 'w&=':
+        case 'w^=':
+        case 'w|=':
+          result = args[2](args[1]);
+          break;
+        // default (invalid operator)
+        default:
+          f(); // throw TypeError: f is not a function
+          result = null;
+          break;
+        }
+      }
+      lastContext = _lastContext;
+      // if (contextStack[contextStack.length - 1] !== context) { debugger; }
+      contextStack.pop();
     }
-    lastContext = _lastContext;
-    // if (contextStack[contextStack.length - 1] !== context) { debugger; }
-    // TODO: Temporarily comment out pop() to work around Issue #160.
-    // contextStack.pop();
+    catch (e) {
+      lastContext = _lastContext;
+      contextStack.pop();
+      throw e;
+    }
     return result;
   }
 
@@ -2562,30 +2567,47 @@ ${name}: {
     counter++;
     _lastContext = lastContext;
     lastContext = context;
-    // TODO: Temporarily comment out push() to work around Issue #160.
-    // contextStack.push(context);
+    contextStack.push(context);
 
-    _f = f;
-    boundParameters = _boundFunctions.get(f);
-    if (!boundParameters) {
-      switch (f) {
-      case '()':
-      case '#()':
-        switch (typeof thisArg) {
-        case 'function':
-          switch (_args[0]) {
-          case 'apply':
-            boundParameters = _boundFunctions.get(thisArg);
-            if (boundParameters) {
-              _args = _args[1][1];
+    let result;
+    try {
+      _f = f;
+      boundParameters = _boundFunctions.get(f);
+      if (!boundParameters) {
+        switch (f) {
+        case '()':
+        case '#()':
+          switch (typeof thisArg) {
+          case 'function':
+            switch (_args[0]) {
+            case 'apply':
+              boundParameters = _boundFunctions.get(thisArg);
+              if (boundParameters) {
+                _args = _args[1][1];
+              }
+              break;
+            case 'call':
+              boundParameters = _boundFunctions.get(thisArg);
+              if (boundParameters) {
+                _args = _args[1].slice(1);
+              }
+              break;
+            default:
+              boundParameters = _boundFunctions.get(thisArg[_args[0]]);
+              if (boundParameters) {
+                _args = _args[1];
+              }
+              break;
             }
             break;
-          case 'call':
-            boundParameters = _boundFunctions.get(thisArg);
-            if (boundParameters) {
-              _args = _args[1].slice(1);
+          case 'object':
+            if (thisArg === Reflect && _args[0] === 'apply') {
+              boundParameters = _boundFunctions.get(_args[1][0]);
+              if (boundParameters) {
+                _args = _args[1][2];
+              }
+              break;
             }
-            break;
           default:
             boundParameters = _boundFunctions.get(thisArg[_args[0]]);
             if (boundParameters) {
@@ -2594,972 +2616,960 @@ ${name}: {
             break;
           }
           break;
-        case 'object':
-          if (thisArg === Reflect && _args[0] === 'apply') {
-            boundParameters = _boundFunctions.get(_args[1][0]);
-            if (boundParameters) {
-              _args = _args[1][2];
-            }
-            break;
-          }
-        default:
-          boundParameters = _boundFunctions.get(thisArg[_args[0]]);
+        case 's()':
+          boundParameters = _boundFunctions.get(_args[2](_args[0]));
           if (boundParameters) {
             _args = _args[1];
           }
           break;
-        }
-        break;
-      case 's()':
-        boundParameters = _boundFunctions.get(_args[2](_args[0]));
-        if (boundParameters) {
-          _args = _args[1];
-        }
-        break;
-      default:
-        break;
-      }
-    }
-    if (boundParameters) {
-      if (!boundParameters._args) {
-        // Merge multiple binding operations
-        let _boundParametersList = [boundParameters];
-        let _normalizedThisArg = boundParameters.normalizedThisArg;
-        let _originalF = boundParameters.f;
-        let _boundParameters = _boundFunctions.get(boundParameters.f);
-        let _args;
-        if (_boundParameters) {
-          while (_boundParameters) {
-            _boundParametersList.push(_boundParameters);
-            _boundParameters = _boundFunctions.get(_boundParameters.f);
-          }
-          // _boundParametersList = [lastBind, ..., firstBind]
-          _args = [];
-          _normalizedThisArg = _boundParametersList[_boundParametersList.length - 1].normalizedThisArg;
-          _originalF = _boundParametersList[_boundParametersList.length - 1].f;
-          while (_boundParameters = _boundParametersList.pop()) {
-            if (!_boundParameters._normalizedThisArg) {
-              _boundParameters._normalizedThisArg = _normalizedThisArg;
-            }
-            if (!_boundParameters._originalF) {
-              _boundParameters._f = _originalF;
-            }
-            if (_boundParameters._args) {
-              _args = _boundParameters._args;
-            }
-            else {
-              _boundParameters._args = _args = _args.concat(_boundParameters.args);
-            }
-          }
-        }
-        else {
-          boundParameters._args = boundParameters.args;
-          boundParameters._normalizedThisArg = _normalizedThisArg;
-          boundParameters._f = _originalF;
-        }
-      }
-      _f = '()';
-    }
-    if (typeof _f === 'string') {
-      /*
-      if (context === '/components/thin-hook/demo/my-view2.html,script@2442,getData' && _f === '()' && args[0] === 'bind') {
-        debugger;
-      }
-      */
-      // property access
-      if (newTarget === false) { // resolve the scope in 'with' statement body
-        let varName = _args[0];
-        let __with__ = thisArg;
-        let scope = _global;
-        let _scope;
-        let i;
-        for (i = 0; i < __with__.length; i++) {
-          _scope = __with__[i];
-          if (Reflect.has(_scope, varName)) {
-            if (_scope[Symbol.unscopables] && _scope[Symbol.unscopables][varName]) {
-              continue;
-            }
-            else {
-              scope = _scope;
-              break;
-            }
-          }
-        }
-        thisArg = normalizedThisArg = scope;
-      }
-      if (boundParameters) {
-        normalizedThisArg = boundParameters._normalizedThisArg;
-        _args = [ boundParameters._f, boundParameters._args.concat(_args) ];
-      }
-      let name = _globalObjectsGet(normalizedThisArg);
-      let isStatic = typeof normalizedThisArg === 'function';
-      if (boundParameters) {
-        isStatic = boundParameters.isStatic;
-        name = boundParameters.name;
-      }
-      let ctor;
-      if (!name && isSuperOperator.get(_f)) {
-        ctor = isStatic ? normalizedThisArg : normalizedThisArg.constructor;
-        name = _globalObjectsGet(ctor);
-        while (!name && typeof ctor === 'function') {
-          ctor = Object.getPrototypeOf(ctor);
-          name = _globalObjectsGet(ctor);
-        }
-      }
-      if (!name && normalizedThisArg instanceof Object) {
-        ctor = normalizedThisArg.constructor;
-        name = _globalObjectsGet(ctor);
-        if (name) {
-          isStatic = false;
-        }
-      }
-      let rawProperty = _args[0];
-      let property = _escapePlatformProperties.get(rawProperty) || rawProperty;
-      let target = targetNormalizerMapObject.get(_f);
-      let opType;
-      let hasGlobalAssignments = false;
-      let globalAssignments = {};
-      if (typeof target === 'object') {
-        do {
-          if (normalizedThisArg instanceof Object) {
-            switch (typeof rawProperty) {
-            case 'string':
-              if (boundParameters) {
-                target = targetNormalizerMap.get(boundParameters._f);
-              }
-              else {
-                target = targetNormalizerMap.get(normalizedThisArg[rawProperty]);
-              }
-              break;
-            case 'function':
-              target = targetNormalizerMap.get(rawProperty);
-              break;
-            default:
-              target = undefined;
-              break;
-            }
-            if (!target) {
-              target = 'xtp'; // [S_DEFAULT]
-            }
-          }
-          else if (typeof _args[0] === 'function') {
-            target = targetNormalizerMap.get(_args[0]);
-          }
-          let _t;
-          let _p;
-          if (typeof target === 'string') {
-            opType = target[0]; // r, w, x
-            switch (target[1]) {
-            case 't': _t = normalizedThisArg; break;
-            case '0': _t = _args[1][0]; break;
-            case '1': _t = _args[1][1]; break;
-            case 'f': _t = _f; break;
-            case 'p': _t = _args[0]; break;
-            case 'c': _t = context; break;
-            case 'n': _t = newTarget; break;
-            case 'P': _t = '__proto__'; break;
-            case 'T': _t = 'prototype'; break;
-            case 'C': _t = 'constructor'; break;
-            case 'N': _t = S_CONSTRUCT; break;
-            case '-': _t = S_UNSPECIFIED; break;
-            case '*': _t = S_ALL; break;
-            case '.': _t = S_TARGETED; break; // { prop1: {}, prop2: {}, ... }
-            default: break;
-            }
-            switch (target[2]) {
-            case 'p': _p = _args[0]; break;
-            case '1': _p = _args[1][1]; break;
-            case '*': _p = S_ALL; break;
-            case '.': _p = S_TARGETED; break; // { prop1: {}, prop2: {}, ... }
-            case '-': _p = S_UNSPECIFIED; break;
-            case 't': _p = normalizedThisArg; break;
-            case '0': _p = _args[1][0]; break;
-            case 'f': _p = _f; break;
-            case 'c': _p = context; break;
-            case 'n': _p = newTarget; break;
-            case 'P': _p = '__proto__'; break;
-            case 'T': _p = 'prototype'; break;
-            case 'C': _p = 'constructor'; break;
-            case 'N': _p = S_CONSTRUCT; break;
-            default: break;
-            }
-            switch (typeof _t) {
-            case 'object':
-            case 'string':
-            case 'function':
-            case 'symbol':
-            case 'boolean':
-              if (_t === null || _t === undefined) {
-                name = _globalObjectsGet(_global); // non-strict mode default this
-                if (!name) {
-                  break;
-                }
-              }
-              else {
-                name = _globalObjectsGet(_t);
-              }
-              isStatic = typeof _t === 'function';
-              normalizedThisArg = _t;
-              if (!name) {
-                ctor = _t.constructor;
-                name = _globalObjectsGet(ctor);
-                if (name) {
-                  isStatic = false;
-                }
-              }
-              if (!name && isSuperOperator.get(_f)) {
-                isStatic = typeof _t === 'function';
-                ctor = isStatic ? _t : _t.constructor;
-                name = _globalObjectsGet(ctor);
-                normalizedThisArg = ctor;
-                while (!name && typeof ctor === 'function') {
-                  ctor = Object.getPrototypeOf(ctor);
-                  name = _globalObjectsGet(ctor);
-                  normalizedThisArg = ctor;
-                }
-              }
-              if (name) {
-                property = rawProperty = undefined;
-                switch (typeof _p) {
-                case 'string':
-                  rawProperty = _p;
-                  property = _escapePlatformProperties.get(rawProperty) || rawProperty;
-                  switch (target) {
-                  case 'w01v':
-                    switch (name) {
-                    case 'window':
-                    case 'self':
-                      switch (_args[0]) {
-                      case 'defineProperty': // Object.defineProperty(window, 'property', { value: v }); Reflect.defineProperty(window, 'property', { value: v })
-                        if (_args[1][2] && _args[1][2].value instanceof Object) {
-                          hasGlobalAssignments = true;
-                          globalAssignments[rawProperty] = _args[1][2].value;
-                        }
-                        break;
-                      case 'set': // Reflect.set(window, 'property', v)
-                        if (_args[1][2] instanceof Object) {
-                          hasGlobalAssignments = true;
-                          globalAssignments[rawProperty] = _args[1][2];
-                        }
-                        break;
-                      default:
-                        break;
-                      }
-                      break;
-                    default:
-                      break;
-                    }
-                    break;
-                  case 'w0.v':
-                    switch (name) {
-                    case 'window':
-                    case 'self':
-                      let props;
-                      switch (_args[0]) {
-                      case 'defineProperties': // Object.defineProperties(window, { 'property': { value: v } })
-                        props = _args[1][1];
-                        for (let p in props) {
-                          if (props[p] && props[p].value instanceof Object) {
-                            hasGlobalAssignments = true;
-                            globalAssignments[p] = props[p].value;
-                          }
-                        }
-                        break;
-                      case 'assign': // Object.assign(window, { 'property': v })
-                        for (let i = 1; i < _args[1].length; i++) {
-                          props = _args[1][i];
-                          if (props instanceof Object) {
-                            for (let p in props) {
-                              if (props[p] instanceof Object) {
-                                hasGlobalAssignments = true;
-                                globalAssignments[p] = props[p];
-                              }
-                            }
-                          }
-                        }
-                        break;
-                      default:
-                        break;
-                      }
-                      break;
-                    default:
-                      break;
-                    }
-                    break;
-                  default:
-                    break;
-                  }
-                  break;
-                case 'number':
-                case 'boolean':
-                case 'undefined':
-                  property = rawProperty = _p;
-                  break;
-                case 'symbol':
-                  switch (_p) {
-                  case S_UNSPECIFIED:
-                    property = _p;
-                    break;
-                  case S_TARGETED:
-                    if (_args[1][1] instanceof Object) {
-                      rawProperty = [];
-                      for (let i = 1; i < _args[1].length; i++) {
-                        // TODO: Are inherited properties targeted?
-                        rawProperty = rawProperty.concat(Object.keys(_args[1][i]));
-                      }
-                      property = rawProperty.map(p => _escapePlatformProperties.get(p) || p);
-                    }
-                    break;
-                  case S_ALL:
-                    property = _p;
-                    break;
-                  case S_CONSTRUCT:
-                    rawProperty = 'constructor';
-                    property = S_UNSPECIFIED;
-                    break;
-                  default:
-                    property = rawProperty = _p;
-                    break;
-                  }
-                  break;
-                case 'function':
-                  if (normalizedThisArg === _global) {
-                    let _globalObj = _globalObjectsGet(_p);
-                    if (_globalObj) {
-                      rawProperty = _globalObj;
-                      property = _escapePlatformProperties.get(rawProperty) || rawProperty;
-                    }
-                    else {
-                      property = rawProperty = S_FUNCTION;
-                    }
-                  }
-                  else {
-                    let _method = _globalMethods.get(_p);
-                    if (_method) {
-                      if (_method[0] === name) {
-                        rawProperty = _method[_method.length - 1];
-                        property = _escapePlatformProperties.get(rawProperty) || rawProperty;
-                      }
-                      else {
-                        name = _method[0]; // Overwrite name, e.g., Array.prototype.map.call(document.querySelectorAll('div'), (node) => node.name); 'NodeList' is overwritten by 'Array'
-                        rawProperty = _method[_method.length - 1];
-                        property = _escapePlatformProperties.get(rawProperty) || rawProperty;
-                      }
-                    }
-                    else {
-                      property = rawProperty = S_FUNCTION;
-                    }
-                  }
-                  break;
-                case 'object':
-                  property = rawProperty = _p; // TODO: proper handling
-                  break;
-                default:
-                  break;
-                }
-              }
-              break;
-            case 'undefined':
-            case 'number':
-            default:
-              normalizedThisArg = _t;
-              rawProperty = _p;
-              break;
-            }
-          }
-          if (typeof target === 'string' && target[3] === 'R') {
-            boundParameters = null;
-            let _target = target;
-            let _boundArgs;
-            _f = normalizedThisArg ? normalizedThisArg[rawProperty] : undefined;
-            target = _f ? targetNormalizerMap.get(_f) : undefined;
-            if (typeof target !== 'string') {
-              if (typeof _p === 'function') {
-                let _boundParameters = _boundFunctions.get(_p);
-                if (_boundParameters) {
-                  target = targetNormalizerMap.get(_boundParameters.f);
-                  if (typeof target === 'string') {
-                    rawProperty = _boundParameters.f.name;
-                    _boundArgs = _boundParameters.args;
-                  }
-                }
-              }
-            }
-            if (typeof target === 'string') {
-              switch (_args[0]) {
-              case 'apply':
-                if (_target === 'x10R') {
-                  _args = [ rawProperty, _boundArgs ? _boundArgs.concat(_args[1][2]) : _args[1][2] ];
-                }
-                else {
-                  _args = [ rawProperty, _boundArgs ? _boundArgs.concat(_args[1][1]) : _args[1][1] ];
-                }
-                break;
-              case 'call':
-                _args = [ rawProperty, _boundArgs ? _boundArgs.concat(Array.prototype.slice.call(_args[1], 1)) : Array.prototype.slice.call(_args[1], 1) ];
-                break;
-              }
-              continue;
-            }
-            else {
-              break;
-            }
-          }
-          else {
-            break;
-          }
-        }
-        while (true);
-      }
-      else if (typeof target === 'string') {
-        opType = target[0];
-        if (target[2] === '*') {
-          property = rawProperty = S_ALL;
-        }
-        switch (name) {
-        case 'window':
-        case 'self':
-          if (target === 'wtpv') { // window.property = v
-            if (_f === '=' && _args[1] instanceof Object) {
-              hasGlobalAssignments = true;
-              globalAssignments[rawProperty] = _args[1];
-            }
-          }
-          break;
         default:
           break;
         }
       }
-      if (!applyAcl(name, isStatic, typeof normalizedThisArg === 'object', property, opType, context)) {
-        // if (name === 'Object' && context.startsWith('/components/dexie/dist/dexie.min.js')) {
-        //   console.error('ACL: denied name =', name, 'isStatic =', isStatic, 'isObject = ', (typeof normalizedThisArg === 'object'), 'property =', property, 'opType =', opType, 'context = ', context);
-        //   debugger;
-        //   applyAcl(name, isStatic, typeof normalizedThisArg === 'object', property, opType, context);
-        // }
+      if (boundParameters) {
+        if (!boundParameters._args) {
+          // Merge multiple binding operations
+          let _boundParametersList = [boundParameters];
+          let _normalizedThisArg = boundParameters.normalizedThisArg;
+          let _originalF = boundParameters.f;
+          let _boundParameters = _boundFunctions.get(boundParameters.f);
+          let _args;
+          if (_boundParameters) {
+            while (_boundParameters) {
+              _boundParametersList.push(_boundParameters);
+              _boundParameters = _boundFunctions.get(_boundParameters.f);
+            }
+            // _boundParametersList = [lastBind, ..., firstBind]
+            _args = [];
+            _normalizedThisArg = _boundParametersList[_boundParametersList.length - 1].normalizedThisArg;
+            _originalF = _boundParametersList[_boundParametersList.length - 1].f;
+            while (_boundParameters = _boundParametersList.pop()) {
+              if (!_boundParameters._normalizedThisArg) {
+                _boundParameters._normalizedThisArg = _normalizedThisArg;
+              }
+              if (!_boundParameters._originalF) {
+                _boundParameters._f = _originalF;
+              }
+              if (_boundParameters._args) {
+                _args = _boundParameters._args;
+              }
+              else {
+                _boundParameters._args = _args = _args.concat(_boundParameters.args);
+              }
+            }
+          }
+          else {
+            boundParameters._args = boundParameters.args;
+            boundParameters._normalizedThisArg = _normalizedThisArg;
+            boundParameters._f = _originalF;
+          }
+        }
+        _f = '()';
+      }
+      if (typeof _f === 'string') {
         /*
-        if (typeof property === 'string') {
-          console.warn(isStatic ?
-`
-  '${context}': '${contextNormalizer[context] || '@' + name + '_' + property + '_' + (opType === 'w' ? 'writer' : 'executor')}',
+        if (context === '/components/thin-hook/demo/my-view2.html,script@2442,getData' && _f === '()' && args[0] === 'bind') {
+          debugger;
+        }
+        */
+        // property access
+        if (newTarget === false) { // resolve the scope in 'with' statement body
+          let varName = _args[0];
+          let __with__ = thisArg;
+          let scope = _global;
+          let _scope;
+          let i;
+          for (i = 0; i < __with__.length; i++) {
+            _scope = __with__[i];
+            if (Reflect.has(_scope, varName)) {
+              if (_scope[Symbol.unscopables] && _scope[Symbol.unscopables][varName]) {
+                continue;
+              }
+              else {
+                scope = _scope;
+                break;
+              }
+            }
+          }
+          thisArg = normalizedThisArg = scope;
+        }
+        if (boundParameters) {
+          normalizedThisArg = boundParameters._normalizedThisArg;
+          _args = [ boundParameters._f, boundParameters._args.concat(_args) ];
+        }
+        let name = _globalObjectsGet(normalizedThisArg);
+        let isStatic = typeof normalizedThisArg === 'function';
+        if (boundParameters) {
+          isStatic = boundParameters.isStatic;
+          name = boundParameters.name;
+        }
+        let ctor;
+        if (!name && isSuperOperator.get(_f)) {
+          ctor = isStatic ? normalizedThisArg : normalizedThisArg.constructor;
+          name = _globalObjectsGet(ctor);
+          while (!name && typeof ctor === 'function') {
+            ctor = Object.getPrototypeOf(ctor);
+            name = _globalObjectsGet(ctor);
+          }
+        }
+        if (!name && normalizedThisArg instanceof Object) {
+          ctor = normalizedThisArg.constructor;
+          name = _globalObjectsGet(ctor);
+          if (name) {
+            isStatic = false;
+          }
+        }
+        let rawProperty = _args[0];
+        let property = _escapePlatformProperties.get(rawProperty) || rawProperty;
+        let target = targetNormalizerMapObject.get(_f);
+        let opType;
+        let hasGlobalAssignments = false;
+        let globalAssignments = {};
+        if (typeof target === 'object') {
+          do {
+            if (normalizedThisArg instanceof Object) {
+              switch (typeof rawProperty) {
+              case 'string':
+                if (boundParameters) {
+                  target = targetNormalizerMap.get(boundParameters._f);
+                }
+                else {
+                  target = targetNormalizerMap.get(normalizedThisArg[rawProperty]);
+                }
+                break;
+              case 'function':
+                target = targetNormalizerMap.get(rawProperty);
+                break;
+              default:
+                target = undefined;
+                break;
+              }
+              if (!target) {
+                target = 'xtp'; // [S_DEFAULT]
+              }
+            }
+            else if (typeof _args[0] === 'function') {
+              target = targetNormalizerMap.get(_args[0]);
+            }
+            let _t;
+            let _p;
+            if (typeof target === 'string') {
+              opType = target[0]; // r, w, x
+              switch (target[1]) {
+              case 't': _t = normalizedThisArg; break;
+              case '0': _t = _args[1][0]; break;
+              case '1': _t = _args[1][1]; break;
+              case 'f': _t = _f; break;
+              case 'p': _t = _args[0]; break;
+              case 'c': _t = context; break;
+              case 'n': _t = newTarget; break;
+              case 'P': _t = '__proto__'; break;
+              case 'T': _t = 'prototype'; break;
+              case 'C': _t = 'constructor'; break;
+              case 'N': _t = S_CONSTRUCT; break;
+              case '-': _t = S_UNSPECIFIED; break;
+              case '*': _t = S_ALL; break;
+              case '.': _t = S_TARGETED; break; // { prop1: {}, prop2: {}, ... }
+              default: break;
+              }
+              switch (target[2]) {
+              case 'p': _p = _args[0]; break;
+              case '1': _p = _args[1][1]; break;
+              case '*': _p = S_ALL; break;
+              case '.': _p = S_TARGETED; break; // { prop1: {}, prop2: {}, ... }
+              case '-': _p = S_UNSPECIFIED; break;
+              case 't': _p = normalizedThisArg; break;
+              case '0': _p = _args[1][0]; break;
+              case 'f': _p = _f; break;
+              case 'c': _p = context; break;
+              case 'n': _p = newTarget; break;
+              case 'P': _p = '__proto__'; break;
+              case 'T': _p = 'prototype'; break;
+              case 'C': _p = 'constructor'; break;
+              case 'N': _p = S_CONSTRUCT; break;
+              default: break;
+              }
+              switch (typeof _t) {
+              case 'object':
+              case 'string':
+              case 'function':
+              case 'symbol':
+              case 'boolean':
+                if (_t === null || _t === undefined) {
+                  name = _globalObjectsGet(_global); // non-strict mode default this
+                  if (!name) {
+                    break;
+                  }
+                }
+                else {
+                  name = _globalObjectsGet(_t);
+                }
+                isStatic = typeof _t === 'function';
+                normalizedThisArg = _t;
+                if (!name) {
+                  ctor = _t.constructor;
+                  name = _globalObjectsGet(ctor);
+                  if (name) {
+                    isStatic = false;
+                  }
+                }
+                if (!name && isSuperOperator.get(_f)) {
+                  isStatic = typeof _t === 'function';
+                  ctor = isStatic ? _t : _t.constructor;
+                  name = _globalObjectsGet(ctor);
+                  normalizedThisArg = ctor;
+                  while (!name && typeof ctor === 'function') {
+                    ctor = Object.getPrototypeOf(ctor);
+                    name = _globalObjectsGet(ctor);
+                    normalizedThisArg = ctor;
+                  }
+                }
+                if (name) {
+                  property = rawProperty = undefined;
+                  switch (typeof _p) {
+                  case 'string':
+                    rawProperty = _p;
+                    property = _escapePlatformProperties.get(rawProperty) || rawProperty;
+                    switch (target) {
+                    case 'w01v':
+                      switch (name) {
+                      case 'window':
+                      case 'self':
+                        switch (_args[0]) {
+                        case 'defineProperty': // Object.defineProperty(window, 'property', { value: v }); Reflect.defineProperty(window, 'property', { value: v })
+                          if (_args[1][2] && _args[1][2].value instanceof Object) {
+                            hasGlobalAssignments = true;
+                            globalAssignments[rawProperty] = _args[1][2].value;
+                          }
+                          break;
+                        case 'set': // Reflect.set(window, 'property', v)
+                          if (_args[1][2] instanceof Object) {
+                            hasGlobalAssignments = true;
+                            globalAssignments[rawProperty] = _args[1][2];
+                          }
+                          break;
+                        default:
+                          break;
+                        }
+                        break;
+                      default:
+                        break;
+                      }
+                      break;
+                    case 'w0.v':
+                      switch (name) {
+                      case 'window':
+                      case 'self':
+                        let props;
+                        switch (_args[0]) {
+                        case 'defineProperties': // Object.defineProperties(window, { 'property': { value: v } })
+                          props = _args[1][1];
+                          for (let p in props) {
+                            if (props[p] && props[p].value instanceof Object) {
+                              hasGlobalAssignments = true;
+                              globalAssignments[p] = props[p].value;
+                            }
+                          }
+                          break;
+                        case 'assign': // Object.assign(window, { 'property': v })
+                          for (let i = 1; i < _args[1].length; i++) {
+                            props = _args[1][i];
+                            if (props instanceof Object) {
+                              for (let p in props) {
+                                if (props[p] instanceof Object) {
+                                  hasGlobalAssignments = true;
+                                  globalAssignments[p] = props[p];
+                                }
+                              }
+                            }
+                          }
+                          break;
+                        default:
+                          break;
+                        }
+                        break;
+                      default:
+                        break;
+                      }
+                      break;
+                    default:
+                      break;
+                    }
+                    break;
+                  case 'number':
+                  case 'boolean':
+                  case 'undefined':
+                    property = rawProperty = _p;
+                    break;
+                  case 'symbol':
+                    switch (_p) {
+                    case S_UNSPECIFIED:
+                      property = _p;
+                      break;
+                    case S_TARGETED:
+                      if (_args[1][1] instanceof Object) {
+                        rawProperty = [];
+                        for (let i = 1; i < _args[1].length; i++) {
+                          // TODO: Are inherited properties targeted?
+                          rawProperty = rawProperty.concat(Object.keys(_args[1][i]));
+                        }
+                        property = rawProperty.map(p => _escapePlatformProperties.get(p) || p);
+                      }
+                      break;
+                    case S_ALL:
+                      property = _p;
+                      break;
+                    case S_CONSTRUCT:
+                      rawProperty = 'constructor';
+                      property = S_UNSPECIFIED;
+                      break;
+                    default:
+                      property = rawProperty = _p;
+                      break;
+                    }
+                    break;
+                  case 'function':
+                    if (normalizedThisArg === _global) {
+                      let _globalObj = _globalObjectsGet(_p);
+                      if (_globalObj) {
+                        rawProperty = _globalObj;
+                        property = _escapePlatformProperties.get(rawProperty) || rawProperty;
+                      }
+                      else {
+                        property = rawProperty = S_FUNCTION;
+                      }
+                    }
+                    else {
+                      let _method = _globalMethods.get(_p);
+                      if (_method) {
+                        if (_method[0] === name) {
+                          rawProperty = _method[_method.length - 1];
+                          property = _escapePlatformProperties.get(rawProperty) || rawProperty;
+                        }
+                        else {
+                          name = _method[0]; // Overwrite name, e.g., Array.prototype.map.call(document.querySelectorAll('div'), (node) => node.name); 'NodeList' is overwritten by 'Array'
+                          rawProperty = _method[_method.length - 1];
+                          property = _escapePlatformProperties.get(rawProperty) || rawProperty;
+                        }
+                      }
+                      else {
+                        property = rawProperty = S_FUNCTION;
+                      }
+                    }
+                    break;
+                  case 'object':
+                    property = rawProperty = _p; // TODO: proper handling
+                    break;
+                  default:
+                    break;
+                  }
+                }
+                break;
+              case 'undefined':
+              case 'number':
+              default:
+                normalizedThisArg = _t;
+                rawProperty = _p;
+                break;
+              }
+            }
+            if (typeof target === 'string' && target[3] === 'R') {
+              boundParameters = null;
+              let _target = target;
+              let _boundArgs;
+              _f = normalizedThisArg ? normalizedThisArg[rawProperty] : undefined;
+              target = _f ? targetNormalizerMap.get(_f) : undefined;
+              if (typeof target !== 'string') {
+                if (typeof _p === 'function') {
+                  let _boundParameters = _boundFunctions.get(_p);
+                  if (_boundParameters) {
+                    target = targetNormalizerMap.get(_boundParameters.f);
+                    if (typeof target === 'string') {
+                      rawProperty = _boundParameters.f.name;
+                      _boundArgs = _boundParameters.args;
+                    }
+                  }
+                }
+              }
+              if (typeof target === 'string') {
+                switch (_args[0]) {
+                case 'apply':
+                  if (_target === 'x10R') {
+                    _args = [ rawProperty, _boundArgs ? _boundArgs.concat(_args[1][2]) : _args[1][2] ];
+                  }
+                  else {
+                    _args = [ rawProperty, _boundArgs ? _boundArgs.concat(_args[1][1]) : _args[1][1] ];
+                  }
+                  break;
+                case 'call':
+                  _args = [ rawProperty, _boundArgs ? _boundArgs.concat(Array.prototype.slice.call(_args[1], 1)) : Array.prototype.slice.call(_args[1], 1) ];
+                  break;
+                }
+                continue;
+              }
+              else {
+                break;
+              }
+            }
+            else {
+              break;
+            }
+          }
+          while (true);
+        }
+        else if (typeof target === 'string') {
+          opType = target[0];
+          if (target[2] === '*') {
+            property = rawProperty = S_ALL;
+          }
+          switch (name) {
+          case 'window':
+          case 'self':
+            if (target === 'wtpv') { // window.property = v
+              if (_f === '=' && _args[1] instanceof Object) {
+                hasGlobalAssignments = true;
+                globalAssignments[rawProperty] = _args[1];
+              }
+            }
+            break;
+          default:
+            break;
+          }
+        }
+        if (!applyAcl(name, isStatic, typeof normalizedThisArg === 'object', property, opType, context)) {
+          // if (name === 'Object' && context.startsWith('/components/dexie/dist/dexie.min.js')) {
+          //   console.error('ACL: denied name =', name, 'isStatic =', isStatic, 'isObject = ', (typeof normalizedThisArg === 'object'), 'property =', property, 'opType =', opType, 'context = ', context);
+          //   debugger;
+          //   applyAcl(name, isStatic, typeof normalizedThisArg === 'object', property, opType, context);
+          // }
+          /*
+          if (typeof property === 'string') {
+            console.warn(isStatic ?
+  `
+    '${context}': '${contextNormalizer[context] || '@' + name + '_' + property + '_' + (opType === 'w' ? 'writer' : 'executor')}',
 
-${name}: {
-  ${property}: {
-    [S_DEFAULT]: 'r-x',
-    '${contextNormalizer[context] || '@' + name + '_' + property + '_' + (opType === 'w' ? 'writer' : 'executor')}': 'rwx',
-  },
-},
-` :
-`
-  '${context}': '${contextNormalizer[context] || '@' + name + '_' + property + '_' + (opType === 'w' ? 'writer' : 'executor')}',
-
-${name}: {
-  [S_PROTOTYPE]: {
+  ${name}: {
     ${property}: {
       [S_DEFAULT]: 'r-x',
       '${contextNormalizer[context] || '@' + name + '_' + property + '_' + (opType === 'w' ? 'writer' : 'executor')}': 'rwx',
     },
   },
-},
-`);
-        }
-        throw new Error('Permission Denied: Cannot access ' + opType + ' ' + name + (isStatic ? '.' : '.prototype.') + (typeof property === 'string' ? property : '') + ' from ' + context);
-        */
-        throw new Error('Permission Denied: Cannot access ' + name);
-      }
-      if (typeof target === 'string' && target === 'r0tb') {
-        let _method = _globalMethods.get(thisArg);
-        boundParameters = {
-          f: thisArg,
-          name: name,
-          thisArg: args[1][0],
-          normalizedThisArg: _method
-            ? _method[1] === 'prototype'
-              ? { constructor: _global[_method[0]] }
-              : _global[_method[0]]
-            : args[1][0],
-          isStatic: _method ? (_method[1] !== 'prototype') : (typeof args[1][0] === 'function'),
-          property: typeof rawProperty === 'string' ? rawProperty : thisArg,
-          args: args[1].slice(1),
-        };
-        f = 'bind';
-      }
-      if (hasGlobalAssignments) {
-        for (let gprop in globalAssignments) {
-          //console.log('global assignment ', gprop);
-          let gvalue = globalAssignments[gprop];
-          _globalObjects.set(gvalue, gprop);
-          let _properties = Object.getOwnPropertyDescriptors(gvalue);
-          let _prop;
-          for (_prop in _properties) {
-            if (typeof _properties[_prop].value === 'function') {
-              _globalMethods.set(_properties[_prop].value, [gprop, _prop]);
-            }
+  ` :
+  `
+    '${context}': '${contextNormalizer[context] || '@' + name + '_' + property + '_' + (opType === 'w' ? 'writer' : 'executor')}',
+
+  ${name}: {
+    [S_PROTOTYPE]: {
+      ${property}: {
+        [S_DEFAULT]: 'r-x',
+        '${contextNormalizer[context] || '@' + name + '_' + property + '_' + (opType === 'w' ? 'writer' : 'executor')}': 'rwx',
+      },
+    },
+  },
+  `);
           }
-          if (gvalue.prototype) {
-            _properties = Object.getOwnPropertyDescriptors(gvalue.prototype);
+          throw new Error('Permission Denied: Cannot access ' + opType + ' ' + name + (isStatic ? '.' : '.prototype.') + (typeof property === 'string' ? property : '') + ' from ' + context);
+          */
+          throw new Error('Permission Denied: Cannot access ' + name);
+        }
+        if (typeof target === 'string' && target === 'r0tb') {
+          let _method = _globalMethods.get(thisArg);
+          boundParameters = {
+            f: thisArg,
+            name: name,
+            thisArg: args[1][0],
+            normalizedThisArg: _method
+              ? _method[1] === 'prototype'
+                ? { constructor: _global[_method[0]] }
+                : _global[_method[0]]
+              : args[1][0],
+            isStatic: _method ? (_method[1] !== 'prototype') : (typeof args[1][0] === 'function'),
+            property: typeof rawProperty === 'string' ? rawProperty : thisArg,
+            args: args[1].slice(1),
+          };
+          f = 'bind';
+        }
+        if (hasGlobalAssignments) {
+          for (let gprop in globalAssignments) {
+            //console.log('global assignment ', gprop);
+            let gvalue = globalAssignments[gprop];
+            _globalObjects.set(gvalue, gprop);
+            let _properties = Object.getOwnPropertyDescriptors(gvalue);
+            let _prop;
             for (_prop in _properties) {
               if (typeof _properties[_prop].value === 'function') {
-                _globalMethods.set(_properties[_prop].value, [gprop, 'prototype', _prop]);
+                _globalMethods.set(_properties[_prop].value, [gprop, _prop]);
+              }
+            }
+            if (gvalue.prototype) {
+              _properties = Object.getOwnPropertyDescriptors(gvalue.prototype);
+              for (_prop in _properties) {
+                if (typeof _properties[_prop].value === 'function') {
+                  _globalMethods.set(_properties[_prop].value, [gprop, 'prototype', _prop]);
+                }
               }
             }
           }
         }
       }
-    }
-    else if (newTarget) {
-      let name = _globalObjectsGet(f);
-      let superClass = f;
-      while (!name && typeof superClass === 'function') {
-        superClass = Object.getPrototypeOf(superClass);
-        name = _globalObjects.get(superClass);
-      }
-      if (!applyAcl(name, true, false, S_UNSPECIFIED, 'x', context)) {
-        throw new Error('Permission Denied: Cannot access ' + name);
-        //console.error('ACL: denied name =', name, 'isStatic =', true, 'isObject = ', false, 'property =', S_UNSPECIFIED, 'opType =', 'x', 'context = ', context);
-        //debugger;
-        //applyAcl(name, true, false, S_UNSPECIFIED, 'x', context);
-      }
-    }
-    else {
-      let name = _globalMethods.get(f);
-      if (name) {
-        // call of a native method
-        let rawProp = name[name.length - 1];
-        let prop = _escapePlatformProperties.get(rawProp) || rawProp;
-        let obj = name[0];
-        if (!applyAcl(obj, name[1] !== 'prototype', false, prop, 'x', context)) {
-          throw new Error('Permission Denied: Cannot access ' + obj);
-          //console.error('ACL: denied name =', name, 'isStatic =', name[1] !== 'prototype', 'isObject = ', false, 'property =', prop, 'opType =', 'x', 'context = ', context);
+      else if (newTarget) {
+        let name = _globalObjectsGet(f);
+        let superClass = f;
+        while (!name && typeof superClass === 'function') {
+          superClass = Object.getPrototypeOf(superClass);
+          name = _globalObjects.get(superClass);
+        }
+        if (!applyAcl(name, true, false, S_UNSPECIFIED, 'x', context)) {
+          throw new Error('Permission Denied: Cannot access ' + name);
+          //console.error('ACL: denied name =', name, 'isStatic =', true, 'isObject = ', false, 'property =', S_UNSPECIFIED, 'opType =', 'x', 'context = ', context);
           //debugger;
-          //applyAcl(obj, name[1] !== 'prototype', false, prop, 'x', context);
+          //applyAcl(name, true, false, S_UNSPECIFIED, 'x', context);
         }
       }
-      else if (newTarget === '') {
-        let obj = Object.getPrototypeOf(args[0]);
-        name = _globalObjectsGet(obj);
-        if (!name) {
-          while (!name) {
-            obj = Object.getPrototypeOf(obj);
-            if (typeof obj === 'function') {
-              name = _globalObjectsGet(obj);
-            }
-            else {
-              break;
-            }
-          }
-        }
+      else {
+        let name = _globalMethods.get(f);
         if (name) {
-          // super() call
-          if (!applyAcl(name, true, false, S_UNSPECIFIED, 'x', context)) {
-            throw new Error('Permission Denied: Cannot access ' + name);
+          // call of a native method
+          let rawProp = name[name.length - 1];
+          let prop = _escapePlatformProperties.get(rawProp) || rawProp;
+          let obj = name[0];
+          if (!applyAcl(obj, name[1] !== 'prototype', false, prop, 'x', context)) {
+            throw new Error('Permission Denied: Cannot access ' + obj);
+            //console.error('ACL: denied name =', name, 'isStatic =', name[1] !== 'prototype', 'isObject = ', false, 'property =', prop, 'opType =', 'x', 'context = ', context);
+            //debugger;
+            //applyAcl(obj, name[1] !== 'prototype', false, prop, 'x', context);
           }
         }
-      }
-      else if (Number.isNaN(newTarget)) {
-        name = args[0];
-        if (name === 'import()') {
-          // import('module.js')
-          name = 'import'; // Note: virtual object name 'import'
-          let property = S_UNSPECIFIED;
-          if (!args[1] || typeof args[1] !== 'string' ||
-            !args[1].match(/^\s*(([^:\/?#]+):)?(\/\/([^\/?#]*))?([^?#]*[.]m?js)(\?([^#]*))?(#(.*))?\s*$/)) {
-            property = 'invalidImportUrl'; // Note: virtual property 'invalidImportUrl'
-          }
-          if (!applyAcl(name, true, false, property, 'x', context)) {
-            throw new Error('Permission Denied: Cannot access ' + name);
-          }
-        }
-      }
-    }
-
-    let result;
-    let args1 = args[1]; // for '()'
-    switch (f) {
-    case Function:
-      args = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args);
-      break;
-    case GeneratorFunction:
-      args = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args, true);
-      break;
-    case '()':
-    case '#()':
-      switch (thisArg) {
-      case Reflect:
-        switch (args[0]) {
-        case 'construct':
-          if (args[1]) {
-            switch (args[1][0]) {
-            case Function:
-              args1 = [args[1][0], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][1])];
-              if (args[1][2]) {
-                args1.push(args[1][2]);
+        else if (newTarget === '') {
+          let obj = Object.getPrototypeOf(args[0]);
+          name = _globalObjectsGet(obj);
+          if (!name) {
+            while (!name) {
+              obj = Object.getPrototypeOf(obj);
+              if (typeof obj === 'function') {
+                name = _globalObjectsGet(obj);
               }
-              break;
-            default:
-              if (args[1][0].prototype instanceof Function) {
-                args1 = [args[1][0], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][1], args[1][0].prototype instanceof GeneratorFunction)];
+              else {
+                break;
+              }
+            }
+          }
+          if (name) {
+            // super() call
+            if (!applyAcl(name, true, false, S_UNSPECIFIED, 'x', context)) {
+              throw new Error('Permission Denied: Cannot access ' + name);
+            }
+          }
+        }
+        else if (Number.isNaN(newTarget)) {
+          name = args[0];
+          if (name === 'import()') {
+            // import('module.js')
+            name = 'import'; // Note: virtual object name 'import'
+            let property = S_UNSPECIFIED;
+            if (!args[1] || typeof args[1] !== 'string' ||
+              !args[1].match(/^\s*(([^:\/?#]+):)?(\/\/([^\/?#]*))?([^?#]*[.]m?js)(\?([^#]*))?(#(.*))?\s*$/)) {
+              property = 'invalidImportUrl'; // Note: virtual property 'invalidImportUrl'
+            }
+            if (!applyAcl(name, true, false, property, 'x', context)) {
+              throw new Error('Permission Denied: Cannot access ' + name);
+            }
+          }
+        }
+      }
+
+      let args1 = args[1]; // for '()'
+      switch (f) {
+      case Function:
+        args = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args);
+        break;
+      case GeneratorFunction:
+        args = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args, true);
+        break;
+      case '()':
+      case '#()':
+        switch (thisArg) {
+        case Reflect:
+          switch (args[0]) {
+          case 'construct':
+            if (args[1]) {
+              switch (args[1][0]) {
+              case Function:
+                args1 = [args[1][0], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][1])];
                 if (args[1][2]) {
                   args1.push(args[1][2]);
                 }
+                break;
+              default:
+                if (args[1][0].prototype instanceof Function) {
+                  args1 = [args[1][0], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][1], args[1][0].prototype instanceof GeneratorFunction)];
+                  if (args[1][2]) {
+                    args1.push(args[1][2]);
+                  }
+                }
+                break;
               }
-              break;
             }
+            break;
+          case 'apply':
+            if (args[1]) {
+              switch (args[1][0]) {
+              case Function:
+                args1 = [args[1][0], args[1][1], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][2])];
+                break;
+              case GeneratorFunction:
+                args1 = [args[1][0], args[1][1], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][2], true)];
+                break;
+              default:
+                if (args[1][0].prototype instanceof Function) {
+                  args1 = [args[1][0], args[1][1], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][2], args[1][0].prototype instanceof GeneratorFunction)];
+                }
+                break;
+              }
+            }
+            break;
+          default:
+            break;
           }
           break;
-        case 'apply':
-          if (args[1]) {
-            switch (args[1][0]) {
-            case Function:
-              args1 = [args[1][0], args[1][1], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][2])];
-              break;
-            case GeneratorFunction:
-              args1 = [args[1][0], args[1][1], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][2], true)];
-              break;
-            default:
-              if (args[1][0].prototype instanceof Function) {
-                args1 = [args[1][0], args[1][1], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][2], args[1][0].prototype instanceof GeneratorFunction)];
-              }
-              break;
-            }
+        case Function:
+          switch (args[0]) {
+          case 'apply':
+            args1 = [args[1][0], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][1])];
+            break;
+          case 'call':
+            args1 = [args[1][0], ...hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1].slice(1))];
+            break;
+          default:
+            break;
+          }
+          break;
+        case GeneratorFunction:
+          switch (args[0]) {
+          case 'apply':
+            args1 = [args[1][0], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][1], true)];
+            break;
+          case 'call':
+            args1 = [args[1][0], ...hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1].slice(1), true)];
+            break;
+          default:
+            break;
           }
           break;
         default:
+          if (thisArg instanceof GeneratorFunction && args[0] === 'constructor') {
+            args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1], true);
+          }
+          else if (thisArg instanceof Function && args[0] === 'constructor') {
+            args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1]);
+          }
           break;
         }
         break;
-      case Function:
-        switch (args[0]) {
-        case 'apply':
-          args1 = [args[1][0], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][1])];
-          break;
-        case 'call':
-          args1 = [args[1][0], ...hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1].slice(1))];
-          break;
-        default:
-          break;
-        }
-        break;
-      case GeneratorFunction:
-        switch (args[0]) {
-        case 'apply':
-          args1 = [args[1][0], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][1], true)];
-          break;
-        case 'call':
-          args1 = [args[1][0], ...hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1].slice(1), true)];
-          break;
-        default:
-          break;
-        }
-        break;
-      default:
-        if (thisArg instanceof GeneratorFunction && args[0] === 'constructor') {
-          args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1], true);
-        }
-        else if (thisArg instanceof Function && args[0] === 'constructor') {
+      case 's()':
+        switch (args[2](args[0])) {
+        case Function:
           args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1]);
+          break;
+        case GeneratorFunction:
+          args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1], true);
+          break;
+        default:
+          break;
         }
-        break;
-      }
-      break;
-    case 's()':
-      switch (args[2](args[0])) {
-      case Function:
-        args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1]);
-        break;
-      case GeneratorFunction:
-        args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1], true);
-        break;
-      default:
-        break;
-      }
-      break;
-    case 'bind':
-      switch (thisArg) {
-      case Function:
-        thisArg = hook.Function('__hook__', [[context, {}]], 'method');
-        break;
-      case GeneratorFunction:
-        thisArg = hook.Function('__hook__', [[context, {}]], 'method', true);
-        break;
-      default:
-        break;
-      }
-      break;
-    default:
-      if (typeof f === 'function') {
-        if (f.prototype instanceof Function && newTarget) {
-          args = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args, f.prototype instanceof GeneratorFunction);
-        }
-        else if (newTarget === '') {
-          if (args[0] && Object.getPrototypeOf(args[0]) === Function) {
-            args = [ args[0], ...hook.FunctionArguments('__hook__', [[context, {}]], 'method', args.slice(1)) ];
-          }
-        }
-      }
-      break;
-    }
-    if (typeof f !== 'string') {
-      if (newTarget) {
-        result = Reflect.construct(f, args);
-      }
-      else if (thisArg) {
-        result = f.apply(thisArg, args);
-      }
-      else {
-        result = f(...args);
-      }
-    }
-    else {
-      // property access
-      switch (f) {
-      // getter
-      case '.':
-      case '[]':
-        result = thisArg[args[0]];
-        break;
-      // enumeration
-      case '*':
-        result = thisArg;
-        break;
-      // property existence
-      case 'in':
-        result = args[0] in thisArg;
-        break;
-      // funcation call
-      case '()':
-        result = thisArg[args[0]](...args1);
         break;
       case 'bind':
-        let _boundFunction = thisArg[args[0]](...args[1]);
-        _boundFunctions.set(_boundFunction, boundParameters);
-        result = _boundFunction;
+        switch (thisArg) {
+        case Function:
+          thisArg = hook.Function('__hook__', [[context, {}]], 'method');
+          break;
+        case GeneratorFunction:
+          thisArg = hook.Function('__hook__', [[context, {}]], 'method', true);
+          break;
+        default:
+          break;
+        }
         break;
-      // unary operators
-      case 'p++':
-        result = thisArg[args[0]]++;
-        break;
-      case '++p':
-        result = ++thisArg[args[0]];
-        break;
-      case 'p--':
-        result = thisArg[args[0]]--;
-        break;
-      case '--p':
-        result = --thisArg[args[0]];
-        break;
-      case 'delete':
-        result = delete thisArg[args[0]];
-        break;
-      // assignment operators
-      case '=':
-        result = thisArg[args[0]] = args[1];
-        break;
-      case '+=':
-        result = thisArg[args[0]] += args[1];
-        break;
-      case '-=':
-        result = thisArg[args[0]] -= args[1];
-        break;
-      case '*=':
-        result = thisArg[args[0]] *= args[1];
-        break;
-      case '/=':
-        result = thisArg[args[0]] /= args[1];
-        break;
-      case '%=':
-        result = thisArg[args[0]] %= args[1];
-        break;
-      case '**=':
-        result = thisArg[args[0]] **= args[1];
-        break;
-      case '<<=':
-        result = thisArg[args[0]] <<= args[1];
-        break;
-      case '>>=':
-        result = thisArg[args[0]] >>= args[1];
-        break;
-      case '>>>=':
-        result = thisArg[args[0]] >>>= args[1];
-        break;
-      case '&=':
-        result = thisArg[args[0]] &= args[1];
-        break;
-      case '^=':
-        result = thisArg[args[0]] ^= args[1];
-        break;
-      case '|=':
-        result = thisArg[args[0]] |= args[1];
-        break;
-      // LHS property access
-      case '.=':
-        result = { set ['='](v) { thisArg[args[0]] = v; }, get ['=']() { return thisArg[args[0]]; } };
-        break;
-      // strict mode operators prefixed with '#'
-      // getter
-      case '#.':
-      case '#[]':
-        result = StrictModeWrapper['#.'](thisArg, args[0]);
-        break;
-      // enumeration
-      case '#*':
-        result = StrictModeWrapper['#*'](thisArg);
-        break;
-      // property existence
-      case '#in':
-        result = StrictModeWrapper['#in'](thisArg, args[0]);
-        break;
-      // funcation call
-      case '#()':
-        result = StrictModeWrapper['#()'](thisArg, args[0], args1);
-        break;
-      // unary operators
-      case '#p++':
-        result = StrictModeWrapper['#p++'](thisArg, args[0]);
-        break;
-      case '#++p':
-        result = StrictModeWrapper['#++p'](thisArg, args[0]);
-        break;
-      case '#p--':
-        result = StrictModeWrapper['#p--'](thisArg, args[0]);
-        break;
-      case '#--p':
-        result = StrictModeWrapper['#--p'](thisArg, args[0]);
-        break;
-      case '#delete':
-        result = StrictModeWrapper['#delete'](thisArg, args[0]);
-        break;
-      // assignment operators
-      case '#=':
-        result = StrictModeWrapper['#='](thisArg, args[0], args[1]);
-        break;
-      case '#+=':
-        result = StrictModeWrapper['#+='](thisArg, args[0], args[1]);
-        break;
-      case '#-=':
-        result = StrictModeWrapper['#-='](thisArg, args[0], args[1]);
-        break;
-      case '#*=':
-        result = StrictModeWrapper['#*='](thisArg, args[0], args[1]);
-        break;
-      case '#/=':
-        result = StrictModeWrapper['#/='](thisArg, args[0], args[1]);
-        break;
-      case '#%=':
-        result = StrictModeWrapper['#%='](thisArg, args[0], args[1]);
-        break;
-      case '#**=':
-        result = StrictModeWrapper['#**='](thisArg, args[0], args[1]);
-        break;
-      case '#<<=':
-        result = StrictModeWrapper['#<<='](thisArg, args[0], args[1]);
-        break;
-      case '#>>=':
-        result = StrictModeWrapper['#>>='](thisArg, args[0], args[1]);
-        break;
-      case '#>>>=':
-        result = StrictModeWrapper['#>>>='](thisArg, args[0], args[1]);
-        break;
-      case '#&=':
-        result = StrictModeWrapper['#&='](thisArg, args[0], args[1]);
-        break;
-      case '#^=':
-        result = StrictModeWrapper['#^='](thisArg, args[0], args[1]);
-        break;
-      case '#|=':
-        result = StrictModeWrapper['#|='](thisArg, args[0], args[1]);
-        break;
-      // LHS property access
-      case '#.=':
-        result = StrictModeWrapper['#.='](thisArg, args[0]);
-        break;
-      // getter for super
-      case 's.':
-      case 's[]':
-        result = args[1](args[0]);
-        break;
-      // super method call
-      case 's()':
-        result = args[2](args[0]).apply(thisArg, args1);
-        break;
-      // unary operators for super
-      case 's++':
-      case '++s':
-      case 's--':
-      case '--s':
-        result = args[1].apply(thisArg, args);
-        break;
-      // assignment operators for super
-      case 's=':
-      case 's+=':
-      case 's-=':
-      case 's*=':
-      case 's/=':
-      case 's%=':
-      case 's**=':
-      case 's<<=':
-      case 's>>=':
-      case 's>>>=':
-      case 's&=':
-      case 's^=':
-      case 's|=':
-        result = args[2].apply(thisArg, args);
-        break;
-      // getter in 'with' statement body
-      case 'w.':
-      case 'w[]':
-        result = args[1]();
-        break;
-      // function call in 'with' statement body
-      case 'w()':
-        result = args[2](...args[1]);
-        break;
-      // constructor call in 'with' statement body
-      case 'wnew':
-        result = args[2](...args[1]);
-        break;
-      // unary operators in 'with' statement body
-      case 'w++':
-      case '++w':
-      case 'w--':
-      case '--w':
-        result = args[1]();
-        break;
-      // unary operators in 'with' statement body
-      case 'wtypeof':
-      case 'wdelete':
-        result = args[1]();
-        break;
-      // LHS value in 'with' statement body (__hook__('w.=', __with__, ['p', { set ['='](v) { p = v } } ], 'context', false)['='])
-      case 'w.=':
-        result = args[1];
-        break;
-      // assignment operators in 'with' statement body
-      case 'w=':
-      case 'w+=':
-      case 'w-=':
-      case 'w*=':
-      case 'w/=':
-      case 'w%=':
-      case 'w**=':
-      case 'w<<=':
-      case 'w>>=':
-      case 'w>>>=':
-      case 'w&=':
-      case 'w^=':
-      case 'w|=':
-        result = args[2](args[1]);
-        break;
-      // default (invalid operator)
       default:
-        f(); // throw TypeError: f is not a function
-        result = null;
+        if (typeof f === 'function') {
+          if (f.prototype instanceof Function && newTarget) {
+            args = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args, f.prototype instanceof GeneratorFunction);
+          }
+          else if (newTarget === '') {
+            if (args[0] && Object.getPrototypeOf(args[0]) === Function) {
+              args = [ args[0], ...hook.FunctionArguments('__hook__', [[context, {}]], 'method', args.slice(1)) ];
+            }
+          }
+        }
         break;
       }
+      if (typeof f !== 'string') {
+        if (newTarget) {
+          result = Reflect.construct(f, args);
+        }
+        else if (thisArg) {
+          result = f.apply(thisArg, args);
+        }
+        else {
+          result = f(...args);
+        }
+      }
+      else {
+        // property access
+        switch (f) {
+        // getter
+        case '.':
+        case '[]':
+          result = thisArg[args[0]];
+          break;
+        // enumeration
+        case '*':
+          result = thisArg;
+          break;
+        // property existence
+        case 'in':
+          result = args[0] in thisArg;
+          break;
+        // funcation call
+        case '()':
+          result = thisArg[args[0]](...args1);
+          break;
+        case 'bind':
+          let _boundFunction = thisArg[args[0]](...args[1]);
+          _boundFunctions.set(_boundFunction, boundParameters);
+          result = _boundFunction;
+          break;
+        // unary operators
+        case 'p++':
+          result = thisArg[args[0]]++;
+          break;
+        case '++p':
+          result = ++thisArg[args[0]];
+          break;
+        case 'p--':
+          result = thisArg[args[0]]--;
+          break;
+        case '--p':
+          result = --thisArg[args[0]];
+          break;
+        case 'delete':
+          result = delete thisArg[args[0]];
+          break;
+        // assignment operators
+        case '=':
+          result = thisArg[args[0]] = args[1];
+          break;
+        case '+=':
+          result = thisArg[args[0]] += args[1];
+          break;
+        case '-=':
+          result = thisArg[args[0]] -= args[1];
+          break;
+        case '*=':
+          result = thisArg[args[0]] *= args[1];
+          break;
+        case '/=':
+          result = thisArg[args[0]] /= args[1];
+          break;
+        case '%=':
+          result = thisArg[args[0]] %= args[1];
+          break;
+        case '**=':
+          result = thisArg[args[0]] **= args[1];
+          break;
+        case '<<=':
+          result = thisArg[args[0]] <<= args[1];
+          break;
+        case '>>=':
+          result = thisArg[args[0]] >>= args[1];
+          break;
+        case '>>>=':
+          result = thisArg[args[0]] >>>= args[1];
+          break;
+        case '&=':
+          result = thisArg[args[0]] &= args[1];
+          break;
+        case '^=':
+          result = thisArg[args[0]] ^= args[1];
+          break;
+        case '|=':
+          result = thisArg[args[0]] |= args[1];
+          break;
+        // LHS property access
+        case '.=':
+          result = { set ['='](v) { thisArg[args[0]] = v; }, get ['=']() { return thisArg[args[0]]; } };
+          break;
+        // strict mode operators prefixed with '#'
+        // getter
+        case '#.':
+        case '#[]':
+          result = StrictModeWrapper['#.'](thisArg, args[0]);
+          break;
+        // enumeration
+        case '#*':
+          result = StrictModeWrapper['#*'](thisArg);
+          break;
+        // property existence
+        case '#in':
+          result = StrictModeWrapper['#in'](thisArg, args[0]);
+          break;
+        // funcation call
+        case '#()':
+          result = StrictModeWrapper['#()'](thisArg, args[0], args1);
+          break;
+        // unary operators
+        case '#p++':
+          result = StrictModeWrapper['#p++'](thisArg, args[0]);
+          break;
+        case '#++p':
+          result = StrictModeWrapper['#++p'](thisArg, args[0]);
+          break;
+        case '#p--':
+          result = StrictModeWrapper['#p--'](thisArg, args[0]);
+          break;
+        case '#--p':
+          result = StrictModeWrapper['#--p'](thisArg, args[0]);
+          break;
+        case '#delete':
+          result = StrictModeWrapper['#delete'](thisArg, args[0]);
+          break;
+        // assignment operators
+        case '#=':
+          result = StrictModeWrapper['#='](thisArg, args[0], args[1]);
+          break;
+        case '#+=':
+          result = StrictModeWrapper['#+='](thisArg, args[0], args[1]);
+          break;
+        case '#-=':
+          result = StrictModeWrapper['#-='](thisArg, args[0], args[1]);
+          break;
+        case '#*=':
+          result = StrictModeWrapper['#*='](thisArg, args[0], args[1]);
+          break;
+        case '#/=':
+          result = StrictModeWrapper['#/='](thisArg, args[0], args[1]);
+          break;
+        case '#%=':
+          result = StrictModeWrapper['#%='](thisArg, args[0], args[1]);
+          break;
+        case '#**=':
+          result = StrictModeWrapper['#**='](thisArg, args[0], args[1]);
+          break;
+        case '#<<=':
+          result = StrictModeWrapper['#<<='](thisArg, args[0], args[1]);
+          break;
+        case '#>>=':
+          result = StrictModeWrapper['#>>='](thisArg, args[0], args[1]);
+          break;
+        case '#>>>=':
+          result = StrictModeWrapper['#>>>='](thisArg, args[0], args[1]);
+          break;
+        case '#&=':
+          result = StrictModeWrapper['#&='](thisArg, args[0], args[1]);
+          break;
+        case '#^=':
+          result = StrictModeWrapper['#^='](thisArg, args[0], args[1]);
+          break;
+        case '#|=':
+          result = StrictModeWrapper['#|='](thisArg, args[0], args[1]);
+          break;
+        // LHS property access
+        case '#.=':
+          result = StrictModeWrapper['#.='](thisArg, args[0]);
+          break;
+        // getter for super
+        case 's.':
+        case 's[]':
+          result = args[1](args[0]);
+          break;
+        // super method call
+        case 's()':
+          result = args[2](args[0]).apply(thisArg, args1);
+          break;
+        // unary operators for super
+        case 's++':
+        case '++s':
+        case 's--':
+        case '--s':
+          result = args[1].apply(thisArg, args);
+          break;
+        // assignment operators for super
+        case 's=':
+        case 's+=':
+        case 's-=':
+        case 's*=':
+        case 's/=':
+        case 's%=':
+        case 's**=':
+        case 's<<=':
+        case 's>>=':
+        case 's>>>=':
+        case 's&=':
+        case 's^=':
+        case 's|=':
+          result = args[2].apply(thisArg, args);
+          break;
+        // getter in 'with' statement body
+        case 'w.':
+        case 'w[]':
+          result = args[1]();
+          break;
+        // function call in 'with' statement body
+        case 'w()':
+          result = args[2](...args[1]);
+          break;
+        // constructor call in 'with' statement body
+        case 'wnew':
+          result = args[2](...args[1]);
+          break;
+        // unary operators in 'with' statement body
+        case 'w++':
+        case '++w':
+        case 'w--':
+        case '--w':
+          result = args[1]();
+          break;
+        // unary operators in 'with' statement body
+        case 'wtypeof':
+        case 'wdelete':
+          result = args[1]();
+          break;
+        // LHS value in 'with' statement body (__hook__('w.=', __with__, ['p', { set ['='](v) { p = v } } ], 'context', false)['='])
+        case 'w.=':
+          result = args[1];
+          break;
+        // assignment operators in 'with' statement body
+        case 'w=':
+        case 'w+=':
+        case 'w-=':
+        case 'w*=':
+        case 'w/=':
+        case 'w%=':
+        case 'w**=':
+        case 'w<<=':
+        case 'w>>=':
+        case 'w>>>=':
+        case 'w&=':
+        case 'w^=':
+        case 'w|=':
+          result = args[2](args[1]);
+          break;
+        // default (invalid operator)
+        default:
+          f(); // throw TypeError: f is not a function
+          result = null;
+          break;
+        }
+      }
+      lastContext = _lastContext;
+      // if (contextStack[contextStack.length - 1] !== context) { debugger; }
+      contextStack.pop();
     }
-    lastContext = _lastContext;
-    // if (contextStack[contextStack.length - 1] !== context) { debugger; }
-    // TODO: Temporarily comment out pop() to work around Issue #160.
-    // contextStack.pop();
+    catch (e) {
+      lastContext = _lastContext;
+      contextStack.pop();
+      throw e;
+    }
     return result;
   }
 
