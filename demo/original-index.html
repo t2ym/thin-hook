@@ -65,16 +65,34 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
   <script src="../../chai/chai.js"></script>
   <script src="https://www.gstatic.com/charts/loader.js"></script>
   <!--
-  <script src="https://sindresorhus.com/devtools-detect/index.js"></script>
   <script>
-    // Disable page inspection by forced transition to about:blank page
-    window.addEventListener('devtoolschange', function () {
-      // Optional actions before the forced transition
-      //  #1 Clean up all the caches and the storages for the page
-      //  #2 Encrypt the application status and store it in the browser storage and decrypt it when the page is loaded later
-      //  etc.
-      location = 'about:blank'; // Note: Called even when the Developer Tools pane is already opened on load
-    });
+    {
+      // Disable page inspection by forced transition to about:blank page
+      let div = document.createElement('div');
+      Object.defineProperty(div, 'id', {
+        get: function () {
+          // Optional actions before the forced transition
+          //  #1 Clean up all the caches and the storages for the page
+          //  #2 Unregister the running service worker
+          //  #3 Encrypt the application status and store it in the browser storage and decrypt it when the page is loaded later
+          //  etc.
+          location = 'about:blank';
+        },
+        set: function (value) {
+        },
+      });
+      console.log(div);
+      let clear = console.clear;
+      Object.defineProperty(console, 'clear', {
+        configurable: false,
+        writable: false,
+        enumerable: true,
+        value: function () {
+          clear.call(console);
+          console.log(div);
+        }
+      });
+    }
   </script>
   -->
   <script src="normalize.js"></script>
