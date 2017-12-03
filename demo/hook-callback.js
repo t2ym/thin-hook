@@ -1096,36 +1096,60 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     _acl = name
       ? name === 'Object' && isObject
         ? acl[S_DEFAULT]
-        : acl[name] || acl[S_GLOBAL] || acl[S_DEFAULT]
+        : acl.hasOwnProperty(name)
+          ? acl[name]
+          : acl.hasOwnProperty(S_GLOBAL)
+            ? acl[S_GLOBAL]
+            : acl[S_DEFAULT]
       : acl[S_DEFAULT];
     if (typeof _acl === 'object') {
       if (typeof property === 'undefined' || property === '') {
         _acl = context === S_DEFAULT
-          ? _acl[S_OBJECT] || _acl[S_DEFAULT]
-          : _acl[context] || _acl[S_OBJECT] || _acl[S_DEFAULT];
+          ? _acl.hasOwnProperty(S_OBJECT)
+            ? _acl[S_OBJECT]
+            : _acl[S_DEFAULT]
+          : _acl.hasOwnProperty(context)
+            ? _acl[context]
+            : _acl.hasOwnProperty(S_OBJECT)
+              ? _acl[S_OBJECT]
+              : _acl[S_DEFAULT];
       }
       else {
         if (!isStatic) {
-          _acl = _acl[S_PROTOTYPE] || _acl;
+          if (_acl.hasOwnProperty(S_PROTOTYPE)) {
+            _acl = _acl[S_PROTOTYPE];
+          }
         }
         if (typeof _acl === 'object') {
           switch (property) {
           case S_ALL:
             _acl = context === S_DEFAULT
-              ? _acl[S_ALL] || _acl[S_DEFAULT]
-              : _acl[context] || _acl[S_ALL] || _acl[S_DEFAULT];
+              ? _acl.hasOwnProperty(S_ALL)
+                ? _acl[S_ALL]
+                : _acl[S_DEFAULT]
+              : _acl.hasOwnProperty(context)
+                ? _acl[context] 
+                : _acl.hasOwnProperty(S_ALL)
+                  ? _acl[S_ALL] 
+                  : _acl[S_DEFAULT];
             if (typeof _acl === 'object') {
-              _acl = _acl[S_ALL] || _acl[S_DEFAULT];
+              _acl = _acl.hasOwnProperty(S_ALL)
+                ? _acl[S_ALL]
+                : _acl[S_DEFAULT];
             }
             break;
           case S_UNSPECIFIED:
-            _acl = _acl[context] || _acl[S_DEFAULT];
+            _acl = _acl.hasOwnProperty(context)
+              ? _acl[context]
+              : _acl[S_DEFAULT];
             if (typeof _acl === 'object') {
               _acl = _acl[S_DEFAULT];
             }
             break;
           case S_FUNCTION:
-            _acl = _acl[context] || _acl[S_DEFAULT];
+            _acl = _acl.hasOwnProperty(context)
+              ? _acl[context]
+              : _acl[S_DEFAULT];
             if (typeof _acl === 'object') {
               _acl = _acl[S_DEFAULT];
             }
@@ -1138,27 +1162,45 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             case 'function':
             case 'boolean':
             case 'undefined':
-              _acl = _acl[property] || _acl[context] || _acl[S_DEFAULT];
+              _acl = _acl.hasOwnProperty(property)
+                ? _acl[property]
+                : _acl.hasOwnProperty(context)
+                  ? _acl[context]
+                  : _acl[S_DEFAULT];
               if (typeof _acl === 'object') {
-                _acl = _acl[context] || _acl[S_DEFAULT];
+                _acl = _acl.hasOwnProperty(context)
+                  ? _acl[context]
+                  : _acl[S_DEFAULT];
               }
               break;
             case 'object':
               if (Array.isArray(property)) {
                 tmp = [];
                 for (_property of property) {
-                  __acl = _acl[_property] || _acl[context] || _acl[S_DEFAULT];
+                  __acl = _acl.hasOwnProperty(_property)
+                    ? _acl[_property]
+                    : _acl.hasOwnProperty(context)
+                      ? _acl[context]
+                      : _acl[S_DEFAULT];
                   if (typeof __acl === 'object') {
-                    __acl = __acl[context] || __acl[S_DEFAULT];
+                    __acl = __acl.hasOwnProperty(context)
+                      ? __acl[context]
+                      : __acl[S_DEFAULT];
                   }
                   tmp.push(__acl);
                 }
                 _acl = tmp;
               }
               else {
-                _acl = _acl[property] || _acl[context] || _acl[S_DEFAULT];
+                _acl = _acl.hasOwnProperty(property)
+                  ? _acl[property]
+                  : _acl.hasOwnProperty(context)
+                    ? _acl[context]
+                    : _acl[S_DEFAULT];
                 if (typeof _acl === 'object') {
-                  _acl = _acl[context] || _acl[S_DEFAULT];
+                  _acl = _acl.hasOwnProperty(context)
+                    ? _acl[context]
+                    : _acl[S_DEFAULT];
                 }
               }
               break;
@@ -1234,7 +1276,8 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     }
 
     if ((context === 'setTimeout' || context === 'setInterval' || context.indexOf('Promise') === 0 || context === 'EventTarget,addEventListener') && args) {
-      for(let i = 0; i < 2; i++) {
+      let l = args.length < 2 ? args.length : 2;
+      for(let i = 0; i < l; i++) {
         if (typeof args[i] === 'function') {
           let cbContext = callbackFunctions.get(args[i]);
           if (typeof cbContext === 'undefined') {
