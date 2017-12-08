@@ -629,6 +629,11 @@
     Reflect.setPrototypeOf(location, null);
   }, /^Permission Denied:/);
 
+  // location is not writable
+  chai.assert.throws(() => {
+    location = 'about:blank';
+  }, /^Permission Denied:/);
+
   // DClass is not in the blacklist
 
   window.DClass = class DClass {

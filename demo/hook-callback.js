@@ -537,10 +537,12 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       '@bind_normalization_checker': 'r-x',
     },
     Object: {
-      [S_OBJECT]: 'r--',
+      [S_OBJECT]: 'r-x',
       [S_DEFAULT]: '--x',
       '@Object_static_method_reader': 'r--',
       '@Object_static_method_user': 'r-x',
+      '@Object_assign_reader': 'r--',
+      '@Object__proto__reader': 'r--',
       '@normalization_checker': 'r--',
       '@bind_normalization_checker': 'r-x',
       $__proto__$: 'r--',
@@ -594,9 +596,11 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       }
     },
     import: {
-      [S_OBJECT]: '---',
+      [S_OBJECT]: {
+        [S_DEFAULT]: '---',
+        '@Module_importer': '--x',
+      },
       [S_DEFAULT]: '---',
-      '@Module_importer': '--x',
       invalidImportUrl: '---',
     },
     navigator: {
@@ -613,7 +617,10 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     },
     // read-only except for manipulators
     location: {
-      [S_OBJECT]: 'r--',
+      [S_OBJECT]: {
+        [S_DEFAULT]: 'r--',
+        '@location_setter': 'rw-',
+      },
       [S_DEFAULT]: 'r--',
       [S_ALL]: '---',
       reload: '---',
@@ -638,7 +645,10 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       }
     },
     Worker: {
-      [S_OBJECT]: 'r--',
+      [S_OBJECT]: {
+        [S_DEFAULT]: '---',
+        '@worker_manipulator': 'r-x',
+      },
       [S_DEFAULT]: 'r--',
       [S_ALL]: '---',
       '@worker_manipulator': 'r-x',
@@ -978,8 +988,18 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       [S_DEFAULT]: 'r-x',
     },
     // blocked private API
-    DummyClass: '---',
+    DummyClass: {
+      [S_OBJECT]: {
+        [S_DEFAULT]: '---',
+        '@normalization_checker': '-w-',
+      },
+      [S_DEFAULT]: '---',
+    },
     DummyClass2: {
+      [S_OBJECT]: {
+        [S_DEFAULT]: 'r-x',
+        '@normalization_checker': 'rwx',
+      },
       [S_DEFAULT]: 'r-x',
       isDummy: '---',
       dummyMethod: '---',
@@ -1022,7 +1042,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     },
     // default for global objects
     [S_GLOBAL]: {
-      [S_OBJECT]: 'r--',
+      [S_OBJECT]: 'r-x',
       [S_DEFAULT]: 'rwx',
       [S_ALL]: 'r--',
       $__proto__$: 'r--',
@@ -1084,8 +1104,12 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
   const opTypeMap = {
     r: 0, w: 1, x: 2
   };
+  const isGlobalScopeObject = new Map();
+  [ 'window', 'self' ].forEach(g => {
+    isGlobalScopeObject.set(g, true);
+  });
   const applyAcl = function applyAcl(name, isStatic, isObject, property, opType, context) {
-    let _context, _acl, __acl, _property, tmp;
+    let _context, _acl, __acl, _property, isGlobal, tmp;
     while (_context = contextNormalizer[context]) {
       context = _context;
       if (context[0] === '@') {
@@ -1093,6 +1117,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       }
     }
     context = _context ? context : S_DEFAULT;
+    isGlobal = isGlobalScopeObject.has(name);
     _acl = name
       ? name === 'Object' && isObject
         ? acl[S_DEFAULT]
@@ -1139,9 +1164,14 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             }
             break;
           case S_UNSPECIFIED:
-            _acl = _acl.hasOwnProperty(context)
-              ? _acl[context]
-              : _acl[S_DEFAULT];
+            if (_acl.hasOwnProperty(S_OBJECT)) {
+              _acl = _acl[S_OBJECT];
+            }
+            if (typeof _acl === 'object') {
+              _acl = _acl.hasOwnProperty(context)
+                ? _acl[context]
+                : _acl[S_DEFAULT];
+            }
             if (typeof _acl === 'object') {
               _acl = _acl[S_DEFAULT];
             }
@@ -1165,8 +1195,22 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
               _acl = _acl.hasOwnProperty(property)
                 ? _acl[property]
                 : _acl.hasOwnProperty(context)
-                  ? _acl[context]
-                  : _acl[S_DEFAULT];
+                  ? context === S_DEFAULT
+                    ? isGlobal
+                      ? acl.hasOwnProperty(property)
+                        ? acl[property].hasOwnProperty(S_OBJECT)
+                          ? acl[property][S_OBJECT]
+                          : acl[property]
+                        : acl[S_GLOBAL]
+                      : _acl[context]
+                    : _acl[context]
+                  : isGlobal
+                    ? acl.hasOwnProperty(property)
+                      ? acl[property].hasOwnProperty(S_OBJECT)
+                        ? acl[property][S_OBJECT]
+                        : acl[property]
+                      : acl[S_GLOBAL]
+                    : _acl[S_DEFAULT];
               if (typeof _acl === 'object') {
                 _acl = _acl.hasOwnProperty(context)
                   ? _acl[context]
@@ -1813,7 +1857,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           }
         }
         if (!applyAcl(name, isStatic, typeof normalizedThisArg === 'object', property, opType, context)) {
-          // if (name === 'Object' && context.startsWith('/components/dexie/dist/dexie.min.js')) {
+          // if (property === 'Object' && context.startsWith('/components/webcomponentsjs/webcomponents-lite.js')) {
           //   console.error('ACL: denied name =', name, 'isStatic =', isStatic, 'isObject = ', (typeof normalizedThisArg === 'object'), 'property =', property, 'opType =', opType, 'context = ', context);
           //   debugger;
           //   applyAcl(name, isStatic, typeof normalizedThisArg === 'object', property, opType, context);
