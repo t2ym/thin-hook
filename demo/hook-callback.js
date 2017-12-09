@@ -477,6 +477,8 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '/components/webcomponentsjs/webcomponents-lite.js,lc,d': '@Event_prototype_reader',
     '/components/thin-hook/demo/es6-module2.js,f2,module': '@Module_importer',
     '/components/thin-hook/demo/es6-module2.js': '@Module_importer',
+    '/components/polymer/lib/utils/async.html,script@566,timeOut,run': '@setTimeout_reader',
+    '/components/thin-hook/demo/,script@4861': '@document_writer',
   };
   const acl = {
     // blacklist objects/classes
@@ -986,6 +988,18 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     },
     btoa: {
       [S_DEFAULT]: 'r-x',
+    },
+    setTimeout: {
+      [S_DEFAULT]: '--x',
+      '@setTimeout_reader': 'r-x',
+    },
+    document: {
+      [S_OBJECT]: 'r--',
+      [S_DEFAULT]: 'r-x',
+      write: {
+        [S_DEFAULT]: '---',
+        '@document_writer': '--x',
+      },
     },
     // blocked private API
     DummyClass: {
