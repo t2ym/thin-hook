@@ -16,7 +16,10 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
   'importScripts',
 ].forEach((name) => {
   if (_global[name]) {
-    hook.hook(hook[name]('__hook__', [[name, {}]], 'method'));
+    let hooked = hook[name]('__hook__', [[name, {}]], 'method');
+    _globalObjects.set(hooked, name);
+    _globalMethods.set(hooked, [ (typeof window === 'object' ? 'window' : 'self'), name ]);
+    hook.hook(hooked);
   }
 });
 //hook.global(__hook__, 'hook-native-api.js', 'Function', 'set')._pp_Function = hook.global(__hook__, 'hook-native-api.js', 'Function', 'get')._pp_Function;
