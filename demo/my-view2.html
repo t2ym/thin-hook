@@ -70,6 +70,73 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </template>
 
   <script>
+    {
+      const data3 = { nodes: [], edges: [] };
+      const nodes = new Map();
+      const objects = new Map();
+      const _escapePlatformProperties = new Map();
+      const _unescapePlatformProperties = new Map();
+      Object.getOwnPropertyNames(Object.prototype).concat(['prototype']).forEach(n => {
+        _escapePlatformProperties.set(n, '$' + n + '$');
+        _unescapePlatformProperties.set('$' + n + '$', n);
+      });
+      let g = (new Function('return this'))();
+      let gObject = g;
+
+      while (gObject) {
+        let descriptors = Object.getOwnPropertyDescriptors(gObject);
+        for (let rawName in descriptors) {
+          let name = _escapePlatformProperties.get(rawName) || rawName;
+          let node = { id: name, label: rawName, group: name };
+          let object;
+          try {
+            object = gObject[rawName];
+            if (!nodes.has(name)) {
+              nodes.set(name, node);
+              objects.set(object, name);
+              data3.nodes.push(node);
+            }
+            if (object instanceof Object && Reflect.has(object, 'prototype')) {
+              let prototypeObject = object.prototype;
+              let prototypeObjectName = rawName + '.prototype';
+              if (!nodes.has(prototypeObjectName)) {
+                node = { id: prototypeObjectName, label: prototypeObjectName, group: name };
+                nodes.set(prototypeObjectName, node);
+                objects.set(prototypeObject, prototypeObjectName);
+                data3.nodes.push(node);
+                data3.edges.push({ from: name, to: prototypeObjectName, dashes: false, arrows: 'to' });
+              }
+            }
+          }
+          catch (e) {
+
+          }
+        }
+        gObject = Object.getPrototypeOf(gObject);
+      }
+      gObject = g;
+      while (gObject) {
+        let descriptors = Object.getOwnPropertyDescriptors(gObject);
+        for (let rawName in descriptors) {
+          let name = _escapePlatformProperties.get(rawName) || rawName;
+          let object;
+          try {
+            object = gObject[rawName];
+            let __proto__ = Object.getPrototypeOf(object);
+            let protoName = objects.get(__proto__);
+            if (protoName) {
+              let edge = { from: name, to: protoName, dashes: true, arrows: 'to' };
+              data3.edges.push(edge);
+            }
+          }
+          catch (e) {
+
+          }
+        }
+        gObject = Object.getPrototypeOf(gObject);
+      }
+      g._data3 = data3;
+    }
 
     Polymer({
 
@@ -118,7 +185,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       getData: function() {
-        return window._data2;
+        return window._data3;
       },
 
       drawGraph: function() {
