@@ -155,6 +155,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
   const S_PROTOTYPE = Symbol('prototype'); // prototype object
   const S_DEFAULT = Symbol('default'); // default policy
   const S_OBJECT = Symbol('object'); // parent object
+  const S_INSTANCE = Symbol('instance'); // instance object
   const S_FUNCTION = Symbol('function'); // function
   const S_CONSTRUCT = Symbol('construct'); // new operation
   const S_UNSPECIFIED = Symbol('unspecified'); // no property is specified
@@ -407,6 +408,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '/components/thin-hook/demo/normalize.js,get': '@normalization_checker',
     '/components/thin-hook/demo/normalize.js,caches': '@normalization_checker',
     '/components/thin-hook/demo/normalize.js,F,Function': '@normalization_checker',
+    '/components/thin-hook/demo/normalize.js,dummyClass3Instance': '@normalization_checker',
     '/components/thin-hook/demo/Function.js,strictMode': '@normalization_checker',
     '/components/thin-hook/demo/Function.js,f3': '@Function_reader',
     '/components/thin-hook/demo/Function.js,strictMode,f3': '@Function_reader',
@@ -1022,6 +1024,46 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       dummyMethod: '---',
       dummyMethod2: 'r--',
     },
+    DummyClass3: {
+      [S_OBJECT]: {
+        [S_DEFAULT]: '---',
+        '@normalization_checker': 'rwx',
+      },
+      [S_DEFAULT]: '---',
+      '@normalization_checker': 'rwx',
+      staticMethod: {
+        [S_DEFAULT]: '---',
+        '@normalization_checker': '--x',
+      },
+      staticProperty: {
+        [S_DEFAULT]: '---',
+        '@normalization_checker': 'rw-',
+      },
+      [S_PROTOTYPE]: {
+        [S_DEFAULT]: '---',
+        '@normalization_checker': 'r--',
+        prototypeProperty: {
+          [S_DEFAULT]: '---',
+          '@normalization_checker': 'rw-',
+        },
+        prototypeProperty2: {
+          [S_DEFAULT]: '---',
+          '@normalization_checker': 'r--',
+        },
+        [S_INSTANCE]: {
+          [S_DEFAULT]: '---',
+          '@normalization_checker': 'rwx',
+          instanceMethod: {
+            [S_DEFAULT]: '---',
+            '@normalization_checker': '--x',
+          },
+          instanceProperty: {
+            [S_DEFAULT]: '---',
+            '@normalization_checker': 'rw-',
+          },
+        },
+      },
+    },
     UniterableArray: {
       [S_DEFAULT]: 'rwx',
       [S_ALL]: '---',
@@ -1160,6 +1202,11 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         if (!isStatic) {
           if (_acl.hasOwnProperty(S_PROTOTYPE)) {
             _acl = _acl[S_PROTOTYPE];
+            if (_acl.hasOwnProperty(S_INSTANCE)) {
+              if (isObject) {
+                _acl = _acl[S_INSTANCE];
+              }
+            }
           }
         }
         if (typeof _acl === 'object') {
@@ -1550,8 +1597,19 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           name = boundParameters.name;
         }
         let ctor;
+        let isObject = typeof normalizedThisArg === 'object';
         if (!name && _f.indexOf('s') >= 0) {
-          ctor = isStatic ? normalizedThisArg : normalizedThisArg.constructor;
+          if (isStatic) {
+            ctor = normalizedThisArg;
+          }
+          else {
+            ctor = normalizedThisArg.constructor;
+            if (ctor) {
+              if (normalizedThisArg.hasOwnProperty('constructor')) {
+                isObject = false;
+              }
+            }
+          }
           name = _globalObjects.get(ctor);
           while (!name && typeof ctor === 'function') {
             ctor = Object.getPrototypeOf(ctor);
@@ -1563,6 +1621,11 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           name = _globalObjects.get(ctor);
           if (name) {
             isStatic = false;
+            if (typeof ctor === 'function') {
+              if (normalizedThisArg.hasOwnProperty('constructor')) {
+                isObject = false;
+              }
+            }
           }
         }
         let rawProperty = _args[0];
@@ -1652,16 +1715,32 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
                 }
                 isStatic = typeof _t === 'function';
                 normalizedThisArg = _t;
+                isObject = typeof normalizedThisArg === 'object';
                 if (!name) {
                   ctor = _t.constructor;
                   name = _globalObjects.get(ctor);
                   if (name) {
                     isStatic = false;
+                    if (typeof ctor === 'function') {
+                      if (_t.hasOwnProperty('constructor')) {
+                        isObject = false;
+                      }
+                    }
                   }
                 }
                 if (!name && typeof _f === 'string' && _f.indexOf('s') >= 0) {
                   isStatic = typeof _t === 'function';
-                  ctor = isStatic ? _t : _t.constructor;
+                  if (isStatic) {
+                    ctor = _t;
+                  }
+                  else {
+                    ctor = _t.constructor;
+                    if (isObject && typeof ctor === 'function') {
+                      if (_t.hasOwnProperty('constructor')) {
+                        isObject = false;
+                      }
+                    }
+                  }
                   name = _globalObjects.get(ctor);
                   normalizedThisArg = ctor;
                   while (!name && typeof ctor === 'function') {
@@ -1873,7 +1952,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             break;
           }
         }
-        if (!applyAcl(name, isStatic, typeof normalizedThisArg === 'object', property, opType, context)) {
+        if (!applyAcl(name, isStatic, isObject, property, opType, context)) {
           // if (property === 'Object' && context.startsWith('/components/webcomponentsjs/webcomponents-lite.js')) {
           //   console.error('ACL: denied name =', name, 'isStatic =', isStatic, 'isObject = ', (typeof normalizedThisArg === 'object'), 'property =', property, 'opType =', opType, 'context = ', context);
           //   debugger;
@@ -2808,8 +2887,19 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           name = boundParameters.name;
         }
         let ctor;
+        let isObject = typeof normalizedThisArg === 'object';
         if (!name && isSuperOperator.get(_f)) {
-          ctor = isStatic ? normalizedThisArg : normalizedThisArg.constructor;
+          if (isStatic) {
+            ctor = normalizedThisArg;
+          }
+          else {
+            ctor = normalizedThisArg.constructor;
+            if (ctor) {
+              if (normalizedThisArg.hasOwnProperty('constructor')) {
+                isObject = false;
+              }
+            }
+          }
           name = _globalObjectsGet(ctor);
           while (!name && typeof ctor === 'function') {
             ctor = Object.getPrototypeOf(ctor);
@@ -2821,6 +2911,11 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           name = _globalObjectsGet(ctor);
           if (name) {
             isStatic = false;
+            if (typeof ctor === 'function') {
+              if (normalizedThisArg.hasOwnProperty('constructor')) {
+                isObject = false;
+              }
+            }
           }
         }
         let rawProperty = _args[0];
@@ -2910,16 +3005,32 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
                 }
                 isStatic = typeof _t === 'function';
                 normalizedThisArg = _t;
+                isObject = typeof normalizedThisArg === 'object';
                 if (!name) {
                   ctor = _t.constructor;
                   name = _globalObjectsGet(ctor);
                   if (name) {
                     isStatic = false;
+                    if (typeof ctor === 'function') {
+                      if (_t.hasOwnProperty('constructor')) {
+                        isObject = false;
+                      }
+                    }
                   }
                 }
                 if (!name && isSuperOperator.get(_f)) {
                   isStatic = typeof _t === 'function';
-                  ctor = isStatic ? _t : _t.constructor;
+                  if (isStatic) {
+                    ctor = _t;
+                  }
+                  else {
+                    ctor = _t.constructor;
+                    if (isObject && typeof ctor === 'function') {
+                      if (_t.hasOwnProperty('constructor')) {
+                        isObject = false;
+                      }
+                    }
+                  }
                   name = _globalObjectsGet(ctor);
                   normalizedThisArg = ctor;
                   while (!name && typeof ctor === 'function') {
@@ -3140,7 +3251,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             break;
           }
         }
-        if (!applyAcl(name, isStatic, typeof normalizedThisArg === 'object', property, opType, context)) {
+        if (!applyAcl(name, isStatic, isObject, property, opType, context)) {
           // if (name === 'Object' && context.startsWith('/components/dexie/dist/dexie.min.js')) {
           //   console.error('ACL: denied name =', name, 'isStatic =', isStatic, 'isObject = ', (typeof normalizedThisArg === 'object'), 'property =', property, 'opType =', opType, 'context = ', context);
           //   debugger;

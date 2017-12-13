@@ -1093,6 +1093,31 @@
       sw = serviceWorker;
     }
   }, /^Permission Denied:/)
+
+  window.DummyClass3 = class DummyClass3 {
+    static staticMethod() {}
+    static get staticProperty() {}
+    instanceMethod() {}
+    get instanceProperty() {}
+    set instanceProperty(value) {}
+  };
+  DummyClass3.staticMethod();
+  DummyClass3.staticProperty;
+  DummyClass3.staticProperty2 = 1;
+  let dummyClass3Instance = new DummyClass3();
+  dummyClass3Instance.instanceMethod();
+  dummyClass3Instance.instanceProperty;
+  dummyClass3Instance.instanceProperty2 = 1;
+  dummyClass3Instance.hasOwnProperty('instanceProperty2');
+  dummyClass3Instance.toString();
+  dummyClass3Instance.__proto__.prototypeProperty = 1;
+  dummyClass3Instance.__proto__.prototypeProperty2;
+  chai.assert.throws(() => {
+    DummyClass3.prototype.instanceProperty2 = 1;
+  }, /^Permission Denied:/);
+  chai.assert.throws(() => {
+    DummyClass3.prototype.instanceMethod();
+  }, /^Permission Denied:/);
 }
 () => {
   let target, property, value, attributes, proto, prototype, receiver, args, arg1, arg2, p, v;
