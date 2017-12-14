@@ -156,6 +156,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
   const S_DEFAULT = Symbol('default'); // default policy
   const S_OBJECT = Symbol('object'); // parent object
   const S_INSTANCE = Symbol('instance'); // instance object
+  const S_CHAIN = Symbol('chain'); // chained policy
   const S_FUNCTION = Symbol('function'); // function
   const S_CONSTRUCT = Symbol('construct'); // new operation
   const S_UNSPECIFIED = Symbol('unspecified'); // no property is specified
@@ -409,6 +410,11 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '/components/thin-hook/demo/normalize.js,caches': '@normalization_checker',
     '/components/thin-hook/demo/normalize.js,F,Function': '@normalization_checker',
     '/components/thin-hook/demo/normalize.js,dummyClass3Instance': '@normalization_checker',
+    '/components/thin-hook/demo/normalize.js,SubClass1': '@normalization_checker',
+    '/components/thin-hook/demo/normalize.js,SubClass2': '@normalization_checker',
+    '/components/thin-hook/demo/normalize.js,BaseClass1,constructor': '@XClass1_constructor',
+    '/components/thin-hook/demo/normalize.js,SubClass1,constructor': '@XClass1_constructor',
+    '/components/thin-hook/demo/normalize.js,SubClass2,constructor': '@XClass1_constructor',
     '/components/thin-hook/demo/Function.js,strictMode': '@normalization_checker',
     '/components/thin-hook/demo/Function.js,f3': '@Function_reader',
     '/components/thin-hook/demo/Function.js,strictMode,f3': '@Function_reader',
@@ -1064,6 +1070,66 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         },
       },
     },
+    BaseClass1: {
+      [S_OBJECT]: {
+        [S_DEFAULT]: '---',
+        '@normalization_checker': 'rwx',
+        '@XClass1_constructor': 'rwx',
+      },
+      [S_DEFAULT]: '---',
+      staticMethod: {
+        [S_DEFAULT]: '---',
+        '@normalization_checker': '--x',
+      },
+      staticProperty: {
+        [S_DEFAULT]: '---',
+        '@normalization_checker': 'rw-',
+      },
+      [S_PROTOTYPE]: {
+        [S_DEFAULT]: '---',
+        [S_INSTANCE]: {
+          [S_DEFAULT]: '---',
+          instanceMethod: {
+            [S_DEFAULT]: '---',
+            '@normalization_checker': '--x',
+          },
+          instanceProperty: {
+            [S_DEFAULT]: '---',
+            '@XClass1_constructor': 'rw-',
+            '@normalization_checker': 'rw-',
+          },
+        },
+      },
+    },
+    SubClass1: {
+      [S_CHAIN]: () => acl.BaseClass1,
+      staticProperty: {
+        [S_CHAIN]: S_CHAIN,
+        '@normalization_checker': 'r--',
+      },
+      [S_PROTOTYPE]: {
+        [S_CHAIN]: () => acl.BaseClass1[S_PROTOTYPE],
+        [S_INSTANCE]: {
+          [S_CHAIN]: (path /* [ [acl, 'acl'], [acl.SubClass1, 'SubClass1'], [acl.SubClass1[S_PROTOTYPE], S_PROTOTYPE], [acl.SubClass1[S_PROTOTYPE][S_INSTANCE], S_INSTANCE] ] */) => 
+            path[path.length - 2][0].__proto__[path[path.length - 1][1]], // equivalent to acl.BaseClass1[S_PROTOTYPE].__proto__[S_INSTANCE]
+          instanceProperty: {
+            [S_CHAIN]: S_CHAIN, // alias for (path) => path[path.length - 2][0].__proto__[path[path.length - 1][1]]
+            '@normalization_checker': 'r--', // override
+          },
+        },
+      },
+    },
+    SubClass2: {
+      [S_CHAIN]: () => acl.SubClass1,
+      staticProperty: {
+        [S_CHAIN]: S_CHAIN,
+        '@normalization_checker': 'rw-', // override SubClass1's 'r--' acl
+      },
+      staticMethod: {
+        [S_CHAIN]: S_CHAIN,
+        '@normalization_checker': '---', // override BaseClass1's '--x' acl
+      },
+    },
     UniterableArray: {
       [S_DEFAULT]: 'rwx',
       [S_ALL]: '---',
@@ -1167,6 +1233,66 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
   [ 'window', 'self' ].forEach(g => {
     isGlobalScopeObject.set(g, true);
   });
+  const chainAcl = function chainAcl(_acl, path = [ [_acl, 'acl'] ]) {
+    let properties = Object.getOwnPropertySymbols(_acl).concat(Object.getOwnPropertyNames(_acl));
+    for (let property of properties) {
+      if (property === S_CHAIN) {
+        let chain = _acl[S_CHAIN];
+        switch (typeof chain) {
+        case 'object':
+          if (chain) {
+            Object.setPrototypeOf(_acl, chain);
+          }
+          else {
+            console.error('chainAcl: cannot chain to a null object', _acl);
+          }
+          break;
+        case 'function':
+          let __acl = chain(path);
+          if (__acl) {
+            Object.setPrototypeOf(_acl, __acl);
+          }
+          else {
+            console.error('chainAcl: cannot chain to ' + chain.toString(), _acl);
+          }
+          break;
+        case 'symbol':
+          switch (chain) {
+          case S_CHAIN:
+            let __acl = path[path.length - 2][0].__proto__[path[path.length - 1][1]];
+            if (__acl) {
+              Object.setPrototypeOf(_acl, __acl);
+            }
+            else {
+              console.error('chainAcl: cannot chain to ' + chain.toString(), _acl);
+            }
+            break;
+          default:
+            console.error('chainAcl: cannot recongnize chain ' + chain.toString(), _acl);
+            break;
+          }
+          break;
+        default:
+          break;
+        }
+      }
+      else {
+        let __acl = _acl[property];
+        switch (typeof __acl) {
+        case 'object':
+          if (__acl) {
+            path.push([__acl, property]);
+            chainAcl(__acl, path);
+            path.pop();
+          }
+          break;
+        default:
+          break;
+        }
+      }
+    }
+  }
+  chainAcl(acl);
   const applyAcl = function applyAcl(name, isStatic, isObject, property, opType, context) {
     let _context, _acl, __acl, _property, isGlobal, tmp;
     while (_context = contextNormalizer[context]) {
@@ -1180,29 +1306,29 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     _acl = name
       ? name === 'Object' && isObject
         ? acl[S_DEFAULT]
-        : acl.hasOwnProperty(name)
+        : Reflect.has(acl, name)
           ? acl[name]
-          : acl.hasOwnProperty(S_GLOBAL)
+          : Reflect.has(acl, S_GLOBAL)
             ? acl[S_GLOBAL]
             : acl[S_DEFAULT]
       : acl[S_DEFAULT];
     if (typeof _acl === 'object') {
       if (typeof property === 'undefined' || property === '') {
         _acl = context === S_DEFAULT
-          ? _acl.hasOwnProperty(S_OBJECT)
+          ? Reflect.has(_acl, S_OBJECT)
             ? _acl[S_OBJECT]
             : _acl[S_DEFAULT]
-          : _acl.hasOwnProperty(context)
+          : Reflect.has(_acl, context)
             ? _acl[context]
-            : _acl.hasOwnProperty(S_OBJECT)
+            : Reflect.has(_acl, S_OBJECT)
               ? _acl[S_OBJECT]
               : _acl[S_DEFAULT];
       }
       else {
         if (!isStatic) {
-          if (_acl.hasOwnProperty(S_PROTOTYPE)) {
+          if (Reflect.has(_acl, S_PROTOTYPE)) {
             _acl = _acl[S_PROTOTYPE];
-            if (_acl.hasOwnProperty(S_INSTANCE)) {
+            if (Reflect.has(_acl, S_INSTANCE)) {
               if (isObject) {
                 _acl = _acl[S_INSTANCE];
               }
@@ -1213,26 +1339,26 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           switch (property) {
           case S_ALL:
             _acl = context === S_DEFAULT
-              ? _acl.hasOwnProperty(S_ALL)
+              ? Reflect.has(_acl, S_ALL)
                 ? _acl[S_ALL]
                 : _acl[S_DEFAULT]
-              : _acl.hasOwnProperty(context)
+              : Reflect.has(_acl, context)
                 ? _acl[context] 
-                : _acl.hasOwnProperty(S_ALL)
+                : Reflect.has(_acl, S_ALL)
                   ? _acl[S_ALL] 
                   : _acl[S_DEFAULT];
             if (typeof _acl === 'object') {
-              _acl = _acl.hasOwnProperty(S_ALL)
+              _acl = Reflect.has(_acl, S_ALL)
                 ? _acl[S_ALL]
                 : _acl[S_DEFAULT];
             }
             break;
           case S_UNSPECIFIED:
-            if (_acl.hasOwnProperty(S_OBJECT)) {
+            if (Reflect.has(_acl, S_OBJECT)) {
               _acl = _acl[S_OBJECT];
             }
             if (typeof _acl === 'object') {
-              _acl = _acl.hasOwnProperty(context)
+              _acl = Reflect.has(_acl, context)
                 ? _acl[context]
                 : _acl[S_DEFAULT];
             }
@@ -1241,7 +1367,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             }
             break;
           case S_FUNCTION:
-            _acl = _acl.hasOwnProperty(context)
+            _acl = Reflect.has(_acl, context)
               ? _acl[context]
               : _acl[S_DEFAULT];
             if (typeof _acl === 'object') {
@@ -1256,27 +1382,27 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             case 'function':
             case 'boolean':
             case 'undefined':
-              _acl = _acl.hasOwnProperty(property)
+              _acl = Reflect.has(_acl, property)
                 ? _acl[property]
-                : _acl.hasOwnProperty(context)
+                : Reflect.has(_acl, context)
                   ? context === S_DEFAULT
                     ? isGlobal
-                      ? acl.hasOwnProperty(property)
-                        ? acl[property].hasOwnProperty(S_OBJECT)
+                      ? Reflect.has(acl, property)
+                        ? Reflect.has(acl[property], S_OBJECT)
                           ? acl[property][S_OBJECT]
                           : acl[property]
                         : acl[S_GLOBAL]
                       : _acl[context]
                     : _acl[context]
                   : isGlobal
-                    ? acl.hasOwnProperty(property)
-                      ? acl[property].hasOwnProperty(S_OBJECT)
+                    ? Reflect.has(acl, property)
+                      ? Reflect.has(acl[property], S_OBJECT)
                         ? acl[property][S_OBJECT]
                         : acl[property]
                       : acl[S_GLOBAL]
                     : _acl[S_DEFAULT];
               if (typeof _acl === 'object') {
-                _acl = _acl.hasOwnProperty(context)
+                _acl = Reflect.has(_acl, context)
                   ? _acl[context]
                   : _acl[S_DEFAULT];
               }
@@ -1285,13 +1411,13 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
               if (Array.isArray(property)) {
                 tmp = [];
                 for (_property of property) {
-                  __acl = _acl.hasOwnProperty(_property)
+                  __acl = Reflect.has(_acl, _property)
                     ? _acl[_property]
-                    : _acl.hasOwnProperty(context)
+                    : Reflect.has(_acl, context)
                       ? _acl[context]
                       : _acl[S_DEFAULT];
                   if (typeof __acl === 'object') {
-                    __acl = __acl.hasOwnProperty(context)
+                    __acl = Reflect.has(__acl, context)
                       ? __acl[context]
                       : __acl[S_DEFAULT];
                   }
@@ -1300,13 +1426,13 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
                 _acl = tmp;
               }
               else {
-                _acl = _acl.hasOwnProperty(property)
+                _acl = Reflect.has(_acl, property)
                   ? _acl[property]
-                  : _acl.hasOwnProperty(context)
+                  : Reflect.has(_acl, context)
                     ? _acl[context]
                     : _acl[S_DEFAULT];
                 if (typeof _acl === 'object') {
-                  _acl = _acl.hasOwnProperty(context)
+                  _acl = Reflect.has(_acl, context)
                     ? _acl[context]
                     : _acl[S_DEFAULT];
                 }
