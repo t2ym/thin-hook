@@ -1118,6 +1118,68 @@
   chai.assert.throws(() => {
     DummyClass3.prototype.instanceMethod();
   }, /^Permission Denied:/);
+
+  // Chain ACL
+
+  window.BaseClass1 = class BaseClass1 {
+    constructor() {
+      this.instanceProperty = 'BaseClass1.instanceProperty';
+    }
+    static staticMethod() {
+      return 'BaseClass1.staticMethod';
+    }
+    static get staticProperty() {
+      return 'BaseClass1.staticProperty';
+    }
+    instanceMethod() {
+      return 'BaseClass1.prototype.instanceMethod';
+    }
+  };
+  window.SubClass1 = class SubClass1 extends BaseClass1 {
+    constructor() {
+      super();
+      this.instanceProperty = 'SubClass1.instanceProperty';
+    }
+    static staticMethod() {
+      return 'SubClass1.staticMethod';
+    }
+    static get staticProperty() {
+      return 'SubClass1.staticProperty';
+    }
+    instanceMethod() {
+      return 'SubClass1.prototype.instanceMethod';
+    }
+  };
+  window.SubClass2 = class SubClass2 extends SubClass1 {
+    constructor() {
+      super();
+      this.instanceProperty = 'SubClass2.instanceProperty';
+    }
+    static staticMethod() {
+      return 'SubClass2.staticMethod';
+    }
+    static get staticProperty() {
+      return 'SubClass2.staticProperty';
+    }
+    instanceMethod() {
+      return 'SubClass2.prototype.instanceMethod';
+    }
+  };
+  chai.assert.equal(BaseClass1.staticMethod(), 'BaseClass1.staticMethod', 'BaseClass1.staticMethod');
+  chai.assert.equal(BaseClass1.staticProperty, 'BaseClass1.staticProperty', 'BaseClass1.staticProperty');
+  chai.assert.equal((new BaseClass1()).instanceMethod(), 'BaseClass1.prototype.instanceMethod', 'BaseClass1.prototype.instanceMethod');
+  chai.assert.equal((new BaseClass1()).instanceProperty, 'BaseClass1.instanceProperty', 'BaseClass1.instanceProperty');
+  chai.assert.equal(SubClass1.staticMethod(), 'SubClass1.staticMethod', 'SubClass1.staticMethod');
+  chai.assert.equal(SubClass1.staticProperty, 'SubClass1.staticProperty', 'SubClass1.staticProperty');
+  chai.assert.throws(() => {
+    SubClass1.staticProperty = 1;
+  }, /^Permission Denied:/);
+  chai.assert.equal((new SubClass1()).instanceMethod(), 'SubClass1.prototype.instanceMethod', 'SubClass1.prototype.instanceMethod');
+  chai.assert.equal((new SubClass1()).instanceProperty, 'SubClass1.instanceProperty', 'SubClass1.instanceProperty');
+  chai.assert.throws(() => {
+    SubClass2.staticMethod();
+  }, /^Permission Denied:/);
+  SubClass2.staticProperty = 2;
 }
 () => {
   let target, property, value, attributes, proto, prototype, receiver, args, arg1, arg2, p, v;
