@@ -412,9 +412,11 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '/components/thin-hook/demo/normalize.js,dummyClass3Instance': '@normalization_checker',
     '/components/thin-hook/demo/normalize.js,SubClass1': '@normalization_checker',
     '/components/thin-hook/demo/normalize.js,SubClass2': '@normalization_checker',
+    '/components/thin-hook/demo/normalize.js,SubClass3': '@normalization_checker',
     '/components/thin-hook/demo/normalize.js,BaseClass1,constructor': '@XClass1_constructor',
     '/components/thin-hook/demo/normalize.js,SubClass1,constructor': '@XClass1_constructor',
     '/components/thin-hook/demo/normalize.js,SubClass2,constructor': '@XClass1_constructor',
+    '/components/thin-hook/demo/normalize.js,SubClass3,constructor': '@XClass1_constructor',
     '/components/thin-hook/demo/Function.js,strictMode': '@normalization_checker',
     '/components/thin-hook/demo/Function.js,f3': '@Function_reader',
     '/components/thin-hook/demo/Function.js,strictMode,f3': '@Function_reader',
@@ -489,6 +491,35 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '/components/polymer/lib/utils/async.html,script@566,timeOut,run': '@setTimeout_reader',
     '/components/thin-hook/demo/,script@4861': '@document_writer',
     '/components/thin-hook/demo/sub-document.html,script@1157': '@document_writer',
+  };
+  const opTypeMap = {
+    r: 0, w: 1, x: 2
+  };
+  const isGlobalScopeObject = new Map();
+  [ 'window', 'self' ].forEach(g => {
+    isGlobalScopeObject.set(g, true);
+  });
+  // An example ABAC policy wrapper class
+  const Policy = class Policy {
+    // plain ACL
+    static acl(_acl) {
+      return function (normalizedThisArg,
+                       normalizedArgs /* ['property', args], ['property', value], etc. */,
+                       aclArgs /* [name, isStatic, isObject, property, opType, context] */,
+                       hookArgs /* [f, thisArg, args, context, newTarget] */) {
+        let opType = aclArgs[4];
+        return _acl[opTypeMap[opType]] === opType;
+      };
+    }
+    // args condition
+    static args(condition) { // Policy.args("opType === 'x' && typeof args[0] === 'string'")
+      // TODO: More refinement
+      return new Function('Policy', 'contextNormalizer', `return function (normalizedThisArg, normalizedArgs, aclArgs, hookArgs) {
+        const opType = aclArgs[4];
+        const args = typeof hookArgs[0] === 'string' ? normalizedArgs[1] : normalizedArgs;
+        return ${condition};
+      }`)(this, contextNormalizer);
+    }
   };
   const acl = {
     // blacklist objects/classes
@@ -1130,6 +1161,28 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         '@normalization_checker': '---', // override BaseClass1's '--x' acl
       },
     },
+    SubClass3: {
+      [S_CHAIN]: () => acl.SubClass2,
+      staticProperty: {
+        [S_CHAIN]: S_CHAIN,
+        // ABAC policy by a function with raw parameters
+        '@normalization_checker': function plainAcl(normalizedThisArg,
+                                                    normalizedArgs /* ['property', args], ['property', value], etc. */,
+                                                    aclArgs /* [name, isStatic, isObject, property, opType, context] */,
+                                                    hookArgs /* [f, thisArg, args, context, newTarget] */) {
+          let opType = aclArgs[4];
+          return 'r--'[opTypeMap[opType]] === opType; // equivalent to 'r--' acl
+        },
+      },
+      staticProperty2: {
+        [S_DEFAULT]: '---',
+        '@normalization_checker': Policy.acl('r--'), // plain policy function equivalent to 'r--' acl
+      },
+      staticMethod: {
+        [S_CHAIN]: S_CHAIN,
+        '@normalization_checker': Policy.args("opType === 'x' && typeof args[0] === 'number' && typeof args[1] === 'number' && args[0] > 0 && args[1] > 0"), // check arguments
+      },
+    },
     UniterableArray: {
       [S_DEFAULT]: 'rwx',
       [S_ALL]: '---',
@@ -1226,13 +1279,6 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     Object.assign(acl, { [n]: '---' });
     Object.assign(acl.window, { [n]: '---' });
   });
-  const opTypeMap = {
-    r: 0, w: 1, x: 2
-  };
-  const isGlobalScopeObject = new Map();
-  [ 'window', 'self' ].forEach(g => {
-    isGlobalScopeObject.set(g, true);
-  });
   const chainAcl = function chainAcl(_acl, path = [ [_acl, 'acl'] ]) {
     let properties = Object.getOwnPropertySymbols(_acl).concat(Object.getOwnPropertyNames(_acl));
     for (let property of properties) {
@@ -1293,7 +1339,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     }
   }
   chainAcl(acl);
-  const applyAcl = function applyAcl(name, isStatic, isObject, property, opType, context) {
+  const applyAcl = function applyAcl(name, isStatic, isObject, property, opType, context, normalizedThisArg, normalizedArgs, hookArgs) {
     let _context, _acl, __acl, _property, isGlobal, tmp;
     while (_context = contextNormalizer[context]) {
       context = _context;
@@ -1458,6 +1504,8 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         }
       }
       return true;
+    case 'function':
+      return _acl(normalizedThisArg, normalizedArgs, arguments, hookArgs);
     case 'undefined':
     default:
       return false;
@@ -2078,7 +2126,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             break;
           }
         }
-        if (!applyAcl(name, isStatic, isObject, property, opType, context)) {
+        if (!applyAcl(name, isStatic, isObject, property, opType, context, normalizedThisArg, _args, arguments)) {
           // if (property === 'Object' && context.startsWith('/components/webcomponentsjs/webcomponents-lite.js')) {
           //   console.error('ACL: denied name =', name, 'isStatic =', isStatic, 'isObject = ', (typeof normalizedThisArg === 'object'), 'property =', property, 'opType =', opType, 'context = ', context);
           //   debugger;
@@ -2282,7 +2330,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           superClass = Object.getPrototypeOf(superClass);
           name = _globalObjects.get(superClass);
         }
-        if (!applyAcl(name, true, false, S_UNSPECIFIED, 'x', context)) {
+        if (!applyAcl(name, true, false, S_UNSPECIFIED, 'x', context, normalizedThisArg, _args, arguments)) {
           throw new Error('Permission Denied: Cannot access ' + name);
           //console.error('ACL: denied name =', name, 'isStatic =', true, 'isObject = ', false, 'property =', S_UNSPECIFIED, 'opType =', 'x', 'context = ', context);
           //debugger;
@@ -2324,7 +2372,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           let rawProp = name[name.length - 1];
           let prop = _escapePlatformProperties.get(rawProp) || rawProp;
           let obj = name[0];
-          if (!applyAcl(obj, name[1] !== 'prototype', false, prop, 'x', context)) {
+          if (!applyAcl(obj, name[1] !== 'prototype', false, prop, 'x', context, normalizedThisArg, _args, arguments)) {
             throw new Error('Permission Denied: Cannot access ' + obj);
             //console.error('ACL: denied name =', name, 'isStatic =', name[1] !== 'prototype', 'isObject = ', false, 'property =', prop, 'opType =', 'x', 'context = ', context);
             //debugger;
@@ -2379,7 +2427,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           }
           if (name) {
             // super() call
-            if (!applyAcl(name, true, false, S_UNSPECIFIED, 'x', context)) {
+            if (!applyAcl(name, true, false, S_UNSPECIFIED, 'x', context, normalizedThisArg, _args, arguments)) {
               throw new Error('Permission Denied: Cannot access ' + name);
             }
             let _blacklist = _blacklistObjects[name];
@@ -2417,7 +2465,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
               !args[1].match(/^\s*(([^:\/?#]+):)?(\/\/([^\/?#]*))?([^?#]*[.]m?js)(\?([^#]*))?(#(.*))?\s*$/)) {
               property = 'invalidImportUrl'; // Note: virtual property 'invalidImportUrl'
             }
-            if (!applyAcl(name, true, false, property, 'x', context)) {
+            if (!applyAcl(name, true, false, property, 'x', context, normalizedThisArg, _args, arguments)) {
               throw new Error('Permission Denied: Cannot access ' + name);
             }
             let _blacklist = _blacklistObjects[name];
@@ -3377,7 +3425,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             break;
           }
         }
-        if (!applyAcl(name, isStatic, isObject, property, opType, context)) {
+        if (!applyAcl(name, isStatic, isObject, property, opType, context, normalizedThisArg, _args, arguments)) {
           // if (name === 'Object' && context.startsWith('/components/dexie/dist/dexie.min.js')) {
           //   console.error('ACL: denied name =', name, 'isStatic =', isStatic, 'isObject = ', (typeof normalizedThisArg === 'object'), 'property =', property, 'opType =', opType, 'context = ', context);
           //   debugger;
@@ -3460,7 +3508,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           superClass = Object.getPrototypeOf(superClass);
           name = _globalObjects.get(superClass);
         }
-        if (!applyAcl(name, true, false, S_UNSPECIFIED, 'x', context)) {
+        if (!applyAcl(name, true, false, S_UNSPECIFIED, 'x', context, normalizedThisArg, _args, arguments)) {
           throw new Error('Permission Denied: Cannot access ' + name);
           //console.error('ACL: denied name =', name, 'isStatic =', true, 'isObject = ', false, 'property =', S_UNSPECIFIED, 'opType =', 'x', 'context = ', context);
           //debugger;
@@ -3474,7 +3522,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           let rawProp = name[name.length - 1];
           let prop = _escapePlatformProperties.get(rawProp) || rawProp;
           let obj = name[0];
-          if (!applyAcl(obj, name[1] !== 'prototype', false, prop, 'x', context)) {
+          if (!applyAcl(obj, name[1] !== 'prototype', false, prop, 'x', context, normalizedThisArg, _args, arguments)) {
             throw new Error('Permission Denied: Cannot access ' + obj);
             //console.error('ACL: denied name =', name, 'isStatic =', name[1] !== 'prototype', 'isObject = ', false, 'property =', prop, 'opType =', 'x', 'context = ', context);
             //debugger;
@@ -3497,7 +3545,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           }
           if (name) {
             // super() call
-            if (!applyAcl(name, true, false, S_UNSPECIFIED, 'x', context)) {
+            if (!applyAcl(name, true, false, S_UNSPECIFIED, 'x', context, normalizedThisArg, _args, arguments)) {
               throw new Error('Permission Denied: Cannot access ' + name);
             }
           }
@@ -3512,7 +3560,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
               !args[1].match(/^\s*(([^:\/?#]+):)?(\/\/([^\/?#]*))?([^?#]*[.]m?js)(\?([^#]*))?(#(.*))?\s*$/)) {
               property = 'invalidImportUrl'; // Note: virtual property 'invalidImportUrl'
             }
-            if (!applyAcl(name, true, false, property, 'x', context)) {
+            if (!applyAcl(name, true, false, property, 'x', context, normalizedThisArg, _args, arguments)) {
               throw new Error('Permission Denied: Cannot access ' + name);
             }
           }

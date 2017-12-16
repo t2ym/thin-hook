@@ -1180,6 +1180,50 @@
     SubClass2.staticMethod();
   }, /^Permission Denied:/);
   SubClass2.staticProperty = 2;
+
+  window.SubClass3 = class SubClass3 extends SubClass2 {
+    constructor() {
+      super();
+      this.instanceProperty = 'SubClass3.instanceProperty';
+    }
+    static staticMethod(a, b) {
+      return a + b;
+    }
+    static get staticProperty() {
+      return 'SubClass3.staticProperty';
+    }
+    instanceMethod() {
+      return 'SubClass3.prototype.instanceMethod';
+    }
+  };
+  chai.assert.throws(() => {
+    SubClass3.staticProperty = 1;
+  }, /^Permission Denied:/);
+  chai.assert.throws(() => {
+    SubClass3.staticProperty2 = 1;
+  }, /^Permission Denied:/);
+  chai.assert.equal(SubClass3.staticMethod(1,2), 3, '3');
+  chai.assert.throws(() => {
+    SubClass3.staticMethod; // not readable
+  }, /^Permission Denied:/);
+  chai.assert.throws(() => {
+    SubClass3.staticMethod(1, 'a'); // 'a' is not a number
+  }, /^Permission Denied:/);
+  chai.assert.throws(() => {
+    SubClass3.staticMethod(1, -1); // -1 is not a positive number
+  }, /^Permission Denied:/);
+  chai.assert.throws(() => {
+    SubClass3.staticMethod.call(SubClass3, 1, 'a'); // 'a' is not a number
+  }, /^Permission Denied:/);
+  chai.assert.throws(() => {
+    SubClass3.staticMethod.apply(SubClass3, [1, -1]); // -1 is not a positive number
+  }, /^Permission Denied:/);
+  chai.assert.throws(() => {
+    SubClass3.staticMethod.bind(SubClass3, 1).call(SubClass3, 'a'); // 'a' is not a number
+  }, /^Permission Denied:/);
+  chai.assert.throws(() => {
+    SubClass3.staticMethod.bind(SubClass3, [1])(-1); // -1 is not a positive number
+  }, /^Permission Denied:/);
 }
 () => {
   let target, property, value, attributes, proto, prototype, receiver, args, arg1, arg2, p, v;
