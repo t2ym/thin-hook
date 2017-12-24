@@ -7,6 +7,7 @@ const babel = require('gulp-babel');
 const rename = require('gulp-rename');
 const sourcemaps = require('gulp-sourcemaps');
 const browserify = require('browserify');
+const licensify = require('licensify');
 const source = require('vinyl-source-stream');
 const buffer = require('vinyl-buffer');
 const uglify = require('gulp-uglify');
@@ -123,6 +124,7 @@ function _trimStartEndRaw(ast) {
 
 gulp.task('build', () => {
   return browserify('./hook.js', { standalone: 'hook' })
+    .plugin(licensify)
     .bundle()
     .pipe(source('hook.min.js'))
     .pipe(buffer())
@@ -131,6 +133,7 @@ gulp.task('build', () => {
     .pipe(through.obj((file, end, callback) => {
       // robust minification by escodegen's compact option
       let code = String(file.contents);
+      let licenseHeader = code.substring(0, code.indexOf('*/') + 3);
       let espreeOptions = { range: false, tokens: false, comment: false, ecmaVersion: 8 };
       let originalAst = espree.parse(code, espreeOptions);
       let unconfigurableGlobalHookAst = espree.parse(
@@ -167,7 +170,7 @@ gulp.task('build', () => {
       let minifiedAstJson = JSON.stringify(minifiedAst, null, 2);
       try {
         assert.equal(minifiedAstJson, originalAstJson, 'Minified AST is identical to the original AST');
-        file.contents = new Buffer(minifiedCode);
+        file.contents = new Buffer(licenseHeader + minifiedCode);
       }
       catch (e) {
         fs.writeFileSync('_originalAst.json', originalAstJson);
@@ -199,6 +202,7 @@ gulp.task('build:instrument', () => {
 
 gulp.task('build:coverage', () => {
   return browserify('test/coverage/hook.js', { standalone: 'hook' })
+    .plugin(licensify)
     .bundle()
     .pipe(source('hook.min.js'))
     .pipe(buffer())
@@ -207,6 +211,7 @@ gulp.task('build:coverage', () => {
     .pipe(through.obj((file, end, callback) => {
       // robust minification by escodegen's compact option
       let code = String(file.contents);
+      let licenseHeader = code.substring(0, code.indexOf('*/') + 3);
       let espreeOptions = { range: false, tokens: false, comment: false, ecmaVersion: 8 };
       let originalAst = espree.parse(code, espreeOptions);
       let unconfigurableGlobalHookAst = espree.parse(
@@ -243,7 +248,7 @@ gulp.task('build:coverage', () => {
       let minifiedAstJson = JSON.stringify(minifiedAst, null, 2);
       try {
         assert.equal(minifiedAstJson, originalAstJson, 'Minified AST is identical to the original AST');
-        file.contents = new Buffer(minifiedCode);
+        file.contents = new Buffer(licenseHeader + minifiedCode);
       }
       catch (e) {
         fs.writeFileSync('_originalAst.json', originalAstJson);
