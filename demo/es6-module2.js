@@ -19,13 +19,13 @@ class C2 extends Test {}
 mod.mutateClass(C2);
 chai.assert.throws(() => {
   MutatableClass = class C3 extends C2 {};
-}, /Assignment to constant variable/);
+}, /Assignment to constant variable|MutatableClass is not defined/);
 chai.assert.equal(MutatableClass, C2, 'MutatableClass === C2');
 chai.assert.equal(mod.MutatableClass, C2, 'mod.MutatableClass === C2');
 setv2(3);
 chai.assert.throws(() => {
   mod.v2 = 4;
-}, /Cannot assign to read only property/);
+}, /Cannot assign to read only property|Cannot set property/);
 chai.assert.equal(v2, 3, 'v2 is 3');
 chai.assert.equal(mod.v2, 3, 'mod.v2 is 3');
 mod.setv2(5);
@@ -39,11 +39,22 @@ function f(a) {
 }
 f(2);
 async function f2(a) {
-  let module = await import('./es6-module.js'); // Note: Spit out SyntaxError on browsers before Chrome 63, which supports Dynamic Imports
-  let Test2 = module.default;
-  let t = new Test2(a);
-  console.log('new Test2(' + a + ').a = ', t.a);
-  chai.assert.equal(t.a, a, 't.a is ' + a);
+  try {
+    let module = await import('./es6-module.js'); // Note: Spit out SyntaxError on browsers before Chrome 63, which supports Dynamic Imports
+    let Test2 = module.default;
+    let t = new Test2(a);
+    console.log('new Test2(' + a + ').a = ', t.a);
+    chai.assert.equal(t.a, a, 't.a is ' + a);
+  }
+  catch (e) {
+    if (e.stack.indexOf('webpack-')) {
+      console.log('Dynamic import is not yet supported in webpack');
+      console.log(e);
+    }
+    else {
+      throw e;
+    }
+  }
 }
 f2(3).then(() => {
   import('./es6-module.js').then(module => {
@@ -52,5 +63,14 @@ f2(3).then(() => {
     let t = new Test3(a);
     console.log('new Test3(' + a + ').a = ', t.a);
     chai.assert.equal(t.a, a, 't.a is ' + a);
+  })
+  .catch(e => {
+    if (e.stack.indexOf('webpack-')) {
+      console.log('Dynamic import is not yet supported in webpack');
+      console.log(e);
+    }
+    else {
+      throw e;
+    }
   });
 });

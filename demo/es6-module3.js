@@ -23,13 +23,13 @@ class C4 extends Test {}
 mod.mutateClass(C4);
 chai.assert.throws(() => {
   MutatableClass = class C5 extends C4 {};
-}, /Assignment to constant variable/);
+}, /Assignment to constant variable|MutatableClass is not defined/);
 chai.assert.equal(MutatableClass, C4, 'MutatableClass === C4');
 chai.assert.equal(mod.MutatableClass, C4, 'mod.MutatableClass === C4');
 setv2(6);
 chai.assert.throws(() => {
   mod.v2 = 4;
-}, /Cannot assign to read only property/);
+}, /Cannot assign to read only property|Cannot set property/);
 chai.assert.equal(v2, 6, 'v2 is 6');
 chai.assert.equal(mod.v2, 6, 'mod.v2 is 6');
 mod.setv2(7);
