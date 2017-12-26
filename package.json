@@ -1,6 +1,6 @@
 {
   "name": "thin-hook",
-  "version": "0.0.193",
+  "version": "0.0.194",
   "description": "Thin Hook Preprocessor",
   "main": "hook.js",
   "scripts": {
@@ -68,10 +68,13 @@
     "scenarist": "^1.1.8",
     "strip-bom": "^3.0.0",
     "through2": "^2.0.3",
+    "transform-loader": "^0.2.4",
     "uglify-js": "^2.7.5",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "wct-istanbul": "^0.12.3",
+    "webpack": "^3.10.0",
+    "webpack-stream": "^4.0.0",
     "xliff-conv": "^1.0.10",
     "xmldom": "^0.1.22"
   }

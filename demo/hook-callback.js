@@ -490,7 +490,9 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '/components/thin-hook/demo/es6-module2.js': '@Module_importer',
     '/components/polymer/lib/utils/async.html,script@566,timeOut,run': '@setTimeout_reader',
     '/components/thin-hook/demo/,script@4861': '@document_writer',
+    '/components/thin-hook/demo/,script@5056': '@document_writer',
     '/components/thin-hook/demo/sub-document.html,script@1157': '@document_writer',
+    '/components/thin-hook/demo/commonjs2.js': '@path_join_prohibited',
   };
   const opTypeMap = {
     r: 0, w: 1, x: 2
@@ -646,6 +648,25 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       },
       [S_DEFAULT]: '---',
       invalidImportUrl: '---',
+    },
+    require: {
+      [S_OBJECT]: {
+        [S_DEFAULT]: function requireAcl(normalizedThisArg,
+                                         normalizedArgs /* ['require', './module.js'] */,
+                                         aclArgs /* [name, isStatic, isObject, property, opType, context] */,
+                                         hookArgs /* [f, thisArg, args, context, newTarget] */) {
+          let opType = aclArgs[4];
+          if (opType === 'x') {
+            console.log('requireAcl: ' + hookArgs[3] + ': require(' + (normalizedArgs[1] ? '\'' + normalizedArgs[1].toString() + '\'' : normalizedArgs[1]) + ') resolved = ' + normalizedArgs[2].toString());
+          }
+          else {
+            console.log('requireAcl: ' + hookArgs[3] + ': opType = ' + opType + ' for require');
+          }
+          return 'r-x'[opTypeMap[opType]] === opType; // equivalent to 'r-x' acl
+        },
+      },
+      [S_DEFAULT]: '---',
+      invalidRequireName: '---',
     },
     navigator: {
       [S_OBJECT]: 'r--',
@@ -1217,6 +1238,21 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         [S_DEFAULT]: 'r--',
         '@web_animations_next_lite': 'rw-',
       }
+    },
+    // bundled modules
+    '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js': {
+      [S_DEFAULT]: 'r-x',
+      xliffStates: '---',
+    },
+    '/components/thin-hook/demo/commonjs2.js': {
+      [S_DEFAULT]: 'r--', // add() is not executable
+    },
+    '/components/thin-hook/node_modules/path-browserify/index.js': {
+      [S_DEFAULT]: 'r-x',
+      join: {
+        [S_DEFAULT]: '--x',
+        '@path_join_prohibited': '---',
+      },
     },
     // default for global objects
     [S_GLOBAL]: {
@@ -2457,39 +2493,102 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         }
         else if (Number.isNaN(newTarget)) {
           name = args[0];
-          if (name === 'import()') {
-            // import('module.js')
-            name = 'import'; // Note: virtual object name 'import'
-            let property = S_UNSPECIFIED;
-            if (!args[1] || typeof args[1] !== 'string' ||
-              !args[1].match(/^\s*(([^:\/?#]+):)?(\/\/([^\/?#]*))?([^?#]*[.]m?js)(\?([^#]*))?(#(.*))?\s*$/)) {
-              property = 'invalidImportUrl'; // Note: virtual property 'invalidImportUrl'
-            }
-            if (!applyAcl(name, true, false, property, 'x', context, normalizedThisArg, _args, arguments)) {
-              throw new Error('Permission Denied: Cannot access ' + name);
-            }
-            let _blacklist = _blacklistObjects[name];
-            if (_blacklist) {
-              if (typeof _blacklist === 'boolean') {
+          switch (name) {
+          case 'import()':
+            {
+              // import('module.js')
+              name = 'import'; // Note: virtual object name 'import'
+              let property = S_UNSPECIFIED;
+              if (!args[1] || typeof args[1] !== 'string' ||
+                !args[1].match(/^\s*(([^:\/?#]+):)?(\/\/([^\/?#]*))?([^?#]*[.]m?js)(\?([^#]*))?(#(.*))?\s*$/)) {
+                property = 'invalidImportUrl'; // Note: virtual property 'invalidImportUrl'
+              }
+              if (!applyAcl(name, true, false, property, 'x', context, normalizedThisArg, _args, arguments)) {
                 throw new Error('Permission Denied: Cannot access ' + name);
               }
+              let _blacklist = _blacklistObjects[name];
+              if (_blacklist) {
+                if (typeof _blacklist === 'boolean') {
+                  throw new Error('Permission Denied: Cannot access ' + name);
+                }
+              }
+              let forName;
+              if (!globalPropertyContexts[context]) {
+                let group = context.split(/[,:]/)[0];
+                data2.nodes.push({ id: '/' + context, label: context, group: group });
+                globalPropertyContexts[context] = true;
+              }
+              if (!globalObjectAccess[name]) {
+                globalObjectAccess[name] = {};
+                data2.nodes.push({ id: name, label: name, group: name });
+              }
+              forName = globalObjectAccess[name];
+              if (!forName[context]) {
+                forName[context] = { from: '/' + context, to: name, label: 0, arrows: 'to' };
+                data2.edges.push(forName[context]);
+              }
+              forName[context].label++;
             }
-            let forName;
-            if (!globalPropertyContexts[context]) {
-              let group = context.split(/[,:]/)[0];
-              data2.nodes.push({ id: '/' + context, label: context, group: group });
-              globalPropertyContexts[context] = true;
+            break;
+          case 'require':
+            {
+              // require('module.js'); args = [ 'require', './module.js', '/resolved/component/path/to/module.js' ]
+              let property = S_UNSPECIFIED;
+              if (!args[1] || typeof args[1] !== 'string') {
+                property = 'invalidRequireName'; // Note: virtual property 'invalidRequireName'
+              }
+              if (!applyAcl(name, true, false, property, 'x', context, normalizedThisArg, _args, arguments)) {
+                throw new Error('Permission Denied: Cannot access ' + name);
+              }
+              let _blacklist = _blacklistObjects[name];
+              if (_blacklist) {
+                if (typeof _blacklist === 'boolean') {
+                  throw new Error('Permission Denied: Cannot access ' + name);
+                }
+              }
+              // access allowed
+              if (args[2][0] === '/') { // TODO: Only pre-hooked modules are handled for now.
+                // load and register the object with its virtual name
+                thisArg = f(); // The path argument is not required since it is embedded in the function body
+                let virtualName = args[2];
+                _globalObjects.set(thisArg, virtualName);
+                let _properties = Object.getOwnPropertyDescriptors(thisArg);
+                let _prop;
+                for (_prop in _properties) {
+                  if (typeof _properties[_prop].value === 'function') {
+                    _globalMethods.set(_properties[_prop].value, [virtualName, _prop]);
+                  }
+                }
+                if (thisArg.prototype) {
+                  _properties = Object.getOwnPropertyDescriptors(thisArg.prototype);
+                  for (_prop in _properties) {
+                    if (typeof _properties[_prop].value === 'function') {
+                      _globalMethods.set(_properties[_prop].value, [virtualName, 'prototype', _prop]);
+                    }
+                  }
+                }
+                f = '*'; // return result = thisArg;
+              }
+              let forName;
+              if (!globalPropertyContexts[context]) {
+                let group = context.split(/[,:]/)[0];
+                data2.nodes.push({ id: '/' + context, label: context, group: group });
+                globalPropertyContexts[context] = true;
+              }
+              if (!globalObjectAccess[name]) {
+                globalObjectAccess[name] = {};
+                data2.nodes.push({ id: name, label: name, group: name });
+              }
+              forName = globalObjectAccess[name];
+              if (!forName[context]) {
+                forName[context] = { from: '/' + context, to: name, label: 0, arrows: 'to' };
+                data2.edges.push(forName[context]);
+              }
+              forName[context].label++;
             }
-            if (!globalObjectAccess[name]) {
-              globalObjectAccess[name] = {};
-              data2.nodes.push({ id: name, label: name, group: name });
-            }
-            forName = globalObjectAccess[name];
-            if (!forName[context]) {
-              forName[context] = { from: '/' + context, to: name, label: 0, arrows: 'to' };
-              data2.edges.push(forName[context]);
-            }
-            forName[context].label++;
+            break;
+          default:
+            break;
           }
         }
       }
@@ -3552,17 +3651,58 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         }
         else if (Number.isNaN(newTarget)) {
           name = args[0];
-          if (name === 'import()') {
-            // import('module.js')
-            name = 'import'; // Note: virtual object name 'import'
-            let property = S_UNSPECIFIED;
-            if (!args[1] || typeof args[1] !== 'string' ||
-              !args[1].match(/^\s*(([^:\/?#]+):)?(\/\/([^\/?#]*))?([^?#]*[.]m?js)(\?([^#]*))?(#(.*))?\s*$/)) {
-              property = 'invalidImportUrl'; // Note: virtual property 'invalidImportUrl'
+          switch (name) {
+          case 'import()':
+            {
+              // import('module.js')
+              name = 'import'; // Note: virtual object name 'import'
+              let property = S_UNSPECIFIED;
+              if (!args[1] || typeof args[1] !== 'string' ||
+                !args[1].match(/^\s*(([^:\/?#]+):)?(\/\/([^\/?#]*))?([^?#]*[.]m?js)(\?([^#]*))?(#(.*))?\s*$/)) {
+                property = 'invalidImportUrl'; // Note: virtual property 'invalidImportUrl'
+              }
+              if (!applyAcl(name, true, false, property, 'x', context, normalizedThisArg, _args, arguments)) {
+                throw new Error('Permission Denied: Cannot access ' + name);
+              }
             }
-            if (!applyAcl(name, true, false, property, 'x', context, normalizedThisArg, _args, arguments)) {
-              throw new Error('Permission Denied: Cannot access ' + name);
+            break;
+          case 'require':
+            {
+              // require('module.js'); args = [ 'require', './module.js', '/resolved/component/path/to/module.js' ]
+              let property = S_UNSPECIFIED;
+              if (!args[1] || typeof args[1] !== 'string') {
+                property = 'invalidRequireName'; // Note: virtual property 'invalidRequireName'
+              }
+              if (!applyAcl(name, true, false, property, 'x', context, normalizedThisArg, _args, arguments)) {
+                throw new Error('Permission Denied: Cannot access ' + name);
+              }
+              // access allowed
+              if (args[2][0] === '/') { // TODO: Only pre-hooked modules are handled for now.
+                // load and register the object with its virtual name
+                thisArg = f(); // The path argument is not required since it is embedded in the function body
+                let virtualName = args[2];
+                _globalObjects.set(thisArg, virtualName);
+                let _properties = Object.getOwnPropertyDescriptors(thisArg);
+                let _prop;
+                for (_prop in _properties) {
+                  if (typeof _properties[_prop].value === 'function') {
+                    _globalMethods.set(_properties[_prop].value, [virtualName, _prop]);
+                  }
+                }
+                if (thisArg.prototype) {
+                  _properties = Object.getOwnPropertyDescriptors(thisArg.prototype);
+                  for (_prop in _properties) {
+                    if (typeof _properties[_prop].value === 'function') {
+                      _globalMethods.set(_properties[_prop].value, [virtualName, 'prototype', _prop]);
+                    }
+                  }
+                }
+                f = '*'; // return result = thisArg;
+              }
             }
+            break;
+          default:
+            break;
           }
         }
       }
