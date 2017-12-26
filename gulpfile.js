@@ -7,7 +7,12 @@ const babel = require('gulp-babel');
 const rename = require('gulp-rename');
 const sourcemaps = require('gulp-sourcemaps');
 const browserify = require('browserify');
+const browserifyBuiltins = require('browserify/lib/builtins.js');
 const licensify = require('licensify');
+const webpack = require('webpack');
+const webpackStream = require('webpack-stream');
+const loaderUtils = require('loader-utils');
+const nodeLibsBrowser = require('node-libs-browser');
 const source = require('vinyl-source-stream');
 const buffer = require('vinyl-buffer');
 const uglify = require('gulp-uglify');
@@ -41,20 +46,24 @@ let lastHtml = 'old';
 let currentHtml = '';
 
 gulp.task('demo', (done) => {
+  runSequence('browserify-commonjs', 'webpack-es6-module', 'webpack-commonjs', 'encode-demo-html', done);
+});
+
+gulp.task('encode-demo-html', (done) => {
   setTimeout(() => {
     return gulp.src(['demo/original-index.html'], { base: 'demo' })
       //.pipe(sourcemaps.init())
       .pipe(through.obj((file, enc, callback) => {
-        const hash = hook.utils.createHash('sha256');
         let html = String(file.contents);
-        let hookScript = fs.readFileSync('hook.min.js', 'UTF-8');
-        hash.update(hookScript);
-        let digest = hash.digest('hex');
-        const hash2 = hook.utils.createHash('sha256');
-        let hookCallbackScript = fs.readFileSync('demo/hook-callback.js', 'UTF-8');
-        hash2.update(hookCallbackScript);
-        let digest2 = hash2.digest('hex');
-        html = html.replace(/no-hook-authorization=([a-z0-9]*),([a-z0-9]*),/, 'no-hook-authorization=' + digest + ',' + digest2 + ',');
+        let digests = [ 'hook.min.js', 'demo/hook-callback.js', 'demo/browserify-commonjs.js', 'demo/webpack-es6-module.js', 'demo/webpack-commonjs.js' ].map(scriptPath => {
+          const hash = hook.utils.createHash('sha256');
+          let hookScript = fs.readFileSync(scriptPath, 'UTF-8');
+          hash.update(hookScript);
+          let digest = hash.digest('hex');
+          return digest;
+        });
+        html = html.replace(/no-hook-authorization=([a-z0-9]*),([a-z0-9]*),([a-z0-9]*),([a-z0-9]*),([a-z0-9]*),/,
+          'no-hook-authorization=' + digests.join(',') + ',');
         lastHtml = currentHtml;
         currentHtml = html;
         file.contents = new Buffer(html);
@@ -121,6 +130,169 @@ function _trimStartEndRaw(ast) {
     }
   }
 }
+
+const urlForCurrendDir = '/components/thin-hook';
+
+function bundlerContextGeneratorFactory(nodeLibs) {
+  return function requireContextGenerator(astPath) {
+    let ast = astPath[astPath.length - 1][1];
+    let context = hook.contextGenerators.method(astPath);
+    if (ast.type === 'CallExpression' &&
+        ast.callee.type === 'Identifier' &&
+        ast.callee.name === 'require' &&
+        ast.arguments.length === 1 &&
+        ast.arguments[0].type === 'Literal' &&
+        typeof ast.arguments[0].value === 'string') {
+      let name = ast.arguments[0].value;
+      let origin = context.split(/,/)[0];
+      let cwd = process.cwd();
+      let originUrlDir = path.dirname(origin);
+      let originPhysicalDir = cwd + originUrlDir.substring(urlForCurrendDir.length);
+      let adjustedName = name;
+      let resolved;
+      let componentPath;
+      let componentName;
+      if (name[0] === '.') {
+        adjustedName = path.join(originPhysicalDir, name);
+        resolved = require.resolve(adjustedName);
+        componentPath = resolved.substring(cwd.length);
+      }
+      else {
+        resolved = nodeLibs[name];
+        if (resolved) {
+          componentPath = resolved.substring(cwd.length);
+        }
+        else {
+          resolved = require.resolve(name);
+          componentPath = resolved.substring(cwd.length);
+        }
+      }
+      componentName = urlForCurrendDir + componentPath;
+      console.log('requireContextGenerator: context = ' + context + ' name = ' + name + ' componentName = ' + componentName);
+      context += '|' + componentName;
+    }
+    return context;
+  };
+}
+
+hook.contextGenerators.webpack = bundlerContextGeneratorFactory(nodeLibsBrowser);
+hook.contextGenerators.browserify = bundlerContextGeneratorFactory(browserifyBuiltins);
+
+// Hook transformer - browserify transform
+function hookTransformFactory(contextGeneratorName) {
+  return function hookTransform(file) {
+    let cwd = process.cwd();
+    let chunks = [];
+    function transform(chunk, encoding, callback) {
+      chunks.push(chunk);
+      callback();
+    }
+    function flush(callback) {
+      let stream = this;
+      let code = Buffer.concat(chunks).toString();
+      let context =
+        //file.substring(cwd.length); // based on the build path
+        urlForCurrendDir + file.substring(cwd.length); // based on the polyserve path mapping without --npm option
+      if (!file.match(/\/node_modules\/webpack\/buildin\/module[.]js$/)) { // TODO: Hooking webpack/buildin/module.js raises an error
+        code = hook(code,
+          '__hook__', // hookName = '__hook__',
+          [ [ context, {} ] ], // initialContext = [],
+          contextGeneratorName, // contextGeneratorName = 'method',
+          true, // metaHooking = true,
+          true, // _hookProperty = getHookProperty(),
+          null, // _sourceMap = null,
+          false, // asynchronous = false,
+          false, // _compact = getCompact(),
+          true, // _hookGlobal = getHookGlobal(),
+          '_pp_', // _hookPrefix = getHookPrefix(),
+          { require: true, module: true, exports: true } // initialScope = null
+        );
+      }
+      console.log('hook ', file);
+      stream.push(code);
+      callback(null);
+    }
+    return through(transform, flush);
+  }
+}
+
+
+// Hook CommonJs modules in browserify
+// NOTES:
+// - Wrappers are not hooked
+gulp.task('browserify-commonjs', () => {
+  const cwd = process.cwd();
+  return browserify('./demo/commonjs.js', { standalone: 'commonjs_module', insertGlobals: false, insertGlobalVars: {
+      __hook__: undefined
+    } })
+    .transform({ global: true }, hookTransformFactory('browserify'))
+    .bundle()
+    .pipe(source('browserify-commonjs.js'))
+    .pipe(buffer())
+    .pipe(gulp.dest('./demo'));
+
+});
+
+// Hook CommonJs modules in webpack
+// NOTES:
+// - Wrappers like __webpack_require__ are not hooked
+gulp.task('webpack-commonjs', () => {
+  const cwd = process.cwd();
+  const webpackConfig = {
+    entry: "./demo/commonjs.js",
+    output: {
+      filename: "webpack-commonjs.js"
+    },
+    plugins: [
+      new webpack.LoaderOptionsPlugin({
+        options: {
+          transforms: [
+            hookTransformFactory('webpack')
+          ]
+        }
+      })
+    ],
+    module: {
+      loaders: [{
+        test: /\.js$/,
+        loader: 'transform-loader?0',
+      }],
+    },
+  };
+  return webpackStream(webpackConfig, webpack)
+    .pipe(gulp.dest('./demo'));
+
+});
+
+// Hook ES6 modules in webpack
+// NOTES:
+// - Wrappers like __webpack_require__ are not hooked
+gulp.task('webpack-es6-module', () => {
+  const cwd = process.cwd();
+  const webpackConfig = {
+    entry: "./demo/es6-module3.js",
+    output: {
+      filename: "webpack-es6-module.js"
+    },
+    plugins: [
+      new webpack.LoaderOptionsPlugin({
+        options: {
+          transforms: [
+            hookTransformFactory('webpack')
+          ]
+        }
+      })
+    ],
+    module: {
+      loaders: [{
+        test: /\.js$/,
+        loader: 'transform-loader?0',
+      }],
+    },
+  };
+  return webpackStream(webpackConfig, webpack)
+    .pipe(gulp.dest('./demo'));
+});
 
 gulp.task('build', () => {
   return browserify('./hook.js', { standalone: 'hook' })
