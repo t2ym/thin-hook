@@ -32,7 +32,7 @@ __hook__('()', __hook__('.', chai, ['assert'], '/components/thin-hook/demo/commo
     /^Permission Denied:/
   ]
 ], '/components/thin-hook/demo/commonjs.js');
-},{"./commonjs2.js":2,"xliff-conv":5}],2:[function(require,module,exports){
+},{"./commonjs2.js":2,"xliff-conv":6}],2:[function(require,module,exports){
 const path = __hook__(() => require('path'), null, [
   'require',
   'path',
@@ -54,6 +54,20 @@ __hook__('()', __hook__('.', chai, ['assert'], '/components/thin-hook/demo/commo
     /^Permission Denied:/
   ]
 ], '/components/thin-hook/demo/commonjs2.js');
+__hook__('()', __hook__('.', chai, ['assert'], '/components/thin-hook/demo/commonjs2.js'), [
+  'throws',
+  [
+    (...args) =>
+      (__hook__(() => {
+        const tty = __hook__(() => require('tty'), null, [
+          'require',
+          'tty',
+          '/components/thin-hook/node_modules/tty-browserify/index.js'
+        ], '/components/thin-hook/demo/commonjs2.js,tty', NaN);
+      }, null, args, '/components/thin-hook/demo/commonjs2.js')),
+    /^Permission Denied:/
+  ]
+], '/components/thin-hook/demo/commonjs2.js');
 __hook__('=', module, [
   'exports',
   function add(a, b) {
@@ -62,7 +76,7 @@ __hook__('=', module, [
     }, null, arguments, '/components/thin-hook/demo/commonjs2.js,add');
   }
 ], '/components/thin-hook/demo/commonjs2.js');
-},{"path":3}],3:[function(require,module,exports){
+},{"path":3,"tty":5}],3:[function(require,module,exports){
 (function (process){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -817,6 +831,33 @@ __hook__('=', process, [
   }
 ], '/components/thin-hook/node_modules/process/browser.js');
 },{}],5:[function(require,module,exports){
+__hook__('=', exports, [
+  'isatty',
+  function () {
+    return __hook__(() => {
+      return false;
+    }, null, arguments, '/components/thin-hook/node_modules/tty-browserify/index.js');
+  }
+], '/components/thin-hook/node_modules/tty-browserify/index.js');
+function ReadStream() {
+  return __hook__(() => {
+    throw __hook__(Error, null, ['tty.ReadStream is not implemented'], '/components/thin-hook/node_modules/tty-browserify/index.js,ReadStream', true);
+  }, null, arguments, '/components/thin-hook/node_modules/tty-browserify/index.js,ReadStream');
+}
+__hook__('=', exports, [
+  'ReadStream',
+  ReadStream
+], '/components/thin-hook/node_modules/tty-browserify/index.js');
+function WriteStream() {
+  return __hook__(() => {
+    throw __hook__(Error, null, ['tty.ReadStream is not implemented'], '/components/thin-hook/node_modules/tty-browserify/index.js,WriteStream', true);
+  }, null, arguments, '/components/thin-hook/node_modules/tty-browserify/index.js,WriteStream');
+}
+__hook__('=', exports, [
+  'WriteStream',
+  WriteStream
+], '/components/thin-hook/node_modules/tty-browserify/index.js');
+},{}],6:[function(require,module,exports){
 /*
 @license https://github.com/t2ym/xliff-conv/blob/master/LICENSE.md
 Copyright (c) 2016, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
@@ -2441,7 +2482,7 @@ __hook__(function (root, factory) {
     }, null, arguments, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js');
   }
 ], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 0);
-},{"xmldom":6}],6:[function(require,module,exports){
+},{"xmldom":7}],7:[function(require,module,exports){
 function DOMParser(options) {
   return __hook__(options => {
     __hook__('=', this, [
@@ -3028,7 +3069,7 @@ __hook__('=', exports, [
   DOMParser
 ], '/components/thin-hook/node_modules/xmldom/dom-parser.js');  //}
 
-},{"./dom":7,"./sax":8}],7:[function(require,module,exports){
+},{"./dom":8,"./sax":9}],8:[function(require,module,exports){
 /*
  * DOM Level 2
  * Object DOMException
@@ -5719,7 +5760,7 @@ __hook__('=', exports, [
   XMLSerializer
 ], '/components/thin-hook/node_modules/xmldom/dom.js');  //}
 
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 //[4]   	NameStartChar	   ::=   	":" | [A-Z] | "_" | [a-z] | [#xC0-#xD6] | [#xD8-#xF6] | [#xF8-#x2FF] | [#x370-#x37D] | [#x37F-#x1FFF] | [#x200C-#x200D] | [#x2070-#x218F] | [#x2C00-#x2FEF] | [#x3001-#xD7FF] | [#xF900-#xFDCF] | [#xFDF0-#xFFFD] | [#x10000-#xEFFFF]
 //[4a]   	NameChar	   ::=   	NameStartChar | "-" | "." | [0-9] | #xB7 | [#x0300-#x036F] | [#x203F-#x2040]
 //[5]   	Name	   ::=   	NameStartChar (NameChar)*
