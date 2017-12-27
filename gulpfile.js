@@ -131,7 +131,7 @@ function _trimStartEndRaw(ast) {
   }
 }
 
-const urlForCurrendDir = '/components/thin-hook';
+const urlForCurrentDir = '/components/thin-hook';
 
 function bundlerContextGeneratorFactory(nodeLibs) {
   return function requireContextGenerator(astPath) {
@@ -147,7 +147,7 @@ function bundlerContextGeneratorFactory(nodeLibs) {
       let origin = context.split(/,/)[0];
       let cwd = process.cwd();
       let originUrlDir = path.dirname(origin);
-      let originPhysicalDir = cwd + originUrlDir.substring(urlForCurrendDir.length);
+      let originPhysicalDir = cwd + originUrlDir.substring(urlForCurrentDir.length);
       let adjustedName = name;
       let resolved;
       let componentPath;
@@ -167,7 +167,7 @@ function bundlerContextGeneratorFactory(nodeLibs) {
           componentPath = resolved.substring(cwd.length);
         }
       }
-      componentName = urlForCurrendDir + componentPath;
+      componentName = urlForCurrentDir + componentPath;
       console.log('requireContextGenerator: context = ' + context + ' name = ' + name + ' componentName = ' + componentName);
       context += '|' + componentName;
     }
@@ -192,7 +192,7 @@ function hookTransformFactory(contextGeneratorName) {
       let code = Buffer.concat(chunks).toString();
       let context =
         //file.substring(cwd.length); // based on the build path
-        urlForCurrendDir + file.substring(cwd.length); // based on the polyserve path mapping without --npm option
+        urlForCurrentDir + file.substring(cwd.length); // based on the polyserve path mapping without --npm option
       if (!file.match(/\/node_modules\/webpack\/buildin\/module[.]js$/)) { // TODO: Hooking webpack/buildin/module.js raises an error
         code = hook(code,
           '__hook__', // hookName = '__hook__',
