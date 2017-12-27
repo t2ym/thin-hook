@@ -2550,20 +2550,22 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
               if (args[2][0] === '/') { // TODO: Only pre-hooked modules are handled for now.
                 // load and register the object with its virtual name
                 thisArg = f(); // The path argument is not required since it is embedded in the function body
-                let virtualName = args[2];
-                _globalObjects.set(thisArg, virtualName);
-                let _properties = Object.getOwnPropertyDescriptors(thisArg);
-                let _prop;
-                for (_prop in _properties) {
-                  if (typeof _properties[_prop].value === 'function') {
-                    _globalMethods.set(_properties[_prop].value, [virtualName, _prop]);
-                  }
-                }
-                if (thisArg.prototype) {
-                  _properties = Object.getOwnPropertyDescriptors(thisArg.prototype);
+                if (thisArg instanceof Object) {
+                  let virtualName = args[2];
+                  _globalObjects.set(thisArg, virtualName);
+                  let _properties = Object.getOwnPropertyDescriptors(thisArg);
+                  let _prop;
                   for (_prop in _properties) {
                     if (typeof _properties[_prop].value === 'function') {
-                      _globalMethods.set(_properties[_prop].value, [virtualName, 'prototype', _prop]);
+                      _globalMethods.set(_properties[_prop].value, [virtualName, _prop]);
+                    }
+                  }
+                  if (thisArg.prototype) {
+                    _properties = Object.getOwnPropertyDescriptors(thisArg.prototype);
+                    for (_prop in _properties) {
+                      if (typeof _properties[_prop].value === 'function') {
+                        _globalMethods.set(_properties[_prop].value, [virtualName, 'prototype', _prop]);
+                      }
                     }
                   }
                 }
@@ -3680,20 +3682,22 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
               if (args[2][0] === '/') { // TODO: Only pre-hooked modules are handled for now.
                 // load and register the object with its virtual name
                 thisArg = f(); // The path argument is not required since it is embedded in the function body
-                let virtualName = args[2];
-                _globalObjects.set(thisArg, virtualName);
-                let _properties = Object.getOwnPropertyDescriptors(thisArg);
-                let _prop;
-                for (_prop in _properties) {
-                  if (typeof _properties[_prop].value === 'function') {
-                    _globalMethods.set(_properties[_prop].value, [virtualName, _prop]);
-                  }
-                }
-                if (thisArg.prototype) {
-                  _properties = Object.getOwnPropertyDescriptors(thisArg.prototype);
+                if (thisArg instanceof Object) {
+                  let virtualName = args[2];
+                  _globalObjects.set(thisArg, virtualName);
+                  let _properties = Object.getOwnPropertyDescriptors(thisArg);
+                  let _prop;
                   for (_prop in _properties) {
                     if (typeof _properties[_prop].value === 'function') {
-                      _globalMethods.set(_properties[_prop].value, [virtualName, 'prototype', _prop]);
+                      _globalMethods.set(_properties[_prop].value, [virtualName, _prop]);
+                    }
+                  }
+                  if (thisArg.prototype) {
+                    _properties = Object.getOwnPropertyDescriptors(thisArg.prototype);
+                    for (_prop in _properties) {
+                      if (typeof _properties[_prop].value === 'function') {
+                        _globalMethods.set(_properties[_prop].value, [virtualName, 'prototype', _prop]);
+                      }
                     }
                   }
                 }
