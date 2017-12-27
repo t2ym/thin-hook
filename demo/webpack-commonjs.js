@@ -2804,7 +2804,7 @@ const add = __hook__(() => __webpack_require__(4), null, [
   './commonjs2.js',
   '/components/thin-hook/demo/commonjs2.js'
 ], '/components/thin-hook/demo/commonjs.js,add', NaN);
-const XliffConv = __hook__(() => __webpack_require__(7), null, [
+const XliffConv = __hook__(() => __webpack_require__(8), null, [
   'require',
   'xliff-conv',
   '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'
@@ -2854,6 +2854,20 @@ __hook__('()', __hook__('.', chai, ['assert'], '/components/thin-hook/demo/commo
             'b'
           ]
         ], '/components/thin-hook/demo/commonjs2.js');
+      }, null, args, '/components/thin-hook/demo/commonjs2.js')),
+    /^Permission Denied:/
+  ]
+], '/components/thin-hook/demo/commonjs2.js');
+__hook__('()', __hook__('.', chai, ['assert'], '/components/thin-hook/demo/commonjs2.js'), [
+  'throws',
+  [
+    (...args) =>
+      (__hook__(() => {
+        const tty = __hook__(() => __webpack_require__(7), null, [
+          'require',
+          'tty',
+          '/components/thin-hook/node_modules/tty-browserify/index.js'
+        ], '/components/thin-hook/demo/commonjs2.js,tty', NaN);
       }, null, args, '/components/thin-hook/demo/commonjs2.js')),
     /^Permission Denied:/
   ]
@@ -3632,6 +3646,37 @@ __hook__('=', process, [
 
 /***/ }),
 /* 7 */
+/***/ (function(module, exports) {
+
+__hook__('=', exports, [
+  'isatty',
+  function () {
+    return __hook__(() => {
+      return false;
+    }, null, arguments, '/components/thin-hook/node_modules/tty-browserify/index.js');
+  }
+], '/components/thin-hook/node_modules/tty-browserify/index.js');
+function ReadStream() {
+  return __hook__(() => {
+    throw __hook__(Error, null, ['tty.ReadStream is not implemented'], '/components/thin-hook/node_modules/tty-browserify/index.js,ReadStream', true);
+  }, null, arguments, '/components/thin-hook/node_modules/tty-browserify/index.js,ReadStream');
+}
+__hook__('=', exports, [
+  'ReadStream',
+  ReadStream
+], '/components/thin-hook/node_modules/tty-browserify/index.js');
+function WriteStream() {
+  return __hook__(() => {
+    throw __hook__(Error, null, ['tty.ReadStream is not implemented'], '/components/thin-hook/node_modules/tty-browserify/index.js,WriteStream', true);
+  }, null, arguments, '/components/thin-hook/node_modules/tty-browserify/index.js,WriteStream');
+}
+__hook__('=', exports, [
+  'WriteStream',
+  WriteStream
+], '/components/thin-hook/node_modules/tty-browserify/index.js');
+
+/***/ }),
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {/*
@@ -3690,7 +3735,7 @@ __hook__(function (root, factory) {
           ], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv');
           __hook__('#=', this, [
             'xmldom',
-            typeof $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv', 'window', '#typeof').S_pp_window === 'object' ? $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv', 'window', '#get').S_pp_window : __hook__(() => __webpack_require__(8), null, [
+            typeof $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv', 'window', '#typeof').S_pp_window === 'object' ? $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv', 'window', '#get').S_pp_window : __hook__(() => __webpack_require__(9), null, [
               'require',
               'xmldom',
               '/components/thin-hook/node_modules/xmldom/dom-parser.js'
@@ -5261,7 +5306,7 @@ __hook__(function (root, factory) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)(module)))
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 function DOMParser(options) {
@@ -5824,7 +5869,7 @@ function appendElement(hander, node) {
 }
 //appendChild and setAttributeNS are preformance key
 //if(typeof require == 'function'){
-var XMLReader = __hook__('.', __hook__(() => __webpack_require__(9), null, [
+var XMLReader = __hook__('.', __hook__(() => __webpack_require__(10), null, [
   'require',
   './sax',
   '/components/thin-hook/node_modules/xmldom/sax.js'
@@ -5852,7 +5897,7 @@ __hook__('=', exports, [
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports) {
 
 //[4]   	NameStartChar	   ::=   	":" | [A-Z] | "_" | [a-z] | [#xC0-#xD6] | [#xD8-#xF6] | [#xF8-#x2FF] | [#x370-#x37D] | [#x37F-#x1FFF] | [#x200C-#x200D] | [#x2070-#x218F] | [#x2C00-#x2FEF] | [#x3001-#xD7FF] | [#xF900-#xFDCF] | [#xFDF0-#xFFFD] | [#x10000-#xEFFFF]
