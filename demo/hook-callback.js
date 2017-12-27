@@ -493,6 +493,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '/components/thin-hook/demo/,script@5056': '@document_writer',
     '/components/thin-hook/demo/sub-document.html,script@1157': '@document_writer',
     '/components/thin-hook/demo/commonjs2.js': '@path_join_prohibited',
+    '/components/thin-hook/demo/commonjs2.js,tty': '@tty_prohibited',
   };
   const opTypeMap = {
     r: 0, w: 1, x: 2
@@ -508,7 +509,8 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       return function (normalizedThisArg,
                        normalizedArgs /* ['property', args], ['property', value], etc. */,
                        aclArgs /* [name, isStatic, isObject, property, opType, context] */,
-                       hookArgs /* [f, thisArg, args, context, newTarget] */) {
+                       hookArgs /* [f, thisArg, args, context, newTarget] */,
+                       applyAcl /* for recursive application of ACL */) {
         let opType = aclArgs[4];
         return _acl[opTypeMap[opType]] === opType;
       };
@@ -516,7 +518,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     // args condition
     static args(condition) { // Policy.args("opType === 'x' && typeof args[0] === 'string'")
       // TODO: More refinement
-      return new Function('Policy', 'contextNormalizer', `return function (normalizedThisArg, normalizedArgs, aclArgs, hookArgs) {
+      return new Function('Policy', 'contextNormalizer', `return function (normalizedThisArg, normalizedArgs, aclArgs, hookArgs, applyAcl) {
         const opType = aclArgs[4];
         const args = typeof hookArgs[0] === 'string' ? normalizedArgs[1] : normalizedArgs;
         return ${condition};
@@ -654,15 +656,18 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         [S_DEFAULT]: function requireAcl(normalizedThisArg,
                                          normalizedArgs /* ['require', './module.js'] */,
                                          aclArgs /* [name, isStatic, isObject, property, opType, context] */,
-                                         hookArgs /* [f, thisArg, args, context, newTarget] */) {
+                                         hookArgs /* [f, thisArg, args, context, newTarget] */,
+                                         applyAcl /* for recursive application of ACL */) {
           let opType = aclArgs[4];
           if (opType === 'x') {
             console.log('requireAcl: ' + hookArgs[3] + ': require(' + (normalizedArgs[1] ? '\'' + normalizedArgs[1].toString() + '\'' : normalizedArgs[1]) + ') resolved = ' + normalizedArgs[2].toString());
+            // recursively apply ACL for the target module for reading
+            return applyAcl(normalizedArgs[2], true, true, S_UNSPECIFIED, 'r', hookArgs[3], normalizedThisArg, normalizedArgs, hookArgs);
           }
           else {
             console.log('requireAcl: ' + hookArgs[3] + ': opType = ' + opType + ' for require');
+            return 'r-x'[opTypeMap[opType]] === opType; // equivalent to 'r-x' acl
           }
-          return 'r-x'[opTypeMap[opType]] === opType; // equivalent to 'r-x' acl
         },
       },
       [S_DEFAULT]: '---',
@@ -1190,7 +1195,8 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         '@normalization_checker': function plainAcl(normalizedThisArg,
                                                     normalizedArgs /* ['property', args], ['property', value], etc. */,
                                                     aclArgs /* [name, isStatic, isObject, property, opType, context] */,
-                                                    hookArgs /* [f, thisArg, args, context, newTarget] */) {
+                                                    hookArgs /* [f, thisArg, args, context, newTarget] */,
+                                                    applyAcl /* for recursive application of ACL */) {
           let opType = aclArgs[4];
           return 'r--'[opTypeMap[opType]] === opType; // equivalent to 'r--' acl
         },
@@ -1253,6 +1259,10 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         [S_DEFAULT]: '--x',
         '@path_join_prohibited': '---',
       },
+    },
+    '/components/thin-hook/node_modules/tty-browserify/index.js': {
+      [S_DEFAULT]: 'r-x',
+      '@tty_prohibited': '---',
     },
     // default for global objects
     [S_GLOBAL]: {
@@ -1541,7 +1551,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       }
       return true;
     case 'function':
-      return _acl(normalizedThisArg, normalizedArgs, arguments, hookArgs);
+      return _acl(normalizedThisArg, normalizedArgs, arguments, hookArgs, applyAcl);
     case 'undefined':
     default:
       return false;
