@@ -1068,6 +1068,10 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         [S_DEFAULT]: '---',
         '@document_writer': '--x',
       },
+      timeline: {
+        [S_DEFAULT]: 'r-x',
+        '@web_animations_next_lite': 'rwx',
+      },
     },
     // blocked private API
     DummyClass: {
