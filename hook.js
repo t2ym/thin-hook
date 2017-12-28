@@ -23,7 +23,8 @@ module.exports = Object.freeze(Object.assign(hook,
   nativeWrappers, 
   {
     utils: {
-      createHash: createHash
+      createHash: createHash,
+      HTMLParser: htmlparser,
     },
     parameters: {}
   }
