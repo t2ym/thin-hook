@@ -1452,6 +1452,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       [S_DEFAULT]: 'r-x',
       write: {
         [S_DEFAULT]: '---',
+        // TODO: Apply ACL for tags in HTML like in Element.innerHTML ACL
         '@document_writer': '--x',
       },
       timeline: {
