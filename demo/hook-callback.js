@@ -525,6 +525,132 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       }`)(this, contextNormalizer);
     }
   };
+  const tagToElementClass = { // from w3schools.com - may be incomplete
+    a: 'HTMLAnchorElement',
+    abbr: 'HTMLElement',
+    acronym: 'HTMLElement',
+    address: 'HTMLElement',
+    applet: 'HTMLUnknownElement',
+    area: 'HTMLAreaElement',
+    article: 'HTMLElement',
+    aside: 'HTMLElement',
+    audio: 'HTMLAudioElement',
+    b: 'HTMLElement',
+    base: 'HTMLBaseElement',
+    basefont: 'HTMLElement',
+    bdi: 'HTMLElement',
+    bdo: 'HTMLElement',
+    big: 'HTMLElement',
+    blockquote: 'HTMLQuoteElement',
+    body: 'HTMLBodyElement',
+    br: 'HTMLBRElement',
+    button: 'HTMLButtonElement',
+    canvas: 'HTMLCanvasElement',
+    caption: 'HTMLTableCaptionElement',
+    center: 'HTMLElement',
+    cite: 'HTMLElement',
+    code: 'HTMLElement',
+    col: 'HTMLTableColElement',
+    colgroup: 'HTMLTableColElement',
+    data: 'HTMLDataElement',
+    datalist: 'HTMLDataListElement',
+    dd: 'HTMLElement',
+    del: 'HTMLModElement',
+    details: 'HTMLDetailsElement',
+    dfn: 'HTMLElement',
+    dialog: 'HTMLDialogElement',
+    dir: 'HTMLDirectoryElement',
+    div: 'HTMLDivElement',
+    dl: 'HTMLDListElement',
+    dt: 'HTMLElement',
+    em: 'HTMLElement',
+    embed: 'HTMLEmbedElement',
+    fieldset: 'HTMLFieldSetElement',
+    figcaption: 'HTMLElement',
+    figure: 'HTMLElement',
+    font: 'HTMLFontElement',
+    footer: 'HTMLElement',
+    form: 'HTMLFormElement',
+    frame: 'HTMLFrameElement',
+    frameset: 'HTMLFrameSetElement',
+    h1: 'HTMLHeadingElement',
+    h2: 'HTMLHeadingElement',
+    h3: 'HTMLHeadingElement',
+    h4: 'HTMLHeadingElement',
+    h5: 'HTMLHeadingElement',
+    h6: 'HTMLHeadingElement',
+    head: 'HTMLHeadElement',
+    header: 'HTMLElement',
+    hr: 'HTMLHRElement',
+    html: 'HTMLHtmlElement',
+    i: 'HTMLElement',
+    iframe: 'HTMLIFrameElement',
+    img: 'HTMLImageElement',
+    input: 'HTMLInputElement',
+    ins: 'HTMLModElement',
+    kbd: 'HTMLElement',
+    label: 'HTMLLabelElement',
+    legend: 'HTMLLegendElement',
+    li: 'HTMLLIElement',
+    link: 'HTMLLinkElement',
+    main: 'HTMLElement',
+    map: 'HTMLMapElement',
+    mark: 'HTMLElement',
+    menu: 'HTMLMenuElement',
+    menuitem: 'HTMLUnknownElement',
+    meta: 'HTMLMetaElement',
+    meter: 'HTMLMeterElement',
+    nav: 'HTMLElement',
+    noframes: 'HTMLElement',
+    noscript: 'HTMLElement',
+    object: 'HTMLObjectElement',
+    ol: 'HTMLOListElement',
+    optgroup: 'HTMLOptGroupElement',
+    option: 'HTMLOptionElement',
+    output: 'HTMLOutputElement',
+    p: 'HTMLParagraphElement',
+    param: 'HTMLParamElement',
+    picture: 'HTMLPictureElement',
+    pre: 'HTMLPreElement',
+    progress: 'HTMLProgressElement',
+    q: 'HTMLQuoteElement',
+    rp: 'HTMLElement',
+    rt: 'HTMLElement',
+    ruby: 'HTMLElement',
+    s: 'HTMLElement',
+    samp: 'HTMLElement',
+    script: 'HTMLScriptElement',
+    section: 'HTMLElement',
+    select: 'HTMLSelectElement',
+    slot: 'HTMLSlotElement',
+    small: 'HTMLElement',
+    source: 'HTMLSourceElement',
+    span: 'HTMLSpanElement',
+    strike: 'HTMLElement',
+    strong: 'HTMLElement',
+    style: 'HTMLStyleElement',
+    sub: 'HTMLElement',
+    summary: 'HTMLElement',
+    sup: 'HTMLElement',
+    table: 'HTMLTableElement',
+    tbody: 'HTMLTableSectionElement',
+    td: 'HTMLTableCellElement',
+    template: 'HTMLTemplateElement',
+    textarea: 'HTMLTextAreaElement',
+    tfoot: 'HTMLTableSectionElement',
+    th: 'HTMLTableCellElement',
+    thead: 'HTMLTableSectionElement',
+    time: 'HTMLTimeElement',
+    title: 'HTMLTitleElement',
+    tr: 'HTMLTableRowElement',
+    track: 'HTMLTrackElement',
+    tt: 'HTMLElement',
+    u: 'HTMLElement',
+    ul: 'HTMLUListElement',
+    var: 'HTMLElement',
+    video: 'HTMLVideoElement',
+    wbr: 'HTMLElement',
+  };
   const acl = {
     // blacklist objects/classes
     caches: '---',
@@ -741,9 +867,52 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         },
       }
     },
-    HTMLElement: {
+    Element: {
       [S_DEFAULT]: 'r-x',
       [S_PROTOTYPE]: {
+        [S_DEFAULT]: 'r-x',
+        animate: {
+          [S_DEFAULT]: 'r-x',
+          '@web_animations_next_lite': 'rwx',
+        },
+        getAnimations: {
+          [S_DEFAULT]: 'r-x',
+          '@web_animations_next_lite': 'rwx',
+        },
+        [S_INSTANCE]: {
+          [S_DEFAULT]: 'rwx',
+          // Note: This ACL may significantly degrade performance
+          innerHTML: function innerHtmlAcl(normalizedThisArg,
+                                           normalizedArgs /* ['property', args], ['property', value], etc. */,
+                                           aclArgs /* [name, isStatic, isObject, property, opType, context] */,
+                                           hookArgs /* [f, thisArg, args, context, newTarget] */,
+                                           applyAcl /* for recursive application of ACL */) {
+            let opType = aclArgs[4];
+            let result = 'rw-'[opTypeMap[opType]] === opType;
+            if (result) {
+              if (opType === 'w') {
+                //console.log('set innerHTML: context = ' + hookArgs[3]);
+                let stream = new hook.utils.HTMLParser.WritableStream({
+                  onopentag(name, attributes) {
+                    //console.log('set innerHTML: tagName = ' + name);
+                    // TODO: Apply ACL for attributes as well with normalization of attributes to properties (mostly identical)
+                    result = result && applyAcl('document', true, true, 'createElement', 'x', hookArgs[3], document, ['createElement', [name.toLowerCase()]], hookArgs);
+                  },
+                });
+                stream.write(normalizedArgs[1]);
+                stream.end();
+              }
+            }
+            return result;
+          },
+        },
+      },
+    },
+    HTMLElement: {
+      [S_DEFAULT]: 'r-x',
+      [S_CHAIN]: () => acl.Element,
+      [S_PROTOTYPE]: {
+        [S_CHAIN]: S_CHAIN,
         [S_DEFAULT]: 'rwx', // Note: Loose ACL but normal for custom elements; Other native APIs have to be protected specifically.
         $__proto__$: {
           [S_DEFAULT]: 'r--',
@@ -772,7 +941,31 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           [S_DEFAULT]: 'r-x',
           '@Event___domApi_writer': 'rwx',
         },
+        [S_INSTANCE]: {
+          [S_CHAIN]: S_CHAIN,
+        },
       },
+    },
+    HTMLVideoElement: {
+      [S_CHAIN]: () => acl.HTMLMediaElement,
+    },
+    HTMLUnknownElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLUListElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLTrackElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLTitleElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLTimeElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLTextAreaElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
     },
     HTMLTemplateElement: {
       [S_OBJECT]: 'r-x',
@@ -785,7 +978,200 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           [S_DEFAULT]: 'r--',
           '@template_element_prototype_setter': 'rw-',
         },
-      }
+      },
+    },
+    HTMLTableSectionElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLTableRowElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLTableElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLTableColElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLTableCellElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLTableCaptionElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLStyleElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLSpanElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLSourceElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLSlotElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLShadowElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLSelectElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLScriptElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLQuoteElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLProgressElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLPreElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+      '@document_writer': '---',
+    },
+    HTMLPictureElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLParamElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLParagraphElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLOutputElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLOptionElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLOptGroupElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLObjectElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLOListElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLModElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLMeterElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLMetaElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLMenuElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLMediaElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLMarqueeElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLMapElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLLinkElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLLegendElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLLabelElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLLIElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLInputElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLImageElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLIFrameElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLHtmlElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLHeadingElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLHeadElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLHRElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLFrameSetElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLFrameElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLFormElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLFontElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLFieldSetElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLEmbedElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLDivElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLDirectoryElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLDialogElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLDetailsElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLDataListElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLDataElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLDListElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLContentElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLCanvasElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLButtonElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLBodyElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLBaseElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLBRElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLAudioElement: {
+      [S_CHAIN]: () => acl.HTMLMediaElement,
+    },
+    HTMLAreaElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
+    },
+    HTMLAnchorElement: {
+      [S_CHAIN]: () => acl.HTMLElement,
     },
     Array: {
       [S_DEFAULT]: 'r-x',
@@ -1072,6 +1458,52 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         [S_DEFAULT]: 'r-x',
         '@web_animations_next_lite': 'rwx',
       },
+      createElement: {
+        [S_DEFAULT]: function createElementAcl(normalizedThisArg,
+                                               normalizedArgs /* ['property', args], ['property', value], etc. */,
+                                               aclArgs /* [name, isStatic, isObject, property, opType, context] */,
+                                               hookArgs /* [f, thisArg, args, context, newTarget] */,
+                                               applyAcl /* for recursive application of ACL */) {
+          let opType = aclArgs[4];
+          let result = '--x'[opTypeMap[opType]] === opType;
+          if (result) {
+            if (opType === 'x') {
+              //console.log('document.createElement: tagName = ' + normalizedArgs[1][0] + ' context = ' + hookArgs[3]);
+              // This ACL can be forwarded to its corresponding HTMLElement subclass ACL or a custom element ACL like the following
+              let tag = normalizedArgs[1][0].toLowerCase();
+              let name;
+              if (tagToElementClass.hasOwnProperty(tag)) {
+                name = tagToElementClass[tag];
+              }
+              if (!name) {
+                if (tag.indexOf('-') < 0) {
+                  // Supplement missing tag in the table for the next lookup
+                  name = tagToElementClass[tag] = document.createElement(tag).constructor.name;
+                  console.log('createElementAcl: Supplement the missing tag "' + tag + '" with "' + tagToElementClass[tag] + '" in tagToElementClass table');
+                }
+                else {
+                  // Custom Elements with hyphen(s) in the name
+                  // Note: Use the custom element name itself as its virtual object name in ACL here for now.
+                  //       The name can be customized such as 'CustomElement:tag-name' to avoid name conflicts in ACL.
+                  // Note: The custom element may not be defined yet.
+                  name = tag;
+                }
+              }
+              // Apply ACL for the element class
+              result = applyAcl(name, true, true, S_UNSPECIFIED, 'x', hookArgs[3], HTMLElement /* TODO: More appropriate normalizedThisArg */, [], hookArgs);
+            }
+          }
+          return result;
+        },
+      },
+    },
+    // Custom Elements
+    // Note: This virtual object name is experimental and referenced only in the above document.createElement ACL policy function createElementAcl()
+    // Note: The name must be unique in ACL namespace
+    'live-localizer': {
+      [S_DEFAULT]: 'r-x',
+      [S_CHAIN]: () => acl.HTMLElement,
+      '@document_writer': '---',
     },
     // blocked private API
     DummyClass: {
