@@ -1,4 +1,4 @@
-const add = require('./commonjs2.js');
+const add = require('./commonjs2');
 const XliffConv = require('xliff-conv');
 chai.assert.throws(() => {
   add(1, 2);
