@@ -2801,7 +2801,7 @@ __hook__('=', exports, [
 
 const add = __hook__(() => __webpack_require__(4), null, [
   'require',
-  './commonjs2.js',
+  './commonjs2',
   '/components/thin-hook/demo/commonjs2.js'
 ], '/components/thin-hook/demo/commonjs.js,add', NaN);
 const XliffConv = __hook__(() => __webpack_require__(8), null, [

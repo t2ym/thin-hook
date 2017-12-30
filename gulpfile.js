@@ -131,9 +131,15 @@ function _trimStartEndRaw(ast) {
   }
 }
 
+const enhancedResolve = require('enhanced-resolve');
+const resolveSync = enhancedResolve.create.sync({ // webPackConfig.resolve
+  extensions: ['.js', '.json']
+});
+
 const urlForCurrentDir = '/components/thin-hook';
 
 function bundlerContextGeneratorFactory(nodeLibs) {
+  // Note: Not tested on Windows
   return function requireContextGenerator(astPath) {
     let ast = astPath[astPath.length - 1][1];
     let context = hook.contextGenerators.method(astPath);
@@ -153,20 +159,15 @@ function bundlerContextGeneratorFactory(nodeLibs) {
       let componentPath;
       let componentName;
       if (name[0] === '.') {
-        adjustedName = path.join(originPhysicalDir, name);
-        resolved = require.resolve(adjustedName);
-        componentPath = resolved.substring(cwd.length);
+        resolved = resolveSync({}, originPhysicalDir, name);
       }
       else {
         resolved = nodeLibs[name];
-        if (resolved) {
-          componentPath = resolved.substring(cwd.length);
-        }
-        else {
-          resolved = require.resolve(name);
-          componentPath = resolved.substring(cwd.length);
+        if (!resolved) {
+          resolved = resolveSync({}, cwd, name);
         }
       }
+      componentPath = resolved.substring(cwd.length);
       componentName = urlForCurrentDir + componentPath;
       console.log('requireContextGenerator: context = ' + context + ' name = ' + name + ' componentName = ' + componentName);
       context += '|' + componentName;
