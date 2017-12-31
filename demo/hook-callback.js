@@ -1994,6 +1994,80 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       return false;
     }
   }
+  // Handle exceptions
+  const errorReportBaseUrl = (new URL('errorReport.json', location)).pathname;
+  const criticalErrorPageUrl = 'about:blank';
+  let hookCallbackCompatibilityTestDone = false;
+  const _caches = caches; // Take a backup just in case (still not robust)
+  // Optionally, hide caches completely.
+  // Object.defineProperty(_global, 'caches', { configurable: false, enumerable: false, writable: false, value: null });
+  // Object.defineProperty(_global, 'CacheStorage', { configurable: false, enumerable: false, writable: false, value: null });
+  const onThrowAsync = async function onThrowAsync(error, hookArgs, contextStack, aclArgs) {
+    if (!hookCallbackCompatibilityTestDone || !error.message.match(/^Permission Denied:/) || !Array.isArray(aclArgs)) {
+      return true; // Skipping non-ACL errors for the demo. They can be reported to the server, of course.
+    }
+    // Report the error to the server
+    // Notes:
+    //  - Customizations are required such as
+    //    1. Use a HTTP POST message to report more detailed data on the error
+    //    2. Clean up caches and other application data if the error is regarded as fatal
+    //    3. Unregister the running Service Worker instance
+    //    4. Transition to a predefined critical error page or about:blank
+    //    etc.
+    //
+    //console.log('aclArgs = ', aclArgs);
+    let errorReportUrl = errorReportBaseUrl/* +
+      '?context=' + encodeURIComponent(hookArgs[3]) +
+      '&error=' + error.name +
+      '&message=' + encodeURIComponent(error.message) +
+      (Array.isArray(aclArgs)
+        ? ('&name=' + (typeof aclArgs[0] === 'string' ? encodeURIComponent(aclArgs[0]) : 'typeof:' + typeof aclArgs[0]) +
+           '&property=' + (typeof aclArgs[3] === 'string' ? encodeURIComponent(aclArgs[3]) : 'typeof:' + typeof aclArgs[3]) +
+           '&opType=' + aclArgs[4])
+        : '');*/
+    let data = {
+      'context': hookArgs[3],
+      'error': error.name,
+      'message': error.message,
+    };
+    if (Array.isArray(aclArgs)) {
+      data['name'] =  typeof aclArgs[0] === 'string' ? aclArgs[0] : 'typeof:' + typeof aclArgs[0];
+      data['property'] =  typeof aclArgs[3] === 'string' ? aclArgs[3] : 'typeof:' + typeof aclArgs[3];
+      data['opType'] = aclArgs[4];
+    }
+    let errorReportResponse = await fetch(errorReportUrl, {
+      method: 'POST', // Note: On 'GET' method, make sure the request reaches the server through the Service Worker with appropriate cache control.
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      }),
+      body: JSON.stringify(data,null,0),
+      mode: 'same-origin',
+      cache: 'no-cache'
+    });
+    let errorReportResponseText = await errorReportResponse.text();
+    let errorReportResponseJSON = JSON.parse(errorReportResponseText) || {};
+    switch (errorReportResponseJSON.severity) {
+    case 'critical':
+    default:
+      //let keys = await _caches.keys()
+      //await Promise.all(keys.map(key => _caches.delete(key)));
+      location = criticalErrorPageUrl;
+      return false;
+    case 'observing':
+    case 'permissive':
+      return true;
+    }
+  }
+  const onThrow = function onThrow(error, hookArgs, contextStack, aclArgs) {
+    onThrowAsync(error, hookArgs, contextStack, aclArgs);
+    // Synchronous immediate handling of the error
+    /*
+    if (hookCallbackCompatibilityTestDone && error.message.match(/^Permission Denied:/) && Array.isArray(aclArgs)) {
+      location = criticalErrorPageUrl; // Note: Probably no time to report errors to the server
+    }
+    // Skipping non-ACL errors
+    */
+  }
   class StrictModeWrapper {
     static ['#.'](o, p) { return o[p]; }
     static ['#[]'](o, p) { return o[p]; }
@@ -2643,6 +2717,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           }
           throw new Error('Permission Denied: Cannot access ' + opType + ' ' + name + (isStatic ? '.' : '.prototype.') + (typeof property === 'string' ? property : '') + ' from ' + context);
           */
+          result = [ name, isStatic, isObject, property, opType, context, normalizedThisArg, _args, arguments ];
           throw new Error('Permission Denied: Cannot access ' + name);
         }
         let _blacklist = _blacklistObjects[name];
@@ -2814,6 +2889,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           name = _globalObjects.get(superClass);
         }
         if (!applyAcl(name, true, false, S_UNSPECIFIED, 'x', context, normalizedThisArg, _args, arguments)) {
+          result = [ name, true, false, S_UNSPECIFIED, 'x', context, normalizedThisArg, _args, arguments ];
           throw new Error('Permission Denied: Cannot access ' + name);
           //console.error('ACL: denied name =', name, 'isStatic =', true, 'isObject = ', false, 'property =', S_UNSPECIFIED, 'opType =', 'x', 'context = ', context);
           //debugger;
@@ -2856,6 +2932,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           let prop = _escapePlatformProperties.get(rawProp) || rawProp;
           let obj = name[0];
           if (!applyAcl(obj, name[1] !== 'prototype', false, prop, 'x', context, normalizedThisArg, _args, arguments)) {
+            result = [ obj, name[1] !== 'prototype', false, prop, 'x', context, normalizedThisArg, _args, arguments ];
             throw new Error('Permission Denied: Cannot access ' + obj);
             //console.error('ACL: denied name =', name, 'isStatic =', name[1] !== 'prototype', 'isObject = ', false, 'property =', prop, 'opType =', 'x', 'context = ', context);
             //debugger;
@@ -2911,6 +2988,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           if (name) {
             // super() call
             if (!applyAcl(name, true, false, S_UNSPECIFIED, 'x', context, normalizedThisArg, _args, arguments)) {
+              result = [ name, true, false, S_UNSPECIFIED, 'x', context, normalizedThisArg, _args, arguments ];
               throw new Error('Permission Denied: Cannot access ' + name);
             }
             let _blacklist = _blacklistObjects[name];
@@ -2951,6 +3029,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
                 property = 'invalidImportUrl'; // Note: virtual property 'invalidImportUrl'
               }
               if (!applyAcl(name, true, false, property, 'x', context, normalizedThisArg, _args, arguments)) {
+                result = [ name, true, false, property, 'x', context, normalizedThisArg, _args, arguments ];
                 throw new Error('Permission Denied: Cannot access ' + name);
               }
               let _blacklist = _blacklistObjects[name];
@@ -2985,6 +3064,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
                 property = 'invalidRequireName'; // Note: virtual property 'invalidRequireName'
               }
               if (!applyAcl(name, true, false, property, 'x', context, normalizedThisArg, _args, arguments)) {
+                result = [ name, true, false, property, 'x', context, normalizedThisArg, _args, arguments ];
                 throw new Error('Permission Denied: Cannot access ' + name);
               }
               let _blacklist = _blacklistObjects[name];
@@ -3426,6 +3506,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       contextStack.pop();
     }
     catch (e) {
+      onThrow(e, arguments, contextStack, result); // result contains arguments to applyAcl, or undefined
       lastContext = _lastContext;
       contextStack.pop();
       throw e;
@@ -4007,6 +4088,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           }
           throw new Error('Permission Denied: Cannot access ' + opType + ' ' + name + (isStatic ? '.' : '.prototype.') + (typeof property === 'string' ? property : '') + ' from ' + context);
           */
+          result = [ name, isStatic, isObject, property, opType, context, normalizedThisArg, _args, arguments ];
           throw new Error('Permission Denied: Cannot access ' + name);
         }
         if (typeof target === 'string' && target === 'r0tb') {
@@ -4057,6 +4139,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           name = _globalObjects.get(superClass);
         }
         if (!applyAcl(name, true, false, S_UNSPECIFIED, 'x', context, normalizedThisArg, _args, arguments)) {
+          result = [ name, true, false, S_UNSPECIFIED, 'x', context, normalizedThisArg, _args, arguments ];
           throw new Error('Permission Denied: Cannot access ' + name);
           //console.error('ACL: denied name =', name, 'isStatic =', true, 'isObject = ', false, 'property =', S_UNSPECIFIED, 'opType =', 'x', 'context = ', context);
           //debugger;
@@ -4071,6 +4154,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           let prop = _escapePlatformProperties.get(rawProp) || rawProp;
           let obj = name[0];
           if (!applyAcl(obj, name[1] !== 'prototype', false, prop, 'x', context, normalizedThisArg, _args, arguments)) {
+            result = [ obj, name[1] !== 'prototype', false, prop, 'x', context, normalizedThisArg, _args, arguments ];
             throw new Error('Permission Denied: Cannot access ' + obj);
             //console.error('ACL: denied name =', name, 'isStatic =', name[1] !== 'prototype', 'isObject = ', false, 'property =', prop, 'opType =', 'x', 'context = ', context);
             //debugger;
@@ -4094,6 +4178,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           if (name) {
             // super() call
             if (!applyAcl(name, true, false, S_UNSPECIFIED, 'x', context, normalizedThisArg, _args, arguments)) {
+              result = [ name, true, false, S_UNSPECIFIED, 'x', context, normalizedThisArg, _args, arguments ];
               throw new Error('Permission Denied: Cannot access ' + name);
             }
           }
@@ -4111,6 +4196,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
                 property = 'invalidImportUrl'; // Note: virtual property 'invalidImportUrl'
               }
               if (!applyAcl(name, true, false, property, 'x', context, normalizedThisArg, _args, arguments)) {
+                result = [ name, true, false, property, 'x', context, normalizedThisArg, _args, arguments ];
                 throw new Error('Permission Denied: Cannot access ' + name);
               }
             }
@@ -4123,6 +4209,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
                 property = 'invalidRequireName'; // Note: virtual property 'invalidRequireName'
               }
               if (!applyAcl(name, true, false, property, 'x', context, normalizedThisArg, _args, arguments)) {
+                result = [ name, true, false, property, 'x', context, normalizedThisArg, _args, arguments ];
                 throw new Error('Permission Denied: Cannot access ' + name);
               }
               // access allowed
@@ -4546,6 +4633,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       contextStack.pop();
     }
     catch (e) {
+      onThrow(e, arguments, contextStack, result); // result contains arguments to applyAcl, or undefined
       lastContext = _lastContext;
       contextStack.pop();
       throw e;
@@ -4972,6 +5060,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
   _globalObjects.set(_global.__hook__, '__hook__');
 
   hook.hookCallbackCompatibilityTest();
+  hookCallbackCompatibilityTestDone = true;
 
   function hookBenchmark(h = __hook__, r = 10000000) {
     if (typeof h === 'string') {
