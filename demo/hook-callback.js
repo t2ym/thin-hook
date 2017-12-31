@@ -2035,28 +2035,37 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       data['property'] =  typeof aclArgs[3] === 'string' ? aclArgs[3] : 'typeof:' + typeof aclArgs[3];
       data['opType'] = aclArgs[4];
     }
-    // TODO: Handle HTTP errors
-    let errorReportResponse = await fetch(errorReportUrl, {
-      method: 'POST', // Note: On 'GET' method, make sure the request reaches the server through the Service Worker with appropriate cache control.
-      headers: new Headers({
-        'Content-Type': 'application/json'
-      }),
-      body: JSON.stringify(data,null,0),
-      mode: 'same-origin',
-      cache: 'no-cache'
-    });
-    let errorReportResponseText = await errorReportResponse.text();
-    let errorReportResponseJSON = JSON.parse(errorReportResponseText) || {};
-    switch (errorReportResponseJSON.severity) {
-    case 'critical':
-    default:
-      //let keys = await _caches.keys()
-      //await Promise.all(keys.map(key => _caches.delete(key)));
-      location = criticalErrorPageUrl;
-      return false;
-    case 'observing':
-    case 'permissive':
-      return true;
+    let errorReportResponseJSON;
+    try {
+      let errorReportResponse = await fetch(errorReportUrl, {
+        method: 'POST', // Note: On 'GET' method, make sure the request reaches the server through the Service Worker with appropriate cache control.
+        headers: new Headers({
+          'Content-Type': 'application/json'
+        }),
+        body: JSON.stringify(data,null,0),
+        mode: 'same-origin',
+        cache: 'no-cache'
+      });
+      let errorReportResponseText = await errorReportResponse.text();
+      errorReportResponseJSON = JSON.parse(errorReportResponseText) || {};
+    }
+    catch (e) {
+      errorReportResponseJSON = {
+        severity: 'permissive' // default severity on a fetch error
+      };
+    }
+    finally {
+      switch (errorReportResponseJSON.severity) {
+      case 'critical':
+      default:
+        //let keys = await _caches.keys()
+        //await Promise.all(keys.map(key => _caches.delete(key)));
+        location = criticalErrorPageUrl;
+        return false;
+      case 'observing':
+      case 'permissive':
+        return true;
+      }
     }
   }
   const onThrow = function onThrow(error, hookArgs, contextStack, aclArgs) {
