@@ -2035,6 +2035,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       data['property'] =  typeof aclArgs[3] === 'string' ? aclArgs[3] : 'typeof:' + typeof aclArgs[3];
       data['opType'] = aclArgs[4];
     }
+    // TODO: Handle HTTP errors
     let errorReportResponse = await fetch(errorReportUrl, {
       method: 'POST', // Note: On 'GET' method, make sure the request reaches the server through the Service Worker with appropriate cache control.
       headers: new Headers({
