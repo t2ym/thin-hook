@@ -767,6 +767,30 @@
     }, /^Permission Denied:/);
 
     chai.assert.throws(() => {
+      function f () {};
+      f.bind;
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      Function.bind;
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      function ff() {}
+      ff.hasOwnProperty;
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      function ff() {}
+      ff.dummyObjectMethod;
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      let div = document.createElement('div');
+      div.dummyObjectMethod;
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
       btoa.constructor.prototype.bind = function () {};
     }, /^Permission Denied:/);
 

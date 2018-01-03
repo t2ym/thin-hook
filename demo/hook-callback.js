@@ -460,10 +460,15 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '/components/polymer/lib/mixins/element-mixin.html,script@926,createPropertyFromConfig': '@Object_static_method_reader', // bug?
     '/components/polymer/lib/legacy/legacy-element-mixin.html,script@1013,LegacyElement,fire': '@Event_detail_writer',
     '/components/polymer/lib/mixins/property-effects.html,script@914,setupBindings': '@HTMLElement___dataHost_writer',
+    '/components/polymer/lib/mixins/property-accessors.html,script@741': '@HTMLElement_prototype_reader',
+    '/components/polymer/lib/mixins/property-accessors.html,script@741,props': '@HTMLElement_prototype_reader',
+    '/components/polymer/lib/mixins/property-accessors.html,script@741,proto': '@HTMLElement_prototype_reader',
     '/components/polymer/lib/legacy/polymer.dom.html,script@701': '@Event___domApi_writer',
     '/components/polymer/lib/legacy/polymer.dom.html,script@701,forwardMethods': '@DocumentFragment_querySelector_reader',
     '/components/chai/chai.js,30': '@custom_error_constructor_creator',
     '/components/chai/chai.js,9,hasProtoSupport': '@Object__proto__reader',
+    '/components/chai/chai.js,36,getType,type': '@Object_prototype_reader',
+    '/components/chai/chai.js,24,type': '@Object_prototype_reader',
     '/components/dexie/dist/dexie.min.js,p': '@Object_static_method_user',
     '/components/webcomponentsjs/webcomponents-lite.js': '@Object_assign_reader',
     '/components/webcomponentsjs/webcomponents-lite.js,Xa,b': '@Event_ja_writer',
@@ -483,8 +488,10 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '/components/webcomponentsjs/webcomponents-lite.js,l': '@DocumentFragment_$__proto__$_writer',
     '/components/webcomponentsjs/webcomponents-lite.js,Ra': '@DocumentFragment_querySelectorAll_reader',
     '/components/webcomponentsjs/webcomponents-lite.js,la': '@HTMLElement___shady_writer',
-    '/components/webcomponentsjs/webcomponents-lite.js,bc': '@HTMLElement___shady_writer',
     '/components/webcomponentsjs/webcomponents-lite.js,Wb': '@HTMLElement___shady_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,Wd': '@HTMLElement_prototype_reader',
+    '/components/webcomponentsjs/webcomponents-lite.js,Ba': '@HTMLElement_prototype_reader',
+    '/components/webcomponentsjs/webcomponents-lite.js,wb': '@HTMLElement_prototype_reader',
     '/components/webcomponentsjs/webcomponents-lite.js,lc,d': '@Event_prototype_reader',
     '/components/thin-hook/demo/es6-module2.js,f2,module': '@Module_importer',
     '/components/thin-hook/demo/es6-module2.js': '@Module_importer',
@@ -753,20 +760,28 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       },
       $prototype$: 'r--',
       [S_PROTOTYPE]: {
-        [S_DEFAULT]: 'rwx',
-        $toString$: 'r-x',
-        $__proto__$: { [S_DEFAULT]: 'r-x', },
-        $constructor$: { [S_DEFAULT]: 'r-x', },
-        $__defineGetter__$: { [S_DEFAULT]: '--x', '@Object_method_reader': 'r-x', },
-        $__defineSetter__$: { [S_DEFAULT]: '--x', '@Object_method_reader': 'r-x', },
-        $__lookupGetter__$: { [S_DEFAULT]: '--x', '@Object_method_reader': 'r-x', },
-        $__lookupSetter__$: { [S_DEFAULT]: '--x', '@Object_method_reader': 'r-x', },
-        $hasOwnProperty$: { [S_DEFAULT]: '--x', '@Object_method_reader': 'r-x', },
-        $isPrototypeOf$: { [S_DEFAULT]: '--x', '@Object_method_reader': 'r-x', },
-        $propertyIsEnumerable$: { [S_DEFAULT]: '--x', '@Object_method_reader': 'r-x', },
-        $toLocaleString$: { [S_DEFAULT]: '--x', '@Object_method_reader': 'r-x', },
-        $toString$: { [S_DEFAULT]: '--x', '@Object_method_reader': 'r-x', },
-        $valueOf$: { [S_DEFAULT]: '--x', '@Object_method_reader': 'r-x', },
+        [S_DEFAULT]: '---',
+        '@HTMLElement_prototype_reader': 'r--',
+        '@Object_prototype_reader': 'r-x',
+        [S_INSTANCE]: {
+          [S_DEFAULT]: 'rwx',
+          $__proto__$: { [S_DEFAULT]: 'r-x', },
+          $constructor$: { [S_DEFAULT]: 'r-x', },
+          $__defineGetter__$: { [S_DEFAULT]: '--x', '@Object_method_reader': 'r-x', },
+          $__defineSetter__$: { [S_DEFAULT]: '--x', '@Object_method_reader': 'r-x', },
+          $__lookupGetter__$: { [S_DEFAULT]: '--x', '@Object_method_reader': 'r-x', },
+          $__lookupSetter__$: { [S_DEFAULT]: '--x', '@Object_method_reader': 'r-x', },
+          $hasOwnProperty$: { [S_DEFAULT]: '--x', '@Object_method_reader': 'r-x', },
+          $isPrototypeOf$: { [S_DEFAULT]: '--x', '@Object_method_reader': 'r-x', },
+          $propertyIsEnumerable$: { [S_DEFAULT]: '--x', '@Object_method_reader': 'r-x', },
+          $toLocaleString$: { [S_DEFAULT]: '--x', '@Object_method_reader': 'r-x', },
+          $toString$: { [S_DEFAULT]: '--x', '@Object_method_reader': 'r-x', },
+          $valueOf$: { [S_DEFAULT]: '--x', '@Object_method_reader': 'r-x', },
+          dummyObjectMethod: {
+            [S_DEFAULT]: 'r-x',
+            '@bind_normalization_checker': '---',
+          },
+        },
       }
     },
     import: {
@@ -867,10 +882,37 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         },
       }
     },
+    EventTarget: {
+      [S_CHAIN]: () => acl.Function,
+      [S_OBJECT]: 'r-x',
+      [S_DEFAULT]: 'r-x',
+      [S_ALL]: '---',
+      [S_PROTOTYPE]: {
+        [S_CHAIN]: S_CHAIN,
+        [S_DEFAULT]: 'r-x',
+        [S_ALL]: '---',
+        '@HTMLElement_prototype_reader': 'r--',
+      },
+    },
+    Node: {
+      [S_CHAIN]: () => acl.EventTarget,
+      [S_OBJECT]: 'r-x',
+      [S_DEFAULT]: 'r-x',
+      [S_ALL]: '---',
+      [S_PROTOTYPE]: {
+        [S_CHAIN]: S_CHAIN,
+        [S_DEFAULT]: 'r-x',
+        [S_ALL]: '---',
+        '@HTMLElement_prototype_reader': 'r--',
+      },
+    },
     Element: {
       [S_DEFAULT]: 'r-x',
+      [S_CHAIN]: () => acl.Node,
       [S_PROTOTYPE]: {
+        [S_CHAIN]: S_CHAIN,
         [S_DEFAULT]: 'r-x',
+        '@HTMLElement_prototype_reader': 'r--',
         animate: {
           [S_DEFAULT]: 'r-x',
           '@web_animations_next_lite': 'rwx',
@@ -880,6 +922,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           '@web_animations_next_lite': 'rwx',
         },
         [S_INSTANCE]: {
+          [S_CHAIN]: S_CHAIN,
           [S_DEFAULT]: 'rwx',
           // Note: This ACL may significantly degrade performance
           innerHTML: function innerHtmlAcl(normalizedThisArg,
@@ -911,8 +954,14 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     HTMLElement: {
       [S_DEFAULT]: 'r-x',
       [S_CHAIN]: () => acl.Element,
+      $prototype$: {
+        [S_DEFAULT]: '---',
+        '@HTMLElement_prototype_reader': 'r--',
+      },
       [S_PROTOTYPE]: {
         [S_CHAIN]: S_CHAIN,
+        [S_ALL]: '---',
+        '@HTMLElement_prototype_reader': 'r--',
         [S_DEFAULT]: 'rwx', // Note: Loose ACL but normal for custom elements; Other native APIs have to be protected specifically.
         $__proto__$: {
           [S_DEFAULT]: 'r--',
@@ -1027,6 +1076,10 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     },
     HTMLPreElement: {
       [S_CHAIN]: () => acl.HTMLElement,
+      [S_OBJECT]: {
+        [S_DEFAULT]: 'r-x',
+        '@document_writer': '---',
+      },
       '@document_writer': '---',
     },
     HTMLPictureElement: {
@@ -1185,24 +1238,30 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       },
     },
     Function: {
+      [S_CHAIN]: () => acl.Function[S_PROTOTYPE][S_INSTANCE], // Function is an instance of Function itself
       [S_OBJECT]: '--x',
-      [S_DEFAULT]: 'rwx',
+      [S_DEFAULT]: 'r-x',
       '@bind_normalization_checker': 'r-x',
       $__proto__$: 'r--',
       $prototype$: 'r--',
       $constructor$: 'r-x',
       [S_PROTOTYPE] : {
-        [S_DEFAULT]: 'rwx',
-        [S_ALL]: 'r--',
-        $__proto__$: 'rw-',
-        $prototype$: 'rw-',
-        $constructor$: 'r-x',
-        apply: 'r-x',
-        call: 'r-x',
-        bind: {
-          [S_DEFAULT]: 'r-x',
-          '@bind_normalization_checker': '--x',
-        }
+        [S_CHAIN]: () => acl.Object[S_PROTOTYPE],
+        [S_DEFAULT]: 'r--',
+        [S_INSTANCE]: {
+          [S_CHAIN]: S_CHAIN,
+          [S_DEFAULT]: 'rwx',
+          [S_ALL]: 'r--',
+          $__proto__$: 'rw-',
+          $prototype$: 'rw-',
+          $constructor$: 'r-x',
+          apply: 'r-x',
+          call: 'r-x',
+          bind: {
+            [S_DEFAULT]: 'r-x',
+            '@bind_normalization_checker': '--x',
+          },
+        },
       },
     },
     Event: {
@@ -1504,6 +1563,10 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     'live-localizer': {
       [S_DEFAULT]: 'r-x',
       [S_CHAIN]: () => acl.HTMLElement,
+      [S_OBJECT]: {
+        [S_DEFAULT]: 'r-x',
+        '@document_writer': '---',
+      },
       '@document_writer': '---',
     },
     // blocked private API
@@ -2105,6 +2168,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     static ['#.='](o, p) { return { set ['='](v) { o[p] = v; }, get ['=']() { return o[p]; } }; }
   }
   const GeneratorFunction = (function * () {}).constructor;
+  const FunctionPrototype = Function.prototype;
   // full features
   const __hook__ = function __hook__(f, thisArg, args, context, newTarget) {
     let _lastContext;
@@ -2691,6 +2755,13 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             break;
           default:
             break;
+          }
+        }
+        if (!isObject) {
+          if (name === 'Function') {
+            if (normalizedThisArg !== FunctionPrototype) {
+              isObject = true; // function is an instance of Function
+            }
           }
         }
         if (!applyAcl(name, isStatic, isObject, property, opType, context, normalizedThisArg, _args, arguments)) {
@@ -4062,6 +4133,13 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             break;
           default:
             break;
+          }
+        }
+        if (!isObject) {
+          if (name === 'Function') {
+            if (normalizedThisArg !== FunctionPrototype) {
+              isObject = true; // function is an instance of Function
+            }
           }
         }
         if (!applyAcl(name, isStatic, isObject, property, opType, context, normalizedThisArg, _args, arguments)) {
