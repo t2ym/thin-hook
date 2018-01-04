@@ -15,7 +15,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <script src="../../thin-hook/hook.min.js?version=478&no-hook-authorization=e3d5273eddd7fd2ce5c119747a4bcf21cb1a478c6d845dc63e0abc0633859b87,7f43dd301cb613d8b4a0e3db103825f79069a128e7147cadf9dc04caed3dfcd1,5b14ec588d93bf30f76972826b2d3d7220a4992c6026a180d87040fbd97eb2a2,d74d4941dc518f42cffa04bce5d5ca139fc634abf302df5b2e08e93b31d90fc0,ce8bd5917e14e8e138aecc6a61bc5779668fde1b3f762eb16e609f429d9f9475,f28e4dd562d9fc75022a492a7161693a6222573b0fce73c2324a5c80a5bde6db,a578e741369d927f693fedc88c75b1a90f1a79465e2bb9774a3f68ffc6e011e6,log-no-hook-authorization&sw-root=/&no-hook=true&hook-name=__hook__&context-generator-name=method&discard-hook-errors=false&fallback-page=index-fb.html&hook-property=true&hook-global=true&hook-prefix=_pp_&compact=true&service-worker-ready=false"></script></head></html><!--
+  <script src="../../thin-hook/hook.min.js?version=478&no-hook-authorization=0a5108e46a32e30a15721cb32913981adb1cb18e1d2367b92dff8a6029302c74,7f43dd301cb613d8b4a0e3db103825f79069a128e7147cadf9dc04caed3dfcd1,5b14ec588d93bf30f76972826b2d3d7220a4992c6026a180d87040fbd97eb2a2,d74d4941dc518f42cffa04bce5d5ca139fc634abf302df5b2e08e93b31d90fc0,ce8bd5917e14e8e138aecc6a61bc5779668fde1b3f762eb16e609f429d9f9475,d7d18f6488069afcfc6454dc1a635fe598ce1c9154c19e21f3ea3bf514596799,a578e741369d927f693fedc88c75b1a90f1a79465e2bb9774a3f68ffc6e011e6,log-no-hook-authorization&sw-root=/&no-hook=true&hook-name=__hook__&context-generator-name=method&discard-hook-errors=false&fallback-page=index-fb.html&hook-property=true&hook-global=true&hook-prefix=_pp_&compact=true&service-worker-ready=false"></script></head></html><!--
   <script context-generator src="no-hook-authorization.js?no-hook=true"></script>
   <script context-generator src="context-generator.js?no-hook=true"></script>
   <script context-generator no-hook>
@@ -225,12 +225,20 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       console.log('area.href = ' + area.href);
     }
     {
-      document.write('<sc' + 'ript>' + '(function write1() { console.log("script tag via document.write"); })()' + '</sc' + 'ript>');
+      document.write('<sc' + 'ript>' + '(function write1() { console.log("script tag via document.write"); chai.assert.throws(() => { let c = caches; }, /^Permission Denied:/); })()' + '</sc' + 'ript>');
       document.write('<sc' + 'ript src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js?cors=true"></sc' + 'ript>');
       document.write('<sc' + 'ript no-hook>' + '(function write2() { console.log("no-hook script tag via document.write"); })()' + '</sc' + 'ript>');
-      document.write('<div><sc' + 'ript>' + '(function write3() { console.log("script tag in div tag via document.write"); })()' + '</sc' + 'ript></div>');
+      document.write('<div><sc' + 'ript>' + '(function write3() { console.log("script tag in div tag via document.write"); chai.assert.throws(() => { let c = caches; }, /^Permission Denied:/); })()' + '</sc' + 'ript></div>');
       document.write('<div><sc' + 'ript no-hook>' + '(function write4() { console.log("no-hook script tag in div tag via document.write"); })()' + '</sc' + 'ript></div>');
       document.write('<div></div>');
+    }
+    {
+      document.writeln('<sc' + 'ript>' + '(function writeln1() { console.log("script tag via document.writeln"); chai.assert.throws(() => { let c = caches; }, /^Permission Denied:/); })()' + '</sc' + 'ript>');
+      document.writeln('<sc' + 'ript src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js?cors=true"></sc' + 'ript>');
+      document.writeln('<sc' + 'ript no-hook>' + '(function writeln2() { console.log("no-hook script tag via document.writeln"); })()' + '</sc' + 'ript>');
+      document.writeln('<div><sc' + 'ript>' + '(function writeln3() { console.log("script tag in div tag via document.writeln"); chai.assert.throws(() => { let c = caches; }, /^Permission Denied:/); })()' + '</sc' + 'ript></div>');
+      document.writeln('<div><sc' + 'ript no-hook>' + '(function writeln4() { console.log("no-hook script tag in div tag via document.writeln"); })()' + '</sc' + 'ript></div>');
+      document.writeln('<div></div>');
     }
     {
       let a = 2;
