@@ -1959,6 +1959,43 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         },
         '@document_createElement_reader': 'r--',
       },
+      createElementNS: {
+        [S_DEFAULT]: function createElementNSAcl(normalizedThisArg,
+                                                 normalizedArgs /* ['property', args], ['property', value], etc. */,
+                                                 aclArgs /* [name, isStatic, isObject, property, opType, context] */,
+                                                 hookArgs /* [f, thisArg, args, context, newTarget] */,
+                                                 applyAcl /* for recursive application of ACL */) {
+          let opType = aclArgs[4];
+          let result = '--x'[opTypeMap[opType]] === opType;
+          if (result) {
+            if (opType === 'x') {
+              // This ACL can be forwarded to its corresponding HTMLElement subclass ACL or a custom element ACL like the following
+              let tag = normalizedArgs[1][1].toLowerCase();
+              let name;
+              if (tagToElementClass.hasOwnProperty(tag)) {
+                name = tagToElementClass[tag];
+              }
+              if (!name) {
+                if (tag.indexOf('-') < 0) {
+                  // Supplement missing tag in the table for the next lookup
+                  name = tagToElementClass[tag] = document.createElementNS(normalizedArgs[1][0], tag).constructor.name;
+                  console.log('createElementNSAcl: Supplement the missing tag "' + tag + '" with "' + tagToElementClass[tag] + '" in tagToElementClass table');
+                }
+                else {
+                  // Custom Elements with hyphen(s) in the name
+                  // Note: Use the custom element name itself as its virtual object name in ACL here for now.
+                  //       The name can be customized such as 'CustomElement:tag-name' to avoid name conflicts in ACL.
+                  // Note: The custom element may not be defined yet.
+                  name = tag;
+                }
+              }
+              // Apply ACL for the element class
+              result = applyAcl(name, true, true, S_UNSPECIFIED, 'x', hookArgs[3], HTMLElement /* TODO: More appropriate normalizedThisArg */, [], hookArgs);
+            }
+          }
+          return result;
+        },
+      },
       __handlers: {
         [S_DEFAULT]: 'r-x',
         '@Event_composedPath_executor': 'rwx',
