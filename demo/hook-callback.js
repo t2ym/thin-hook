@@ -427,7 +427,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '/components/thin-hook/demo/normalize.js,bindCheck,b': '@bind_normalization_checker',
     '/components/thin-hook/demo/normalize.js,bindCheck,B,static now': '@bind_normalization_checker',
     '/components/dexie/dist/dexie.min.js,r': '@custom_error_constructor_creator',
-    '/components/firebase/firebase-app.js': '@custom_error_constructor_creator',
+    '/components/firebase/firebase-app.js': '@firebase_app',
     '/components/firebase/firebase-auth.js,t': '@custom_error_constructor_creator',
     '/components/polymer/lib/utils/templatize.html,script@695,upgradeTemplate': '@template_element_prototype_setter',
     '/components/thin-hook/demo/my-view2.html,script@2491,getData': '@hook_visualizer',
@@ -435,15 +435,19 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '/components/thin-hook/demo/my-view2.html,script@2491,drawGraph': '@hook_visualizer',
     '/components/thin-hook/demo/my-view2.html,script@2491,descriptors': '@window_enumerator',
     '/components/web-animations-js/web-animations-next-lite.min.js': '@web_animations_next_lite',
-    '/components/polymerfire/firebase-app.html,script@802,__computeApp': '@firebase_app_initializer',
     '/components/live-localizer/live-localizer-browser-storage.html,script@3348,modelReady': '@Dexie_instantiator',
     '/components/deepcopy/build/deepcopy.min.js,u': '@Object_keys_reader',
     '/components/dexie/dist/dexie.min.js,jn': '@Object_keys_reader',
     '/components/dexie/dist/dexie.min.js,Pn': '@Object_getPrototypeOf_reader',
+    '/components/firebase/firebase-app.js,*': '@firebase_app',
     '/components/firebase/firebase-app.js,p': '@Object_getPrototypeOf_reader',
     '/components/dexie/dist/dexie.min.js,In': '@Object_getOwnPropertyDescriptor_reader',
+    '/components/firebase/firebase-auth.js': '@firebase_auth',
+    '/components/firebase/firebase-auth.js,*': '@firebase_auth',
     '/components/firebase/firebase-auth.js,Xb': '@Object_defineProperty_reader',
     '/components/dexie/dist/dexie.min.js,Cn': '@Object_method_reader',
+    '/components/firebase/firebase-database.js': '@firebase_database',
+    '/components/firebase/firebase-database.js,*': '@firebase_database',
     '/components/firebase/firebase-database.js,u,t': '@Object_setPrototypeOf_reader',
     '/components/firebase/firebase-database.js,lt,t': '@Object_setPrototypeOf_reader',
     '/components/firebase/firebase-database.js,St,t': '@Object_setPrototypeOf_reader',
@@ -456,8 +460,15 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '/components/firebase/firebase-database.js,jr,t': '@Object_setPrototypeOf_reader',
     '/components/firebase/firebase-database.js,Gr,t': '@Object_setPrototypeOf_reader',
     '/components/firebase/firebase-database.js,ir': '@document_createElement_reader',
+    '/components/firebase/firebase-messaging.js': '@firebase_messaging',
+    '/components/firebase/firebase-messaging.js,*': '@firebase_messaging',
     '/components/firebase/firebase-messaging.js,24,k,e': '@Object_setPrototypeOf_reader',
     '/components/firebase/firebase-messaging.js,24,P,e': '@Object_setPrototypeOf_reader',
+    '/components/firebase/firebase-storage.js': '@firebase_storage',
+    '/components/firebase/firebase-storage.js,*': '@firebase_storage',
+    '/components/polymerfire/firebase-common-behavior.html,script@437,__appNameChanged': '@polymerfire', // TODO: More contexts should be mapped to @polymerfire
+    '/components/polymerfire/firebase-app.html,script@802,__computeApp': '@polymerfire',
+    '/components/polymerfire/firebase-auth.html,script@2320,_providerFromName': '@polymerfire',
     '/components/polymer/lib/mixins/element-mixin.html,script@926,createPropertyFromConfig': '@Object_static_method_reader', // bug?
     '/components/polymer/lib/legacy/legacy-element-mixin.html,script@1013,LegacyElement,fire': '@Event_detail_writer',
     '/components/polymer/lib/mixins/property-effects.html,script@914,setupBindings': '@HTMLElement___dataHost_writer',
@@ -512,6 +523,42 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '/components/thin-hook/demo/commonjs2.js': '@path_join_prohibited',
     '/components/thin-hook/demo/commonjs2.js,tty': '@tty_prohibited',
   };
+  /*
+    Prefixed Contexts object:
+      {
+        '/components/thin-hook/demo/es6-module2.js': {
+          '*': '@Module_importer2', // fallback for '/components/thin-hook/demo/es6-module2.js,f2,A'
+          'f2': {
+            'module': {
+              '*': '@Module_importer', // fallback for '/components/thin-hook/demo/es6-module2.js,f2,module,X'
+            },
+          },
+        },
+      };
+
+    Notes:
+    - Prefixed context must end with ',*' like this:
+      '/some/filepath.js,something,*'
+  */
+  const prefixedContexts = {};
+  for (let c in contextNormalizer) {
+    let paths = c.split(',');
+    let cursor = prefixedContexts;
+    if (paths.length > 1 && paths[paths.length - 1] === '*') {
+      for (let path of paths) {
+        if (path === '*') {
+          cursor[path] = contextNormalizer[c];
+          break;
+        }
+        else {
+          if (!Reflect.has(cursor, path)) {
+            cursor[path] = {};
+          }
+          cursor = cursor[path];
+        }
+      }
+    }
+  }
   const opTypeMap = {
     r: 0, w: 1, x: 2
   };
@@ -889,6 +936,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         $constructor$: {
           [S_DEFAULT]: 'r-x',
           '@custom_error_constructor_creator': 'rwx',
+          '@firebase_app': 'rwx',
         },
       }
     },
@@ -2164,11 +2212,24 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     },
     // 3rd party API
     firebase: {
-      [S_DEFAULT]: 'rwx', // Note: Internal and external accesses are not distinguished
+      [S_OBJECT]: {
+        [S_DEFAULT]: '---',
+        '@polymerfire': 'r--',
+        '@firebase_app': 'rw-',
+      },
+      [S_DEFAULT]: '---', // Note: Only @polymerfire can access firebase API
+      '@firebase_app': 'rw-',
+      '@firebase_auth': 'r--',
+      '@firebase_storage': 'r--',
+      '@firebase_messaging': 'r--',
+      '@firebase_database': 'r--',
+      '@firebase_app_initializer': '--x',
+      '@polymerfire': 'r-x',
+      // TODO: Apply more detailed ACLs to deeper objects in modules
       initializeApp: {
         [S_DEFAULT]: '---', // Note: No others can initialize firebase app
-        '@firebase_app_initializer': 'r-x', // Note: polymerfire can solely initialize firebase app
-      }
+        '@polymerfire': 'r-x', // Note: polymerfire can solely initialize firebase app
+      },
     },
     Dexie: {
       [S_OBJECT]: {
@@ -2337,11 +2398,43 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     let _context, _acl, __acl, _property, isGlobal, tmp;
     while (_context = contextNormalizer[context]) {
       context = _context;
+      if (context === S_DEFAULT) {
+        break;
+      }
       if (context[0] === '@') {
         break;
       }
     }
-    context = _context ? context : S_DEFAULT;
+    if (!_context) {
+      // prefixedSearch for context
+      let cursor = prefixedContexts;
+      let index = 0;
+      let prevIndex = index;
+      let path;
+      let length = context.length;
+      let result = S_DEFAULT;
+
+      while (index < length) {
+        index = context.indexOf(',', prevIndex); // next comma
+        if (index === -1) {
+          index = context.length;
+        }
+        path = context.substring(prevIndex, index);
+        index++;
+        if (Reflect.has(cursor, '*')) {
+          result = cursor['*'];
+        }
+        if (Reflect.has(cursor, path)) {
+          cursor = cursor[path];
+          prevIndex = index;
+        }
+        else {
+          break;
+        }
+      }
+      context = contextNormalizer[context] = result; // cache the result
+    }
+    //context = _context ? context : S_DEFAULT;
     isGlobal = isGlobalScopeObject.has(name);
     _acl = name
       ? name === 'Object' && isObject
