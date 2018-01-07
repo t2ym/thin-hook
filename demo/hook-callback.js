@@ -470,13 +470,26 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '/components/polymerfire/firebase-app.html,script@802,__computeApp': '@polymerfire',
     '/components/polymerfire/firebase-auth.html,script@2320,_providerFromName': '@polymerfire',
     '/components/polymer/lib/mixins/element-mixin.html,script@926,createPropertyFromConfig': '@Object_static_method_reader', // bug?
+    '/components/polymer/lib/mixins/element-mixin.html,script@926,*': '@Polymer_element_mixin',
+    '/components/polymer/lib/legacy/legacy-element-mixin.html,script@1013,LegacyElement,*': '@Polymer_legacy_element_mixin',
     '/components/polymer/lib/legacy/legacy-element-mixin.html,script@1013,LegacyElement,fire': '@Event_detail_writer',
     '/components/polymer/lib/mixins/property-effects.html,script@914,setupBindings': '@HTMLElement___dataHost_writer',
     '/components/polymer/lib/mixins/property-accessors.html,script@741': '@HTMLElement_prototype_reader',
+    '/components/polymer/lib/mixins/property-accessors.html,script@741,*': '@Polymer_property_accessors',
     '/components/polymer/lib/mixins/property-accessors.html,script@741,props': '@HTMLElement_prototype_reader',
     '/components/polymer/lib/mixins/property-accessors.html,script@741,proto': '@HTMLElement_prototype_reader',
+    '/components/polymer/lib/mixins/property-effects.html,script@914,*': '@Polymer_property_effects',
     '/components/polymer/lib/legacy/polymer.dom.html,script@701': '@Event___domApi_writer',
     '/components/polymer/lib/legacy/polymer.dom.html,script@701,forwardMethods': '@DocumentFragment_querySelector_reader',
+    '/components/polymer/lib/elements/dom-module.html,script@634': '@Polymer_lib',
+    '/components/polymer/lib/elements/dom-bind.html,script@777': '@Polymer_lib',
+    '/components/polymer/lib/elements/dom-repeat.html,script@816': '@Polymer_lib',
+    '/components/polymer/lib/elements/dom-if.html,script@754': '@Polymer_lib',
+    '/components/polymer/lib/elements/array-selector.html,script@699': '@Polymer_lib',
+    '/components/polymer/lib/elements/custom-style.html,script@662': '@Polymer_lib',
+    '/components/polymer/lib/legacy/class.html,script@581,*': '@Polymer_legacy_class',
+    '/components/polymer/lib/legacy/polymer-fn.html,script@568': '@Polymer_lib',
+    '/components/polymer/lib/utils/import-href.html,script@567,*': '@Polymer_lib',
     '/components/chai/chai.js,30': '@custom_error_constructor_creator',
     '/components/chai/chai.js,9,hasProtoSupport': '@Object__proto__reader',
     '/components/chai/chai.js,36,getType,type': '@Object_prototype_reader',
@@ -514,6 +527,11 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '/components/webcomponentsjs/webcomponents-lite.js,hd,b': '@HTMLElement_insertAdjacentElement_writer',
     '/components/webcomponentsjs/webcomponents-lite.js,$c,b': '@HTMLElement_insertAdjacentElement_writer',
     '/components/webcomponentsjs/webcomponents-lite.js,cd': '@HTMLElement_insertAdjacentElement_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,ua': '@customElements_reader',
+    '/components/webcomponentsjs/webcomponents-lite.js,xa': '@customElements_reader',
+    '/components/webcomponentsjs/webcomponents-lite.js,a': '@customElements_reader',
+    '/components/webcomponentsjs/webcomponents-lite.js,Q,b': '@customElement_localName_reader',
+    '/components/webcomponentsjs/webcomponents-lite.js,h': '@customElement_localName_reader',
     '/components/thin-hook/demo/es6-module2.js,f2,module': '@Module_importer',
     '/components/thin-hook/demo/es6-module2.js': '@Module_importer',
     '/components/polymer/lib/utils/async.html,script@566,timeOut,run': '@setTimeout_reader',
@@ -522,6 +540,8 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '/components/thin-hook/demo/sub-document.html,script@1157': '@document_writer',
     '/components/thin-hook/demo/commonjs2.js': '@path_join_prohibited',
     '/components/thin-hook/demo/commonjs2.js,tty': '@tty_prohibited',
+    '/components/live-localizer/live-localizer-lazy.html,*': '@live-localizer-lazy',
+    '/components/iron-location/iron-location.html,*': '@iron-location',
   };
   /*
     Prefixed Contexts object:
@@ -587,6 +607,29 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         const args = typeof hookArgs[0] === 'string' ? normalizedArgs[1] : normalizedArgs;
         return ${condition};
       }`)(this, contextNormalizer);
+    }
+    // Track a class with the specified virtual name in ACL
+    // Note:
+    //  - Not applicable to module namespace objects, which have classes in properties like MODULE_NAME.CLASS_NAME
+    static trackClass(virtualName, _class) {
+      let gprop = virtualName;
+      let gvalue = _class;
+      _globalObjects.set(gvalue, gprop);
+      let _properties = Object.getOwnPropertyDescriptors(gvalue);
+      let _prop;
+      for (_prop in _properties) {
+        if (typeof _properties[_prop].value === 'function') {
+          _globalMethods.set(_properties[_prop].value, [gprop, _prop]);
+        }
+      }
+      if (gvalue.prototype) {
+        _properties = Object.getOwnPropertyDescriptors(gvalue.prototype);
+        for (_prop in _properties) {
+          if (typeof _properties[_prop].value === 'function') {
+            _globalMethods.set(_properties[_prop].value, [gprop, 'prototype', _prop]);
+          }
+        }
+      }
     }
   };
   const tagToElementClass = { // from w3schools.com - may be incomplete
@@ -2054,16 +2097,118 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       },
     },
     // Custom Elements
-    // Note: This virtual object name is experimental and referenced only in the above document.createElement ACL policy function createElementAcl()
-    // Note: The name must be unique in ACL namespace
+    customElements: {
+      [S_CHAIN]: () => acl.Object[S_PROTOTYPE][S_INSTANCE],
+      [S_OBJECT]: {
+        [S_DEFAULT]: '---',
+        '@customElements_reader': 'r--',
+        '@Event___domApi_writer': 'r--',
+        '@Polymer_lib': 'r--',
+      },
+      [S_DEFAULT]: '---',
+      define: {
+        [S_DEFAULT]: '---',
+        '@Object_assign_reader': 'rwx',
+        '@Polymer_lib': function customElementsDefineAcl(normalizedThisArg,
+                                                         normalizedArgs /* ['property', args], ['property', value], etc. */,
+                                                         aclArgs /* [name, isStatic, isObject, property, opType, context] */,
+                                                         hookArgs /* [f, thisArg, args, context, newTarget] */,
+                                                         applyAcl /* for recursive application of ACL */) {
+          let opType = aclArgs[4];
+          let args = normalizedArgs[1];
+          if (opType === 'x') {
+            let name = args[0];
+            let baseClass = args[1];
+            //console.log('customElementsDefineAcl context = ' + hookArgs[3] + ' element name = ' + name);
+            Policy.trackClass(name, baseClass); // synchronous just before definition
+            // customElements.whenDefined(name).then(() => { Policy.trackClass(name, baseClass); }); // asynchronous just after definition - Is this reliable for tracking all the accesses?
+            return true;
+          }
+          else {
+            return false;
+          }
+        },
+      },
+      get: {
+        [S_DEFAULT]: '--x',
+        '@Object_assign_reader': 'r-x',
+      },
+      whenDefined: {
+        [S_DEFAULT]: '--x',
+      },
+      forcePolyfill: {
+        [S_DEFAULT]: '---',
+        '@Object_assign_reader': 'r--',
+      },
+      polyfillWrapFlushCallback: {
+        [S_DEFAULT]: '---',
+        '@Object_assign_reader': 'r--',
+        '@Event___domApi_writer': 'r--',
+      },
+    },
+    // Example base policy for custom elements generated via the Polymer({}) legacy method
+    'Polymer.LegacyElement': { // virtual name
+      [S_CHAIN]: () => acl.HTMLElement, // TODO: should be Polymer.Element virtual object
+      [S_OBJECT]: {
+        [S_CHAIN]: S_CHAIN,
+        [S_DEFAULT]: 'r-x',
+      },
+      '@Polymer_element_mixin': 'rwx',
+      [S_PROTOTYPE]: {
+        [S_CHAIN]: S_CHAIN,
+        [S_DEFAULT]: '---',
+        $__proto__$: {
+          [S_DEFAULT]: '---',
+          '@Polymer_element_mixin': 'rw-',
+        },
+        '@Polymer_element_mixin': 'rwx',
+        '@Polymer_legacy_element_mixin': 'rwx',
+        '@Polymer_property_effects': 'rwx',
+        [S_INSTANCE]: {
+          [S_CHAIN]: S_CHAIN,
+          // TODO: Loose ACL. Policies can be defined per property.
+          '@Polymer_element_mixin': 'rwx',
+          '@Polymer_legacy_element_mixin': 'rwx',
+          '@Polymer_legacy_class': 'rwx',
+          '@Polymer_property_effects': 'rwx',
+          '@Polymer_property_accessors': 'rwx',
+          '@Event___domApi_writer': 'rwx',
+          '@DocumentFragment_querySelector_reader': 'r--',
+          '@customElement_localName_reader': 'r--',
+          '@Object_assign_reader': 'rwx',
+          '@Polymer_lib': 'rwx',
+        },
+      },
+    },
     'live-localizer': {
       [S_DEFAULT]: 'r-x',
-      [S_CHAIN]: () => acl.HTMLElement,
+      [S_CHAIN]: () => acl['Polymer.LegacyElement'],
       [S_OBJECT]: {
-        [S_DEFAULT]: 'r-x',
+        [S_CHAIN]: S_CHAIN,
         '@document_writer': '---',
       },
       '@document_writer': '---',
+      [S_PROTOTYPE]: {
+        [S_CHAIN]: S_CHAIN,
+        [S_INSTANCE]: {
+          [S_CHAIN]: S_CHAIN,
+          [S_DEFAULT]: function liveLocalizerAcl(normalizedThisArg,
+                                                 normalizedArgs /* ['property', args], ['property', value], etc. */,
+                                                 aclArgs /* [name, isStatic, isObject, property, opType, context] */,
+                                                 hookArgs /* [f, thisArg, args, context, newTarget] */,
+                                                 applyAcl /* for recursive application of ACL */) {
+            let opType = aclArgs[4];
+            console.log('liveLocalizerAcl context = ' + hookArgs[3].toString() + ' ' + aclArgs[0].toString() + '.' + aclArgs[3].toString() + ' opType = ' + opType);
+            // TODO: ACL can be automatically generated here
+            return '---'[opTypeMap[opType]] === opType; // equivalent to '---' acl
+          },
+          '@live-localizer-lazy': 'rwx',
+          tagName: {
+            [S_DEFAULT]: '---',
+            '@iron-location': 'r--',
+          },
+        },
+      },
     },
     // blocked private API
     DummyClass: {
