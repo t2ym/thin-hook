@@ -631,6 +631,102 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         }
       }
     }
+    // Avoid cloning of access-controlled global objects to other global objects which have different or no specific ACLs
+    static avoidGlobalClone() {
+      return function windowAcl(normalizedThisArg,
+                                normalizedArgs /* ['property', args], ['property', value], etc. */,
+                                aclArgs /* [name, isStatic, isObject, property, opType, context] */,
+                                hookArgs /* [f, thisArg, args, context, newTarget] */,
+                                applyAcl /* for recursive application of ACL */) {
+        let opType = aclArgs[4];
+        if (opType === 'w') {
+          ///console.log('windowAcl:', aclArgs, normalizedArgs);
+          if (Array.isArray(aclArgs[3])) {
+            switch (normalizedArgs[0]) {
+            case 'assign':
+              for (let newName in normalizedArgs[1][1]) {
+                let value = normalizedArgs[1][1][newName];
+                let currentName = _globalObjects.get(value);
+                if (currentName) {
+                  if (currentName !== newName) {
+                    if (Reflect.has(acl, currentName)) {
+                      //console.error('windowAcl: cloning access-controlled window.' + currentName + ' to window.' + newName);
+                      return false;
+                    }
+                  }
+                }
+              }
+              break;
+            case 'defineProperties':
+              for (let newName in normalizedArgs[1][1]) {
+                let value;
+                if (Reflect.has(normalizedArgs[1][1][newName], 'value')) {
+                  value = normalizedArgs[1][1][newName].value;
+                }
+                else if (Reflect.has(normalizedArgs[1][1][newName], 'get')) {
+                  value = normalizedArgs[1][1][newName].get.call(normalizedThisArg);
+                }
+                let currentName = _globalObjects.get(value);
+                if (currentName) {
+                  if (currentName !== newName) {
+                    if (Reflect.has(acl, currentName)) {
+                      //console.error('windowAcl: cloning access-controlled window.' + currentName + ' to window.' + newName);
+                      return false;
+                    }
+                  }
+                }
+              }
+              break;
+            default:
+              break;
+            }
+          }
+          else {
+            let value;
+            let newName;
+            switch (normalizedArgs[0]) {
+            case 'defineProperty':
+              newName = normalizedArgs[1][1];
+              if (normalizedArgs[1][2] && typeof normalizedArgs[1][2] === 'object') {
+                if (Reflect.has(normalizedArgs[1][2], 'value')) {
+                  value = normalizedArgs[1][2].value;
+                }
+                else if (Reflect.has(normalizedArgs[1][2], 'get')) {
+                  value = normalizedArgs[1][2].get.call(normalizedThisArg);
+                }
+              }
+              else {
+                return false;
+              }
+              break;
+            case '__defineGetter__':
+              newName = normalizedArgs[1][0];
+              if (typeof normalizedArgs[1][1] === 'function') {
+                value = normalizedArgs[1][1].call(normalizedThisArg);
+              }
+              else {
+                return false;
+              }
+              break;
+            default:
+              newName = normalizedArgs[0];
+              value = normalizedArgs[1];
+              break;
+            }
+            let currentName = _globalObjects.get(value);
+            if (currentName) {
+              if (currentName !== newName) {
+                if (Reflect.has(acl, currentName)) {
+                  //console.error('windowAcl: cloning access-controlled window.' + currentName + ' to window.' + newName);
+                  return false;
+                }
+              }
+            }
+          }
+        }
+        return 'rwx'[opTypeMap[opType]] === opType; // equivalent to 'rwx' acl
+      };
+    }
   };
   const tagToElementClass = { // from w3schools.com - may be incomplete
     a: 'HTMLAnchorElement',
@@ -770,7 +866,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     // blacklist properties
     window: {
       [S_OBJECT]: 'r--',
-      [S_DEFAULT]: 'rwx',
+      [S_DEFAULT]: Policy.avoidGlobalClone(),
       [S_ALL]: '---',
       '@window_enumerator': 'r--',
       caches: '---',
@@ -2421,7 +2517,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     // default for global objects
     [S_GLOBAL]: {
       [S_OBJECT]: 'r-x',
-      [S_DEFAULT]: 'rwx',
+      [S_DEFAULT]: Policy.avoidGlobalClone(),
       [S_ALL]: 'r--',
       $__proto__$: 'r--',
       $prototype$: 'r--',
@@ -2731,8 +2827,17 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     case 'object':
       tmp = opTypeMap[opType];
       for (__acl of _acl) {
-        if (__acl[tmp] !== opType) {
-          return false;
+        switch (typeof __acl) {
+        case 'string':
+          if (__acl[tmp] !== opType) {
+            return false;
+          }
+          break;
+        case 'function':
+          if (!__acl(normalizedThisArg, normalizedArgs, arguments, hookArgs, applyAcl)) {
+            return false;
+          }
+          break;
         }
       }
       return true;
