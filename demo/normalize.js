@@ -931,6 +931,42 @@
       B.get();
     }, /^Permission Denied:/);
 
+    chai.assert.throws(() => {
+      HTMLElement.prototype.click = null;
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      window.HTMLElement2 = HTMLElement;
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      Object.defineProperty(window, 'HTMLElement3', { value: HTMLElement });
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      Object.defineProperty(window, 'HTMLElement4', { get: function () { return HTMLElement; } });
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      window.__defineGetter__('HTMLElement5', function () { return HTMLElement; });
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      Object.assign(window, { 'HTMLElement6': HTMLElement });
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      Object.defineProperties(window, { 'HTMLElement7': { get: function () { return HTMLElement; } } });
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      Object.defineProperties(window, { 'HTMLElement8': { value: HTMLElement } });
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      customElements.define('html-element9', HTMLElement);
+    }, /^Permission Denied:/);
+
 /*
     chai.assert.throw(() => {
       let d = {now:Date.now};
