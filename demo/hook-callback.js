@@ -614,6 +614,9 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     static trackClass(virtualName, _class) {
       let gprop = virtualName;
       let gvalue = _class;
+      if (_globalObjects.has(_class)) {
+        return false;
+      }
       _globalObjects.set(gvalue, gprop);
       let _properties = Object.getOwnPropertyDescriptors(gvalue);
       let _prop;
@@ -630,6 +633,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           }
         }
       }
+      return true;
     }
     // Avoid cloning of access-controlled global objects to other global objects which have different or no specific ACLs
     static avoidGlobalClone() {
@@ -2216,9 +2220,8 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             let name = args[0];
             let baseClass = args[1];
             //console.log('customElementsDefineAcl context = ' + hookArgs[3] + ' element name = ' + name);
-            Policy.trackClass(name, baseClass); // synchronous just before definition
+            return Policy.trackClass(name, baseClass); // synchronous just before definition
             // customElements.whenDefined(name).then(() => { Policy.trackClass(name, baseClass); }); // asynchronous just after definition - Is this reliable for tracking all the accesses?
-            return true;
           }
           else {
             return false;

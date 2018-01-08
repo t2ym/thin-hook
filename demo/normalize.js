@@ -963,6 +963,10 @@
       Object.defineProperties(window, { 'HTMLElement8': { value: HTMLElement } });
     }, /^Permission Denied:/);
 
+    chai.assert.throws(() => {
+      customElements.define('html-element9', HTMLElement);
+    }, /^Permission Denied:/);
+
 /*
     chai.assert.throw(() => {
       let d = {now:Date.now};
