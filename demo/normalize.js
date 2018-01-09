@@ -967,7 +967,6 @@
       customElements.define('html-element9', HTMLElement);
     }, /^Permission Denied:/);
 
-/*
     chai.assert.throw(() => {
       let d = {now:Date.now};
       d.now();
@@ -979,6 +978,21 @@
       }
     }, /^Permission Denied:/);
 
+    chai.assert.throw(() => {
+      let d = function () {};
+      d.now = Date.now;
+      d.now();
+    }, /^Permission Denied:/);
+
+    chai.assert.throw(() => {
+      let d = function () {};
+      d.now = Date.now;
+      with (d) {
+        now();
+      }
+    }, /^Permission Denied:/);
+
+/*
     chai.assert.throw(() => {
       with ({now:Date.now.bind(Date)}) {
         now();
