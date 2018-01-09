@@ -880,11 +880,6 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       __unexpected_access_to_hook_alias_object__: '---',
       hook: '---',
       $hook$: '---',
-      Function: {
-        [S_DEFAULT]: '--x',
-        '@Function_reader': 'r-x',
-        '@normalization_checker': 'r-x',
-      },
       _data: {
         [S_DEFAULT]: '---',
         '@hook_visualizer': 'r--',
@@ -1660,7 +1655,11 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     },
     Function: {
       [S_CHAIN]: () => acl.Function[S_PROTOTYPE][S_INSTANCE], // Function is an instance of Function itself
-      [S_OBJECT]: '--x',
+      [S_OBJECT]: {
+        [S_DEFAULT]: '--x',
+        '@Function_reader': 'r-x',
+        '@normalization_checker': 'r-x',
+      },
       [S_DEFAULT]: 'r-x',
       '@bind_normalization_checker': 'r-x',
       $__proto__$: 'r--',
@@ -1668,10 +1667,32 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       $constructor$: 'r-x',
       [S_PROTOTYPE] : {
         [S_CHAIN]: () => acl.Object[S_PROTOTYPE],
-        [S_DEFAULT]: 'r--',
+        [S_DEFAULT]: 'r-x',
         [S_INSTANCE]: {
           [S_CHAIN]: S_CHAIN,
-          [S_DEFAULT]: 'rwx',
+          [S_DEFAULT]: function defaultAcl(normalizedThisArg,
+                                           normalizedArgs /* ['property', args], ['property', value], etc. */,
+                                           aclArgs /* [name, isStatic, isObject, property, opType, context] */,
+                                           hookArgs /* [f, thisArg, args, context, newTarget] */,
+                                           applyAcl /* for recursive application of ACL */) {
+            if (aclArgs[4] === 'x') {
+              if (normalizedThisArg instanceof Object) {
+                let property = normalizedArgs[0];
+                if (Reflect.has(normalizedThisArg, property)) {
+                  let value = normalizedThisArg[property];
+                  let name = _globalMethods.get(value);
+                  if (name) {
+                    let rawProp = name[name.length - 1];
+                    let prop = _escapePlatformProperties.get(rawProp) || rawProp;
+                    let obj = name[0];
+                    // Apply ACL for the global method
+                    return applyAcl(obj, name[1] !== 'prototype', false, prop, 'x', hookArgs[3], _global[obj], [rawProp, normalizedArgs[1]], hookArgs);
+                  }
+                }
+              }
+            }
+            return true; // equivalent to 'rwx' acl
+          },
           [S_ALL]: 'r--',
           $__proto__$: 'rw-',
           $prototype$: 'rw-',
@@ -2537,7 +2558,29 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     // default for non-global objects
     [S_DEFAULT]: {
       [S_OBJECT]: 'rwx',
-      [S_DEFAULT]: 'rwx',
+      [S_DEFAULT]: function defaultAcl(normalizedThisArg,
+                                       normalizedArgs /* ['property', args], ['property', value], etc. */,
+                                       aclArgs /* [name, isStatic, isObject, property, opType, context] */,
+                                       hookArgs /* [f, thisArg, args, context, newTarget] */,
+                                       applyAcl /* for recursive application of ACL */) {
+        if (aclArgs[4] === 'x') {
+          if (normalizedThisArg instanceof Object) {
+            let property = normalizedArgs[0];
+            if (Reflect.has(normalizedThisArg, property)) {
+              let value = normalizedThisArg[property];
+              let name = _globalMethods.get(value);
+              if (name) {
+                let rawProp = name[name.length - 1];
+                let prop = _escapePlatformProperties.get(rawProp) || rawProp;
+                let obj = name[0];
+                // Apply ACL for the global method
+                return applyAcl(obj, name[1] !== 'prototype', false, prop, 'x', hookArgs[3], _global[obj], [rawProp, normalizedArgs[1]], hookArgs);
+              }
+            }
+          }
+        }
+        return true; // equivalent to 'rwx' acl
+      },
       [S_ALL]: 'rwx',
     }
   };
