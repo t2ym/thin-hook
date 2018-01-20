@@ -434,6 +434,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '/components/thin-hook/demo/my-view2.html,script@2491,attached,_lastEdges': '@hook_visualizer',
     '/components/thin-hook/demo/my-view2.html,script@2491,drawGraph': '@hook_visualizer',
     '/components/thin-hook/demo/my-view2.html,script@2491,descriptors': '@window_enumerator',
+    '/components/thin-hook/demo/my-view2.html,script@2491': '@Object_prototype_reader',
     '/components/web-animations-js/web-animations-next-lite.min.js': '@web_animations_next_lite',
     '/components/live-localizer/live-localizer-browser-storage.html,script@3348,modelReady': '@Dexie_instantiator',
     '/components/deepcopy/build/deepcopy.min.js,u': '@Object_keys_reader',
@@ -897,7 +898,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       [S_OBJECT]: 'r--',
       [S_DEFAULT]: Policy.avoidGlobalClone(),
       [S_ALL]: '---',
-      '@window_enumerator': 'r--',
+      '@window_enumerator': 'r--R-',
       caches: '---',
       __hook__: '---',
       __unexpected_access_to_hook_callback_function__: '---',
@@ -922,6 +923,13 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         '@normalization_checker': '---',
         '@bind_normalization_checker': 'r--',
       }
+    },
+    Window: {
+      [S_DEFAULT]: 'r--',
+      [S_PROTOTYPE]: {
+        [S_DEFAULT]: 'r--',
+        '@window_enumerator': 'r--R-',
+      },
     },
     _data: {
       [S_DEFAULT]: '---',
@@ -983,6 +991,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         [S_DEFAULT]: '---',
         '@HTMLElement_prototype_reader': 'r--',
         '@Object_prototype_reader': 'r-x',
+        '@window_enumerator': 'r--R-',
         [S_INSTANCE]: {
           [S_DEFAULT]: 'rwx',
           $__proto__$: { [S_DEFAULT]: 'r-x', },
@@ -1115,6 +1124,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         [S_CHAIN]: () => acl.Object[S_PROTOTYPE],
         [S_DEFAULT]: 'r-x',
         '@HTMLElement_prototype_reader': 'r--',
+        '@window_enumerator': 'r--R-',
         [S_INSTANCE]: {
           [S_CHAIN]: S_CHAIN,
           [S_DEFAULT]: 'r-x',
