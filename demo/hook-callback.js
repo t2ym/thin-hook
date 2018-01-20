@@ -4439,7 +4439,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
   const _globalObjectsGet = typeof window === 'object'
     ? function _globalObjectsGet(o) {
         switch (o) {
-        case undefined: return 'undefined';
+        case undefined: return undefined;
         case Object: return 'Object';
         case Array: return 'Array';
         case Function: return 'Function';
@@ -4452,7 +4452,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       }
     : function _globalObjectsGet(o) {
         switch (o) {
-        case undefined: return 'undefined';
+        case undefined: return undefined;
         case Object: return 'Object';
         case Array: return 'Array';
         case Function: return 'Function';
