@@ -3810,6 +3810,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
                       case 'self':
                         switch (target) {
                         case 'w01v':
+                        case 'W01v':
                           switch (_args[0]) {
                           case 'defineProperty': // Object.defineProperty(window, 'property', { value: v }); Reflect.defineProperty(window, 'property', { value: v })
                             if (_args[1][2] && _args[1][2].value instanceof Object) {
@@ -3826,6 +3827,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
                           }
                           break;
                         case 'w0.v':
+                        case 'W0.v':
                           let props;
                           switch (_args[0]) {
                           case 'defineProperties': // Object.defineProperties(window, { 'property': { value: v } })
@@ -5175,6 +5177,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
                     property = _escapePlatformProperties.get(rawProperty) || rawProperty;
                     switch (target) {
                     case 'w01v':
+                    case 'W01v':
                       switch (name) {
                       case 'window':
                       case 'self':
@@ -5200,6 +5203,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
                       }
                       break;
                     case 'w0.v':
+                    case 'W0.v':
                       switch (name) {
                       case 'window':
                       case 'self':
