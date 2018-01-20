@@ -6,6 +6,7 @@
 Thin Hook Preprocessor (experimental)
 
 ## Notes
+- **[ACL Compatibility]** Since [0.0.213](https://github.com/t2ym/thin-hook/releases/tag/0.0.213) with [Fix #215](https://github.com/t2ym/thin-hook/issues/215), `'R'` and `'W'` opTypes are introduced for getting/setting property descriptors, i.e., contexts to access descriptors must have explicit `'R'` and/or `'W'` permissions for the target properties.  Prior to this version, property descriptors can be accessed by mere `'r'` and/or `'w'` permissions.
 - **[Vulnerability Fix]** Since [0.0.211](https://github.com/t2ym/thin-hook/releases/tag/0.0.211) with [Fix #211](https://github.com/t2ym/thin-hook/issues/211), bypassing of ACL for global objects by dummy custom element definition is avoided. Prior to this version, ACL can be skipped by defining dummy custom elements by standard elements as constructor classes.
 - **[Vulnerability Fix]** Since [0.0.209](https://github.com/t2ym/thin-hook/releases/tag/0.0.209) with [Fix #210](https://github.com/t2ym/thin-hook/issues/210), bypassing of ACL for global objects by cloing them to other global objects is avoided. Prior to this version, ACL can be skipped by cloing global objects.
 - **[Vulnerability Fix]** Since [0.0.205](https://github.com/t2ym/thin-hook/releases/tag/0.0.205) with [Fix #208](https://github.com/t2ym/thin-hook/issues/208), scripts via `document.writeln()` are hooked as in `document.write()`. Prior to this version, scripts via `document.writeln()` are not hooked.

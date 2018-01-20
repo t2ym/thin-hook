@@ -1193,6 +1193,341 @@
     DummyClass3.prototype.instanceMethod();
   }, /^Permission Denied:/);
 
+  // Getter/Setter
+
+  class GetterSetterClass {
+    static get staticProperty() {
+      return this._staticProperty;
+    }
+    static set staticProperty(value) {
+      this._staticProperty = value;
+    }
+    get prototypeProperty() {
+      return this._prototypeProperty;
+    }
+    set prototypeProperty(value) {
+      this._prototypeProperty = value;
+    }
+    getInstanceProperty() {
+      return this._instanceProperty;
+    }
+    setInstanceProperty(value) {
+      this._instanceProperty = value;
+    }
+  };
+
+  window.GetterSetterClass = GetterSetterClass;
+  let getterSetterObject;
+  let cloneObject;
+
+  (function createProperty() {
+    let staticPropertyDescriptor;
+    staticPropertyDescriptor = Object.getOwnPropertyDescriptor(GetterSetterClass, 'staticProperty');
+    Object.defineProperty(GetterSetterClass, 'clonedStaticProperty', staticPropertyDescriptor);
+
+    let prototypePropertyDescriptor;
+    prototypePropertyDescriptor = Object.getOwnPropertyDescriptor(GetterSetterClass.prototype, 'prototypeProperty');
+    Object.defineProperty(GetterSetterClass.prototype, 'clonedPrototypeProperty', prototypePropertyDescriptor);
+
+    getterSetterObject = new GetterSetterClass();
+    Object.defineProperty(getterSetterObject, 'instanceProperty', {
+      configurable: true,
+      enumerable: true,
+      get: getterSetterObject.getInstanceProperty,
+      set: getterSetterObject.setInstanceProperty,
+    });
+    let instancePropertyDescriptor;
+    instancePropertyDescriptor = Object.getOwnPropertyDescriptor(getterSetterObject, 'instanceProperty');
+    Object.defineProperty(getterSetterObject, 'clonedInstanceProperty', instancePropertyDescriptor);
+
+    cloneObject = {};
+    Object.defineProperty(cloneObject, 'instanceProperty', {
+      configurable: true,
+      enumerable: true,
+      get: instancePropertyDescriptor.get.bind(getterSetterObject),
+      set: instancePropertyDescriptor.set.bind(getterSetterObject),
+    });
+
+  })();
+
+  (function writeProperty() {
+    GetterSetterClass.staticProperty = 'staticPropertyValue';
+    chai.assert.equal(GetterSetterClass.staticProperty, 'staticPropertyValue', 'check staticProperty');
+
+    chai.assert.throws(() => {
+      Object.getOwnPropertyDescriptor(GetterSetterClass, 'staticProperty');
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      Object.defineProperty(GetterSetterClass, 'staticProperty', { value: 1 });
+    }, /^Permission Denied:/);
+
+    chai.assert.equal(GetterSetterClass.clonedStaticProperty, 'staticPropertyValue', 'check clonedStaticProperty');
+    GetterSetterClass.clonedStaticProperty = 'clonedStaticPropertyValue';
+    chai.assert.equal(GetterSetterClass.clonedStaticProperty, 'clonedStaticPropertyValue', 'check clonedStaticProperty');
+
+    chai.assert.throws(() => {
+      Object.getOwnPropertyDescriptor(GetterSetterClass, 'clonedStaticProperty');
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      Object.defineProperty(GetterSetterClass, 'clonedStaticProperty', { value: 1 });
+    }, /^Permission Denied:/);
+
+    GetterSetterClass.staticProperty = 'staticPropertyValue'; // reset
+
+    getterSetterObject.prototypeProperty = 'prototypePropertyValue';
+    chai.assert.equal(getterSetterObject.prototypeProperty, 'prototypePropertyValue', 'check prototypeProperty');
+
+    chai.assert.throws(() => {
+      Object.getOwnPropertyDescriptor(GetterSetterClass.prototype, 'prototypeProperty');
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      Object.defineProperty(GetterSetterClass.prototype, 'prototypeProperty', { value: 1 });
+    }, /^Permission Denied:/);
+
+    chai.assert.equal(getterSetterObject.clonedPrototypeProperty, 'prototypePropertyValue', 'check clonedPrototypeProperty');
+    getterSetterObject.clonedPrototypeProperty = 'clonedPrototypePropertyValue';
+    chai.assert.equal(getterSetterObject.clonedPrototypeProperty, 'clonedPrototypePropertyValue', 'check clonedPrototypeProperty');
+
+    chai.assert.throws(() => {
+      Object.getOwnPropertyDescriptor(GetterSetterClass.prototype, 'clonedPrototypeProperty');
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      Object.defineProperty(GetterSetterClass.prototype, 'clonedPrototypeProperty', { value: 1 });
+    }, /^Permission Denied:/);
+
+    getterSetterObject.prototypeProperty = 'prototypePropertyValue'; // reset
+
+    getterSetterObject.instanceProperty = 'instancePropertyValue';
+    chai.assert.equal(getterSetterObject.instanceProperty, 'instancePropertyValue', 'check instanceProperty');
+
+    chai.assert.throws(() => {
+      Object.getOwnPropertyDescriptor(getterSetterObject, 'instanceProperty');
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      Object.defineProperty(getterSetterObject, 'instanceProperty', { value: 1 });
+    }, /^Permission Denied:/);
+
+    chai.assert.equal(getterSetterObject.clonedInstanceProperty, 'instancePropertyValue', 'check clonedInstanceProperty');
+    getterSetterObject.clonedInstanceProperty = 'clonedInstancePropertyValue';
+    chai.assert.equal(getterSetterObject.clonedInstanceProperty, 'clonedInstancePropertyValue', 'check clonedInstanceProperty');
+
+    chai.assert.throws(() => {
+      Object.getOwnPropertyDescriptor(getterSetterObject, 'clonedInstanceProperty');
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      Object.defineProperty(getterSetterObject, 'clonedInstanceProperty', { value: 1 });
+    }, /^Permission Denied:/);
+
+    getterSetterObject.instanceProperty = 'instancePropertyValue'; // reset
+
+  })();
+
+  (function readProperty() {
+
+    chai.assert.equal(GetterSetterClass.staticProperty, 'staticPropertyValue', 'check staticProperty');
+
+    chai.assert.throws(() => {
+      GetterSetterClass.staticProperty = 'staticPropertyValue2';
+    }, /^Permission Denied:/);
+
+    chai.assert.equal(GetterSetterClass.staticProperty, 'staticPropertyValue', 'check staticProperty');
+
+    chai.assert.throws(() => {
+      Object.getOwnPropertyDescriptor(GetterSetterClass, 'staticProperty');
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      Object.defineProperty(GetterSetterClass, 'staticProperty', { value: 1 });
+    }, /^Permission Denied:/);
+
+    chai.assert.equal(GetterSetterClass.clonedStaticProperty, 'staticPropertyValue', 'check clonedStaticProperty');
+
+    chai.assert.throws(() => {
+      GetterSetterClass.clonedStaticProperty = 'clonedStaticPropertyValue2';
+    }, /^Permission Denied:/);
+
+    chai.assert.equal(GetterSetterClass.clonedStaticProperty, 'staticPropertyValue', 'check clonedStaticProperty');
+
+    chai.assert.throws(() => {
+      Object.getOwnPropertyDescriptor(GetterSetterClass, 'clonedStaticProperty');
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      Object.defineProperty(GetterSetterClass, 'clonedStaticProperty', { value: 1 });
+    }, /^Permission Denied:/);
+
+    chai.assert.equal(getterSetterObject.prototypeProperty, 'prototypePropertyValue', 'check prototypeProperty');
+
+    chai.assert.throws(() => {
+      getterSetterObject.prototypeProperty = 'prototypePropertyValue2';
+    }, /^Permission Denied:/);
+
+    chai.assert.equal(getterSetterObject.prototypeProperty, 'prototypePropertyValue', 'check prototypeProperty');
+
+    chai.assert.throws(() => {
+      Object.getOwnPropertyDescriptor(GetterSetterClass.prototype, 'prototypeProperty');
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      Object.defineProperty(GetterSetterClass.prototype, 'prototypeProperty', { value: 1 });
+    }, /^Permission Denied:/);
+
+    chai.assert.equal(getterSetterObject.clonedPrototypeProperty, 'prototypePropertyValue', 'check clonedPrototypeProperty');
+
+    chai.assert.throws(() => {
+      getterSetterObject.clonedPrototypeProperty = 'clonedPrototypePropertyValue2';
+    }, /^Permission Denied:/);
+
+    chai.assert.equal(getterSetterObject.clonedPrototypeProperty, 'prototypePropertyValue', 'check clonedPrototypeProperty');
+
+    chai.assert.throws(() => {
+      Object.getOwnPropertyDescriptor(GetterSetterClass.prototype, 'clonedPrototypeProperty');
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      Object.defineProperty(GetterSetterClass.prototype, 'clonedPrototypeProperty', { value: 1 });
+    }, /^Permission Denied:/);
+
+    chai.assert.equal(getterSetterObject.instanceProperty, 'instancePropertyValue', 'check instanceProperty');
+
+    chai.assert.throws(() => {
+      getterSetterObject.instanceProperty = 'instancePropertyValue2';
+    }, /^Permission Denied:/);
+
+    chai.assert.equal(getterSetterObject.instanceProperty, 'instancePropertyValue', 'check instanceProperty');
+
+    chai.assert.throws(() => {
+      Object.getOwnPropertyDescriptor(getterSetterObject, 'instanceProperty');
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      Object.defineProperty(getterSetterObject, 'instanceProperty', { value: 1 });
+    }, /^Permission Denied:/);
+
+    chai.assert.equal(getterSetterObject.clonedInstanceProperty, 'instancePropertyValue', 'check clonedInstanceProperty');
+
+    chai.assert.throws(() => {
+      getterSetterObject.clonedInstanceProperty = 'clonedInstancePropertyValue2';
+    }, /^Permission Denied:/);
+
+    chai.assert.equal(getterSetterObject.clonedInstanceProperty, 'instancePropertyValue', 'check clonedInstanceProperty');
+
+    chai.assert.throws(() => {
+      Object.getOwnPropertyDescriptor(getterSetterObject, 'clonedInstanceProperty');
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      Object.defineProperty(getterSetterObject, 'clonedInstanceProperty', { value: 1 });
+    }, /^Permission Denied:/);
+
+  })();
+
+  (function noAccess() {
+
+    chai.assert.throws(() => {
+      GetterSetterClass.staticProperty;
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      GetterSetterClass.staticProperty = 'staticPropertyValue2';
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      Object.getOwnPropertyDescriptor(GetterSetterClass, 'staticProperty');
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      Object.defineProperty(GetterSetterClass, 'staticProperty', { value: 1 });
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      GetterSetterClass.clonedStaticProperty;
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      GetterSetterClass.clonedStaticProperty = 'clonedStaticPropertyValue2';
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      Object.getOwnPropertyDescriptor(GetterSetterClass, 'clonedStaticProperty');
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      Object.defineProperty(GetterSetterClass, 'clonedStaticProperty', { value: 1 });
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      getterSetterObject.prototypeProperty;
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      getterSetterObject.prototypeProperty = 'prototypePropertyValue2';
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      Object.getOwnPropertyDescriptor(GetterSetterClass.prototype, 'prototypeProperty');
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      Object.defineProperty(GetterSetterClass.prototype, 'prototypeProperty', { value: 1 });
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      getterSetterObject.clonedPrototypeProperty;
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      getterSetterObject.clonedPrototypeProperty = 'clonedPrototypePropertyValue2';
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      Object.getOwnPropertyDescriptor(GetterSetterClass.prototype, 'clonedPrototypeProperty');
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      Object.defineProperty(GetterSetterClass.prototype, 'clonedPrototypeProperty', { value: 1 });
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      getterSetterObject.instanceProperty;
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      getterSetterObject.instanceProperty = 'instancePropertyValue2';
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      Object.getOwnPropertyDescriptor(getterSetterObject, 'instanceProperty');
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      Object.defineProperty(getterSetterObject, 'instanceProperty', { value: 1 });
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      getterSetterObject.clonedInstanceProperty;
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      getterSetterObject.clonedInstanceProperty = 'clonedInstancePropertyValue2';
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      Object.getOwnPropertyDescriptor(getterSetterObject, 'clonedInstanceProperty');
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      Object.defineProperty(getterSetterObject, 'clonedInstanceProperty', { value: 1 });
+    }, /^Permission Denied:/);
+
+  })();
+
   // Chain ACL
 
   window.BaseClass1 = class BaseClass1 {

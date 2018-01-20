@@ -266,16 +266,16 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       Object: {
         [S_DEFAULT]: 'xtp',
         create: 'r0-',
-        getOwnPropertyDescriptor: 'r01',
-        getOwnPropertyDescriptors: 'r0*',
+        getOwnPropertyDescriptor: 'R01',
+        getOwnPropertyDescriptors: 'R0*',
         getOwnPropertyNames: 'r0*',
         getOwnPropertySymbols: 'r0*',
         getPrototypeOf: 'r0P',
         keys: 'r0*',
         entries: 'r0*',
         values: 'r0*',
-        defineProperty: 'w01v',
-        defineProperties: 'w0.v',
+        defineProperty: 'W01v',
+        defineProperties: 'W0.v',
         setPrototypeOf: 'w0P',
         freeze: 'w0*',
         seal: 'w0*',
@@ -283,10 +283,10 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         [S_PROTOTYPE]: {
           [S_DEFAULT]: 'xtp',
           $hasOwnProperty$: 'rt0',
-          $__lookupGetter__$: 'rt0',
-          $__lookupSetter__$: 'wt0',
-          $__defineGetter__$: 'wt0',
-          $__defineSetter__$: 'wt0',
+          $__lookupGetter__$: 'Rt0',
+          $__lookupSetter__$: 'Rt0',
+          $__defineGetter__$: 'Wt0',
+          $__defineSetter__$: 'Wt0',
           $propertyIsEnumerable$: 'rt0',
         }
       },
@@ -295,11 +295,11 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         get: 'r01',
         getPrototypeOf: 'r0P',
         has: 'r01',
-        getOwnPropertyDescriptor: 'r01',
+        getOwnPropertyDescriptor: 'R01',
         isExtensible: 'r0-',
         ownKeys: 'r0*',
-        defineProperty: 'w01v',
-        deleteProperty: 'w01',
+        defineProperty: 'W01v',
+        deleteProperty: 'W01',
         set: 'w01v',
         setPrototypeOf: 'w0P',
         preventExtensions: 'w0*',
@@ -494,7 +494,10 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '/components/chai/chai.js,9,hasProtoSupport': '@Object__proto__reader',
     '/components/chai/chai.js,36,getType,type': '@Object_prototype_reader',
     '/components/chai/chai.js,24,type': '@Object_prototype_reader',
+    '/components/chai/chai.js,*': '@chai_js',
     '/components/dexie/dist/dexie.min.js,p': '@Object_static_method_user',
+    '/components/dexie/dist/dexie.min.js,*': '@dexie_js',
+    '/components/dexie/dist/dexie.min.js': '@dexie_js',
     '/components/webcomponentsjs/webcomponents-lite.js': '@Object_assign_reader',
     '/components/webcomponentsjs/webcomponents-lite.js,Xa,b': '@Event_ja_writer',
     '/components/webcomponentsjs/webcomponents-lite.js,rc,get composed': '@Event_ja_writer',
@@ -523,10 +526,15 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '/components/webcomponentsjs/webcomponents-lite.js,eb': '@Node_prototype_reader',
     '/components/webcomponentsjs/webcomponents-lite.js,Mc': '@Element_matches_reader',
     '/components/webcomponentsjs/webcomponents-lite.js,M': '@Node_prototype_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,M,e': '@Node_prototype_writer',
     '/components/webcomponentsjs/webcomponents-lite.js,yb': '@HTMLElement_insertAdjacentElement_writer',
     '/components/webcomponentsjs/webcomponents-lite.js,hd,b': '@HTMLElement_insertAdjacentElement_writer',
     '/components/webcomponentsjs/webcomponents-lite.js,$c,b': '@HTMLElement_insertAdjacentElement_writer',
     '/components/webcomponentsjs/webcomponents-lite.js,cd': '@HTMLElement_insertAdjacentElement_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,hb': '@Node_prototype_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,ib': '@Node_prototype_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,Fa': '@Node_prototype_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,Aa': '@Node_prototype_writer',
     '/components/webcomponentsjs/webcomponents-lite.js,ua': '@customElements_reader',
     '/components/webcomponentsjs/webcomponents-lite.js,xa': '@customElements_reader',
     '/components/webcomponentsjs/webcomponents-lite.js,a': '@customElements_reader',
@@ -541,7 +549,24 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '/components/thin-hook/demo/commonjs2.js': '@path_join_prohibited',
     '/components/thin-hook/demo/commonjs2.js,tty': '@tty_prohibited',
     '/components/live-localizer/live-localizer-lazy.html,*': '@live-localizer-lazy',
+    '/components/live-localizer/draggable-behavior.html,*': '@draggable-behavior',
     '/components/iron-location/iron-location.html,*': '@iron-location',
+    '/components/thin-hook/demo/spread.js': '@spread_js',
+    '/components/thin-hook/demo/spread.js,*': '@spread_js',
+    '/components/thin-hook/demo/lhs.js': '@lhs_js',
+    '/components/thin-hook/demo/lhs.js,*': '@lhs_js',
+    '/components/thin-hook/demo/,*': '@demo_entry_page_scripts',
+    '/components/i18n-behavior/i18n-behavior.html,script@754,isStandardPropertyConfigurable,langPropertyDescriptor': '@lang_descriptor_reader',
+    '/components/i18n-behavior/i18n-behavior.html,*': '@i18n-behavior',
+    '/components/i18n-behavior/i18n-attr-repo.html,*': '@i18n-behavior',
+    '/components/thin-hook/node_modules/process/browser.js': '@process_browser_js',
+    '/components/thin-hook/demo/normalize.js,GetterSetterClass': '@GetterSetterClass',
+    '/components/thin-hook/demo/normalize.js,GetterSetterClass,*': '@GetterSetterClass',
+    '/components/thin-hook/demo/normalize.js,createProperty': '@GetterSetterClass_creator',
+    '/components/thin-hook/demo/normalize.js,createProperty,get': '@GetterSetterClass_creator',
+    '/components/thin-hook/demo/normalize.js,createProperty,set': '@GetterSetterClass_creator',
+    '/components/thin-hook/demo/normalize.js,writeProperty': '@GetterSetterClass_writer',
+    '/components/thin-hook/demo/normalize.js,readProperty': '@GetterSetterClass_reader',
   };
   /*
     Prefixed Contexts object:
@@ -580,7 +605,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     }
   }
   const opTypeMap = {
-    r: 0, w: 1, x: 2
+    r: 0, w: 1, x: 2, R: 3, W: 4,
   };
   const isGlobalScopeObject = new Map();
   [ 'window', 'self' ].forEach(g => {
@@ -643,7 +668,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
                                 hookArgs /* [f, thisArg, args, context, newTarget] */,
                                 applyAcl /* for recursive application of ACL */) {
         let opType = aclArgs[4];
-        if (opType === 'w') {
+        if (opType === 'w' || opType === 'W') {
           ///console.log('windowAcl:', aclArgs, normalizedArgs);
           if (Array.isArray(aclArgs[3])) {
             switch (normalizedArgs[0]) {
@@ -728,7 +753,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             }
           }
         }
-        return 'rwx'[opTypeMap[opType]] === opType; // equivalent to 'rwx' acl
+        return 'rwxRW'[opTypeMap[opType]] === opType; // equivalent to 'rwxRW' acl
       };
     }
   };
@@ -1010,7 +1035,10 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       invalidRequireName: '---',
     },
     navigator: {
-      [S_OBJECT]: 'r--',
+      [S_OBJECT]: {
+        [S_DEFAULT]: 'r--',
+        '@normalization_checker': 'r--R-',
+      },
       [S_DEFAULT]: 'r--',
       [S_ALL]: '---',
       serviceWorker: '---',
@@ -1073,7 +1101,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         [S_ALL]: '---',
         $constructor$: {
           [S_DEFAULT]: 'r-x',
-          '@custom_error_constructor_creator': 'rwx',
+          '@custom_error_constructor_creator': 'rwxRW',
           '@firebase_app': 'rwx',
         },
       }
@@ -1173,6 +1201,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         firstChild: {
           [S_DEFAULT]: 'r-x',
           '@Node_prototype_writer': 'rwx',
+          '@Node_prototype_reader': 'rwxR-',
         },
         lastChild: {
           [S_DEFAULT]: 'r-x',
@@ -1180,7 +1209,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         },
         textContent: {
           [S_DEFAULT]: 'r-x',
-          '@Node_prototype_writer': 'rwx',
+          '@Node_prototype_writer': 'rwxR-',
           '@HTMLElement_insertAdjacentElement_writer': 'rwx',
         },
         baseURI: {
@@ -1322,7 +1351,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         },
         innerHTML: {
           [S_DEFAULT]: 'r-x',
-          '@Node_prototype_writer': 'rwx',
+          '@Node_prototype_writer': 'rwxR-',
           '@HTMLElement_insertAdjacentElement_writer': 'rwx',
         },
         replaceWith: {
@@ -1380,6 +1409,10 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         '@HTMLElement_prototype_reader': 'r--',
         [S_DEFAULT]: 'r-x',
         textContent: 'rw-',
+        innerHTML: {
+          [S_DEFAULT]: '---',
+          '@HTMLElement_prototype_reader': 'r--R-',
+        },
         blur: {
           [S_DEFAULT]: 'r-x',
           '@HTMLElement_blur_writer': 'rwx',
@@ -1468,6 +1501,16 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     },
     HTMLSpanElement: {
       [S_CHAIN]: () => acl.HTMLElement,
+      [S_PROTOTYPE]: {
+        [S_CHAIN]: S_CHAIN,
+        [S_INSTANCE]: {
+          [S_CHAIN]: S_CHAIN,
+          'lang': {
+            [S_DEFAULT]: 'rw-',
+            '@lang_descriptor_reader': 'rw-R-',
+          },
+        },
+      },
     },
     HTMLSourceElement: {
       [S_CHAIN]: () => acl.HTMLElement,
@@ -1650,6 +1693,9 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         map: {
           [S_DEFAULT]: 'r-x',
           '@bind_normalization_checker': 'r--',
+        },
+        [S_INSTANCE]: {
+          [S_DEFAULT]: 'rwxRW',
         },
       },
     },
@@ -1997,6 +2043,46 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             [S_DEFAULT]: 'r-x',
             '@Object_assign_reader': 'rwx',
           },
+          childNodes: {
+            [S_DEFAULT]: 'rwx',
+            '@Node_prototype_writer': 'rwxRW',
+          },
+          children: {
+            [S_DEFAULT]: 'rwx',
+            '@Node_prototype_writer': 'rwxRW',
+          },
+          childElementCount: {
+            [S_DEFAULT]: 'rwx',
+            '@Node_prototype_writer': 'rwxRW',
+          },
+          firstChild: {
+            [S_DEFAULT]: 'rwx',
+            '@Node_prototype_writer': 'rwxRW',
+          },
+          lastChild: {
+            [S_DEFAULT]: 'rwx',
+            '@Node_prototype_writer': 'rwxRW',
+          },
+          textContent: {
+            [S_DEFAULT]: 'rwx',
+            '@Node_prototype_writer': 'rwxRW',
+          },
+          firstElementChild: {
+            [S_DEFAULT]: 'rwx',
+            '@Node_prototype_writer': 'rwxRW',
+          },
+          lastElementChild: {
+            [S_DEFAULT]: 'rwx',
+            '@Node_prototype_writer': 'rwxRW',
+          },
+          innerHTML: {
+            [S_DEFAULT]: 'rwx',
+            '@Node_prototype_writer': 'rwxRW',
+          },
+          activeElement: {
+            [S_DEFAULT]: 'rwx',
+            '@Node_prototype_writer': 'rwxRW',
+          },
         },
       },
     },
@@ -2005,6 +2091,13 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       now: {
         [S_DEFAULT]: 'r-x',
         '@bind_normalization_checker': 'r--',
+      },
+    },
+    Math: {
+      [S_DEFAULT]: 'r-x',
+      PI: {
+        [S_DEFAULT]: 'r--',
+        '@normalization_checker': 'r--R-',
       },
     },
     Crypto: {
@@ -2041,6 +2134,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     setTimeout: {
       [S_DEFAULT]: '--x',
       '@setTimeout_reader': 'r-x',
+      '@process_browser_js': 'r-x',
     },
     Document: {
       [S_CHAIN]: () => acl.Node,
@@ -2090,7 +2184,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         },
         activeElement: {
           [S_DEFAULT]: 'r-x',
-          '@Node_prototype_writer': 'rwx',
+          '@Node_prototype_writer': 'rwxR-',
         },
         append: {
           [S_DEFAULT]: 'r-x',
@@ -2130,7 +2224,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       },
       timeline: {
         [S_DEFAULT]: 'r-x',
-        '@web_animations_next_lite': 'rwx',
+        '@web_animations_next_lite': 'rwxRW',
       },
       createElement: {
         [S_DEFAULT]: function createElementAcl(normalizedThisArg,
@@ -2330,6 +2424,11 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         },
       },
     },
+    BehaviorsStore: {
+      [S_DEFAULT]: 'r--',
+      '@i18n-behavior': 'rwxRW',
+      '@draggable-behavior': 'rwxRW',
+    },
     // blocked private API
     DummyClass: {
       [S_OBJECT]: {
@@ -2475,12 +2574,91 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       [S_DEFAULT]: 'rwx',
       [S_ALL]: '---',
     },
+    GetterSetterClass: {
+      [S_CHAIN]: () => acl.Function[S_PROTOTYPE][S_INSTANCE],
+      [S_DEFAULT]: '---',
+      [S_OBJECT]: {
+        [S_DEFAULT]: '---',
+        '@normalization_checker': 'rwx',
+        '@GetterSetterClass_creator': 'r-x',
+        '@GetterSetterClass_writer': 'r--',
+        '@GetterSetterClass_reader': 'r--',
+      },
+      '@GetterSetterClass': 'rwx',
+      staticProperty: {
+        [S_DEFAULT]: '---',
+        '@GetterSetterClass_creator': 'rw-RW',
+        '@GetterSetterClass_writer': 'rw-',
+        '@GetterSetterClass_reader': 'r--',
+      },
+      clonedStaticProperty: {
+        [S_DEFAULT]: '---',
+        '@GetterSetterClass_creator': 'rw-RW',
+        '@GetterSetterClass_writer': 'rw-',
+        '@GetterSetterClass_reader': 'r--',
+      },
+      $prototype$: {
+        [S_DEFAULT]: '---',
+        '@GetterSetterClass_creator': 'r--',
+        '@GetterSetterClass_writer': 'r--', // for verification
+        '@GetterSetterClass_reader': 'r--', // for verification
+      },
+      [S_PROTOTYPE]: {
+        [S_CHAIN]: () => acl.Object[S_PROTOTYPE],
+        [S_DEFAULT]: '---',
+        prototypeProperty: {
+          [S_DEFAULT]: '---',
+          '@GetterSetterClass_creator': 'rw-RW',
+        },
+        clonedPrototypeProperty: {
+          [S_DEFAULT]: '---',
+          '@GetterSetterClass_creator': 'rw-RW',
+        },
+        [S_INSTANCE]: {
+          [S_CHAIN]: S_CHAIN,
+          [S_DEFAULT]: '---',
+          '@GetterSetterClass': 'rwx',
+          prototypeProperty: {
+            [S_DEFAULT]: '---',
+            '@GetterSetterClass_creator': 'rwx',
+            '@GetterSetterClass_writer': 'rw-',
+            '@GetterSetterClass_reader': 'r--',
+          },
+          clonedPrototypeProperty: {
+            [S_DEFAULT]: '---',
+            '@GetterSetterClass_creator': 'rwx',
+            '@GetterSetterClass_writer': 'rw-',
+            '@GetterSetterClass_reader': 'r--',
+          },
+          instanceProperty: {
+            [S_DEFAULT]: '---',
+            '@GetterSetterClass_creator': 'rw-RW',
+            '@GetterSetterClass_writer': 'rw-',
+            '@GetterSetterClass_reader': 'r--',
+          },
+          getInstanceProperty: {
+            [S_DEFAULT]: '---',
+            '@GetterSetterClass_creator': 'r--',
+          },
+          setInstanceProperty: {
+            [S_DEFAULT]: '---',
+            '@GetterSetterClass_creator': 'r--',
+          },
+          clonedInstanceProperty: {
+            [S_DEFAULT]: '---',
+            '@GetterSetterClass_creator': 'rw-RW',
+            '@GetterSetterClass_writer': 'rw-',
+            '@GetterSetterClass_reader': 'r--',
+          },
+        },
+      },
+    },
     // 3rd party API
     firebase: {
       [S_OBJECT]: {
         [S_DEFAULT]: '---',
         '@polymerfire': 'r--',
-        '@firebase_app': 'rw-',
+        '@firebase_app': 'rw-RW',
       },
       [S_DEFAULT]: '---', // Note: Only @polymerfire can access firebase API
       '@firebase_app': 'rw-',
@@ -2498,10 +2676,21 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     },
     Dexie: {
       [S_OBJECT]: {
-        [S_DEFAULT]: 'rw-', // Note: Internal and external accesses are not distinguished
+        [S_DEFAULT]: 'r--',
+        '@dexie_js': 'rwxRW',
         '@Dexie_instantiator': 'r-x', // Note: No others can instantiate Dexie
       },
-      [S_DEFAULT]: 'rwx', // Note: Internal and external accesses are not distinguished
+      [S_DEFAULT]: 'r-x',
+      '@dexie_js': 'rwxRW',
+      [S_PROTOTYPE]: {
+        [S_DEFAULT]: '---',
+        '@dexie_js': 'rwxRW',
+        [S_INSTANCE]: {
+          [S_DEFAULT]: 'r-x',
+          '@dexie_js': 'rwxRW',
+          '@custom_error_constructor_creator': 'rwxRW',
+        },
+      },
     },
     SequenceEffect: {
       [S_DEFAULT]: 'r-x',
@@ -2518,6 +2707,222 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         [S_DEFAULT]: 'r--',
         '@web_animations_next_lite': 'rw-',
       }
+    },
+    // global variables for demo acl
+    gA1: {
+      [S_DEFAULT]: '---',
+      '@spread_js': 'rwxRW',
+    },
+    gX1: {
+      [S_DEFAULT]: '---',
+      '@spread_js': 'rwxRW',
+    },
+    gU: {
+      [S_DEFAULT]: '---',
+      '@spread_js': 'rwxRW',
+    },
+    gRestP: {
+      [S_DEFAULT]: '---',
+      '@spread_js': 'rwxRW',
+    },
+    gA: {
+      [S_DEFAULT]: '---',
+      '@spread_js': 'rwxRW',
+    },
+    gRestE: {
+      [S_DEFAULT]: '---',
+      '@spread_js': 'rwxRW',
+    },
+    _GV1: {
+      [S_DEFAULT]: '---',
+      '@lhs_js': 'rwxRW',
+    },
+    _GV2: {
+      [S_DEFAULT]: '---',
+      '@lhs_js': 'rwxRW',
+    },
+    _GV3: {
+      [S_DEFAULT]: '---',
+      '@lhs_js': 'rwxRW',
+    },
+    _GV4: {
+      [S_DEFAULT]: '---',
+      '@lhs_js': 'rwxRW',
+    },
+    _GV5: {
+      [S_DEFAULT]: '---',
+      '@lhs_js': 'rwxRW',
+    },
+    _GV6: {
+      [S_DEFAULT]: '---',
+      '@lhs_js': 'rwxRW',
+    },
+    _GV7: {
+      [S_DEFAULT]: '---',
+      '@lhs_js': 'rwxRW',
+    },
+    _GV8: {
+      [S_DEFAULT]: '---',
+      '@lhs_js': 'rwxRW',
+    },
+    _GV9: {
+      [S_DEFAULT]: '---',
+      '@lhs_js': 'rwxRW',
+    },
+    _GV10: {
+      [S_DEFAULT]: '---',
+      '@lhs_js': 'rwxRW',
+    },
+    _GV11: {
+      [S_DEFAULT]: '---',
+      '@lhs_js': 'rwxRW',
+    },
+    _GV12: {
+      [S_DEFAULT]: '---',
+      '@lhs_js': 'rwxRW',
+    },
+    _GO1: {
+      [S_DEFAULT]: '---',
+      '@lhs_js': 'rwxRW',
+    },
+    _GO2: {
+      [S_DEFAULT]: '---',
+      '@lhs_js': 'rwxRW',
+    },
+    lhsvalues: {
+      [S_DEFAULT]: '---',
+      '@lhs_js': 'rwxRW',
+    },
+    gvv: {
+      [S_DEFAULT]: '---',
+      '@demo_entry_page_scripts': 'rwxRW',
+    },
+    gvv1: {
+      [S_DEFAULT]: '---',
+      '@demo_entry_page_scripts': 'rwxRW',
+    },
+    gvv2: {
+      [S_DEFAULT]: '---',
+      '@demo_entry_page_scripts': 'rwxRW',
+    },
+    gv0: {
+      [S_DEFAULT]: '---',
+      '@demo_entry_page_scripts': 'rwxRW',
+    },
+    gv00: {
+      [S_DEFAULT]: '---',
+      '@demo_entry_page_scripts': 'rwxRW',
+    },
+    ga: {
+      [S_DEFAULT]: '---',
+      '@demo_entry_page_scripts': 'rwxRW',
+    },
+    gb: {
+      [S_DEFAULT]: '---',
+      '@demo_entry_page_scripts': 'rwxRW',
+      '@chai_js': 'r--',
+    },
+    ga1: {
+      [S_DEFAULT]: '---',
+      '@demo_entry_page_scripts': 'rwxRW',
+    },
+    gb1: {
+      [S_DEFAULT]: '---',
+      '@demo_entry_page_scripts': 'rwxRW',
+    },
+    gb2: {
+      [S_DEFAULT]: '---',
+      '@demo_entry_page_scripts': 'rwxRW',
+    },
+    gv: {
+      [S_DEFAULT]: '---',
+      '@demo_entry_page_scripts': 'rwxRW',
+    },
+    gv2: {
+      [S_DEFAULT]: '---',
+      '@demo_entry_page_scripts': 'rwxRW',
+    },
+    gv3: {
+      [S_DEFAULT]: '---',
+      '@demo_entry_page_scripts': 'rwxRW',
+    },
+    gv4: {
+      [S_DEFAULT]: '---',
+      '@demo_entry_page_scripts': 'rwxRW',
+    },
+    xx: {
+      [S_DEFAULT]: '---',
+      '@demo_entry_page_scripts': 'rwxRW',
+    },
+    uu: {
+      [S_DEFAULT]: '---',
+      '@demo_entry_page_scripts': 'rwxRW',
+    },
+    vv: {
+      [S_DEFAULT]: '---',
+      '@demo_entry_page_scripts': 'rwxRW',
+    },
+    q: {
+      [S_DEFAULT]: '---',
+      '@demo_entry_page_scripts': 'rwxRW',
+    },
+    gl: {
+      [S_DEFAULT]: '---',
+      '@demo_entry_page_scripts': 'rwxRW',
+    },
+    gc: {
+      [S_DEFAULT]: '---',
+      '@demo_entry_page_scripts': 'rwxRW',
+    },
+    gC2: {
+      [S_DEFAULT]: '---',
+      '@demo_entry_page_scripts': 'rwxRW',
+    },
+    gC4: {
+      [S_DEFAULT]: '---',
+      '@demo_entry_page_scripts': 'rwxRW',
+    },
+    gC: {
+      [S_DEFAULT]: '---',
+      '@demo_entry_page_scripts': 'rwxRW',
+    },
+    gC3: {
+      [S_DEFAULT]: '---',
+      '@demo_entry_page_scripts': 'rwxRW',
+    },
+    v2: {
+      [S_DEFAULT]: '---',
+      '@demo_entry_page_scripts': 'rwxRW',
+      '@normalization_checker': 'r--',
+    },
+    v4: {
+      [S_DEFAULT]: '---',
+      '@demo_entry_page_scripts': 'rwxRW',
+      '@normalization_checker': 'r--',
+    },
+    gfunc: {
+      [S_DEFAULT]: '---',
+      '@demo_entry_page_scripts': 'rwxRW',
+    },
+    globalConstant: {
+      [S_DEFAULT]: '---',
+      '@demo_entry_page_scripts': 'rwxRW',
+    },
+    globalVariable: {
+      [S_DEFAULT]: '---',
+      '@demo_entry_page_scripts': 'rwxRW',
+    },
+    globalClass: {
+      [S_DEFAULT]: '---',
+      '@demo_entry_page_scripts': 'rwxRW',
+    },
+    gf: {
+      [S_DEFAULT]: '---',
+      '@demo_entry_page_scripts': 'rwxRW',
+    },
+    ll1: {
+      [S_DEFAULT]: '---',
+      '@demo_entry_page_scripts': 'rwxRW',
     },
     // bundled modules
     '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js': {
@@ -2548,12 +2953,12 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       $constructor$: 'r-x',
       [S_PROTOTYPE]: {
         [S_OBJECT]: 'r--',
-        [S_DEFAULT]: 'rwx',
+        [S_DEFAULT]: 'rwxRW', // TODO: Use S_INSTANCE policy
         [S_ALL]: 'r--',
         $__proto__$: 'r--',
         $prototype$: 'r--',
         $constructor$: 'r-x',
-      }
+      },
     },
     // default for non-global objects
     [S_DEFAULT]: {
@@ -2579,9 +2984,9 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             }
           }
         }
-        return true; // equivalent to 'rwx' acl
+        return true; // equivalent to 'rwxRW' acl
       },
-      [S_ALL]: 'rwx',
+      [S_ALL]: 'rwxRW',
     }
   };
   // protect hook-callback.js variables
@@ -4439,7 +4844,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
   const _globalObjectsGet = typeof window === 'object'
     ? function _globalObjectsGet(o) {
         switch (o) {
-        case undefined: return 'undefined';
+        case undefined: return undefined;
         case Object: return 'Object';
         case Array: return 'Array';
         case Function: return 'Function';
@@ -4452,7 +4857,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       }
     : function _globalObjectsGet(o) {
         switch (o) {
-        case undefined: return 'undefined';
+        case undefined: return undefined;
         case Object: return 'Object';
         case Array: return 'Array';
         case Function: return 'Function';
