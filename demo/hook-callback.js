@@ -172,7 +172,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '++p': '=',
     'p--': '=',
     '--p': '=',
-    'delete': '=',
+    'delete': 'd',
     '=': '=',
     '+=': '=',
     '-=': '=',
@@ -196,7 +196,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '#++p': '=',
     '#p--': '=',
     '#--p': '=',
-    '#delete': '=',
+    '#delete': 'd',
     '#=': '=',
     '#+=': '=',
     '#-=': '=',
@@ -240,7 +240,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     'w--': '=',
     '--w': '=',
     'wtypeof': '.',
-    'wdelete': '=',
+    'wdelete': 'd',
     'w.=': '=',
     'w=': '=',
     'w+=': '=',
@@ -262,6 +262,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '.': 'rtp',
     '*': 'rt*',
     '=': 'wtpv',
+    'd': 'Wtp',
     '()': {
       Object: {
         [S_DEFAULT]: 'xtp',
@@ -2933,6 +2934,12 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     ll1: {
       [S_DEFAULT]: '---',
       '@demo_entry_page_scripts': 'rwxRW',
+    },
+    globalObject: {
+      [S_DEFAULT]: 'rw-',
+    },
+    onerror: {
+      [S_DEFAULT]: 'rw-',
     },
     // bundled modules
     '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js': {

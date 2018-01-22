@@ -6,6 +6,7 @@
 Thin Hook Preprocessor (experimental)
 
 ## Notes
+- **[ACL Compatibility]** Since [0.0.216](https://github.com/t2ym/thin-hook/releases/tag/0.0.216) with [Fix #217](https://github.com/t2ym/thin-hook/issues/217), `delete` operations require `'W'` permission as they can delete properties with customized descriptors. Prior to this version, `delete` operations require `'w'` permission.
 - **[ACL Compatibility]** Since [0.0.214](https://github.com/t2ym/thin-hook/releases/tag/0.0.214) with [Fix #215](https://github.com/t2ym/thin-hook/issues/215), `'R'` and `'W'` opTypes are introduced for getting/setting property descriptors, i.e., contexts to access descriptors must have explicit `'R'` and/or `'W'` permissions for the target properties.  Prior to [0.0.213](https://github.com/t2ym/thin-hook/releases/tag/0.0.213), property descriptors can be accessed by mere `'r'` and/or `'w'` permissions.
 - **[Vulnerability Fix]** Since [0.0.211](https://github.com/t2ym/thin-hook/releases/tag/0.0.211) with [Fix #211](https://github.com/t2ym/thin-hook/issues/211), bypassing of ACL for global objects by dummy custom element definition is avoided. Prior to this version, ACL can be skipped by defining dummy custom elements by standard elements as constructor classes.
 - **[Vulnerability Fix]** Since [0.0.209](https://github.com/t2ym/thin-hook/releases/tag/0.0.209) with [Fix #210](https://github.com/t2ym/thin-hook/issues/210), bypassing of ACL for global objects by cloing them to other global objects is avoided. Prior to this version, ACL can be skipped by cloing global objects.
