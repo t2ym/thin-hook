@@ -1262,6 +1262,31 @@
       Object.defineProperty(GetterSetterClass, 'staticProperty', { value: 1 });
     }, /^Permission Denied:/);
 
+    chai.assert.throws(() => {
+      Reflect.deleteProperty(GetterSetterClass, 'staticProperty');
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      delete GetterSetterClass.staticProperty;
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      with (GetterSetterClass) {
+        delete staticProperty;
+      }
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      with ({}) {
+        delete GetterSetterClass.staticProperty;
+      }
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(function () {
+      'use strict';
+      delete GetterSetterClass.staticProperty;
+    }, /^Permission Denied:/);
+
     chai.assert.equal(GetterSetterClass.clonedStaticProperty, 'staticPropertyValue', 'check clonedStaticProperty');
     GetterSetterClass.clonedStaticProperty = 'clonedStaticPropertyValue';
     chai.assert.equal(GetterSetterClass.clonedStaticProperty, 'clonedStaticPropertyValue', 'check clonedStaticProperty');
@@ -1272,6 +1297,14 @@
 
     chai.assert.throws(() => {
       Object.defineProperty(GetterSetterClass, 'clonedStaticProperty', { value: 1 });
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      Reflect.deleteProperty(GetterSetterClass, 'clonedStaticProperty');
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      delete GetterSetterClass.clonedStaticProperty;
     }, /^Permission Denied:/);
 
     GetterSetterClass.staticProperty = 'staticPropertyValue'; // reset
@@ -1287,6 +1320,14 @@
       Object.defineProperty(GetterSetterClass.prototype, 'prototypeProperty', { value: 1 });
     }, /^Permission Denied:/);
 
+    chai.assert.throws(() => {
+      Reflect.deleteProperty(GetterSetterClass.prototype, 'prototypeProperty');
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      delete GetterSetterClass.prototype.prototypeProperty;
+    }, /^Permission Denied:/);
+
     chai.assert.equal(getterSetterObject.clonedPrototypeProperty, 'prototypePropertyValue', 'check clonedPrototypeProperty');
     getterSetterObject.clonedPrototypeProperty = 'clonedPrototypePropertyValue';
     chai.assert.equal(getterSetterObject.clonedPrototypeProperty, 'clonedPrototypePropertyValue', 'check clonedPrototypeProperty');
@@ -1297,6 +1338,14 @@
 
     chai.assert.throws(() => {
       Object.defineProperty(GetterSetterClass.prototype, 'clonedPrototypeProperty', { value: 1 });
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      Reflect.deleteProperty(GetterSetterClass.prototype, 'clonedPrototypeProperty');
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      delete GetterSetterClass.prototype.clonedPrototypeProperty;
     }, /^Permission Denied:/);
 
     getterSetterObject.prototypeProperty = 'prototypePropertyValue'; // reset
@@ -1312,6 +1361,14 @@
       Object.defineProperty(getterSetterObject, 'instanceProperty', { value: 1 });
     }, /^Permission Denied:/);
 
+    chai.assert.throws(() => {
+      Reflect.deleteProperty(getterSetterObject, 'instanceProperty');
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      delete getterSetterObject.instanceProperty;
+    }, /^Permission Denied:/);
+
     chai.assert.equal(getterSetterObject.clonedInstanceProperty, 'instancePropertyValue', 'check clonedInstanceProperty');
     getterSetterObject.clonedInstanceProperty = 'clonedInstancePropertyValue';
     chai.assert.equal(getterSetterObject.clonedInstanceProperty, 'clonedInstancePropertyValue', 'check clonedInstanceProperty');
@@ -1322,6 +1379,14 @@
 
     chai.assert.throws(() => {
       Object.defineProperty(getterSetterObject, 'clonedInstanceProperty', { value: 1 });
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      Reflect.deleteProperty(getterSetterObject, 'clonedInstanceProperty');
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      delete getterSetterObject.clonedInstanceProperty;
     }, /^Permission Denied:/);
 
     getterSetterObject.instanceProperty = 'instancePropertyValue'; // reset
@@ -1527,6 +1592,89 @@
     }, /^Permission Denied:/);
 
   })();
+
+  chai.assert.throws(() => {
+    Object.defineProperty(window, 'globalObject', { value: { a: 1 } });
+  }, /^Permission Denied:/);
+
+  chai.assert.throws(() => {
+    Reflect.defineProperty(window, 'globalObject', { value: { a: 1 } });
+  }, /^Permission Denied:/);
+
+  chai.assert.throws(() => {
+    __defineGetter__('globalObject', function () { return { a: 1 } });
+  }, /^Permission Denied:/);
+
+  chai.assert.throws(() => {
+    let _v;
+    __defineSetter__('globalObject', function (value) { _v = value; });
+  }, /^Permission Denied:/);
+
+  chai.assert.throws(() => {
+    delete globalObject;
+  }, /^Permission Denied:/);
+
+  chai.assert.throws(() => {
+    delete window.globalObject;
+  }, /^Permission Denied:/);
+
+  chai.assert.throws(() => {
+    with (window) {
+      delete globalObject;
+    }
+  }, /^Permission Denied:/);
+
+  chai.assert.throws(() => {
+    with ({}) {
+      delete window.globalObject;
+    }
+  }, /^Permission Denied:/);
+
+  chai.assert.throws(function () {
+    'use strict';
+    delete window.globalObject;
+  }, /^Permission Denied:/);
+
+  chai.assert.throws(() => {
+    Object.defineProperty(window, 'onerror', { get: function () { return null; }, set: function (value) {} });
+  }, /^Permission Denied:/);
+
+  chai.assert.throws(() => {
+    Reflect.defineProperty(window, 'onerror', { get: function () { return null; }, set: function (value) {} });
+  }, /^Permission Denied:/);
+
+  chai.assert.throws(() => {
+    __defineGetter__('onerror', function () { return function () { return null; } });
+  }, /^Permission Denied:/);
+
+  chai.assert.throws(() => {
+    __defineSetter__('onerror', function (value) { });
+  }, /^Permission Denied:/);
+
+  chai.assert.throws(() => {
+    delete onerror;
+  }, /^Permission Denied:/);
+
+  chai.assert.throws(() => {
+    delete window.onerror;
+  }, /^Permission Denied:/);
+
+  chai.assert.throws(() => {
+    with (window) {
+      delete onerror;
+    }
+  }, /^Permission Denied:/);
+
+  chai.assert.throws(() => {
+    with ({}) {
+      delete window.onerror;
+    }
+  }, /^Permission Denied:/);
+
+  chai.assert.throws(function () {
+    'use strict';
+    delete window.onerror;
+  }, /^Permission Denied:/);
 
   // Chain ACL
 
