@@ -471,7 +471,6 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '/components/polymerfire/firebase-common-behavior.html,script@437,__appNameChanged': '@polymerfire', // TODO: More contexts should be mapped to @polymerfire
     '/components/polymerfire/firebase-app.html,script@802,__computeApp': '@polymerfire',
     '/components/polymerfire/firebase-auth.html,script@2320,_providerFromName': '@polymerfire',
-    '/components/polymer/lib/mixins/element-mixin.html,script@926,createPropertyFromConfig': '@Object_static_method_reader', // bug?
     '/components/polymer/lib/mixins/element-mixin.html,script@926,*': '@Polymer_element_mixin',
     '/components/polymer/lib/legacy/legacy-element-mixin.html,script@1013,LegacyElement,*': '@Polymer_legacy_element_mixin',
     '/components/polymer/lib/legacy/legacy-element-mixin.html,script@1013,LegacyElement,fire': '@Event_detail_writer',
@@ -492,6 +491,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '/components/polymer/lib/legacy/class.html,script@581,*': '@Polymer_legacy_class',
     '/components/polymer/lib/legacy/polymer-fn.html,script@568': '@Polymer_lib',
     '/components/polymer/lib/utils/import-href.html,script@567,*': '@Polymer_lib',
+    '/components/polymer/lib/utils/mixin.html,*': '@Polymer_lib',
     '/components/chai/chai.js,30': '@custom_error_constructor_creator',
     '/components/chai/chai.js,9,hasProtoSupport': '@Object__proto__reader',
     '/components/chai/chai.js,36,getType,type': '@Object_prototype_reader',
@@ -553,6 +553,8 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '/components/live-localizer/live-localizer-lazy.html,*': '@live-localizer-lazy',
     '/components/live-localizer/draggable-behavior.html,*': '@draggable-behavior',
     '/components/iron-location/iron-location.html,*': '@iron-location',
+    '/components/iron-a11y-announcer/iron-a11y-announcer.html,*': '@iron-a11y-announcer',
+    '/components/iron-a11y-keys-behavior/iron-a11y-keys-behavior.html,*': '@iron-a11y-keys-behavior',
     '/components/thin-hook/demo/spread.js': '@spread_js',
     '/components/thin-hook/demo/spread.js,*': '@spread_js',
     '/components/thin-hook/demo/lhs.js': '@lhs_js',
@@ -561,6 +563,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '/components/i18n-behavior/i18n-behavior.html,script@754,isStandardPropertyConfigurable,langPropertyDescriptor': '@lang_descriptor_reader',
     '/components/i18n-behavior/i18n-behavior.html,*': '@i18n-behavior',
     '/components/i18n-behavior/i18n-attr-repo.html,*': '@i18n-behavior',
+    '/components/i18n-number/i18n-number.html,*': '@i18n-number',
     '/components/thin-hook/node_modules/process/browser.js': '@process_browser_js',
     '/components/thin-hook/demo/normalize.js,GetterSetterClass': '@GetterSetterClass',
     '/components/thin-hook/demo/normalize.js,GetterSetterClass,*': '@GetterSetterClass',
@@ -1012,7 +1015,29 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             '@bind_normalization_checker': '---',
           },
         },
-      }
+      },
+      // Polymer examines 'Object' as a Polymer property descriptor object since vaadin-grid.properties._rowDetailsTemplate has the value 'Object'.
+      // Note: The following 5 ACLs are unnecessary if the vaadin-grid element is not defined.
+      computed: {
+        [S_DEFAULT]: '---',
+        '@Polymer_element_mixin': 'r--',
+      },
+      readOnly: {
+        [S_DEFAULT]: '---',
+        '@Polymer_element_mixin': 'r--',
+      },
+      reflectToAttribute: {
+        [S_DEFAULT]: '---',
+        '@Polymer_element_mixin': 'r--',
+      },
+      notify: {
+        [S_DEFAULT]: '---',
+        '@Polymer_element_mixin': 'r--',
+      },
+      observer: {
+        [S_DEFAULT]: '---',
+        '@Polymer_element_mixin': 'r--',
+      },
     },
     import: {
       [S_OBJECT]: {
@@ -1743,7 +1768,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
                     let prop = _escapePlatformProperties.get(rawProp) || rawProp;
                     let obj = name[0];
                     // Apply ACL for the global method
-                    return applyAcl(obj, name[1] !== 'prototype', false, prop, 'x', hookArgs[3], _global[obj], [rawProp, normalizedArgs[1]], hookArgs);
+                    return applyAcl(obj, name[1] !== 'prototype', !normalizedThisArg.hasOwnProperty(property), prop, 'x', hookArgs[3], _global[obj], [rawProp, normalizedArgs[1]], hookArgs);
                   }
                 }
               }
@@ -2344,10 +2369,32 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           let args = normalizedArgs[1];
           if (opType === 'x') {
             let name = args[0];
-            let baseClass = args[1];
+            let ctor = args[1];
+            let base = Object.getPrototypeOf(ctor);
             //console.log('customElementsDefineAcl context = ' + hookArgs[3] + ' element name = ' + name);
-            return Policy.trackClass(name, baseClass); // synchronous just before definition
-            // customElements.whenDefined(name).then(() => { Policy.trackClass(name, baseClass); }); // asynchronous just after definition - Is this reliable for tracking all the accesses?
+            if (!Reflect.has(acl, name)) {
+              const baseElementsMap = {
+                PolymerGenerated: 'Polymer.LegacyElement',
+                PolymerElement: 'Polymer.Element',
+                HTMLElement: 'HTMLElement',
+                // Element is omitted
+                Function: 'Function',
+                Object: 'Object',
+              };
+              let proto = Object.getPrototypeOf(ctor);
+              while (proto && !Reflect.has(baseElementsMap, proto.name)) {
+                proto = Object.getPrototypeOf(proto);
+              }
+              // Register acl[name], chained to the base class
+              if (proto && Reflect.has(baseElementsMap, proto.name)) {
+                Policy.trackClass(baseElementsMap[proto.name], proto);
+                acl[name] = Object.create(acl[baseElementsMap[proto.name]]);
+              }
+              else {
+                acl[name] = Object.create(acl.HTMLElement);
+              }
+            }
+            return Policy.trackClass(name, ctor); // synchronous just before definition
           }
           else {
             return false;
@@ -2379,6 +2426,8 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         [S_DEFAULT]: 'r-x',
       },
       '@Polymer_element_mixin': 'rwx',
+      '@iron-a11y-announcer': 'rw-',
+      '@Polymer_lib': 'rwx',
       [S_PROTOTYPE]: {
         [S_CHAIN]: S_CHAIN,
         [S_DEFAULT]: '---',
@@ -2389,6 +2438,19 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         '@Polymer_element_mixin': 'rwx',
         '@Polymer_legacy_element_mixin': 'rwx',
         '@Polymer_property_effects': 'rwx',
+        '@Polymer_property_accessors': 'rwxRW',
+        '@Polymer_legacy_class': 'rwx',
+        '@iron-a11y-keys-behavior': 'rwx',
+        type: {
+          [S_DEFAULT]: '---',
+          '@Polymer_property_accessors': 'rwxRW',
+        },
+        _template: {
+          [S_DEFAULT]: '---',
+          '@Polymer_legacy_class': 'rwx',
+          '@Polymer_element_mixin': 'rwx',
+        },
+        is: 'r--',
         [S_INSTANCE]: {
           [S_CHAIN]: S_CHAIN,
           // TODO: Loose ACL. Policies can be defined per property.
@@ -2405,6 +2467,58 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         },
       },
     },
+    'Polymer.Element': {
+      [S_CHAIN]: () => acl['Polymer.LegacyElement'], // TODO: Define specific ACL for Polymer.Element
+    },
+    'i18n-attr-repo': {
+      [S_CHAIN]: () => acl['Polymer.LegacyElement'],
+      [S_PROTOTYPE]: {
+        [S_CHAIN]: S_CHAIN,
+        isLocalizableAttribute: {
+          [S_DEFAULT]: '---',
+          '@i18n-behavior': '--x',
+        },
+        _created: {
+          [S_DEFAULT]: '---',
+          '@i18n-behavior': '--x',
+        },
+      },
+    },
+    'i18n-number': {
+      [S_CHAIN]: () => acl['Polymer.LegacyElement'],
+      [S_PROTOTYPE]: {
+        [S_CHAIN]: S_CHAIN,
+        resolveUrl: {
+          [S_DEFAULT]: '---',
+          '@i18n-number': '--x',
+        },
+      },
+    },
+    'i18n-behavior': {
+      [S_CHAIN]: () => acl['Polymer.LegacyElement'],
+      [S_PROTOTYPE]: {
+        [S_CHAIN]: S_CHAIN,
+        _fetchStatus: {
+          [S_DEFAULT]: '---',
+          '@i18n-behavior': 'rw-',
+        },
+      },
+    },
+    'my-app': {
+      [S_CHAIN]: () => acl['i18n-behavior'],
+    },
+    'my-view1': {
+      [S_CHAIN]: () => acl['i18n-behavior'],
+    },
+    'my-view2': {
+      [S_CHAIN]: () => acl['i18n-behavior'],
+    },
+    'my-view3': {
+      [S_CHAIN]: () => acl['i18n-behavior'],
+    },
+    'live-localizer-model': {
+      [S_CHAIN]: () => acl['i18n-behavior'],
+    },
     'live-localizer': {
       [S_DEFAULT]: 'r-x',
       [S_CHAIN]: () => acl['Polymer.LegacyElement'],
@@ -2417,16 +2531,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         [S_CHAIN]: S_CHAIN,
         [S_INSTANCE]: {
           [S_CHAIN]: S_CHAIN,
-          [S_DEFAULT]: function liveLocalizerAcl(normalizedThisArg,
-                                                 normalizedArgs /* ['property', args], ['property', value], etc. */,
-                                                 aclArgs /* [name, isStatic, isObject, property, opType, context] */,
-                                                 hookArgs /* [f, thisArg, args, context, newTarget] */,
-                                                 applyAcl /* for recursive application of ACL */) {
-            let opType = aclArgs[4];
-            console.log('liveLocalizerAcl context = ' + hookArgs[3].toString() + ' ' + aclArgs[0].toString() + '.' + aclArgs[3].toString() + ' opType = ' + opType);
-            // TODO: ACL can be automatically generated here
-            return '---'[opTypeMap[opType]] === opType; // equivalent to '---' acl
-          },
+          [S_DEFAULT]: '---',
           '@live-localizer-lazy': 'rwx',
           tagName: {
             [S_DEFAULT]: '---',
@@ -2970,7 +3075,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       $constructor$: 'r-x',
       [S_PROTOTYPE]: {
         [S_OBJECT]: 'r--',
-        [S_DEFAULT]: 'rwxRW', // TODO: Use S_INSTANCE policy
+        [S_DEFAULT]: Policy.avoidGlobalClone(), // TODO: Use S_INSTANCE policy
         [S_ALL]: 'r--',
         $__proto__$: 'r--',
         $prototype$: 'r--',
@@ -2996,7 +3101,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
                 let prop = _escapePlatformProperties.get(rawProp) || rawProp;
                 let obj = name[0];
                 // Apply ACL for the global method
-                return applyAcl(obj, name[1] !== 'prototype', false, prop, 'x', hookArgs[3], _global[obj], [rawProp, normalizedArgs[1]], hookArgs);
+                return applyAcl(obj, name[1] !== 'prototype', !normalizedThisArg.hasOwnProperty(property), prop, 'x', hookArgs[3], _global[obj], [rawProp, normalizedArgs[1]], hookArgs);
               }
             }
           }
