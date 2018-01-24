@@ -1688,6 +1688,10 @@
     screenTop = 1;
   }, /^Permission Denied:/);
 
+  chai.assert.throws(function () {
+    screen2 = screen;
+  }, /^Permission Denied:/);
+
   // Chain ACL
 
   window.BaseClass1 = class BaseClass1 {
