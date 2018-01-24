@@ -37,6 +37,15 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
   }
   var _globalMethods = new Map();
   const excludedGlobalProperties = { isSecureContext: true };
+  Object.entries(Object.getOwnPropertyDescriptors(_global))
+    .filter(([name, desc]) => desc.get && desc.set && desc.configurable &&
+      (name.startsWith('on') ||
+      ['name', 'status', 'defaultStatus', 'defaultstatus'].indexOf(name) >= 0 ||
+      !(_global[name] instanceof Object)))
+    .map(([name, desc]) => name)
+    .forEach((name) => {
+      excludedGlobalProperties[name] = true;
+    });
   var _globalObjects = Object.keys(_globalPropertyDescriptors)
     .sort()
     .reduce((acc, curr) => {
@@ -75,7 +84,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           }
         }
       }
-      else if (_globalPropertyDescriptors[curr].get && typeof _globalPropertyDescriptors[curr].get === 'function' && _global[curr] && !_globalPropertyDescriptors[curr].set) {
+      else if (_globalPropertyDescriptors[curr].get && typeof _globalPropertyDescriptors[curr].get === 'function' && _global[curr] /*&& !_globalPropertyDescriptors[curr].set*/) {
         let existing = acc.get(_global[curr]);
         if (globalObjectNames.indexOf(curr) >= 0) {
           if (globalObjectNames.indexOf(existing) < globalObjectNames.indexOf(curr)) {
@@ -3050,28 +3059,28 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       [S_DEFAULT]: 'r--',
     },
     locationbar: {
-      [S_DEFAULT]: 'r--',
+      [S_DEFAULT]: 'r-x',
     },
     menubar: {
-      [S_DEFAULT]: 'r--',
+      [S_DEFAULT]: 'r-x',
     },
     personalbar: {
-      [S_DEFAULT]: 'r--',
+      [S_DEFAULT]: 'r-x',
     },
     scrollbars: {
-      [S_DEFAULT]: 'r--',
+      [S_DEFAULT]: 'r-x',
     },
     statusbar: {
-      [S_DEFAULT]: 'r--',
+      [S_DEFAULT]: 'r-x',
     },
     toolbar: {
-      [S_DEFAULT]: 'r--',
+      [S_DEFAULT]: 'r-x',
     },
     external: {
-      [S_DEFAULT]: 'r--',
+      [S_DEFAULT]: 'r-x',
     },
     screen: {
-      [S_DEFAULT]: 'r--',
+      [S_DEFAULT]: 'r-x',
     },
     innerWidth: {
       [S_DEFAULT]: 'r--',
@@ -3122,10 +3131,10 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       [S_DEFAULT]: 'r--',
     },
     performance: {
-      [S_DEFAULT]: 'r--',
+      [S_DEFAULT]: 'r-x',
     },
     visualViewport: {
-      [S_DEFAULT]: 'r--',
+      [S_DEFAULT]: 'r-x',
     },
     // bundled modules
     '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js': {
