@@ -1676,6 +1676,18 @@
     delete window.onerror;
   }, /^Permission Denied:/);
 
+  chai.assert.throws(function () {
+    screen = {};
+  }, /^Permission Denied:/);
+
+  chai.assert.throws(function () {
+    event = new Event('dummy');
+  }, /^Permission Denied:/);
+
+  chai.assert.throws(function () {
+    screenTop = 1;
+  }, /^Permission Denied:/);
+
   // Chain ACL
 
   window.BaseClass1 = class BaseClass1 {

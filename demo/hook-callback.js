@@ -3046,6 +3046,87 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     onerror: {
       [S_DEFAULT]: 'rw-',
     },
+    origin: {
+      [S_DEFAULT]: 'r--',
+    },
+    locationbar: {
+      [S_DEFAULT]: 'r--',
+    },
+    menubar: {
+      [S_DEFAULT]: 'r--',
+    },
+    personalbar: {
+      [S_DEFAULT]: 'r--',
+    },
+    scrollbars: {
+      [S_DEFAULT]: 'r--',
+    },
+    statusbar: {
+      [S_DEFAULT]: 'r--',
+    },
+    toolbar: {
+      [S_DEFAULT]: 'r--',
+    },
+    external: {
+      [S_DEFAULT]: 'r--',
+    },
+    screen: {
+      [S_DEFAULT]: 'r--',
+    },
+    innerWidth: {
+      [S_DEFAULT]: 'r--',
+    },
+    innerHeight: {
+      [S_DEFAULT]: 'r--',
+    },
+    scrollX: {
+      [S_DEFAULT]: 'r--',
+    },
+    pageXOffset: {
+      [S_DEFAULT]: 'r--',
+    },
+    scrollY: {
+      [S_DEFAULT]: 'r--',
+    },
+    pageYOffset: {
+      [S_DEFAULT]: 'r--',
+    },
+    screenX: {
+      [S_DEFAULT]: 'r--',
+    },
+    screenY: {
+      [S_DEFAULT]: 'r--',
+    },
+    outerWidth: {
+      [S_DEFAULT]: 'r--',
+    },
+    outerHeight: {
+      [S_DEFAULT]: 'r--',
+    },
+    devicePixelRatio: {
+      [S_DEFAULT]: 'r--',
+    },
+    clientInformation: {
+      [S_DEFAULT]: 'r--',
+    },
+    event: {
+      [S_DEFAULT]: 'r--',
+    },
+    offscreenBuffering: {
+      [S_DEFAULT]: 'r--',
+    },
+    screenLeft: {
+      [S_DEFAULT]: 'r--',
+    },
+    screenTop: {
+      [S_DEFAULT]: 'r--',
+    },
+    performance: {
+      [S_DEFAULT]: 'r--',
+    },
+    visualViewport: {
+      [S_DEFAULT]: 'r--',
+    },
     // bundled modules
     '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js': {
       [S_DEFAULT]: 'r-x',
