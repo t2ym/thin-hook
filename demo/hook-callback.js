@@ -489,11 +489,13 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '/components/polymer/lib/mixins/property-accessors.html,script@741,props': '@HTMLElement_prototype_reader',
     '/components/polymer/lib/mixins/property-accessors.html,script@741,proto': '@HTMLElement_prototype_reader',
     '/components/polymer/lib/mixins/property-effects.html,script@914,*': '@Polymer_property_effects',
+    '/components/polymer/lib/mixins/template-stamp.html,script@630,*': '@Polymer_template-stamp',
     '/components/polymer/lib/legacy/polymer.dom.html,script@701': '@Event___domApi_writer',
     '/components/polymer/lib/legacy/polymer.dom.html,script@701,forwardMethods': '@DocumentFragment_querySelector_reader',
     '/components/polymer/lib/elements/dom-module.html,script@634': '@Polymer_lib',
     '/components/polymer/lib/elements/dom-bind.html,script@777': '@Polymer_lib',
     '/components/polymer/lib/elements/dom-repeat.html,script@816': '@Polymer_lib',
+    '/components/polymer/lib/elements/dom-repeat.html,script@816,*': '@Polymer_lib',
     '/components/polymer/lib/elements/dom-if.html,script@754': '@Polymer_lib',
     '/components/polymer/lib/elements/array-selector.html,script@699': '@Polymer_lib',
     '/components/polymer/lib/elements/custom-style.html,script@662': '@Polymer_lib',
@@ -521,8 +523,9 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '/components/webcomponentsjs/webcomponents-lite.js,rc,get relatedTarget': '@Event_za_reader',
     '/components/webcomponentsjs/webcomponents-lite.js,nd': '@HTMLElement_writer',
     '/components/webcomponentsjs/webcomponents-lite.js,nd,b': '@HTMLElement_proto_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,nd,b,e': '@customElements_reader',
     '/components/webcomponentsjs/webcomponents-lite.js,rd': '@CustomEvent_reader',
-    '/components/webcomponentsjs/webcomponents-lite.js,I': '@HTMLElement_blur_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,I': '@Node_prototype_writer',
     '/components/webcomponentsjs/webcomponents-lite.js,bc': '@HTMLElement___shady_writer',
     '/components/webcomponentsjs/webcomponents-lite.js,u': '@HTMLElement_insertAdjacentElement_writer',
     '/components/webcomponentsjs/webcomponents-lite.js,l': '@DocumentFragment_$__proto__$_writer',
@@ -549,8 +552,25 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '/components/webcomponentsjs/webcomponents-lite.js,ua': '@customElements_reader',
     '/components/webcomponentsjs/webcomponents-lite.js,xa': '@customElements_reader',
     '/components/webcomponentsjs/webcomponents-lite.js,a': '@customElements_reader',
+    '/components/webcomponentsjs/webcomponents-lite.js,ke': '@customElements_reader',
     '/components/webcomponentsjs/webcomponents-lite.js,Q,b': '@customElement_localName_reader',
     '/components/webcomponentsjs/webcomponents-lite.js,h': '@customElement_localName_reader',
+    '/components/webcomponentsjs/webcomponents-lite.js,Bd,a': '@customElements_reader',
+    '/components/webcomponentsjs/webcomponents-lite.js,mc': '@Node_prototype_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,U': '@TreeWalker_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,S': '@TreeWalker_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,Ha': '@TreeWalker_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,Sb': '@TreeWalker_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,Mb': '@TreeWalker_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,Ia': '@TreeWalker_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,b': '@customElements_reader',
+    '/components/webcomponentsjs/webcomponents-lite.js,d,b': '@customElements_reader',
+    '/components/webcomponentsjs/webcomponents-lite.js,id': '@customElements_reader',
+    '/components/webcomponentsjs/webcomponents-lite.js,xd': '@FocusEvent_currentTarget_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,oa': '@customElements_reader',
+    '/components/webcomponentsjs/webcomponents-lite.js,cc': '@customElements_reader',
+    '/components/webcomponentsjs/webcomponents-lite.js,T': '@customElements_reader',
+    '/components/webcomponentsjs/webcomponents-lite.js,*': '@webcomponents-lite',
     '/components/thin-hook/demo/es6-module2.js,f2,module': '@Module_importer',
     '/components/thin-hook/demo/es6-module2.js': '@Module_importer',
     '/components/polymer/lib/utils/async.html,script@566,timeOut,run': '@setTimeout_reader',
@@ -562,6 +582,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '/components/live-localizer/live-localizer-lazy.html,*': '@live-localizer-lazy',
     '/components/live-localizer/draggable-behavior.html,*': '@draggable-behavior',
     '/components/iron-location/iron-location.html,*': '@iron-location',
+    '/components/live-localizer/live-localizer-model.html,script@1001,reload': '@route_manipulator',
     '/components/iron-a11y-announcer/iron-a11y-announcer.html,*': '@iron-a11y-announcer',
     '/components/iron-a11y-keys-behavior/iron-a11y-keys-behavior.html,*': '@iron-a11y-keys-behavior',
     '/components/thin-hook/demo/spread.js': '@spread_js',
@@ -942,6 +963,14 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       [S_PROTOTYPE]: {
         [S_DEFAULT]: 'r--',
         '@window_enumerator': 'r--R-',
+        addEventListener: {
+          [S_DEFAULT]: '--x',
+          '@Node_prototype_writer': 'rwx',
+        },
+        removeEventListener: {
+          [S_DEFAULT]: 'r-x',
+          '@Node_prototype_writer': 'rwx',
+        },
       },
     },
     _data: {
@@ -1101,7 +1130,10 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       },
       [S_DEFAULT]: 'r--',
       [S_ALL]: '---',
-      reload: '---',
+      reload: {
+        [S_DEFAULT]: '---',
+        '@route_manipulator': 'r-x',
+      },
       $__proto__$: '---',
       href: {
         [S_DEFAULT]: 'r--',
@@ -1180,91 +1212,154 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         '@Object_assign_reader': 'r--',
         addEventListener: {
           [S_DEFAULT]: 'r-x',
-          '@HTMLElement_blur_writer': 'rwx',
+          '@Node_prototype_writer': 'rwxRW',
         },
         removeEventListener: {
           [S_DEFAULT]: 'r-x',
-          '@HTMLElement_blur_writer': 'rwx',
+          '@Node_prototype_writer': 'rwxRW',
         },
         appendChild: {
           [S_DEFAULT]: 'r-x',
-          '@HTMLElement_blur_writer': 'rwx',
-          '@HTMLElement_insertAdjacentElement_writer': 'rwx',
+          '@HTMLElement_insertAdjacentElement_writer': 'rwxRW',
+          '@Node_prototype_writer': 'rwxRW',
         },
         removeChild: {
           [S_DEFAULT]: 'r-x',
-          '@HTMLElement_blur_writer': 'rwx',
-          '@HTMLElement_insertAdjacentElement_writer': 'rwx',
+          '@Node_prototype_writer': 'rwxRW',
+          '@HTMLElement_insertAdjacentElement_writer': 'rwxRW',
         },
         replaceChild: {
           [S_DEFAULT]: 'r-x',
-          '@HTMLElement_blur_writer': 'rwx',
-          '@HTMLElement_insertAdjacentElement_writer': 'rwx',
+          '@Node_prototype_writer': 'rwxRW',
+          '@HTMLElement_insertAdjacentElement_writer': 'rwxRW',
         },
         insertBefore: {
           [S_DEFAULT]: 'r-x',
-          '@HTMLElement_blur_writer': 'rwx',
-          '@HTMLElement_insertAdjacentElement_writer': 'rwx',
+          '@Node_prototype_writer': 'rwxRW',
+          '@HTMLElement_insertAdjacentElement_writer': 'rwxRW',
         },
         cloneNode: {
           [S_DEFAULT]: 'r-x',
-          '@HTMLElement_blur_writer': 'rwx',
-          '@HTMLElement_insertAdjacentElement_writer': 'rwx',
+          '@Node_prototype_writer': 'rwxRW',
+          '@HTMLElement_insertAdjacentElement_writer': 'rwxRW',
         },
         getRootNode: {
           [S_DEFAULT]: 'r-x',
-          '@HTMLElement_blur_writer': 'rwx',
+          '@Node_prototype_writer': 'rwxRW',
         },
         isConnected: {
           [S_DEFAULT]: 'r-x',
-          '@HTMLElement_blur_writer': 'rwx',
+          '@Node_prototype_writer': 'rwxRW',
         },
         dispatchEvent: {
           [S_DEFAULT]: 'r-x',
-          '@HTMLElement_blur_writer': 'rwx',
+          '@Node_prototype_writer': 'rwxRW',
         },
         parentElement: {
           [S_DEFAULT]: 'r-x',
-          '@Node_prototype_writer': 'rwx',
+          '@Node_prototype_writer': 'rwxRW',
         },
         parentNode: {
           [S_DEFAULT]: 'r-x',
-          '@Node_prototype_writer': 'rwx',
+          '@Node_prototype_writer': 'rwxRW',
         },
         nextSibling: {
           [S_DEFAULT]: 'r-x',
-          '@Node_prototype_writer': 'rwx',
+          '@Node_prototype_writer': 'rwxRW',
         },
         previousSibling: {
           [S_DEFAULT]: 'r-x',
-          '@Node_prototype_writer': 'rwx',
+          '@Node_prototype_writer': 'rwxRW',
         },
         childNodes: {
           [S_DEFAULT]: 'r-x',
-          '@Node_prototype_writer': 'rwx',
+          '@Node_prototype_writer': 'rwxRW',
+        },
+        children: {
+          [S_DEFAULT]: 'r-x',
+          '@Node_prototype_writer': 'rwxRW',
         },
         firstChild: {
           [S_DEFAULT]: 'r-x',
-          '@Node_prototype_writer': 'rwx',
+          '@Node_prototype_writer': 'rwxRW',
           '@Node_prototype_reader': 'rwxR-',
         },
         lastChild: {
           [S_DEFAULT]: 'r-x',
-          '@Node_prototype_writer': 'rwx',
+          '@Node_prototype_writer': 'rwxRW',
         },
         textContent: {
           [S_DEFAULT]: 'r-x',
-          '@Node_prototype_writer': 'rwxR-',
-          '@HTMLElement_insertAdjacentElement_writer': 'rwx',
+          '@Node_prototype_writer': 'rwxRW',
+          '@HTMLElement_insertAdjacentElement_writer': 'rwxRW',
+        },
+        innerHTML: {
+          [S_DEFAULT]: 'r-x',
+          '@Node_prototype_writer': 'rwxRW',
         },
         baseURI: {
           [S_DEFAULT]: 'r--',
-          '@Object_assign_reader': 'rw-',
+          '@Object_assign_reader': 'rw--W',
+          '@Node_prototype_reader': 'rw-R-',
+          '@HTMLElement_insertAdjacentElement_writer': 'rwxRW',
+        },
+        className: {
+          [S_DEFAULT]: 'r--',
+          '@Node_prototype_writer': 'rwxRW',
+        },
+        nextElementSibling: {
+          [S_DEFAULT]: 'r--',
+          '@Node_prototype_writer': 'rwxRW',
+        },
+        previousElementSibling: {
+          [S_DEFAULT]: 'r--',
+          '@Node_prototype_writer': 'rwxRW',
+        },
+        childElementCount: {
+          [S_DEFAULT]: 'r--',
+          '@Node_prototype_writer': 'rwxRW',
+        },
+        firstElementChild: {
+          [S_DEFAULT]: 'r--',
+          '@Node_prototype_writer': 'rwxRW',
+        },
+        lastElementChild: {
+          [S_DEFAULT]: 'r--',
+          '@Node_prototype_writer': 'rwxRW',
+        },
+        activeElement: {
+          [S_DEFAULT]: 'r--',
+          '@Node_prototype_writer': 'rwxRW',
         },
         [S_INSTANCE]: {
           [S_CHAIN]: S_CHAIN,
           [S_DEFAULT]: 'r-x',
           [S_ALL]: '---',
+        },
+      },
+    },
+    Text: {
+      [S_DEFAULT]: 'r-x',
+      [S_CHAIN]: () => acl.Node,
+      [S_PROTOTYPE]: {
+        [S_CHAIN]: S_CHAIN,
+        [S_DEFAULT]: 'r-x',
+        '@HTMLElement___shady_writer': 'rwxRW',
+        '@Node_prototype_writer': 'rwxRW',
+        [S_INSTANCE]: {
+          [S_CHAIN]: S_CHAIN,
+          [S_DEFAULT]: 'rwx', // TODO: Loose ACL
+          '@HTMLElement___shady_writer': 'rwxRW',
+        },
+      },
+    },
+    TreeWalker: {
+      [S_DEFAULT]: 'r-x',
+      [S_PROTOTYPE]: {
+        [S_DEFAULT]: 'r-x',
+        [S_INSTANCE]: {
+          [S_DEFAULT]: 'r-x',
+          '@TreeWalker_writer': 'rwx',
         },
       },
     },
@@ -1293,119 +1388,119 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         appendChild: 'r-x',
         setAttribute: {
           [S_DEFAULT]: 'r-x',
-          '@HTMLElement_blur_writer': 'rwx',
-          '@HTMLElement_insertAdjacentElement_writer': 'rwx',
+          '@Node_prototype_writer': 'rwxRW',
+          '@HTMLElement_insertAdjacentElement_writer': 'rwxRW',
         },
         setAttributeNS: {
           [S_DEFAULT]: 'r-x',
-          '@HTMLElement_insertAdjacentElement_writer': 'rwx',
+          '@HTMLElement_insertAdjacentElement_writer': 'rwxRW',
         },
         getAttribute: {
           [S_DEFAULT]: 'r-x',
-          '@HTMLElement_insertAdjacentElement_writer': 'rwx',
+          '@HTMLElement_insertAdjacentElement_writer': 'rwxRW',
         },
         getAttributeNS: {
           [S_DEFAULT]: 'r-x',
-          '@HTMLElement_insertAdjacentElement_writer': 'rwx',
+          '@HTMLElement_insertAdjacentElement_writer': 'rwxRW',
         },
         removeAttribute: {
           [S_DEFAULT]: 'r-x',
-          '@HTMLElement_blur_writer': 'rwx',
-          '@HTMLElement_insertAdjacentElement_writer': 'rwx',
+          '@Node_prototype_writer': 'rwxRW',
+          '@HTMLElement_insertAdjacentElement_writer': 'rwxRW',
         },
         removeAttributeNS: {
           [S_DEFAULT]: 'r-x',
-          '@HTMLElement_insertAdjacentElement_writer': 'rwx',
+          '@HTMLElement_insertAdjacentElement_writer': 'rwxRW',
         },
         attachShadow: {
           [S_DEFAULT]: 'r-x',
-          '@HTMLElement_blur_writer': 'rwx',
-          '@HTMLElement_insertAdjacentElement_writer': 'rwx',
+          '@Node_prototype_writer': 'rwxRW',
+          '@HTMLElement_insertAdjacentElement_writer': 'rwxRW',
         },
         insertAdjacentElement: {
           [S_DEFAULT]: 'r-x',
-          '@HTMLElement_insertAdjacentElement_writer': 'rwx',
+          '@HTMLElement_insertAdjacentElement_writer': 'rwxRW',
         },
         append: {
           [S_DEFAULT]: 'r-x',
-          '@HTMLElement_insertAdjacentElement_writer': 'rwx',
+          '@HTMLElement_insertAdjacentElement_writer': 'rwxRW',
         },
         prepend: {
           [S_DEFAULT]: 'r-x',
-          '@HTMLElement_insertAdjacentElement_writer': 'rwx',
+          '@HTMLElement_insertAdjacentElement_writer': 'rwxRW',
         },
         before: {
           [S_DEFAULT]: 'r-x',
-          '@HTMLElement_insertAdjacentElement_writer': 'rwx',
+          '@HTMLElement_insertAdjacentElement_writer': 'rwxRW',
         },
         after: {
           [S_DEFAULT]: 'r-x',
-          '@HTMLElement_insertAdjacentElement_writer': 'rwx',
+          '@HTMLElement_insertAdjacentElement_writer': 'rwxRW',
         },
         slot: {
           [S_DEFAULT]: 'r-x',
-          '@HTMLElement_blur_writer': 'rwx',
+          '@Node_prototype_writer': 'rwxRW',
         },
         assignedSlot: {
           [S_DEFAULT]: 'r-x',
-          '@HTMLElement_blur_writer': 'rwx',
+          '@Node_prototype_writer': 'rwxRW',
         },
         querySelector: {
           [S_DEFAULT]: 'r-x',
-          '@HTMLElement_blur_writer': 'rwx',
+          '@Node_prototype_writer': 'rwxRW',
         },
         querySelectorAll: {
           [S_DEFAULT]: 'r-x',
-          '@HTMLElement_blur_writer': 'rwx',
+          '@Node_prototype_writer': 'rwxRW',
         },
         assignedNodes: {
           [S_DEFAULT]: 'r-x',
-          '@HTMLElement_blur_writer': 'rwx',
+          '@Node_prototype_writer': 'rwxRW',
         },
         shadowRoot: {
           [S_DEFAULT]: 'r-x',
-          '@HTMLElement_blur_writer': 'rwx',
+          '@Node_prototype_writer': 'rwxRW',
         },
         className: {
           [S_DEFAULT]: 'r-x',
-          '@Node_prototype_writer': 'rwx',
+          '@Node_prototype_writer': 'rwxRW',
         },
         nextElementSibling: {
           [S_DEFAULT]: 'r-x',
-          '@Node_prototype_writer': 'rwx',
+          '@Node_prototype_writer': 'rwxRW',
         },
         previousElementSibling: {
           [S_DEFAULT]: 'r-x',
-          '@Node_prototype_writer': 'rwx',
+          '@Node_prototype_writer': 'rwxRW',
         },
         childElementCount: {
           [S_DEFAULT]: 'r-x',
-          '@Node_prototype_writer': 'rwx',
+          '@Node_prototype_writer': 'rwxRW',
         },
         firstElementChild: {
           [S_DEFAULT]: 'r-x',
-          '@Node_prototype_writer': 'rwx',
+          '@Node_prototype_writer': 'rwxRW',
         },
         lastElementChild: {
           [S_DEFAULT]: 'r-x',
-          '@Node_prototype_writer': 'rwx',
+          '@Node_prototype_writer': 'rwxRW',
         },
         children: {
           [S_DEFAULT]: 'r-x',
-          '@Node_prototype_writer': 'rwx',
+          '@Node_prototype_writer': 'rwxRW',
         },
         innerHTML: {
           [S_DEFAULT]: 'r-x',
-          '@Node_prototype_writer': 'rwxR-',
-          '@HTMLElement_insertAdjacentElement_writer': 'rwx',
+          '@Node_prototype_writer': 'rwxRW',
+          '@HTMLElement_insertAdjacentElement_writer': 'rwxRW',
         },
         replaceWith: {
           [S_DEFAULT]: 'r-x',
-          '@HTMLElement_insertAdjacentElement_writer': 'rwx',
+          '@HTMLElement_insertAdjacentElement_writer': 'rwxRW',
         },
         remove: {
           [S_DEFAULT]: 'r-x',
-          '@HTMLElement_insertAdjacentElement_writer': 'rwx',
+          '@HTMLElement_insertAdjacentElement_writer': 'rwxRW',
         },
         [S_INSTANCE]: {
           [S_CHAIN]: S_CHAIN,
@@ -1453,14 +1548,18 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         [S_ALL]: '---',
         '@HTMLElement_prototype_reader': 'r--',
         [S_DEFAULT]: 'r-x',
-        textContent: 'rw-',
+        textContent: {
+          [S_DEFAULT]: 'rw-',
+          '@Node_prototype_writer': 'rwxRW',
+        },
         innerHTML: {
           [S_DEFAULT]: '---',
           '@HTMLElement_prototype_reader': 'r--R-',
+          '@Node_prototype_writer': 'rwxRW',
         },
         blur: {
           [S_DEFAULT]: 'r-x',
-          '@HTMLElement_blur_writer': 'rwx',
+          '@Node_prototype_writer': 'rwx',
         },
         __shady: {
           [S_DEFAULT]: 'r-x',
@@ -1469,7 +1568,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         },
         insertAdjacentElement: {
           [S_DEFAULT]: 'r-x',
-          '@HTMLElement_insertAdjacentElement_writer': 'rwx',
+          '@HTMLElement_insertAdjacentElement_writer': 'rwxRW',
         },
         type: 'rw-',
         __dataHost: {
@@ -1750,6 +1849,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         [S_DEFAULT]: '--x',
         '@Function_reader': 'r-x',
         '@normalization_checker': 'r-x',
+        '@Polymer_lib': 'r-x',
       },
       [S_DEFAULT]: 'r-x',
       '@bind_normalization_checker': 'r-x',
@@ -1836,27 +1936,27 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           },
           composed: {
             [S_DEFAULT]: 'r-x',
-            '@Event_composed_writer': 'rwx',
+            '@Event_composed_writer': 'rwxRW',
           },
           composedPath: {
             [S_DEFAULT]: 'r-x',
-            '@Event_composed_writer': 'rwx',
+            '@Event_composed_writer': 'rwxRW',
           },
           target: {
             [S_DEFAULT]: 'r-x',
-            '@Event_composed_writer': 'rwx',
+            '@Event_composed_writer': 'rwxRW',
           },
           relatedTarget: {
             [S_DEFAULT]: 'r-x',
-            '@Event_composed_writer': 'rwx',
+            '@Event_composed_writer': 'rwxRW',
           },
           stopPropagation: {
             [S_DEFAULT]: 'r-x',
-            '@Event_composed_writer': 'rwx',
+            '@Event_composed_writer': 'rwxRW',
           },
           stopImmediatePropagation: {
             [S_DEFAULT]: 'r-x',
-            '@Event_composed_writer': 'rwx',
+            '@Event_composed_writer': 'rwxRW',
           },
           __target: {
             [S_DEFAULT]: 'r-x',
@@ -1912,7 +2012,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         },
         composedPath: {
           [S_DEFAULT]: 'r--',
-          '@Event_composed_writer': 'rw-',
+          '@Event_composed_writer': 'rw-RW',
           '@Event_composedPath_executor': 'rwx',
         },
         stopPropagation: {
@@ -1965,6 +2065,18 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         },
         [S_INSTANCE]: {
           [S_CHAIN]: S_CHAIN,
+          composed: {
+            [S_DEFAULT]: 'r--',
+            '@Event_composed_writer': 'rw-RW',
+          },
+          currentTarget: {
+            [S_DEFAULT]: 'r--',
+            '@FocusEvent_currentTarget_writer': 'rwxRW',
+          },
+          eventPhase: {
+            [S_DEFAULT]: 'r--',
+            '@FocusEvent_currentTarget_writer': 'rwxRW',
+          },
         },
       },
     },
@@ -2032,38 +2144,40 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         },
         querySelector: {
           [S_DEFAULT]: '--x',
-          '@HTMLElement_blur_writer': 'rwx',
+          '@Node_prototype_writer': 'rwxRW',
           '@DocumentFragment_querySelector_reader': 'r-x',
         },
         querySelectorAll: {
           [S_DEFAULT]: '--x',
-          '@HTMLElement_blur_writer': 'rwx',
+          '@Node_prototype_writer': 'rwxRW',
           '@DocumentFragment_querySelectorAll_reader': 'r-x',
           '@DocumentFragment_querySelector_reader': 'r-x',
         },
         childElementCount: {
           [S_DEFAULT]: 'r-x',
-          '@Node_prototype_writer': 'rwx',
+          '@Node_prototype_writer': 'rwxRW',
         },
         firstElementChild: {
           [S_DEFAULT]: 'r-x',
-          '@Node_prototype_writer': 'rwx',
+          '@Node_prototype_writer': 'rwxRW',
         },
         lastElementChild: {
           [S_DEFAULT]: 'r-x',
-          '@Node_prototype_writer': 'rwx',
+          '@Node_prototype_writer': 'rwxRW',
         },
         children: {
           [S_DEFAULT]: 'r-x',
-          '@Node_prototype_writer': 'rwx',
+          '@Node_prototype_writer': 'rwxRW',
         },
         append: {
           [S_DEFAULT]: 'r-x',
-          '@HTMLElement_insertAdjacentElement_writer': 'rwx',
+          '@HTMLElement_insertAdjacentElement_writer': 'rwxRW',
+          '@Node_prototype_writer': 'rwxRW',
         },
         prepend: {
           [S_DEFAULT]: 'r-x',
-          '@HTMLElement_insertAdjacentElement_writer': 'rwx',
+          '@HTMLElement_insertAdjacentElement_writer': 'rwxRW',
+          '@Node_prototype_writer': 'rwxRW',
         },
         [S_INSTANCE]: {
           [S_CHAIN]: S_CHAIN,
@@ -2188,60 +2302,60 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         [S_DEFAULT]: 'r-x',
         createElement: {
           [S_DEFAULT]: 'r-x',
-          '@HTMLElement_insertAdjacentElement_writer': 'rwx',
+          '@HTMLElement_insertAdjacentElement_writer': 'rwxRW',
         },
         createElementNS: {
           [S_DEFAULT]: 'r-x',
-          '@HTMLElement_insertAdjacentElement_writer': 'rwx',
+          '@HTMLElement_insertAdjacentElement_writer': 'rwxRW',
         },
         importNode: {
           [S_DEFAULT]: 'r-x',
-          '@HTMLElement_blur_writer': 'rwx',
-          '@HTMLElement_insertAdjacentElement_writer': 'rwx',
+          '@Node_prototype_writer': 'rwxRW',
+          '@HTMLElement_insertAdjacentElement_writer': 'rwxRW',
         },
         getElementById: {
           [S_DEFAULT]: 'r-x',
-          '@HTMLElement_blur_writer': 'rwx',
+          '@Node_prototype_writer': 'rwxRW',
         },
         querySelector: {
           [S_DEFAULT]: 'r-x',
-          '@HTMLElement_blur_writer': 'rwx',
+          '@Node_prototype_writer': 'rwxRW',
         },
         querySelectorAll: {
           [S_DEFAULT]: 'r-x',
-          '@HTMLElement_blur_writer': 'rwx',
+          '@Node_prototype_writer': 'rwxRW',
         },
         childElementCount: {
           [S_DEFAULT]: 'r-x',
-          '@Node_prototype_writer': 'rwx',
+          '@Node_prototype_writer': 'rwxRW',
         },
         firstElementChild: {
           [S_DEFAULT]: 'r-x',
-          '@Node_prototype_writer': 'rwx',
+          '@Node_prototype_writer': 'rwxRW',
         },
         lastElementChild: {
           [S_DEFAULT]: 'r-x',
-          '@Node_prototype_writer': 'rwx',
+          '@Node_prototype_writer': 'rwxRW',
         },
         children: {
           [S_DEFAULT]: 'r-x',
-          '@Node_prototype_writer': 'rwx',
+          '@Node_prototype_writer': 'rwxRW',
         },
         activeElement: {
           [S_DEFAULT]: 'r-x',
-          '@Node_prototype_writer': 'rwxR-',
+          '@Node_prototype_writer': 'rwxRW',
         },
         append: {
           [S_DEFAULT]: 'r-x',
-          '@HTMLElement_insertAdjacentElement_writer': 'rwx',
+          '@HTMLElement_insertAdjacentElement_writer': 'rwxRW',
         },
         prepend: {
           [S_DEFAULT]: 'r-x',
-          '@HTMLElement_insertAdjacentElement_writer': 'rwx',
+          '@HTMLElement_insertAdjacentElement_writer': 'rwxRW',
         },
         _activeElement: {
           [S_DEFAULT]: 'r-x',
-          '@HTMLElement_blur_writer': 'rwx',
+          '@Node_prototype_writer': 'rwxRW',
         },
       },
     },
@@ -2278,7 +2392,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
                                                hookArgs /* [f, thisArg, args, context, newTarget] */,
                                                applyAcl /* for recursive application of ACL */) {
           let opType = aclArgs[4];
-          let result = '--x'[opTypeMap[opType]] === opType;
+          let result = (aclArgs[5] === '@document_createElement_reader' ? 'r-x' : '--x')[opTypeMap[opType]] === opType;
           if (result) {
             if (opType === 'x') {
               //console.log('document.createElement: tagName = ' + normalizedArgs[1][0] + ' context = ' + hookArgs[3]);
@@ -2308,7 +2422,6 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           }
           return result;
         },
-        '@document_createElement_reader': 'r--',
       },
       createElementNS: {
         [S_DEFAULT]: function createElementNSAcl(normalizedThisArg,
@@ -2364,11 +2477,13 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         '@customElements_reader': 'r--',
         '@Event___domApi_writer': 'r--',
         '@Polymer_lib': 'r--',
+        '@Object_assign_reader': 'rwxRW', // webcomponents-lite.js
       },
       [S_DEFAULT]: '---',
       define: {
         [S_DEFAULT]: '---',
         '@Object_assign_reader': 'rwx',
+        '@customElements_reader': 'rwx',
         '@Polymer_lib': function customElementsDefineAcl(normalizedThisArg,
                                                          normalizedArgs /* ['property', args], ['property', value], etc. */,
                                                          aclArgs /* [name, isStatic, isObject, property, opType, context] */,
@@ -2423,9 +2538,11 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       },
       polyfillWrapFlushCallback: {
         [S_DEFAULT]: '---',
-        '@Object_assign_reader': 'r--',
-        '@Event___domApi_writer': 'r--',
+        '@Object_assign_reader': 'rwx',
+        '@Event___domApi_writer': 'r-x',
       },
+      '@Object_assign_reader': 'rwx',
+      '@customElements_reader': 'r--',
     },
     // Example base policy for custom elements generated via the Polymer({}) legacy method
     'Polymer.LegacyElement': { // virtual name
@@ -2444,12 +2561,22 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           [S_DEFAULT]: '---',
           '@Polymer_element_mixin': 'rw-',
         },
+        $constructor$: {
+          [S_DEFAULT]: '---',
+          '@customElements_reader': 'r--',
+          '@Object_assign_reader': 'r--',
+          '@Polymer_element_mixin': 'r--',
+          '@Node_prototype_reader': 'r--',
+          '@Polymer_property_effects': 'r--',
+        },
         '@Polymer_element_mixin': 'rwx',
         '@Polymer_legacy_element_mixin': 'rwx',
         '@Polymer_property_effects': 'rwx',
         '@Polymer_property_accessors': 'rwxRW',
         '@Polymer_legacy_class': 'rwx',
         '@iron-a11y-keys-behavior': 'rwx',
+        '@customElements_reader': 'r--',
+        '@HTMLElement_proto_writer' : 'r--',
         type: {
           [S_DEFAULT]: '---',
           '@Polymer_property_accessors': 'rwxRW',
@@ -2463,16 +2590,22 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         [S_INSTANCE]: {
           [S_CHAIN]: S_CHAIN,
           // TODO: Loose ACL. Policies can be defined per property.
+          [S_DEFAULT]: 'rwx',
+          nodeType: 'r--',
           '@Polymer_element_mixin': 'rwx',
           '@Polymer_legacy_element_mixin': 'rwx',
           '@Polymer_legacy_class': 'rwx',
           '@Polymer_property_effects': 'rwx',
           '@Polymer_property_accessors': 'rwx',
           '@Event___domApi_writer': 'rwx',
-          '@DocumentFragment_querySelector_reader': 'r--',
+          '@DocumentFragment_querySelector_reader': 'r-x',
           '@customElement_localName_reader': 'r--',
           '@Object_assign_reader': 'rwx',
           '@Polymer_lib': 'rwx',
+          '@customElements_reader': 'r-x',
+          '@webcomponents-lite': 'rwx',
+          '@HTMLElement___shady_writer': 'rwx',
+          '@FocusEvent_currentTarget_writer': 'rwx',
         },
       },
     },
@@ -2513,6 +2646,15 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         },
       },
     },
+    'i18n-attr-repo': {
+      [S_CHAIN]: () => acl['Polymer.LegacyElement'],
+      [S_PROTOTYPE]: {
+        [S_CHAIN]: S_CHAIN,
+        [S_INSTANCE]: {
+          [S_CHAIN]: S_CHAIN,
+        },
+      },
+    },
     'my-app': {
       [S_CHAIN]: () => acl['i18n-behavior'],
     },
@@ -2527,6 +2669,19 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     },
     'live-localizer-model': {
       [S_CHAIN]: () => acl['i18n-behavior'],
+    },
+    'live-localizer-firebase-storage': {
+      [S_CHAIN]: () => acl['Polymer.LegacyElement'],
+      [S_PROTOTYPE]: {
+        [S_CHAIN]: S_CHAIN,
+        [S_INSTANCE]: {
+          [S_CHAIN]: S_CHAIN,
+          model: {
+            [S_DEFAULT]: 'rw-', // TODO: Loose ACL
+            '@Polymer_property_accessors': 'rw-RW',
+          },
+        },
+      },
     },
     'live-localizer': {
       [S_DEFAULT]: 'r-x',
@@ -2553,6 +2708,25 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       [S_DEFAULT]: 'r--',
       '@i18n-behavior': 'rwxRW',
       '@draggable-behavior': 'rwxRW',
+      _I18nAttrRepo: {
+        [S_DEFAULT]: 'r-x',
+        '@i18n-behavior': function _I18nAttrRepoAcl(normalizedThisArg,
+                                                    normalizedArgs /* ['property', args], ['property', value], etc. */,
+                                                    aclArgs /* [name, isStatic, isObject, property, opType, context] */,
+                                                    hookArgs /* [f, thisArg, args, context, newTarget] */,
+                                                    applyAcl /* for recursive application of ACL */) {
+          let opType = aclArgs[4];
+          if (opType === 'w') {
+            Policy.trackClass('BehaviorsStore._I18nAttrRepo', normalizedArgs[1]);
+          }
+          return 'rwx'[opTypeMap[opType]] === opType; // equivalent to 'rwx' acl
+        },
+      },
+    },
+    'BehaviorsStore._I18nAttrRepo': {
+      [S_DEFAULT]: 'r-x',
+      '@i18n-behavior': 'rwx',
+      '@Polymer_legacy_class': 'r-xR-',
     },
     // blocked private API
     DummyClass: {

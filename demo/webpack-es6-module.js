@@ -239,7 +239,7 @@ __hook__('#()', __hook__('#.', chai, ['assert'], '/components/thin-hook/demo/es6
         MutatableClass = class C3 extends C2 {
         };
       }, null, args, '/components/thin-hook/demo/es6-module2.js')),
-    /Assignment to constant variable|MutatableClass is not defined|assignment to undeclared variable MutatableClass/
+    /Assignment to constant variable|MutatableClass is not defined|assignment to undeclared variable MutatableClass|Can\'t find variable: MutatableClass/
   ]
 ], '/components/thin-hook/demo/es6-module2.js');
 __hook__('#()', __hook__('#.', chai, ['assert'], '/components/thin-hook/demo/es6-module2.js'), [
@@ -269,7 +269,7 @@ __hook__('#()', __hook__('#.', chai, ['assert'], '/components/thin-hook/demo/es6
           4
         ], '/components/thin-hook/demo/es6-module2.js');
       }, null, args, '/components/thin-hook/demo/es6-module2.js')),
-    /Cannot assign to read only property|Cannot set property|setting getter-only property/
+    /Cannot assign to read only property|Cannot set property|setting getter-only property|Attempted to assign to readonly property/
   ]
 ], '/components/thin-hook/demo/es6-module2.js');
 __hook__('#()', __hook__('#.', chai, ['assert'], '/components/thin-hook/demo/es6-module2.js'), [
@@ -591,7 +591,7 @@ __hook__('#()', __hook__('#.', chai, ['assert'], '/components/thin-hook/demo/es6
         MutatableClass = class C5 extends C4 {
         };
       }, null, args, '/components/thin-hook/demo/es6-module3.js')),
-    /Assignment to constant variable|MutatableClass is not defined|assignment to undeclared variable MutatableClass/
+    /Assignment to constant variable|MutatableClass is not defined|assignment to undeclared variable MutatableClass|Can\'t find variable: MutatableClass/
   ]
 ], '/components/thin-hook/demo/es6-module3.js');
 __hook__('#()', __hook__('#.', chai, ['assert'], '/components/thin-hook/demo/es6-module3.js'), [
@@ -621,7 +621,7 @@ __hook__('#()', __hook__('#.', chai, ['assert'], '/components/thin-hook/demo/es6
           4
         ], '/components/thin-hook/demo/es6-module3.js');
       }, null, args, '/components/thin-hook/demo/es6-module3.js')),
-    /Cannot assign to read only property|Cannot set property|setting getter-only property/
+    /Cannot assign to read only property|Cannot set property|setting getter-only property|Attempted to assign to readonly property/
   ]
 ], '/components/thin-hook/demo/es6-module3.js');
 __hook__('#()', __hook__('#.', chai, ['assert'], '/components/thin-hook/demo/es6-module3.js'), [
