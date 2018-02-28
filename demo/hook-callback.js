@@ -573,6 +573,10 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '/components/webcomponentsjs/webcomponents-lite.js,*': '@webcomponents-lite',
     '/components/thin-hook/demo/es6-module2.js,f2,module': '@Module_importer',
     '/components/thin-hook/demo/es6-module2.js': '@Module_importer',
+    '/components/thin-hook/demo/es6-module4.js': '@import.meta_reader',
+    '/components/thin-hook/demo/es6-module4.js,baseUrl': '@import.meta_reader',
+    '/components/thin-hook/demo/es6-module4.js,f': '@import.meta_reader,f',
+    '/components/thin-hook/demo/es6-module4.js,f,*': '@import.meta_reader,f',
     '/components/polymer/lib/utils/async.html,script@566,timeOut,run': '@setTimeout_reader',
     '/components/thin-hook/demo/,script@4861': '@document_writer',
     '/components/thin-hook/demo/,script@5056': '@document_writer',
@@ -1084,6 +1088,31 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       },
       [S_DEFAULT]: '---',
       invalidImportUrl: '---',
+      meta: {
+        [S_DEFAULT]: function importMetaAcl(normalizedThisArg,
+                                            normalizedArgs /* ['property', args], ['property', value], etc. */,
+                                            aclArgs /* [name, isStatic, isObject, property, opType, context] */,
+                                            hookArgs /* [f, thisArg, args, context, newTarget] */,
+                                            applyAcl /* for recursive application of ACL */) {
+          let opType = aclArgs[4];
+          const contexts = {
+            '@import.meta_reader': true,
+            '@import.meta_reader,f': true,
+          };
+          if (contexts.hasOwnProperty(aclArgs[5]) && opType === 'r') {
+            Policy.trackClass('import.meta', hookArgs[0]());
+            return true;
+          }
+          return false;
+        },
+        url: {
+          [S_DEFAULT]: '---',
+          '@import.meta_reader': 'r--',
+        },
+      },
+    },
+    'import.meta': {
+      [S_CHAIN]: () => acl.import.meta,
     },
     require: {
       [S_OBJECT]: {
@@ -4769,6 +4798,39 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
               forName[context].label++;
             }
             break;
+          case 'import.meta':
+            {
+              // import.meta
+              name = 'import'; // Note: virtual object name 'import'
+              let property = 'meta'; // Note: virtual property name 'meta'
+              if (!applyAcl(name, true, false, property, 'r', context, normalizedThisArg, _args, arguments)) {
+                result = [ name, true, false, property, 'r', context, normalizedThisArg, _args, arguments ];
+                throw new Error('Permission Denied: Cannot access ' + name);
+              }
+              let _blacklist = _blacklistObjects[name];
+              if (_blacklist) {
+                if (typeof _blacklist === 'boolean') {
+                  throw new Error('Permission Denied: Cannot access ' + name);
+                }
+              }
+              let forName;
+              if (!globalPropertyContexts[context]) {
+                let group = context.split(/[,:]/)[0];
+                data2.nodes.push({ id: '/' + context, label: context, group: group });
+                globalPropertyContexts[context] = true;
+              }
+              if (!globalObjectAccess[name]) {
+                globalObjectAccess[name] = {};
+                data2.nodes.push({ id: name, label: name, group: name });
+              }
+              forName = globalObjectAccess[name];
+              if (!forName[context]) {
+                forName[context] = { from: '/' + context, to: name, label: 0, arrows: 'to' };
+                data2.edges.push(forName[context]);
+              }
+              forName[context].label++;
+            }
+            break;
           case 'require':
             {
               // require('module.js'); args = [ 'require', './module.js', '/resolved/component/path/to/module.js' ]
@@ -5919,6 +5981,17 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
               }
               if (!applyAcl(name, true, false, property, 'x', context, normalizedThisArg, _args, arguments)) {
                 result = [ name, true, false, property, 'x', context, normalizedThisArg, _args, arguments ];
+                throw new Error('Permission Denied: Cannot access ' + name);
+              }
+            }
+            break;
+          case 'import.meta':
+            {
+              // import.meta
+              name = 'import'; // Note: virtual object name 'import'
+              let property = 'meta'; // Note: virtual property name 'meta'
+              if (!applyAcl(name, true, false, property, 'r', context, normalizedThisArg, _args, arguments)) {
+                result = [ name, true, false, property, 'r', context, normalizedThisArg, _args, arguments ];
                 throw new Error('Permission Denied: Cannot access ' + name);
               }
             }
