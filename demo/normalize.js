@@ -1797,6 +1797,22 @@
   chai.assert.throws(() => {
     SubClass3.staticMethod.bind(SubClass3, [1])(-1); // -1 is not a positive number
   }, /^Permission Denied:/);
+
+  // multipath
+  window.DummyContainer = { navigator: navigator };
+
+  chai.assert.throws(() => {
+    DummyContainer.navigator.serviceWorker; // acl.navigator.serviceWorker is applied to DummyContainer.navigator
+  }, /^Permission Denied:/);
+
+  chai.assert.throws(() => {
+    DummyContainer.navigator.language; // acl.DummyContainer.navigator.language is applied to DummyContainer.navigator
+  }, /^Permission Denied:/);
+
+  chai.assert.throws(() => {
+    navigator.language; // acl.DummyContainer.navigator.language is applied to global navigator
+  }, /^Permission Denied:/);
+
 }
 () => {
   let target, property, value, attributes, proto, prototype, receiver, args, arg1, arg2, p, v;

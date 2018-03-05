@@ -3,6 +3,32 @@
 Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 */
 {
+  class SetMap extends Map {
+    set(key, value) {
+      let set;
+      if (super.has(key)) {
+        set = super.get(key);
+      }
+      else {
+        set = new Set();
+        super.set(key, set);
+      }
+      set.add(value);
+      return this;
+    }
+    static getStringValues(set, delim = ' ') {
+      let values = [];
+      if (set instanceof Set) {
+        for (let v of set.values()) {
+          values.push(v);
+        }
+      }
+      else if (typeof set === 'string') {
+        values.push(set);
+      }
+      return values.join(delim);
+    }
+  };
   var callTree = [['Phrases']];
   // { id: label: group: }
   const data = { nodes: [ { id: 'undefined', label: 'undefined', group: 'undefined' } ], edges: [] };
@@ -65,7 +91,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             }
           }
         }
-        else if (!existing || (existing.length > curr.length)) {
+        else {
           acc.set(_globalPropertyDescriptors[curr].value, curr);
           let properties = Object.getOwnPropertyDescriptors(_globalPropertyDescriptors[curr].value);
           let prop;
@@ -100,7 +126,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             }
           }
         }
-        else if (!existing || (existing.length > curr.length)) {
+        else {
           if (!excludedGlobalProperties[curr]) {
             acc.set(_global[curr], curr);
             let properties = Object.getOwnPropertyDescriptors(_global[curr]);
@@ -122,7 +148,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         }
       }
       return acc;
-    }, new Map());
+    }, new SetMap());
   var _objectStaticPropertyDescriptors = Object.getOwnPropertyDescriptors(Object);
   var _objectPropertyDescriptors = Object.getOwnPropertyDescriptors(Object.prototype);
   var _arrayStaticPropertyDescriptors = Object.getOwnPropertyDescriptors(Array);
@@ -132,27 +158,6 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
   var _functionStaticPropertyDescriptors = Object.getOwnPropertyDescriptors(Function);
   var _functionPropertyDescriptors = Object.getOwnPropertyDescriptors(Function.prototype);
   var globalObjectAccess = {};
-  var _blacklistObjects = {};
-  /*
-  {
-    caches: true,
-    navigator: {
-      serviceWorker: true,
-      usb: true,
-      geolocation: true,
-    },
-    location: {
-      reload: true,
-      $__proto__$: true,
-    },
-    DummyClass: true,
-    DummyClass2: {
-      isDummy: true,
-      dummyMethod: true,
-    }
-  };
-  Object.assign(_blacklistObjects, { window: _blacklistObjects, self: _blacklistObjects });
-  */
   const _boundFunctions = new WeakMap();
   const _escapePlatformProperties = new Map();
   const _unescapePlatformProperties = new Map();
@@ -647,7 +652,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     r: 0, w: 1, x: 2, R: 3, W: 4,
   };
   const isGlobalScopeObject = new Map();
-  [ 'window', 'self' ].forEach(g => {
+  [ 'window', 'self', '_global', 'frames', 'parent', 'top' ].forEach(g => {
     isGlobalScopeObject.set(g, true);
   });
   // An example ABAC policy wrapper class
@@ -678,8 +683,11 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     static trackClass(virtualName, _class) {
       let gprop = virtualName;
       let gvalue = _class;
-      if (_globalObjects.has(_class)) {
-        return false;
+      let set = _globalObjects.get(_class);
+      if (set) {
+        if (set.has(virtualName)) {
+          return false; // TODO: this redundancy checking may drop new properties of _class
+        }
       }
       _globalObjects.set(gvalue, gprop);
       let _properties = Object.getOwnPropertyDescriptors(gvalue);
@@ -715,11 +723,13 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
               for (let newName in normalizedArgs[1][1]) {
                 let value = normalizedArgs[1][1][newName];
                 let currentName = _globalObjects.get(value);
-                if (currentName) {
-                  if (currentName !== newName) {
-                    if (Reflect.has(acl, currentName)) {
-                      //console.error('windowAcl: cloning access-controlled window.' + currentName + ' to window.' + newName);
-                      return false;
+                if (currentName instanceof Set) {
+                  for (let _currentName of currentName) {
+                    if (_currentName !== newName) {
+                      if (Reflect.has(acl, _currentName)) {
+                        //console.error('windowAcl: cloning access-controlled window.' + _currentName + ' to window.' + newName);
+                        return false;
+                      }
                     }
                   }
                 }
@@ -735,11 +745,13 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
                   value = normalizedArgs[1][1][newName].get.call(normalizedThisArg);
                 }
                 let currentName = _globalObjects.get(value);
-                if (currentName) {
-                  if (currentName !== newName) {
-                    if (Reflect.has(acl, currentName)) {
-                      //console.error('windowAcl: cloning access-controlled window.' + currentName + ' to window.' + newName);
-                      return false;
+                if (currentName instanceof Set) {
+                  for (let _currentName of currentName) {
+                    if (_currentName !== newName) {
+                      if (Reflect.has(acl, _currentName)) {
+                        //console.error('windowAcl: cloning access-controlled window.' + _currentName + ' to window.' + newName);
+                        return false;
+                      }
                     }
                   }
                 }
@@ -782,11 +794,13 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
               break;
             }
             let currentName = _globalObjects.get(value);
-            if (currentName) {
-              if (currentName !== newName) {
-                if (Reflect.has(acl, currentName)) {
-                  //console.error('windowAcl: cloning access-controlled window.' + currentName + ' to window.' + newName);
-                  return false;
+            if (currentName instanceof Set) {
+              for (let _currentName of currentName) {
+                if (_currentName !== newName) {
+                  if (Reflect.has(acl, _currentName)) {
+                    //console.error('windowAcl: cloning access-controlled window.' + _currentName + ' to window.' + newName);
+                    return false;
+                  }
                 }
               }
             }
@@ -2898,6 +2912,37 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         '@normalization_checker': Policy.args("opType === 'x' && typeof args[0] === 'number' && typeof args[1] === 'number' && args[0] > 0 && args[1] > 0"), // check arguments
       },
     },
+    DummyContainer: {
+      [S_OBJECT]: {
+        [S_DEFAULT]: 'r--',
+        '@normalization_checker': 'rwxRW',
+      },
+      [S_DEFAULT]: '---',
+      navigator: {
+        [S_DEFAULT]: function _copiedNavigatorAcl(normalizedThisArg,
+                                                  normalizedArgs /* ['property', args], ['property', value], etc. */,
+                                                  aclArgs /* [name, isStatic, isObject, property, opType, context] */,
+                                                  hookArgs /* [f, thisArg, args, context, newTarget] */,
+                                                  applyAcl /* for recursive application of ACL */) {
+          // TODO: automate and force this process
+          let opType = aclArgs[4];
+          let target;
+          if (opType === 'r') {
+            Policy.trackClass('DummyContainer.navigator', normalizedThisArg[normalizedArgs[0]]);
+            return true;
+          }
+          return false;
+        },
+        language: {
+          [S_DEFAULT]: 'r--',
+          '@normalization_checker': '---',
+        },
+      },
+    },
+    'DummyContainer.navigator': {
+      [S_DEFAULT]: 'r--', // avoid redundant calls of Policy.trackClass('DummyContainer.navigator', target)
+      [S_CHAIN]: () => acl.DummyContainer.navigator,
+    },
     UniterableArray: {
       [S_DEFAULT]: 'rwx',
       [S_ALL]: '---',
@@ -3319,7 +3364,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       [S_DEFAULT]: 'r--',
     },
     clientInformation: {
-      [S_DEFAULT]: 'r--',
+      [S_CHAIN]: () => acl.navigator,
     },
     event: {
       [S_DEFAULT]: 'r--',
@@ -3502,6 +3547,16 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
   }
   chainAcl(acl);
   const applyAcl = function applyAcl(name, isStatic, isObject, property, opType, context, normalizedThisArg, normalizedArgs, hookArgs) {
+    const names = name;
+    if (names instanceof Set) {
+      let result = true;
+      for (name of names.values()) {
+        if (!(result = applyAcl(name, isStatic, isObject, property, opType, context, normalizedThisArg, normalizedArgs, hookArgs))) {
+          break;
+        }
+      }
+      return result;
+    }
     let _context, _acl, __acl, _property, isGlobal, tmp;
     while (_context = contextNormalizer[context]) {
       context = _context;
@@ -3628,7 +3683,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
                   ? context === S_DEFAULT
                     ? isGlobal
                       ? Reflect.has(acl, property)
-                        ? Reflect.has(acl[property], S_OBJECT)
+                        ? acl[property] instanceof Object && Reflect.has(acl[property], S_OBJECT)
                           ? acl[property][S_OBJECT]
                           : acl[property]
                         : acl[S_GLOBAL]
@@ -3636,7 +3691,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
                     : _acl[context]
                   : isGlobal
                     ? Reflect.has(acl, property)
-                      ? Reflect.has(acl[property], S_OBJECT)
+                      ? acl[property] instanceof Object && Reflect.has(acl[property], S_OBJECT)
                         ? acl[property][S_OBJECT]
                         : acl[property]
                       : acl[S_GLOBAL]
@@ -3751,7 +3806,11 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       'message': error.message,
     };
     if (Array.isArray(aclArgs)) {
-      data['name'] =  typeof aclArgs[0] === 'string' ? aclArgs[0] : 'typeof:' + typeof aclArgs[0];
+      data['name'] =  typeof aclArgs[0] === 'string'
+        ? aclArgs[0]
+        : aclArgs[0] instanceof Set
+          ? SetMap.getStringValues(aclArgs[0], ' ')
+          : 'typeof:' + typeof aclArgs[0];
       data['isStatic'] = aclArgs[1];
       data['isObject'] = aclArgs[2];
       data['property'] =  typeof aclArgs[3] === 'string' ? aclArgs[3] : 'typeof:' + typeof aclArgs[3];
@@ -4169,13 +4228,13 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
               case 'symbol':
               case 'boolean':
                 if (_t === null || _t === undefined) {
-                  name = _globalObjectsGet(_global); // non-strict mode default this
+                  name = _globalObjects.get(_global); // non-strict mode default this
                   if (!name) {
                     break;
                   }
                 }
                 else {
-                  name = _globalObjectsGet(_t);
+                  name = _globalObjects.get(_t);
                 }
                 isStatic = typeof _t === 'function';
                 normalizedThisArg = _t;
@@ -4313,9 +4372,12 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
                   case 'function':
                     if (normalizedThisArg === _global) {
                       let _globalObj = _globalObjects.get(_p);
-                      if (_globalObj) {
-                        rawProperty = _globalObj;
-                        property = _escapePlatformProperties.get(rawProperty) || rawProperty;
+                      if (_globalObj instanceof Set) {
+                        rawProperty = [];
+                        for (let _obj of _globalObj.values()) {
+                          rawProperty.push(_obj);
+                        }
+                        property = rawProperty.map(p => _escapePlatformProperties.get(p) || p);
                       }
                       else {
                         property = rawProperty = S_FUNCTION;
@@ -4405,21 +4467,25 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           if (target[2] === '*') {
             property = rawProperty = S_ALL;
           }
-          switch (name) {
-          case 'window':
-          case 'self':
-            if (target === 'wtpv') { // window.property = v
-              if (_f === '=' && _args[1] instanceof Object) {
-                globalAssignments[rawProperty] = _args[1];
+          if (name instanceof Set) {
+            for (let _name of name.values()) {
+              switch (_name) {
+              case 'window':
+              case 'self':
+                if (target === 'wtpv') { // window.property = v
+                  if (_f === '=' && _args[1] instanceof Object) {
+                    globalAssignments[rawProperty] = _args[1];
+                  }
+                }
+                break;
+              default:
+                break;
               }
             }
-            break;
-          default:
-            break;
           }
         }
         if (!isObject) {
-          if (name === 'Function') {
+          if (name instanceof Set && name.has('Function')) {
             if (normalizedThisArg !== FunctionPrototype) {
               isObject = true; // function is an instance of Function
             }
@@ -4460,42 +4526,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           throw new Error('Permission Denied: Cannot access ' + opType + ' ' + name + (isStatic ? '.' : '.prototype.') + (typeof property === 'string' ? property : '') + ' from ' + context);
           */
           result = [ name, isStatic, isObject, property, opType, context, normalizedThisArg, _args, arguments ];
-          throw new Error('Permission Denied: Cannot access ' + name);
-        }
-        let _blacklist = _blacklistObjects[name];
-        if (_blacklist) {
-          if (typeof _blacklist === 'object') {
-            if (property) {
-              if (typeof property === 'string') {
-                if (typeof _blacklist[property] === 'boolean') {
-                  //throw new Error('Permission Denied: Cannot access');
-                  throw new Error('Permission Denied: Cannot access ' + name + '.' + rawProperty);
-                }
-              }
-              else if (Array.isArray(property)) {
-                for (let i = 0; i < property.length; i++) {
-                  if (typeof _blacklist[property[i]] === 'boolean') {
-                    //throw new Error('Permission Denied: Cannot access');
-                    throw new Error('Permission Denied: Cannot access ' + name + '.' + (_unescapePlatformProperties.get(property[i]) || property[i]));
-                  }
-                }
-              }
-              else if (property === S_ALL) {
-                //throw new Error('Permission Denied: Cannot access');
-                throw new Error('Permission Denied: Cannot access ' + name + '.*');
-              }
-              else if (property === S_UNSPECIFIED) {
-                // OK
-              }
-            }
-            else {
-              // OK
-            }
-          }
-          else {
-            //throw new Error('Permission Denied: Cannot access');
-            throw new Error('Permission Denied: Cannot access ' + name);
-          }
+          throw new Error('Permission Denied: Cannot access ' + SetMap.getStringValues(name));
         }
         if (typeof target === 'string' && target[3] === 'b') {
           let _method = _globalMethods.get(thisArg);
@@ -4534,92 +4565,95 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             }
           }
         }
-        switch (name) {
-        case 'Object':
-          if (!isStatic) {
-            if (!_objectPropertyDescriptors[rawProperty]) {
-              name = null;
-            }
-          }
-          break;
-        case 'Array':
-          if (!isStatic) {
-            if (!_arrayPropertyDescriptors[rawProperty]) {
-              name = null;
-            }
-          }
-          break;
-        case 'String':
-          if (!isStatic) {
-            if (!_stringPropertyDescriptors[rawProperty]) {
-              name = null;
-            }
-          }
-          break;
-        case 'Function':
-          if (!isStatic) {
-            if (!_functionPropertyDescriptors[rawProperty]) {
-              name = null;
-            }
-          }
-          break;
-        default:
-          break;
-        }
-        if (name) {
-          let forName;
-          let forProp;
-          let id;
-          if (!globalPropertyContexts[context]) {
-            let group = context.split(/[,:]/)[0];
-            data2.nodes.push({ id: context, label: context, group: group });
-            globalPropertyContexts[context] = true;
-          }
-          if (!globalObjectAccess[name]) {
-            globalObjectAccess[name] = {};
-            data2.nodes.push({ id: name, label: name, group: name });
-          }
-          forName = globalObjectAccess[name];
-          if (typeof property === 'string') {
-            id = isStatic || typeof normalizedThisArg === 'object'
-              ? name + '.' + rawProperty
-              : name + '.prototype.' + rawProperty
-            if (!forName[property]) {
-              forName[property] = {};
-              data2.nodes.push({ id: id, label: (_unescapePlatformProperties.get(property) || property), group: name });
-              data2.edges.push({ from: name, to: id, dashes: true, arrows: 'to' });
-            }
-            forProp = forName[property];
-            if (!forProp[context]) {
-              forProp[context] = { from: context, to: id, label: 0, arrows: 'to' };
-              data2.edges.push(forProp[context]);
-            }
-            forProp[context].label++;
-          }
-          else if (Array.isArray(property)) {
-            for (let i = 0; i < property.length; i++) {
-              rawProperty = _unescapePlatformProperties.get(property[i]) || property[i];
-              id = isStatic || typeof normalizedThisArg === 'object' ? name + '.' + rawProperty : name + '.prototype.' + rawProperty;
-              if (!forName[property[i]]) {
-                forName[property[i]] = {};
-                data2.nodes.push({ id: id, label: rawProperty, group: name });
-                data2.edges.push({ from: name, to: id, dashes: true, arrows: 'to' });
+        let it = name instanceof Set ? name.values() : [];
+        for (let _name of it) {
+          switch (_name) {
+          case 'Object':
+            if (!isStatic) {
+              if (!_objectPropertyDescriptors[rawProperty]) {
+                _name = null;
               }
-              forProp = forName[property[i]];
+            }
+            break;
+          case 'Array':
+            if (!isStatic) {
+              if (!_arrayPropertyDescriptors[rawProperty]) {
+                _name = null;
+              }
+            }
+            break;
+          case 'String':
+            if (!isStatic) {
+              if (!_stringPropertyDescriptors[rawProperty]) {
+                _name = null;
+              }
+            }
+            break;
+          case 'Function':
+            if (!isStatic) {
+              if (!_functionPropertyDescriptors[rawProperty]) {
+                _name = null;
+              }
+            }
+            break;
+          default:
+            break;
+          }
+          if (_name) {
+            let forName;
+            let forProp;
+            let id;
+            if (!globalPropertyContexts[context]) {
+              let group = context.split(/[,:]/)[0];
+              data2.nodes.push({ id: context, label: context, group: group });
+              globalPropertyContexts[context] = true;
+            }
+            if (!globalObjectAccess[_name]) {
+              globalObjectAccess[_name] = {};
+              data2.nodes.push({ id: _name, label: _name, group: _name });
+            }
+            forName = globalObjectAccess[_name];
+            if (typeof property === 'string') {
+              id = isStatic || typeof normalizedThisArg === 'object'
+                ? _name + '.' + rawProperty
+                : _name + '.prototype.' + rawProperty
+              if (!forName[property]) {
+                forName[property] = {};
+                data2.nodes.push({ id: id, label: (_unescapePlatformProperties.get(property) || property), group: _name });
+                data2.edges.push({ from: _name, to: id, dashes: true, arrows: 'to' });
+              }
+              forProp = forName[property];
               if (!forProp[context]) {
                 forProp[context] = { from: context, to: id, label: 0, arrows: 'to' };
                 data2.edges.push(forProp[context]);
               }
               forProp[context].label++;
             }
-          }
-          else {
-            forName = globalObjectAccess[name];
-            if (!forName[context]) {
-              forName[context] = { from: '/' + context, to: name, label: 0, arrows: 'to' };
-              data2.edges.push(forName[context]);
+            else if (Array.isArray(property)) {
+              for (let i = 0; i < property.length; i++) {
+                rawProperty = _unescapePlatformProperties.get(property[i]) || property[i];
+                id = isStatic || typeof normalizedThisArg === 'object' ? _name + '.' + rawProperty : _name + '.prototype.' + rawProperty;
+                if (!forName[property[i]]) {
+                  forName[property[i]] = {};
+                  data2.nodes.push({ id: id, label: rawProperty, group: _name });
+                  data2.edges.push({ from: _name, to: id, dashes: true, arrows: 'to' });
+                }
+                forProp = forName[property[i]];
+                if (!forProp[context]) {
+                  forProp[context] = { from: context, to: id, label: 0, arrows: 'to' };
+                  data2.edges.push(forProp[context]);
+                }
+                forProp[context].label++;
+              }
             }
-            forName[context].label++;
+            else {
+              forName = globalObjectAccess[_name];
+              if (!forName[context]) {
+                forName[context] = { from: '/' + context, to: _name, label: 0, arrows: 'to' };
+                data2.edges.push(forName[context]);
+              }
+              forName[context].label++;
+            }
           }
         }
       }
@@ -4632,35 +4666,31 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         }
         if (!applyAcl(name, true, false, S_UNSPECIFIED, 'x', context, normalizedThisArg, _args, arguments)) {
           result = [ name, true, false, S_UNSPECIFIED, 'x', context, normalizedThisArg, _args, arguments ];
-          throw new Error('Permission Denied: Cannot access ' + name);
+          throw new Error('Permission Denied: Cannot access ' + SetMap.getStringValues(name));
           //console.error('ACL: denied name =', name, 'isStatic =', true, 'isObject = ', false, 'property =', S_UNSPECIFIED, 'opType =', 'x', 'context = ', context);
           //debugger;
           //applyAcl(name, true, false, S_UNSPECIFIED, 'x', context);
         }
-        let _blacklist = _blacklistObjects[name];
-        if (_blacklist) {
-          if (typeof _blacklist === 'boolean') {
-            throw new Error('Permission Denied: Cannot access ' + name);
-          }
-        }
         if (name) {
           // new operator for a global class
-          let forName;
-          if (!globalPropertyContexts[context]) {
-            let group = context.split(/[,:]/)[0];
-            data2.nodes.push({ id: '/' + context, label: context, group: group });
-            globalPropertyContexts[context] = true;
+          for (let _name of name.values()) {
+            let forName;
+            if (!globalPropertyContexts[context]) {
+              let group = context.split(/[,:]/)[0];
+              data2.nodes.push({ id: '/' + context, label: context, group: group });
+              globalPropertyContexts[context] = true;
+            }
+            if (!globalObjectAccess[_name]) {
+              globalObjectAccess[_name] = {};
+              data2.nodes.push({ id: _name, label: _name, group: _name });
+            }
+            forName = globalObjectAccess[_name];
+            if (!forName[context]) {
+              forName[context] = { from: '/' + context, to: _name, label: 0, arrows: 'to' };
+              data2.edges.push(forName[context]);
+            }
+            forName[context].label++;
           }
-          if (!globalObjectAccess[name]) {
-            globalObjectAccess[name] = {};
-            data2.nodes.push({ id: name, label: name, group: name });
-          }
-          forName = globalObjectAccess[name];
-          if (!forName[context]) {
-            forName[context] = { from: '/' + context, to: name, label: 0, arrows: 'to' };
-            data2.edges.push(forName[context]);
-          }
-          forName[context].label++;
         }
       }
       else {
@@ -4679,17 +4709,6 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             //console.error('ACL: denied name =', name, 'isStatic =', name[1] !== 'prototype', 'isObject = ', false, 'property =', prop, 'opType =', 'x', 'context = ', context);
             //debugger;
             //applyAcl(obj, name[1] !== 'prototype', false, prop, 'x', context);
-          }
-          let _blacklist = _blacklistObjects[obj];
-          if (_blacklist) {
-            if (typeof _blacklist === 'object') {
-              if (typeof _blacklist[prop] === 'boolean') {
-                throw new Error('Permission Denied: Cannot access ' + obj + '.' + prop);
-              }
-            }
-            else {
-              throw new Error('Permission Denied: Cannot access ' + obj);
-            }
           }
           if (!globalPropertyContexts[context]) {
             let group = context.split(/[,:]/)[0];
@@ -4715,12 +4734,12 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         }
         else if (newTarget === '') {
           let obj = Object.getPrototypeOf(args[0]);
-          name = _globalObjectsGet(obj);
+          name = _globalObjects.get(obj);
           if (!name) {
             while (!name) {
               obj = Object.getPrototypeOf(obj);
               if (typeof obj === 'function') {
-                name = _globalObjectsGet(obj);
+                name = _globalObjects.get(obj);
               }
               else {
                 break;
@@ -4731,31 +4750,27 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             // super() call
             if (!applyAcl(name, true, false, S_UNSPECIFIED, 'x', context, normalizedThisArg, _args, arguments)) {
               result = [ name, true, false, S_UNSPECIFIED, 'x', context, normalizedThisArg, _args, arguments ];
-              throw new Error('Permission Denied: Cannot access ' + name);
+              throw new Error('Permission Denied: Cannot access ' + SetMap.getStringValues(name));
             }
-            let _blacklist = _blacklistObjects[name];
-            if (_blacklist) {
-              if (typeof _blacklist === 'boolean') {
-                throw new Error('Permission Denied: Cannot access ' + name);
+            for (let _name of name.values()) {
+              // new operator for a global class
+              let forName;
+              if (!globalPropertyContexts[context]) {
+                let group = context.split(/[,:]/)[0];
+                data2.nodes.push({ id: '/' + context, label: context, group: group });
+                globalPropertyContexts[context] = true;
               }
+              if (!globalObjectAccess[_name]) {
+                globalObjectAccess[_name] = {};
+                data2.nodes.push({ id: _name, label: _name, group: _name });
+              }
+              forName = globalObjectAccess[_name];
+              if (!forName[context]) {
+                forName[context] = { from: '/' + context, to: _name, label: 0, arrows: 'to' };
+                data2.edges.push(forName[context]);
+              }
+              forName[context].label++;
             }
-            // new operator for a global class
-            let forName;
-            if (!globalPropertyContexts[context]) {
-              let group = context.split(/[,:]/)[0];
-              data2.nodes.push({ id: '/' + context, label: context, group: group });
-              globalPropertyContexts[context] = true;
-            }
-            if (!globalObjectAccess[name]) {
-              globalObjectAccess[name] = {};
-              data2.nodes.push({ id: name, label: name, group: name });
-            }
-            forName = globalObjectAccess[name];
-            if (!forName[context]) {
-              forName[context] = { from: '/' + context, to: name, label: 0, arrows: 'to' };
-              data2.edges.push(forName[context]);
-            }
-            forName[context].label++;
           }
         }
         else if (Number.isNaN(newTarget)) {
@@ -4772,13 +4787,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
               }
               if (!applyAcl(name, true, false, property, 'x', context, normalizedThisArg, _args, arguments)) {
                 result = [ name, true, false, property, 'x', context, normalizedThisArg, _args, arguments ];
-                throw new Error('Permission Denied: Cannot access ' + name);
-              }
-              let _blacklist = _blacklistObjects[name];
-              if (_blacklist) {
-                if (typeof _blacklist === 'boolean') {
-                  throw new Error('Permission Denied: Cannot access ' + name);
-                }
+                throw new Error('Permission Denied: Cannot access ' + SetMap.getStringValues(name));
               }
               let forName;
               if (!globalPropertyContexts[context]) {
@@ -4806,12 +4815,6 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
               if (!applyAcl(name, true, false, property, 'r', context, normalizedThisArg, _args, arguments)) {
                 result = [ name, true, false, property, 'r', context, normalizedThisArg, _args, arguments ];
                 throw new Error('Permission Denied: Cannot access ' + name);
-              }
-              let _blacklist = _blacklistObjects[name];
-              if (_blacklist) {
-                if (typeof _blacklist === 'boolean') {
-                  throw new Error('Permission Denied: Cannot access ' + name);
-                }
               }
               let forName;
               if (!globalPropertyContexts[context]) {
@@ -4841,12 +4844,6 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
               if (!applyAcl(name, true, false, property, 'x', context, normalizedThisArg, _args, arguments)) {
                 result = [ name, true, false, property, 'x', context, normalizedThisArg, _args, arguments ];
                 throw new Error('Permission Denied: Cannot access ' + name);
-              }
-              let _blacklist = _blacklistObjects[name];
-              if (_blacklist) {
-                if (typeof _blacklist === 'boolean') {
-                  throw new Error('Permission Denied: Cannot access ' + name);
-                }
               }
               // access allowed
               if (args[2][0] === '/') { // TODO: Only pre-hooked modules are handled for now.
@@ -5289,35 +5286,6 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     return result;
   }
 
-  // Issue #155 [demo][hook-callback][Chrome Canary 63.0.3239.0] Map.get() is very slow
-  // Note: Expecting JIT compiler to expand this function inline
-  const _globalObjectsGet = typeof window === 'object'
-    ? function _globalObjectsGet(o) {
-        switch (o) {
-        case undefined: return undefined;
-        case Object: return 'Object';
-        case Array: return 'Array';
-        case Function: return 'Function';
-        case Math: return 'Math';
-        case window: return 'window';
-        case RegExp: return 'RegExp';
-        default:
-          return _globalObjects.get(o);
-        }
-      }
-    : function _globalObjectsGet(o) {
-        switch (o) {
-        case undefined: return undefined;
-        case Object: return 'Object';
-        case Array: return 'Array';
-        case Function: return 'Function';
-        case Math: return 'Math';
-        case RegExp: return 'RegExp';
-        default:
-          return _globalObjects.get(o);
-        }
-      };
-
   // acl only
   const __hook__acl = function __hook__acl(f, thisArg, args, context, newTarget) {
     let _lastContext;
@@ -5458,7 +5426,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           normalizedThisArg = boundParameters._normalizedThisArg;
           _args = [ boundParameters._f, boundParameters._args.concat(_args) ];
         }
-        let name = _globalObjectsGet(normalizedThisArg);
+        let name = _globalObjects.get(normalizedThisArg);
         let isStatic = typeof normalizedThisArg === 'function';
         if (boundParameters) {
           isStatic = boundParameters.isStatic;
@@ -5478,15 +5446,15 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
               }
             }
           }
-          name = _globalObjectsGet(ctor);
+          name = _globalObjects.get(ctor);
           while (!name && typeof ctor === 'function') {
             ctor = Object.getPrototypeOf(ctor);
-            name = _globalObjectsGet(ctor);
+            name = _globalObjects.get(ctor);
           }
         }
         if (!name && normalizedThisArg instanceof Object) {
           ctor = normalizedThisArg.constructor;
-          name = _globalObjectsGet(ctor);
+          name = _globalObjects.get(ctor);
           if (name) {
             isStatic = false;
             if (typeof ctor === 'function') {
@@ -5573,20 +5541,20 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
               case 'symbol':
               case 'boolean':
                 if (_t === null || _t === undefined) {
-                  name = _globalObjectsGet(_global); // non-strict mode default this
+                  name = _globalObjects.get(_global); // non-strict mode default this
                   if (!name) {
                     break;
                   }
                 }
                 else {
-                  name = _globalObjectsGet(_t);
+                  name = _globalObjects.get(_t);
                 }
                 isStatic = typeof _t === 'function';
                 normalizedThisArg = _t;
                 isObject = typeof normalizedThisArg === 'object';
                 if (!name) {
                   ctor = _t.constructor;
-                  name = _globalObjectsGet(ctor);
+                  name = _globalObjects.get(ctor);
                   if (name) {
                     isStatic = false;
                     if (typeof ctor === 'function') {
@@ -5609,11 +5577,11 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
                       }
                     }
                   }
-                  name = _globalObjectsGet(ctor);
+                  name = _globalObjects.get(ctor);
                   normalizedThisArg = ctor;
                   while (!name && typeof ctor === 'function') {
                     ctor = Object.getPrototypeOf(ctor);
-                    name = _globalObjectsGet(ctor);
+                    name = _globalObjects.get(ctor);
                     normalizedThisArg = ctor;
                   }
                 }
@@ -5725,10 +5693,13 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
                     break;
                   case 'function':
                     if (normalizedThisArg === _global) {
-                      let _globalObj = _globalObjectsGet(_p);
-                      if (_globalObj) {
-                        rawProperty = _globalObj;
-                        property = _escapePlatformProperties.get(rawProperty) || rawProperty;
+                      let _globalObj = _globalObjects.get(_p);
+                      if (_globalObj instanceof Set) {
+                        rawProperty = [];
+                        for (let _obj of _globalObj.values()) {
+                          rawProperty.push(_obj);
+                        }
+                        property = rawProperty.map(p => _escapePlatformProperties.get(p) || p);
                       }
                       else {
                         property = rawProperty = S_FUNCTION;
@@ -5817,22 +5788,26 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           if (target[2] === '*') {
             property = rawProperty = S_ALL;
           }
-          switch (name) {
-          case 'window':
-          case 'self':
-            if (target === 'wtpv') { // window.property = v
-              if (_f === '=' && _args[1] instanceof Object) {
-                hasGlobalAssignments = true;
-                globalAssignments[rawProperty] = _args[1];
+          if (name instanceof Set) {
+            for (let _name of name.values()) {
+              switch (_name) {
+              case 'window':
+              case 'self':
+                if (target === 'wtpv') { // window.property = v
+                  if (_f === '=' && _args[1] instanceof Object) {
+                    hasGlobalAssignments = true;
+                    globalAssignments[rawProperty] = _args[1];
+                  }
+                }
+                break;
+              default:
+                break;
               }
             }
-            break;
-          default:
-            break;
           }
         }
         if (!isObject) {
-          if (name === 'Function') {
+          if (name instanceof Set && name.has('Function')) {
             if (normalizedThisArg !== FunctionPrototype) {
               isObject = true; // function is an instance of Function
             }
@@ -5873,7 +5848,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           throw new Error('Permission Denied: Cannot access ' + opType + ' ' + name + (isStatic ? '.' : '.prototype.') + (typeof property === 'string' ? property : '') + ' from ' + context);
           */
           result = [ name, isStatic, isObject, property, opType, context, normalizedThisArg, _args, arguments ];
-          throw new Error('Permission Denied: Cannot access ' + name);
+          throw new Error('Permission Denied: Cannot access ' + SetMap.getStringValues(name));
         }
         if (typeof target === 'string' && target === 'r0tb') {
           let _method = _globalMethods.get(thisArg);
@@ -5916,7 +5891,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         }
       }
       else if (newTarget) {
-        let name = _globalObjectsGet(f);
+        let name = _globalObjects.get(f);
         let superClass = f;
         while (!name && typeof superClass === 'function') {
           superClass = Object.getPrototypeOf(superClass);
@@ -5924,7 +5899,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         }
         if (!applyAcl(name, true, false, S_UNSPECIFIED, 'x', context, normalizedThisArg, _args, arguments)) {
           result = [ name, true, false, S_UNSPECIFIED, 'x', context, normalizedThisArg, _args, arguments ];
-          throw new Error('Permission Denied: Cannot access ' + name);
+          throw new Error('Permission Denied: Cannot access ' + SetMap.getStringValues(name));
           //console.error('ACL: denied name =', name, 'isStatic =', true, 'isObject = ', false, 'property =', S_UNSPECIFIED, 'opType =', 'x', 'context = ', context);
           //debugger;
           //applyAcl(name, true, false, S_UNSPECIFIED, 'x', context);
@@ -5947,12 +5922,12 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         }
         else if (newTarget === '') {
           let obj = Object.getPrototypeOf(args[0]);
-          name = _globalObjectsGet(obj);
+          name = _globalObjects.get(obj);
           if (!name) {
             while (!name) {
               obj = Object.getPrototypeOf(obj);
               if (typeof obj === 'function') {
-                name = _globalObjectsGet(obj);
+                name = _globalObjects.get(obj);
               }
               else {
                 break;
@@ -5963,7 +5938,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             // super() call
             if (!applyAcl(name, true, false, S_UNSPECIFIED, 'x', context, normalizedThisArg, _args, arguments)) {
               result = [ name, true, false, S_UNSPECIFIED, 'x', context, normalizedThisArg, _args, arguments ];
-              throw new Error('Permission Denied: Cannot access ' + name);
+              throw new Error('Permission Denied: Cannot access ' + SetMap.getStringValues(name));
             }
           }
         }
