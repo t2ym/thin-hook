@@ -508,6 +508,13 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '/components/polymer/lib/legacy/polymer-fn.html,script@568': '@Polymer_lib',
     '/components/polymer/lib/utils/import-href.html,script@567,*': '@Polymer_lib',
     '/components/polymer/lib/utils/mixin.html,*': '@Polymer_lib',
+    '/components/polymer/lib/utils/boot.html,*': '@Polymer_lib',
+    '/components/polymer/lib/utils/case-map.html,*': '@Polymer_lib',
+    '/components/polymer/lib/utils/resolve-url.html,*': '@Polymer_lib',
+    '/components/polymer/lib/utils/style-gather.html,*': '@Polymer_lib',
+    '/components/polymer/lib/utils/path.html,*': '@Polymer_lib',
+    '/components/polymer/lib/utils/async.html,*': '@Polymer_lib',
+    '/components/polymer/lib/mixins/property-accessors.html,*': '@Polymer_lib',
     '/components/chai/chai.js,30': '@custom_error_constructor_creator',
     '/components/chai/chai.js,9,hasProtoSupport': '@Object__proto__reader',
     '/components/chai/chai.js,36,getType,type': '@Object_prototype_reader',
@@ -2587,6 +2594,10 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       '@Object_assign_reader': 'rwx',
       '@customElements_reader': 'r--',
     },
+    Polymer: {
+      [S_DEFAULT]: 'rwx', // TODO: Loose ACL
+      '@Polymer_lib': 'rwxRW', // TODO: Loose ACL
+    },
     // Example base policy for custom elements generated via the Polymer({}) legacy method
     'Polymer.LegacyElement': { // virtual name
       [S_CHAIN]: () => acl.HTMLElement, // TODO: should be Polymer.Element virtual object
@@ -2723,6 +2734,15 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             [S_DEFAULT]: 'rw-', // TODO: Loose ACL
             '@Polymer_property_accessors': 'rw-RW',
           },
+        },
+      },
+    },
+    'live-localizer-storage-view': {
+      [S_CHAIN]: () => acl['Polymer.LegacyElement'],
+      [S_PROTOTYPE]: {
+        [S_CHAIN]: S_CHAIN,
+        [S_INSTANCE]: {
+          [S_CHAIN]: S_CHAIN,
         },
       },
     },
@@ -4473,8 +4493,15 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
               case 'window':
               case 'self':
                 if (target === 'wtpv') { // window.property = v
-                  if (_f === '=' && _args[1] instanceof Object) {
-                    globalAssignments[rawProperty] = _args[1];
+                  switch (_f) {
+                  case '=':
+                  case '#=':
+                    if (_args[1] instanceof Object) {
+                      globalAssignments[rawProperty] = _args[1];
+                    }
+                    break;
+                  default:
+                    break;
                   }
                 }
                 break;
@@ -5794,9 +5821,15 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
               case 'window':
               case 'self':
                 if (target === 'wtpv') { // window.property = v
-                  if (_f === '=' && _args[1] instanceof Object) {
-                    hasGlobalAssignments = true;
-                    globalAssignments[rawProperty] = _args[1];
+                  switch (_f) {
+                  case '=':
+                  case '#=':
+                    if (_args[1] instanceof Object) {
+                      globalAssignments[rawProperty] = _args[1];
+                    }
+                    break;
+                  default:
+                    break;
                   }
                 }
                 break;

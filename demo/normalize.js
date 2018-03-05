@@ -1799,7 +1799,10 @@
   }, /^Permission Denied:/);
 
   // multipath
-  window.DummyContainer = { navigator: navigator };
+  (function () {
+    'use strict';
+    window.DummyContainer = { navigator: navigator };
+  })();
 
   chai.assert.throws(() => {
     DummyContainer.navigator.serviceWorker; // acl.navigator.serviceWorker is applied to DummyContainer.navigator
