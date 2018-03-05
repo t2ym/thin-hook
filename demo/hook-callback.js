@@ -149,14 +149,14 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       }
       return acc;
     }, new SetMap());
-  var _objectStaticPropertyDescriptors = Object.getOwnPropertyDescriptors(Object);
-  var _objectPropertyDescriptors = Object.getOwnPropertyDescriptors(Object.prototype);
-  var _arrayStaticPropertyDescriptors = Object.getOwnPropertyDescriptors(Array);
-  var _arrayPropertyDescriptors = Object.getOwnPropertyDescriptors(Array.prototype);
-  var _stringStaticPropertyDescriptors = Object.getOwnPropertyDescriptors(String);
-  var _stringPropertyDescriptors = Object.getOwnPropertyDescriptors(String.prototype);
-  var _functionStaticPropertyDescriptors = Object.getOwnPropertyDescriptors(Function);
-  var _functionPropertyDescriptors = Object.getOwnPropertyDescriptors(Function.prototype);
+  const _objectStaticPropertyDescriptors = Object.getOwnPropertyDescriptors(Object);
+  const _objectPropertyDescriptors = Object.getOwnPropertyDescriptors(Object.prototype);
+  const _arrayStaticPropertyDescriptors = Object.getOwnPropertyDescriptors(Array);
+  const _arrayPropertyDescriptors = Object.getOwnPropertyDescriptors(Array.prototype);
+  const _stringStaticPropertyDescriptors = Object.getOwnPropertyDescriptors(String);
+  const _stringPropertyDescriptors = Object.getOwnPropertyDescriptors(String.prototype);
+  const _functionStaticPropertyDescriptors = Object.getOwnPropertyDescriptors(Function);
+  const _functionPropertyDescriptors = Object.getOwnPropertyDescriptors(Function.prototype);
   var globalObjectAccess = {};
   const _boundFunctions = new WeakMap();
   const _escapePlatformProperties = new Map();
