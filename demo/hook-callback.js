@@ -29,17 +29,13 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       return values.join(delim);
     }
   };
-  var callTree = [['Phrases']];
   // { id: label: group: }
   const data = { nodes: [ { id: 'undefined', label: 'undefined', group: 'undefined' } ], edges: [] };
   const data2 = { nodes: [ { id: 'undefined', label: 'undefined', group: 'undefined' } ], edges: [] };
-  var callTreeLastLength = callTree.length;
   var counter = 0;
-  var calleeErrorCounter = 0;
   var log = [];
   var contexts = {};
   var globalPropertyContexts = {};
-  var locationContexts = {};
   var contextTransitions = {};
   var contextReverseTransitions = {};
   var lastContext;
@@ -3472,14 +3468,10 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
   };
   // protect hook-callback.js variables
   [
-    'callTree',
-    'callTreeLastLength',
     'counter',
-    'calleeErrorCounter',
     'log',
     'contexts',
     'globalPropertyContexts',
-    'locationContexts',
     'contextTransitions',
     'contextReverseTransitions',
     'lastContext;',
