@@ -595,6 +595,8 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '/components/live-localizer/draggable-behavior.html,*': '@draggable-behavior',
     '/components/iron-location/iron-location.html,*': '@iron-location',
     '/components/live-localizer/live-localizer-model.html,script@1001,reload': '@route_manipulator',
+    '/components/xliff-conv/xliff-conv.js': '@xliff-conv',
+    '/components/xliff-conv/xliff-conv.js,*': '@xliff-conv',
     '/components/iron-a11y-announcer/iron-a11y-announcer.html,*': '@iron-a11y-announcer',
     '/components/iron-a11y-keys-behavior/iron-a11y-keys-behavior.html,*': '@iron-a11y-keys-behavior',
     '/components/thin-hook/demo/spread.js': '@spread_js',
@@ -3081,6 +3083,14 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           '@custom_error_constructor_creator': 'rwxRW',
         },
       },
+    },
+    XliffConv: {
+      [S_OBJECT]: {
+        [S_DEFAULT]: 'r-x',
+        '@xliff-conv': 'rwxRW',
+      },
+      [S_DEFAULT]: 'r-x',
+      '@xliff-conv': 'rwxRW',
     },
     SequenceEffect: {
       [S_DEFAULT]: 'r-x',
