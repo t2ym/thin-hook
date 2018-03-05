@@ -2938,6 +2938,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         '@normalization_checker': 'rwxRW',
       },
       [S_DEFAULT]: '---',
+      '': 'r--',
       navigator: {
         [S_DEFAULT]: function _copiedNavigatorAcl(normalizedThisArg,
                                                   normalizedArgs /* ['property', args], ['property', value], etc. */,

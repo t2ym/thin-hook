@@ -1801,8 +1801,13 @@
   // multipath
   (function () {
     'use strict';
-    window.DummyContainer = { navigator: navigator };
+    window.DummyContainer = { navigator: navigator, '': 1 };
   })();
+
+  DummyContainer[''];
+  chai.assert.throws(() => {
+    DummyContainer[''] = 2;
+  }, /^Permission Denied:/);
 
   chai.assert.throws(() => {
     DummyContainer.navigator.serviceWorker; // acl.navigator.serviceWorker is applied to DummyContainer.navigator
