@@ -29,17 +29,13 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       return values.join(delim);
     }
   };
-  var callTree = [['Phrases']];
   // { id: label: group: }
   const data = { nodes: [ { id: 'undefined', label: 'undefined', group: 'undefined' } ], edges: [] };
   const data2 = { nodes: [ { id: 'undefined', label: 'undefined', group: 'undefined' } ], edges: [] };
-  var callTreeLastLength = callTree.length;
   var counter = 0;
-  var calleeErrorCounter = 0;
   var log = [];
   var contexts = {};
   var globalPropertyContexts = {};
-  var locationContexts = {};
   var contextTransitions = {};
   var contextReverseTransitions = {};
   var lastContext;
@@ -149,14 +145,14 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       }
       return acc;
     }, new SetMap());
-  var _objectStaticPropertyDescriptors = Object.getOwnPropertyDescriptors(Object);
-  var _objectPropertyDescriptors = Object.getOwnPropertyDescriptors(Object.prototype);
-  var _arrayStaticPropertyDescriptors = Object.getOwnPropertyDescriptors(Array);
-  var _arrayPropertyDescriptors = Object.getOwnPropertyDescriptors(Array.prototype);
-  var _stringStaticPropertyDescriptors = Object.getOwnPropertyDescriptors(String);
-  var _stringPropertyDescriptors = Object.getOwnPropertyDescriptors(String.prototype);
-  var _functionStaticPropertyDescriptors = Object.getOwnPropertyDescriptors(Function);
-  var _functionPropertyDescriptors = Object.getOwnPropertyDescriptors(Function.prototype);
+  const _objectStaticPropertyDescriptors = Object.getOwnPropertyDescriptors(Object);
+  const _objectPropertyDescriptors = Object.getOwnPropertyDescriptors(Object.prototype);
+  const _arrayStaticPropertyDescriptors = Object.getOwnPropertyDescriptors(Array);
+  const _arrayPropertyDescriptors = Object.getOwnPropertyDescriptors(Array.prototype);
+  const _stringStaticPropertyDescriptors = Object.getOwnPropertyDescriptors(String);
+  const _stringPropertyDescriptors = Object.getOwnPropertyDescriptors(String.prototype);
+  const _functionStaticPropertyDescriptors = Object.getOwnPropertyDescriptors(Function);
+  const _functionPropertyDescriptors = Object.getOwnPropertyDescriptors(Function.prototype);
   var globalObjectAccess = {};
   const _boundFunctions = new WeakMap();
   const _escapePlatformProperties = new Map();
@@ -599,6 +595,8 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '/components/live-localizer/draggable-behavior.html,*': '@draggable-behavior',
     '/components/iron-location/iron-location.html,*': '@iron-location',
     '/components/live-localizer/live-localizer-model.html,script@1001,reload': '@route_manipulator',
+    '/components/xliff-conv/xliff-conv.js': '@xliff-conv',
+    '/components/xliff-conv/xliff-conv.js,*': '@xliff-conv',
     '/components/iron-a11y-announcer/iron-a11y-announcer.html,*': '@iron-a11y-announcer',
     '/components/iron-a11y-keys-behavior/iron-a11y-keys-behavior.html,*': '@iron-a11y-keys-behavior',
     '/components/thin-hook/demo/spread.js': '@spread_js',
@@ -3086,6 +3084,14 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         },
       },
     },
+    XliffConv: {
+      [S_OBJECT]: {
+        [S_DEFAULT]: 'r-x',
+        '@xliff-conv': 'rwxRW',
+      },
+      [S_DEFAULT]: 'r-x',
+      '@xliff-conv': 'rwxRW',
+    },
     SequenceEffect: {
       [S_DEFAULT]: 'r-x',
       '@web_animations_next_lite': 'rwx',
@@ -3472,14 +3478,10 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
   };
   // protect hook-callback.js variables
   [
-    'callTree',
-    'callTreeLastLength',
     'counter',
-    'calleeErrorCounter',
     'log',
     'contexts',
     'globalPropertyContexts',
-    'locationContexts',
     'contextTransitions',
     'contextReverseTransitions',
     'lastContext;',
