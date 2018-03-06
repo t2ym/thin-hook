@@ -1,6 +1,6 @@
 /*
 @license https://github.com/t2ym/thin-hook/blob/master/LICENSE.md
-Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
+Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 */
 {
   class SetMap extends Map {
@@ -588,7 +588,8 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     '/components/thin-hook/demo/es6-module4.js,f,*': '@import.meta_reader,f',
     '/components/polymer/lib/utils/async.html,script@566,timeOut,run': '@setTimeout_reader',
     '/components/thin-hook/demo/,script@4861': '@document_writer',
-    '/components/thin-hook/demo/,script@5056': '@document_writer',
+    '/components/thin-hook/demo/,script@5062': '@document_writer',
+    '/components/thin-hook/demo/,script@5063': '@document_writer',
     '/components/thin-hook/demo/sub-document.html,script@1157': '@document_writer',
     '/components/thin-hook/demo/commonjs2.js': '@path_join_prohibited',
     '/components/thin-hook/demo/commonjs2.js,tty': '@tty_prohibited',
