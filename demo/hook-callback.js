@@ -5828,6 +5828,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
                   case '=':
                   case '#=':
                     if (_args[1] instanceof Object) {
+                      hasGlobalAssignments = true;
                       globalAssignments[rawProperty] = _args[1];
                     }
                     break;
