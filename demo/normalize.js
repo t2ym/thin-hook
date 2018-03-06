@@ -1821,6 +1821,47 @@
     navigator.language; // acl.DummyContainer.navigator.language is applied to global navigator
   }, /^Permission Denied:/);
 
+  // global objects
+  chai.assert.throws(() => {
+    _global = undefined;
+  }, /^Permission Denied:/);
+
+  chai.assert.throws(() => {
+    frames = undefined;
+  }, /^Permission Denied:/);
+
+  chai.assert.throws(() => {
+    top = undefined;
+  }, /^Permission Denied:/);
+
+  chai.assert.throws(() => {
+    self = undefined;
+  }, /^Permission Denied:/);
+
+  chai.assert.throws(() => {
+    window = undefined;
+  }, /^Permission Denied:/);
+
+  chai.assert.throws(() => {
+    _global.caches;
+  }, /^Permission Denied:/);
+
+  chai.assert.throws(() => {
+    frames.caches;
+  }, /^Permission Denied:/);
+
+  chai.assert.throws(() => {
+    top.caches;
+  }, /^Permission Denied:/);
+
+  chai.assert.throws(() => {
+    self.caches;
+  }, /^Permission Denied:/);
+
+  chai.assert.throws(() => {
+    window.caches;
+  }, /^Permission Denied:/);
+
 }
 () => {
   let target, property, value, attributes, proto, prototype, receiver, args, arg1, arg2, p, v;

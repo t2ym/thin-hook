@@ -59,6 +59,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
   }
   var _globalMethods = new Map();
   const excludedGlobalProperties = { isSecureContext: true };
+  const mainGlobalObjectName = typeof window === 'object' ? 'window' : 'self';
   Object.entries(Object.getOwnPropertyDescriptors(_global))
     .filter(([name, desc]) => desc.get && desc.set && desc.configurable &&
       (name.startsWith('on') ||
@@ -71,12 +72,12 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
   var _globalObjects = Object.keys(_globalPropertyDescriptors)
     .sort()
     .reduce((acc, curr) => {
-      const globalObjectNames = ['_global', 'frames', 'top', 'global', 'self', 'window'];
+      const globalObjectNames = ['_global', 'frames', 'top', 'global', 'self', 'window', 'parent'];
       //const globalProperties = { history: true, navigator: true, applicationCache: true, crypto: true, localStorage: true, indexedDB: true, caches: true, sessionStorage: true, document: true };
       if (_globalPropertyDescriptors[curr].value && typeof _globalPropertyDescriptors[curr].value !== 'number') {
         let existing = acc.get(_globalPropertyDescriptors[curr].value);
         if (globalObjectNames.indexOf(curr) >= 0) {
-          if (globalObjectNames.indexOf(existing) < globalObjectNames.indexOf(curr)) {
+          if (curr === mainGlobalObjectName) {
             acc.set(_globalPropertyDescriptors[curr].value, curr);
             let properties = Object.getOwnPropertyDescriptors(_globalPropertyDescriptors[curr].value);
             let prop;
@@ -109,7 +110,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       else if (_globalPropertyDescriptors[curr].get && typeof _globalPropertyDescriptors[curr].get === 'function' && _global[curr] /*&& !_globalPropertyDescriptors[curr].set*/) {
         let existing = acc.get(_global[curr]);
         if (globalObjectNames.indexOf(curr) >= 0) {
-          if (globalObjectNames.indexOf(existing) < globalObjectNames.indexOf(curr)) {
+          if (curr === mainGlobalObjectName) {
             if (_global[curr]) {
               acc.set(_global[curr], curr);
               let properties = Object.getOwnPropertyDescriptors(_global[curr]);
@@ -950,8 +951,13 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     __unexpected_access_to_hook_alias_object__: '---',
     hook: '---',
     $hook$: '---',
-    // blacklist properties
-    window: {
+    top: 'r--',
+    parent: 'r--',
+    frames: 'r--',
+    global: 'r--',
+    self: 'r--',
+    _global: 'r--',
+    [mainGlobalObjectName]: { // overwrite self: in worker threads
       [S_OBJECT]: 'r--',
       [S_DEFAULT]: Policy.avoidGlobalClone(),
       [S_ALL]: '---',
@@ -3507,7 +3513,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     'hookBenchmark',
   ].forEach(n => {
     Object.assign(acl, { [n]: '---' });
-    Object.assign(acl.window, { [n]: '---' });
+    Object.assign(acl[mainGlobalObjectName], { [n]: '---' });
   });
   const chainAcl = function chainAcl(_acl, path = [ [_acl, 'acl'] ]) {
     let properties = Object.getOwnPropertySymbols(_acl).concat(Object.getOwnPropertyNames(_acl));
