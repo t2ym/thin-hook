@@ -52,8 +52,8 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
   var _globalPropertyDescriptors = {};
   {
     let o = _global;
-    while (o) {
-      Object.assign(_globalPropertyDescriptors, Object.getOwnPropertyDescriptors(_global));
+    while (o && o !== Object.prototype) {
+      Object.assign(_globalPropertyDescriptors, Object.getOwnPropertyDescriptors(o));
       o = Object.getPrototypeOf(o);
     }
   }
