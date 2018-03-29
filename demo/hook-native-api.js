@@ -17,8 +17,8 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
 ].forEach((name) => {
   if (_global[name]) {
     let hooked = hook[name]('__hook__', [[name, {}]], 'method');
-    _globalObjects.set(hooked, name);
-    _globalMethods.set(hooked, [ (typeof window === 'object' ? 'window' : 'self'), name ]);
+    _global._globalObjects.set(hooked, name);
+    _global._globalMethods.set(hooked, [ (typeof window === 'object' ? 'window' : 'self'), name ]);
     hook.hook(hooked);
   }
 });
