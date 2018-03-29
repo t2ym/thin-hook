@@ -17,6 +17,30 @@ catch (e) {
     console.log('web-worker.js:', e.message);
   }
 }
+try {
+  caches;
+  throw new Error('web-worker.js: caches does not throw');
+}
+catch (e) {
+  if (e.message.startsWith('web-worker.js:')) {
+    throw e;
+  }
+  else {
+    console.log('web-worker.js:', e.message);
+  }
+}
+try {
+  _globalObjects;
+  throw new Error('web-worker.js: _globalObjects does not throw');
+}
+catch (e) {
+  if (e.message.startsWith('web-worker.js:')) {
+    throw e;
+  }
+  else {
+    console.log('web-worker.js:', e.message);
+  }
+}
 self.addEventListener('message', function onMessage(event) {
   console.log('web-worker.js: received message ', JSON.stringify(event.data));
   let workerResult = event.data[0] * event.data[1];

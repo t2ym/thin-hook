@@ -45,7 +45,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
   var reverseCallbacks = {};
   var pseudoContextArgument = Symbol('callback context');
   var callbackFunctions = new WeakMap();
-  _global = typeof window === 'object' ? window : self;
+  const _global = typeof window === 'object' ? window : self;
   Object.defineProperty(_global, '_global', { configurable: false, enumerable: false, writable: false, value: _global });
   _global._data = data;
   _global._data2 = data2;
@@ -155,6 +155,11 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
   const _functionStaticPropertyDescriptors = Object.getOwnPropertyDescriptors(Function);
   const _functionPropertyDescriptors = Object.getOwnPropertyDescriptors(Function.prototype);
   var globalObjectAccess = {};
+  if (!_global._globalObjects) {
+    // in a ES module for hook-native-api.js
+    _global._globalObjects = _globalObjects;
+    _global._globalMethods = _globalMethods;
+  }
   const _boundFunctions = new WeakMap();
   const _escapePlatformProperties = new Map();
   const _unescapePlatformProperties = new Map();
@@ -416,6 +421,8 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
     '/components/iron-location/iron-location.html,script@1800,_globalOnClick': '@route_manipulator',
     '/components/thin-hook/demo/web-worker-client.js,worker': '@worker_manipulator',
     '/components/thin-hook/demo/web-worker-client.js': '@worker_manipulator',
+    '/components/thin-hook/demo/web-worker-module-client.js,worker': '@worker_manipulator',
+    '/components/thin-hook/demo/web-worker-module-client.js': '@worker_manipulator',
     '/components/thin-hook/demo/normalize.js': '@normalization_checker',
     '/components/thin-hook/demo/normalize.js,f': '@normalization_checker',
     '/components/thin-hook/demo/normalize.js,get': '@normalization_checker',
