@@ -2712,15 +2712,6 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
         },
       },
     },
-    'i18n-attr-repo': {
-      [S_CHAIN]: () => acl['Polymer.LegacyElement'],
-      [S_PROTOTYPE]: {
-        [S_CHAIN]: S_CHAIN,
-        [S_INSTANCE]: {
-          [S_CHAIN]: S_CHAIN,
-        },
-      },
-    },
     'my-app': {
       [S_CHAIN]: () => acl['i18n-behavior'],
     },
