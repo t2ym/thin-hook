@@ -8,7 +8,28 @@ const S_INSTANCE = Symbol('instance');
 const S_TEMPLATE = Symbol('template');
 const _global = new Function('return this')();
 const Policy = {
-  $__proto__$: null,
+  $__proto__$: 'Link:Policy.Window.prototype',
+  Window: {
+    $__proto__$: 'Link:Policy.EventTarget',
+    prototype: {
+      $__proto__$: 'Link:Policy.WindowProperties.prototype',
+      constructor: 'Link:Policy.Window',
+    },
+  },
+  WindowProperties: {
+    $__proto__$: 'Link:Policy.Function.prototype',
+    prototype: {
+      $__proto__$: 'Link:Policy.EventTarget.prototype',
+      constructor: 'Link:Policy.WindowProperties',
+    },
+  },
+  EventTarget: {
+    $__proto__$: 'Link:Policy.Function.prototype',
+    prototype: {
+      $__proto__$: 'Link:Policy.Object.prototype',
+      constructor: 'Link:Policy.EventTarget',
+    },
+  },
   Object: {
     $__proto__$: 'Link:Policy.Function.prototype',
     [S_POLICY]() {},
