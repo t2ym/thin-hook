@@ -597,7 +597,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
     '/components/thin-hook/demo/,script@4861': '@document_writer',
     '/components/thin-hook/demo/,script@5062': '@document_writer',
     '/components/thin-hook/demo/,script@5063': '@document_writer',
-    '/components/thin-hook/demo/sub-document.html,script@1157': '@document_writer',
+    '/components/thin-hook/demo/sub-document.html,*': '@document_writer',
     '/components/thin-hook/demo/commonjs2.js': '@path_join_prohibited',
     '/components/thin-hook/demo/commonjs2.js,tty': '@tty_prohibited',
     '/components/live-localizer/live-localizer-lazy.html,*': '@live-localizer-lazy',
@@ -2709,15 +2709,6 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
         _fetchStatus: {
           [S_DEFAULT]: '---',
           '@i18n-behavior': 'rw-',
-        },
-      },
-    },
-    'i18n-attr-repo': {
-      [S_CHAIN]: () => acl['Polymer.LegacyElement'],
-      [S_PROTOTYPE]: {
-        [S_CHAIN]: S_CHAIN,
-        [S_INSTANCE]: {
-          [S_CHAIN]: S_CHAIN,
         },
       },
     },
