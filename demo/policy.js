@@ -37,9 +37,11 @@ const Policy = {
       [S_POLICY]() {},
     },
     keys: {
+      $__proto__$: 'Link:Policy.Function.prototype',
       [S_POLICY]() {},
     },
     defineProperty: {
+      $__proto__$: 'Link:Policy.Function.prototype',
       [S_POLICY]() {},
     },
     prototype: {
@@ -57,6 +59,7 @@ const Policy = {
         },
       },
       hasOwnProperty: {
+        $__proto__$: 'Link:Policy.Function.prototype',
         [S_POLICY]() {},
       },
     },
@@ -82,9 +85,11 @@ const Policy = {
         },
       },
       apply: {
+        $__proto__$: 'Link:Policy.Function.prototype',
         [S_POLICY]() {},
       },
       bind: {
+        $__proto__$: 'Link:Policy.Function.prototype',
         [S_POLICY]() {},
       },
     },
@@ -96,12 +101,15 @@ const Policy = {
       [S_POLICY]() {},
     },
     for: {
+      $__proto__$: 'Link:Policy.Function.prototype',
       [S_POLICY]() {},
     },
     keyFor: {
+      $__proto__$: 'Link:Policy.Function.prototype',
       [S_POLICY]() {},
     },
     hasInstance: {
+      $__proto__$: 'Link:Policy.Function.prototype',
       [S_POLICY]() {},
     },
     unscopables: {
