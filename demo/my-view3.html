@@ -62,7 +62,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       is: 'my-view3',
 
-      behaviors: [ BehaviorsStore.I18nBehavior ]
+      behaviors: [ BehaviorsStore.I18nBehavior ],
+
+      attached: function() {
+        let iframe = Polymer.dom(Polymer.dom(document.querySelector('my-app').root).querySelector('my-view3').root).querySelector('iframe');
+        iframe.addEventListener('load', function (event) {
+          chai.assert.throws(() => {
+            iframe.contentWindow.caches;
+          }, /^Permission Denied:/);
+        });
+      }
 
     });
 

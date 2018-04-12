@@ -625,6 +625,8 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
     '/components/thin-hook/demo/normalize.js,createProperty,set': '@GetterSetterClass_creator',
     '/components/thin-hook/demo/normalize.js,writeProperty': '@GetterSetterClass_writer',
     '/components/thin-hook/demo/normalize.js,readProperty': '@GetterSetterClass_reader',
+    '/components/thin-hook/demo/my-view3.html,script@1841,attached': '@iframe_contentWindow_accessor',
+    'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js,41,o': '@iframe_contentWindow_accessor',
   };
   /*
     Prefixed Contexts object:
@@ -1812,6 +1814,26 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
     },
     HTMLIFrameElement: {
       [S_CHAIN]: () => acl.HTMLElement,
+      [S_PROTOTYPE]: {
+        [S_CHAIN]: S_CHAIN,
+        [S_INSTANCE]: {
+          [S_CHAIN]: S_CHAIN,
+          contentWindow: {
+            [S_DEFAULT]: '---',
+            '@iframe_contentWindow_accessor': function _iframeContentWindowAcl(normalizedThisArg,
+                                                                               normalizedArgs /* ['property', args], ['property', value], etc. */,
+                                                                               aclArgs /* [name, isStatic, isObject, property, opType, context] */,
+                                                                               hookArgs /* [f, thisArg, args, context, newTarget] */,
+                                                                               applyAcl /* for recursive application of ACL */) {
+              let opType = aclArgs[4];
+              if (opType === 'r') {
+                Policy.trackClass('window', normalizedThisArg[normalizedArgs[0]]);
+              }
+              return 'r--'[opTypeMap[opType]] === opType; // equivalent to 'r--' acl
+            },
+          },
+        },
+      },
     },
     HTMLHtmlElement: {
       [S_CHAIN]: () => acl.HTMLElement,
