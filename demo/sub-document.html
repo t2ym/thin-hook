@@ -59,6 +59,12 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
     });
   </script>
   <script>
+    chai.assert.throws(() => {
+      top.caches;
+    }, /^Permission Denied:/);
+    chai.assert.throws(() => {
+      top.navigator.serviceWorker;
+    }, /^Permission Denied:/);
     window.addEventListener('load', function onLoad (event) {
       window.removeEventListener('load', onLoad);
       let iframe = document.querySelector('iframe');
@@ -67,6 +73,10 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
       }, /^Permission Denied:/);
       chai.assert.throws(() => {
         iframe.contentWindow.navigator.serviceWorker;
+      }, /^Permission Denied:/);
+      chai.assert.throws(() => {
+        let F = iframe.contentWindow.addEventListener.constructor;
+        new F('return navigator.serviceWorker')();
       }, /^Permission Denied:/);
     });
   </script>

@@ -642,6 +642,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
     '/components/thin-hook/demo/normalize.js,readProperty': '@GetterSetterClass_reader',
     '/components/thin-hook/demo/my-view3.html,script@1841,attached': '@iframe_contentWindow_accessor',
     '/components/thin-hook/demo/sub-document.html,script@7853,onLoad': '@iframe_contentWindow_accessor',
+    '/components/thin-hook/demo/sub-document.html,script@7853,onLoad,*': '@iframe_contentWindow_accessor',
     'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js,41,o': '@iframe_contentWindow_accessor',
     'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js,26': '@iframe_contentWindow_accessor',
   };
