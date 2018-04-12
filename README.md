@@ -6,6 +6,7 @@
 Thin Hook Preprocessor (experimental)
 
 ## Notes
+- **[Vulnerability Fix]** Since [0.0.230](https://github.com/t2ym/thin-hook/releases/tag/0.0.230) with [Fix #239 Full ACLs for iframe.contentWindow](https://github.com/t2ym/thin-hook/issues/239), full ACLs for iframe.contentWindow are properly applied. Prior to this version, only partial ACLs for iframe.contentWindow are applied.
 - **[Vulnerability Fix]** Since [0.0.229](https://github.com/t2ym/thin-hook/releases/tag/0.0.229) with [Fix #238 No ACLs for iframe.contentWindow](https://github.com/t2ym/thin-hook/issues/238), global object ACLs for iframe.contentWindow are properly applied. Prior to this version, global object ACLs for iframe.contentWindow are not applied.
 - **[Vulnerability Fix]** Since [0.0.228](https://github.com/t2ym/thin-hook/releases/tag/0.0.228) with [Fix #234 Global ACLs are not applied in web workers](https://github.com/t2ym/thin-hook/issues/234), ACLs for global objects in web workers are properly applied. Prior to this version, ACLs for global objects in web workers are not applied.
 - **[Performance Optimization]** `__hook__acl` in `demo/hook-callback.js` should be used as it is much faster than `__hook__` as described in [Fix #230](https://github.com/t2ym/thin-hook/issues/230). Modification: `Object.defineProperty(_global, '__hook__', { configurable: false, enumerable: false, writable: false, value: hookCallbacks.__hook__acl });`
