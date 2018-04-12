@@ -58,8 +58,21 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
       chai.assert.isOk(innerHTMLScriptTags[1].innerText.indexOf('__hook__') >= 0, 'innerHTMLScriptTags[1] is hooked');
     });
   </script>
+  <script>
+    window.addEventListener('load', function onLoad (event) {
+      window.removeEventListener('load', onLoad);
+      let iframe = document.querySelector('iframe');
+      chai.assert.throws(() => {
+        iframe.contentWindow.caches;
+      }, /^Permission Denied:/);
+      chai.assert.throws(() => {
+        iframe.contentWindow.navigator.serviceWorker;
+      }, /^Permission Denied:/);
+    });
+  </script>
 </head>
 <body>
   <h1>Sub-document in iframe</h1>
+  <iframe src="sub-sub-document.html"></iframe>
 </body>
 </html>

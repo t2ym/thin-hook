@@ -45,6 +45,21 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
   var reverseCallbacks = {};
   var pseudoContextArgument = Symbol('callback context');
   var callbackFunctions = new WeakMap();
+  var emptyDocumentURL;
+  var otherWindowObjects = new Map();
+  var otherWindowObjectsStatus = { set: false };
+  if (typeof window === 'object') {
+    if (window.top === window) {
+      emptyDocumentURL = (new URL('./empty-document.html', location.href)).href
+      otherWindowObjects = new Map();
+      otherWindowObjects.set(Object, window);
+    }
+    else {
+      emptyDocumentURL = window.top.emptyDocumentURL;
+      otherWindowObjects = window.top.otherWindowObjects;
+      otherWindowObjectsStatus = window.top.otherWindowObjectsStatus;
+    }
+  }
   const _global = typeof window === 'object' ? window : self;
   Object.defineProperty(_global, '_global', { configurable: false, enumerable: false, writable: false, value: _global });
   _global._data = data;
@@ -626,7 +641,9 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
     '/components/thin-hook/demo/normalize.js,writeProperty': '@GetterSetterClass_writer',
     '/components/thin-hook/demo/normalize.js,readProperty': '@GetterSetterClass_reader',
     '/components/thin-hook/demo/my-view3.html,script@1841,attached': '@iframe_contentWindow_accessor',
+    '/components/thin-hook/demo/sub-document.html,script@7853,onLoad': '@iframe_contentWindow_accessor',
     'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js,41,o': '@iframe_contentWindow_accessor',
+    'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js,26': '@iframe_contentWindow_accessor',
   };
   /*
     Prefixed Contexts object:
@@ -1818,6 +1835,26 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
         [S_CHAIN]: S_CHAIN,
         [S_INSTANCE]: {
           [S_CHAIN]: S_CHAIN,
+          addEventListener: {
+            [S_DEFAULT]: '---',
+            '@iframe_contentWindow_accessor': function _iframeAddEventListenerAcl(normalizedThisArg,
+                                                                                  normalizedArgs /* ['property', args], ['property', value], etc. */,
+                                                                                  aclArgs /* [name, isStatic, isObject, property, opType, context] */,
+                                                                                  hookArgs /* [f, thisArg, args, context, newTarget] */,
+                                                                                  applyAcl /* for recursive application of ACL */) {
+              let opType = aclArgs[4];
+              if (opType === 'x') {
+                if (normalizedArgs[1] && normalizedArgs[1][0] === 'load') {
+                  if (!normalizedThisArg.src) {
+                    normalizedThisArg.src = emptyDocumentURL;
+                  }
+                }
+              }
+              return 'r-x'[opTypeMap[opType]] === opType; // equivalent to 'r-x' acl
+            },
+          },
+          // TODO: onload
+          contentDocument: '---',
           contentWindow: {
             [S_DEFAULT]: '---',
             '@iframe_contentWindow_accessor': function _iframeContentWindowAcl(normalizedThisArg,
@@ -1827,7 +1864,9 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
                                                                                applyAcl /* for recursive application of ACL */) {
               let opType = aclArgs[4];
               if (opType === 'r') {
-                Policy.trackClass('window', normalizedThisArg[normalizedArgs[0]]);
+                let contentWindow = normalizedThisArg[normalizedArgs[0]]
+                otherWindowObjects.set(contentWindow.Object, contentWindow);
+                otherWindowObjectsStatus.set = true;
               }
               return 'r--'[opTypeMap[opType]] === opType; // equivalent to 'r--' acl
             },
@@ -3505,6 +3544,9 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
   };
   // protect hook-callback.js variables
   [
+    'emptyDocumentURL',
+    'otherWindowObjects',
+    'otherWindowObjectsStatus',
     'counter',
     'log',
     'contexts',
@@ -4037,6 +4079,33 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
 
     let result;
     try {
+      if (otherWindowObjectsStatus.set) {
+        let _Object;
+        switch (typeof f) {
+        case 'function':
+          if (!(f instanceof Object)) {
+            _Object = f.apply.constructor.__proto__.__proto__.constructor;
+          }
+          break;
+        case 'string':
+          if (thisArg && !(thisArg instanceof Object) && typeof thisArg.hasOwnProperty === 'function') {
+            _Object = thisArg.hasOwnProperty.constructor.__proto__.__proto__.constructor;
+          }
+          break;
+        }
+        if (_Object && _Object !== Object) {
+          let contentWindow = otherWindowObjects.get(_Object);
+          if (contentWindow) {
+            if (contentWindow.__hook__) {
+              //console.log('applying __hook__ of contentWindow');
+              return contentWindow.__hook__.apply(contentWindow, arguments);
+            }
+            else {
+              console.error('contentWindow.__hook__ not found for ', contentWindow);
+            }
+          }
+        }
+      }
       _f = f;
       boundParameters = _boundFunctions.get(f);
       if (!boundParameters) {
@@ -5357,6 +5426,33 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
 
     let result;
     try {
+      if (otherWindowObjectsStatus.set) {
+        let _Object;
+        switch (typeof f) {
+        case 'function':
+          if (!(f instanceof Object)) {
+            _Object = f.apply.constructor.__proto__.__proto__.constructor;
+          }
+          break;
+        case 'string':
+          if (thisArg && !(thisArg instanceof Object) && typeof thisArg.hasOwnProperty === 'function') {
+            _Object = thisArg.hasOwnProperty.constructor.__proto__.__proto__.constructor;
+          }
+          break;
+        }
+        if (_Object && _Object !== Object) {
+          let contentWindow = otherWindowObjects.get(_Object);
+          if (contentWindow) {
+            if (contentWindow.__hook__) {
+              //console.log('applying __hook__ of contentWindow');
+              return contentWindow.__hook__.apply(contentWindow, arguments);
+            }
+            else {
+              console.error('contentWindow.__hook__ not found for ', contentWindow);
+            }
+          }
+        }
+      }
       _f = f;
       boundParameters = _boundFunctions.get(f);
       if (!boundParameters) {
