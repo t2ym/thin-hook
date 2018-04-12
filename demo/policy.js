@@ -466,13 +466,16 @@ class PolicyMap extends WeakMap {
 const policyMap = new PolicyMap();
 // TODO: getter/setter handling
 // TODO: automatic merging of global objects
-const mapPolicy = function mapPolicy(policy, object = _global, path = []) {
+const mapPolicy = function mapPolicy(policy, object, path = []) {
   switch (typeof policy) {
   case 'object':
     if (policy) {
       if (typeof object === 'object' && object) {
         policyMap.set(object, policy);
         console.log('policyMap.set(', object, ', ', policy, ' path = ', path.join('.'));
+      }
+      if (typeof object === 'undefined') {
+        break;
       }
       let properties = Object.getOwnPropertyNames(policy).concat(Object.getOwnPropertySymbols(policy));
       for (let property of properties) {
@@ -520,7 +523,7 @@ const mapPolicy = function mapPolicy(policy, object = _global, path = []) {
     break;
   }
 }
-mapPolicy(Policy);
+mapPolicy(Policy, _global);
 compilePolicy(Policy);
 _global.moduleA = {
   classA: classA,
@@ -664,6 +667,7 @@ const applyPolicy = function applyPolicy(object, property, expected, actual) {
 
 const objects = [
   [ [A], 'A', ['A.Symbol(policy)'] ],
+  [ [window, 'A'], 'window.A', ['A.Symbol(policy)']],
   [ [A, 'prototype'], 'A.prototype', ['A.prototype.Symbol(policy)'] ],
   [ [new A()], 'new A()', ['A.prototype.Symbol(policy)'] ],
   [ [(new A()), 'instanceMethod'], '(new A()).instanceMethod', ['A.prototype.instanceMethod.Symbol(policy)'] ],
