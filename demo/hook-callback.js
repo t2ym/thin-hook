@@ -3979,6 +3979,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
     static ['#.='](o, p) { return { set ['='](v) { o[p] = v; }, get ['=']() { return o[p]; } }; }
   }
   const GeneratorFunction = (function * () {}).constructor;
+  const AsyncFunction = (async function () {}).constructor;
   const FunctionPrototype = Function.prototype;
   // full features
   const __hook__ = function __hook__(f, thisArg, args, context, newTarget) {
@@ -5026,8 +5027,11 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
       case Function:
         args = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args);
         break;
+      case AsyncFunction:
+        args = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args, false, true);
+        break;
       case GeneratorFunction:
-        args = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args, true);
+        args = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args, true, false);
         break;
       case '()':
       case '#()':
@@ -5043,9 +5047,21 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
                   args1.push(args[1][2]);
                 }
                 break;
+              case AsyncFunction:
+                args1 = [args[1][0], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][1], false, true)];
+                if (args[1][2]) {
+                  args1.push(args[1][2]);
+                }
+                break;
+              case GeneratorFunction:
+                args1 = [args[1][0], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][1], true, false)];
+                if (args[1][2]) {
+                  args1.push(args[1][2]);
+                }
+                break;
               default:
-                if (args[1][0].prototype instanceof Function) {
-                  args1 = [args[1][0], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][1], args[1][0].prototype instanceof GeneratorFunction)];
+                if (Function.isPrototypeOf(args[1][0])) {
+                  args1 = [args[1][0], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][1], GeneratorFunction.isPrototypeOf(args[1][0]), AsyncFunction.isPrototypeOf(args[1][0]))];
                   if (args[1][2]) {
                     args1.push(args[1][2]);
                   }
@@ -5060,12 +5076,15 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
               case Function:
                 args1 = [args[1][0], args[1][1], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][2])];
                 break;
+              case AsyncFunction:
+                args1 = [args[1][0], args[1][1], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][2], false, true)];
+                break;
               case GeneratorFunction:
-                args1 = [args[1][0], args[1][1], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][2], true)];
+                args1 = [args[1][0], args[1][1], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][2], true, false)];
                 break;
               default:
-                if (args[1][0].prototype instanceof Function) {
-                  args1 = [args[1][0], args[1][1], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][2], args[1][0].prototype instanceof GeneratorFunction)];
+                if (Function.isPrototypeOf(args[1][0])) {
+                  args1 = [args[1][0], args[1][1], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][2], GeneratorFunction.isPrototypeOf(args[1][0]), AsyncFunction.isPrototypeOf(args[1][0]))];
                 }
                 break;
               }
@@ -5087,13 +5106,25 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
             break;
           }
           break;
+        case AsyncFunction:
+          switch (args[0]) {
+          case 'apply':
+            args1 = [args[1][0], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][1], false, true)];
+            break;
+          case 'call':
+            args1 = [args[1][0], ...hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1].slice(1), false, true)];
+            break;
+          default:
+            break;
+          }
+          break;
         case GeneratorFunction:
           switch (args[0]) {
           case 'apply':
-            args1 = [args[1][0], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][1], true)];
+            args1 = [args[1][0], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][1], true, false)];
             break;
           case 'call':
-            args1 = [args[1][0], ...hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1].slice(1), true)];
+            args1 = [args[1][0], ...hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1].slice(1), true, false)];
             break;
           default:
             break;
@@ -5104,7 +5135,10 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
         default:
           if (args[0] === 'constructor') {
             if (thisArg instanceof GeneratorFunction) {
-              args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1], true);
+              args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1], true, false);
+            }
+            else if (thisArg instanceof AsyncFunction) {
+              args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1], false, true);
             }
             else if (thisArg instanceof Function) {
               args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1]);
@@ -5115,8 +5149,11 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
             case Function:
               args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1]);
               break;
+            case AsyncFunction:
+              args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1], false, true);
+              break;
             case GeneratorFunction:
-              args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1], true);
+              args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1], true, false);
               break;
             default:
               break;
@@ -5130,8 +5167,11 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
         case Function:
           args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1]);
           break;
+        case AsyncFunction:
+          args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1], false, true);
+          break;
         case GeneratorFunction:
-          args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1], true);
+          args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1], true, false);
           break;
         default:
           break;
@@ -5142,8 +5182,11 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
         case Function:
           thisArg = hook.Function('__hook__', [[context, {}]], 'method');
           break;
+        case AsyncFunction:
+          thisArg = hook.Function('__hook__', [[context, {}]], 'method', false, true);
+          break;
         case GeneratorFunction:
-          thisArg = hook.Function('__hook__', [[context, {}]], 'method', true);
+          thisArg = hook.Function('__hook__', [[context, {}]], 'method', true, false);
           break;
         default:
           break;
@@ -5151,12 +5194,12 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
         break;
       default:
         if (typeof f === 'function') {
-          if (f.prototype instanceof Function && newTarget) {
-            args = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args, f.prototype instanceof GeneratorFunction);
+          if (Function.isPrototypeOf(f) && newTarget) {
+            args = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args, GeneratorFunction.isPrototypeOf(f), AsyncFunction.isPrototypeOf(f));
           }
           else if (newTarget === '') {
-            if (args[0] && Object.getPrototypeOf(args[0]) === Function) {
-              args = [ args[0], ...hook.FunctionArguments('__hook__', [[context, {}]], 'method', args.slice(1)) ];
+            if (Function.isPrototypeOf(args[0])) {
+              args = [ args[0], ...hook.FunctionArguments('__hook__', [[context, {}]], 'method', args.slice(1), GeneratorFunction.isPrototypeOf(args[0]), AsyncFunction.isPrototypeOf(args[0])) ];
             }
           }
         }
@@ -6197,8 +6240,11 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
       case Function:
         args = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args);
         break;
+      case AsyncFunction:
+        args = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args, false, true);
+        break;
       case GeneratorFunction:
-        args = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args, true);
+        args = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args, true, false);
         break;
       case '()':
       case '#()':
@@ -6214,9 +6260,21 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
                   args1.push(args[1][2]);
                 }
                 break;
+              case AsyncFunction:
+                args1 = [args[1][0], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][1], false, true)];
+                if (args[1][2]) {
+                  args1.push(args[1][2]);
+                }
+                break;
+              case GeneratorFunction:
+                args1 = [args[1][0], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][1], true, false)];
+                if (args[1][2]) {
+                  args1.push(args[1][2]);
+                }
+                break;
               default:
-                if (args[1][0].prototype instanceof Function) {
-                  args1 = [args[1][0], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][1], args[1][0].prototype instanceof GeneratorFunction)];
+                if (Function.isPrototypeOf(args[1][0])) {
+                  args1 = [args[1][0], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][1], GeneratorFunction.isPrototypeOf(args[1][0]), AsyncFunction.isPrototypeOf(args[1][0]))];
                   if (args[1][2]) {
                     args1.push(args[1][2]);
                   }
@@ -6231,12 +6289,15 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
               case Function:
                 args1 = [args[1][0], args[1][1], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][2])];
                 break;
+              case AsyncFunction:
+                args1 = [args[1][0], args[1][1], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][2], false, true)];
+                break;
               case GeneratorFunction:
-                args1 = [args[1][0], args[1][1], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][2], true)];
+                args1 = [args[1][0], args[1][1], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][2], true, false)];
                 break;
               default:
-                if (args[1][0].prototype instanceof Function) {
-                  args1 = [args[1][0], args[1][1], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][2], args[1][0].prototype instanceof GeneratorFunction)];
+                if (Function.isPrototypeOf(args[1][0])) {
+                  args1 = [args[1][0], args[1][1], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][2], GeneratorFunction.isPrototypeOf(args[1][0]), AsyncFunction.isPrototypeOf(args[1][0]))];
                 }
                 break;
               }
@@ -6258,13 +6319,25 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
             break;
           }
           break;
+        case AsyncFunction:
+          switch (args[0]) {
+          case 'apply':
+            args1 = [args[1][0], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][1], false, true)];
+            break;
+          case 'call':
+            args1 = [args[1][0], ...hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1].slice(1), false, true)];
+            break;
+          default:
+            break;
+          }
+          break;
         case GeneratorFunction:
           switch (args[0]) {
           case 'apply':
-            args1 = [args[1][0], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][1], true)];
+            args1 = [args[1][0], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][1], true, false)];
             break;
           case 'call':
-            args1 = [args[1][0], ...hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1].slice(1), true)];
+            args1 = [args[1][0], ...hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1].slice(1), true, false)];
             break;
           default:
             break;
@@ -6275,7 +6348,10 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
         default:
           if (args[0] === 'constructor') {
             if (thisArg instanceof GeneratorFunction) {
-              args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1], true);
+              args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1], true, false);
+            }
+            else if (thisArg instanceof AsyncFunction) {
+              args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1], false, true);
             }
             else if (thisArg instanceof Function) {
               args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1]);
@@ -6286,8 +6362,11 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
             case Function:
               args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1]);
               break;
+            case AsyncFunction:
+              args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1], false, true);
+              break;
             case GeneratorFunction:
-              args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1], true);
+              args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1], true, false);
               break;
             default:
               break;
@@ -6301,8 +6380,11 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
         case Function:
           args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1]);
           break;
+        case AsyncFunction:
+          args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1], false, true);
+          break;
         case GeneratorFunction:
-          args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1], true);
+          args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1], true, false);
           break;
         default:
           break;
@@ -6313,8 +6395,11 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
         case Function:
           thisArg = hook.Function('__hook__', [[context, {}]], 'method');
           break;
+        case AsyncFunction:
+          thisArg = hook.Function('__hook__', [[context, {}]], 'method', false, true);
+          break;
         case GeneratorFunction:
-          thisArg = hook.Function('__hook__', [[context, {}]], 'method', true);
+          thisArg = hook.Function('__hook__', [[context, {}]], 'method', true, false);
           break;
         default:
           break;
@@ -6322,12 +6407,12 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
         break;
       default:
         if (typeof f === 'function') {
-          if (f.prototype instanceof Function && newTarget) {
-            args = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args, f.prototype instanceof GeneratorFunction);
+          if (Function.isPrototypeOf(f) && newTarget) {
+            args = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args, GeneratorFunction.isPrototypeOf(f), AsyncFunction.isPrototypeOf(f));
           }
           else if (newTarget === '') {
-            if (args[0] && Object.getPrototypeOf(args[0]) === Function) {
-              args = [ args[0], ...hook.FunctionArguments('__hook__', [[context, {}]], 'method', args.slice(1)) ];
+            if (Function.isPrototypeOf(args[0])) {
+              args = [ args[0], ...hook.FunctionArguments('__hook__', [[context, {}]], 'method', args.slice(1), GeneratorFunction.isPrototypeOf(args[0]), AsyncFunction.isPrototypeOf(args[0])) ];
             }
           }
         }
@@ -6637,8 +6722,11 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
     case Function:
       args = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args);
       break;
+    case AsyncFunction:
+      args = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args, false, true);
+      break;
     case GeneratorFunction:
-      args = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args, true);
+      args = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args, true, false);
       break;
     case '()':
     case '#()':
@@ -6654,9 +6742,21 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
                 args1.push(args[1][2]);
               }
               break;
+            case AsyncFunction:
+              args1 = [args[1][0], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][1], false, true)];
+              if (args[1][2]) {
+                args1.push(args[1][2]);
+              }
+              break;
+            case GeneratorFunction:
+              args1 = [args[1][0], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][1], true, false)];
+              if (args[1][2]) {
+                args1.push(args[1][2]);
+              }
+              break;
             default:
-              if (args[1][0].prototype instanceof Function) {
-                args1 = [args[1][0], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][1], args[1][0].prototype instanceof GeneratorFunction)];
+              if (Function.isPrototypeOf(args[1][0])) {
+                args1 = [args[1][0], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][1], GeneratorFunction.isPrototypeOf(args[1][0]), AsyncFunction.isPrototypeOf(args[1][0]))];
                 if (args[1][2]) {
                   args1.push(args[1][2]);
                 }
@@ -6671,12 +6771,15 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
             case Function:
               args1 = [args[1][0], args[1][1], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][2])];
               break;
+            case AsyncFunction:
+              args1 = [args[1][0], args[1][1], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][2], false, true)];
+              break;
             case GeneratorFunction:
-              args1 = [args[1][0], args[1][1], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][2], true)];
+              args1 = [args[1][0], args[1][1], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][2], true, false)];
               break;
             default:
-              if (args[1][0].prototype instanceof Function) {
-                args1 = [args[1][0], args[1][1], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][2], args[1][0].prototype instanceof GeneratorFunction)];
+              if (Function.isPrototypeOf(args[1][0])) {
+                args1 = [args[1][0], args[1][1], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][2], GeneratorFunction.isPrototypeOf(args[1][0]), AsyncFunction.isPrototypeOf(args[1][0]))];
               }
               break;
             }
@@ -6698,13 +6801,25 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
           break;
         }
         break;
+      case AsyncFunction:
+        switch (args[0]) {
+        case 'apply':
+          args1 = [args[1][0], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][1], false, true)];
+          break;
+        case 'call':
+          args1 = [args[1][0], ...hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1].slice(1), false, true)];
+          break;
+        default:
+          break;
+        }
+        break;
       case GeneratorFunction:
         switch (args[0]) {
         case 'apply':
-          args1 = [args[1][0], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][1], true)];
+          args1 = [args[1][0], hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1][1], true, false)];
           break;
         case 'call':
-          args1 = [args[1][0], ...hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1].slice(1), true)];
+          args1 = [args[1][0], ...hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1].slice(1), true, false)];
           break;
         default:
           break;
@@ -6715,7 +6830,10 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
       default:
         if (args[0] === 'constructor') {
           if (thisArg instanceof GeneratorFunction) {
-            args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1], true);
+            args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1], true, false);
+          }
+          else if (thisArg instanceof AsyncFunction) {
+            args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1], false, true);
           }
           else if (thisArg instanceof Function) {
             args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1]);
@@ -6726,8 +6844,11 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
           case Function:
             args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1]);
             break;
+          case AsyncFunction:
+            args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1], false, true);
+            break;
           case GeneratorFunction:
-            args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1], true);
+            args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1], true, false);
             break;
           default:
             break;
@@ -6741,8 +6862,11 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
       case Function:
         args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1]);
         break;
+      case AsyncFunction:
+        args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1], false, true);
+        break;
       case GeneratorFunction:
-        args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1], true);
+        args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1], true, false);
         break;
       default:
         break;
@@ -6753,8 +6877,11 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
       case Function:
         thisArg = hook.Function('__hook__', [[context, {}]], 'method');
         break;
+      case AsyncFunction:
+        thisArg = hook.Function('__hook__', [[context, {}]], 'method', false, true);
+        break;
       case GeneratorFunction:
-        thisArg = hook.Function('__hook__', [[context, {}]], 'method', true);
+        thisArg = hook.Function('__hook__', [[context, {}]], 'method', true, false);
         break;
       default:
         break;
@@ -6762,12 +6889,12 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
       break;
     default:
       if (typeof f === 'function') {
-        if (f.prototype instanceof Function && newTarget) {
-          args = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args, f.prototype instanceof GeneratorFunction);
+        if (Function.isPrototypeOf(f) && newTarget) {
+          args = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args, GeneratorFunction.isPrototypeOf(f), AsyncFunction.isPrototypeOf(f));
         }
         else if (newTarget === '') {
-          if (args[0] && Object.getPrototypeOf(args[0]) === Function) {
-            args = [ args[0], ...hook.FunctionArguments('__hook__', [[context, {}]], 'method', args.slice(1)) ];
+          if (Function.isPrototypeOf(args[0])) {
+            args = [ args[0], ...hook.FunctionArguments('__hook__', [[context, {}]], 'method', args.slice(1), GeneratorFunction.isPrototypeOf(args[0]), AsyncFunction.isPrototypeOf(args[0])) ];
           }
         }
       }
