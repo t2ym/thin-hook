@@ -6,6 +6,7 @@
 Thin Hook Preprocessor (experimental)
 
 ## Notes
+- **[Vulnerability Fix]** Since [0.0.232](https://github.com/t2ym/thin-hook/releases/tag/0.0.232) with [Fix #241 AsyncFunction() is not hooked](https://github.com/t2ym/thin-hook/issues/241), `AsyncFunction('script')` is properly hooked. Prior to this version, `AsyncFunction('script')` is not hooked. `AsyncFunction = (async function() {}).constructor`
 - **[Vulnerability Fix]** Since [0.0.231](https://github.com/t2ym/thin-hook/releases/tag/0.0.231) with [Fix #240 object.Function() is not hooked](https://github.com/t2ym/thin-hook/issues/240), `object.Function('script')` is properly hooked. Prior to this version, `object.Function('script')` is not hooked.
 - **[Vulnerability Fix]** Since [0.0.230](https://github.com/t2ym/thin-hook/releases/tag/0.0.230) with [Fix #239 Full ACLs for iframe.contentWindow](https://github.com/t2ym/thin-hook/issues/239), full ACLs for iframe.contentWindow are properly applied. Prior to this version, only partial ACLs for iframe.contentWindow are applied.
 - **[Vulnerability Fix]** Since [0.0.229](https://github.com/t2ym/thin-hook/releases/tag/0.0.229) with [Fix #238 No ACLs for iframe.contentWindow](https://github.com/t2ym/thin-hook/issues/238), global object ACLs for iframe.contentWindow are properly applied. Prior to this version, global object ACLs for iframe.contentWindow are not applied.
