@@ -244,4 +244,9 @@
 
   }
   strictMode();
+
+  chai.assert.throws(() => {
+    let o = { F: (function () {}).constructor };
+    o.F('return caches')();
+  }, /^Permission Denied:/);
 }

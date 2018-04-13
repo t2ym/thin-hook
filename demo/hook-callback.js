@@ -5099,12 +5099,28 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
             break;
           }
           break;
+        case undefined:
+          break;
         default:
-          if (thisArg instanceof GeneratorFunction && args[0] === 'constructor') {
-            args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1], true);
+          if (args[0] === 'constructor') {
+            if (thisArg instanceof GeneratorFunction) {
+              args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1], true);
+            }
+            else if (thisArg instanceof Function) {
+              args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1]);
+            }
           }
-          else if (thisArg instanceof Function && args[0] === 'constructor') {
-            args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1]);
+          else {
+            switch (thisArg[args[0]]) {
+            case Function:
+              args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1]);
+              break;
+            case GeneratorFunction:
+              args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1], true);
+              break;
+            default:
+              break;
+            }
           }
           break;
         }
@@ -6254,12 +6270,28 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
             break;
           }
           break;
+        case undefined:
+          break;
         default:
-          if (thisArg instanceof GeneratorFunction && args[0] === 'constructor') {
-            args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1], true);
+          if (args[0] === 'constructor') {
+            if (thisArg instanceof GeneratorFunction) {
+              args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1], true);
+            }
+            else if (thisArg instanceof Function) {
+              args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1]);
+            }
           }
-          else if (thisArg instanceof Function && args[0] === 'constructor') {
-            args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1]);
+          else {
+            switch (thisArg[args[0]]) {
+            case Function:
+              args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1]);
+              break;
+            case GeneratorFunction:
+              args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1], true);
+              break;
+            default:
+              break;
+            }
           }
           break;
         }
@@ -6678,12 +6710,28 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
           break;
         }
         break;
+      case undefined:
+        break;
       default:
-        if (thisArg instanceof GeneratorFunction && args[0] === 'constructor') {
-          args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1], true);
+        if (args[0] === 'constructor') {
+          if (thisArg instanceof GeneratorFunction) {
+            args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1], true);
+          }
+          else if (thisArg instanceof Function) {
+            args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1]);
+          }
         }
-        else if (thisArg instanceof Function && args[0] === 'constructor') {
-          args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1]);
+        else {
+          switch (thisArg[args[0]]) {
+          case Function:
+            args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1]);
+            break;
+          case GeneratorFunction:
+            args1 = hook.FunctionArguments('__hook__', [[context, {}]], 'method', args[1], true);
+            break;
+          default:
+            break;
+          }
         }
         break;
       }
