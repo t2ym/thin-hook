@@ -6,6 +6,7 @@
 Thin Hook Preprocessor (experimental)
 
 ## Notes
+- **[Vulnerability Fix]** Since [0.0.233](https://github.com/t2ym/thin-hook/releases/tag/0.0.233) with [Fix #242 Hook iframe.srcdoc](https://github.com/t2ym/thin-hook/issues/242), `iframe.srcdoc` is hooked as `onload` attribute. Prior to this version, `iframe.srcdoc` is not hooked.
 - **[Vulnerability Fix]** Since [0.0.232](https://github.com/t2ym/thin-hook/releases/tag/0.0.232) with [Fix #241 AsyncFunction() is not hooked](https://github.com/t2ym/thin-hook/issues/241), `AsyncFunction('script')` is properly hooked. Prior to this version, `AsyncFunction('script')` is not hooked. `AsyncFunction = (async function() {}).constructor`
 - **[Vulnerability Fix]** Since [0.0.231](https://github.com/t2ym/thin-hook/releases/tag/0.0.231) with [Fix #240 object.Function() is not hooked](https://github.com/t2ym/thin-hook/issues/240), `object.Function('script')` is properly hooked. Prior to this version, `object.Function('script')` is not hooked.
 - **[Vulnerability Fix]** Since [0.0.230](https://github.com/t2ym/thin-hook/releases/tag/0.0.230) with [Fix #239 Full ACLs for iframe.contentWindow](https://github.com/t2ym/thin-hook/issues/239), full ACLs for iframe.contentWindow are properly applied. Prior to this version, only partial ACLs for iframe.contentWindow are applied.
@@ -935,6 +936,18 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
           - `hook.parameters.hookWorker = 'hook-worker.js?no-hook=true'`: specify hook worker script URL
         - Register Custom Event Handler:
           - `if (typeof self === 'object' && self instanceof 'ServiceWorkerGlobalScope') { self.addEventListener('{event_type}', function handler(event) {...})}`
+        - URL for the entry page
+          - `hook.parameters.baseURI`: Set in `demo/bootstrap.js`
+        - Empty Document URL
+          - `hook.parameters.emptyDocumentUrl = new URL('./empty-document.html', baseURI);`: Set in `demo/bootstrap.js`. 
+          - `<iframe src="empty-document.html?url=https://host/path.html,iframe">` to specify context in iframe document
+        - Bootstrap Script Tag
+          - `hook.parameters.bootstrap = "<script>frameElement.dispatchEvent(new Event('srcdoc-load'))</script>";`: Set in `demo/bootstrap.js`
+          - Append to the hooked `srcdoc` to dispatch `srcdoc-load` event to `onload` handler
+        - Onload Wrapper Script
+          - `hook.parameters.onloadWrapper = "event.target.addEventListener('srcdoc-load', () => { $onload$ })";`: Set in `demo/bootstrap.js`
+          - Receive `srcdoc-load` event and trigger the original `onload` script
+            - Note: `addEventListener('load', handler)` is currently called BEFORE the document from `srcdoc` is loaded and `srcdoc-load` event is fired.
     - register as Service Worker
       - `Service-Worker-Allowed` HTTP response header must have an appropriate scope for the target application
     - `cors=true` parameter: CORS script, e.g., `<script src="https://cross.origin.host/path/script.js?cors=true"></script>`
