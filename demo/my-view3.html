@@ -51,7 +51,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <h1>View Three</h1>
       <p>Modus commodo minimum eum te, vero utinam assueverit per eu.</p>
       <p>Ea duis bonorum nec, falli paulo aliquid ei eum.Has at minim mucius aliquam, est id tempor laoreet.Pro saepe pertinax ei, ad pri animal labores suscipiantur.</p>
-      <iframe src="sub-document.html" width="80%" height="400"></iframe>
+      <iframe id="subDocument" src="sub-document.html" width="80%" height="400"></iframe>
+      <iframe id="srcdocStaticEmpty" srcdoc="" width="80%" height="100"></iframe>
+      <iframe id="srcdocStaticFullHtml" srcdoc="<html><head><script src=&quot;../../chai/chai.js&quot;></script><script>chai.assert.throws(()=> { return caches; }, /^Permission Denied:/);</script></head><body><p1>srcdocStaticFullHtml</p1></body></html><script>console.log(`srcdocStaticFullHtml srcdoc loaded`);</script>" width="80%" height="100"></iframe>
+      <iframe id="srcdocStaticHtmlOnly" src="overidden.html" srcdoc="<html><script src=&quot;../../chai/chai.js&quot;></script><script>chai.assert.throws(()=> { return caches; }, /^Permission Denied:/);</script><p1>srcdocStaticHtmlOnly</p1></html>" width="80%" height="100"></iframe>
+      <iframe id="srcdocStaticBare" onload="console.log('srcdocStaticBare onload event', event);" srcdoc="<script src=&quot;../../chai/chai.js&quot;></script><script>chai.assert.throws(()=> { return caches; }, /^Permission Denied:/);</script><p1>srcdocStaticBare</p1>" width="80%" height="100"></iframe>
+
+      <iframe id="srcEmpty" width="80%" height="100"></iframe>
+
+      <iframe id="setSrcdocAttribute" width="80%" height="100"></iframe>
+
+      <iframe id="setSrcdocProperty" width="80%" height="100"></iframe>
+
+      <iframe id="setSrcAttributeJavascript" width="80%" height="100"></iframe>
+
+      <iframe id="setSrcPropertyJavascript" width="80%" height="100"></iframe>
+
+      <iframe id="srcEmptyOnload" onload="chai.assert.throws(() => { this.contentWindow }, /^Permission Denied:/); chai.assert.throws(() => { this.contentDocument }, /^Permission Denied:/)" width="80%" height="100"></iframe>
     </div>
 
   </template>
@@ -65,12 +81,49 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       behaviors: [ BehaviorsStore.I18nBehavior ],
 
       attached: function() {
-        let iframe = Polymer.dom(Polymer.dom(document.querySelector('my-app').root).querySelector('my-view3').root).querySelector('iframe');
+        let iframe = this.$.subDocument;
         iframe.addEventListener('load', function (event) {
           chai.assert.throws(() => {
             iframe.contentWindow.caches;
           }, /^Permission Denied:/);
         });
+        this.$.srcdocStaticFullHtml.addEventListener('load', function (event) {
+          console.log('this.$.srcdocStaticFullHtml.addEventListener("load") event called');
+        });
+        chai.assert.throws(() => {
+          this.$.srcEmpty.contentWindow;
+        }, /^Permission Denied:/);
+        chai.assert.throws(() => {
+          this.$.srcEmpty.contentDocument;
+        }, /^Permission Denied:/);
+        this.$.setSrcdocAttribute.setAttribute('srcdoc', 
+          '<script src="../../chai/chai.js"></scr' + 'ipt>' +
+          '<script>chai.assert.throws(() => { caches }, /^Permission Denied:/);</scr' + 'ipt><p1>setSrcdocAttribute</p1>');
+        this.$.setSrcdocProperty.srcdoc =
+          '<script src="../../chai/chai.js"></scr' + 'ipt>' +
+          '<script>chai.assert.throws(() => { caches }, /^Permission Denied:/);</scr' + 'ipt><p1>setSrcdocProperty</p1>';
+
+        // ignored
+        this.$.setSrcAttributeJavascript.setAttribute('src', 
+          'javascript:document.write(`<script src="../../chai/chai.js"></scr' + 'ipt>' +
+          '<script>chai.assert.throws(() => { caches }, /^Permission Denied:/);</scr' + 'ipt><p1>setSrcAttribute</p1>`)');
+        chai.assert.throws(() => {
+          this.$.setSrcAttributeJavascript.contentWindow;
+        }, /^Permission Denied:/);
+        chai.assert.throws(() => {
+          this.$.setSrcAttributeJavascript.contentDocument;
+        }, /^Permission Denied:/);
+
+        // ignored
+        this.$.setSrcPropertyJavascript.src = 
+          'javascript:document.write(`<script src="../../chai/chai.js"></scr' + 'ipt>' +
+          '<script>chai.assert.throws(() => { caches }, /^Permission Denied:/);</scr' + 'ipt><p1>setSrcAttribute</p1>`)';
+        chai.assert.throws(() => {
+          this.$.setSrcPropertyJavascript.contentWindow;
+        }, /^Permission Denied:/);
+        chai.assert.throws(() => {
+          this.$.setSrcPropertyJavascript.contentDocument;
+        }, /^Permission Denied:/);
       }
 
     });

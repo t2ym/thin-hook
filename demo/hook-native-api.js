@@ -10,6 +10,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
   'Node',
   'Element',
   'HTMLScriptElement',
+  'HTMLIFrameElement',
   'HTMLAnchorElement',
   'HTMLAreaElement',
   'Document',

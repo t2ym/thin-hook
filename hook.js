@@ -8,12 +8,13 @@ const escodegen = require('escodegen');
 const htmlparser = require('htmlparser2');
 const createHash = require('sha.js');
 const convert = require('convert-source-map');
-const preprocess = require('./lib/preprocess.js')(espree, escodegen, htmlparser, createHash, convert);
+const he = require('he');
+const preprocess = require('./lib/preprocess.js')(espree, escodegen, htmlparser, createHash, convert, he);
 const hook = preprocess.hook;
 const serviceWorker = require('./lib/service-worker.js')(hook, preprocess);
 const contextGenerators = require('./lib/context-generator.js')(hook);
 const hookCallbacks = require('./lib/hook-callback.js')(hook, preprocess);
-const nativeWrappers = require('./lib/native-wrapper.js')(hook, preprocess);
+const nativeWrappers = require('./lib/native-wrapper.js')(hook, preprocess, he);
 
 module.exports = Object.freeze(Object.assign(hook, 
   preprocess.public,

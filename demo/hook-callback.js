@@ -610,8 +610,8 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
     '/components/thin-hook/demo/es6-module4.js,f,*': '@import.meta_reader,f',
     '/components/polymer/lib/utils/async.html,script@566,timeOut,run': '@setTimeout_reader',
     '/components/thin-hook/demo/,script@4861': '@document_writer',
-    '/components/thin-hook/demo/,script@5062': '@document_writer',
-    '/components/thin-hook/demo/,script@5063': '@document_writer',
+    '/components/thin-hook/demo/,script@5132': '@document_writer',
+    '/components/thin-hook/demo/,script@5133': '@document_writer',
     '/components/thin-hook/demo/sub-document.html,*': '@document_writer',
     '/components/thin-hook/demo/commonjs2.js': '@path_join_prohibited',
     '/components/thin-hook/demo/commonjs2.js,tty': '@tty_prohibited',
@@ -640,7 +640,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
     '/components/thin-hook/demo/normalize.js,createProperty,set': '@GetterSetterClass_creator',
     '/components/thin-hook/demo/normalize.js,writeProperty': '@GetterSetterClass_writer',
     '/components/thin-hook/demo/normalize.js,readProperty': '@GetterSetterClass_reader',
-    '/components/thin-hook/demo/my-view3.html,script@1841,attached': '@iframe_contentWindow_accessor',
+    '/components/thin-hook/demo/my-view3.html,*': '@iframe_contentWindow_accessor',
     '/components/thin-hook/demo/sub-document.html,script@7853,onLoad': '@iframe_contentWindow_accessor',
     '/components/thin-hook/demo/sub-document.html,script@7853,onLoad,*': '@iframe_contentWindow_accessor',
     'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js,41,o': '@iframe_contentWindow_accessor',
@@ -1855,7 +1855,28 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
             },
           },
           // TODO: onload
-          contentDocument: '---',
+          contentDocument: {
+            [S_DEFAULT]: '---',
+            '@iframe_contentWindow_accessor': function _iframeContentDocumentAcl(normalizedThisArg,
+                                                                                 normalizedArgs /* ['property', args], ['property', value], etc. */,
+                                                                                 aclArgs /* [name, isStatic, isObject, property, opType, context] */,
+                                                                                 hookArgs /* [f, thisArg, args, context, newTarget] */,
+                                                                                 applyAcl /* for recursive application of ACL */) {
+              let opType = aclArgs[4];
+              if (!normalizedThisArg.getAttribute('src')) {
+                return false; // reject on empty src
+              }
+              if (this.contentWindow && !this.contentWindow.__hook__) {
+                return false; // reject on missing hook infrastructure
+              }
+              if (opType === 'r') {
+                let contentWindow = normalizedThisArg.contentWindow;
+                otherWindowObjects.set(contentWindow.Object, contentWindow);
+                otherWindowObjectsStatus.set = true;
+              }
+              return 'r--'[opTypeMap[opType]] === opType; // equivalent to 'r--' acl
+            },
+          },
           contentWindow: {
             [S_DEFAULT]: '---',
             '@iframe_contentWindow_accessor': function _iframeContentWindowAcl(normalizedThisArg,
@@ -1864,6 +1885,12 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
                                                                                hookArgs /* [f, thisArg, args, context, newTarget] */,
                                                                                applyAcl /* for recursive application of ACL */) {
               let opType = aclArgs[4];
+              if (!normalizedThisArg.getAttribute('src')) {
+                return false; // reject on empty src
+              }
+              if (this.contentWindow && !this.contentWindow.__hook__) {
+                return false; // reject on missing hook infrastructure
+              }
               if (opType === 'r') {
                 let contentWindow = normalizedThisArg[normalizedArgs[0]]
                 otherWindowObjects.set(contentWindow.Object, contentWindow);
@@ -3863,7 +3890,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
     }
   }
   // Handle exceptions
-  const errorReportBaseUrl = (new URL('errorReport.json', location)).pathname;
+  const errorReportBaseUrl = (new URL('errorReport.json', typeof window === 'object' ? top.location : location)).pathname;
   const criticalErrorPageUrl = 'about:blank';
   let hookCallbackCompatibilityTestDone = false;
   const _caches = caches; // Take a backup just in case (still not robust)

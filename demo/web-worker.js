@@ -1,4 +1,4 @@
-importScripts('../hook.min.js?no-hook=true', 'no-hook-authorization.js?no-hook=true', 'hook-callback.js?no-hook=true', 'hook-native-api.js?no-hook=true');
+importScripts('../hook.min.js?no-hook=true', 'no-hook-authorization.js?no-hook=true', 'bootstrap.js?no-hook=true', 'hook-callback.js?no-hook=true', 'hook-native-api.js?no-hook=true');
 try {
   importScripts('invalid.json');
 }

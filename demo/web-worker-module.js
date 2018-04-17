@@ -1,5 +1,6 @@
 import '../hook.min.js?no-hook=true';
 import './no-hook-authorization.js?no-hook=true';
+import './bootstrap.js?no-hook=true';
 import './hook-callback.js?no-hook=true';
 import './hook-native-api.js?no-hook=true';
 import Test from './es6-module.js';
