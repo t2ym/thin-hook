@@ -56,6 +56,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <iframe id="srcdocStaticFullHtml" srcdoc="<html><head><script src=&quot;../../chai/chai.js&quot;></script><script>chai.assert.throws(()=> { return caches; }, /^Permission Denied:/);</script></head><body><p1>srcdocStaticFullHtml</p1></body></html><script>console.log(`srcdocStaticFullHtml srcdoc loaded`);</script>" width="80%" height="100"></iframe>
       <iframe id="srcdocStaticHtmlOnly" src="overidden.html" srcdoc="<html><script src=&quot;../../chai/chai.js&quot;></script><script>chai.assert.throws(()=> { return caches; }, /^Permission Denied:/);</script><p1>srcdocStaticHtmlOnly</p1></html>" width="80%" height="100"></iframe>
       <iframe id="srcdocStaticBare" onload="console.log('srcdocStaticBare onload event', event);" srcdoc="<script src=&quot;../../chai/chai.js&quot;></script><script>chai.assert.throws(()=> { return caches; }, /^Permission Denied:/);</script><p1>srcdocStaticBare</p1>" width="80%" height="100"></iframe>
+      <iframe id="srcdocStaticRecursive" srcdoc="<iframe id=&quot;innerIFrame&quot; srcdoc=&quot;<script src=../../chai/chai.js></script><script>chai.assert.throws(()=> { return caches; }, /^Permission Denied:/);</script><p1>innerIFrame</p1>&quot; width=80% height=100></iframe>" width="80%" height="100"></iframe>
 
       <iframe id="srcEmpty" width="80%" height="100"></iframe>
 
