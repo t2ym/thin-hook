@@ -90,6 +90,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.$.srcdocStaticFullHtml.addEventListener('load', function (event) {
           console.log('this.$.srcdocStaticFullHtml.addEventListener("load") event called');
         });
+        this.$.srcdocStaticHtmlOnly.onload = function (event) {
+          console.log('this.$.srcdocStaticHtmlOnly.onload event called');
+        };
         chai.assert.throws(() => {
           this.$.srcEmpty.contentWindow;
         }, /^Permission Denied:/);
@@ -124,6 +127,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         chai.assert.throws(() => {
           this.$.setSrcPropertyJavascript.contentDocument;
         }, /^Permission Denied:/);
+
+        // dynamic
+        let dynamicIframe = document.createElement('iframe');
+        dynamicIframe.srcdoc = '<script>console.log("script in dynamicIframe");</scr' + 'ipt><p1>dynamicIframe</p1>';
+        dynamicIframe.onload = function (event) {
+          console.log('dynamicIframe.onload event handler called');
+        }
+        dynamicIframe.setAttribute('width', '80%');
+        dynamicIframe.setAttribute('height', '100');
+        Polymer.dom(Polymer.dom(this.root).querySelector('.card')).appendChild(dynamicIframe);
       }
 
     });

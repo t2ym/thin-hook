@@ -1849,12 +1849,39 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
                   if (!normalizedThisArg.src) {
                     normalizedThisArg.src = emptyDocumentURL;
                   }
+                  if (hookArgs[0] === '()' || hookArgs[0] === '#()') {
+                    if (hookArgs[1] === normalizedThisArg && hookArgs[2][1][0] === 'load') {
+                      let onloadAttribute = normalizedThisArg.getAttribute('onload');
+                      if (onloadAttribute && onloadAttribute.startsWith('event.target.contentDocument.write(')) {
+                        hookArgs[2][1][0] = 'srcdoc-load';
+                      }
+                    }
+                  }
                 }
               }
               return 'r-x'[opTypeMap[opType]] === opType; // equivalent to 'r-x' acl
             },
           },
-          // TODO: onload
+          onload: {
+            [S_DEFAULT]: '---',
+            '@iframe_contentWindow_accessor': function _iframeOnloadAcl(normalizedThisArg,
+                                                                        normalizedArgs /* ['property', args], ['property', value], etc. */,
+                                                                        aclArgs /* [name, isStatic, isObject, property, opType, context] */,
+                                                                        hookArgs /* [f, thisArg, args, context, newTarget] */,
+                                                                        applyAcl /* for recursive application of ACL */) {
+              let opType = aclArgs[4];
+              if (opType === 'w') {
+                if (hookArgs[1] === normalizedThisArg && hookArgs[2][0] === normalizedArgs[0]) {
+                  let onloadAttribute = normalizedThisArg.getAttribute('onload');
+                  if (onloadAttribute && onloadAttribute.startsWith('event.target.contentDocument.write(')) {
+                    hookArgs[2][0] = '_onload'; // dummy to avoid overriding the existing onload event converted from srcdoc
+                    normalizedThisArg.addEventListener('srcdoc-load', hookArgs[2][1]); // Redirect to srcdoc-load
+                  }
+                }
+              }
+              return 'rw-'[opTypeMap[opType]] === opType; // equivalent to 'rw-' acl
+            },
+          },
           contentDocument: {
             [S_DEFAULT]: '---',
             '@iframe_contentWindow_accessor': function _iframeContentDocumentAcl(normalizedThisArg,
