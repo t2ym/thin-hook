@@ -27,7 +27,7 @@
     "db82c32a68bc3ddbb2232a947c3cdeb88f5ee7ba41d05d686146507687a6897f": true,
     "e2e42b1f8c6c518b5878b5bd95d34c0f15e139a1afb6ab6a6642b6e81219d2c5": true,
     "680dd69d4f9bce1ec9b5171f322788c5851cfd08141ec9edf2128090bd969f3a": true,
-    "23145744e9e7496dc6c108df3917f55fff0f19b887d53f94273ee479ef220afe": true, // hook.min.js
+    "3f8083c96c667dce095a22260a455617040cd681d73e6a63e3a39c7fc4b071e2": true, // hook.min.js
     "6ccbe45ecb67d684081232e0fdddd254efbc645576145afa54a6c81e311ea450": true, // demo/hook-callback.js
     "b08b09b3cb1ff096c2117b133d38d848a0b486499e93fbd17b2f3ebf05f0c905": true, // demo/browserify-commonjs.js
     "de5407e69386ad2e9aac39e5bc621ba098bd5b5678b0226696a895fc777cad79": true, // demo/webpack-es6-module.js
