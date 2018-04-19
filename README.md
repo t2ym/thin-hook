@@ -6,6 +6,7 @@
 Thin Hook Preprocessor (experimental)
 
 ## Notes
+- **[Vulnerability Fix]** Since [0.0.235](https://github.com/t2ym/thin-hook/releases/tag/0.0.235) with [Fix #245 no-hook-authorization parameter is missing in sub documents](https://github.com/t2ym/thin-hook/issues/245), unauthorized no hook scripts are blocked in sub documents. Prior to this version, unauthorized no hook scripts in sub documents are not blocked.
 - **[Vulnerability Fix]** Since [0.0.233](https://github.com/t2ym/thin-hook/releases/tag/0.0.233) with [Fix #242 Hook iframe.srcdoc](https://github.com/t2ym/thin-hook/issues/242), `iframe.srcdoc` is hooked as `onload` attribute. Prior to this version, `iframe.srcdoc` is not hooked.
 - **[Vulnerability Fix]** Since [0.0.232](https://github.com/t2ym/thin-hook/releases/tag/0.0.232) with [Fix #241 AsyncFunction() is not hooked](https://github.com/t2ym/thin-hook/issues/241), `AsyncFunction('script')` is properly hooked. Prior to this version, `AsyncFunction('script')` is not hooked. `AsyncFunction = (async function() {}).constructor`
 - **[Vulnerability Fix]** Since [0.0.231](https://github.com/t2ym/thin-hook/releases/tag/0.0.231) with [Fix #240 object.Function() is not hooked](https://github.com/t2ym/thin-hook/issues/240), `object.Function('script')` is properly hooked. Prior to this version, `object.Function('script')` is not hooked.

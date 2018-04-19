@@ -5,6 +5,10 @@ try {
 catch (e) {
   console.log('web-worker.js: invalidating invalid.json in importScripts', e);
 }
+importScripts('unauthorized-no-hook-worker-script.js?no-hook=true');
+if (self.unauthorizedNoHookWorkerScriptExecuted) {
+  throw new Error('web-worker.js: self.unauthorizedNoHookWorkerScriptExecuted exists');
+}
 try {
   Object.getOwnPropertyDescriptors(self);
   throw new Error('web-worker.js: Object.getOwnPropertyDescriptors(self) does not throw');

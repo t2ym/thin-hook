@@ -4,11 +4,15 @@ import './bootstrap.js?no-hook=true';
 import './hook-callback.js?no-hook=true';
 import './hook-native-api.js?no-hook=true';
 import Test from './es6-module.js';
+import './unauthorized-no-hook-worker-script.js?no-hook=true';
 try {
   importScripts('invalid.json');
 }
 catch (e) {
   console.log('web-worker-module.js: invalidating invalid.json in importScripts', e);
+}
+if (self.unauthorizedNoHookWorkerScriptExecuted) {
+  throw new Error('web-worker.js: self.unauthorizedNoHookWorkerScriptExecuted exists');
 }
 try {
   Object.getOwnPropertyDescriptors(self);
