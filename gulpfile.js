@@ -44,10 +44,99 @@ gulp.task('examples', () => {
 
 let lastHtml = 'old';
 let currentHtml = '';
+let lastJs = 'old';
+let currentJs = '';
 
 gulp.task('demo', (done) => {
-  runSequence('browserify-commonjs', 'webpack-es6-module', 'webpack-commonjs', 'encode-demo-html', done);
+  runSequence('browserify-commonjs', 'webpack-es6-module', 'webpack-commonjs', 'update-no-hook-authorization', 'update-no-hook-authorization-in-html', 'encode-demo-html', done);
 });
+
+gulp.task('update-no-hook-authorization', (done) => {
+  setTimeout(() => {
+    return gulp.src(['demo/no-hook-authorization.js'], { base: 'demo' })
+      //.pipe(sourcemaps.init())
+      .pipe(through.obj((file, enc, callback) => {
+        let js = String(file.contents);
+        let scripts = [ 'hook.min.js', 'demo/hook-callback.js', 'demo/browserify-commonjs.js', 'demo/webpack-es6-module.js', 'demo/webpack-commonjs.js' ];
+        let digests = scripts.map(scriptPath => {
+          const hash = hook.utils.createHash('sha256');
+          let hookScript = fs.readFileSync(scriptPath, 'UTF-8');
+          hash.update(hookScript);
+          let digest = hash.digest('hex');
+          return digest;
+        });
+        for (let i = 0; i < scripts.length; i++) {
+          js = js.replace(new RegExp(`"([a-z0-9]*)": true, // ${scripts[i]}`), `"${digests[i]}": true, // ${scripts[i]}`);
+        }
+        lastJs = currentJs;
+        currentJs = js;
+        file.contents = new Buffer(js);
+        callback(null, file);
+      }))
+      .pipe(gulpif(lastJs !== currentJs, gulp.dest('demo')))
+      .pipe(through.obj((file, enc, callback) => {
+        done();
+      }));
+  }, 1000);
+});
+
+let rawInlineNoHookScript = `
+  {
+    hook.parameters.cors = [
+      'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js',
+      (url) => {
+        let _url = new URL(url);
+        return _url.hostname !== location.hostname &&
+          !_url.href.match(/^(https:\/\/www.gstatic.com|https:\/\/apis.google.com\/js\/api.js|https:\/\/apis.google.com\/_\/)/);
+      }
+    ];
+    hook.parameters.opaque = [
+      'https://www.gstatic.com/charts/loader.js',
+      (url) => {
+        let _url = new URL(url);
+        return _url.hostname !== location.hostname &&
+          _url.href.match(/^(https:\/\/www.gstatic.com|https:\/\/apis.google.com\/js\/api.js|https:\/\/apis.google.com\/_\/)/);
+      }
+    ];
+    hook.parameters.worker = {
+      scripts: [
+        '../hook.min.js?no-hook=true',
+        'no-hook-authorization.js?no-hook=true',
+        'hook-callback.js?no-hook=true',
+        'hook-native-api.js?no-hook=true'
+      ]
+    };
+  }
+  `;
+
+gulp.task('update-no-hook-authorization-in-html', (done) => {
+  let lastHash = 'old';
+  let currentHash = '';
+  setTimeout(() => {
+    return gulp.src(['demo/empty-document.html', 'demo/sub-document.html', 'demo/sub-sub-document.html'], { base: 'demo' })
+      //.pipe(sourcemaps.init())
+      .pipe(through.obj((file, enc, callback) => {
+        let html = String(file.contents);
+        let digests = [ 'demo/no-hook-authorization.js' ].map(scriptPath => {
+          const hash = hook.utils.createHash('sha256');
+          let hookScript = fs.readFileSync(scriptPath, 'UTF-8');
+          hash.update(hookScript);
+          let digest = hash.digest('hex');
+          return digest;
+        });
+        html = html.replace(/no-hook-authorization=([a-z0-9]*),/, 'no-hook-authorization=' + digests[0] + ',');
+        lastHash = currentHash;
+        currentHash = digests[0];
+        file.contents = new Buffer(html);
+        callback(null, file);
+      }))
+      .pipe(gulpif(lastHash !== currentHash, gulp.dest('demo')))
+      .pipe(through.obj((file, enc, callback) => {
+        done();
+      }));
+  }, 1000);
+});
+
 
 gulp.task('encode-demo-html', (done) => {
   setTimeout(() => {
@@ -55,14 +144,14 @@ gulp.task('encode-demo-html', (done) => {
       //.pipe(sourcemaps.init())
       .pipe(through.obj((file, enc, callback) => {
         let html = String(file.contents);
-        let digests = [ 'hook.min.js', 'demo/hook-callback.js', 'demo/browserify-commonjs.js', 'demo/webpack-es6-module.js', 'demo/webpack-commonjs.js' ].map(scriptPath => {
+        let digests = [ 'demo/no-hook-authorization.js', 'rawInlineNoHookScript' ].map(scriptPath => {
           const hash = hook.utils.createHash('sha256');
-          let hookScript = fs.readFileSync(scriptPath, 'UTF-8');
+          let hookScript = scriptPath !== 'rawInlineNoHookScript' ? fs.readFileSync(scriptPath, 'UTF-8') : rawInlineNoHookScript;
           hash.update(hookScript);
           let digest = hash.digest('hex');
           return digest;
         });
-        html = html.replace(/no-hook-authorization=([a-z0-9]*),([a-z0-9]*),([a-z0-9]*),([a-z0-9]*),([a-z0-9]*),/,
+        html = html.replace(/no-hook-authorization=([a-z0-9]*),([a-z0-9]*),/,
           'no-hook-authorization=' + digests.join(',') + ',');
         lastHtml = currentHtml;
         currentHtml = html;
