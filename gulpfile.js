@@ -57,12 +57,23 @@ gulp.task('update-no-hook-authorization', (done) => {
       //.pipe(sourcemaps.init())
       .pipe(through.obj((file, enc, callback) => {
         let js = String(file.contents);
-        let scripts = [ 'hook.min.js', 'demo/hook-callback.js', 'demo/browserify-commonjs.js', 'demo/webpack-es6-module.js', 'demo/webpack-commonjs.js' ];
+        let scripts = [
+          'hook.min.js',
+          'demo/context-generator.js',
+          'demo/bootstrap.js',
+          'demo/hook-callback.js',
+          'demo/hook-native-api.js',
+          'demo/hook-worker.js',
+          'demo/browserify-commonjs.js',
+          'demo/webpack-es6-module.js',
+          'demo/webpack-commonjs.js'
+        ];
         let digests = scripts.map(scriptPath => {
           const hash = hook.utils.createHash('sha256');
           let hookScript = fs.readFileSync(scriptPath, 'UTF-8');
           hash.update(hookScript);
           let digest = hash.digest('hex');
+          console.log('hash: ' + digest + ' scriptPath: ' + scriptPath);
           return digest;
         });
         for (let i = 0; i < scripts.length; i++) {
@@ -87,7 +98,7 @@ let rawInlineNoHookScript = `
       (url) => {
         let _url = new URL(url);
         return _url.hostname !== location.hostname &&
-          !_url.href.match(/^(https:\/\/www.gstatic.com|https:\/\/apis.google.com\/js\/api.js|https:\/\/apis.google.com\/_\/)/);
+          !_url.href.match(/^(https:\\/\\/www.gstatic.com|https:\\/\\/apis.google.com\\/js\\/api.js|https:\\/\\/apis.google.com\\/_\\/)/);
       }
     ];
     hook.parameters.opaque = [
@@ -95,7 +106,7 @@ let rawInlineNoHookScript = `
       (url) => {
         let _url = new URL(url);
         return _url.hostname !== location.hostname &&
-          _url.href.match(/^(https:\/\/www.gstatic.com|https:\/\/apis.google.com\/js\/api.js|https:\/\/apis.google.com\/_\/)/);
+          _url.href.match(/^(https:\\/\\/www.gstatic.com|https:\\/\\/apis.google.com\\/js\\/api.js|https:\\/\\/apis.google.com\\/_\\/)/);
       }
     ];
     hook.parameters.worker = {
@@ -122,6 +133,7 @@ gulp.task('update-no-hook-authorization-in-html', (done) => {
           let hookScript = fs.readFileSync(scriptPath, 'UTF-8');
           hash.update(hookScript);
           let digest = hash.digest('hex');
+          console.log('hash: ' + digest + ' scriptPath: ' + scriptPath);
           return digest;
         });
         html = html.replace(/no-hook-authorization=([a-z0-9]*),/, 'no-hook-authorization=' + digests[0] + ',');
@@ -149,6 +161,7 @@ gulp.task('encode-demo-html', (done) => {
           let hookScript = scriptPath !== 'rawInlineNoHookScript' ? fs.readFileSync(scriptPath, 'UTF-8') : rawInlineNoHookScript;
           hash.update(hookScript);
           let digest = hash.digest('hex');
+          console.log('hash: ' + digest + ' scriptPath: ' + scriptPath);
           return digest;
         });
         html = html.replace(/no-hook-authorization=([a-z0-9]*),([a-z0-9]*),/,
