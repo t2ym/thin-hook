@@ -74,10 +74,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <iframe id="srcEmpty" width="80%" height="100"></iframe>
 
       <!-- setAttribute(srcdoc) is converted to onload -->
-      <iframe id="setSrcdocAttribute" width="80%" height="100"></iframe>
+      <iframe id="setSrcdocAttribute" onload="console.log('setSrcdocAttribute onload called', event.type)" width="80%" height="100"></iframe>
 
       <!-- srcdoc property is converted to onload -->
-      <iframe id="setSrcdocProperty" width="80%" height="100"></iframe>
+      <iframe id="setSrcdocProperty" onload="console.log('setSrcdocProperty onload called', event.type)" width="80%" height="100"></iframe>
 
       <!-- inner data src via srcdoc property is converted to onload -->
       <iframe id="setSrcdocPropertyRecursiveInnerData" width="80%" height="100"></iframe>
