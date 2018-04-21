@@ -1852,7 +1852,9 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
                   if (hookArgs[0] === '()' || hookArgs[0] === '#()') {
                     if (hookArgs[1] === normalizedThisArg && hookArgs[2][1][0] === 'load') {
                       let onloadAttribute = normalizedThisArg.getAttribute('onload');
-                      if (onloadAttribute && onloadAttribute.startsWith('event.target.contentDocument.write(')) {
+                      if (onloadAttribute && 
+                          (onloadAttribute.startsWith('event.target.contentDocument.write(') ||
+                           onloadAttribute.startsWith('let iframe = this; fetch(new Request('))) {
                         hookArgs[2][1][0] = 'srcdoc-load';
                       }
                     }
@@ -1873,7 +1875,9 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
               if (opType === 'w') {
                 if (hookArgs[1] === normalizedThisArg && hookArgs[2][0] === normalizedArgs[0]) {
                   let onloadAttribute = normalizedThisArg.getAttribute('onload');
-                  if (onloadAttribute && onloadAttribute.startsWith('event.target.contentDocument.write(')) {
+                  if (onloadAttribute && 
+                      (onloadAttribute.startsWith('event.target.contentDocument.write(') ||
+                       onloadAttribute.startsWith('let iframe = this; fetch(new Request('))) {
                     hookArgs[2][0] = '_onload'; // dummy to avoid overriding the existing onload event converted from srcdoc
                     normalizedThisArg.addEventListener('srcdoc-load', hookArgs[2][1]); // Redirect to srcdoc-load
                   }

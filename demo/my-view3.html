@@ -51,24 +51,109 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <h1>View Three</h1>
       <p>Modus commodo minimum eum te, vero utinam assueverit per eu.</p>
       <p>Ea duis bonorum nec, falli paulo aliquid ei eum.Has at minim mucius aliquam, est id tempor laoreet.Pro saepe pertinax ei, ad pri animal labores suscipiantur.</p>
+
+      <!-- pass iframe src with static HTML URL --> 
       <iframe id="subDocument" src="sub-document.html" width="80%" height="400"></iframe>
+
+      <!-- pass empty iframe srcdoc with empty-document.html -->
       <iframe id="srcdocStaticEmpty" srcdoc="" width="80%" height="100"></iframe>
+
+      <!-- pass full HTML srcdoc by converting to onload -->
       <iframe id="srcdocStaticFullHtml" srcdoc="<html><head><script src=&quot;../../chai/chai.js&quot;></script><script>chai.assert.throws(()=> { return caches; }, /^Permission Denied:/);</script></head><body><p1>srcdocStaticFullHtml</p1></body></html><script>console.log(`srcdocStaticFullHtml srcdoc loaded`);</script>" width="80%" height="100"></iframe>
+
+      <!-- pass HTML srcdoc by converting to onload -->
       <iframe id="srcdocStaticHtmlOnly" src="overidden.html" srcdoc="<html><script src=&quot;../../chai/chai.js&quot;></script><script>chai.assert.throws(()=> { return caches; }, /^Permission Denied:/);</script><p1>srcdocStaticHtmlOnly</p1></html>" width="80%" height="100"></iframe>
+
+      <!-- pass bare srcdoc by converting to onload mixed with the original onload attribute -->
       <iframe id="srcdocStaticBare" onload="console.log('srcdocStaticBare onload event', event);" srcdoc="<script src=&quot;../../chai/chai.js&quot;></script><script>chai.assert.throws(()=> { return caches; }, /^Permission Denied:/);</script><script id=&quot;unauthorized-no-hook-inline-script&quot; unauthorized-no-hook-script-executed=false no-hook>document.currentScript.setAttribute('unauthorized-no-hook-script-executed', 'true');</script><script>chai.assert.equal(document.getElementById('unauthorized-no-hook-inline-script').getAttribute('unauthorized-no-hook-script-executed'), 'false', 'unauthorized-no-hook-inline-script is not executed')</script><script id=&quot;unauthorized-no-hook-script&quot; src=&quot;unauthorized-no-hook-script.js?no-hook=true&quot;></script><script>chai.assert.isNotOk(document.getElementById('unauthorized-no-hook-script').hasAttribute('unauthorized-no-hook-script-executed', 'unauthorized-no-hook-script is not executed'));</script><p1>srcdocStaticBare</p1>" width="80%" height="100"></iframe>
+
+      <!-- pass iframe srcdoc with recursive iframe in it by converting to onload -->
       <iframe id="srcdocStaticRecursive" srcdoc="<iframe id=&quot;innerIFrame&quot; srcdoc=&quot;<script src=../../chai/chai.js></script><script>chai.assert.throws(()=> { return caches; }, /^Permission Denied:/);</script><p1>innerIFrame</p1>&quot; width=80% height=100></iframe>" width="80%" height="100"></iframe>
 
+      <!-- iframe with empty src, whose contentWindow is inaccessible -->
       <iframe id="srcEmpty" width="80%" height="100"></iframe>
 
+      <!-- setAttribute(srcdoc) is converted to onload -->
       <iframe id="setSrcdocAttribute" width="80%" height="100"></iframe>
 
+      <!-- srcdoc property is converted to onload -->
       <iframe id="setSrcdocProperty" width="80%" height="100"></iframe>
 
+      <!-- inner data src via srcdoc property is converted to onload -->
+      <iframe id="setSrcdocPropertyRecursiveInnerData" width="80%" height="100"></iframe>
+
+      <!-- inner blob src via srcdoc property is converted to onload -->
+      <iframe id="setSrcdocPropertyRecursiveInnerBlob" width="80%" height="100"></iframe>
+
+      <!-- inner text blob src via srcdoc property is converted to data URL via onload -->
+      <iframe id="setSrcdocPropertyRecursiveInnerTextBlob" width="80%" height="100"></iframe>
+
+      <!-- block javascript: src attribute -->
       <iframe id="setSrcAttributeJavascript" width="80%" height="100"></iframe>
 
+      <!-- block javascript: src property -->
       <iframe id="setSrcPropertyJavascript" width="80%" height="100"></iframe>
 
+      <!-- onload not called -->
       <iframe id="srcEmptyOnload" onload="chai.assert.throws(() => { this.contentWindow }, /^Permission Denied:/); chai.assert.throws(() => { this.contentDocument }, /^Permission Denied:/)" width="80%" height="100"></iframe>
+
+      <!-- Block javascript: URL -->
+      <iframe id="srcStaticJavascript" src="javascript:document.write('<script>caches</scr' + 'ipt>')" width="80%" height="100"></iframe>
+
+      <!-- src attribute with static data URL is converted to onload -->
+      <iframe id="srcStaticDataBase64" src="data:text/html;base64,PHNjcmlwdCBzcmM9Ii4uLy4uL2NoYWkvY2hhaS5qcyI+PC9zY3JpcHQ+PHNjcmlwdD5jaGFpLmFzc2VydC50aHJvd3MoKCkgPT4geyBjYWNoZXMgfSwgL15QZXJtaXNzaW9uIERlbmllZDovKTs8L3NjcmlwdD48cDE+c2V0U3RhdGljRGF0YUJhc2U2NDwvcDE+" width="80%" height="100"></iframe>
+
+      <!-- src attribute with static text data URL is shown as it is -->
+      <iframe id="srcStaticTextData" src="data:text/plain,srcStaticTextData" width="80%" height="100"></iframe>
+
+      <!-- setAttribute data URL src is converted to onload. TODO: context base URL -->
+      <iframe id="setSrcAttributeDataBase64" width="80%" height="100"></iframe>
+
+      <!-- setAttribute text data URL src is shown as it is -->
+      <iframe id="setSrcAttributeTextData" width="80%" height="100"></iframe>
+
+      <!-- src property with data URL is converted to onload. TODO: context base URL -->
+      <iframe id="setSrcPropertyDataBase64" width="80%" height="100"></iframe>
+
+      <!-- set property with text data URL src is shown as it is -->
+      <iframe id="setSrcPropertyTextData" width="80%" height="100"></iframe>
+
+      <!-- src property with blob URL is converted to onload. TODO: context base URL -->
+      <iframe id="setSrcPropertyBlob" width="80%" height="100"></iframe>
+
+      <!-- src property with text blob URL is shown as data URL via onload -->
+      <iframe id="setSrcPropertyTextBlob" width="80%" height="100"></iframe>
+
+      <!-- setAttribute src with blob URL is converted to onload. TODO: context base URL -->
+      <iframe id="setSrcAttributeBlob" width="80%" height="100"></iframe>
+
+      <!-- setAttribute src with text blob URL is shown as data URL via onload -->
+      <iframe id="setSrcAttributeTextBlob" width="80%" height="100"></iframe>
+
+      <!-- pass iframe src with static cross-origin HTML URL, whose contents are inaccessible --> 
+      <iframe id="crossOriginDocument" src="https://shop.polymer-project.org/" width="80%" height="400"></iframe>
+
+      <!-- block script src="javascript:..." even if the URL ends with .js -->
+      <script id="scriptSrcStaticJavascript" src="javascript:chai.assert.throws(() => { caches }, /^Permission Denied:/); let o = {}; o.js"></script>
+
+      <!-- block data: for now. TODO: support data URL -->
+      <script id="scriptSrcStaticData" src="data:text/javascript,chai.assert.throws(() => { caches }, /^Permission Denied:/); let o = {}; o.js"></script>
+
+      <!-- block data: for now. TODO: support data URL -->
+      <script id="scriptSrcPropertyData"></script>
+
+      <!-- block data: for now. TODO: support data URL for HTML Imports polyfill -->
+      <script id="scriptSrcAttributeData"></script>
+
+      <!-- block blob: for now. TODO: support blob URL -->
+      <script id="scriptSrcPropertyBlob"></script>
+
+      <!-- block blob: for now. TODO: support blob URL -->
+      <script id="scriptSrcAttributeBlob"></script>
+
+      <!-- hook script.text property -->
+      <script id="scriptTextProperty"></script>
+
     </div>
 
   </template>
@@ -88,24 +173,59 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             iframe.contentWindow.caches;
           }, /^Permission Denied:/);
         });
+
+        this.$.srcdocStaticEmpty.addEventListener('load', function (event) {
+          console.log('this.$.srcdocStaticEmpty.addEventListener("load") event called');
+          chai.assert.equal(event.type, 'srcdoc-load', 'srcdoc-load event for srcdocStaticEmpty');
+        });
+        
         this.$.srcdocStaticFullHtml.addEventListener('load', function (event) {
           console.log('this.$.srcdocStaticFullHtml.addEventListener("load") event called');
+          chai.assert.equal(event.type, 'srcdoc-load', 'srcdoc-load event for srcdocStaticFullHtml');
         });
+        
         this.$.srcdocStaticHtmlOnly.onload = function (event) {
           console.log('this.$.srcdocStaticHtmlOnly.onload event called');
+          chai.assert.equal(event.type, 'srcdoc-load', 'srcdoc-load event for srcdocStaticHtmlOnly');
         };
+
         chai.assert.throws(() => {
           this.$.srcEmpty.contentWindow;
         }, /^Permission Denied:/);
         chai.assert.throws(() => {
           this.$.srcEmpty.contentDocument;
         }, /^Permission Denied:/);
+        
         this.$.setSrcdocAttribute.setAttribute('srcdoc', 
           '<script src="../../chai/chai.js"></scr' + 'ipt>' +
           '<script>chai.assert.throws(() => { caches }, /^Permission Denied:/);</scr' + 'ipt><p1>setSrcdocAttribute</p1>');
+        
         this.$.setSrcdocProperty.srcdoc =
           '<script src="../../chai/chai.js"></scr' + 'ipt>' +
           '<script>chai.assert.throws(() => { caches }, /^Permission Denied:/);</scr' + 'ipt><p1>setSrcdocProperty</p1>';
+
+        this.$.setSrcdocPropertyRecursiveInnerData.srcdoc =
+          '<iframe id="srcInnerData" src="' +
+            'data:text/html;base64,' +
+              btoa(unescape(encodeURIComponent('<base href="' + new URL('.', location).href + '">' +
+              '<script src="../../chai/chai.js"></scr' + 'ipt><script>chai.assert.throws(() => { caches }, /^Permission Denied:/);</scr' + 'ipt><p1>srcInnerData</p1>'))) +
+          '" width="80%" height="50"></iframe>' +
+          '<p1>setSrcdocPropertyRecursiveInnerData</p1>';
+
+        this.$.setSrcdocPropertyRecursiveInnerBlob.srcdoc =
+          '<iframe id="srcInnerBlob" src="' +
+            URL.createObjectURL(new Blob([
+              '<base href="' + new URL('.', location).href + '">' +
+              '<script src="../../chai/chai.js"></scr' + 'ipt>' +
+              '<script>chai.assert.throws(() => { caches }, /^Permission Denied:/);</scr' + 'ipt><p1>srcInnerBlob</p1>'], { type: 'text/html' })) +
+          '" width="80%" height="50"></iframe>' +
+          '<p1>setSrcdocPropertyRecursiveInnerBlob</p1>';
+
+        this.$.setSrcdocPropertyRecursiveInnerTextBlob.srcdoc =
+          '<iframe id="srcInnerTextBlob" src="' +
+            URL.createObjectURL(new Blob(['srcInnerTextBlob'], { type: 'text/plain' })) +
+          '" width="80%" height="50"></iframe>' +
+          '<p1>setSrcdocPropertyRecursiveInnerTextBlob</p1>';
 
         // ignored
         this.$.setSrcAttributeJavascript.setAttribute('src', 
@@ -129,7 +249,95 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           this.$.setSrcPropertyJavascript.contentDocument;
         }, /^Permission Denied:/);
 
-        // dynamic
+        this.$.srcStaticTextData.onload = function(event) {
+          chai.assert.throws(() => {
+            this.$.srcStaticTextData.contentWindow;
+          }, /^SecurityError:/);
+          chai.assert.throws(() => {
+            this.$.srcStaticTextData.contentDocument;
+          }, /^SecurityError:/);
+        }.bind(this);
+
+        this.$.setSrcAttributeDataBase64.setAttribute('src', 'data:text/html;base64,' +
+          btoa(unescape(encodeURIComponent('<base href="' + new URL('.', location).href + '">' +
+            '<script src="../../chai/chai.js"></scr' + 'ipt><script>chai.assert.throws(() => { caches }, /^Permission Denied:/);</scr' + 'ipt><p1>setSrcAttributeDataBase64</p1>'))));
+        this.$.setSrcAttributeDataBase64.onload = (event) => console.log("setSrcAttributeDataBase64 loaded", event.type);
+        this.$.setSrcAttributeDataBase64.addEventListener('load', function (event) {
+          console.log('this.$.setSrcAttributeDataBase64.addEventListener("load") event called');
+          console.log('this.$.setSrcAttributeDataBase64.contentDocument.querySelector(\'p1\').textContent =', this.$.setSrcAttributeDataBase64.contentDocument.querySelector('p1').textContent);
+          chai.assert.equal(this.$.setSrcAttributeDataBase64.contentDocument.querySelector('p1').textContent, 'setSrcAttributeDataBase64', 'setSrcAttributeDataBase64 is loaded');
+        }.bind(this));
+
+        this.$.setSrcAttributeTextData.setAttribute('src', 'data:text/plain,setSrcAttributeTextData');
+        this.$.setSrcAttributeTextData.onload = function(event) {
+          chai.assert.throws(() => {
+            this.$.setSrcAttributeTextData.contentWindow;
+          }, /^SecurityError:/);
+          chai.assert.throws(() => {
+            this.$.setSrcAttributeTextData.contentDocument;
+          }, /^SecurityError:/);
+        }.bind(this);
+
+        this.$.setSrcPropertyDataBase64.src = 'data:text/html;base64,' +
+          btoa(unescape(encodeURIComponent('<base href="' + new URL('.', location).href + '">' +
+            '<script src="../../chai/chai.js"></scr' + 'ipt><script>chai.assert.throws(() => { caches }, /^Permission Denied:/);</scr' + 'ipt><p1>setSrcPropertyDataBase64</p1>')));
+        this.$.setSrcPropertyDataBase64.onload = (event) => console.log("setSrcPropertyDataBase64 loaded", event.type);
+        this.$.setSrcPropertyDataBase64.addEventListener('load', function (event) {
+          console.log('this.$.setSrcPropertyDataBase64.addEventListener("load") event called');
+          console.log('this.$.setSrcPropertyDataBase64.contentDocument.querySelector(\'p1\').textContent =', this.$.setSrcPropertyDataBase64.contentDocument.querySelector('p1').textContent);
+          chai.assert.equal(this.$.setSrcPropertyDataBase64.contentDocument.querySelector('p1').textContent, 'setSrcPropertyDataBase64', 'setSrcPropertyDataBase64 is loaded');
+        }.bind(this));
+
+        this.$.setSrcPropertyTextData.src = 'data:text/plain,setSrcPropertyTextData';
+        this.$.setSrcPropertyTextData.onload = function(event) {
+          chai.assert.throws(() => {
+            this.$.setSrcPropertyTextData.contentWindow;
+          }, /^SecurityError:/);
+          chai.assert.throws(() => {
+            this.$.setSrcPropertyTextData.contentDocument;
+          }, /^SecurityError:/);
+        }.bind(this);
+
+        this.$.setSrcPropertyBlob.src = 
+          URL.createObjectURL(new Blob([
+          '<base href="' + new URL('.', location).href + '">' +
+          '<script src="../../chai/chai.js"></scr' + 'ipt>' +
+          '<script>chai.assert.throws(() => { caches }, /^Permission Denied:/);</scr' + 'ipt><p1>setSrcPropertyBlob</p1>'], { type: 'text/html' }));
+        this.$.setSrcPropertyBlob.onload = (event) => console.log("setSrcPropertyBlob loaded", event.type);
+        this.$.setSrcPropertyBlob.addEventListener('load', function (event) {
+          console.log('this.$.setSrcPropertyBlob.addEventListener("load") event called');
+          console.log('this.$.setSrcPropertyBlob.contentDocument.querySelector(\'p1\').textContent =', this.$.setSrcPropertyBlob.contentDocument.querySelector('p1').textContent);
+          chai.assert.equal(this.$.setSrcPropertyBlob.contentDocument.querySelector('p1').textContent, 'setSrcPropertyBlob', 'setSrcPropertyBlob is loaded');
+        }.bind(this));
+
+        this.$.setSrcPropertyTextBlob.src = URL.createObjectURL(new Blob(['setSrcPropertyTextBlob'], { type: 'text/plain' }));
+
+        this.$.setSrcAttributeBlob.setAttribute('src', 
+          URL.createObjectURL(new Blob([
+          '<base href="' + new URL('.', location).href + '">' +
+          '<script src="../../chai/chai.js"></scr' + 'ipt>' +
+          '<script>chai.assert.throws(() => { caches }, /^Permission Denied:/);</scr' + 'ipt><p1>setSrcAttributeBlob</p1>'], { type: 'text/html' })));
+        this.$.setSrcAttributeBlob.onload = (event) => console.log("setSrcAttributeBlob loaded", event.type);
+        this.$.setSrcAttributeBlob.addEventListener('load', function (event) {
+          console.log('this.$.setSrcAttributeBlob.addEventListener("load") event called');
+          console.log('this.$.setSrcAttributeBlob.contentDocument.querySelector(\'p1\').textContent =', this.$.setSrcAttributeBlob.contentDocument.querySelector('p1').textContent);
+          chai.assert.equal(this.$.setSrcAttributeBlob.contentDocument.querySelector('p1').textContent, 'setSrcAttributeBlob', 'setSrcAttributeBlob is loaded');
+        }.bind(this));
+
+        this.$.setSrcAttributeTextBlob.setAttribute('src', URL.createObjectURL(new Blob(['setSrcAttributeTextBlob'], { type: 'text/plain' })));
+
+        // SecurityError on accessing contents of cross-origin document
+        this.$.crossOriginDocument.addEventListener('load', function (event) {
+          console.log('this.$.crossOriginDocument loaded', event.type);
+          chai.assert.throws(() => {
+            this.$.crossOriginDocument.contentWindow;
+          }, /^SecurityError:/);
+          chai.assert.throws(() => {
+            this.$.crossOriginDocument.contentDocument;
+          }, /^SecurityError:/);
+        }.bind(this));
+
+        // dynamic iframe
         let dynamicIframe = document.createElement('iframe');
         dynamicIframe.srcdoc = '<script>console.log("script in dynamicIframe");</scr' + 'ipt><p1>dynamicIframe</p1>';
         dynamicIframe.onload = function (event) {
@@ -138,6 +346,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         dynamicIframe.setAttribute('width', '80%');
         dynamicIframe.setAttribute('height', '100');
         Polymer.dom(Polymer.dom(this.root).querySelector('.card')).appendChild(dynamicIframe);
+
+        // scriptSrcPropertyData
+        this.$.scriptSrcPropertyData.src = 'data:text/javascript;base64,' +
+          btoa(unescape(encodeURIComponent('chai.assert.throws(() => { caches }, /^Permission Denied:/);')));
+
+        // scriptSrcAttributeData
+        this.$.scriptSrcAttributeData.setAttribute('src', 
+          'data:text/html;base64,' +
+          btoa(unescape(encodeURIComponent('chai.assert.throws(() => { caches }, /^Permission Denied:/);'))));
+
+        // scriptSrcPropertyBlob
+        this.$.scriptSrcPropertyBlob.src = URL.createObjectURL(new Blob(['chai.assert.throws(() => { caches }, /^Permission Denied:/);'], { type: 'text/javascript' }));
+
+        // scriptSrcAttributeBlob
+        this.$.scriptSrcAttributeBlob.setAttribute('src', URL.createObjectURL(new Blob(['chai.assert.throws(() => { caches }, /^Permission Denied:/);'], { type: 'text/javascript' })));
+
+        // hook script text property. TODO: context
+        this.$.scriptTextProperty.text = 'chai.assert.throws(() => { caches }, /^Permission Denied:/);';
       }
 
     });
