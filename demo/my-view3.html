@@ -131,7 +131,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <iframe id="setSrcAttributeTextBlob" width="80%" height="100"></iframe>
 
       <!-- pass iframe src with static cross-origin HTML URL, whose contents are inaccessible --> 
-      <iframe id="crossOriginDocument" src="https://shop.polymer-project.org/" width="80%" height="400"></iframe>
+      <iframe id="crossOriginDocument" src="https://localhost/inexistent/" width="80%" height="400"></iframe>
 
       <!-- block script src="javascript:..." even if the URL ends with .js -->
       <script id="scriptSrcStaticJavascript" src="javascript:chai.assert.throws(() => { caches }, /^Permission Denied:/); let o = {}; o.js"></script>
