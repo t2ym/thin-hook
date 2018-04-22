@@ -13,3 +13,29 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
   console.log('shared-worker-client.js: posting message ', JSON.stringify(message));
   worker.port.postMessage(message);
 }
+chai.assert.throws(() => {
+  let blob = new Blob([`
+    debugger;
+    onconnect = function(event) {
+      let port = event.ports[0];
+
+      port.addEventListener('message', function onMessage(event) {
+        console.log('blob-shared-worker: received message ', JSON.stringify(event.data));
+        let workerResult = event.data[0] * event.data[1];
+        console.log('blob-shared-worker: posting message ', workerResult);
+        port.postMessage(workerResult);
+      });
+      port.start();
+    }
+  `], { type: 'text/javascript' });
+  let blobUrl = URL.createObjectURL(blob);
+  let worker = new SharedWorker(blobUrl);
+
+  worker.addEventListener('message', function onMessage(event) {
+    console.log('shared-worker-client.js: received message', event.data);
+    chai.assert.equal(event.data, 35, 'blob shared worker result');
+  });
+  let message = [5, 7];
+  console.log('shared-worker-client.js: posting message ', JSON.stringify(message));
+  worker.port.postMessage(message);
+}, /^Permission Denied:/);

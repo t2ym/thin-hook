@@ -438,6 +438,8 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
     '/components/thin-hook/demo/web-worker-client.js': '@worker_manipulator',
     '/components/thin-hook/demo/web-worker-module-client.js,worker': '@worker_manipulator',
     '/components/thin-hook/demo/web-worker-module-client.js': '@worker_manipulator',
+    '/components/thin-hook/demo/shared-worker-client.js,worker': '@shared_worker_manipulator',
+    '/components/thin-hook/demo/shared-worker-client.js': '@shared_worker_manipulator',
     '/components/thin-hook/demo/normalize.js': '@normalization_checker',
     '/components/thin-hook/demo/normalize.js,f': '@normalization_checker',
     '/components/thin-hook/demo/normalize.js,get': '@normalization_checker',
@@ -1239,16 +1241,60 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
     Worker: {
       [S_OBJECT]: {
         [S_DEFAULT]: '---',
-        '@worker_manipulator': 'r-x',
+        '@worker_manipulator': function _WorkerAcl(normalizedThisArg,
+                                                   normalizedArgs /* ['property', args], ['property', value], etc. */,
+                                                   aclArgs /* [name, isStatic, isObject, property, opType, context] */,
+                                                   hookArgs /* [f, thisArg, args, context, newTarget] */,
+                                                   applyAcl /* for recursive application of ACL */) {
+          let opType = aclArgs[4];
+          if (opType === 'x') {
+            let url = normalizedArgs[0].trim().toLowerCase();
+            if (url.startsWith('blob:') || url.startsWith('data:')) {
+              return false;
+            }
+          }
+          return '--x'[opTypeMap[opType]] === opType; // equivalent to '--x' acl
+        },
       },
-      [S_DEFAULT]: 'r--',
+      [S_DEFAULT]: '---',
       [S_ALL]: '---',
-      '@worker_manipulator': 'r-x',
       [S_PROTOTYPE]: {
         [S_DEFAULT]: '---',
         [S_ALL]: '---',
-        '@worker_manipulator': 'rwx',
-      }
+        [S_INSTANCE]: {
+          [S_DEFAULT]: '---',
+          '@worker_manipulator': 'rwx',
+        },
+      },
+    },
+    SharedWorker: {
+      [S_OBJECT]: {
+        [S_DEFAULT]: '---',
+        '@shared_worker_manipulator': function _WorkerAcl(normalizedThisArg,
+                                                          normalizedArgs /* ['property', args], ['property', value], etc. */,
+                                                          aclArgs /* [name, isStatic, isObject, property, opType, context] */,
+                                                          hookArgs /* [f, thisArg, args, context, newTarget] */,
+                                                          applyAcl /* for recursive application of ACL */) {
+          let opType = aclArgs[4];
+          if (opType === 'x') {
+            let url = normalizedArgs[0].trim().toLowerCase();
+            if (url.startsWith('blob:') || url.startsWith('data:')) {
+              return false;
+            }
+          }
+          return '--x'[opTypeMap[opType]] === opType; // equivalent to '--x' acl
+        },
+      },
+      [S_DEFAULT]: '---',
+      [S_ALL]: '---',
+      [S_PROTOTYPE]: {
+        [S_DEFAULT]: '---',
+        [S_ALL]: '---',
+        [S_INSTANCE]: {
+          [S_DEFAULT]: '---',
+          '@shared_worker_manipulator': 'rwx',
+        },
+      },
     },
     Error: {
       [S_OBJECT]: 'r-x',
