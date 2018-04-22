@@ -6,6 +6,7 @@
 Thin Hook Preprocessor (experimental)
 
 ## Notes
+- **[Vulnerability Fix]** Since [0.0.239](https://github.com/t2ym/thin-hook/releases/tag/0.0.239) with [Fix #249 Block blob: URLs for Worker](https://github.com/t2ym/thin-hook/issues/249), `blob:` and `data:` URLs are blocked for `Worker` and `SharedWorker`. Prior to this version, `blob:` and `data:` URLs are allowed for `Worker` and `SharedWorker`.
 - **[Vulnerability Fix]** Since [0.0.236](https://github.com/t2ym/thin-hook/releases/tag/0.0.236) with [Fix #247 Hook script.text property](https://github.com/t2ym/thin-hook/issues/247), script.text property is properly hooked. Prior to this version, script.text property is not hooked.
 - **[Vulnerability Fix]** Since [0.0.236](https://github.com/t2ym/thin-hook/releases/tag/0.0.236) with [Fix #246 Handle non-http protocols in iframe.src, script.src properly](https://github.com/t2ym/thin-hook/issues/246), non-http protocols in iframe src and script src are handled properly. Prior to this version, non-http protocols in iframe src and script src are not handled properly.
 - **[Vulnerability Fix]** Since [0.0.235](https://github.com/t2ym/thin-hook/releases/tag/0.0.235) with [Fix #245 no-hook-authorization parameter is missing in sub documents](https://github.com/t2ym/thin-hook/issues/245), unauthorized no hook scripts are blocked in sub documents. Prior to this version, unauthorized no hook scripts in sub documents are not blocked.
