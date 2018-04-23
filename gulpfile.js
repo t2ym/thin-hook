@@ -59,6 +59,7 @@ gulp.task('update-no-hook-authorization', (done) => {
         let js = String(file.contents);
         let scripts = [
           'hook.min.js',
+          'demo/disable-devtools.js',
           'demo/context-generator.js',
           'demo/bootstrap.js',
           'demo/hook-callback.js',
@@ -542,7 +543,7 @@ gulp.task('delayed-demo', (done) => {
 });
 
 gulp.task('watchdemo', function() {
-  gulp.watch(['demo/original-index.html', 'demo/hook-callback.js'], ['delayed-demo']);
+  gulp.watch(['demo/original-index.html', 'demo/hook-callback.js', 'demo/disable-devtools.js'], ['delayed-demo']);
 });
 
 gulp.task('delayed-build', (done) => {
