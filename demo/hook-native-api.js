@@ -11,6 +11,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
   'Element',
   'HTMLScriptElement',
   'HTMLIFrameElement',
+  'HTMLObjectElement',
   'HTMLAnchorElement',
   'HTMLAreaElement',
   'Document',

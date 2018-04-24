@@ -44,6 +44,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         margin: 16px 0;
         color: #212121;
       }
+      iframe.svg {
+        border-style: none;
+        width: 200px;
+        height: 200px;
+      }
     </style>
 
     <div class="card">
@@ -52,6 +57,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <p>Ut labores minimum atomorum pro. Laudem tibique ut has.</p>
       <p>Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Cu mei vide viris gloriatur, at populo eripuit sit.</p>
       <canvas id="myChart" width="400" height="400"></canvas>
+
+      <!-- SVG with embedded scripts -->
+      <object id="objectStaticData" data="inline-script.svg"></object>
+      <object id="objectSetDataAttribute"></object>
+      <object id="objectSetDataProperty"></object>
+      <iframe id="iframeStaticSrcSVG" class="svg" src="inline-script.svg"></iframe>
+      <img src="inline-script.svg"><!-- scripts are disabled in img -->
+      <object id="objectSetDataAttributeInvalid"></object>
+      <object id="objectSetDataPropertyInvalid"></object>
     </div>
 
     <template>
@@ -76,6 +90,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       attached: function() {
         this.drawChart();
+        this.$.objectSetDataAttribute.setAttribute('data', 'inline-script.svg');
+        this.$.objectSetDataProperty.data = 'inline-script.svg';
+        this.$.objectSetDataAttributeInvalid.setAttribute('data', 'data:text/plain,hello');
+        this.$.objectSetDataPropertyInvalid.data = 'data:text/plain,hello';
       },
 
       _langUpdated: function () {
@@ -128,5 +146,4 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     });
 
   </script>
-
 </dom-module>

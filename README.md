@@ -6,6 +6,7 @@
 Thin Hook Preprocessor (experimental)
 
 ## Notes
+- **[Vulnerability Fix]** Since [0.0.241](https://github.com/t2ym/thin-hook/releases/tag/0.0.241) with [Fix #250 Hook scripts in SVG and block data:/blob: URLs for SVG](https://github.com/t2ym/thin-hook/issues/250), scripts in SVG are hooked and `blob:` and `data:` URLs are blocked for SVG. Prior to this version, scripts in SVG are not hoooked and `blob:` and `data:` URLs are allowed for SVG. `<object data="inline-script.svg"></object>`, `<iframe src="inline-script.svg"></iframe>`
 - **[Vulnerability Fix]** Since [0.0.239](https://github.com/t2ym/thin-hook/releases/tag/0.0.239) with [Fix #249 Block blob: URLs for Worker](https://github.com/t2ym/thin-hook/issues/249), `blob:` and `data:` URLs are blocked for `Worker` and `SharedWorker`. Prior to this version, `blob:` and `data:` URLs are allowed for `Worker` and `SharedWorker`.
 - **[Vulnerability Fix]** Since [0.0.236](https://github.com/t2ym/thin-hook/releases/tag/0.0.236) with [Fix #247 Hook script.text property](https://github.com/t2ym/thin-hook/issues/247), script.text property is properly hooked. Prior to this version, script.text property is not hooked.
 - **[Vulnerability Fix]** Since [0.0.236](https://github.com/t2ym/thin-hook/releases/tag/0.0.236) with [Fix #246 Handle non-http protocols in iframe.src, script.src properly](https://github.com/t2ym/thin-hook/issues/246), non-http protocols in iframe src and script src are handled properly. Prior to this version, non-http protocols in iframe src and script src are not handled properly.
@@ -952,6 +953,10 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
           - `hook.parameters.onloadWrapper = "event.target.addEventListener('srcdoc-load', () => { $onload$ })";`: Set in `demo/bootstrap.js`
           - Receive `srcdoc-load` event and trigger the original `onload` script
             - Note: `addEventListener('load', handler)` is currently called BEFORE the document from `srcdoc` is loaded and `srcdoc-load` event is fired.
+        - Empty SVG to load the target URL
+          - `hook.parameters.emptySvg = '<?xml version="1.0"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="1px" height="1px"><script>location = "$location$";</script></svg>';`
+        - Bootstrap Scripts for SVG
+          - `hook.parameters.bootstrapSvgScripts = '<script xlink:href="URL?params"></script>...'`
     - register as Service Worker
       - `Service-Worker-Allowed` HTTP response header must have an appropriate scope for the target application
     - `cors=true` parameter: CORS script, e.g., `<script src="https://cross.origin.host/path/script.js?cors=true"></script>`
