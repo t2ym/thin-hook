@@ -86,10 +86,10 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
     const devtoolsDetectorMessageHandlerForServiceWorker = function devtoolsDetectorMessageHandlerForServiceWorker (event) {
       if (Array.isArray(event.data) && event.data[0] === 'plugin' && event.data[1] === 'DevToolsDetection') {
         let port = event.ports[0];
-        console.log('devtoolsDetectorMessageHandlerForServiceWorker: message received', JSON.stringify(event.data));
+        //console.log('devtoolsDetectorMessageHandlerForServiceWorker: message received', JSON.stringify(event.data));
         let beforeDebugger = Date.now();
         let workerResult = ['plugin', 'DevToolsDetection', 'start', beforeDebugger]; // start response
-        console.log('devtoolsDetectorMessageHandlerForServiceWorker: postMessage', JSON.stringify(workerResult));
+        //console.log('devtoolsDetectorMessageHandlerForServiceWorker: postMessage', JSON.stringify(workerResult));
         port.postMessage(workerResult);
         setTimeout(() => {
           if (workerResult[2] === 'start') {
@@ -101,7 +101,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
         let afterDebugger = Date.now();
         workerResult[2] = 'end';
         workerResult[3] = afterDebugger - beforeDebugger;
-        console.log('devtoolsDetectorMessageHandlerForServiceWorker: postMessage', JSON.stringify(workerResult));
+        //console.log('devtoolsDetectorMessageHandlerForServiceWorker: postMessage', JSON.stringify(workerResult));
         port.postMessage(workerResult);
         if (workerResult[3] >= event.data[2]) {
           console.log('devtoolsDetectorMessageHandlerForServiceWorker: afterDebugger - beforeDebugger = ', workerResult[3], ' >= threshold', event.data[2]);
@@ -154,7 +154,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
                 if (Array.isArray(event.data) && event.data[0] === 'plugin' && event.data[1] === 'DevToolsDetection') {
                   switch (event.data[2]) {
                   case 'start':
-                    console.log('disable-devtools.js: received', JSON.stringify(event.data));
+                    //console.log('disable-devtools.js: received', JSON.stringify(event.data));
                     status = 'start';
                     setTimeout(() => {
                       status = 'timeout';
@@ -162,7 +162,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
                     }, devtoolsDetectionThreshold);
                     break;
                   case 'end':
-                    console.log('disable-devtools.js: received', JSON.stringify(event.data));
+                    //console.log('disable-devtools.js: received', JSON.stringify(event.data));
                     if (status === 'init' || status === 'start') {
                       status = 'end';
                       resolve(event.data[3]);
@@ -178,7 +178,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
                 }
               });
               channel.port1.start();
-              console.log('disable-devtools.js: posting message to Service Worker', JSON.stringify(message));
+              //console.log('disable-devtools.js: posting message to Service Worker', JSON.stringify(message));
               navigator.serviceWorker.controller.postMessage(message, [ channel.port2 ]);
             }),
             new Promise((resolve, reject) => {            
@@ -207,7 +207,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
               devToolsDetected = true;
             }
             else {
-              console.log('disable-devtools.js: within the threshold', response);
+              //console.log('disable-devtools.js: within the threshold', response);
               await new Promise((resolve) => {
                 setTimeout(resolve, devtoolsDetectionInterval);
               });
@@ -240,7 +240,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
     if (self.constructor.name === 'SharedWorkerGlobalScope') {
       (async function () {
         while (true) {
-          console.log('devtoolsDetectorSharedWorker: started');
+          //console.log('devtoolsDetectorSharedWorker: started');
           let status = 'start';
           let beforeDebugger = Date.now();
           setTimeout(() => {
