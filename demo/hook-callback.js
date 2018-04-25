@@ -647,6 +647,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
     '/components/thin-hook/demo/sub-document.html,script@8036,onLoad,*': '@iframe_contentWindow_accessor',
     'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js,41,o': '@iframe_contentWindow_accessor',
     'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js,26': '@iframe_contentWindow_accessor',
+    '/components/thin-hook/demo/my-view1.html,script@4544,attached': '@svg_contentWindow_accessor',
   };
   /*
     Prefixed Contexts object:
@@ -1833,6 +1834,56 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
     },
     HTMLObjectElement: {
       [S_CHAIN]: () => acl.HTMLElement,
+      [S_PROTOTYPE]: {
+        [S_CHAIN]: S_CHAIN,
+        [S_INSTANCE]: {
+          [S_CHAIN]: S_CHAIN,
+          contentDocument: {
+            [S_DEFAULT]: '---',
+            '@svg_contentWindow_accessor': function _svgContentDocumentAcl(normalizedThisArg,
+                                                                           normalizedArgs /* ['property', args], ['property', value], etc. */,
+                                                                           aclArgs /* [name, isStatic, isObject, property, opType, context] */,
+                                                                           hookArgs /* [f, thisArg, args, context, newTarget] */,
+                                                                           applyAcl /* for recursive application of ACL */) {
+              let opType = aclArgs[4];
+              if (!normalizedThisArg.getAttribute('data') || !normalizedThisArg.data) {
+                return false; // reject on empty data
+              }
+              if (this.contentWindow && !this.contentWindow.__hook__) {
+                return false; // reject on missing hook infrastructure
+              }
+              if (opType === 'r') {
+                let contentWindow = normalizedThisArg.contentWindow;
+                otherWindowObjects.set(contentWindow.Object, contentWindow);
+                otherWindowObjectsStatus.set = true;
+              }
+              return 'r--'[opTypeMap[opType]] === opType; // equivalent to 'r--' acl
+            },
+          },
+          contentWindow: {
+            [S_DEFAULT]: '---',
+            '@svg_contentWindow_accessor': function _svgContentWindowAcl(normalizedThisArg,
+                                                                         normalizedArgs /* ['property', args], ['property', value], etc. */,
+                                                                         aclArgs /* [name, isStatic, isObject, property, opType, context] */,
+                                                                         hookArgs /* [f, thisArg, args, context, newTarget] */,
+                                                                         applyAcl /* for recursive application of ACL */) {
+              let opType = aclArgs[4];
+              if (!normalizedThisArg.getAttribute('data') || !normalizedThisArg.data) {
+                return false; // reject on empty data
+              }
+              if (this.contentWindow && !this.contentWindow.__hook__) {
+                return false; // reject on missing hook infrastructure
+              }
+              if (opType === 'r') {
+                let contentWindow = normalizedThisArg[normalizedArgs[0]]
+                otherWindowObjects.set(contentWindow.Object, contentWindow);
+                otherWindowObjectsStatus.set = true;
+              }
+              return 'r--'[opTypeMap[opType]] === opType; // equivalent to 'r--' acl
+            },
+          },
+        },
+      },
     },
     HTMLOListElement: {
       [S_CHAIN]: () => acl.HTMLElement,
@@ -1940,7 +1991,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
                                                                                  hookArgs /* [f, thisArg, args, context, newTarget] */,
                                                                                  applyAcl /* for recursive application of ACL */) {
               let opType = aclArgs[4];
-              if (!normalizedThisArg.getAttribute('src')) {
+              if (!normalizedThisArg.getAttribute('src') || !normalizedThisArg.src) {
                 return false; // reject on empty src
               }
               if (this.contentWindow && !this.contentWindow.__hook__) {
@@ -1962,7 +2013,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
                                                                                hookArgs /* [f, thisArg, args, context, newTarget] */,
                                                                                applyAcl /* for recursive application of ACL */) {
               let opType = aclArgs[4];
-              if (!normalizedThisArg.getAttribute('src')) {
+              if (!normalizedThisArg.getAttribute('src') || !normalizedThisArg.src) {
                 return false; // reject on empty src
               }
               if (this.contentWindow && !this.contentWindow.__hook__) {
@@ -2008,6 +2059,56 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
     },
     HTMLEmbedElement: {
       [S_CHAIN]: () => acl.HTMLElement,
+      [S_PROTOTYPE]: {
+        [S_CHAIN]: S_CHAIN,
+        [S_INSTANCE]: {
+          [S_CHAIN]: S_CHAIN,
+          contentDocument: {
+            [S_DEFAULT]: '---',
+            '@svg_contentWindow_accessor': function _svgContentDocumentAcl(normalizedThisArg,
+                                                                           normalizedArgs /* ['property', args], ['property', value], etc. */,
+                                                                           aclArgs /* [name, isStatic, isObject, property, opType, context] */,
+                                                                           hookArgs /* [f, thisArg, args, context, newTarget] */,
+                                                                           applyAcl /* for recursive application of ACL */) {
+              let opType = aclArgs[4];
+              if (!normalizedThisArg.getAttribute('src') || !normalizedThisArg.src) {
+                return false; // reject on empty src
+              }
+              if (this.contentWindow && !this.contentWindow.__hook__) {
+                return false; // reject on missing hook infrastructure
+              }
+              if (opType === 'r') {
+                let contentWindow = normalizedThisArg.contentWindow;
+                otherWindowObjects.set(contentWindow.Object, contentWindow);
+                otherWindowObjectsStatus.set = true;
+              }
+              return 'r--'[opTypeMap[opType]] === opType; // equivalent to 'r--' acl
+            },
+          },
+          contentWindow: {
+            [S_DEFAULT]: '---',
+            '@svg_contentWindow_accessor': function _svgContentWindowAcl(normalizedThisArg,
+                                                                         normalizedArgs /* ['property', args], ['property', value], etc. */,
+                                                                         aclArgs /* [name, isStatic, isObject, property, opType, context] */,
+                                                                         hookArgs /* [f, thisArg, args, context, newTarget] */,
+                                                                         applyAcl /* for recursive application of ACL */) {
+              let opType = aclArgs[4];
+              if (!normalizedThisArg.getAttribute('src') || !normalizedThisArg.src) {
+                return false; // reject on empty src
+              }
+              if (this.contentWindow && !this.contentWindow.__hook__) {
+                return false; // reject on missing hook infrastructure
+              }
+              if (opType === 'r') {
+                let contentWindow = normalizedThisArg[normalizedArgs[0]]
+                otherWindowObjects.set(contentWindow.Object, contentWindow);
+                otherWindowObjectsStatus.set = true;
+              }
+              return 'r--'[opTypeMap[opType]] === opType; // equivalent to 'r--' acl
+            },
+          },
+        },
+      },
     },
     HTMLDivElement: {
       [S_CHAIN]: () => acl.HTMLElement,

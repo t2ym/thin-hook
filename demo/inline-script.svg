@@ -2,13 +2,12 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xl="http://www.w3.org/1999/xlink" version="1.1" width="200px" height="200px">
   <script xl:href="../../chai/chai.js"></script>
-  <script>
+  <script><![CDATA[
     chai.assert.throws(() => {
       navigator.serviceWorker;
     }, /^Permission Denied:/);
-  </script>
-  <script>
-  /* &lt; cannot be used in inline scripts for now since CDATA is not supported */
+  ]]></script>
+  <script><![CDATA[
   {
     let width = 200;
     let height = 200;
@@ -37,7 +36,7 @@
           x1 = width - (x1 - width);
           dx1 = -dx1;
         }
-        else if (0 > x1) {
+        else if (x1 < 0) {
           x1 = -x1;
           dx1 = -dx1;
         }
@@ -46,7 +45,7 @@
           y1 = height - (y1 - height);
           dy1 = -dy1;
         }
-        else if (0 > y1) {
+        else if (y1 < 0) {
           y1 = -y1;
           dy1 = -dy1;
         }
@@ -55,7 +54,7 @@
           x2 = width - (x2 - width);
           dx2 = -dx2;
         }
-        else if (0 > x2) {
+        else if (x2 < 0) {
           x2 = -x2;
           dx2 = -dx2;
         }
@@ -64,7 +63,7 @@
           y2 = height - (y2 - height);
           dy2 = -dy2;
         }
-        else if (0 > y2) {
+        else if (y2 < 0) {
           y2 = -y2;
           dy2 = -dy2;
         }
@@ -88,7 +87,7 @@
       rect.addEventListener('click', onClick);
     };
   }
-  </script>
+  ]]></script>
   <rect id="rect" x="0px" y="0px" width="200px" height="200px" stroke="blue" fill="white"/>
   <line id="line" x1="0px" y1="0px" x2="200px" y2="200px" style="stroke:rgb(255,0,0);stroke-width:1"/>
   <text id="text" x="0px" y="15px" fill="black">SVG with scripts (initial value)</text>
