@@ -18,7 +18,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
   'Document',
   'importScripts',
 ].forEach((name) => {
-  if (_global[name]) {
+  if (_global[name] && ((name === 'Document' && _global[name].constructor.name === 'HTMLDocument') || name !== 'Document')) { // Skip 'XMLDocument' in SVG
     let hooked = hook[name]('__hook__', [[name, {}]], 'method');
     _global._globalObjects.set(hooked, name);
     _global._globalMethods.set(hooked, [ (typeof window === 'object' ? 'window' : 'self'), name ]);

@@ -438,9 +438,10 @@ gulp.task('build', () => {
       originalAst.body[0].expression.callee.body.body[0].alternate.alternate.body[4] = serviceWorkerHandlerRegistrationAst;
       // append service worker registration code
       originalAst.body[0].expression.callee.body.body[0].alternate.alternate.body[5] = serviceWorkerRegistrationAst;
+      let minifiedCode = escodegen.generate(originalAst, { format: { compact: true }, raw: true, parse: espree.parse, raw: true });
       _trimStartEndRaw(originalAst);
-      let minifiedCode = escodegen.generate(originalAst, { format: { compact: true } });
-      let minifiedAst = espree.parse(minifiedCode, espreeOptions);
+      let minifiedCode2 = escodegen.generate(originalAst, { format: { compact: true } });
+      let minifiedAst = espree.parse(minifiedCode2, espreeOptions);
       _trimStartEndRaw(minifiedAst);
       let originalAstJson = JSON.stringify(originalAst, null, 2);
       let minifiedAstJson = JSON.stringify(minifiedAst, null, 2);
@@ -516,9 +517,10 @@ gulp.task('build:coverage', () => {
       originalAst.body[0].expression.callee.body.body[0].alternate.alternate.body[4] = serviceWorkerHandlerRegistrationAst;
       // append service worker registration code
       originalAst.body[0].expression.callee.body.body[0].alternate.alternate.body[5] = serviceWorkerRegistrationAst;
+      let minifiedCode = escodegen.generate(originalAst, { format: { compact: true }, raw: true, parse: espree.parse, raw: true });
       _trimStartEndRaw(originalAst);
-      let minifiedCode = escodegen.generate(originalAst, { format: { compact: true } });
-      let minifiedAst = espree.parse(minifiedCode, espreeOptions);
+      let minifiedCode2 = escodegen.generate(originalAst, { format: { compact: true } });
+      let minifiedAst = espree.parse(minifiedCode2, espreeOptions);
       _trimStartEndRaw(minifiedAst);
       let originalAstJson = JSON.stringify(originalAst, null, 2);
       let minifiedAstJson = JSON.stringify(minifiedAst, null, 2);

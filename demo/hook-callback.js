@@ -87,7 +87,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
   var _globalObjects = Object.keys(_globalPropertyDescriptors)
     .sort()
     .reduce((acc, curr) => {
-      const globalObjectNames = ['_global', 'frames', 'top', 'global', 'self', 'window', 'parent'];
+      const globalObjectNames = ['_global', 'frames', 'top', 'global', 'self', 'window', 'parent', 'content'];
       //const globalProperties = { history: true, navigator: true, applicationCache: true, crypto: true, localStorage: true, indexedDB: true, caches: true, sessionStorage: true, document: true };
       if (_globalPropertyDescriptors[curr].value && typeof _globalPropertyDescriptors[curr].value !== 'number') {
         let existing = acc.get(_globalPropertyDescriptors[curr].value);
@@ -603,6 +603,8 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
     '/components/webcomponentsjs/webcomponents-lite.js,oa': '@customElements_reader',
     '/components/webcomponentsjs/webcomponents-lite.js,cc': '@customElements_reader',
     '/components/webcomponentsjs/webcomponents-lite.js,T': '@customElements_reader',
+    '/components/webcomponentsjs/webcomponents-lite.js,w,load': '@HTMLImports_xhr_load',
+    '/components/webcomponentsjs/webcomponents-lite.js,w,load,*': '@HTMLImports_xhr_load',
     '/components/webcomponentsjs/webcomponents-lite.js,*': '@webcomponents-lite',
     '/components/thin-hook/demo/es6-module2.js,f2,module': '@Module_importer',
     '/components/thin-hook/demo/es6-module2.js': '@Module_importer',
@@ -2179,6 +2181,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
         '@Function_reader': 'r-x',
         '@normalization_checker': 'r-x',
         '@Polymer_lib': 'r-x',
+        '@Object_assign_reader': 'r-x',
       },
       [S_DEFAULT]: 'r-x',
       '@bind_normalization_checker': 'r-x',
@@ -2623,6 +2626,30 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
       [S_DEFAULT]: '--x',
       '@setTimeout_reader': 'r-x',
       '@process_browser_js': 'r-x',
+    },
+    XMLHttpRequest: {
+      [S_DEFAULT]: 'r-x',
+      [S_PROTOTYPE]: {
+        [S_DEFAULT]: '---',
+        [S_INSTANCE]: {
+          [S_DEFAULT]: 'rwx',
+          response: {
+            [S_DEFAULT]: 'r--',
+            '@HTMLImports_xhr_load': function HTMLImportsXhrResponseAcl(normalizedThisArg,
+                                                                        normalizedArgs /* ['property', args], ['property', value], etc. */,
+                                                                        aclArgs /* [name, isStatic, isObject, property, opType, context] */,
+                                                                        hookArgs /* [f, thisArg, args, context, newTarget] */,
+                                                                        applyAcl /* for recursive application of ACL */) {
+              let opType = aclArgs[4];
+              if (opType === 'r') {
+                let set = hook.parameters.HTMLImportsXHRResponses || (hook.parameters.HTMLImportsXHRResponses = new Set());
+                set.add(normalizedThisArg[normalizedArgs[0]]); // authorize responses as hooked
+              }
+              return 'r--'[opTypeMap[opType]] === opType; // equivalent to 'r--' acl
+            },
+          },
+        },       
+      },
     },
     Document: {
       [S_CHAIN]: () => acl.Node,

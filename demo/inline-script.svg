@@ -78,7 +78,9 @@
         intervalId = undefined;
       }
     }
+    let onloadCalled = false;
     document.documentElement.onload = function (event) {
+      onloadCalled = true;
       line = document.querySelector('#line');
       text = document.querySelector('#text');
       rect = document.querySelector('#rect')
@@ -86,6 +88,15 @@
       startDraw(line);
       rect.addEventListener('click', onClick);
     };
+    // For Firefox
+    let onloadIntervalId = setInterval(() => {
+      if (!onloadCalled) {
+        document.documentElement.onload();
+      }
+      else {
+        clearInterval(onloadIntervalId);
+      }
+    }, 100);
   }
   ]]></script>
   <rect id="rect" x="0px" y="0px" width="200px" height="200px" stroke="blue" fill="white"/>

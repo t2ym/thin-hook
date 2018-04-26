@@ -3,7 +3,7 @@
 Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 */
 {
-  const devtoolsDisabled = true; // Use false and rebuild with gulp demo to enable Dev Tools
+  const devtoolsDisabled = false; // Use false and rebuild with gulp demo to enable Dev Tools
   const devtoolsDetectionThreshold = 200; // 200ms
   const devtoolsDetectionInterval = 500; // 500ms
   const devtoolsDetectionStartTimeout = 1000; // 1000ms
