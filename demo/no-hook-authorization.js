@@ -14,7 +14,7 @@
     "7e0fcbf73f8a30d98082c497e4bec73f2b49e5bee70605bb8838aed035763868": true, // demo/context-generator.js
     "9809df949c931062fdd1f1e1ff98521aa109bdbefa6af6ba72161b0956bf25f8": true, // demo/bootstrap.js
     "35aad77b1df747772dd4bcdd91343b6ce6a1ae1026d76ed6445e3dc01c3af1a1": true, // demo/hook-callback.js
-    "6b4e90f7c81a4656f3eb30183064c4595b9e891058862a18c87563b8f292108e": true, // demo/hook-native-api.js
+    "6ad011583adb9d131f3ff1043e2eee931aefecf34538273bfecbb05b6be9f22d": true, // demo/hook-native-api.js
     "e2e42b1f8c6c518b5878b5bd95d34c0f15e139a1afb6ab6a6642b6e81219d2c5": true, // demo/hook-worker.js
     "b08b09b3cb1ff096c2117b133d38d848a0b486499e93fbd17b2f3ebf05f0c905": true, // demo/browserify-commonjs.js
     "de5407e69386ad2e9aac39e5bc621ba098bd5b5678b0226696a895fc777cad79": true, // demo/webpack-es6-module.js
