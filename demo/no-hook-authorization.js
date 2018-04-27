@@ -9,10 +9,10 @@
     //   hook.parameters.noHookAuthorizationFailed
     // JSONs are output to console in the learning mode
     //'*': true,
-    "ae435850a1410881de42d8d47aaa592c0901908024f25f8b2bf077b856c0a76b": true, // hook.min.js
-    "b06e6e8f1c4c966d5e759e2d33807fd91ab6d4fcce215191376548163d005161": true, // demo/disable-devtools.js
+    "8235d9f1a13500f8372c3fad479124ac1a0ae8b262baa3d664b14d4e1b908dd4": true, // hook.min.js
+    "53a09871c00762a4403fa1e5d2b8b19c64d502e65780b12493c46edf5270e3b6": true, // demo/disable-devtools.js
     "7e0fcbf73f8a30d98082c497e4bec73f2b49e5bee70605bb8838aed035763868": true, // demo/context-generator.js
-    "f3028774d3a6f3042a70248cc5f15f36620f42b4e1da8011b90bc38d3108c0a2": true, // demo/bootstrap.js
+    "936299cf27465a19054ab800609fe1723469d204b45f239172b2018e1970126b": true, // demo/bootstrap.js
     "d685decde54172680c871cd87880443f24d502fdba0ead469f156649d7bd317a": true, // demo/hook-callback.js
     "307fbec52d3c2592dc226670ba1bed3c00afb6ed2f28201a88fbe07af651b3ac": true, // demo/hook-native-api.js
     "e2e42b1f8c6c518b5878b5bd95d34c0f15e139a1afb6ab6a6642b6e81219d2c5": true, // demo/hook-worker.js
@@ -26,6 +26,7 @@
     "16afd3d5aa90cbd026eabcc4f09b1e4207a7042bc1e9be3b36d94415513683ed": true, // (function write4() { console.log("no-hook script tag in div tag via document.write"); })()
     "c135fd6ba3cad41e63985ecca191995bf311abc756c5f574ef5b641e7db56914": true, // (function writeln2() { console.log("no-hook script tag via document.writeln"); })()
     "e233738578fd7e8f2e961fb11885e2c187146314a8e3fc65692633ff89c5d34a": true, // (function writeln4() { console.log("no-hook script tag in div tag via document.writeln"); })()
+    "4f0395d52a8c1c7edaacacade9c31fe18555b79ce963dfb1abaaa34990993374": true, // location = "about:blank";
   };
   let hidden;
   const passcode = 'XX02c107ea633ed697acc12e1b3de1bcf2f0ef7cafe4f048e29553c224656ecd7a';
