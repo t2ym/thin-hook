@@ -27,6 +27,7 @@
         )
       ).href;
     hook.parameters.baseURI = baseURI;
+    noHookAuthorization = new URL(location.href).searchParams.has('no-hook-authorization') ? new URL(location.href).searchParams.get('no-hook-authorization') : '';
     break;
   default:
     baseURI = location.href;
