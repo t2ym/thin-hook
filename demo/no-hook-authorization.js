@@ -9,11 +9,11 @@
     //   hook.parameters.noHookAuthorizationFailed
     // JSONs are output to console in the learning mode
     //'*': true,
-    "a8352993827215953170073a395d05cbcfbf989330b990e197064cbb77a9b762": true, // hook.min.js
-    "651b0d6401fb8a37911501f0cc82b4884343e4ddc7ca45105a385eceb71802b6": true, // demo/disable-devtools.js
+    "81a821bbb98fb529bed60434a45bde789bbc2c9e32acfc2cf19d6a0f4b50bbef": true, // hook.min.js
+    "d16b61251e92361b25b1767fd5004164b4a667ace5a86e6b4db79a9b223ae1b5": true, // demo/disable-devtools.js
     "7e0fcbf73f8a30d98082c497e4bec73f2b49e5bee70605bb8838aed035763868": true, // demo/context-generator.js
-    "2d36b354792913de92b1346af7c81222b43dfbcfb0b70d4bc538e96e12f911aa": true, // demo/bootstrap.js
-    "35aad77b1df747772dd4bcdd91343b6ce6a1ae1026d76ed6445e3dc01c3af1a1": true, // demo/hook-callback.js
+    "1ce82e81a508ef42d44284b695508f27a1941f23489793a8460b10017fa1d372": true, // demo/bootstrap.js
+    "33a13948e3ef2215278d7e81bd8ecec0ac1f97849a856b2676eea06c025b6402": true, // demo/hook-callback.js
     "6ad011583adb9d131f3ff1043e2eee931aefecf34538273bfecbb05b6be9f22d": true, // demo/hook-native-api.js
     "e2e42b1f8c6c518b5878b5bd95d34c0f15e139a1afb6ab6a6642b6e81219d2c5": true, // demo/hook-worker.js
     "b08b09b3cb1ff096c2117b133d38d848a0b486499e93fbd17b2f3ebf05f0c905": true, // demo/browserify-commonjs.js
@@ -26,6 +26,7 @@
     "16afd3d5aa90cbd026eabcc4f09b1e4207a7042bc1e9be3b36d94415513683ed": true, // (function write4() { console.log("no-hook script tag in div tag via document.write"); })()
     "c135fd6ba3cad41e63985ecca191995bf311abc756c5f574ef5b641e7db56914": true, // (function writeln2() { console.log("no-hook script tag via document.writeln"); })()
     "e233738578fd7e8f2e961fb11885e2c187146314a8e3fc65692633ff89c5d34a": true, // (function writeln4() { console.log("no-hook script tag in div tag via document.writeln"); })()
+    "4f0395d52a8c1c7edaacacade9c31fe18555b79ce963dfb1abaaa34990993374": true, // location = "about:blank";
   };
   let hidden;
   const passcode = 'XX02c107ea633ed697acc12e1b3de1bcf2f0ef7cafe4f048e29553c224656ecd7a';

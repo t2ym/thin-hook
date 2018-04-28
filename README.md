@@ -6,6 +6,7 @@
 Thin Hook Preprocessor (experimental)
 
 ## Notes
+- **[Configuration]** Since [0.0.247](https://github.com/t2ym/thin-hook/releases/tag/0.0.247) with [Fix #252 Block direct access to source codes](https://github.com/t2ym/thin-hook/issues/252), direct access to source codes are blocked. `hook.parameters.appPathRoot = '/';` in `demo/disable-devtools.js` can be configured to set the root of the application assets.  Prior to this version, direct access to source codes are allowed.
 - **[Vulnerability Fix]** Since [0.0.243](https://github.com/t2ym/thin-hook/releases/tag/0.0.243) with [Fix #250 Hook scripts in SVG and block data:/blob: URLs for SVG](https://github.com/t2ym/thin-hook/issues/250), scripts in SVG are hooked and `blob:` and `data:` URLs are blocked for SVG. Prior to this version, scripts in SVG are not hoooked and `blob:` and `data:` URLs are allowed for SVG. `<object data="inline-script.svg"></object>`, `<embed src="inline-script.svg">`, `<iframe src="inline-script.svg"></iframe>`
 - **[Vulnerability Fix]** Since [0.0.239](https://github.com/t2ym/thin-hook/releases/tag/0.0.239) with [Fix #249 Block blob: URLs for Worker](https://github.com/t2ym/thin-hook/issues/249), `blob:` and `data:` URLs are blocked for `Worker` and `SharedWorker`. Prior to this version, `blob:` and `data:` URLs are allowed for `Worker` and `SharedWorker`.
 - **[Vulnerability Fix]** Since [0.0.236](https://github.com/t2ym/thin-hook/releases/tag/0.0.236) with [Fix #247 Hook script.text property](https://github.com/t2ym/thin-hook/issues/247), script.text property is properly hooked. Prior to this version, script.text property is not hooked.
@@ -957,6 +958,10 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
           - `hook.parameters.emptySvg = '<?xml version="1.0"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="1px" height="1px"><script>location = "$location$";</script></svg>';`
         - Bootstrap Scripts for SVG
           - `hook.parameters.bootstrapSvgScripts = '<script xlink:href="URL?params"></script>...'`
+        - Check Request callback on Fetch at Service Worker
+          - `hook.parameters.checkRequest = function (event, response) { /* check request */ return response ; }`: `response` - cached response if exists; See `demo/disable-devtools.js`
+        - Root of Application Path
+          - `hook.parameters.appPathRoot = '/';` - The app assets are under `location.origin + hook.parameters.appPathRoot`
     - register as Service Worker
       - `Service-Worker-Allowed` HTTP response header must have an appropriate scope for the target application
     - `cors=true` parameter: CORS script, e.g., `<script src="https://cross.origin.host/path/script.js?cors=true"></script>`
