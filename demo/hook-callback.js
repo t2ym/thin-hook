@@ -497,6 +497,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
     '/components/firebase/firebase-database.js,jr,t': '@Object_setPrototypeOf_reader',
     '/components/firebase/firebase-database.js,Gr,t': '@Object_setPrototypeOf_reader',
     '/components/firebase/firebase-database.js,ir': '@document_createElement_reader',
+    '/components/firebase/firebase-database.js,or': '@iframe_contentWindow_accessor',
     '/components/firebase/firebase-messaging.js': '@firebase_messaging',
     '/components/firebase/firebase-messaging.js,*': '@firebase_messaging',
     '/components/firebase/firebase-messaging.js,24,k,e': '@Object_setPrototypeOf_reader',
