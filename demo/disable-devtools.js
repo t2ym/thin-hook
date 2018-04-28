@@ -329,12 +329,19 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
       let checkClientsIntervalId = setInterval(async () => {
         let ids;
         let activeClients;
-        activeClients = (await self.clients.matchAll()).filter(client => {
+        let allClients;
+        allClients = await self.clients.matchAll();
+        activeClients = allClients.filter(client => {
           let url = new URL(client.url);
           return url.origin + url.pathname === baseURI || url.origin + url.pathname === baseURI + 'index.html';
         });
         ids = activeClients.map(client => client.id);
         //console.log('pingClients: activeClients ', JSON.stringify(ids));
+        let svgClients;
+        svgClients = allClients.filter(client => {
+          let url = new URL(client.url);
+          return url.pathname.match(/[.]svg$/);
+        });
         let closed = new Set();
         let noResponses = new Set();
         let longestRtt = -1;
@@ -389,6 +396,12 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
           if (noResponses.has(client.id)) {
             client.navigate(aboutBlankRedirectorUrl); // Navigate client with no responses to about:blank
             clientsRecentRequests.delete(client.id);
+            self.devToolsDetectedAtServiceWorker = true; // shutdown the app
+          }
+        }
+        for (let client of svgClients) {
+          if (client.frameType === 'top-level') {
+            client.navigate(aboutBlankRedirectorUrl); // Navigate SVG image client in non-nested frames to about:blank
             self.devToolsDetectedAtServiceWorker = true; // shutdown the app
           }
         }
