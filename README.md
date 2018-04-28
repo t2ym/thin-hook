@@ -959,6 +959,8 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
           - `hook.parameters.bootstrapSvgScripts = '<script xlink:href="URL?params"></script>...'`
         - Check Request callback on Fetch at Service Worker
           - `hook.parameters.checkRequest = function (event, response) { /* check request */ return response ; }`: `response` - cached response if exists; See `demo/disable-devtools.js`
+        - Root of Application Path
+          - `hook.parameters.appPathRoot = '/';` - The app assets are under `location.origin + hook.parameters.appPathRoot`
     - register as Service Worker
       - `Service-Worker-Allowed` HTTP response header must have an appropriate scope for the target application
     - `cors=true` parameter: CORS script, e.g., `<script src="https://cross.origin.host/path/script.js?cors=true"></script>`

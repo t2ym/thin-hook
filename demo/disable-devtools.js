@@ -3,6 +3,7 @@
 Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 */
 {
+  hook.parameters.appPathRoot = '/'; // The app assets are under location.origin + appPathRoot
   const devtoolsDisabled = true; // Use false and rebuild with gulp demo to enable Dev Tools
   const devtoolsDetectionThreshold = 200; // 200ms
   const devtoolsDetectionInterval = 500; // 500ms
@@ -240,7 +241,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
       // Referrer Policy
       let base = new URL(baseURI);
       let aboutBlankRedirectorUrl = new URL('about-blank-redirector.html', base).href;
-      let appUrlStartsWith = base.origin + '/components/';
+      let appUrlStartsWith = base.origin + (hook.parameters.appPathRoot || '/');
       hook.parameters.checkRequest = function (event, response) {
         let url = new URL(event.request.url);
         let action = 'pass';
