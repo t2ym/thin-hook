@@ -47,7 +47,23 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
         break;
       case 'ServiceWorkerGlobalScope':
         console.clear();
-        caches.keys().then(keys => Promise.all(keys.map(key => caches.delete(key)))/*.then(() => registration.unregister())*/);
+        const version = (new URL(location.href)).searchParams.get('version') || '1';
+        const CONFIGURATIONS_PSEUDO_URL = 'https://thin-hook.localhost.localdomain/configurations.json';
+        caches.keys()
+          .then(keys => Promise.all(keys.map(key => (key === 'version_' + version) || caches.delete(key))))
+          .then(() => {
+            caches.open('version_' + version)
+              .then(function(cache) {
+                cache.keys()
+                  .then(function(keys) {
+                    keys.forEach(function(request) {
+                      if (request.url !== CONFIGURATIONS_PSEUDO_URL) {
+                        cache.delete(request);
+                      }
+                    });
+                  });
+            });
+          });
         break;
       case 'DedicatedWorkerGlobalScope':
       case 'SharedWorkerGlobalScope':
