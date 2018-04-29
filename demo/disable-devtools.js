@@ -108,7 +108,6 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
         if (workerResult[3] >= event.data[2] || devToolsDetectedAtServiceWorker) {
           console.log('devtoolsDetectorMessageHandlerForServiceWorker: afterDebugger - beforeDebugger = ', workerResult[3], ' >= threshold', event.data[2]);
           onDevToolsDetected();
-          caches.keys().then(keys => Promise.all(keys.map(key => caches.delete(key))).then(() => registration.unregister()));
         }
       }
     }
