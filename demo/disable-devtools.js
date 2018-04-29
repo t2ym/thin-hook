@@ -47,7 +47,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
         break;
       case 'ServiceWorkerGlobalScope':
         console.clear();
-        caches.keys().then(keys => Promise.all(keys.map(key => caches.delete(key))).then(() => registration.unregister()));
+        caches.keys().then(keys => Promise.all(keys.map(key => caches.delete(key)))/*.then(() => registration.unregister())*/);
         break;
       case 'DedicatedWorkerGlobalScope':
       case 'SharedWorkerGlobalScope':
@@ -99,7 +99,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
             onDevToolsDetected();
           }
         }, event.data[2]);
-        debugger;
+        eval('debugger');
         let afterDebugger = Date.now();
         workerResult[2] = 'end';
         workerResult[3] = devToolsDetectedAtServiceWorker ? event.data[2] : afterDebugger - beforeDebugger;
