@@ -75,6 +75,61 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
         break;
       }
     }
+    const commandLineAPIs = ['getEventListeners']; // The longer the list, the more overheads.
+    const isFromCommandLine = function () {
+      let result = false;
+      let i = 0;
+      while (!result && i < commandLineAPIs.length) {
+        let f = self[commandLineAPIs[i]];
+        if (typeof f === 'function' && f.toString().includes('Command Line API')) {
+          result = true;
+          break;
+        }
+        i++;
+      }
+      return result;
+    }
+    const _originalFetch = self.fetch;
+    const haltDebugger = async function () {
+      // Optionally report the hacking behavior to the server via _originalFetch.
+      // await _originalFetch()...
+      // Optionally show some warning messages to the console against the hacking
+      console.log('!!! WARNING !!! You are not expected to analyze or modify the application. Your hacking activities are being monitored by the server.');
+      eval('while (true) { debugger; }'); // Note: Stop responding to fetch events as well; 1 thread in the infinite loop with 100% usage on closing the debugger
+    }
+    const paralyzeServiceWorkerConsole = function (targets) {
+      targets.forEach(([object, property]) => {
+        let desc = Object.getOwnPropertyDescriptor(object, property);
+        if (desc) {
+          if (desc.value) {
+            Object.defineProperty(object, property, {
+              configurable: false,
+              enumerable: desc.enumerable,
+              get: function () {
+                if (isFromCommandLine()) {
+                  haltDebugger();
+                  return undefined;
+                }
+                return desc.value;
+              }
+            });
+          }
+          else if (desc.get) {
+            Object.defineProperty(object, property, {
+              configurable: false,
+              enumerable: desc.enumerable,
+              get: function () {
+                if (isFromCommandLine()) {
+                  haltDebugger();
+                  return undefined;
+                }
+                return desc.get.call(this);
+              },
+            });
+          }
+        }
+      });
+    }
     // devtoolsDetectorSharedWorkerScript unused for now
     const devtoolsDetectorSharedWorkerScript = `
       onconnect = function(event) {
@@ -252,6 +307,8 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
         self.devtoolsDetectorForServiceWorkerInstalled = true;
         console.log('disable-devtools.js: installing message handler to Service Worker');
         self.addEventListener('message', devtoolsDetectorMessageHandlerForServiceWorker);
+        // Access to caches or registration paralyzes the console
+        paralyzeServiceWorkerConsole([[WorkerGlobalScope.prototype, 'caches'], [self, 'registration'], [self, 'fetch']]);
       }
       // Referrer Policy
       let base = new URL(baseURI);
