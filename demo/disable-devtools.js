@@ -89,6 +89,13 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
       }
       return result;
     }
+    const isFromDevTools = function () {
+      const stack = (new Error().stack).split(/\n/);
+      //console.log('isFromDevTools', JSON.stringify(stack, null, 2));
+      return stack && stack.length > 0 && (
+        stack[stack.length - 1].includes('remoteFunction') ||
+        (stack[stack.length - 1].includes('haltDebugger') && stack.length > 3 && stack[stack.length - 3].includes('remoteFunction')));
+    }
     const _originalFetch = self.fetch;
     const criticalServiceWorkerGlobalObjects = typeof self === 'object' && self.constructor.name === 'ServiceWorkerGlobalScope'
       ? [
@@ -166,7 +173,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
               configurable: false,
               enumerable: desc.enumerable,
               get: function () {
-                if (isFromCommandLine()) {
+                if (isFromCommandLine() || isFromDevTools()) {
                   haltDebugger(property, 'r');
                   return undefined;
                 }
@@ -179,14 +186,14 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
               configurable: false,
               enumerable: desc.enumerable,
               get: function () {
-                if (isFromCommandLine()) {
+                if (isFromCommandLine() || isFromDevTools()) {
                   haltDebugger(property, 'r');
                   return undefined;
                 }
                 return desc.get.call(this);
               },
               set: function (value) {
-                if (isFromCommandLine()) {
+                if (isFromCommandLine() || isFromDevTools()) {
                   haltDebugger(property, 'w');
                   return undefined;
                 }
@@ -199,7 +206,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
               configurable: false,
               enumerable: desc.enumerable,
               get: function () {
-                if (isFromCommandLine()) {
+                if (isFromCommandLine() || isFromDevTools()) {
                   haltDebugger(property, 'r');
                   return undefined;
                 }
