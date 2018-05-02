@@ -105,9 +105,54 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
           [self, '$hook$'],
         ]
       : null;
-    const haltDebugger = async function () {
+    const errorReportBaseUrl = (new URL('errorReport.json', baseURI)).pathname;
+    const reportHacking = async function reportHacking(property, opType) {
+      let errorReportUrl = errorReportBaseUrl;
+      let data = {
+        'context': 'ServiceWorkerGlobalScope,console',
+        'error': 'HackingDetected',
+        'message': 'Hacking to Service Worker via Dev Tools is detected',
+        'name': 'self',
+        'isStatic': true,
+        'isObject': true,
+        'property': property,
+        'opType': opType,
+      };
+      //console.log('reportHacking', JSON.stringify(data, null, 2));
+      let errorReportResponseJSON;
+      try {
+        let errorReportResponse = await _originalFetch(errorReportUrl, {
+          method: 'POST', // Note: On 'GET' method, make sure the request reaches the server through the Service Worker with appropriate cache control.
+          headers: new Headers({
+            'Content-Type': 'application/json'
+          }),
+          body: JSON.stringify(data,null,0),
+          mode: 'same-origin',
+          cache: 'no-cache'
+        });
+        let errorReportResponseText = await errorReportResponse.text();
+        errorReportResponseJSON = JSON.parse(errorReportResponseText) || {};
+      }
+      catch (e) {
+        errorReportResponseJSON = {
+          severity: 'permissive' // default severity on a fetch error
+        };
+      }
+      finally {
+        switch (errorReportResponseJSON.severity) {
+        case 'critical':
+        default:
+          self.devToolsDetectedAtServiceWorker = true; // Note: This should have been set as true
+          return false;
+        case 'observing':
+        case 'permissive':
+          return true;
+        }
+      }
+    }
+    const haltDebugger = async function (property, opType) {
       // Optionally report the hacking behavior to the server via _originalFetch.
-      // await _originalFetch()...
+      await reportHacking(property, opType);
       // Optionally show some warning messages to the console against the hacking
       console.log('!!! WARNING !!! You are not expected to analyze or modify the application. Your hacking activities are being monitored by the server.');
       eval('while (true) { debugger; }'); // Note: Stop responding to fetch events as well; 1 thread in the infinite loop with 100% usage on closing the debugger
@@ -122,7 +167,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
               enumerable: desc.enumerable,
               get: function () {
                 if (isFromCommandLine()) {
-                  haltDebugger();
+                  haltDebugger(property, 'r');
                   return undefined;
                 }
                 return desc.value;
@@ -135,14 +180,14 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
               enumerable: desc.enumerable,
               get: function () {
                 if (isFromCommandLine()) {
-                  haltDebugger();
+                  haltDebugger(property, 'r');
                   return undefined;
                 }
                 return desc.get.call(this);
               },
               set: function (value) {
                 if (isFromCommandLine()) {
-                  haltDebugger();
+                  haltDebugger(property, 'w');
                   return undefined;
                 }
                 return desc.set.call(this, value);
@@ -155,7 +200,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
               enumerable: desc.enumerable,
               get: function () {
                 if (isFromCommandLine()) {
-                  haltDebugger();
+                  haltDebugger(property, 'r');
                   return undefined;
                 }
                 return desc.get.call(this);
