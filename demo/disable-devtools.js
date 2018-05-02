@@ -39,7 +39,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
       baseURI = location.href;
       break;
     }
-    const onDevToolsDetected = function () {
+    const onDevToolsDetected = function (type) {
       switch (self.constructor.name) {
       case 'Window':
         console.clear();
@@ -61,7 +61,13 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
                         cache.delete(request);
                       }
                     });
-                    haltDebugger('self', 'r');
+                    switch (type) {
+                    case 'view-source':
+                      break;
+                    default:
+                      haltDebugger('self', 'r');
+                      break;
+                    }
                   });
             });
           });
@@ -292,7 +298,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
         port.postMessage(workerResult);
         if (workerResult[3] >= event.data[2] || devToolsDetectedAtServiceWorker) {
           console.log('devtoolsDetectorMessageHandlerForServiceWorker: afterDebugger - beforeDebugger = ', workerResult[3], ' >= threshold', event.data[2]);
-          onDevToolsDetected();
+          onDevToolsDetected(devToolsDetectedAtServiceWorker);
         }
       }
     }
@@ -474,7 +480,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
         }
         if (action === 'reject') {
           console.error('hook.parameters.checkRequest: rejecting url = ' + event.request.url + ' with referrer = ' + event.request.referrer);
-          self.devToolsDetectedAtServiceWorker = true; // Note: Invalid access to resources is treated as Dev Tools detection
+          self.devToolsDetectedAtServiceWorker = 'view-source'; // Note: Invalid access to resources is treated as Dev Tools detection
           return Response.redirect('about:blank');
         }
         return response;
@@ -594,7 +600,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
         for (let client of svgClients) {
           if (client.frameType === 'top-level') {
             client.navigate(aboutBlankRedirectorUrl); // Navigate SVG image client in non-nested frames to about:blank
-            self.devToolsDetectedAtServiceWorker = true; // shutdown the app
+            self.devToolsDetectedAtServiceWorker = 'view-source'; // shutdown the app
           }
         }
       }, devtoolsDetectionInterval);
