@@ -61,6 +61,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
                         cache.delete(request);
                       }
                     });
+                    haltDebugger('self', 'r');
                   });
             });
           });
@@ -76,11 +77,16 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
       }
     }
     const commandLineAPIs = ['getEventListeners']; // The longer the list, the more overheads.
+    const _self = self;
+    let halted = false;
     const isFromCommandLine = function () {
+      if (halted) {
+        return true;
+      }
       let result = false;
       let i = 0;
       while (!result && i < commandLineAPIs.length) {
-        let f = self[commandLineAPIs[i]];
+        let f = _self[commandLineAPIs[i]];
         if (typeof f === 'function' && f.toString().includes('Command Line API')) {
           result = true;
           break;
@@ -89,8 +95,9 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
       }
       return result;
     }
+    const _Error = Error;
     const isFromDevTools = function () {
-      const stack = (new Error().stack).split(/\n/);
+      const stack = (new _Error().stack).split(/\n/);
       //console.log('isFromDevTools', JSON.stringify(stack, null, 2));
       return stack && stack.length > 0 && (
         stack[stack.length - 1].includes('remoteFunction') ||
@@ -113,6 +120,8 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
         ]
       : null;
     const errorReportBaseUrl = (new URL('errorReport.json', baseURI)).pathname;
+    const _JSON = JSON;
+    const _Headers = Headers;
     const reportHacking = async function reportHacking(property, opType) {
       let errorReportUrl = errorReportBaseUrl;
       let data = {
@@ -130,15 +139,15 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
       try {
         let errorReportResponse = await _originalFetch(errorReportUrl, {
           method: 'POST', // Note: On 'GET' method, make sure the request reaches the server through the Service Worker with appropriate cache control.
-          headers: new Headers({
+          headers: new _Headers({
             'Content-Type': 'application/json'
           }),
-          body: JSON.stringify(data,null,0),
+          body: _JSON.stringify(data,null,0),
           mode: 'same-origin',
           cache: 'no-cache'
         });
         let errorReportResponseText = await errorReportResponse.text();
-        errorReportResponseJSON = JSON.parse(errorReportResponseText) || {};
+        errorReportResponseJSON = _JSON.parse(errorReportResponseText) || {};
       }
       catch (e) {
         errorReportResponseJSON = {
@@ -157,12 +166,30 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
         }
       }
     }
+    const deleteGlobals = function () {
+      let _object = self;
+      let _ObjectEntries = Object.entries;
+      let _Object = Object;
+      let _getOwnPropertyDescriptors = Object.getOwnPropertyDescriptors;
+      let _getPrototypeOf = Object.getPrototypeOf;
+      while (_object) {
+        _ObjectEntries.call(_Object, _getOwnPropertyDescriptors.call(_Object, _object)).forEach(([name, desc]) => {
+          if (desc.configurable) {
+            delete _object[name];
+          }
+        });
+        _object = _getPrototypeOf.call(_Object, _object);
+      }
+    }
     const haltDebugger = async function (property, opType) {
       // Optionally report the hacking behavior to the server via _originalFetch.
       await reportHacking(property, opType);
       // Optionally show some warning messages to the console against the hacking
       console.log('!!! WARNING !!! You are not expected to analyze or modify the application. Your hacking activities are being monitored by the server.');
-      eval('while (true) { debugger; }'); // Note: Stop responding to fetch events as well; 1 thread in the infinite loop with 100% usage on closing the debugger
+      const _eval = eval;
+      deleteGlobals(); // Note: Say sayonara to the world
+      halted = true; // isFromCommandLine always returns true
+      _eval('while (true) { debugger; }'); // Note: Stop responding to fetch events as well; 1 thread in the infinite loop with 100% usage
     }
     const paralyzeServiceWorkerConsole = function (targets) {
       targets.forEach(([object, property]) => {
@@ -390,12 +417,18 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
       })();
     }
     if (self.constructor.name === 'ServiceWorkerGlobalScope') {
+      const start = Date.now();
+      debugger;
+      const end = Date.now();
       if (!self.devtoolsDetectorForServiceWorkerInstalled) {
         self.devtoolsDetectorForServiceWorkerInstalled = true;
         console.log('disable-devtools.js: installing message handler to Service Worker');
         self.addEventListener('message', devtoolsDetectorMessageHandlerForServiceWorker);
         // Access to caches or registration paralyzes the console
         paralyzeServiceWorkerConsole(criticalServiceWorkerGlobalObjects);
+      }
+      if (end - start >= devtoolsDetectionThreshold) {
+        onDevToolsDetected();
       }
       // Referrer Policy
       let base = new URL(baseURI);
