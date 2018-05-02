@@ -413,10 +413,10 @@ gulp.task('build', () => {
       let espreeOptions = { range: false, tokens: false, comment: false, ecmaVersion: 8 };
       let originalAst = espree.parse(code, espreeOptions);
       let unconfigurableGlobalHookAst = espree.parse(
-        "Object.defineProperty(g, 'hook', { configurable: false, enumerable: false, writable: false, value: f() });",
+        "Object.defineProperty(g, 'hook', { configurable: g.constructor.name === 'ServiceWorkerGlobalScope', enumerable: false, writable: false, value: f() });",
         espreeOptions).body[0];
       let unconfigurableGlobalHookAliasAst = espree.parse(
-        "Object.defineProperty(g, '$hook$', { configurable: false, enumerable: false, writable: false, value: g.hook });",
+        "Object.defineProperty(g, '$hook$', { configurable: g.constructor.name === 'ServiceWorkerGlobalScope', enumerable: false, writable: false, value: g.hook });",
         espreeOptions).body[0];
       let serviceWorkerHandlerRegistrationAst = espree.parse(
         "if (g.constructor.name === 'ServiceWorkerGlobalScope')" +
@@ -491,10 +491,10 @@ gulp.task('build:coverage', () => {
       let espreeOptions = { range: false, tokens: false, comment: false, ecmaVersion: 8 };
       let originalAst = espree.parse(code, espreeOptions);
       let unconfigurableGlobalHookAst = espree.parse(
-        "Object.defineProperty(g, 'hook', { configurable: false, enumerable: false, writable: false, value: f() });",
+        "Object.defineProperty(g, 'hook', { configurable: g.constructor.name === 'ServiceWorkerGlobalScope', enumerable: false, writable: false, value: f() });",
         espreeOptions).body[0];
       let unconfigurableGlobalHookAliasAst = espree.parse(
-        "Object.defineProperty(g, '$hook$', { configurable: false, enumerable: false, writable: false, value: g.hook });",
+        "Object.defineProperty(g, '$hook$', { configurable: g.constructor.name === 'ServiceWorkerGlobalScope', enumerable: false, writable: false, value: g.hook });",
         espreeOptions).body[0];
       let serviceWorkerHandlerRegistrationAst = espree.parse(
         "if (g.constructor.name === 'ServiceWorkerGlobalScope')" +

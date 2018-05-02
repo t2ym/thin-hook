@@ -90,6 +90,21 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
       return result;
     }
     const _originalFetch = self.fetch;
+    const criticalServiceWorkerGlobalObjects = typeof self === 'object' && self.constructor.name === 'ServiceWorkerGlobalScope'
+      ? [
+          [WorkerGlobalScope.prototype, 'caches'],
+          [EventTarget.prototype, 'addEventListener'],
+          [EventTarget.prototype, 'removeEventListener'],
+          [self, 'registration'],
+          [self, 'fetch'],
+          [self, 'onfetch'],
+          [self, 'oninstall'],
+          [self, 'onactivate'],
+          [self, 'onmessage'],
+          [self, 'hook'], // Note: hook and $hook$ are configurable only in Service Worker
+          [self, '$hook$'],
+        ]
+      : null;
     const haltDebugger = async function () {
       // Optionally report the hacking behavior to the server via _originalFetch.
       // await _originalFetch()...
@@ -112,6 +127,26 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
                 }
                 return desc.value;
               }
+            });
+          }
+          else if (desc.set) {
+            Object.defineProperty(object, property, {
+              configurable: false,
+              enumerable: desc.enumerable,
+              get: function () {
+                if (isFromCommandLine()) {
+                  haltDebugger();
+                  return undefined;
+                }
+                return desc.get.call(this);
+              },
+              set: function (value) {
+                if (isFromCommandLine()) {
+                  haltDebugger();
+                  return undefined;
+                }
+                return desc.set.call(this, value);
+              },
             });
           }
           else if (desc.get) {
@@ -308,7 +343,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
         console.log('disable-devtools.js: installing message handler to Service Worker');
         self.addEventListener('message', devtoolsDetectorMessageHandlerForServiceWorker);
         // Access to caches or registration paralyzes the console
-        paralyzeServiceWorkerConsole([[WorkerGlobalScope.prototype, 'caches'], [self, 'registration'], [self, 'fetch']]);
+        paralyzeServiceWorkerConsole(criticalServiceWorkerGlobalObjects);
       }
       // Referrer Policy
       let base = new URL(baseURI);
