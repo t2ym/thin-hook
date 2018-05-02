@@ -80,6 +80,7 @@
     "uglify-js": "^2.7.5",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
+    "wct-headless": "^2.2.2",
     "wct-istanbul": "^0.12.3",
     "webpack": "^3.10.0",
     "webpack-stream": "^4.0.0",
