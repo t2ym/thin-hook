@@ -3,7 +3,9 @@
 Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 */
 {
-  hook.parameters.appPathRoot = '/'; // The app assets are under location.origin + appPathRoot
+  if (typeof hook === 'function') {
+    hook.parameters.appPathRoot = '/'; // The app assets are under location.origin + appPathRoot
+  }
   const devtoolsDisabled = true; // Use false and rebuild with gulp demo to enable Dev Tools
   const devtoolsDetectionThreshold = 200; // 200ms
   const devtoolsDetectionInterval = 500; // 500ms
@@ -22,7 +24,13 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
       }
       break;
     case 'ServiceWorkerGlobalScope':
-      baseURI = new URL(location.origin + new URL(location.href).searchParams.get('service-worker-initiator')).href;
+      if (new URL(location.href).searchParams.has('service-worker-initiator')) {
+        baseURI = new URL(location.origin + new URL(location.href).searchParams.get('service-worker-initiator')).href;
+      }
+      else if (location.pathname.includes('/disable-devtools.js')) {
+        baseURI = location.href;
+        self.disableDevToolsAsServiceWorker = true;
+      }
       self.devToolsDetectedAtServiceWorker = false;
       break;
     case 'DedicatedWorkerGlobalScope':
@@ -39,20 +47,32 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
       baseURI = location.href;
       break;
     }
+    const criticalServiceWorkerGlobalObjectsWrapper = function criticalServiceWorkerGlobalObjectsWrapper(name) {
+      return self[name];
+    }
     const onDevToolsDetected = function (type) {
       switch (self.constructor.name) {
       case 'Window':
-        console.clear();
-        location = 'about:blank';
+        //console.clear();
+        let script = document.currentScript || Array.prototype.filter.call(document.querySelectorAll('script'), s => s.src.match(/\/hook.min.js/))[0];
+        let src = new URL(script.src, window.location.href);
+        let swRoot = src.searchParams.get('sw-root') || window.location.pathname.replace(/\/[^\/]*$/, '/');
+        navigator.serviceWorker.register(new URL('disable-devtools.js', baseURI).href, { scope: swRoot }).then(() => {
+          navigator.serviceWorker.getRegistration().then(registration => {
+            registration.update();
+            location = 'about:blank';
+          });
+        });
+        //navigator.serviceWorker.getRegistration().then(registration => { console.log('onDevToolsDetected: unregister Service Worker'); registration.unregister(); });
         break;
       case 'ServiceWorkerGlobalScope':
         console.clear();
         const version = (new URL(location.href)).searchParams.get('version') || '1';
         const CONFIGURATIONS_PSEUDO_URL = 'https://thin-hook.localhost.localdomain/configurations.json';
-        caches.keys()
-          .then(keys => Promise.all(keys.map(key => (key === 'version_' + version) || caches.delete(key))))
+        criticalServiceWorkerGlobalObjectsWrapper('caches').keys()
+          .then(keys => Promise.all(keys.map(key => (key === 'version_' + version) || criticalServiceWorkerGlobalObjectsWrapper('caches').delete(key))))
           .then(() => {
-            caches.open('version_' + version)
+            criticalServiceWorkerGlobalObjectsWrapper('caches').open('version_' + version)
               .then(function(cache) {
                 cache.keys()
                   .then(function(keys) {
@@ -102,6 +122,19 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
       return result;
     }
     const _Error = Error;
+    const _location = location.href;
+    const _console = console;
+    const _JSON = JSON;
+    const isFromServiceWorker = function () {
+      const stack = (new _Error().stack).split(/\n/);
+      const thirdLine = stack[3];
+      const lastLine = stack[stack.length - 1];
+      let result = lastLine.includes(_location) &&
+        ((thirdLine.includes('criticalServiceWorkerGlobalObjectsWrapper') && !thirdLine.includes('eval at <anonymous>')) ||
+         (!lastLine.includes('haltDebugger') && !lastLine.includes('devtoolsDetectorMessageHandlerForServiceWorker')));
+      //_console.log((result ? '' : '!') + 'isFromServiceWorker', _JSON.stringify(stack, null, 2));
+      return result;
+    }
     const isFromDevTools = function () {
       const stack = (new _Error().stack).split(/\n/);
       //console.log('isFromDevTools', JSON.stringify(stack, null, 2));
@@ -126,7 +159,6 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
         ]
       : null;
     const errorReportBaseUrl = (new URL('errorReport.json', baseURI)).pathname;
-    const _JSON = JSON;
     const _Headers = Headers;
     const reportHacking = async function reportHacking(property, opType) {
       let errorReportUrl = errorReportBaseUrl;
@@ -193,9 +225,10 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
       // Optionally show some warning messages to the console against the hacking
       console.log('!!! WARNING !!! You are not expected to analyze or modify the application. Your hacking activities are being monitored by the server.');
       const _eval = eval;
-      deleteGlobals(); // Note: Say sayonara to the world
+      criticalServiceWorkerGlobalObjectsWrapper('registration').update();
       halted = true; // isFromCommandLine always returns true
-      _eval('while (true) { debugger; }'); // Note: Stop responding to fetch events as well; 1 thread in the infinite loop with 100% usage
+      deleteGlobals(); // Note: Say sayonara to the world
+      //_eval('while (true) { debugger; }'); // Note: Stop responding to fetch events as well; 1 thread in the infinite loop with 100% usage
     }
     const paralyzeServiceWorkerConsole = function (targets) {
       targets.forEach(([object, property]) => {
@@ -206,7 +239,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
               configurable: false,
               enumerable: desc.enumerable,
               get: function () {
-                if (isFromCommandLine() || isFromDevTools()) {
+                if (!isFromServiceWorker()) {
                   haltDebugger(property, 'r');
                   return undefined;
                 }
@@ -219,14 +252,14 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
               configurable: false,
               enumerable: desc.enumerable,
               get: function () {
-                if (isFromCommandLine() || isFromDevTools()) {
+                if (!isFromServiceWorker()) {
                   haltDebugger(property, 'r');
                   return undefined;
                 }
                 return desc.get.call(this);
               },
               set: function (value) {
-                if (isFromCommandLine() || isFromDevTools()) {
+                if (!isFromServiceWorker()) {
                   haltDebugger(property, 'w');
                   return undefined;
                 }
@@ -239,7 +272,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
               configurable: false,
               enumerable: desc.enumerable,
               get: function () {
-                if (isFromCommandLine() || isFromDevTools()) {
+                if (!isFromServiceWorker()) {
                   haltDebugger(property, 'r');
                   return undefined;
                 }
@@ -278,10 +311,10 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
     `;
     const devtoolsDetectorMessageHandlerForServiceWorker = function devtoolsDetectorMessageHandlerForServiceWorker (event) {
       if (Array.isArray(event.data) && event.data[0] === 'plugin' && event.data[1] === 'DevToolsDetection') {
-        let port = event.ports[0];
+        const port = event.ports[0];
         //console.log('devtoolsDetectorMessageHandlerForServiceWorker: message received', JSON.stringify(event.data));
-        let beforeDebugger = Date.now();
-        let workerResult = ['plugin', 'DevToolsDetection', 'start', beforeDebugger]; // start response
+        const beforeDebugger = Date.now();
+        const workerResult = ['plugin', 'DevToolsDetection', 'start', beforeDebugger]; // start response
         //console.log('devtoolsDetectorMessageHandlerForServiceWorker: postMessage', JSON.stringify(workerResult));
         port.postMessage(workerResult);
         setTimeout(() => {
@@ -291,7 +324,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
           }
         }, event.data[2]);
         eval('debugger');
-        let afterDebugger = Date.now();
+        const afterDebugger = Date.now();
         workerResult[2] = 'end';
         workerResult[3] = devToolsDetectedAtServiceWorker ? event.data[2] : afterDebugger - beforeDebugger;
         //console.log('devtoolsDetectorMessageHandlerForServiceWorker: postMessage', JSON.stringify(workerResult), devToolsDetectedAtServiceWorker);
@@ -422,7 +455,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
         }
       })();
     }
-    if (self.constructor.name === 'ServiceWorkerGlobalScope') {
+    if (self.constructor.name === 'ServiceWorkerGlobalScope' && !self.disableDevToolsAsServiceWorker) {
       const start = Date.now();
       debugger;
       const end = Date.now();
@@ -604,6 +637,29 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
           }
         }
       }, devtoolsDetectionInterval);
+    }
+    else if (self.constructor.name === 'ServiceWorkerGlobalScope' && self.disableDevToolsAsServiceWorker) {
+      const _Response = Response;
+      const _skipWaiting = skipWaiting;
+      const _clients = clients;
+      addEventListener('install', function(event) {
+        _skipWaiting();
+      });
+
+      addEventListener('activate', function(event) {
+        _clients.claim();
+        if (typeof self === 'object') {
+          deleteGlobals();
+        }
+      });
+
+      addEventListener('fetch', function(event) {
+        return _Response.redirect('about:blank');
+      });
+
+      if (typeof setTimeout === 'function') {
+        setTimeout(deleteGlobals, 0);
+      }
     }
     if (self.constructor.name === 'SharedWorkerGlobalScope') {
       (async function () {
