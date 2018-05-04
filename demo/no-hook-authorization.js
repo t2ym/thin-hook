@@ -10,7 +10,7 @@
     // JSONs are output to console in the learning mode
     //'*': true,
     "be5d362a9aec3ed578ed3eaf2c6c57fe13f754a1911860a1c2eca2eb16cec831": true, // hook.min.js
-    "e1f5d05cb3650e8bf19ab00a49fc9c4e2755fbe4ebf61dc01caf24a88b265d2a": true, // demo/disable-devtools.js
+    "e736ae038e486432a48055af5a7393d267210b866d8ac53c5a03c75d45010c45": true, // demo/disable-devtools.js
     "7e0fcbf73f8a30d98082c497e4bec73f2b49e5bee70605bb8838aed035763868": true, // demo/context-generator.js
     "936299cf27465a19054ab800609fe1723469d204b45f239172b2018e1970126b": true, // demo/bootstrap.js
     "98915d68fe269816d2dea35af765000d92dddba5323f34336b41e3f577907680": true, // demo/hook-callback.js

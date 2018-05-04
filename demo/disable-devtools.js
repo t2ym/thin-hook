@@ -54,7 +54,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
       switch (self.constructor.name) {
       case 'Window':
         //console.clear();
-        let script = document.currentScript || Array.prototype.filter.call(document.querySelectorAll('script'), s => s.src.match(/\/hook.min.js/))[0];
+        let script = Array.prototype.filter.call(document.querySelectorAll('script'), s => s.src.match(/\/hook.min.js/))[0];
         let src = new URL(script.src, window.location.href);
         let swRoot = src.searchParams.get('sw-root') || window.location.pathname.replace(/\/[^\/]*$/, '/');
         navigator.serviceWorker.register(new URL('disable-devtools.js', baseURI).href, { scope: swRoot }).then(() => {
