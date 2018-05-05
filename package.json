@@ -7,8 +7,10 @@
     "test": "wct",
     "build": "gulp",
     "demo": "run-p polyserve errorReportService",
+    "upload": "run-p polyserve cacheBundleUploadService",
     "polyserve": "polyserve -p 8080 -H 0.0.0.0 --proxy-path /components/thin-hook/demo/errorReport.json --proxy-target http://localhost:8081/errorReport.json",
-    "errorReportService": "node demo/errorReportService.js"
+    "errorReportService": "node demo/errorReportService.js",
+    "cacheBundleUploadService": "node demo/cacheBundleUploadService.js"
   },
   "bin": {
     "hook": "./hook-cli.js"

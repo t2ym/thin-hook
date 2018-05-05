@@ -959,7 +959,7 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
         - Bootstrap Scripts for SVG
           - `hook.parameters.bootstrapSvgScripts = '<script xlink:href="URL?params"></script>...'`
         - Check Request callback on Fetch at Service Worker
-          - `hook.parameters.checkRequest = function (event, response) { /* check request */ return response ; }`: `response` - cached response if exists; See `demo/disable-devtools.js`
+          - `hook.parameters.checkRequest = function (event, response, cache) { /* check request */ return response ; }`: `response` - cached response if exists; See `demo/disable-devtools.js`
         - Root of Application Path
           - `hook.parameters.appPathRoot = '/';` - The app assets are under `location.origin + hook.parameters.appPathRoot`
     - register as Service Worker

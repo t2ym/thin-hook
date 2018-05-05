@@ -1,10 +1,14 @@
 <script>
   (async function putCache() {
-    let exportedResponse = await fetch('exported.json');
+    const CACHE_STATUS_PSEUDO_URL = 'https://thin-hook.localhost.localdomain/cache-status.json';
+    let exportedResponse = await fetch('cache-bundle.json');
     let exportedText = await exportedResponse.text();
     let exported = JSON.parse(exportedText);
-    let cache = await caches.open('version_478');
+    let cache = await caches.open('version_495');
     for (let key in exported) {
+      if (key === 'version') {
+        continue;
+      }
       let url = new URL(key, location);
       let extension = url.pathname.match(/([.][a-z]*)$/)[1];
       let contentType;
@@ -18,34 +22,18 @@
       case '.json':
         contentType = 'application/json';
         break;
+      case '.svg':
+        contentType = 'image/svg+xml';
+        break;
       default:
         contentType = 'text/plain';
         break;
       }
-      await cache.put(new Request(key, location), new Response(exported[key], { headers: {'Content-Type': contentType} }));
+      cache.put(new Request(key), new Response(exported[key], { headers: {'Content-Type': contentType} }));
     }
+    cacheStatus = { status: 'loaded' };
+    await cache.put(new Request(CACHE_STATUS_PSEUDO_URL), new Response(JSON.stringify(cacheStatus), { headers: { 'Content-Type': 'application/json' }}));
     location = '/components/thin-hook/demo/';
     return true;
   })();
-
-  // On developer console for now as an experiment
-  (async function exportCache() { 
-    let cacheNames = await caches.keys(); 
-    let cache = await caches.open(cacheNames[0]); 
-    let requests = await cache.keys();
-    let exported = {};
-    for (let request of requests) {
-      if (request.url.startsWith(location.origin + '/components/thin-hook/demo/exported.json')) {
-        continue;
-      }
-      let response = await cache.match(request);
-      let result = await response.text();
-      let url = new URL(request.url, location);
-      let key = location.origin === url.origin ? url.pathname : request.url;
-      exported[key] = result;
-    }
-    await cache.put(new Request(location.origin + '/components/thin-hook/demo/exported.json'), new Response(JSON.stringify(exported,null,0), { headers: { 'Content-Type': 'application/json' } }));
-    console.log(exported);
-    return true; 
-  });
 </script>

@@ -65,6 +65,7 @@ gulp.task('update-no-hook-authorization', (done) => {
           'demo/hook-callback.js',
           'demo/hook-native-api.js',
           'demo/hook-worker.js',
+          'demo/cache-bundle.js',
           'demo/browserify-commonjs.js',
           'demo/webpack-es6-module.js',
           'demo/webpack-commonjs.js'
