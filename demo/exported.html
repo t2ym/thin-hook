@@ -4,7 +4,7 @@
     let exportedResponse = await fetch('cache-bundle.json');
     let exportedText = await exportedResponse.text();
     let exported = JSON.parse(exportedText);
-    let cache = await caches.open('version_495');
+    let cache = await caches.open('version_496');
     for (let key in exported) {
       if (key === 'version') {
         continue;
