@@ -51,8 +51,9 @@ default:
 
 (async () => {
   console.log('"killall chrome" may help when puppeteer is unstable');
+  const targetFolder = 'demo';
   const target = 'cache-bundle.json';
-  await del([target]);
+  await del([path.join(targetFolder, target)]);
   console.log('clean up ' + target);
   await new Promise(resolve => setTimeout(resolve, 4000));
   console.log('wait 4000');
