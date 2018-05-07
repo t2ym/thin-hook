@@ -25,16 +25,24 @@ app.use(bodyParser.json({limit: "100mb"}));
 app.listen(8081);
 app.post('/errorReport.json', function(req, res) {
   if (req.body.type === 'cache-bundle.json') { 
-    fs.writeFileSync(path.join(__dirname, 'cache-bundle.json'), req.body.data);
-    let data = JSON.parse(req.body.data);
-    console.log('/errorReport.json', 'type = ', req.body.type, ' data.version = ', data.version, ' data.length = ', req.body.data.length, 'written to ', path.join(__dirname, 'cache-bundle.json'));
+    let rawData = JSON.parse(req.body.data);
+    let data = { version: rawData.version };
+    let keys = Object.keys(rawData).sort();
+    for (let key of keys) {
+      if (key !== 'version') {
+        data[key] = rawData[key];
+      }
+    }
+    let dataJSON = JSON.stringify(data, null, 2);
+    fs.writeFileSync(path.join(__dirname, 'cache-bundle.json'), dataJSON);
+    console.log('/errorReport.json', 'type = ', req.body.type, ' data.version = ', data.version, ' data.length = ', dataJSON.length, 'written to ', path.join(__dirname, 'cache-bundle.json'));
     res.send(JSON.stringify({
       "status": "ok",
       "message": "uploaded cache-bundle.json in " + req.body.data.length + " bytes",
     }, null, 2));
   }
   else {
-    console.log('/errorReport.json', req.body);
+    //console.log('/errorReport.json', req.body);
     // Fixed response for PoC
     res.send(JSON.stringify({
       "type": "errorReportResponse",

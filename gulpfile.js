@@ -3,6 +3,7 @@
 const gulp = require('gulp');
 const gulpif = require('gulp-if');
 const runSequence = require('run-sequence');
+const shell = require('gulp-shell');
 const babel = require('gulp-babel');
 const rename = require('gulp-rename');
 const sourcemaps = require('gulp-sourcemaps');
@@ -47,9 +48,15 @@ let currentHtml = '';
 let lastJs = 'old';
 let currentJs = '';
 
-gulp.task('demo', (done) => {
+gulp.task('_demo', (done) => {
   runSequence('browserify-commonjs', 'webpack-es6-module', 'webpack-commonjs', 'update-no-hook-authorization', 'update-no-hook-authorization-in-html', 'encode-demo-html', done);
 });
+
+gulp.task('demo', (done) => {
+  runSequence('browserify-commonjs', 'webpack-es6-module', 'webpack-commonjs', 'update-no-hook-authorization', 'update-no-hook-authorization-in-html', 'encode-demo-html', 'cache-bundle', done);
+});
+
+gulp.task('cache-bundle', shell.task('npm run cache-bundle'));
 
 gulp.task('update-no-hook-authorization', (done) => {
   setTimeout(() => {
