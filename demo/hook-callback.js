@@ -453,15 +453,26 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
     '/components/thin-hook/demo/normalize.js,SubClass1,constructor': '@XClass1_constructor',
     '/components/thin-hook/demo/normalize.js,SubClass2,constructor': '@XClass1_constructor',
     '/components/thin-hook/demo/normalize.js,SubClass3,constructor': '@XClass1_constructor',
+    '/components/thin-hook/demo/Function.js': '@Function_js',
+    '/components/thin-hook/demo/Function.js,strictMode': '@Function_js',
+    '/components/thin-hook/demo/Function.js,F': '@Function_reader',
+    '/components/thin-hook/demo/Function.js,strictMode,F': '@Function_reader',
     '/components/thin-hook/demo/Function.js,strictMode': '@normalization_checker',
     '/components/thin-hook/demo/Function.js,f3': '@Function_reader',
     '/components/thin-hook/demo/Function.js,strictMode,f3': '@Function_reader',
+    '/components/thin-hook/demo/Function.js,f4': '@Function_reader',
+    '/components/thin-hook/demo/Function.js,strictMode,f4': '@Function_reader',
+    '/components/thin-hook/demo/Function.js,SubclassFunction': '@Function_reader',
+    '/components/thin-hook/demo/Function.js,strictMode,SubclassFunction': '@Function_reader',
+    '/components/thin-hook/demo/Function.js,CustomConstructorSubclassFunction': '@Function_reader',
+    '/components/thin-hook/demo/Function.js,strictMode,CustomConstructorSubclassFunction': '@Function_reader',
     '/components/thin-hook/demo/normalize.js,ArraySubclass2,constructor': '@super_normalization_checker',
     '/components/thin-hook/demo/normalize.js,ArraySubclass4,constructor': '@super_normalization_checker',
     '/components/thin-hook/demo/normalize.js,bindCheck': '@bind_normalization_checker',
     '/components/thin-hook/demo/normalize.js,bindCheck,boundF': '@bind_normalization_checker',
     '/components/thin-hook/demo/normalize.js,bindCheck,b': '@bind_normalization_checker',
     '/components/thin-hook/demo/normalize.js,bindCheck,B,static now': '@bind_normalization_checker',
+    '/components/thin-hook/demo/normalize.js,cannotAccessNavigator': '@normalization_checker_cannot_access_navigator',
     '/components/dexie/dist/dexie.min.js,r': '@custom_error_constructor_creator',
     '/components/firebase/firebase-app.js': '@firebase_app',
     '/components/firebase/firebase-auth.js,t': '@custom_error_constructor_creator',
@@ -649,6 +660,10 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
     'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js,41,o': '@iframe_contentWindow_accessor',
     'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js,26': '@iframe_contentWindow_accessor',
     '/components/thin-hook/demo/my-view1.html,script@4544,attached': '@svg_contentWindow_accessor',
+    '/components/iron-behaviors/iron-control-state.html,script@581,properties,_boundFocusBlurHandler,type': '@Function_reader',
+    '/components/paper-ripple/paper-ripple.html,script@4438,properties,_boundAnimate,type': '@Function_reader',
+    '/components/iron-ajax/iron-ajax.html,script@1410,properties,_boundHandleResponse,type': '@Function_reader',
+    '/components/vaadin-grid/vaadin-grid-table.html,script@8651,properties,bindData': '@Function_reader',
   };
   /*
     Prefixed Contexts object:
@@ -1012,6 +1027,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
       globalObjectAccess: {
         [S_DEFAULT]: '---',
         '@normalization_checker': 'r--',
+        '@Function_js': 'r--',
       },
       btoa: {
         [S_DEFAULT]: 'r-x',
@@ -1197,6 +1213,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
       [S_OBJECT]: {
         [S_DEFAULT]: 'r--',
         '@normalization_checker': 'r--R-',
+        '@normalization_checker_cannot_access_navigator': '---',
       },
       [S_DEFAULT]: 'r--',
       [S_ALL]: '---',
@@ -2178,8 +2195,10 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
       [S_OBJECT]: {
         [S_DEFAULT]: '--x',
         '@Function_reader': 'r-x',
+        '@Function_js': 'r-x',
         '@normalization_checker': 'r-x',
         '@Polymer_lib': 'r-x',
+        '@Object_prototype_reader': 'r--',
       },
       [S_DEFAULT]: 'r-x',
       '@bind_normalization_checker': 'r-x',
@@ -2623,6 +2642,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
     setTimeout: {
       [S_DEFAULT]: '--x',
       '@setTimeout_reader': 'r-x',
+      '@firebase_app': 'r-x',
       '@process_browser_js': 'r-x',
     },
     Document: {
@@ -3324,6 +3344,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
         [S_DEFAULT]: '---',
         '@polymerfire': 'r--',
         '@firebase_app': 'rw-RW',
+        '@firebase_auth': 'r--',
       },
       [S_DEFAULT]: '---', // Note: Only @polymerfire can access firebase API
       '@firebase_app': 'rw-',
