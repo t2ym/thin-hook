@@ -4306,7 +4306,9 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
           if (contentWindow) {
             if (contentWindow.__hook__) {
               //console.log('applying __hook__ of contentWindow');
-              return contentWindow.__hook__.apply(contentWindow, arguments);
+              result = contentWindow.__hook__.apply(contentWindow, arguments);
+              contextStack.pop();
+              return result;
             }
             else {
               console.error('contentWindow.__hook__ not found for ', contentWindow);
@@ -5711,7 +5713,9 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
           if (contentWindow) {
             if (contentWindow.__hook__) {
               //console.log('applying __hook__ of contentWindow');
-              return contentWindow.__hook__.apply(contentWindow, arguments);
+              result = contentWindow.__hook__.apply(contentWindow, arguments);
+              contextStack.pop();
+              return result;
             }
             else {
               console.error('contentWindow.__hook__ not found for ', contentWindow);

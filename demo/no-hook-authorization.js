@@ -13,7 +13,7 @@
     "e736ae038e486432a48055af5a7393d267210b866d8ac53c5a03c75d45010c45": true, // demo/disable-devtools.js
     "7e0fcbf73f8a30d98082c497e4bec73f2b49e5bee70605bb8838aed035763868": true, // demo/context-generator.js
     "406e250e388860b3e78420721fba552ac89b94c30683481b43bf87b5bd2e7994": true, // demo/bootstrap.js
-    "136c019637d08555bc0ac652bc4519f69400e1fe8cf7b3dda81dd00030f71e24": true, // demo/hook-callback.js
+    "64c2ae9efbc61ac24ef7dca3cc6e408ebf57bc5520a933e646ba847d329aaf25": true, // demo/hook-callback.js
     "307fbec52d3c2592dc226670ba1bed3c00afb6ed2f28201a88fbe07af651b3ac": true, // demo/hook-native-api.js
     "e2e42b1f8c6c518b5878b5bd95d34c0f15e139a1afb6ab6a6642b6e81219d2c5": true, // demo/hook-worker.js
     "163ba1450660d02306936ad39a0b5977e042ba3270eca749fc30d98170e9be03": true, // demo/cache-bundle.js
