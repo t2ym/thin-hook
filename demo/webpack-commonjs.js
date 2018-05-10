@@ -333,7 +333,7 @@ var INVALID_ACCESS_ERR = __hook__('=', ExceptionCode, [
 ], '/components/thin-hook/node_modules/xmldom/dom.js,INVALID_ACCESS_ERR');
 function DOMException(code, message) {
   return __hook__((code, message) => {
-    if (message instanceof $hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/dom.js,DOMException', 'Error', 'get')._pp_Error) {
+    if (message instanceof $hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/dom.js,DOMException', 'Error', 'get')['_pp_Error;/components/thin-hook/node_modules/xmldom/dom.js,DOMException']) {
       var error = message;
     } else {
       error = this;
@@ -3329,8 +3329,8 @@ function defaultClearTimeout() {
 __hook__(function () {
   return __hook__(() => {
     try {
-      if (typeof $hook$.global(__hook__, '/components/thin-hook/node_modules/process/browser.js', 'setTimeout', 'typeof')._pp_setTimeout === 'function') {
-        cachedSetTimeout = $hook$.global(__hook__, '/components/thin-hook/node_modules/process/browser.js', 'setTimeout', 'get')._pp_setTimeout;
+      if (typeof $hook$.global(__hook__, '/components/thin-hook/node_modules/process/browser.js', 'setTimeout', 'typeof')['_pp_setTimeout;/components/thin-hook/node_modules/process/browser.js'] === 'function') {
+        cachedSetTimeout = $hook$.global(__hook__, '/components/thin-hook/node_modules/process/browser.js', 'setTimeout', 'get')['_pp_setTimeout;/components/thin-hook/node_modules/process/browser.js'];
       } else {
         cachedSetTimeout = defaultSetTimout;
       }
@@ -3338,8 +3338,8 @@ __hook__(function () {
       cachedSetTimeout = defaultSetTimout;
     }
     try {
-      if (typeof $hook$.global(__hook__, '/components/thin-hook/node_modules/process/browser.js', 'clearTimeout', 'typeof')._pp_clearTimeout === 'function') {
-        cachedClearTimeout = $hook$.global(__hook__, '/components/thin-hook/node_modules/process/browser.js', 'clearTimeout', 'get')._pp_clearTimeout;
+      if (typeof $hook$.global(__hook__, '/components/thin-hook/node_modules/process/browser.js', 'clearTimeout', 'typeof')['_pp_clearTimeout;/components/thin-hook/node_modules/process/browser.js'] === 'function') {
+        cachedClearTimeout = $hook$.global(__hook__, '/components/thin-hook/node_modules/process/browser.js', 'clearTimeout', 'get')['_pp_clearTimeout;/components/thin-hook/node_modules/process/browser.js'];
       } else {
         cachedClearTimeout = defaultClearTimeout;
       }
@@ -3350,7 +3350,7 @@ __hook__(function () {
 }, null, [], '/components/thin-hook/node_modules/process/browser.js', 0);
 function runTimeout(fun) {
   return __hook__(fun => {
-    if (cachedSetTimeout === $hook$.global(__hook__, '/components/thin-hook/node_modules/process/browser.js,runTimeout', 'setTimeout', 'get')._pp_setTimeout) {
+    if (cachedSetTimeout === $hook$.global(__hook__, '/components/thin-hook/node_modules/process/browser.js,runTimeout', 'setTimeout', 'get')['_pp_setTimeout;/components/thin-hook/node_modules/process/browser.js,runTimeout']) {
       //normal enviroments in sane situations
       return $hook$.setTimeout('__hook__', [[
           '/components/thin-hook/node_modules/process/browser.js,runTimeout',
@@ -3358,8 +3358,8 @@ function runTimeout(fun) {
         ]], 'webpack')(fun, 0);
     }
     // if setTimeout wasn't available but was latter defined
-    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && $hook$.global(__hook__, '/components/thin-hook/node_modules/process/browser.js,runTimeout', 'setTimeout', 'get')._pp_setTimeout) {
-      cachedSetTimeout = $hook$.global(__hook__, '/components/thin-hook/node_modules/process/browser.js,runTimeout', 'setTimeout', 'get')._pp_setTimeout;
+    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && $hook$.global(__hook__, '/components/thin-hook/node_modules/process/browser.js,runTimeout', 'setTimeout', 'get')['_pp_setTimeout;/components/thin-hook/node_modules/process/browser.js,runTimeout']) {
+      cachedSetTimeout = $hook$.global(__hook__, '/components/thin-hook/node_modules/process/browser.js,runTimeout', 'setTimeout', 'get')['_pp_setTimeout;/components/thin-hook/node_modules/process/browser.js,runTimeout'];
       return $hook$.setTimeout('__hook__', [[
           '/components/thin-hook/node_modules/process/browser.js,runTimeout',
           {}
@@ -3398,13 +3398,13 @@ function runTimeout(fun) {
 }
 function runClearTimeout(marker) {
   return __hook__(marker => {
-    if (cachedClearTimeout === $hook$.global(__hook__, '/components/thin-hook/node_modules/process/browser.js,runClearTimeout', 'clearTimeout', 'get')._pp_clearTimeout) {
+    if (cachedClearTimeout === $hook$.global(__hook__, '/components/thin-hook/node_modules/process/browser.js,runClearTimeout', 'clearTimeout', 'get')['_pp_clearTimeout;/components/thin-hook/node_modules/process/browser.js,runClearTimeout']) {
       //normal enviroments in sane situations
       return __hook__(clearTimeout, null, [marker], '/components/thin-hook/node_modules/process/browser.js,runClearTimeout', 0);
     }
     // if clearTimeout wasn't available but was latter defined
-    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && $hook$.global(__hook__, '/components/thin-hook/node_modules/process/browser.js,runClearTimeout', 'clearTimeout', 'get')._pp_clearTimeout) {
-      cachedClearTimeout = $hook$.global(__hook__, '/components/thin-hook/node_modules/process/browser.js,runClearTimeout', 'clearTimeout', 'get')._pp_clearTimeout;
+    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && $hook$.global(__hook__, '/components/thin-hook/node_modules/process/browser.js,runClearTimeout', 'clearTimeout', 'get')['_pp_clearTimeout;/components/thin-hook/node_modules/process/browser.js,runClearTimeout']) {
+      cachedClearTimeout = $hook$.global(__hook__, '/components/thin-hook/node_modules/process/browser.js,runClearTimeout', 'clearTimeout', 'get')['_pp_clearTimeout;/components/thin-hook/node_modules/process/browser.js,runClearTimeout'];
       return __hook__(clearTimeout, null, [marker], '/components/thin-hook/node_modules/process/browser.js,runClearTimeout', 0);
     }
     try {
@@ -3687,7 +3687,7 @@ __hook__(function (root, factory) {
   'use strict';
   return __hook__((root, factory) => {
     /* istanbul ignore if: AMD is not tested */
-    if (typeof $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'define', '#typeof').S_pp_define === 'function' && __hook__('#.', __webpack_require__(1), ['amd'], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js')) {
+    if (typeof $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'define', '#typeof')['S_pp_define;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'] === 'function' && __hook__('#.', __webpack_require__(1), ['amd'], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js')) {
       // AMD. Register as an anonymous module.
       __hook__(__webpack_require__(1), null, [
         [],
@@ -3735,7 +3735,7 @@ __hook__(function (root, factory) {
           ], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv');
           __hook__('#=', this, [
             'xmldom',
-            typeof $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv', 'window', '#typeof').S_pp_window === 'object' ? $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv', 'window', '#get').S_pp_window : __hook__(() => __webpack_require__(9), null, [
+            typeof $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv', 'window', '#typeof')['S_pp_window;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv'] === 'object' ? $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv', 'window', '#get')['S_pp_window;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv'] : __hook__(() => __webpack_require__(9), null, [
               'require',
               'xmldom',
               '/components/thin-hook/node_modules/xmldom/dom-parser.js'
@@ -3771,7 +3771,7 @@ __hook__(function (root, factory) {
                 __hook__('#()', __hook__('#.', console, ['log'], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv'), [
                   'apply',
                   [
-                    $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv', 'console', '#get').S_pp_console,
+                    $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv', 'console', '#get')['S_pp_console;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv'],
                     arguments
                   ]
                 ], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv');
@@ -3785,7 +3785,7 @@ __hook__(function (root, factory) {
                 __hook__('#()', __hook__('#.', console, ['warn'], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv'), [
                   'apply',
                   [
-                    $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv', 'console', '#get').S_pp_console,
+                    $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv', 'console', '#get')['S_pp_console;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv'],
                     arguments
                   ]
                 ], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv');
@@ -3799,7 +3799,7 @@ __hook__(function (root, factory) {
                 __hook__('#()', __hook__('#.', console, ['error'], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv'), [
                   'apply',
                   [
-                    $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv', 'console', '#get').S_pp_console,
+                    $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv', 'console', '#get')['S_pp_console;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv'],
                     arguments
                   ]
                 ], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv');
@@ -4567,8 +4567,8 @@ __hook__(function (root, factory) {
                               ], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js');
                               break;
                             case 'undefined':
-                              sourceValue = $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'undefined', '#get').S_pp_undefined;
-                              value = $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'undefined', '#get').S_pp_undefined;
+                              sourceValue = $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'undefined', '#get')['S_pp_undefined;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'];
+                              value = $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'undefined', '#get')['S_pp_undefined;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'];
                               break;
                             case 'string':
                             default:
@@ -4598,8 +4598,8 @@ __hook__(function (root, factory) {
                               ], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js');
                               break;
                             case 'x-json-undefined':
-                              sourceValue = $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'undefined', '#get').S_pp_undefined;
-                              value = $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'undefined', '#get').S_pp_undefined;
+                              sourceValue = $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'undefined', '#get')['S_pp_undefined;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'];
+                              value = $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'undefined', '#get')['S_pp_undefined;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'];
                               break;
                             case 'x-json-string':
                             default:
@@ -5402,7 +5402,7 @@ function buildErrorHandler(errorImpl, domBuilder, locator) {
       errorImpl = domBuilder;
     }
     var errorHandler = {};
-    var isCallback = errorImpl instanceof $hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/dom-parser.js,buildErrorHandler,isCallback', 'Function', 'get')._pp_Function;
+    var isCallback = errorImpl instanceof $hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/dom-parser.js,buildErrorHandler,isCallback', 'Function', 'get')['_pp_Function;/components/thin-hook/node_modules/xmldom/dom-parser.js,buildErrorHandler,isCallback'];
     locator = locator || {};
     function build(key) {
       return __hook__(key => {

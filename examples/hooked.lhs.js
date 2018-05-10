@@ -1,5 +1,5 @@
 // global
-$hook$.global(__hook__, 'examples/lhs.js', '_GV1', 'var')._p__GV1 = {}, $hook$.global(__hook__, 'examples/lhs.js', '_GV2', 'var')._p__GV2 = [9];
+$hook$.global(__hook__, 'examples/lhs.js', '_GV1', 'var')['_p__GV1;examples/lhs.js'] = {}, $hook$.global(__hook__, 'examples/lhs.js', '_GV2', 'var')['_p__GV2;examples/lhs.js'] = [9];
 __hook__('=', _GV2, [
   'p2',
   [
@@ -9,41 +9,34 @@ __hook__('=', _GV2, [
     3
   ]
 ], 'examples/lhs.js');
-[$hook$.global(__hook__, 'examples/lhs.js', '_GV3', 'var')._p__GV3, $hook$.global(__hook__, 'examples/lhs.js', '_GV4', 'var')._p__GV4 = 2] = [
-  $hook$.global(__hook__, 'examples/lhs.js', '_GV1', 'get')._p__GV1,
-  $hook$.global(__hook__, 'examples/lhs.js', '_GV2', 'get')._p__GV2
+[$hook$.global(__hook__, 'examples/lhs.js', '_GV3', 'var')['_p__GV3;examples/lhs.js'], $hook$.global(__hook__, 'examples/lhs.js', '_GV4', 'var')['_p__GV4;examples/lhs.js'] = 2] = [
+  $hook$.global(__hook__, 'examples/lhs.js', '_GV1', 'get')['_p__GV1;examples/lhs.js'],
+  $hook$.global(__hook__, 'examples/lhs.js', '_GV2', 'get')['_p__GV2;examples/lhs.js']
 ];
-[$hook$.global(__hook__, 'examples/lhs.js', '_GV5', 'var')._p__GV5, ...($hook$.global(__hook__, 'examples/lhs.js', '_GV6', 'var'))._p__GV6] = [
-  $hook$.global(__hook__, 'examples/lhs.js', '_GV1', 'get')._p__GV1,
-  ...$hook$.global(__hook__, 'examples/lhs.js', '_GV2', 'get')._p__GV2
+[$hook$.global(__hook__, 'examples/lhs.js', '_GV5', 'var')['_p__GV5;examples/lhs.js'], ...($hook$.global(__hook__, 'examples/lhs.js', '_GV6', 'var'))['_p__GV6;examples/lhs.js']] = [
+  $hook$.global(__hook__, 'examples/lhs.js', '_GV1', 'get')['_p__GV1;examples/lhs.js'],
+  ...$hook$.global(__hook__, 'examples/lhs.js', '_GV2', 'get')['_p__GV2;examples/lhs.js']
 ];
-$hook$.global(__hook__, 'examples/lhs.js', '_GV7', 'let')._p__GV7 = { p3: 1 }, $hook$.global(__hook__, 'examples/lhs.js', '_GV8', 'let')._p__GV8 = [
+$hook$.global(__hook__, 'examples/lhs.js', '_GV7', 'let')['_p__GV7;examples/lhs.js'] = { p3: 1 }, $hook$.global(__hook__, 'examples/lhs.js', '_GV8', 'let')['_p__GV8;examples/lhs.js'] = [
   6,
   1,
   2
 ];
-[$hook$.global(__hook__, 'examples/lhs.js', '_GV9', 'let')._p__GV9, $hook$.global(__hook__, 'examples/lhs.js', '_GV10', 'let')._p__GV10 = 2] = [
-  $hook$.global(__hook__, 'examples/lhs.js', '_GV7', 'get')._p__GV7,
-  $hook$.global(__hook__, 'examples/lhs.js', '_GV8', 'get')._p__GV8
+[$hook$.global(__hook__, 'examples/lhs.js', '_GV9', 'let')['_p__GV9;examples/lhs.js'], $hook$.global(__hook__, 'examples/lhs.js', '_GV10', 'let')['_p__GV10;examples/lhs.js'] = 2] = [
+  $hook$.global(__hook__, 'examples/lhs.js', '_GV7', 'get')['_p__GV7;examples/lhs.js'],
+  $hook$.global(__hook__, 'examples/lhs.js', '_GV8', 'get')['_p__GV8;examples/lhs.js']
 ];
-[$hook$.global(__hook__, 'examples/lhs.js', '_GV11', 'let')._p__GV11, ...($hook$.global(__hook__, 'examples/lhs.js', '_GV12', 'let'))._p__GV12] = [
-  $hook$.global(__hook__, 'examples/lhs.js', '_GV7', 'get')._p__GV7,
-  ...$hook$.global(__hook__, 'examples/lhs.js', '_GV8', 'get')._p__GV8
+[$hook$.global(__hook__, 'examples/lhs.js', '_GV11', 'let')['_p__GV11;examples/lhs.js'], ...($hook$.global(__hook__, 'examples/lhs.js', '_GV12', 'let'))['_p__GV12;examples/lhs.js']] = [
+  $hook$.global(__hook__, 'examples/lhs.js', '_GV7', 'get')['_p__GV7;examples/lhs.js'],
+  ...$hook$.global(__hook__, 'examples/lhs.js', '_GV8', 'get')['_p__GV8;examples/lhs.js']
 ];
-[$hook$.global(__hook__, 'examples/lhs.js', '_GV5', 'set')._p__GV5, ...($hook$.global(__hook__, 'examples/lhs.js', '_GV6', 'set'))._p__GV6] = [
-  $hook$.global(__hook__, 'examples/lhs.js', '_GV5', 'get')._p__GV5,
-  ...$hook$.global(__hook__, 'examples/lhs.js', '_GV2', 'get')._p__GV2
+[$hook$.global(__hook__, 'examples/lhs.js', '_GV5', 'set')['_p__GV5;examples/lhs.js'], ...($hook$.global(__hook__, 'examples/lhs.js', '_GV6', 'set'))['_p__GV6;examples/lhs.js']] = [
+  $hook$.global(__hook__, 'examples/lhs.js', '_GV5', 'get')['_p__GV5;examples/lhs.js'],
+  ...$hook$.global(__hook__, 'examples/lhs.js', '_GV2', 'get')['_p__GV2;examples/lhs.js']
 ];
-[$hook$.global(__hook__, 'examples/lhs.js', '_GV5', 'set')._p__GV5 = $hook$.global(__hook__, 'examples/lhs.js', '_GV1', 'get')._p__GV1, ...($hook$.global(__hook__, 'examples/lhs.js', '_GV6', 'set'))._p__GV6] = [
-  $hook$.global(__hook__, 'examples/lhs.js', '_GV1', 'set')._p__GV1 = 1,
-  ...$hook$.global(__hook__, 'examples/lhs.js', '_GV2', 'get')._p__GV2
-];
-[__hook__('.=', _GV5, ['p1'], 'examples/lhs.js')['='], ...(__hook__('.=', _GV6, ['p2'], 'examples/lhs.js'))['=']] = [
-  __hook__('=', _GV1, [
-    'p1',
-    1
-  ], 'examples/lhs.js'),
-  ...__hook__('.', _GV2, ['p2'], 'examples/lhs.js')
+[$hook$.global(__hook__, 'examples/lhs.js', '_GV5', 'set')['_p__GV5;examples/lhs.js'] = $hook$.global(__hook__, 'examples/lhs.js', '_GV1', 'get')['_p__GV1;examples/lhs.js'], ...($hook$.global(__hook__, 'examples/lhs.js', '_GV6', 'set'))['_p__GV6;examples/lhs.js']] = [
+  $hook$.global(__hook__, 'examples/lhs.js', '_GV1', 'set')['_p__GV1;examples/lhs.js'] = 1,
+  ...$hook$.global(__hook__, 'examples/lhs.js', '_GV2', 'get')['_p__GV2;examples/lhs.js']
 ];
 [__hook__('.=', _GV5, ['p1'], 'examples/lhs.js')['='], ...(__hook__('.=', _GV6, ['p2'], 'examples/lhs.js'))['=']] = [
   __hook__('=', _GV1, [
@@ -52,24 +45,31 @@ $hook$.global(__hook__, 'examples/lhs.js', '_GV7', 'let')._p__GV7 = { p3: 1 }, $
   ], 'examples/lhs.js'),
   ...__hook__('.', _GV2, ['p2'], 'examples/lhs.js')
 ];
-[__hook__('.=', _GV7, ['p3'], 'examples/lhs.js')['='], ...[__hook__('.=', _GV8, ['p4'], 'examples/lhs.js')['='], $hook$.global(__hook__, 'examples/lhs.js', '_GV1', 'set')._p__GV1]] = [
+[__hook__('.=', _GV5, ['p1'], 'examples/lhs.js')['='], ...(__hook__('.=', _GV6, ['p2'], 'examples/lhs.js'))['=']] = [
+  __hook__('=', _GV1, [
+    'p1',
+    1
+  ], 'examples/lhs.js'),
+  ...__hook__('.', _GV2, ['p2'], 'examples/lhs.js')
+];
+[__hook__('.=', _GV7, ['p3'], 'examples/lhs.js')['='], ...[__hook__('.=', _GV8, ['p4'], 'examples/lhs.js')['='], $hook$.global(__hook__, 'examples/lhs.js', '_GV1', 'set')['_p__GV1;examples/lhs.js']]] = [
   __hook__('=', _GV1, [
     'p1',
     {}
   ], 'examples/lhs.js'),
   ...[
     __hook__('.', _GV2, ['p2'], 'examples/lhs.js'),
-    $hook$.global(__hook__, 'examples/lhs.js', '_GV3', 'get')._p__GV3
+    $hook$.global(__hook__, 'examples/lhs.js', '_GV3', 'get')['_p__GV3;examples/lhs.js']
   ]
 ];
-[__hook__('.=', __hook__('.', _GV7, ['p3'], 'examples/lhs.js'), ['pp3'], 'examples/lhs.js')['='], ...[__hook__('.=', _GV8, ['p4'], 'examples/lhs.js')['='], __hook__('.=', _GV1, [$hook$.global(__hook__, 'examples/lhs.js', '_GV2', 'get')._p__GV2], 'examples/lhs.js')['=']]] = [
+[__hook__('.=', __hook__('.', _GV7, ['p3'], 'examples/lhs.js'), ['pp3'], 'examples/lhs.js')['='], ...[__hook__('.=', _GV8, ['p4'], 'examples/lhs.js')['='], __hook__('.=', _GV1, [$hook$.global(__hook__, 'examples/lhs.js', '_GV2', 'get')['_p__GV2;examples/lhs.js']], 'examples/lhs.js')['=']]] = [
   __hook__('=', _GV1, [
     'p1',
     1
   ], 'examples/lhs.js'),
   ...[
     __hook__('.', _GV2, ['p2'], 'examples/lhs.js'),
-    __hook__('.', _GV3, [$hook$.global(__hook__, 'examples/lhs.js', '_GV2', 'get')._p__GV2], 'examples/lhs.js')
+    __hook__('.', _GV3, [$hook$.global(__hook__, 'examples/lhs.js', '_GV2', 'get')['_p__GV2;examples/lhs.js']], 'examples/lhs.js')
   ]
 ];
 __hook__('()', __hook__('.', chai, ['assert'], 'examples/lhs.js'), [
@@ -79,18 +79,18 @@ __hook__('()', __hook__('.', chai, ['assert'], 'examples/lhs.js'), [
       'stringify',
       [
         [
-          $hook$.global(__hook__, 'examples/lhs.js', '_GV1', 'get')._p__GV1,
-          $hook$.global(__hook__, 'examples/lhs.js', '_GV2', 'get')._p__GV2,
-          $hook$.global(__hook__, 'examples/lhs.js', '_GV3', 'get')._p__GV3,
-          $hook$.global(__hook__, 'examples/lhs.js', '_GV4', 'get')._p__GV4,
-          $hook$.global(__hook__, 'examples/lhs.js', '_GV5', 'get')._p__GV5,
-          $hook$.global(__hook__, 'examples/lhs.js', '_GV6', 'get')._p__GV6,
-          $hook$.global(__hook__, 'examples/lhs.js', '_GV7', 'get')._p__GV7,
-          $hook$.global(__hook__, 'examples/lhs.js', '_GV8', 'get')._p__GV8,
-          $hook$.global(__hook__, 'examples/lhs.js', '_GV9', 'get')._p__GV9,
-          $hook$.global(__hook__, 'examples/lhs.js', '_GV10', 'get')._p__GV10,
-          $hook$.global(__hook__, 'examples/lhs.js', '_GV11', 'get')._p__GV11,
-          $hook$.global(__hook__, 'examples/lhs.js', '_GV12', 'get')._p__GV12
+          $hook$.global(__hook__, 'examples/lhs.js', '_GV1', 'get')['_p__GV1;examples/lhs.js'],
+          $hook$.global(__hook__, 'examples/lhs.js', '_GV2', 'get')['_p__GV2;examples/lhs.js'],
+          $hook$.global(__hook__, 'examples/lhs.js', '_GV3', 'get')['_p__GV3;examples/lhs.js'],
+          $hook$.global(__hook__, 'examples/lhs.js', '_GV4', 'get')['_p__GV4;examples/lhs.js'],
+          $hook$.global(__hook__, 'examples/lhs.js', '_GV5', 'get')['_p__GV5;examples/lhs.js'],
+          $hook$.global(__hook__, 'examples/lhs.js', '_GV6', 'get')['_p__GV6;examples/lhs.js'],
+          $hook$.global(__hook__, 'examples/lhs.js', '_GV7', 'get')['_p__GV7;examples/lhs.js'],
+          $hook$.global(__hook__, 'examples/lhs.js', '_GV8', 'get')['_p__GV8;examples/lhs.js'],
+          $hook$.global(__hook__, 'examples/lhs.js', '_GV9', 'get')['_p__GV9;examples/lhs.js'],
+          $hook$.global(__hook__, 'examples/lhs.js', '_GV10', 'get')['_p__GV10;examples/lhs.js'],
+          $hook$.global(__hook__, 'examples/lhs.js', '_GV11', 'get')['_p__GV11;examples/lhs.js'],
+          $hook$.global(__hook__, 'examples/lhs.js', '_GV12', 'get')['_p__GV12;examples/lhs.js']
         ],
         null,
         0
@@ -100,14 +100,14 @@ __hook__('()', __hook__('.', chai, ['assert'], 'examples/lhs.js'), [
     'global LHS values'
   ]
 ], 'examples/lhs.js');
-for ($hook$.global(__hook__, 'examples/lhs.js', '_GV2', 'set')._p__GV2 in __hook__('*', $hook$.global(__hook__, 'examples/lhs.js', '_GV1', 'get')._p__GV1, [], 'examples/lhs.js')) {
+for ($hook$.global(__hook__, 'examples/lhs.js', '_GV2', 'set')['_p__GV2;examples/lhs.js'] in __hook__('*', $hook$.global(__hook__, 'examples/lhs.js', '_GV1', 'get')['_p__GV1;examples/lhs.js'], [], 'examples/lhs.js')) {
 }
-for ($hook$.global(__hook__, 'examples/lhs.js', '_GV1', 'set')._p__GV1 of __hook__('*', $hook$.global(__hook__, 'examples/lhs.js', '_GV2', 'get')._p__GV2, [], 'examples/lhs.js')) {
+for ($hook$.global(__hook__, 'examples/lhs.js', '_GV1', 'set')['_p__GV1;examples/lhs.js'] of __hook__('*', $hook$.global(__hook__, 'examples/lhs.js', '_GV2', 'get')['_p__GV2;examples/lhs.js'], [], 'examples/lhs.js')) {
 }
-$hook$.global(__hook__, 'examples/lhs.js', '_GO1', 'let')._p__GO1 = {}, $hook$.global(__hook__, 'examples/lhs.js', '_GO2', 'let')._p__GO2 = {};
+$hook$.global(__hook__, 'examples/lhs.js', '_GO1', 'let')['_p__GO1;examples/lhs.js'] = {}, $hook$.global(__hook__, 'examples/lhs.js', '_GO2', 'let')['_p__GO2;examples/lhs.js'] = {};
 ({
   p1: __hook__('.=', _GO1, ['p1'], 'examples/lhs.js,p1')['='],
-  ...($hook$.global(__hook__, 'examples/lhs.js', '_GO2', 'set'))._p__GO2
+  ...($hook$.global(__hook__, 'examples/lhs.js', '_GO2', 'set'))['_p__GO2;examples/lhs.js']
 } = {
   p1: 1,
   p2: 2,
@@ -120,8 +120,8 @@ __hook__('()', __hook__('.', chai, ['assert'], 'examples/lhs.js'), [
       'stringify',
       [
         [
-          $hook$.global(__hook__, 'examples/lhs.js', '_GO1', 'get')._p__GO1,
-          $hook$.global(__hook__, 'examples/lhs.js', '_GO2', 'get')._p__GO2
+          $hook$.global(__hook__, 'examples/lhs.js', '_GO1', 'get')['_p__GO1;examples/lhs.js'],
+          $hook$.global(__hook__, 'examples/lhs.js', '_GO2', 'get')['_p__GO2;examples/lhs.js']
         ],
         null,
         0
@@ -131,7 +131,7 @@ __hook__('()', __hook__('.', chai, ['assert'], 'examples/lhs.js'), [
     'global LHS object values'
   ]
 ], 'examples/lhs.js');
-$hook$.global(__hook__, 'examples/lhs.js,lhsvalues', 'lhsvalues', 'function')._p_lhsvalues = function lhsvalues() {
+$hook$.global(__hook__, 'examples/lhs.js,lhsvalues', 'lhsvalues', 'function')['_p_lhsvalues;examples/lhs.js,lhsvalues'] = function lhsvalues() {
   return __hook__(() => {
     // local
     var lv1 = {}, lv2 = [9];

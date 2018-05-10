@@ -1,6 +1,6 @@
 {
-  $hook$.global(__hook__, 'examples/with.js', 'gVar1', 'var')._p_gVar1 = 1;
-  let gg = $hook$.global(__hook__, 'examples/with.js,gg', 'gVar1', 'get')._p_gVar1;
+  $hook$.global(__hook__, 'examples/with.js', 'gVar1', 'var')['_p_gVar1;examples/with.js'] = 1;
+  let gg = $hook$.global(__hook__, 'examples/with.js,gg', 'gVar1', 'get')['_p_gVar1;examples/with.js,gg'];
   let a = {
     foo: 1,
     bar: 2,
@@ -548,11 +548,11 @@
     ]
   ], 'examples/with.js');
 }
-$hook$.global(__hook__, 'examples/with.js', 'gA1', 'let')._p_gA1 = [
+$hook$.global(__hook__, 'examples/with.js', 'gA1', 'let')['_p_gA1;examples/with.js'] = [
   1,
   2
 ];
-$hook$.global(__hook__, 'examples/with.js', 'gX1', 'let')._p_gX1 = {
+$hook$.global(__hook__, 'examples/with.js', 'gX1', 'let')['_p_gX1;examples/with.js'] = {
   a: 1,
   b: 2
 };

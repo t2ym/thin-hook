@@ -1,5 +1,5 @@
 {
-  class A extends $hook$.global(__hook__, 'examples/subclass.js,A', 'Array', 'get')._p_Array {
+  class A extends $hook$.global(__hook__, 'examples/subclass.js,A', 'Array', 'get')['_p_Array;examples/subclass.js,A'] {
     constructor(...args) {
       return __hook__((...args) => {
         __hook__((newTarget, ...args) => super(...args), null, [

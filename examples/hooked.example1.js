@@ -1,4 +1,4 @@
-$hook$.global(__hook__, 'examples/example1.js,A1', 'A1', 'class')._p_A1 = class A1 {
+$hook$.global(__hook__, 'examples/example1.js,A1', 'A1', 'class')['_p_A1;examples/example1.js,A1'] = class A1 {
   constructor(x, y, z) {
     return __hook__((x, y = 3, z = 5) => {
       __hook__('#=', this, [
@@ -26,7 +26,7 @@ $hook$.global(__hook__, 'examples/example1.js,A1', 'A1', 'class')._p_A1 = class 
     }, null, arguments, 'examples/example1.js,A1,method2');
   }
 };
-$hook$.global(__hook__, 'examples/example1.js,X1', 'X1', 'class')._p_X1 = class X1 extends $hook$.global(__hook__, 'examples/example1.js,X1', 'A1', 'get')._p_A1 {
+$hook$.global(__hook__, 'examples/example1.js,X1', 'X1', 'class')['_p_X1;examples/example1.js,X1'] = class X1 extends $hook$.global(__hook__, 'examples/example1.js,X1', 'A1', 'get')['_p_A1;examples/example1.js,X1'] {
   constructor(x, y, z) {
     return __hook__((x, y, z = 9) => {
       __hook__((newTarget, ...args) => super(...args), null, [
@@ -110,7 +110,7 @@ $hook$.global(__hook__, 'examples/example1.js,X1', 'X1', 'class')._p_X1 = class 
     }, null, arguments, 'examples/example1.js,X1,static smethod');
   }
 };
-$hook$.global(__hook__, 'examples/example1.js,Y1', 'Y1', 'class')._p_Y1 = class Y1 extends $hook$.global(__hook__, 'examples/example1.js,Y1', 'X1', 'get')._p_X1 {
+$hook$.global(__hook__, 'examples/example1.js,Y1', 'Y1', 'class')['_p_Y1;examples/example1.js,Y1'] = class Y1 extends $hook$.global(__hook__, 'examples/example1.js,Y1', 'X1', 'get')['_p_X1;examples/example1.js,Y1'] {
   constructor(x, y, z) {
     return __hook__((x = 3, y = x * 3, z = x * y * 5) => {
       __hook__((newTarget, ...args) => super(...args), null, [
@@ -130,7 +130,7 @@ $hook$.global(__hook__, 'examples/example1.js,Y1', 'Y1', 'class')._p_Y1 = class 
     }, null, arguments, 'examples/example1.js,Y1,constructor');
   }
 };
-$hook$.global(__hook__, 'examples/example1.js', 'o', 'let')._p_o = {
+$hook$.global(__hook__, 'examples/example1.js', 'o', 'let')['_p_o;examples/example1.js'] = {
   *generator() {
     yield* __hook__(function* () {
       yield 1;
@@ -138,17 +138,17 @@ $hook$.global(__hook__, 'examples/example1.js', 'o', 'let')._p_o = {
     }, this, arguments, 'examples/example1.js,generator');
   }
 };
-$hook$.global(__hook__, 'examples/example1.js,f', 'f', 'function')._p_f = function f(a, b, c) {
+$hook$.global(__hook__, 'examples/example1.js,f', 'f', 'function')['_p_f;examples/example1.js,f'] = function f(a, b, c) {
   return __hook__((a, b, c) => {
     return a + b + c;
   }, null, arguments, 'examples/example1.js,f');
 };
-$hook$.global(__hook__, 'examples/example1.js,afunc', 'afunc', 'function')._p_afunc = async function afunc(a, b, c) {
+$hook$.global(__hook__, 'examples/example1.js,afunc', 'afunc', 'function')['_p_afunc;examples/example1.js,afunc'] = async function afunc(a, b, c) {
   return __hook__(async (a, b, c) => {
     return a + b + c;
   }, null, arguments, 'examples/example1.js,afunc');
 };
-$hook$.global(__hook__, 'examples/example1.js,gfunc', 'gfunc', 'function')._p_gfunc = function* gfunc(a, b, c) {
+$hook$.global(__hook__, 'examples/example1.js,gfunc', 'gfunc', 'function')['_p_gfunc;examples/example1.js,gfunc'] = function* gfunc(a, b, c) {
   yield* __hook__(function* (a, b, c) {
     // comment for gfunc
     yield* [
@@ -158,12 +158,12 @@ $hook$.global(__hook__, 'examples/example1.js,gfunc', 'gfunc', 'function')._p_gf
     ];
   }, this, arguments, 'examples/example1.js,gfunc');
 };
-$hook$.global(__hook__, 'examples/example1.js,destructuring', 'destructuring', 'function')._p_destructuring = function destructuring(...args) {
+$hook$.global(__hook__, 'examples/example1.js,destructuring', 'destructuring', 'function')['_p_destructuring;examples/example1.js,destructuring'] = function destructuring(...args) {
   return __hook__(([x, , [y = 2], z = 3], [a, b = 5, c = 6]) => {
     return x + y + z + a + b + c;
   }, null, args, 'examples/example1.js,destructuring');
 };
-$hook$.global(__hook__, 'examples/example1.js,d', 'd', 'function')._p_d = function d() {
+$hook$.global(__hook__, 'examples/example1.js,d', 'd', 'function')['_p_d;examples/example1.js,d'] = function d() {
   return __hook__(() => {
     return __hook__(function descructuringWithObjects({
       a,
@@ -184,14 +184,14 @@ $hook$.global(__hook__, 'examples/example1.js,d', 'd', 'function')._p_d = functi
     }, null, [
       {
         b: 2,
-        c: $hook$.global(__hook__, 'examples/example1.js,d,c', 'undefined', 'get')._p_undefined,
+        c: $hook$.global(__hook__, 'examples/example1.js,d,c', 'undefined', 'get')['_p_undefined;examples/example1.js,d,c'],
         x: 4,
         y: 5
       },
       [
         ,
         7,
-        $hook$.global(__hook__, 'examples/example1.js,d', 'undefined', 'get')._p_undefined
+        $hook$.global(__hook__, 'examples/example1.js,d', 'undefined', 'get')['_p_undefined;examples/example1.js,d']
       ]
     ], 'examples/example1.js,d', 0);
   }, null, arguments, 'examples/example1.js,d');
