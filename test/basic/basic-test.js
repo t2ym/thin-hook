@@ -587,7 +587,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
             hooked: `'use strict';` +
               `$hook$.global(__hook__,'HookApiTest','b','#var').S_pp_b=[1,2],` +
               `$hook$.global(__hook__,'HookApiTest','c','#var').S_pp_c=0;` +
-              `for($hook$.global(__hook__,'HookApiTest','a','var').S_pp_a of __hook__('#*',$hook$.global(__hook__,'HookApiTest','b','#get').S_pp_b,[],'HookApiTest')){` +
+              `for($hook$.global(__hook__,'HookApiTest','a','#var').S_pp_a of __hook__('#*',$hook$.global(__hook__,'HookApiTest','b','#get').S_pp_b,[],'HookApiTest')){` +
               `$hook$.global(__hook__,'HookApiTest','c','#set').S_pp_c+=$hook$.global(__hook__,'HookApiTest','a','#get').S_pp_a;}`,
           },
         ],
