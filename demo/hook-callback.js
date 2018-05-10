@@ -664,6 +664,9 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
     '/components/paper-ripple/paper-ripple.html,script@4438,properties,_boundAnimate,type': '@Function_reader',
     '/components/iron-ajax/iron-ajax.html,script@1410,properties,_boundHandleResponse,type': '@Function_reader',
     '/components/vaadin-grid/vaadin-grid-table.html,script@8651,properties,bindData': '@Function_reader',
+    '/components/thin-hook/demo/global.js': '@global_js',
+    '/components/thin-hook/demo/global.js,inaccessible': '@global_js_inaccessible',
+    '/components/thin-hook/demo/global.js,inaccessible,accessible': '@global_js_accessible',
   };
   /*
     Prefixed Contexts object:
@@ -3620,6 +3623,15 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
     },
     globalObject: {
       [S_DEFAULT]: 'rw-',
+    },
+    _global_A: {
+      [S_DEFAULT]: '---',
+      [S_OBJECT]: {
+        [S_DEFAULT]: '---',
+        '@global_js': 'rwxRW',
+        '@global_js_inaccessible': '---',
+        '@global_js_accessible': 'rw-',
+      },
     },
     onerror: {
       [S_DEFAULT]: 'rw-',
