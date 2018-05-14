@@ -122,6 +122,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
       return result;
     }
     const _Error = Error;
+    Error.stackTraceLimit = Infinity;
     const _location = location.href;
     const _console = console;
     const _JSON = JSON;

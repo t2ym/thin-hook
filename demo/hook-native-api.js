@@ -26,3 +26,19 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
   }
 });
 //hook.global(__hook__, 'hook-native-api.js', 'Function', 'set')._pp_Function = hook.global(__hook__, 'hook-native-api.js', 'Function', 'get')._pp_Function;
+{
+  if (typeof navigator === 'object' && typeof window === 'object') {
+    let desc = Object.getOwnPropertyDescriptor(window, 'navigator');
+    Object.defineProperty(window, 'navigator', {
+      configurable: true,
+      enumerable: desc.enumerable,
+      get: function get() {
+        if (contextStack.length === 0) {
+          let error = new Error();
+          console.error('access to window.navigator \n', error);
+        }
+        return desc.get.call(this);
+      }
+    })
+  }
+}
