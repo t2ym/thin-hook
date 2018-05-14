@@ -122,11 +122,11 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
       return result;
     }
     const _Error = Error;
-    Error.stackTraceLimit = Infinity;
     const _location = location.href;
     const _console = console;
     const _JSON = JSON;
     const isFromServiceWorker = function () {
+      _Error.stackTraceLimit = Infinity;
       const stack = (new _Error().stack).split(/\n/);
       const thirdLine = stack[3];
       const lastLine = stack[stack.length - 1];
