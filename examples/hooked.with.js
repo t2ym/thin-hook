@@ -4,7 +4,7 @@
   let a = {
     foo: 1,
     bar: 2,
-    [__hook__('.', Symbol, ['unscopables'], 'examples/with.js,a')]: { bar: true }
+    [__hook__('.', $hook$.global(__hook__, 'examples/with.js,a', 'Symbol', 'get')['_p_Symbol;examples/with.js,a'], ['unscopables'], 'examples/with.js,a')]: { bar: true }
   };
   with ($hook$.with(a, {
       gg: true,
@@ -539,7 +539,7 @@
       ]
     ], 'examples/with.js');
   }
-  __hook__('()', __hook__('.', chai, ['assert'], 'examples/with.js'), [
+  __hook__('()', __hook__('.', $hook$.global(__hook__, 'examples/with.js', 'chai', 'get')['_p_chai;examples/with.js'], ['assert'], 'examples/with.js'), [
     'equal',
     [
       __hook__('.', a, ['foo'], 'examples/with.js'),

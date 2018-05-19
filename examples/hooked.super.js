@@ -20,7 +20,7 @@
       }, null, arguments, 'examples/super.js,subObject,method');
     }
   };
-  __hook__('()', Object, [
+  __hook__('()', $hook$.global(__hook__, 'examples/super.js', 'Object', 'get')['_p_Object;examples/super.js'], [
     'setPrototypeOf',
     [
       subObject,

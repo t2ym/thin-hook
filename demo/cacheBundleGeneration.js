@@ -62,8 +62,8 @@ default:
   await page.setViewport({ width: 1200, height: 800 });
   await page.goto(targetURL);
   console.log('goto', targetURL);
-  await page.waitFor(2000);
-  console.log('waitFor(2000)');
+  await page.waitFor(15000);
+  console.log('waitFor(15000)');
 
   let result;
   result = await page.evaluate(function waitForBundleSetFetched() {

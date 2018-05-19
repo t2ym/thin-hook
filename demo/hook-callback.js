@@ -29,22 +29,93 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
       return values.join(delim);
     }
   };
+  const Object = self.Object;
+  const Array = self.Array;
+  const Symbol = self.Symbol;
+  const JSON = self.JSON;
+  const URL = self.URL;
+  class Stack {
+    constructor(stack) {
+      // Note: O(1)
+      if (stack instanceof Stack) {
+        this._top = stack._top;
+      }
+      else {
+        this._top = undefined;
+      }
+    }
+    push(item) {
+      // Note: O(1)
+      this._top = {
+        item: item,
+        next: this._top
+      };
+    }
+    pop() {
+      // Note: O(1)
+      let _top = this._top;
+      if (_top) {
+        this._top = _top.next;
+        if (this._top && !this._top.item) {
+          // Note: An empty item at the top empties the stack
+          this._top = undefined;
+        }
+        return _top.item;
+      }
+      else {
+        return undefined;
+      }
+    }
+    top() {
+      // Note: O(1)
+      if (this._top) {
+        return this._top.item;
+      }
+      else {
+        return undefined;
+      }
+    }
+    isEmpty() {
+      // Note: O(1)
+      return !this._top;
+    }
+    toString(indent = 0) {
+      // Note: O(n)?
+      let array = [];
+      for (let _item = this._top; _item; _item = _item.next) {
+        array.unshift(_item.item);
+      }
+      // [bottom, ..., top]
+      return JSON.stringify(array, null, indent);
+    }
+    get length() {
+      // Note: O(n)
+      let _item = this._top, n;
+      for (n = 0; _item; _item = _item.next) {
+        n++;
+      }
+      return n;
+    }
+  }
+  function logContextStack(n = 2) {
+    console.error('contextStack', contextStack.toString(n));
+  }
   // { id: label: group: }
   const data = { nodes: [ { id: 'undefined', label: 'undefined', group: 'undefined' } ], edges: [] };
   const data2 = { nodes: [ { id: 'undefined', label: 'undefined', group: 'undefined' } ], edges: [] };
-  var counter = 0;
-  var log = [];
-  var contexts = {};
-  var globalPropertyContexts = {};
-  var contextTransitions = {};
-  var contextReverseTransitions = {};
-  var lastContext;
-  var contextStack = [];
-  var contextStackLog = {};
-  var callbacks = {};
-  var reverseCallbacks = {};
-  var pseudoContextArgument = Symbol('callback context');
-  var callbackFunctions = new WeakMap();
+  let counter = 0;
+  let log = [];
+  var contexts = {}; // still global for normalize.js, etc.; __hook__acl does not use it
+  let globalPropertyContexts = {};
+  let contextTransitions = {};
+  let contextReverseTransitions = {};
+  let lastContext;
+  let contextStack = new Stack(); // local variable
+  let contextStackLog = {};
+  let callbacks = {};
+  let reverseCallbacks = {};
+  let pseudoContextArgument = Symbol('callback context');
+  let callbackFunctions = new WeakMap();
   var emptyDocumentURL;
   var otherWindowObjects = new Map();
   var otherWindowObjectsStatus = { set: false };
@@ -72,7 +143,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
       o = Object.getPrototypeOf(o);
     }
   }
-  var _globalMethods = new Map();
+  let _globalMethods = new Map();
   const excludedGlobalProperties = { isSecureContext: true };
   const mainGlobalObjectName = typeof window === 'object' ? 'window' : 'self';
   Object.entries(Object.getOwnPropertyDescriptors(_global))
@@ -84,7 +155,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
     .forEach((name) => {
       excludedGlobalProperties[name] = true;
     });
-  var _globalObjects = Object.keys(_globalPropertyDescriptors)
+  let _globalObjects = Object.keys(_globalPropertyDescriptors)
     .sort()
     .reduce((acc, curr) => {
       const globalObjectNames = ['_global', 'frames', 'top', 'global', 'self', 'window', 'parent'];
@@ -169,12 +240,14 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
   const _stringPropertyDescriptors = Object.getOwnPropertyDescriptors(String.prototype);
   const _functionStaticPropertyDescriptors = Object.getOwnPropertyDescriptors(Function);
   const _functionPropertyDescriptors = Object.getOwnPropertyDescriptors(Function.prototype);
-  var globalObjectAccess = {};
+  var globalObjectAccess = {}; // still global for normalize.js, etc.; __hook__acl does not use it
+  /*
   if (!_global._globalObjects) {
     // in a ES module for hook-native-api.js
     _global._globalObjects = _globalObjects;
     _global._globalMethods = _globalMethods;
   }
+  */
   const _boundFunctions = new WeakMap();
   const _escapePlatformProperties = new Map();
   const _unescapePlatformProperties = new Map();
@@ -466,6 +539,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
     '/components/thin-hook/demo/Function.js,strictMode,SubclassFunction': '@Function_reader',
     '/components/thin-hook/demo/Function.js,CustomConstructorSubclassFunction': '@Function_reader',
     '/components/thin-hook/demo/Function.js,strictMode,CustomConstructorSubclassFunction': '@Function_reader',
+    '/components/thin-hook/demo/Function.js,cannotBindFunction': '@Function_cannotBindFunction',
     '/components/thin-hook/demo/normalize.js,ArraySubclass2,constructor': '@super_normalization_checker',
     '/components/thin-hook/demo/normalize.js,ArraySubclass4,constructor': '@super_normalization_checker',
     '/components/thin-hook/demo/normalize.js,bindCheck': '@bind_normalization_checker',
@@ -477,11 +551,11 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
     '/components/firebase/firebase-app.js': '@firebase_app',
     '/components/firebase/firebase-auth.js,t': '@custom_error_constructor_creator',
     '/components/polymer/lib/utils/templatize.html,script@695,upgradeTemplate': '@template_element_prototype_setter',
-    '/components/thin-hook/demo/my-view2.html,script@2491,getData': '@hook_visualizer',
-    '/components/thin-hook/demo/my-view2.html,script@2491,attached,_lastEdges': '@hook_visualizer',
-    '/components/thin-hook/demo/my-view2.html,script@2491,drawGraph': '@hook_visualizer',
-    '/components/thin-hook/demo/my-view2.html,script@2491,descriptors': '@window_enumerator',
-    '/components/thin-hook/demo/my-view2.html,script@2491': '@Object_prototype_reader',
+    '/components/thin-hook/demo/my-view2.html,script@2644,getData': '@hook_visualizer',
+    '/components/thin-hook/demo/my-view2.html,script@2644,attached,_lastEdges': '@hook_visualizer',
+    '/components/thin-hook/demo/my-view2.html,script@2644,drawGraph': '@hook_visualizer',
+    '/components/thin-hook/demo/my-view2.html,script@2644,descriptors': '@window_enumerator',
+    '/components/thin-hook/demo/my-view2.html,script@2644': '@Object_prototype_reader',
     '/components/web-animations-js/web-animations-next-lite.min.js': '@web_animations_next_lite',
     '/components/live-localizer/live-localizer-browser-storage.html,script@3348,modelReady': '@Dexie_instantiator',
     '/components/deepcopy/build/deepcopy.min.js,u': '@Object_keys_reader',
@@ -1275,7 +1349,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
               return false;
             }
           }
-          return '--x'[opTypeMap[opType]] === opType; // equivalent to '--x' acl
+          return 'r-x'[opTypeMap[opType]] === opType; // equivalent to 'r-x' acl
         },
       },
       [S_DEFAULT]: '---',
@@ -1304,7 +1378,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
               return false;
             }
           }
-          return '--x'[opTypeMap[opType]] === opType; // equivalent to '--x' acl
+          return 'r-x'[opTypeMap[opType]] === opType; // equivalent to 'r-x' acl
         },
       },
       [S_DEFAULT]: '---',
@@ -2196,9 +2270,10 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
     Function: {
       [S_CHAIN]: () => acl.Function[S_PROTOTYPE][S_INSTANCE], // Function is an instance of Function itself
       [S_OBJECT]: {
-        [S_DEFAULT]: '--x',
+        [S_DEFAULT]: 'r-x',
         '@Function_reader': 'r-x',
         '@Function_js': 'r-x',
+        '@Function_cannotBindFunction': '--x',
         '@normalization_checker': 'r-x',
         '@Polymer_lib': 'r-x',
         '@Object_prototype_reader': 'r--',
@@ -2643,7 +2718,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
       [S_DEFAULT]: 'r-x',
     },
     setTimeout: {
-      [S_DEFAULT]: '--x',
+      [S_DEFAULT]: 'r-x',
       '@setTimeout_reader': 'r-x',
       '@firebase_app': 'r-x',
       '@process_browser_js': 'r-x',
@@ -7456,4 +7531,223 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
     console.log(navigator.userAgent.replace(/^.*Chrome\/([^ ]*) .*$/, 'Chrome $1') + ' ' + results.map((result) => result[0] + ' in ' + result[1] + 'ms (' + (new Intl.NumberFormat()).format(parseInt(1000 * r / result[1])) +' op/s)').join(', ') + ' with ' + h.name + '\n' +
     navigator.userAgent.replace(/^.*Chrome\/([^ ]*) .*$/, '| $1 ') + '| 0.0.* | ' + results.map((result) => (new Intl.NumberFormat()).format(parseInt(1000 * r / result[1]))).join(' | ') + ' |');
   }
+
+  // Moved from hook-native-api.js
+  const onUnexpectedAccessToGlobalObject = function onUnexpectedAccessToGlobalObject(op, name, value, oldValue) {
+    switch (op) {
+    case 'get':
+      console.error('onUnexpectedAccessToGlobalObject: get name:' + name);
+      setTimeout(() => {
+        location = 'about:blank';
+      }, 100);
+      return undefined;
+    case 'set':
+      console.error('onUnexpectedAccessToGlobalObject: set name:' + name);
+      setTimeout(() => {
+        location = 'about:blank';
+      }, 100);
+      return oldValue;
+    default:
+      setTimeout(() => {
+        location = 'about:blank';
+      }, 100);
+      throw new Error('onUnexpectedAccessToGlobalObject');
+      break;
+    }
+  };
+  [
+    //'Function',
+    'eval',
+    'setTimeout',
+    'setInterval',
+    'Node',
+    'Element',
+    'HTMLScriptElement',
+    'HTMLIFrameElement',
+    'HTMLObjectElement',
+    'HTMLEmbedElement',
+    'HTMLAnchorElement',
+    'HTMLAreaElement',
+    'Document',
+    'importScripts',
+  ].forEach((name) => {
+    if (_global[name]) {
+      let hooked = hook[name]('__hook__', [[name, {}]], 'method');
+      /*_global.*/_globalObjects.set(hooked, name);
+      /*_global.*/_globalMethods.set(hooked, [ (typeof window === 'object' ? 'window' : 'self'), name ]);
+      Object.defineProperty(_global, name, { value: hooked, configurable: true, enumerable: false, writable: false });
+      //hook.hook(hooked);
+    }
+  });
+  //hook.global(__hook__, 'hook-native-api.js', 'Function', 'set')._pp_Function = hook.global(__hook__, 'hook-native-api.js', 'Function', 'get')._pp_Function;
+  const whitelist = new Set();
+  const origin = location.origin;
+  const noHookAuthorization = hook.parameters.noHookAuthorizationParameter;
+  [
+    `at _iframeContentWindowAcl (${origin}/components/thin-hook/demo/hook-callback.js?no-hook=true:2117:54)`,
+    `at write2 (${origin}/components/thin-hook/demo/:129:14355)`,
+    `at write4 (${origin}/components/thin-hook/demo/:129:15472)`,
+    `at writeln2 (${origin}/components/thin-hook/demo/:131:40)`,
+    `at writeln4 (${origin}/components/thin-hook/demo/:133:45)`,
+    `at ${origin}/components/thin-hook/demo/webpack-es6-module.js?no-hook=true:445:3`,
+    `at ${origin}/components/thin-hook/demo/webpack-es6-module.js?no-hook=true:66:10`,
+    `at https://www.gstatic.com/charts/loader.js:226:323`,
+    `at https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.js?cors=true&no-hook=true:25:200`,
+    `at https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.js?cors=true&no-hook=true:41:2497`,
+    `at https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.js?cors=true&no-hook=true:42:4192`,
+    `at HTMLCanvasElement.<anonymous> (https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.js?cors=true&no-hook=true:42:8417)`,
+  ].forEach(url => whitelist.add(url));
+  const wildcardWhitelist = [
+    new RegExp('^at ([^(]* [(])?' + 'https://cdnjs.cloudflare.com/ajax/libs/vis/4[.]18[.]1/vis[.]min[.]js'),
+    new RegExp('^at ([^(]* [(])?' + origin + '/components/thin-hook/demo/hook-callback[.]js'),
+    new RegExp('^at ([^(]* [(])?' + origin + '/components/thin-hook/hook[.]min[.]js'),
+    new RegExp('^at ([^(]* [(])?' + origin + '/components/thin-hook/demo/view3:1:'),
+    new RegExp('^at ([^(]* [(])?' + origin + '/components/thin-hook/demo/disable-devtools[.]js'),
+    new RegExp('^at ([^(]* [(])?' + origin + '/components/thin-hook/demo/cache-bundle[.]js'),
+  ];
+  //console.error(whitelist);
+  if (typeof window === 'object') {
+    const _Object = Object;
+    const _window = window;
+    const _Error = Error;
+    const _console = console;
+    const _undefined = undefined;
+    const isWhitelisted = function isWhitelisted(top, bottom) {
+      if (whitelist.has(bottom) || whitelist.has(top)) {
+        return true;
+      }
+      for (let i = 0; i < wildcardWhitelist.length; i++) {
+        if (top.match(wildcardWhitelist[i]) || bottom.match(wildcardWhitelist)) {
+          return true;
+        }
+      }
+      return false;
+    };
+    const excludes = new Set();
+    [
+      'Math', // for vis.min.js to work in a decent speed
+    ].forEach(name => excludes.add(name));
+    _Object.getOwnPropertyNames(_window).forEach(name => {
+      if (excludes.has(name)) {
+        return;
+      }
+      let desc = _Object.getOwnPropertyDescriptor(_window, name);
+      if (desc.configurable) {
+        if (typeof desc.get === 'function') {
+          _Object.defineProperty(_window, name, {
+            configurable: desc.configurable,
+            enumerable: desc.enumerable,
+            get: function get() {
+                if (contextStack.isEmpty()) {
+                  _Error.stackTraceLimit = Infinity;
+                  let error = new _Error();
+                  let stackTrace = error.stack.split(/\n/);
+                  let top = stackTrace[2].trim();
+                  let bottom = stackTrace.pop().trim();
+                  if (!isWhitelisted(top, bottom)) {
+                    _console.error('access to window.' + name + ' \n', 'this = ', this, '\n', error.stack, '\n', 'bottom = ', '"' + bottom + '"');
+                    onUnexpectedAccessToGlobalObject('get', name, desc.get.call(this));
+                  }
+                  else {
+                    //_console.error('whitelist access to window.' + name + ' \ntop = ' + top + '\nbottom = ', bottom);
+                  }
+                }
+                return desc.get.call(this);
+              },
+            set: typeof desc.set === 'function'
+              ? function set(value) {
+                  if (contextStack.isEmpty()) {
+                    _Error.stackTraceLimit = Infinity;
+                    let error = new _Error();
+                    let stackTrace = error.stack.split(/\n/);
+                    let top = stackTrace[2].trim();
+                    let bottom = stackTrace.pop().trim();
+                    if (!isWhitelisted(top, bottom)) {
+                      _console.error('access to window.' + name + ' \n', 'this = ', this, '\n', error.stack, '\n', 'bottom = ', '"' + bottom + '"');
+                      value = onUnexpectedAccessToGlobalObject('set', name, value, desc.get.call(this));
+                    }
+                    else {
+                      //_console.error('whitelist access to window.' + name + ' \ntop = ' + top + '\nbottom = ', bottom);
+                    }
+                  }
+                  desc.set.call(this, value);
+                }
+              : _undefined,
+          });
+        }
+        else {
+          // desc.value
+          let hiddenValue = desc.value;
+          _Object.defineProperty(_window, name, {
+            configurable: desc.configurable,
+            enumerable: desc.enumerable,
+            get: function get() {
+                let result = hiddenValue;
+                if (contextStack.isEmpty()) {
+                  _Error.stackTraceLimit = Infinity;
+                  let error = new _Error();
+                  let stackTrace = error.stack.split(/\n/);
+                  let top = stackTrace[2].trim();
+                  let bottom = stackTrace.pop().trim();
+                  if (!isWhitelisted(top, bottom)) {
+                    _console.error('access to window.' + name + ' \n', 'this = ', this, '\n', error.stack, '\n', 'bottom = ', '"' + bottom + '"');
+                    result = onUnexpectedAccessToGlobalObject('get', name, hiddenValue, hiddenValue);
+                  }
+                  else {
+                    //_console.error('whitelist access to window.' + name + ' \ntop = ' + top + '\nbottom = ', bottom);
+                  }
+                }
+                return result;
+              },
+            set: desc.writable
+              ? function set(value) {
+                  if (contextStack.isEmpty()) {
+                    _Error.stackTraceLimit = Infinity;
+                    let error = new _Error();
+                    let stackTrace = error.stack.split(/\n/);
+                    let top = stackTrace[2].trim();
+                    let bottom = stackTrace.pop().trim();
+                    if (!isWhitelisted(top, bottom)) {
+                      _console.error('access to window.' + name + ' \n', 'this = ', this, '\n', error.stack, '\n', 'bottom = ', '"' + bottom + '"');
+                      value = onUnexpectedAccessToGlobalObject('set', name, value, hiddenValue);
+                    }
+                    else {
+                      //_console.error('whitelist access to window.' + name + ' \ntop = ' + top + '\nbottom = ', bottom);
+                    }
+                  }
+                  hiddenValue = value;
+                }
+              : _undefined,
+          });
+        }
+      }
+      else {
+        // window.name is not configurable
+      }
+    });
+    
+  }
+  /*
+  if (typeof navigator === 'object' && typeof window === 'object') {
+    let desc = _Object.getOwnPropertyDescriptor(window, 'navigator');
+    _Object.defineProperty(window, 'navigator', {
+      configurable: true,
+      enumerable: desc.enumerable,
+      get: function get() {
+        if (contextStack.isEmpty()) {
+          Error.stackTraceLimit = Infinity;
+          let error = new Error();
+          let bottom = error.stack.split(/\n/).pop().trim();
+          if (!whitelist.has(bottom)) {
+            console.error('access to window.navigator \n', 'this = ', this, '\n', error.stack, '\n', 'bottom = ', '"' + bottom + '"', '\n', contextStack.toString(2));
+          }
+          else {
+            console.error('bottom = ', bottom);
+          }
+        }
+        return desc.get.call(this);
+      }
+    })
+  }
+  */  
 }

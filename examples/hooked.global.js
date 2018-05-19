@@ -39,12 +39,12 @@ $hook$.global(__hook__, 'examples/global.js,gC', 'gC', 'class')['_p_gC;examples/
 };
 $hook$.global(__hook__, 'examples/global.js', 'gC3', 'var')['_p_gC3;examples/global.js'] = class gC3 extends $hook$.global(__hook__, 'examples/global.js,gC3', 'gC4', 'get')['_p_gC4;examples/global.js,gC3'] {
 };
-__hook__(gC, null, [
+__hook__($hook$.global(__hook__, 'examples/global.js', 'gC', 'get')['_p_gC;examples/global.js'], null, [
   $hook$.global(__hook__, 'examples/global.js', 'gl', 'get')['_p_gl;examples/global.js'],
   $hook$.global(__hook__, 'examples/global.js', 'gv', 'get')['_p_gv;examples/global.js']
 ], 'examples/global.js', true);
-__hook__(importScripts, null, ['a.js'], 'examples/global.js', 0);
-__hook__(addEventListener, null, [
+__hook__($hook$.global(__hook__, 'examples/global.js', 'importScripts', 'get')['_p_importScripts;examples/global.js'], null, ['a.js'], 'examples/global.js', 0);
+__hook__($hook$.global(__hook__, 'examples/global.js', 'addEventListener', 'get')['_p_addEventListener;examples/global.js'], null, [
   'load',
   function onloadHandler(event) {
     return __hook__(event => {

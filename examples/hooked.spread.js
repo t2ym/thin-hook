@@ -241,4 +241,4 @@ $hook$.global(__hook__, 'examples/spread.js,ff', 'ff', 'function')['_p_ff;exampl
     }
   }, null, arguments, 'examples/spread.js,ff');
 };
-__hook__(ff, null, [], 'examples/spread.js', 0);
+__hook__($hook$.global(__hook__, 'examples/spread.js', 'ff', 'get')['_p_ff;examples/spread.js'], null, [], 'examples/spread.js', 0);

@@ -38,44 +38,44 @@ $hook$.global(__hook__, 'examples/lhs.js', '_GV7', 'let')['_p__GV7;examples/lhs.
   $hook$.global(__hook__, 'examples/lhs.js', '_GV1', 'set')['_p__GV1;examples/lhs.js'] = 1,
   ...$hook$.global(__hook__, 'examples/lhs.js', '_GV2', 'get')['_p__GV2;examples/lhs.js']
 ];
-[__hook__('.=', _GV5, ['p1'], 'examples/lhs.js')['='], ...(__hook__('.=', _GV6, ['p2'], 'examples/lhs.js'))['=']] = [
+[__hook__('.=', $hook$.global(__hook__, 'examples/lhs.js', '_GV5', 'get')['_p__GV5;examples/lhs.js'], ['p1'], 'examples/lhs.js')['='], ...(__hook__('.=', $hook$.global(__hook__, 'examples/lhs.js', '_GV6', 'get')['_p__GV6;examples/lhs.js'], ['p2'], 'examples/lhs.js'))['=']] = [
   __hook__('=', _GV1, [
     'p1',
     1
   ], 'examples/lhs.js'),
-  ...__hook__('.', _GV2, ['p2'], 'examples/lhs.js')
+  ...__hook__('.', $hook$.global(__hook__, 'examples/lhs.js', '_GV2', 'get')['_p__GV2;examples/lhs.js'], ['p2'], 'examples/lhs.js')
 ];
-[__hook__('.=', _GV5, ['p1'], 'examples/lhs.js')['='], ...(__hook__('.=', _GV6, ['p2'], 'examples/lhs.js'))['=']] = [
+[__hook__('.=', $hook$.global(__hook__, 'examples/lhs.js', '_GV5', 'get')['_p__GV5;examples/lhs.js'], ['p1'], 'examples/lhs.js')['='], ...(__hook__('.=', $hook$.global(__hook__, 'examples/lhs.js', '_GV6', 'get')['_p__GV6;examples/lhs.js'], ['p2'], 'examples/lhs.js'))['=']] = [
   __hook__('=', _GV1, [
     'p1',
     1
   ], 'examples/lhs.js'),
-  ...__hook__('.', _GV2, ['p2'], 'examples/lhs.js')
+  ...__hook__('.', $hook$.global(__hook__, 'examples/lhs.js', '_GV2', 'get')['_p__GV2;examples/lhs.js'], ['p2'], 'examples/lhs.js')
 ];
-[__hook__('.=', _GV7, ['p3'], 'examples/lhs.js')['='], ...[__hook__('.=', _GV8, ['p4'], 'examples/lhs.js')['='], $hook$.global(__hook__, 'examples/lhs.js', '_GV1', 'set')['_p__GV1;examples/lhs.js']]] = [
+[__hook__('.=', $hook$.global(__hook__, 'examples/lhs.js', '_GV7', 'get')['_p__GV7;examples/lhs.js'], ['p3'], 'examples/lhs.js')['='], ...[__hook__('.=', $hook$.global(__hook__, 'examples/lhs.js', '_GV8', 'get')['_p__GV8;examples/lhs.js'], ['p4'], 'examples/lhs.js')['='], $hook$.global(__hook__, 'examples/lhs.js', '_GV1', 'set')['_p__GV1;examples/lhs.js']]] = [
   __hook__('=', _GV1, [
     'p1',
     {}
   ], 'examples/lhs.js'),
   ...[
-    __hook__('.', _GV2, ['p2'], 'examples/lhs.js'),
+    __hook__('.', $hook$.global(__hook__, 'examples/lhs.js', '_GV2', 'get')['_p__GV2;examples/lhs.js'], ['p2'], 'examples/lhs.js'),
     $hook$.global(__hook__, 'examples/lhs.js', '_GV3', 'get')['_p__GV3;examples/lhs.js']
   ]
 ];
-[__hook__('.=', __hook__('.', _GV7, ['p3'], 'examples/lhs.js'), ['pp3'], 'examples/lhs.js')['='], ...[__hook__('.=', _GV8, ['p4'], 'examples/lhs.js')['='], __hook__('.=', _GV1, [$hook$.global(__hook__, 'examples/lhs.js', '_GV2', 'get')['_p__GV2;examples/lhs.js']], 'examples/lhs.js')['=']]] = [
+[__hook__('.=', __hook__('.', $hook$.global(__hook__, 'examples/lhs.js', '_GV7', 'get')['_p__GV7;examples/lhs.js'], ['p3'], 'examples/lhs.js'), ['pp3'], 'examples/lhs.js')['='], ...[__hook__('.=', $hook$.global(__hook__, 'examples/lhs.js', '_GV8', 'get')['_p__GV8;examples/lhs.js'], ['p4'], 'examples/lhs.js')['='], __hook__('.=', $hook$.global(__hook__, 'examples/lhs.js', '_GV1', 'get')['_p__GV1;examples/lhs.js'], [$hook$.global(__hook__, 'examples/lhs.js', '_GV2', 'get')['_p__GV2;examples/lhs.js']], 'examples/lhs.js')['=']]] = [
   __hook__('=', _GV1, [
     'p1',
     1
   ], 'examples/lhs.js'),
   ...[
-    __hook__('.', _GV2, ['p2'], 'examples/lhs.js'),
-    __hook__('.', _GV3, [$hook$.global(__hook__, 'examples/lhs.js', '_GV2', 'get')['_p__GV2;examples/lhs.js']], 'examples/lhs.js')
+    __hook__('.', $hook$.global(__hook__, 'examples/lhs.js', '_GV2', 'get')['_p__GV2;examples/lhs.js'], ['p2'], 'examples/lhs.js'),
+    __hook__('.', $hook$.global(__hook__, 'examples/lhs.js', '_GV3', 'get')['_p__GV3;examples/lhs.js'], [$hook$.global(__hook__, 'examples/lhs.js', '_GV2', 'get')['_p__GV2;examples/lhs.js']], 'examples/lhs.js')
   ]
 ];
-__hook__('()', __hook__('.', chai, ['assert'], 'examples/lhs.js'), [
+__hook__('()', __hook__('.', $hook$.global(__hook__, 'examples/lhs.js', 'chai', 'get')['_p_chai;examples/lhs.js'], ['assert'], 'examples/lhs.js'), [
   'equal',
   [
-    __hook__('()', JSON, [
+    __hook__('()', $hook$.global(__hook__, 'examples/lhs.js', 'JSON', 'get')['_p_JSON;examples/lhs.js'], [
       'stringify',
       [
         [
@@ -106,17 +106,17 @@ for ($hook$.global(__hook__, 'examples/lhs.js', '_GV1', 'set')['_p__GV1;examples
 }
 $hook$.global(__hook__, 'examples/lhs.js', '_GO1', 'let')['_p__GO1;examples/lhs.js'] = {}, $hook$.global(__hook__, 'examples/lhs.js', '_GO2', 'let')['_p__GO2;examples/lhs.js'] = {};
 ({
-  p1: __hook__('.=', _GO1, ['p1'], 'examples/lhs.js,p1')['='],
+  p1: __hook__('.=', $hook$.global(__hook__, 'examples/lhs.js,p1', '_GO1', 'get')['_p__GO1;examples/lhs.js,p1'], ['p1'], 'examples/lhs.js,p1')['='],
   ...($hook$.global(__hook__, 'examples/lhs.js', '_GO2', 'set'))['_p__GO2;examples/lhs.js']
 } = {
   p1: 1,
   p2: 2,
   p3: 3
 });
-__hook__('()', __hook__('.', chai, ['assert'], 'examples/lhs.js'), [
+__hook__('()', __hook__('.', $hook$.global(__hook__, 'examples/lhs.js', 'chai', 'get')['_p_chai;examples/lhs.js'], ['assert'], 'examples/lhs.js'), [
   'equal',
   [
-    __hook__('()', JSON, [
+    __hook__('()', $hook$.global(__hook__, 'examples/lhs.js', 'JSON', 'get')['_p_JSON;examples/lhs.js'], [
       'stringify',
       [
         [
@@ -207,10 +207,10 @@ $hook$.global(__hook__, 'examples/lhs.js,lhsvalues', 'lhsvalues', 'function')['_
         __hook__('.', lv3, [lv2], 'examples/lhs.js,lhsvalues')
       ]
     ];
-    __hook__('()', __hook__('.', chai, ['assert'], 'examples/lhs.js,lhsvalues'), [
+    __hook__('()', __hook__('.', $hook$.global(__hook__, 'examples/lhs.js,lhsvalues', 'chai', 'get')['_p_chai;examples/lhs.js,lhsvalues'], ['assert'], 'examples/lhs.js,lhsvalues'), [
       'equal',
       [
-        __hook__('()', JSON, [
+        __hook__('()', $hook$.global(__hook__, 'examples/lhs.js,lhsvalues', 'JSON', 'get')['_p_JSON;examples/lhs.js,lhsvalues'], [
           'stringify',
           [
             [
@@ -248,10 +248,10 @@ $hook$.global(__hook__, 'examples/lhs.js,lhsvalues', 'lhsvalues', 'function')['_
       p2: 2,
       p3: 3
     });
-    __hook__('()', __hook__('.', chai, ['assert'], 'examples/lhs.js,lhsvalues'), [
+    __hook__('()', __hook__('.', $hook$.global(__hook__, 'examples/lhs.js,lhsvalues', 'chai', 'get')['_p_chai;examples/lhs.js,lhsvalues'], ['assert'], 'examples/lhs.js,lhsvalues'), [
       'equal',
       [
-        __hook__('()', JSON, [
+        __hook__('()', $hook$.global(__hook__, 'examples/lhs.js,lhsvalues', 'JSON', 'get')['_p_JSON;examples/lhs.js,lhsvalues'], [
           'stringify',
           [
             [
@@ -659,4 +659,4 @@ $hook$.global(__hook__, 'examples/lhs.js,lhsvalues', 'lhsvalues', 'function')['_
     }
   }, null, arguments, 'examples/lhs.js,lhsvalues');
 };
-__hook__(lhsvalues, null, [], 'examples/lhs.js', 0);
+__hook__($hook$.global(__hook__, 'examples/lhs.js', 'lhsvalues', 'get')['_p_lhsvalues;examples/lhs.js'], null, [], 'examples/lhs.js', 0);

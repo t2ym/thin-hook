@@ -2,17 +2,17 @@
   class S {
     static sin(v) {
       return __hook__(v => {
-        return __hook__('#()', Math, [
+        return __hook__('#()', $hook$.global(__hook__, 'examples/example5.js,S,static sin', 'Math', '#get')['S_p_Math;examples/example5.js,S,static sin'], [
           'sin',
           [v]
         ], 'examples/example5.js,S,static sin');
       }, null, arguments, 'examples/example5.js,S,static sin');
     }
   }
-  __hook__('()', console, [
+  __hook__('()', $hook$.global(__hook__, 'examples/example5.js', 'console', 'get')['_p_console;examples/example5.js'], [
     'log',
     [`
-    Math.sin(1) = ${ __hook__('()', Math, [
+    Math.sin(1) = ${ __hook__('()', $hook$.global(__hook__, 'examples/example5.js', 'Math', 'get')['_p_Math;examples/example5.js'], [
         'sin',
         [1]
       ], 'examples/example5.js') }
