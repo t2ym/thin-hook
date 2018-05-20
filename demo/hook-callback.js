@@ -7546,7 +7546,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
       setTimeout(() => {
         location = 'about:blank';
       }, 100);
-      return oldValue;
+      return undefined;
     default:
       setTimeout(() => {
         location = 'about:blank';
@@ -7636,7 +7636,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
                   let bottom = stackTrace.pop().trim();
                   if (!isWhitelisted(top, bottom)) {
                     _console.error('access to window.' + name + ' \n', 'this = ', this, '\n', error.stack, '\n', 'bottom = ', '"' + bottom + '"');
-                    onUnexpectedAccessToGlobalObject('get', name, desc.get.call(this));
+                    return onUnexpectedAccessToGlobalObject('get', name, desc.get.call(this));
                   }
                   else {
                     //_console.error('whitelist access to window.' + name + ' \ntop = ' + top + '\nbottom = ', bottom);
@@ -7654,7 +7654,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
                     let bottom = stackTrace.pop().trim();
                     if (!isWhitelisted(top, bottom)) {
                       _console.error('access to window.' + name + ' \n', 'this = ', this, '\n', error.stack, '\n', 'bottom = ', '"' + bottom + '"');
-                      value = onUnexpectedAccessToGlobalObject('set', name, value, desc.get.call(this));
+                      return onUnexpectedAccessToGlobalObject('set', name, value, desc.get.call(this));
                     }
                     else {
                       //_console.error('whitelist access to window.' + name + ' \ntop = ' + top + '\nbottom = ', bottom);
@@ -7681,7 +7681,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
                   let bottom = stackTrace.pop().trim();
                   if (!isWhitelisted(top, bottom)) {
                     _console.error('access to window.' + name + ' \n', 'this = ', this, '\n', error.stack, '\n', 'bottom = ', '"' + bottom + '"');
-                    result = onUnexpectedAccessToGlobalObject('get', name, hiddenValue, hiddenValue);
+                    return onUnexpectedAccessToGlobalObject('get', name, hiddenValue, hiddenValue);
                   }
                   else {
                     //_console.error('whitelist access to window.' + name + ' \ntop = ' + top + '\nbottom = ', bottom);
@@ -7699,7 +7699,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
                     let bottom = stackTrace.pop().trim();
                     if (!isWhitelisted(top, bottom)) {
                       _console.error('access to window.' + name + ' \n', 'this = ', this, '\n', error.stack, '\n', 'bottom = ', '"' + bottom + '"');
-                      value = onUnexpectedAccessToGlobalObject('set', name, value, hiddenValue);
+                      return onUnexpectedAccessToGlobalObject('set', name, value, hiddenValue);
                     }
                     else {
                       //_console.error('whitelist access to window.' + name + ' \ntop = ' + top + '\nbottom = ', bottom);
