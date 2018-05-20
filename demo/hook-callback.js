@@ -7584,28 +7584,17 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
   const origin = location.origin;
   const noHookAuthorization = hook.parameters.noHookAuthorizationParameter;
   [
-    `at _iframeContentWindowAcl (${origin}/components/thin-hook/demo/hook-callback.js?no-hook=true:2117:54)`,
-    `at write2 (${origin}/components/thin-hook/demo/:129:14355)`,
-    `at write4 (${origin}/components/thin-hook/demo/:129:15472)`,
-    `at writeln2 (${origin}/components/thin-hook/demo/:131:40)`,
-    `at writeln4 (${origin}/components/thin-hook/demo/:133:45)`,
-    `at ${origin}/components/thin-hook/demo/webpack-es6-module.js?no-hook=true:445:3`,
-    `at ${origin}/components/thin-hook/demo/webpack-es6-module.js?no-hook=true:66:10`,
-    `at https://www.gstatic.com/charts/loader.js:226:323`,
-    `at https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.js?cors=true&no-hook=true:25:200`,
-    `at https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.js?cors=true&no-hook=true:41:2497`,
-    `at https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.js?cors=true&no-hook=true:42:4192`,
-    `at HTMLCanvasElement.<anonymous> (https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.js?cors=true&no-hook=true:42:8417)`,
   ].forEach(url => whitelist.add(url));
   const wildcardWhitelist = [
     new RegExp('^at ([^(]* [(])?' + 'https://cdnjs.cloudflare.com/ajax/libs/vis/4[.]18[.]1/vis[.]min[.]js'),
-    new RegExp('^at ([^(]* [(])?' + origin + '/components/thin-hook/demo/hook-callback[.]js'),
-    new RegExp('^at ([^(]* [(])?' + origin + '/components/thin-hook/hook[.]min[.]js'),
-    new RegExp('^at ([^(]* [(])?' + origin + '/components/thin-hook/demo/view3:1:'),
-    new RegExp('^at ([^(]* [(])?' + origin + '/components/thin-hook/demo/disable-devtools[.]js'),
-    new RegExp('^at ([^(]* [(])?' + origin + '/components/thin-hook/demo/cache-bundle[.]js'),
+    new RegExp('^at ([^(]* [(])?' + 'https://www.gstatic.com/charts/loader[.]js'),
+    new RegExp('^at ([^(]* [(])?' + origin + '/components/thin-hook/demo/'), // trust the site contents
+    new RegExp('^at ([^(]* [(])?' + origin + '/components/thin-hook/hook[.]min[.]js'), // trust thin-hook
   ];
-  //console.error(whitelist);
+  const excludes = new Set();
+  [
+    'Math', // for vis.min.js to work in decent speed
+  ].forEach(name => excludes.add(name));
   if (typeof window === 'object') {
     const _Object = Object;
     const _window = window;
@@ -7617,16 +7606,17 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
         return true;
       }
       for (let i = 0; i < wildcardWhitelist.length; i++) {
-        if (top.match(wildcardWhitelist[i]) || bottom.match(wildcardWhitelist)) {
+        if (top.match(wildcardWhitelist[i])) {
+          whitelist.add(top); // cache whitelist result
+          return true;
+        }
+        else if (bottom.match(wildcardWhitelist[i])) {
+          whitelist.add(bottom); // cache whitelist result
           return true;
         }
       }
       return false;
     };
-    const excludes = new Set();
-    [
-      'Math', // for vis.min.js to work in a decent speed
-    ].forEach(name => excludes.add(name));
     _Object.getOwnPropertyNames(_window).forEach(name => {
       if (excludes.has(name)) {
         return;
@@ -7725,29 +7715,5 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
         // window.name is not configurable
       }
     });
-    
   }
-  /*
-  if (typeof navigator === 'object' && typeof window === 'object') {
-    let desc = _Object.getOwnPropertyDescriptor(window, 'navigator');
-    _Object.defineProperty(window, 'navigator', {
-      configurable: true,
-      enumerable: desc.enumerable,
-      get: function get() {
-        if (contextStack.isEmpty()) {
-          Error.stackTraceLimit = Infinity;
-          let error = new Error();
-          let bottom = error.stack.split(/\n/).pop().trim();
-          if (!whitelist.has(bottom)) {
-            console.error('access to window.navigator \n', 'this = ', this, '\n', error.stack, '\n', 'bottom = ', '"' + bottom + '"', '\n', contextStack.toString(2));
-          }
-          else {
-            console.error('bottom = ', bottom);
-          }
-        }
-        return desc.get.call(this);
-      }
-    })
-  }
-  */  
 }
