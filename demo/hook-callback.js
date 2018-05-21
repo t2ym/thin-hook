@@ -7533,6 +7533,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
   }
 
   // Moved from hook-native-api.js
+  const enableDebugging = false;
   const onUnexpectedAccessToGlobalObject = function onUnexpectedAccessToGlobalObject(op, name, value, oldValue) {
     switch (op) {
     case 'get':
@@ -7636,7 +7637,9 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
                   let bottom = stackTrace.pop().trim();
                   if (!isWhitelisted(top, bottom)) {
                     _console.error('access to window.' + name + ' \n', 'this = ', this, '\n', error.stack, '\n', 'bottom = ', '"' + bottom + '"');
-                    return onUnexpectedAccessToGlobalObject('get', name, desc.get.call(this));
+                    if (!enableDebugging) {
+                      return onUnexpectedAccessToGlobalObject('get', name, desc.get.call(this));
+                    }
                   }
                   else {
                     //_console.error('whitelist access to window.' + name + ' \ntop = ' + top + '\nbottom = ', bottom);
@@ -7654,7 +7657,9 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
                     let bottom = stackTrace.pop().trim();
                     if (!isWhitelisted(top, bottom)) {
                       _console.error('access to window.' + name + ' \n', 'this = ', this, '\n', error.stack, '\n', 'bottom = ', '"' + bottom + '"');
-                      return onUnexpectedAccessToGlobalObject('set', name, value, desc.get.call(this));
+                      if (!enableDebugging) {
+                        return onUnexpectedAccessToGlobalObject('set', name, value, desc.get.call(this));
+                      }
                     }
                     else {
                       //_console.error('whitelist access to window.' + name + ' \ntop = ' + top + '\nbottom = ', bottom);
@@ -7681,7 +7686,9 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
                   let bottom = stackTrace.pop().trim();
                   if (!isWhitelisted(top, bottom)) {
                     _console.error('access to window.' + name + ' \n', 'this = ', this, '\n', error.stack, '\n', 'bottom = ', '"' + bottom + '"');
-                    return onUnexpectedAccessToGlobalObject('get', name, hiddenValue, hiddenValue);
+                    if (!enableDebugging) {
+                      return onUnexpectedAccessToGlobalObject('get', name, hiddenValue, hiddenValue);
+                    }
                   }
                   else {
                     //_console.error('whitelist access to window.' + name + ' \ntop = ' + top + '\nbottom = ', bottom);
@@ -7699,7 +7706,9 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
                     let bottom = stackTrace.pop().trim();
                     if (!isWhitelisted(top, bottom)) {
                       _console.error('access to window.' + name + ' \n', 'this = ', this, '\n', error.stack, '\n', 'bottom = ', '"' + bottom + '"');
-                      return onUnexpectedAccessToGlobalObject('set', name, value, hiddenValue);
+                      if (!enableDebugging) {
+                        return onUnexpectedAccessToGlobalObject('set', name, value, hiddenValue);
+                      }
                     }
                     else {
                       //_console.error('whitelist access to window.' + name + ' \ntop = ' + top + '\nbottom = ', bottom);
