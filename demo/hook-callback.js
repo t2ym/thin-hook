@@ -7594,10 +7594,11 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
   ];
   const excludes = new Set();
   [
-    'Math', // for vis.min.js to work in decent speed
+    'window.Math', // for vis.min.js to work in decent speed
   ].forEach(name => excludes.add(name));
   if (typeof window === 'object') {
     const _Object = Object;
+    const _Array = Array;
     const _window = window;
     const _Error = Error;
     const _console = console;
@@ -7618,37 +7619,31 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
       }
       return false;
     };
-    _Object.getOwnPropertyNames(_window).forEach(name => {
-      if (excludes.has(name)) {
-        return;
+    [
+      [ _window, '*', 'window' ],
+      [ _Object.prototype, 'constructor', 'Object.prototype' ],
+    ].forEach(([object, properties, objectName]) => {
+      let names;
+      if (properties === '*') {
+        names = _Object.getOwnPropertyNames(object);
       }
-      let desc = _Object.getOwnPropertyDescriptor(_window, name);
-      if (desc.configurable) {
-        if (typeof desc.get === 'function') {
-          _Object.defineProperty(_window, name, {
-            configurable: desc.configurable,
-            enumerable: desc.enumerable,
-            get: function get() {
-                if (contextStack.isEmpty()) {
-                  _Error.stackTraceLimit = Infinity;
-                  let error = new _Error();
-                  let stackTrace = error.stack.split(/\n/);
-                  let top = stackTrace[2].trim();
-                  let bottom = stackTrace.pop().trim();
-                  if (!isWhitelisted(top, bottom)) {
-                    _console.error('access to window.' + name + ' \n', 'this = ', this, '\n', error.stack, '\n', 'bottom = ', '"' + bottom + '"');
-                    if (!enableDebugging) {
-                      return onUnexpectedAccessToGlobalObject('get', name, desc.get.call(this));
-                    }
-                  }
-                  else {
-                    //_console.error('whitelist access to window.' + name + ' \ntop = ' + top + '\nbottom = ', bottom);
-                  }
-                }
-                return desc.get.call(this);
-              },
-            set: typeof desc.set === 'function'
-              ? function set(value) {
+      else if (_Array.isArray(properties)) {
+        names = properties;
+      }
+      else if (typeof properties === 'string') {
+        names = [properties];
+      }
+      names.forEach(name => {
+        if (excludes.has(objectName + '.' + name)) {
+          return;
+        }
+        let desc = _Object.getOwnPropertyDescriptor(object, name);
+        if (desc.configurable) {
+          if (typeof desc.get === 'function') {
+            _Object.defineProperty(object, name, {
+              configurable: desc.configurable,
+              enumerable: desc.enumerable,
+              get: function get() {
                   if (contextStack.isEmpty()) {
                     _Error.stackTraceLimit = Infinity;
                     let error = new _Error();
@@ -7656,73 +7651,153 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
                     let top = stackTrace[2].trim();
                     let bottom = stackTrace.pop().trim();
                     if (!isWhitelisted(top, bottom)) {
-                      _console.error('access to window.' + name + ' \n', 'this = ', this, '\n', error.stack, '\n', 'bottom = ', '"' + bottom + '"');
+                      _console.error('access to ' + objectName + '.' + name + ' \n', 'this = ', this, '\n', error.stack, '\n', 'bottom = ', '"' + bottom + '"');
                       if (!enableDebugging) {
-                        return onUnexpectedAccessToGlobalObject('set', name, value, desc.get.call(this));
+                        return onUnexpectedAccessToGlobalObject('get', objectName + '.' + name, desc.get.call(this));
                       }
                     }
                     else {
                       //_console.error('whitelist access to window.' + name + ' \ntop = ' + top + '\nbottom = ', bottom);
                     }
                   }
-                  desc.set.call(this, value);
-                }
-              : _undefined,
-          });
+                  return desc.get.call(this);
+                },
+              set: typeof desc.set === 'function'
+                ? function set(value) {
+                    if (contextStack.isEmpty()) {
+                      _Error.stackTraceLimit = Infinity;
+                      let error = new _Error();
+                      let stackTrace = error.stack.split(/\n/);
+                      let top = stackTrace[2].trim();
+                      let bottom = stackTrace.pop().trim();
+                      if (!isWhitelisted(top, bottom)) {
+                        _console.error('access to ' + objectName + '.' + name + ' \n', 'this = ', this, '\n', error.stack, '\n', 'bottom = ', '"' + bottom + '"');
+                        if (!enableDebugging) {
+                          return onUnexpectedAccessToGlobalObject('set', objectName + '.' + name, value, desc.get.call(this));
+                        }
+                      }
+                      else {
+                        //_console.error('whitelist access to window.' + name + ' \ntop = ' + top + '\nbottom = ', bottom);
+                      }
+                    }
+                    desc.set.call(this, value);
+                  }
+                : _undefined,
+            });
+          }
+          else {
+            // desc.value
+            let hiddenValue = desc.value;
+            if (objectName.endsWith('.prototype')) {
+              _Object.defineProperty(object, name, {
+                configurable: desc.configurable,
+                enumerable: desc.enumerable,
+                get: function get() {
+                    let result = hiddenValue;
+                    if (contextStack.isEmpty()) {
+                      _Error.stackTraceLimit = Infinity;
+                      let error = new _Error();
+                      let stackTrace = error.stack.split(/\n/);
+                      let top = stackTrace[2].trim();
+                      let bottom = stackTrace.pop().trim();
+                      if (!isWhitelisted(top, bottom)) {
+                        _console.error('access to ' + objectName + '.' + name + ' \n', 'this = ', this, '\n', error.stack, '\n', 'bottom = ', '"' + bottom + '"');
+                        if (!enableDebugging) {
+                          return onUnexpectedAccessToGlobalObject('get', objectName + '.' + name, hiddenValue, hiddenValue);
+                        }
+                      }
+                      else {
+                        //_console.error('whitelist access to window.' + name + ' \ntop = ' + top + '\nbottom = ', bottom);
+                      }
+                    }
+                    return result;
+                  },
+                set: desc.writable
+                  ? function set(value) {
+                      if (contextStack.isEmpty()) {
+                        _Error.stackTraceLimit = Infinity;
+                        let error = new _Error();
+                        let stackTrace = error.stack.split(/\n/);
+                        let top = stackTrace[2].trim();
+                        let bottom = stackTrace.pop().trim();
+                        if (!isWhitelisted(top, bottom)) {
+                          _console.error('access to ' + objectName + '.' + name + ' \n', 'this = ', this, '\n', error.stack, '\n', 'bottom = ', '"' + bottom + '"');
+                          if (!enableDebugging) {
+                            return onUnexpectedAccessToGlobalObject('set', objectName + '.' + name, value, hiddenValue);
+                          }
+                        }
+                        else {
+                          //_console.error('whitelist access to window.' + name + ' \ntop = ' + top + '\nbottom = ', bottom);
+                        }
+                      }
+                      if (this === object) {
+                        hiddenValue = value;
+                      }
+                      else {
+                        _Object.defineProperty(this, name, {
+                          configurable: true,
+                          enumerable: true,
+                          writable: true,
+                          value: value,
+                        });
+                      }
+                    }
+                  : _undefined,
+              });
+            }
+            else {
+              _Object.defineProperty(object, name, {
+                configurable: desc.configurable,
+                enumerable: desc.enumerable,
+                get: function get() {
+                    let result = hiddenValue;
+                    if (contextStack.isEmpty()) {
+                      _Error.stackTraceLimit = Infinity;
+                      let error = new _Error();
+                      let stackTrace = error.stack.split(/\n/);
+                      let top = stackTrace[2].trim();
+                      let bottom = stackTrace.pop().trim();
+                      if (!isWhitelisted(top, bottom)) {
+                        _console.error('access to ' + objectName + '.' + name + ' \n', 'this = ', this, '\n', error.stack, '\n', 'bottom = ', '"' + bottom + '"');
+                        if (!enableDebugging) {
+                          return onUnexpectedAccessToGlobalObject('get', objectName + '.' + name, hiddenValue, hiddenValue);
+                        }
+                      }
+                      else {
+                        //_console.error('whitelist access to window.' + name + ' \ntop = ' + top + '\nbottom = ', bottom);
+                      }
+                    }
+                    return result;
+                  },
+                set: desc.writable
+                  ? function set(value) {
+                      if (contextStack.isEmpty()) {
+                        _Error.stackTraceLimit = Infinity;
+                        let error = new _Error();
+                        let stackTrace = error.stack.split(/\n/);
+                        let top = stackTrace[2].trim();
+                        let bottom = stackTrace.pop().trim();
+                        if (!isWhitelisted(top, bottom)) {
+                          _console.error('access to ' + objectName + '.' + name + ' \n', 'this = ', this, '\n', error.stack, '\n', 'bottom = ', '"' + bottom + '"');
+                          if (!enableDebugging) {
+                            return onUnexpectedAccessToGlobalObject('set', objectName + '.' + name, value, hiddenValue);
+                          }
+                        }
+                        else {
+                          //_console.error('whitelist access to window.' + name + ' \ntop = ' + top + '\nbottom = ', bottom);
+                        }
+                      }
+                      hiddenValue = value;
+                    }
+                  : _undefined,
+              });
+            }
+          }
         }
         else {
-          // desc.value
-          let hiddenValue = desc.value;
-          _Object.defineProperty(_window, name, {
-            configurable: desc.configurable,
-            enumerable: desc.enumerable,
-            get: function get() {
-                let result = hiddenValue;
-                if (contextStack.isEmpty()) {
-                  _Error.stackTraceLimit = Infinity;
-                  let error = new _Error();
-                  let stackTrace = error.stack.split(/\n/);
-                  let top = stackTrace[2].trim();
-                  let bottom = stackTrace.pop().trim();
-                  if (!isWhitelisted(top, bottom)) {
-                    _console.error('access to window.' + name + ' \n', 'this = ', this, '\n', error.stack, '\n', 'bottom = ', '"' + bottom + '"');
-                    if (!enableDebugging) {
-                      return onUnexpectedAccessToGlobalObject('get', name, hiddenValue, hiddenValue);
-                    }
-                  }
-                  else {
-                    //_console.error('whitelist access to window.' + name + ' \ntop = ' + top + '\nbottom = ', bottom);
-                  }
-                }
-                return result;
-              },
-            set: desc.writable
-              ? function set(value) {
-                  if (contextStack.isEmpty()) {
-                    _Error.stackTraceLimit = Infinity;
-                    let error = new _Error();
-                    let stackTrace = error.stack.split(/\n/);
-                    let top = stackTrace[2].trim();
-                    let bottom = stackTrace.pop().trim();
-                    if (!isWhitelisted(top, bottom)) {
-                      _console.error('access to window.' + name + ' \n', 'this = ', this, '\n', error.stack, '\n', 'bottom = ', '"' + bottom + '"');
-                      if (!enableDebugging) {
-                        return onUnexpectedAccessToGlobalObject('set', name, value, hiddenValue);
-                      }
-                    }
-                    else {
-                      //_console.error('whitelist access to window.' + name + ' \ntop = ' + top + '\nbottom = ', bottom);
-                    }
-                  }
-                  hiddenValue = value;
-                }
-              : _undefined,
-          });
+          // window.name is not configurable
         }
-      }
-      else {
-        // window.name is not configurable
-      }
+      });
     });
   }
 }
