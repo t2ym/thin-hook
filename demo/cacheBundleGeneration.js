@@ -137,6 +137,32 @@ default:
   console.log('test: checkLocation:', result);
   chai.assert.equal(result, 'about:blank', 'location is about:blank');
 
+  await page.goto(targetURL);
+  console.log('goto', targetURL);
+  await page.waitFor(15000);
+  console.log('waitFor(15000)');
+  result = await page.evaluate(function getPolymer() {
+    try {
+      return Polymer.name;
+    }
+    catch (error) {
+      return error.message;
+    }
+  });
+  console.log('test: getPolymer:', result);
+  chai.assert.equal(result, 'Cannot read property \'name\' of undefined', 'cannot access non-native global property Polymer');
+  await page.waitFor(1000);
+  result = await page.evaluate(function checkLocation() {
+    try {
+      return location.href;
+    }
+    catch (error) {
+      return error.message;
+    }
+  });
+  console.log('test: checkLocation:', result);
+  chai.assert.equal(result, 'about:blank', 'location is about:blank');
+
   // end of tests
 
   // start generation of cache-bundle.json

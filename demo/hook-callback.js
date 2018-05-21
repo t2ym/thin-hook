@@ -34,6 +34,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
   const Symbol = self.Symbol;
   const JSON = self.JSON;
   const URL = self.URL;
+  let wrapGlobalProperty; // = function (object, property, objectName); assigned at the bottom of this script
   class Stack {
     constructor(stack) {
       // Note: O(1)
@@ -4395,6 +4396,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
 
     let result;
     try {
+      let globalAssignments;
       if (otherWindowObjectsStatus.set) {
         let _Object;
         switch (typeof f) {
@@ -4593,7 +4595,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
         let op = operatorNormalizer[_f];
         let target = targetNormalizer[op];
         let opType;
-        let globalAssignments = {};
+        globalAssignments = {};
         if (typeof target === 'object') {
           do {
             if (normalizedThisArg instanceof Object) {
@@ -5775,6 +5777,14 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
           break;
         }
       }
+      if (globalAssignments) {
+        if (_global.constructor.name === 'Window') {
+          for (let name in globalAssignments) {
+            wrapGlobalProperty([_global, name, 'window']);
+          }
+        }
+      }
+
       lastContext = _lastContext;
       // if (contextStack[contextStack.length - 1] !== context) { debugger; }
       contextStack.pop();
@@ -5802,6 +5812,8 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
 
     let result;
     try {
+      let hasGlobalAssignments = false;
+      let globalAssignments;
       if (otherWindowObjectsStatus.set) {
         let _Object;
         switch (typeof f) {
@@ -5999,8 +6011,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
         let property = _escapePlatformProperties.get(rawProperty) || rawProperty;
         let target = targetNormalizerMapObject.get(_f);
         let opType;
-        let hasGlobalAssignments = false;
-        let globalAssignments = {};
+        globalAssignments = {};
         if (typeof target === 'object') {
           do {
             if (normalizedThisArg instanceof Object) {
@@ -6994,6 +7005,14 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
           break;
         }
       }
+      if (hasGlobalAssignments) {
+        if (_global.constructor.name === 'Window') {
+          for (let name in globalAssignments) {
+            wrapGlobalProperty([_global, name, 'window']);
+          }
+        }
+      }
+
       lastContext = _lastContext;
       // if (contextStack[contextStack.length - 1] !== context) { debugger; }
       contextStack.pop();
@@ -7587,10 +7606,9 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
   [
   ].forEach(url => whitelist.add(url));
   const wildcardWhitelist = [
+    new RegExp('^at ([^(]* [(])?' + origin + '/components/'), // trust the site contents including other components
     new RegExp('^at ([^(]* [(])?' + 'https://cdnjs.cloudflare.com/ajax/libs/vis/4[.]18[.]1/vis[.]min[.]js'),
     new RegExp('^at ([^(]* [(])?' + 'https://www.gstatic.com/charts/loader[.]js'),
-    new RegExp('^at ([^(]* [(])?' + origin + '/components/thin-hook/demo/'), // trust the site contents
-    new RegExp('^at ([^(]* [(])?' + origin + '/components/thin-hook/hook[.]min[.]js'), // trust thin-hook
   ];
   const excludes = new Set();
   [
@@ -7619,10 +7637,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
       }
       return false;
     };
-    [
-      [ _window, '*', 'window' ],
-      [ _Object.prototype, 'constructor', 'Object.prototype' ],
-    ].forEach(([object, properties, objectName]) => {
+    wrapGlobalProperty = function ([object, properties, objectName]) {
       let names;
       if (properties === '*') {
         names = _Object.getOwnPropertyNames(object);
@@ -7798,6 +7813,10 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
           // window.name is not configurable
         }
       });
-    });
+    };
+    [
+      [ _window, '*', 'window' ],
+      [ _Object.prototype, 'constructor', 'Object.prototype' ],
+    ].forEach(wrapGlobalProperty);
   }
 }
