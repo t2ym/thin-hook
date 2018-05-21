@@ -30,6 +30,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 let targetURL = 'https://localhost/components/thin-hook/demo/';
 
 const puppeteer = require('puppeteer');
+const chai = require('chai');
 const fs = require('fs');
 const path = require('path');
 const del = require('del');
@@ -60,12 +61,90 @@ default:
   const browser = await puppeteer.launch({ headless: true, args: [ '--disable-gpu' ], executablePath: chromePath });
   const page = await browser.newPage();
   await page.setViewport({ width: 1200, height: 800 });
+
+  /*
+  page.on('frameattached', function onFrameAttached() {
+    console.log('frameattached');
+  });
+
+  // for customized puppeteer/lib/Page.js
+  page.on('framestartedloading', async function onFrameStartedLoading() {
+    console.log('framestartedloading');
+  });
+  */
+
+  page.on('domcontentloaded', async function onDomContentLoaded() {
+    console.log('domcontentloaded');
+  });
+
+  page.on('load', function onLoad() {
+    console.log('load');
+  });
+
+
+  let result;
+
+  // tests
+  await page.goto(targetURL);
+  console.log('goto', targetURL);
+  await page.waitFor(15000);
+  console.log('waitFor(15000)');
+  result = await page.evaluate(function getCaches() {
+    try {
+      return caches.constructor.name;
+    }
+    catch (error) {
+      return error.message;
+    }
+  });
+  console.log('test: getCaches:', result);
+  chai.assert.equal(result, 'Cannot read property \'constructor\' of undefined', 'cannot access caches');
+  await page.waitFor(1000);
+  result = await page.evaluate(function checkLocation() {
+    try {
+      return location.href;
+    }
+    catch (error) {
+      return error.message;
+    }
+  });
+  console.log('test: checkLocation:', result);
+  chai.assert.equal(result, 'about:blank', 'location is about:blank');
+
+  await page.goto(targetURL);
+  console.log('goto', targetURL);
+  await page.waitFor(15000);
+  console.log('waitFor(15000)');
+  result = await page.evaluate(function getObjectIndirect() {
+    try {
+      return this.__proto__.__proto__.__proto__.__proto__.constructor.name;
+    }
+    catch (error) {
+      return error.message;
+    }
+  });
+  console.log('test: getObjectIndirect:', result);
+  chai.assert.equal(result, 'Cannot read property \'name\' of undefined', 'cannot access Object via constructor property');
+  await page.waitFor(1000);
+  result = await page.evaluate(function checkLocation() {
+    try {
+      return location.href;
+    }
+    catch (error) {
+      return error.message;
+    }
+  });
+  console.log('test: checkLocation:', result);
+  chai.assert.equal(result, 'about:blank', 'location is about:blank');
+
+  // end of tests
+
+  // start generation of cache-bundle.json
   await page.goto(targetURL);
   console.log('goto', targetURL);
   await page.waitFor(15000);
   console.log('waitFor(15000)');
 
-  let result;
   result = await page.evaluate(function waitForBundleSetFetched() {
     return new Promise(resolve => {
       let intervalId = setInterval(async () => {
