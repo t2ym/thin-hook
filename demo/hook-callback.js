@@ -242,7 +242,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
   const _stringPropertyDescriptors = Object.getOwnPropertyDescriptors(String.prototype);
   const _functionStaticPropertyDescriptors = Object.getOwnPropertyDescriptors(Function);
   const _functionPropertyDescriptors = Object.getOwnPropertyDescriptors(Function.prototype);
-  var globalObjectAccess = {}; // still global for normalize.js, etc.; __hook__acl does not use it
+  var globalObjectAccess = Object.create(null); // still global for normalize.js, etc.; __hook__acl does not use it
   /*
   if (!_global._globalObjects) {
     // in a ES module for hook-native-api.js
