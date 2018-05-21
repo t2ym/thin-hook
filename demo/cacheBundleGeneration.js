@@ -124,7 +124,7 @@ default:
     }
   });
   console.log('test: getObjectIndirect:', result);
-  chai.assert.equal(result, 'Cannot read property \'name\' of undefined', 'cannot access Object via constructor property');
+  chai.assert.equal(result, 'Cannot read property \'name\' of undefined', 'cannot access Object via prototype chain');
   await page.waitFor(1000);
   result = await page.evaluate(function checkLocation() {
     try {
@@ -151,6 +151,58 @@ default:
   });
   console.log('test: getPolymer:', result);
   chai.assert.equal(result, 'Cannot read property \'name\' of undefined', 'cannot access non-native global property Polymer');
+  await page.waitFor(1000);
+  result = await page.evaluate(function checkLocation() {
+    try {
+      return location.href;
+    }
+    catch (error) {
+      return error.message;
+    }
+  });
+  console.log('test: checkLocation:', result);
+  chai.assert.equal(result, 'about:blank', 'location is about:blank');
+
+  await page.goto(targetURL);
+  console.log('goto', targetURL);
+  await page.waitFor(15000);
+  console.log('waitFor(15000)');
+  result = await page.evaluate(function getLookupGetter() {
+    try {
+      return __lookupGetter__.name;
+    }
+    catch (error) {
+      return error.message;
+    }
+  });
+  console.log('test: getLookupGetter:', result);
+  chai.assert.equal(result, 'Cannot read property \'name\' of undefined', 'cannot access __lookupGetter__ from Object.prototype');
+  await page.waitFor(1000);
+  result = await page.evaluate(function checkLocation() {
+    try {
+      return location.href;
+    }
+    catch (error) {
+      return error.message;
+    }
+  });
+  console.log('test: checkLocation:', result);
+  chai.assert.equal(result, 'about:blank', 'location is about:blank');
+
+  await page.goto(targetURL);
+  console.log('goto', targetURL);
+  await page.waitFor(15000);
+  console.log('waitFor(15000)');
+  result = await page.evaluate(function getAddEventListener() {
+    try {
+      return addEventListener.name;
+    }
+    catch (error) {
+      return error.message;
+    }
+  });
+  console.log('test: getAddEventListener:', result);
+  chai.assert.equal(result, 'Cannot read property \'name\' of undefined', 'cannot access addEventListener from EventTarget.prototype');
   await page.waitFor(1000);
   result = await page.evaluate(function checkLocation() {
     try {

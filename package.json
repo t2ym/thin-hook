@@ -1,6 +1,6 @@
 {
   "name": "thin-hook",
-  "version": "0.1.13-stack.6",
+  "version": "0.1.13-stack.7",
   "description": "Thin Hook Preprocessor",
   "main": "hook.js",
   "scripts": {

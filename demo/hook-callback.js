@@ -30,6 +30,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
     }
   };
   const Object = self.Object;
+  const _hasOwnProperty = Object.prototype.hasOwnProperty;
   const Array = self.Array;
   const Symbol = self.Symbol;
   const JSON = self.JSON;
@@ -2305,7 +2306,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
                     let prop = _escapePlatformProperties.get(rawProp) || rawProp;
                     let obj = name[0];
                     // Apply ACL for the global method
-                    return applyAcl(obj, name[1] !== 'prototype', !normalizedThisArg.hasOwnProperty(property), prop, 'x', hookArgs[3], _global[obj], [rawProp, normalizedArgs[1]], hookArgs);
+                    return applyAcl(obj, name[1] !== 'prototype', !Object.prototype.hasOwnProperty.call(normalizedThisArg, property), prop, 'x', hookArgs[3], _global[obj], [rawProp, normalizedArgs[1]], hookArgs);
                   }
                 }
               }
@@ -3848,7 +3849,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
                 let prop = _escapePlatformProperties.get(rawProp) || rawProp;
                 let obj = name[0];
                 // Apply ACL for the global method
-                return applyAcl(obj, name[1] !== 'prototype', !normalizedThisArg.hasOwnProperty(property), prop, 'x', hookArgs[3], _global[obj], [rawProp, normalizedArgs[1]], hookArgs);
+                return applyAcl(obj, name[1] !== 'prototype', !Object.prototype.hasOwnProperty.call(normalizedThisArg, property), prop, 'x', hookArgs[3], _global[obj], [rawProp, normalizedArgs[1]], hookArgs);
               }
             }
           }
@@ -4567,7 +4568,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
           else {
             ctor = normalizedThisArg.constructor;
             if (ctor) {
-              if (normalizedThisArg.hasOwnProperty('constructor')) {
+              if (_hasOwnProperty.call(normalizedThisArg, 'constructor')) {
                 isObject = false;
               }
             }
@@ -4584,7 +4585,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
           if (name) {
             isStatic = false;
             if (typeof ctor === 'function') {
-              if (normalizedThisArg.hasOwnProperty('constructor')) {
+              if (_hasOwnProperty.call(normalizedThisArg, 'constructor')) {
                 isObject = false;
               }
             }
@@ -5984,7 +5985,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
           else {
             ctor = normalizedThisArg.constructor;
             if (ctor) {
-              if (normalizedThisArg.hasOwnProperty('constructor')) {
+              if (_hasOwnProperty.call(normalizedThisArg, 'constructor')) {
                 isObject = false;
               }
             }
@@ -6001,7 +6002,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
           if (name) {
             isStatic = false;
             if (typeof ctor === 'function') {
-              if (normalizedThisArg.hasOwnProperty('constructor')) {
+              if (_hasOwnProperty.call(normalizedThisArg, 'constructor')) {
                 isObject = false;
               }
             }
@@ -7619,6 +7620,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
     const _Array = Array;
     const _window = window;
     const _Error = Error;
+    const _EventTarget = EventTarget;
     const _console = console;
     const _undefined = undefined;
     const isWhitelisted = function isWhitelisted(top, bottom) {
@@ -7637,7 +7639,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
       }
       return false;
     };
-    wrapGlobalProperty = function ([object, properties, objectName]) {
+    wrapGlobalProperty = function ([object, properties, objectName, moveto]) {
       let names;
       if (properties === '*') {
         names = _Object.getOwnPropertyNames(object);
@@ -7653,9 +7655,9 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
           return;
         }
         let desc = _Object.getOwnPropertyDescriptor(object, name);
-        if (desc.configurable) {
+        if (moveto || desc.configurable) {
           if (typeof desc.get === 'function') {
-            _Object.defineProperty(object, name, {
+            _Object.defineProperty(moveto || object, name, {
               configurable: desc.configurable,
               enumerable: desc.enumerable,
               get: function get() {
@@ -7703,7 +7705,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
           else {
             // desc.value
             let hiddenValue = desc.value;
-            if (objectName.endsWith('.prototype')) {
+            if (!moveto && objectName.endsWith('.prototype')) {
               _Object.defineProperty(object, name, {
                 configurable: desc.configurable,
                 enumerable: desc.enumerable,
@@ -7761,7 +7763,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
               });
             }
             else {
-              _Object.defineProperty(object, name, {
+              _Object.defineProperty(moveto || object, name, {
                 configurable: desc.configurable,
                 enumerable: desc.enumerable,
                 get: function get() {
@@ -7810,13 +7812,31 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
           }
         }
         else {
-          // window.name is not configurable
+          // object.name is not configurable
         }
       });
     };
     [
       [ _window, '*', 'window' ],
       [ _Object.prototype, 'constructor', 'Object.prototype' ],
+      [ _Object.prototype, [
+                             'hasOwnProperty',
+                             'isPrototypeOf',
+                             'propertyIsEnumerable',
+                             'toLocaleString',
+                             'toString',
+                             'valueOf',
+                             '__defineGetter__',
+                             '__defineSetter__',
+                             '__lookupGetter__',
+                             '__lookupSetter__',
+                           ],             'window',          _window ],
+      [ _EventTarget.prototype, 
+                           [
+                             'addEventListener',
+                             'removeEventListener',
+                             'dispatchEvent',
+                           ],             'window',          _window ],
     ].forEach(wrapGlobalProperty);
   }
 }
