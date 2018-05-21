@@ -108,7 +108,7 @@ function mutateClass(C) {
 }
 function setVariable2(v) {
   return __hook__(v => {
-    __hook__('#()', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module.js,setVariable2', 'console', '#get')['S_pp_console;/components/thin-hook/demo/es6-module.js,setVariable2'], [
+    __hook__('#()', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module.js,setVariable2', 'console', '#get')['S_uNpREdiC4aB1e_console;/components/thin-hook/demo/es6-module.js,setVariable2'], [
       'log',
       [
         'setVariable2 this = ',
@@ -135,7 +135,7 @@ function setVariable2(v) {
 
 
 
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js', 'chai', '#get')['S_pp_chai;/components/thin-hook/demo/es6-module2.js'], ['assert'], '/components/thin-hook/demo/es6-module2.js'), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js', 'chai', '#get')['S_uNpREdiC4aB1e_chai;/components/thin-hook/demo/es6-module2.js'], ['assert'], '/components/thin-hook/demo/es6-module2.js'), [
   'equal',
   [
     __WEBPACK_IMPORTED_MODULE_0__es6_module_js__["constant"],
@@ -143,7 +143,7 @@ __hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/de
     'constant is 1'
   ]
 ], '/components/thin-hook/demo/es6-module2.js');
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js', 'chai', '#get')['S_pp_chai;/components/thin-hook/demo/es6-module2.js'], ['assert'], '/components/thin-hook/demo/es6-module2.js'), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js', 'chai', '#get')['S_uNpREdiC4aB1e_chai;/components/thin-hook/demo/es6-module2.js'], ['assert'], '/components/thin-hook/demo/es6-module2.js'), [
   'equal',
   [
     __WEBPACK_IMPORTED_MODULE_0__es6_module_js__["variable"],
@@ -151,7 +151,7 @@ __hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/de
     'variable is 1'
   ]
 ], '/components/thin-hook/demo/es6-module2.js');
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js', 'chai', '#get')['S_pp_chai;/components/thin-hook/demo/es6-module2.js'], ['assert'], '/components/thin-hook/demo/es6-module2.js'), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js', 'chai', '#get')['S_uNpREdiC4aB1e_chai;/components/thin-hook/demo/es6-module2.js'], ['assert'], '/components/thin-hook/demo/es6-module2.js'), [
   'equal',
   [
     __WEBPACK_IMPORTED_MODULE_0__es6_module_js__["v2"],
@@ -159,7 +159,7 @@ __hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/de
     'v2 is 2'
   ]
 ], '/components/thin-hook/demo/es6-module2.js');
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js', 'chai', '#get')['S_pp_chai;/components/thin-hook/demo/es6-module2.js'], ['assert'], '/components/thin-hook/demo/es6-module2.js'), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js', 'chai', '#get')['S_uNpREdiC4aB1e_chai;/components/thin-hook/demo/es6-module2.js'], ['assert'], '/components/thin-hook/demo/es6-module2.js'), [
   'equal',
   [
     __hook__(__WEBPACK_IMPORTED_MODULE_0__es6_module_js__["func"], null, [], '/components/thin-hook/demo/es6-module2.js', 0),
@@ -167,7 +167,7 @@ __hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/de
     'func() returns 1'
   ]
 ], '/components/thin-hook/demo/es6-module2.js');
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js', 'chai', '#get')['S_pp_chai;/components/thin-hook/demo/es6-module2.js'], ['assert'], '/components/thin-hook/demo/es6-module2.js'), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js', 'chai', '#get')['S_uNpREdiC4aB1e_chai;/components/thin-hook/demo/es6-module2.js'], ['assert'], '/components/thin-hook/demo/es6-module2.js'), [
   'equal',
   [
     __hook__('#.', __WEBPACK_IMPORTED_MODULE_0__es6_module_js__, ['constant'], '/components/thin-hook/demo/es6-module2.js'),
@@ -175,7 +175,7 @@ __hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/de
     'mod.constant === constant'
   ]
 ], '/components/thin-hook/demo/es6-module2.js');
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js', 'chai', '#get')['S_pp_chai;/components/thin-hook/demo/es6-module2.js'], ['assert'], '/components/thin-hook/demo/es6-module2.js'), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js', 'chai', '#get')['S_uNpREdiC4aB1e_chai;/components/thin-hook/demo/es6-module2.js'], ['assert'], '/components/thin-hook/demo/es6-module2.js'), [
   'equal',
   [
     __hook__('#.', __WEBPACK_IMPORTED_MODULE_0__es6_module_js__, ['variable'], '/components/thin-hook/demo/es6-module2.js'),
@@ -183,7 +183,7 @@ __hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/de
     'mod.variable === variable'
   ]
 ], '/components/thin-hook/demo/es6-module2.js');
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js', 'chai', '#get')['S_pp_chai;/components/thin-hook/demo/es6-module2.js'], ['assert'], '/components/thin-hook/demo/es6-module2.js'), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js', 'chai', '#get')['S_uNpREdiC4aB1e_chai;/components/thin-hook/demo/es6-module2.js'], ['assert'], '/components/thin-hook/demo/es6-module2.js'), [
   'equal',
   [
     __hook__('#.', __WEBPACK_IMPORTED_MODULE_0__es6_module_js__, ['v2'], '/components/thin-hook/demo/es6-module2.js'),
@@ -191,7 +191,7 @@ __hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/de
     'mod.v2 === v2'
   ]
 ], '/components/thin-hook/demo/es6-module2.js');
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js', 'chai', '#get')['S_pp_chai;/components/thin-hook/demo/es6-module2.js'], ['assert'], '/components/thin-hook/demo/es6-module2.js'), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js', 'chai', '#get')['S_uNpREdiC4aB1e_chai;/components/thin-hook/demo/es6-module2.js'], ['assert'], '/components/thin-hook/demo/es6-module2.js'), [
   'equal',
   [
     __hook__('#.', __WEBPACK_IMPORTED_MODULE_0__es6_module_js__, ['func'], '/components/thin-hook/demo/es6-module2.js'),
@@ -199,7 +199,7 @@ __hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/de
     'mod.func === func'
   ]
 ], '/components/thin-hook/demo/es6-module2.js');
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js', 'chai', '#get')['S_pp_chai;/components/thin-hook/demo/es6-module2.js'], ['assert'], '/components/thin-hook/demo/es6-module2.js'), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js', 'chai', '#get')['S_uNpREdiC4aB1e_chai;/components/thin-hook/demo/es6-module2.js'], ['assert'], '/components/thin-hook/demo/es6-module2.js'), [
   'equal',
   [
     __hook__('#.', __WEBPACK_IMPORTED_MODULE_0__es6_module_js__, ['default'], '/components/thin-hook/demo/es6-module2.js'),
@@ -207,7 +207,7 @@ __hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/de
     'mod.default === Test'
   ]
 ], '/components/thin-hook/demo/es6-module2.js');
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js', 'chai', '#get')['S_pp_chai;/components/thin-hook/demo/es6-module2.js'], ['assert'], '/components/thin-hook/demo/es6-module2.js'), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js', 'chai', '#get')['S_uNpREdiC4aB1e_chai;/components/thin-hook/demo/es6-module2.js'], ['assert'], '/components/thin-hook/demo/es6-module2.js'), [
   'equal',
   [
     __hook__('#.', __WEBPACK_IMPORTED_MODULE_0__es6_module_js__, ['MutatableClass'], '/components/thin-hook/demo/es6-module2.js'),
@@ -215,7 +215,7 @@ __hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/de
     'mod.MutatableClass === Test'
   ]
 ], '/components/thin-hook/demo/es6-module2.js');
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js', 'chai', '#get')['S_pp_chai;/components/thin-hook/demo/es6-module2.js'], ['assert'], '/components/thin-hook/demo/es6-module2.js'), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js', 'chai', '#get')['S_uNpREdiC4aB1e_chai;/components/thin-hook/demo/es6-module2.js'], ['assert'], '/components/thin-hook/demo/es6-module2.js'), [
   'equal',
   [
     __WEBPACK_IMPORTED_MODULE_0__es6_module_js__,
@@ -231,7 +231,7 @@ __hook__('#()', __WEBPACK_IMPORTED_MODULE_0__es6_module_js__, [
   'mutateClass',
   [C2]
 ], '/components/thin-hook/demo/es6-module2.js');
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js', 'chai', '#get')['S_pp_chai;/components/thin-hook/demo/es6-module2.js'], ['assert'], '/components/thin-hook/demo/es6-module2.js'), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js', 'chai', '#get')['S_uNpREdiC4aB1e_chai;/components/thin-hook/demo/es6-module2.js'], ['assert'], '/components/thin-hook/demo/es6-module2.js'), [
   'throws',
   [
     (...args) =>
@@ -242,7 +242,7 @@ __hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/de
     /Assignment to constant variable|MutatableClass is not defined|assignment to undeclared variable MutatableClass|Can\'t find variable: MutatableClass/
   ]
 ], '/components/thin-hook/demo/es6-module2.js');
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js', 'chai', '#get')['S_pp_chai;/components/thin-hook/demo/es6-module2.js'], ['assert'], '/components/thin-hook/demo/es6-module2.js'), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js', 'chai', '#get')['S_uNpREdiC4aB1e_chai;/components/thin-hook/demo/es6-module2.js'], ['assert'], '/components/thin-hook/demo/es6-module2.js'), [
   'equal',
   [
     __WEBPACK_IMPORTED_MODULE_0__es6_module_js__["MutatableClass"],
@@ -250,7 +250,7 @@ __hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/de
     'MutatableClass === C2'
   ]
 ], '/components/thin-hook/demo/es6-module2.js');
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js', 'chai', '#get')['S_pp_chai;/components/thin-hook/demo/es6-module2.js'], ['assert'], '/components/thin-hook/demo/es6-module2.js'), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js', 'chai', '#get')['S_uNpREdiC4aB1e_chai;/components/thin-hook/demo/es6-module2.js'], ['assert'], '/components/thin-hook/demo/es6-module2.js'), [
   'equal',
   [
     __hook__('#.', __WEBPACK_IMPORTED_MODULE_0__es6_module_js__, ['MutatableClass'], '/components/thin-hook/demo/es6-module2.js'),
@@ -259,7 +259,7 @@ __hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/de
   ]
 ], '/components/thin-hook/demo/es6-module2.js');
 __hook__(__WEBPACK_IMPORTED_MODULE_0__es6_module_js__["setv2"], null, [3], '/components/thin-hook/demo/es6-module2.js', 0);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js', 'chai', '#get')['S_pp_chai;/components/thin-hook/demo/es6-module2.js'], ['assert'], '/components/thin-hook/demo/es6-module2.js'), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js', 'chai', '#get')['S_uNpREdiC4aB1e_chai;/components/thin-hook/demo/es6-module2.js'], ['assert'], '/components/thin-hook/demo/es6-module2.js'), [
   'throws',
   [
     (...args) =>
@@ -272,7 +272,7 @@ __hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/de
     /Cannot assign to read only property|Cannot set property|setting getter-only property|Attempted to assign to readonly property/
   ]
 ], '/components/thin-hook/demo/es6-module2.js');
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js', 'chai', '#get')['S_pp_chai;/components/thin-hook/demo/es6-module2.js'], ['assert'], '/components/thin-hook/demo/es6-module2.js'), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js', 'chai', '#get')['S_uNpREdiC4aB1e_chai;/components/thin-hook/demo/es6-module2.js'], ['assert'], '/components/thin-hook/demo/es6-module2.js'), [
   'equal',
   [
     __WEBPACK_IMPORTED_MODULE_0__es6_module_js__["v2"],
@@ -280,7 +280,7 @@ __hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/de
     'v2 is 3'
   ]
 ], '/components/thin-hook/demo/es6-module2.js');
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js', 'chai', '#get')['S_pp_chai;/components/thin-hook/demo/es6-module2.js'], ['assert'], '/components/thin-hook/demo/es6-module2.js'), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js', 'chai', '#get')['S_uNpREdiC4aB1e_chai;/components/thin-hook/demo/es6-module2.js'], ['assert'], '/components/thin-hook/demo/es6-module2.js'), [
   'equal',
   [
     __hook__('#.', __WEBPACK_IMPORTED_MODULE_0__es6_module_js__, ['v2'], '/components/thin-hook/demo/es6-module2.js'),
@@ -292,7 +292,7 @@ __hook__('#()', __WEBPACK_IMPORTED_MODULE_0__es6_module_js__, [
   'setv2',
   [5]
 ], '/components/thin-hook/demo/es6-module2.js');
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js', 'chai', '#get')['S_pp_chai;/components/thin-hook/demo/es6-module2.js'], ['assert'], '/components/thin-hook/demo/es6-module2.js'), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js', 'chai', '#get')['S_uNpREdiC4aB1e_chai;/components/thin-hook/demo/es6-module2.js'], ['assert'], '/components/thin-hook/demo/es6-module2.js'), [
   'equal',
   [
     __WEBPACK_IMPORTED_MODULE_0__es6_module_js__["v2"],
@@ -300,7 +300,7 @@ __hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/de
     'v2 is 5'
   ]
 ], '/components/thin-hook/demo/es6-module2.js');
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js', 'chai', '#get')['S_pp_chai;/components/thin-hook/demo/es6-module2.js'], ['assert'], '/components/thin-hook/demo/es6-module2.js'), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js', 'chai', '#get')['S_uNpREdiC4aB1e_chai;/components/thin-hook/demo/es6-module2.js'], ['assert'], '/components/thin-hook/demo/es6-module2.js'), [
   'equal',
   [
     __hook__('#.', __WEBPACK_IMPORTED_MODULE_0__es6_module_js__, ['v2'], '/components/thin-hook/demo/es6-module2.js'),
@@ -308,9 +308,9 @@ __hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/de
     'mod.v2 is 5'
   ]
 ], '/components/thin-hook/demo/es6-module2.js');
-__hook__('#()', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js', 'console', '#get')['S_pp_console;/components/thin-hook/demo/es6-module2.js'], [
+__hook__('#()', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js', 'console', '#get')['S_uNpREdiC4aB1e_console;/components/thin-hook/demo/es6-module2.js'], [
   'log',
-  [__hook__('#()', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js', 'Object', '#get')['S_pp_Object;/components/thin-hook/demo/es6-module2.js'], [
+  [__hook__('#()', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js', 'Object', '#get')['S_uNpREdiC4aB1e_Object;/components/thin-hook/demo/es6-module2.js'], [
       'getOwnPropertyDescriptors',
       [__WEBPACK_IMPORTED_MODULE_0__es6_module_js__]
     ], '/components/thin-hook/demo/es6-module2.js')]
@@ -318,14 +318,14 @@ __hook__('#()', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.
 function f(a) {
   return __hook__(a => {
     let t = __hook__(__WEBPACK_IMPORTED_MODULE_0__es6_module_js__["default"], null, [a], '/components/thin-hook/demo/es6-module2.js,f,t', true);
-    __hook__('#()', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js,f', 'console', '#get')['S_pp_console;/components/thin-hook/demo/es6-module2.js,f'], [
+    __hook__('#()', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js,f', 'console', '#get')['S_uNpREdiC4aB1e_console;/components/thin-hook/demo/es6-module2.js,f'], [
       'log',
       [
         'new Test(' + a + ').a = ',
         __hook__('#.', t, ['a'], '/components/thin-hook/demo/es6-module2.js,f')
       ]
     ], '/components/thin-hook/demo/es6-module2.js,f');
-    __hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js,f', 'chai', '#get')['S_pp_chai;/components/thin-hook/demo/es6-module2.js,f'], ['assert'], '/components/thin-hook/demo/es6-module2.js,f'), [
+    __hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js,f', 'chai', '#get')['S_uNpREdiC4aB1e_chai;/components/thin-hook/demo/es6-module2.js,f'], ['assert'], '/components/thin-hook/demo/es6-module2.js,f'), [
       'equal',
       [
         __hook__('#.', t, ['a'], '/components/thin-hook/demo/es6-module2.js,f'),
@@ -346,14 +346,14 @@ async function f2(a) {
       // Note: Spit out SyntaxError on browsers before Chrome 63, which supports Dynamic Imports
       let Test2 = __hook__('#.', module, ['default'], '/components/thin-hook/demo/es6-module2.js,f2,Test2');
       let t = __hook__(Test2, null, [a], '/components/thin-hook/demo/es6-module2.js,f2,t', true);
-      __hook__('#()', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js,f2', 'console', '#get')['S_pp_console;/components/thin-hook/demo/es6-module2.js,f2'], [
+      __hook__('#()', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js,f2', 'console', '#get')['S_uNpREdiC4aB1e_console;/components/thin-hook/demo/es6-module2.js,f2'], [
         'log',
         [
           'new Test2(' + a + ').a = ',
           __hook__('#.', t, ['a'], '/components/thin-hook/demo/es6-module2.js,f2')
         ]
       ], '/components/thin-hook/demo/es6-module2.js,f2');
-      __hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js,f2', 'chai', '#get')['S_pp_chai;/components/thin-hook/demo/es6-module2.js,f2'], ['assert'], '/components/thin-hook/demo/es6-module2.js,f2'), [
+      __hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js,f2', 'chai', '#get')['S_uNpREdiC4aB1e_chai;/components/thin-hook/demo/es6-module2.js,f2'], ['assert'], '/components/thin-hook/demo/es6-module2.js,f2'), [
         'equal',
         [
           __hook__('#.', t, ['a'], '/components/thin-hook/demo/es6-module2.js,f2'),
@@ -366,11 +366,11 @@ async function f2(a) {
           'indexOf',
           ['webpack-']
         ], '/components/thin-hook/demo/es6-module2.js,f2')) {
-        __hook__('#()', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js,f2', 'console', '#get')['S_pp_console;/components/thin-hook/demo/es6-module2.js,f2'], [
+        __hook__('#()', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js,f2', 'console', '#get')['S_uNpREdiC4aB1e_console;/components/thin-hook/demo/es6-module2.js,f2'], [
           'log',
           ['Dynamic import is not yet supported in webpack']
         ], '/components/thin-hook/demo/es6-module2.js,f2');
-        __hook__('#()', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js,f2', 'console', '#get')['S_pp_console;/components/thin-hook/demo/es6-module2.js,f2'], [
+        __hook__('#()', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js,f2', 'console', '#get')['S_uNpREdiC4aB1e_console;/components/thin-hook/demo/es6-module2.js,f2'], [
           'log',
           [e]
         ], '/components/thin-hook/demo/es6-module2.js,f2');
@@ -394,14 +394,14 @@ __hook__('#()', __hook__(f2, null, [3], '/components/thin-hook/demo/es6-module2.
                 let Test3 = __hook__('#.', module, ['default'], '/components/thin-hook/demo/es6-module2.js,Test3');
                 let a = 4;
                 let t = __hook__(Test3, null, [a], '/components/thin-hook/demo/es6-module2.js,t', true);
-                __hook__('#()', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js', 'console', '#get')['S_pp_console;/components/thin-hook/demo/es6-module2.js'], [
+                __hook__('#()', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js', 'console', '#get')['S_uNpREdiC4aB1e_console;/components/thin-hook/demo/es6-module2.js'], [
                   'log',
                   [
                     'new Test3(' + a + ').a = ',
                     __hook__('#.', t, ['a'], '/components/thin-hook/demo/es6-module2.js')
                   ]
                 ], '/components/thin-hook/demo/es6-module2.js');
-                __hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js', 'chai', '#get')['S_pp_chai;/components/thin-hook/demo/es6-module2.js'], ['assert'], '/components/thin-hook/demo/es6-module2.js'), [
+                __hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js', 'chai', '#get')['S_uNpREdiC4aB1e_chai;/components/thin-hook/demo/es6-module2.js'], ['assert'], '/components/thin-hook/demo/es6-module2.js'), [
                   'equal',
                   [
                     __hook__('#.', t, ['a'], '/components/thin-hook/demo/es6-module2.js'),
@@ -418,11 +418,11 @@ __hook__('#()', __hook__(f2, null, [3], '/components/thin-hook/demo/es6-module2.
                     'indexOf',
                     ['webpack-']
                   ], '/components/thin-hook/demo/es6-module2.js')) {
-                  __hook__('#()', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js', 'console', '#get')['S_pp_console;/components/thin-hook/demo/es6-module2.js'], [
+                  __hook__('#()', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js', 'console', '#get')['S_uNpREdiC4aB1e_console;/components/thin-hook/demo/es6-module2.js'], [
                     'log',
                     ['Dynamic import is not yet supported in webpack']
                   ], '/components/thin-hook/demo/es6-module2.js');
-                  __hook__('#()', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js', 'console', '#get')['S_pp_console;/components/thin-hook/demo/es6-module2.js'], [
+                  __hook__('#()', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module2.js', 'console', '#get')['S_uNpREdiC4aB1e_console;/components/thin-hook/demo/es6-module2.js'], [
                     'log',
                     [e]
                   ], '/components/thin-hook/demo/es6-module2.js');
@@ -465,7 +465,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module3.js', 'chai', '#get')['S_pp_chai;/components/thin-hook/demo/es6-module3.js'], ['assert'], '/components/thin-hook/demo/es6-module3.js'), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module3.js', 'chai', '#get')['S_uNpREdiC4aB1e_chai;/components/thin-hook/demo/es6-module3.js'], ['assert'], '/components/thin-hook/demo/es6-module3.js'), [
   'equal',
   [
     __WEBPACK_IMPORTED_MODULE_0__es6_module_js__["constant"],
@@ -473,7 +473,7 @@ __hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/de
     'constant is 1'
   ]
 ], '/components/thin-hook/demo/es6-module3.js');
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module3.js', 'chai', '#get')['S_pp_chai;/components/thin-hook/demo/es6-module3.js'], ['assert'], '/components/thin-hook/demo/es6-module3.js'), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module3.js', 'chai', '#get')['S_uNpREdiC4aB1e_chai;/components/thin-hook/demo/es6-module3.js'], ['assert'], '/components/thin-hook/demo/es6-module3.js'), [
   'equal',
   [
     __WEBPACK_IMPORTED_MODULE_0__es6_module_js__["variable"],
@@ -481,7 +481,7 @@ __hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/de
     'variable is 1'
   ]
 ], '/components/thin-hook/demo/es6-module3.js');
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module3.js', 'chai', '#get')['S_pp_chai;/components/thin-hook/demo/es6-module3.js'], ['assert'], '/components/thin-hook/demo/es6-module3.js'), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module3.js', 'chai', '#get')['S_uNpREdiC4aB1e_chai;/components/thin-hook/demo/es6-module3.js'], ['assert'], '/components/thin-hook/demo/es6-module3.js'), [
   'equal',
   [
     __WEBPACK_IMPORTED_MODULE_0__es6_module_js__["v2"],
@@ -489,7 +489,7 @@ __hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/de
     'v2 is 5'
   ]
 ], '/components/thin-hook/demo/es6-module3.js');
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module3.js', 'chai', '#get')['S_pp_chai;/components/thin-hook/demo/es6-module3.js'], ['assert'], '/components/thin-hook/demo/es6-module3.js'), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module3.js', 'chai', '#get')['S_uNpREdiC4aB1e_chai;/components/thin-hook/demo/es6-module3.js'], ['assert'], '/components/thin-hook/demo/es6-module3.js'), [
   'equal',
   [
     __hook__(__WEBPACK_IMPORTED_MODULE_0__es6_module_js__["func"], null, [], '/components/thin-hook/demo/es6-module3.js', 0),
@@ -497,7 +497,7 @@ __hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/de
     'func() returns 1'
   ]
 ], '/components/thin-hook/demo/es6-module3.js');
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module3.js', 'chai', '#get')['S_pp_chai;/components/thin-hook/demo/es6-module3.js'], ['assert'], '/components/thin-hook/demo/es6-module3.js'), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module3.js', 'chai', '#get')['S_uNpREdiC4aB1e_chai;/components/thin-hook/demo/es6-module3.js'], ['assert'], '/components/thin-hook/demo/es6-module3.js'), [
   'equal',
   [
     __hook__('#.', __WEBPACK_IMPORTED_MODULE_0__es6_module_js__, ['constant'], '/components/thin-hook/demo/es6-module3.js'),
@@ -505,7 +505,7 @@ __hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/de
     'mod.constant === constant'
   ]
 ], '/components/thin-hook/demo/es6-module3.js');
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module3.js', 'chai', '#get')['S_pp_chai;/components/thin-hook/demo/es6-module3.js'], ['assert'], '/components/thin-hook/demo/es6-module3.js'), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module3.js', 'chai', '#get')['S_uNpREdiC4aB1e_chai;/components/thin-hook/demo/es6-module3.js'], ['assert'], '/components/thin-hook/demo/es6-module3.js'), [
   'equal',
   [
     __hook__('#.', __WEBPACK_IMPORTED_MODULE_0__es6_module_js__, ['variable'], '/components/thin-hook/demo/es6-module3.js'),
@@ -513,7 +513,7 @@ __hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/de
     'mod.variable === variable'
   ]
 ], '/components/thin-hook/demo/es6-module3.js');
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module3.js', 'chai', '#get')['S_pp_chai;/components/thin-hook/demo/es6-module3.js'], ['assert'], '/components/thin-hook/demo/es6-module3.js'), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module3.js', 'chai', '#get')['S_uNpREdiC4aB1e_chai;/components/thin-hook/demo/es6-module3.js'], ['assert'], '/components/thin-hook/demo/es6-module3.js'), [
   'equal',
   [
     __hook__('#.', __WEBPACK_IMPORTED_MODULE_0__es6_module_js__, ['v2'], '/components/thin-hook/demo/es6-module3.js'),
@@ -521,7 +521,7 @@ __hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/de
     'mod.v2 === v2'
   ]
 ], '/components/thin-hook/demo/es6-module3.js');
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module3.js', 'chai', '#get')['S_pp_chai;/components/thin-hook/demo/es6-module3.js'], ['assert'], '/components/thin-hook/demo/es6-module3.js'), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module3.js', 'chai', '#get')['S_uNpREdiC4aB1e_chai;/components/thin-hook/demo/es6-module3.js'], ['assert'], '/components/thin-hook/demo/es6-module3.js'), [
   'equal',
   [
     __hook__('#.', __WEBPACK_IMPORTED_MODULE_0__es6_module_js__, ['func'], '/components/thin-hook/demo/es6-module3.js'),
@@ -529,7 +529,7 @@ __hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/de
     'mod.func === func'
   ]
 ], '/components/thin-hook/demo/es6-module3.js');
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module3.js', 'chai', '#get')['S_pp_chai;/components/thin-hook/demo/es6-module3.js'], ['assert'], '/components/thin-hook/demo/es6-module3.js'), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module3.js', 'chai', '#get')['S_uNpREdiC4aB1e_chai;/components/thin-hook/demo/es6-module3.js'], ['assert'], '/components/thin-hook/demo/es6-module3.js'), [
   'equal',
   [
     __hook__('#.', __WEBPACK_IMPORTED_MODULE_0__es6_module_js__, ['default'], '/components/thin-hook/demo/es6-module3.js'),
@@ -537,7 +537,7 @@ __hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/de
     'mod.default === Test'
   ]
 ], '/components/thin-hook/demo/es6-module3.js');
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module3.js', 'chai', '#get')['S_pp_chai;/components/thin-hook/demo/es6-module3.js'], ['assert'], '/components/thin-hook/demo/es6-module3.js'), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module3.js', 'chai', '#get')['S_uNpREdiC4aB1e_chai;/components/thin-hook/demo/es6-module3.js'], ['assert'], '/components/thin-hook/demo/es6-module3.js'), [
   'equal',
   [
     __hook__('#.', __hook__('#.', __WEBPACK_IMPORTED_MODULE_0__es6_module_js__, ['MutatableClass'], '/components/thin-hook/demo/es6-module3.js'), ['name'], '/components/thin-hook/demo/es6-module3.js'),
@@ -545,7 +545,7 @@ __hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/de
     'mod.MutatableClass.name === "C2"'
   ]
 ], '/components/thin-hook/demo/es6-module3.js');
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module3.js', 'chai', '#get')['S_pp_chai;/components/thin-hook/demo/es6-module3.js'], ['assert'], '/components/thin-hook/demo/es6-module3.js'), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module3.js', 'chai', '#get')['S_uNpREdiC4aB1e_chai;/components/thin-hook/demo/es6-module3.js'], ['assert'], '/components/thin-hook/demo/es6-module3.js'), [
   'equal',
   [
     __WEBPACK_IMPORTED_MODULE_0__es6_module_js__,
@@ -553,7 +553,7 @@ __hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/de
     'mod === mod2'
   ]
 ], '/components/thin-hook/demo/es6-module3.js');
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module3.js', 'chai', '#get')['S_pp_chai;/components/thin-hook/demo/es6-module3.js'], ['assert'], '/components/thin-hook/demo/es6-module3.js'), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module3.js', 'chai', '#get')['S_uNpREdiC4aB1e_chai;/components/thin-hook/demo/es6-module3.js'], ['assert'], '/components/thin-hook/demo/es6-module3.js'), [
   'equal',
   [
     __WEBPACK_IMPORTED_MODULE_1__es6_module2_js__["c" /* es6Module */],
@@ -561,7 +561,7 @@ __hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/de
     'es6Module === mod'
   ]
 ], '/components/thin-hook/demo/es6-module3.js');
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module3.js', 'chai', '#get')['S_pp_chai;/components/thin-hook/demo/es6-module3.js'], ['assert'], '/components/thin-hook/demo/es6-module3.js'), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module3.js', 'chai', '#get')['S_uNpREdiC4aB1e_chai;/components/thin-hook/demo/es6-module3.js'], ['assert'], '/components/thin-hook/demo/es6-module3.js'), [
   'equal',
   [
     __WEBPACK_IMPORTED_MODULE_1__es6_module2_js__["b" /* default */],
@@ -569,7 +569,7 @@ __hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/de
     'T2 === Test'
   ]
 ], '/components/thin-hook/demo/es6-module3.js');
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module3.js', 'chai', '#get')['S_pp_chai;/components/thin-hook/demo/es6-module3.js'], ['assert'], '/components/thin-hook/demo/es6-module3.js'), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module3.js', 'chai', '#get')['S_uNpREdiC4aB1e_chai;/components/thin-hook/demo/es6-module3.js'], ['assert'], '/components/thin-hook/demo/es6-module3.js'), [
   'equal',
   [
     __WEBPACK_IMPORTED_MODULE_1__es6_module2_js__["a" /* T3 */],
@@ -583,7 +583,7 @@ __hook__('#()', __WEBPACK_IMPORTED_MODULE_0__es6_module_js__, [
   'mutateClass',
   [C4]
 ], '/components/thin-hook/demo/es6-module3.js');
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module3.js', 'chai', '#get')['S_pp_chai;/components/thin-hook/demo/es6-module3.js'], ['assert'], '/components/thin-hook/demo/es6-module3.js'), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module3.js', 'chai', '#get')['S_uNpREdiC4aB1e_chai;/components/thin-hook/demo/es6-module3.js'], ['assert'], '/components/thin-hook/demo/es6-module3.js'), [
   'throws',
   [
     (...args) =>
@@ -594,7 +594,7 @@ __hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/de
     /Assignment to constant variable|MutatableClass is not defined|assignment to undeclared variable MutatableClass|Can\'t find variable: MutatableClass/
   ]
 ], '/components/thin-hook/demo/es6-module3.js');
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module3.js', 'chai', '#get')['S_pp_chai;/components/thin-hook/demo/es6-module3.js'], ['assert'], '/components/thin-hook/demo/es6-module3.js'), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module3.js', 'chai', '#get')['S_uNpREdiC4aB1e_chai;/components/thin-hook/demo/es6-module3.js'], ['assert'], '/components/thin-hook/demo/es6-module3.js'), [
   'equal',
   [
     __WEBPACK_IMPORTED_MODULE_0__es6_module_js__["MutatableClass"],
@@ -602,7 +602,7 @@ __hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/de
     'MutatableClass === C4'
   ]
 ], '/components/thin-hook/demo/es6-module3.js');
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module3.js', 'chai', '#get')['S_pp_chai;/components/thin-hook/demo/es6-module3.js'], ['assert'], '/components/thin-hook/demo/es6-module3.js'), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module3.js', 'chai', '#get')['S_uNpREdiC4aB1e_chai;/components/thin-hook/demo/es6-module3.js'], ['assert'], '/components/thin-hook/demo/es6-module3.js'), [
   'equal',
   [
     __hook__('#.', __WEBPACK_IMPORTED_MODULE_0__es6_module_js__, ['MutatableClass'], '/components/thin-hook/demo/es6-module3.js'),
@@ -611,7 +611,7 @@ __hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/de
   ]
 ], '/components/thin-hook/demo/es6-module3.js');
 __hook__(__WEBPACK_IMPORTED_MODULE_0__es6_module_js__["setv2"], null, [6], '/components/thin-hook/demo/es6-module3.js', 0);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module3.js', 'chai', '#get')['S_pp_chai;/components/thin-hook/demo/es6-module3.js'], ['assert'], '/components/thin-hook/demo/es6-module3.js'), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module3.js', 'chai', '#get')['S_uNpREdiC4aB1e_chai;/components/thin-hook/demo/es6-module3.js'], ['assert'], '/components/thin-hook/demo/es6-module3.js'), [
   'throws',
   [
     (...args) =>
@@ -624,7 +624,7 @@ __hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/de
     /Cannot assign to read only property|Cannot set property|setting getter-only property|Attempted to assign to readonly property/
   ]
 ], '/components/thin-hook/demo/es6-module3.js');
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module3.js', 'chai', '#get')['S_pp_chai;/components/thin-hook/demo/es6-module3.js'], ['assert'], '/components/thin-hook/demo/es6-module3.js'), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module3.js', 'chai', '#get')['S_uNpREdiC4aB1e_chai;/components/thin-hook/demo/es6-module3.js'], ['assert'], '/components/thin-hook/demo/es6-module3.js'), [
   'equal',
   [
     __WEBPACK_IMPORTED_MODULE_0__es6_module_js__["v2"],
@@ -632,7 +632,7 @@ __hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/de
     'v2 is 6'
   ]
 ], '/components/thin-hook/demo/es6-module3.js');
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module3.js', 'chai', '#get')['S_pp_chai;/components/thin-hook/demo/es6-module3.js'], ['assert'], '/components/thin-hook/demo/es6-module3.js'), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module3.js', 'chai', '#get')['S_uNpREdiC4aB1e_chai;/components/thin-hook/demo/es6-module3.js'], ['assert'], '/components/thin-hook/demo/es6-module3.js'), [
   'equal',
   [
     __hook__('#.', __WEBPACK_IMPORTED_MODULE_0__es6_module_js__, ['v2'], '/components/thin-hook/demo/es6-module3.js'),
@@ -644,7 +644,7 @@ __hook__('#()', __WEBPACK_IMPORTED_MODULE_0__es6_module_js__, [
   'setv2',
   [7]
 ], '/components/thin-hook/demo/es6-module3.js');
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module3.js', 'chai', '#get')['S_pp_chai;/components/thin-hook/demo/es6-module3.js'], ['assert'], '/components/thin-hook/demo/es6-module3.js'), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module3.js', 'chai', '#get')['S_uNpREdiC4aB1e_chai;/components/thin-hook/demo/es6-module3.js'], ['assert'], '/components/thin-hook/demo/es6-module3.js'), [
   'equal',
   [
     __WEBPACK_IMPORTED_MODULE_0__es6_module_js__["v2"],
@@ -652,7 +652,7 @@ __hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/de
     'v2 is 7'
   ]
 ], '/components/thin-hook/demo/es6-module3.js');
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module3.js', 'chai', '#get')['S_pp_chai;/components/thin-hook/demo/es6-module3.js'], ['assert'], '/components/thin-hook/demo/es6-module3.js'), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module3.js', 'chai', '#get')['S_uNpREdiC4aB1e_chai;/components/thin-hook/demo/es6-module3.js'], ['assert'], '/components/thin-hook/demo/es6-module3.js'), [
   'equal',
   [
     __hook__('#.', __WEBPACK_IMPORTED_MODULE_0__es6_module_js__, ['v2'], '/components/thin-hook/demo/es6-module3.js'),
@@ -660,9 +660,9 @@ __hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/de
     'mod.v2 is 7'
   ]
 ], '/components/thin-hook/demo/es6-module3.js');
-__hook__('#()', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module3.js', 'console', '#get')['S_pp_console;/components/thin-hook/demo/es6-module3.js'], [
+__hook__('#()', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module3.js', 'console', '#get')['S_uNpREdiC4aB1e_console;/components/thin-hook/demo/es6-module3.js'], [
   'log',
-  [__hook__('#()', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module3.js', 'Object', '#get')['S_pp_Object;/components/thin-hook/demo/es6-module3.js'], [
+  [__hook__('#()', $hook$.global(__hook__, '/components/thin-hook/demo/es6-module3.js', 'Object', '#get')['S_uNpREdiC4aB1e_Object;/components/thin-hook/demo/es6-module3.js'], [
       'getOwnPropertyDescriptors',
       [__WEBPACK_IMPORTED_MODULE_0__es6_module_js__]
     ], '/components/thin-hook/demo/es6-module3.js')]

@@ -9,17 +9,17 @@
     //   hook.parameters.noHookAuthorizationFailed
     // JSONs are output to console in the learning mode
     //'*': true,
-    "f93f183d37dde0681e2f8b80c00b60c81e95a820aeb8b49ceabe482a0f71a63f": true, // hook.min.js
+    "86918c80ba22c6ddcb334179fe2a3b6819f6d176709f899bfa8434bb94b1ac2e": true, // hook.min.js
     "ba451c60ef71c0df971d17a7f84b0d35327042e8284b4372eb38ce73c6aa16e7": true, // demo/disable-devtools.js
     "7e0fcbf73f8a30d98082c497e4bec73f2b49e5bee70605bb8838aed035763868": true, // demo/context-generator.js
-    "327fd7be041eb9f731b01fa2caa29dd96a43ae3702c5bfb2b20563f837612084": true, // demo/bootstrap.js
-    "07edf6c201e29cc0e218956e62046d9973dbababa4a5e8297c8cf45428d53b3a": true, // demo/hook-callback.js
+    "a66830bdcb5410a9b17ccc01ecda4e79fe9c9642085c6e386243930dc81b837a": true, // demo/bootstrap.js
+    "904267acdce972b1f9ab8481c1acd37e0bf55dc27c35095a7db77a64a56aeb3e": true, // demo/hook-callback.js
     "0979646683bec9b9682d974d549effb61b1fc981ad87dac76d44d0440d87b396": true, // demo/hook-native-api.js
     "e2e42b1f8c6c518b5878b5bd95d34c0f15e139a1afb6ab6a6642b6e81219d2c5": true, // demo/hook-worker.js
     "163ba1450660d02306936ad39a0b5977e042ba3270eca749fc30d98170e9be03": true, // demo/cache-bundle.js
-    "f10a2a053c261f5c29a51c0d8526384ac34695458865bb9c31dde80a83c9e261": true, // demo/browserify-commonjs.js
-    "119662d1f5ddf799880076740e1a371865372001d1f7d51f107a5c0f5a8a272f": true, // demo/webpack-es6-module.js
-    "59225a353557e3dff61bcb4620220a19885562fb9131d3bf3120c3fc7bfefb54": true, // demo/webpack-commonjs.js
+    "5c25e70554307fb3a5277b4eaf71f960b7dd1a6ba75a641f418f3a93d4f8448d": true, // demo/browserify-commonjs.js
+    "28fedd4f76cc8be4129b4a2688ed61406f5d76cd89a63ba1ede9c72a14201935": true, // demo/webpack-es6-module.js
+    "e12ec3062b782158e512d9691fb8b905f0fd2a128c1223bdcca98321ead2d36f": true, // demo/webpack-commonjs.js
     "a578e741369d927f693fedc88c75b1a90f1a79465e2bb9774a3f68ffc6e011e6": true, // /components/thin-hook/demo/ inline cors
     "9c84034cd3f81fcd3e39cf0065e297ba7dae755044aec3a1c4fc3b6ab418ccbd": true, // /components/thin-hook/demo/ inline hooked eval results
     "db82c32a68bc3ddbb2232a947c3cdeb88f5ee7ba41d05d686146507687a6897f": true, // https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.js

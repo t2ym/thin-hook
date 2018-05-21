@@ -316,7 +316,7 @@ function hookTransformFactory(contextGeneratorName) {
           false, // asynchronous = false,
           false, // _compact = getCompact(),
           true, // _hookGlobal = getHookGlobal(),
-          '_pp_', // _hookPrefix = getHookPrefix(),
+          '_uNpREdiC4aB1e_', // _hookPrefix = getHookPrefix(),
           { require: true, module: true, exports: true } // initialScope = null
         );
       }

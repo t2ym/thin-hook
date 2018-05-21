@@ -118,8 +118,8 @@ function copy(src, dest) {
 function _extends(Class, Super) {
   return __hook__((Class, Super) => {
     var pt = __hook__('.', Class, ['prototype'], '/components/thin-hook/node_modules/xmldom/dom.js,_extends,pt');
-    if (__hook__('.', $hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/dom.js,_extends', 'Object', 'get')['_pp_Object;/components/thin-hook/node_modules/xmldom/dom.js,_extends'], ['create'], '/components/thin-hook/node_modules/xmldom/dom.js,_extends')) {
-      var ppt = __hook__('()', $hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/dom.js,_extends,ppt', 'Object', 'get')['_pp_Object;/components/thin-hook/node_modules/xmldom/dom.js,_extends,ppt'], [
+    if (__hook__('.', $hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/dom.js,_extends', 'Object', 'get')['_uNpREdiC4aB1e_Object;/components/thin-hook/node_modules/xmldom/dom.js,_extends'], ['create'], '/components/thin-hook/node_modules/xmldom/dom.js,_extends')) {
+      var ppt = __hook__('()', $hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/dom.js,_extends,ppt', 'Object', 'get')['_uNpREdiC4aB1e_Object;/components/thin-hook/node_modules/xmldom/dom.js,_extends,ppt'], [
         'create',
         [__hook__('.', Super, ['prototype'], '/components/thin-hook/node_modules/xmldom/dom.js,_extends,ppt')]
       ], '/components/thin-hook/node_modules/xmldom/dom.js,_extends,ppt');
@@ -150,7 +150,7 @@ function _extends(Class, Super) {
     }
     if (__hook__('.', pt, ['constructor'], '/components/thin-hook/node_modules/xmldom/dom.js,_extends') != Class) {
       if (typeof Class != 'function') {
-        __hook__('()', $hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/dom.js,_extends', 'console', 'get')['_pp_console;/components/thin-hook/node_modules/xmldom/dom.js,_extends'], [
+        __hook__('()', $hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/dom.js,_extends', 'console', 'get')['_uNpREdiC4aB1e_console;/components/thin-hook/node_modules/xmldom/dom.js,_extends'], [
           'error',
           ['unknow Class:' + Class]
         ], '/components/thin-hook/node_modules/xmldom/dom.js,_extends');
@@ -324,11 +324,11 @@ var INVALID_ACCESS_ERR = __hook__('=', ExceptionCode, [
 ], '/components/thin-hook/node_modules/xmldom/dom.js,INVALID_ACCESS_ERR');
 function DOMException(code, message) {
   return __hook__((code, message) => {
-    if (message instanceof $hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/dom.js,DOMException', 'Error', 'get')['_pp_Error;/components/thin-hook/node_modules/xmldom/dom.js,DOMException']) {
+    if (message instanceof $hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/dom.js,DOMException', 'Error', 'get')['_uNpREdiC4aB1e_Error;/components/thin-hook/node_modules/xmldom/dom.js,DOMException']) {
       var error = message;
     } else {
       error = this;
-      __hook__('()', $hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/dom.js,DOMException', 'Error', 'get')['_pp_Error;/components/thin-hook/node_modules/xmldom/dom.js,DOMException'], [
+      __hook__('()', $hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/dom.js,DOMException', 'Error', 'get')['_uNpREdiC4aB1e_Error;/components/thin-hook/node_modules/xmldom/dom.js,DOMException'], [
         'call',
         [
           this,
@@ -339,8 +339,8 @@ function DOMException(code, message) {
         'message',
         __hook__('.', ExceptionMessage, [code], '/components/thin-hook/node_modules/xmldom/dom.js,DOMException')
       ], '/components/thin-hook/node_modules/xmldom/dom.js,DOMException');
-      if (__hook__('.', $hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/dom.js,DOMException', 'Error', 'get')['_pp_Error;/components/thin-hook/node_modules/xmldom/dom.js,DOMException'], ['captureStackTrace'], '/components/thin-hook/node_modules/xmldom/dom.js,DOMException'))
-        __hook__('()', $hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/dom.js,DOMException', 'Error', 'get')['_pp_Error;/components/thin-hook/node_modules/xmldom/dom.js,DOMException'], [
+      if (__hook__('.', $hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/dom.js,DOMException', 'Error', 'get')['_uNpREdiC4aB1e_Error;/components/thin-hook/node_modules/xmldom/dom.js,DOMException'], ['captureStackTrace'], '/components/thin-hook/node_modules/xmldom/dom.js,DOMException'))
+        __hook__('()', $hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/dom.js,DOMException', 'Error', 'get')['_uNpREdiC4aB1e_Error;/components/thin-hook/node_modules/xmldom/dom.js,DOMException'], [
           'captureStackTrace',
           [
             this,
@@ -363,7 +363,7 @@ function DOMException(code, message) {
 ;
 __hook__('=', DOMException, [
   'prototype',
-  __hook__('.', $hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/dom.js', 'Error', 'get')['_pp_Error;/components/thin-hook/node_modules/xmldom/dom.js'], ['prototype'], '/components/thin-hook/node_modules/xmldom/dom.js')
+  __hook__('.', $hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/dom.js', 'Error', 'get')['_uNpREdiC4aB1e_Error;/components/thin-hook/node_modules/xmldom/dom.js'], ['prototype'], '/components/thin-hook/node_modules/xmldom/dom.js')
 ], '/components/thin-hook/node_modules/xmldom/dom.js');
 __hook__(copy, null, [
   ExceptionCode,
@@ -563,7 +563,7 @@ function _removeNamedNode(el, list, attr) {
     } else {
       throw __hook__(DOMException, null, [
         NOT_FOUND_ERR,
-        __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/dom.js,_removeNamedNode', 'Error', 'get')['_pp_Error;/components/thin-hook/node_modules/xmldom/dom.js,_removeNamedNode'], null, [__hook__('.', el, ['tagName'], '/components/thin-hook/node_modules/xmldom/dom.js,_removeNamedNode') + '@' + attr], '/components/thin-hook/node_modules/xmldom/dom.js,_removeNamedNode', true)
+        __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/dom.js,_removeNamedNode', 'Error', 'get')['_uNpREdiC4aB1e_Error;/components/thin-hook/node_modules/xmldom/dom.js,_removeNamedNode'], null, [__hook__('.', el, ['tagName'], '/components/thin-hook/node_modules/xmldom/dom.js,_removeNamedNode') + '@' + attr], '/components/thin-hook/node_modules/xmldom/dom.js,_removeNamedNode', true)
       ], '/components/thin-hook/node_modules/xmldom/dom.js,_removeNamedNode', 0);
     }
   }, null, arguments, '/components/thin-hook/node_modules/xmldom/dom.js,_removeNamedNode');
@@ -1882,7 +1882,7 @@ __hook__('=', CharacterData, [
     },
     appendChild: function (newChild) {
       return __hook__(newChild => {
-        throw __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/dom.js,appendChild', 'Error', 'get')['_pp_Error;/components/thin-hook/node_modules/xmldom/dom.js,appendChild'], null, [__hook__('.', ExceptionMessage, [HIERARCHY_REQUEST_ERR], '/components/thin-hook/node_modules/xmldom/dom.js,appendChild')], '/components/thin-hook/node_modules/xmldom/dom.js,appendChild', true);
+        throw __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/dom.js,appendChild', 'Error', 'get')['_uNpREdiC4aB1e_Error;/components/thin-hook/node_modules/xmldom/dom.js,appendChild'], null, [__hook__('.', ExceptionMessage, [HIERARCHY_REQUEST_ERR], '/components/thin-hook/node_modules/xmldom/dom.js,appendChild')], '/components/thin-hook/node_modules/xmldom/dom.js,appendChild', true);
       }, null, arguments, '/components/thin-hook/node_modules/xmldom/dom.js,appendChild');
     },
     deleteData: function (offset, count) {
@@ -2670,8 +2670,8 @@ function __set__(object, key, value) {
 }
 //do dynamic
 try {
-  if (__hook__('.', $hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/dom.js', 'Object', 'get')['_pp_Object;/components/thin-hook/node_modules/xmldom/dom.js'], ['defineProperty'], '/components/thin-hook/node_modules/xmldom/dom.js')) {
-    __hook__('()', $hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/dom.js', 'Object', 'get')['_pp_Object;/components/thin-hook/node_modules/xmldom/dom.js'], [
+  if (__hook__('.', $hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/dom.js', 'Object', 'get')['_uNpREdiC4aB1e_Object;/components/thin-hook/node_modules/xmldom/dom.js'], ['defineProperty'], '/components/thin-hook/node_modules/xmldom/dom.js')) {
+    __hook__('()', $hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/dom.js', 'Object', 'get')['_uNpREdiC4aB1e_Object;/components/thin-hook/node_modules/xmldom/dom.js'], [
       'defineProperty',
       [
         __hook__('.', LiveNodeList, ['prototype'], '/components/thin-hook/node_modules/xmldom/dom.js'),
@@ -2686,7 +2686,7 @@ try {
         }
       ]
     ], '/components/thin-hook/node_modules/xmldom/dom.js');
-    __hook__('()', $hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/dom.js', 'Object', 'get')['_pp_Object;/components/thin-hook/node_modules/xmldom/dom.js'], [
+    __hook__('()', $hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/dom.js', 'Object', 'get')['_uNpREdiC4aB1e_Object;/components/thin-hook/node_modules/xmldom/dom.js'], [
       'defineProperty',
       [
         __hook__('.', Node, ['prototype'], '/components/thin-hook/node_modules/xmldom/dom.js'),
@@ -2708,7 +2708,7 @@ try {
                     [__hook__('.', this, ['firstChild'], '/components/thin-hook/node_modules/xmldom/dom.js,set')]
                   ], '/components/thin-hook/node_modules/xmldom/dom.js,set');
                 }
-                if (data || __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/dom.js,set', 'String', 'get')['_pp_String;/components/thin-hook/node_modules/xmldom/dom.js,set'], null, [data], '/components/thin-hook/node_modules/xmldom/dom.js,set', 0)) {
+                if (data || __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/dom.js,set', 'String', 'get')['_uNpREdiC4aB1e_String;/components/thin-hook/node_modules/xmldom/dom.js,set'], null, [data], '/components/thin-hook/node_modules/xmldom/dom.js,set', 0)) {
                   __hook__('()', this, [
                     'appendChild',
                     [__hook__('()', __hook__('.', this, ['ownerDocument'], '/components/thin-hook/node_modules/xmldom/dom.js,set'), [
@@ -2800,7 +2800,7 @@ const XliffConv = __hook__(() => __webpack_require__(6), null, [
   'xliff-conv',
   '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'
 ], '/components/thin-hook/demo/commonjs.js,XliffConv', NaN);
-__hook__('()', __hook__('.', $hook$.global(__hook__, '/components/thin-hook/demo/commonjs.js', 'chai', 'get')['_pp_chai;/components/thin-hook/demo/commonjs.js'], ['assert'], '/components/thin-hook/demo/commonjs.js'), [
+__hook__('()', __hook__('.', $hook$.global(__hook__, '/components/thin-hook/demo/commonjs.js', 'chai', 'get')['_uNpREdiC4aB1e_chai;/components/thin-hook/demo/commonjs.js'], ['assert'], '/components/thin-hook/demo/commonjs.js'), [
   'throws',
   [
     (...args) =>
@@ -2813,7 +2813,7 @@ __hook__('()', __hook__('.', $hook$.global(__hook__, '/components/thin-hook/demo
     /^Permission Denied:/
   ]
 ], '/components/thin-hook/demo/commonjs.js');
-__hook__('()', __hook__('.', $hook$.global(__hook__, '/components/thin-hook/demo/commonjs.js', 'chai', 'get')['_pp_chai;/components/thin-hook/demo/commonjs.js'], ['assert'], '/components/thin-hook/demo/commonjs.js'), [
+__hook__('()', __hook__('.', $hook$.global(__hook__, '/components/thin-hook/demo/commonjs.js', 'chai', 'get')['_uNpREdiC4aB1e_chai;/components/thin-hook/demo/commonjs.js'], ['assert'], '/components/thin-hook/demo/commonjs.js'), [
   'throws',
   [
     (...args) =>
@@ -2833,7 +2833,7 @@ __hook__('()', __hook__('.', $hook$.global(__hook__, '/components/thin-hook/demo
   'path',
   '/components/thin-hook/node_modules/path-browserify/index.js'
 ], '/components/thin-hook/demo/commonjs2.js,path', NaN);
-__hook__('()', __hook__('.', $hook$.global(__hook__, '/components/thin-hook/demo/commonjs2.js', 'chai', 'get')['_pp_chai;/components/thin-hook/demo/commonjs2.js'], ['assert'], '/components/thin-hook/demo/commonjs2.js'), [
+__hook__('()', __hook__('.', $hook$.global(__hook__, '/components/thin-hook/demo/commonjs2.js', 'chai', 'get')['_uNpREdiC4aB1e_chai;/components/thin-hook/demo/commonjs2.js'], ['assert'], '/components/thin-hook/demo/commonjs2.js'), [
   'throws',
   [
     (...args) =>
@@ -2849,7 +2849,7 @@ __hook__('()', __hook__('.', $hook$.global(__hook__, '/components/thin-hook/demo
     /^Permission Denied:/
   ]
 ], '/components/thin-hook/demo/commonjs2.js');
-__hook__('()', __hook__('.', $hook$.global(__hook__, '/components/thin-hook/demo/commonjs2.js', 'chai', 'get')['_pp_chai;/components/thin-hook/demo/commonjs2.js'], ['assert'], '/components/thin-hook/demo/commonjs2.js'), [
+__hook__('()', __hook__('.', $hook$.global(__hook__, '/components/thin-hook/demo/commonjs2.js', 'chai', 'get')['_uNpREdiC4aB1e_chai;/components/thin-hook/demo/commonjs2.js'], ['assert'], '/components/thin-hook/demo/commonjs2.js'), [
   'throws',
   [
     (...args) =>
@@ -2969,13 +2969,13 @@ __hook__('=', exports, [
     return __hook__(() => {
       var resolvedPath = '', resolvedAbsolute = false;
       for (var i = __hook__('.', arguments, ['length'], '/components/thin-hook/node_modules/path-browserify/index.js,i') - 1; i >= -1 && !resolvedAbsolute; i--) {
-        var path = i >= 0 ? __hook__('.', arguments, [i], '/components/thin-hook/node_modules/path-browserify/index.js,path') : __hook__('()', $hook$.global(__hook__, '/components/thin-hook/node_modules/path-browserify/index.js,path', 'process', 'get')['_pp_process;/components/thin-hook/node_modules/path-browserify/index.js,path'], [
+        var path = i >= 0 ? __hook__('.', arguments, [i], '/components/thin-hook/node_modules/path-browserify/index.js,path') : __hook__('()', $hook$.global(__hook__, '/components/thin-hook/node_modules/path-browserify/index.js,path', 'process', 'get')['_uNpREdiC4aB1e_process;/components/thin-hook/node_modules/path-browserify/index.js,path'], [
           'cwd',
           []
         ], '/components/thin-hook/node_modules/path-browserify/index.js,path');
         // Skip empty and invalid entries
         if (typeof path !== 'string') {
-          throw __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/path-browserify/index.js', 'TypeError', 'get')['_pp_TypeError;/components/thin-hook/node_modules/path-browserify/index.js'], null, ['Arguments to path.resolve must be strings'], '/components/thin-hook/node_modules/path-browserify/index.js', true);
+          throw __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/path-browserify/index.js', 'TypeError', 'get')['_uNpREdiC4aB1e_TypeError;/components/thin-hook/node_modules/path-browserify/index.js'], null, ['Arguments to path.resolve must be strings'], '/components/thin-hook/node_modules/path-browserify/index.js', true);
         } else if (!path) {
           continue;
         }
@@ -3067,7 +3067,7 @@ __hook__('=', exports, [
   'join',
   function () {
     return __hook__(() => {
-      var paths = __hook__('()', __hook__('.', __hook__('.', $hook$.global(__hook__, '/components/thin-hook/node_modules/path-browserify/index.js,paths', 'Array', 'get')['_pp_Array;/components/thin-hook/node_modules/path-browserify/index.js,paths'], ['prototype'], '/components/thin-hook/node_modules/path-browserify/index.js,paths'), ['slice'], '/components/thin-hook/node_modules/path-browserify/index.js,paths'), [
+      var paths = __hook__('()', __hook__('.', __hook__('.', $hook$.global(__hook__, '/components/thin-hook/node_modules/path-browserify/index.js,paths', 'Array', 'get')['_uNpREdiC4aB1e_Array;/components/thin-hook/node_modules/path-browserify/index.js,paths'], ['prototype'], '/components/thin-hook/node_modules/path-browserify/index.js,paths'), ['slice'], '/components/thin-hook/node_modules/path-browserify/index.js,paths'), [
         'call',
         [
           arguments,
@@ -3081,7 +3081,7 @@ __hook__('=', exports, [
             function (p, index) {
               return __hook__((p, index) => {
                 if (typeof p !== 'string') {
-                  throw __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/path-browserify/index.js', 'TypeError', 'get')['_pp_TypeError;/components/thin-hook/node_modules/path-browserify/index.js'], null, ['Arguments to path.join must be strings'], '/components/thin-hook/node_modules/path-browserify/index.js', true);
+                  throw __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/path-browserify/index.js', 'TypeError', 'get')['_uNpREdiC4aB1e_TypeError;/components/thin-hook/node_modules/path-browserify/index.js'], null, ['Arguments to path.join must be strings'], '/components/thin-hook/node_modules/path-browserify/index.js', true);
                 }
                 return p;
               }, null, arguments, '/components/thin-hook/node_modules/path-browserify/index.js');
@@ -3145,7 +3145,7 @@ __hook__('=', exports, [
           'split',
           ['/']
         ], '/components/thin-hook/node_modules/path-browserify/index.js,toParts')], '/components/thin-hook/node_modules/path-browserify/index.js,toParts', 0);
-      var length = __hook__('()', $hook$.global(__hook__, '/components/thin-hook/node_modules/path-browserify/index.js,length', 'Math', 'get')['_pp_Math;/components/thin-hook/node_modules/path-browserify/index.js,length'], [
+      var length = __hook__('()', $hook$.global(__hook__, '/components/thin-hook/node_modules/path-browserify/index.js,length', 'Math', 'get')['_uNpREdiC4aB1e_Math;/components/thin-hook/node_modules/path-browserify/index.js,length'], [
         'min',
         [
           __hook__('.', fromParts, ['length'], '/components/thin-hook/node_modules/path-browserify/index.js,length'),
@@ -3305,7 +3305,7 @@ __hook__('=', exports, [
 ], '/components/thin-hook/node_modules/tty-browserify/index.js');
 function ReadStream() {
   return __hook__(() => {
-    throw __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/tty-browserify/index.js,ReadStream', 'Error', 'get')['_pp_Error;/components/thin-hook/node_modules/tty-browserify/index.js,ReadStream'], null, ['tty.ReadStream is not implemented'], '/components/thin-hook/node_modules/tty-browserify/index.js,ReadStream', true);
+    throw __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/tty-browserify/index.js,ReadStream', 'Error', 'get')['_uNpREdiC4aB1e_Error;/components/thin-hook/node_modules/tty-browserify/index.js,ReadStream'], null, ['tty.ReadStream is not implemented'], '/components/thin-hook/node_modules/tty-browserify/index.js,ReadStream', true);
   }, null, arguments, '/components/thin-hook/node_modules/tty-browserify/index.js,ReadStream');
 }
 __hook__('=', exports, [
@@ -3314,7 +3314,7 @@ __hook__('=', exports, [
 ], '/components/thin-hook/node_modules/tty-browserify/index.js');
 function WriteStream() {
   return __hook__(() => {
-    throw __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/tty-browserify/index.js,WriteStream', 'Error', 'get')['_pp_Error;/components/thin-hook/node_modules/tty-browserify/index.js,WriteStream'], null, ['tty.ReadStream is not implemented'], '/components/thin-hook/node_modules/tty-browserify/index.js,WriteStream', true);
+    throw __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/tty-browserify/index.js,WriteStream', 'Error', 'get')['_uNpREdiC4aB1e_Error;/components/thin-hook/node_modules/tty-browserify/index.js,WriteStream'], null, ['tty.ReadStream is not implemented'], '/components/thin-hook/node_modules/tty-browserify/index.js,WriteStream', true);
   }, null, arguments, '/components/thin-hook/node_modules/tty-browserify/index.js,WriteStream');
 }
 __hook__('=', exports, [
@@ -3334,9 +3334,9 @@ __hook__(function (root, factory) {
   'use strict';
   return __hook__((root, factory) => {
     /* istanbul ignore if: AMD is not tested */
-    if (typeof $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'define', '#typeof')['S_pp_define;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'] === 'function' && __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'define', '#get')['S_pp_define;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'], ['amd'], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js')) {
+    if (typeof $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'define', '#typeof')['S_uNpREdiC4aB1e_define;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'] === 'function' && __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'define', '#get')['S_uNpREdiC4aB1e_define;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'], ['amd'], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js')) {
       // AMD. Register as an anonymous module.
-      __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'define', '#get')['S_pp_define;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'], null, [
+      __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'define', '#get')['S_uNpREdiC4aB1e_define;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'], null, [
         [],
         function () {
           return __hook__(() => {
@@ -3378,11 +3378,11 @@ __hook__(function (root, factory) {
           ], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv');
           __hook__('#=', this, [
             'date',
-            __hook__('#.', options, ['date'], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv') || __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv', 'Date', '#get')['S_pp_Date;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv'], null, [], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv', true)
+            __hook__('#.', options, ['date'], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv') || __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv', 'Date', '#get')['S_uNpREdiC4aB1e_Date;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv'], null, [], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv', true)
           ], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv');
           __hook__('#=', this, [
             'xmldom',
-            typeof $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv', 'window', '#typeof')['S_pp_window;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv'] === 'object' ? $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv', 'window', '#get')['S_pp_window;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv'] : __hook__(() => __webpack_require__(7), null, [
+            typeof $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv', 'window', '#typeof')['S_uNpREdiC4aB1e_window;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv'] === 'object' ? $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv', 'window', '#get')['S_uNpREdiC4aB1e_window;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv'] : __hook__(() => __webpack_require__(7), null, [
               'require',
               'xmldom',
               '/components/thin-hook/node_modules/xmldom/dom-parser.js'
@@ -3415,10 +3415,10 @@ __hook__(function (root, factory) {
             'logger',
             __hook__('#.', options, ['logger'], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv') || function () {
               return __hook__(() => {
-                __hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv', 'console', '#get')['S_pp_console;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv'], ['log'], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv'), [
+                __hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv', 'console', '#get')['S_uNpREdiC4aB1e_console;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv'], ['log'], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv'), [
                   'apply',
                   [
-                    $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv', 'console', '#get')['S_pp_console;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv'],
+                    $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv', 'console', '#get')['S_uNpREdiC4aB1e_console;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv'],
                     arguments
                   ]
                 ], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv');
@@ -3429,10 +3429,10 @@ __hook__(function (root, factory) {
             'warnLogger',
             __hook__('#.', options, ['warnLogger'], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv') || function () {
               return __hook__(() => {
-                __hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv', 'console', '#get')['S_pp_console;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv'], ['warn'], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv'), [
+                __hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv', 'console', '#get')['S_uNpREdiC4aB1e_console;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv'], ['warn'], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv'), [
                   'apply',
                   [
-                    $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv', 'console', '#get')['S_pp_console;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv'],
+                    $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv', 'console', '#get')['S_uNpREdiC4aB1e_console;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv'],
                     arguments
                   ]
                 ], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv');
@@ -3443,10 +3443,10 @@ __hook__(function (root, factory) {
             'errorLogger',
             __hook__('#.', options, ['errorLogger'], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv') || function () {
               return __hook__(() => {
-                __hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv', 'console', '#get')['S_pp_console;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv'], ['error'], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv'), [
+                __hook__('#()', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv', 'console', '#get')['S_uNpREdiC4aB1e_console;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv'], ['error'], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv'), [
                   'apply',
                   [
-                    $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv', 'console', '#get')['S_pp_console;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv'],
+                    $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv', 'console', '#get')['S_uNpREdiC4aB1e_console;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv'],
                     arguments
                   ]
                 ], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv');
@@ -3982,13 +3982,13 @@ __hook__(function (root, factory) {
               [function (type, index) {
                   return __hook__((type, index) => {
                     if (!__hook__('#.', args, [index], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js') || typeof __hook__('#.', args, [index], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js') !== type) {
-                      throw __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'Error', '#get')['S_pp_Error;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'], null, ['invalid argument'], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', true);
+                      throw __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'Error', '#get')['S_uNpREdiC4aB1e_Error;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'], null, ['invalid argument'], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', true);
                     }
                   }, null, arguments, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js');
                 }]
             ], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js');
             if (typeof __hook__('#.', options, ['bundle'], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js') !== 'object') {
-              throw __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'Error', '#get')['S_pp_Error;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'], null, ['invalid options.bundle'], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', true);
+              throw __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'Error', '#get')['S_uNpREdiC4aB1e_Error;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'], null, ['invalid options.bundle'], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', true);
             }
             var parser = __hook__(__hook__('#.', this, ['DOMParser'], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,parser'), null, [], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,parser', true);
             var dom = __hook__('#()', parser, [
@@ -4049,7 +4049,7 @@ __hook__(function (root, factory) {
               'file',
               {}
             ], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js');
-            __hook__('#()', __hook__('#.', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'Array', '#get')['S_pp_Array;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'], ['prototype'], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'), ['forEach'], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'), [
+            __hook__('#()', __hook__('#.', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'Array', '#get')['S_uNpREdiC4aB1e_Array;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'], ['prototype'], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'), ['forEach'], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'), [
               'call',
               [
                 __hook__('#.', fileTag, ['attributes'], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'),
@@ -4063,7 +4063,7 @@ __hook__(function (root, factory) {
                 }
               ]
             ], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js');
-            __hook__('#()', __hook__('#.', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'Array', '#get')['S_pp_Array;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'], ['prototype'], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'), ['forEach'], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'), [
+            __hook__('#()', __hook__('#.', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'Array', '#get')['S_uNpREdiC4aB1e_Array;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'], ['prototype'], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'), ['forEach'], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'), [
               'call',
               [
                 transUnits,
@@ -4196,26 +4196,26 @@ __hook__(function (root, factory) {
                             target = __hook__('#.', parsed, [2], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js');
                             switch (__hook__('#.', parsed, [1], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js')) {
                             case 'number':
-                              sourceValue = __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'Number', '#get')['S_pp_Number;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'], null, [source], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 0);
-                              value = __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'Number', '#get')['S_pp_Number;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'], null, [__hook__('#.', parsed, [2], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js')], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 0);
+                              sourceValue = __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'Number', '#get')['S_uNpREdiC4aB1e_Number;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'], null, [source], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 0);
+                              value = __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'Number', '#get')['S_uNpREdiC4aB1e_Number;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'], null, [__hook__('#.', parsed, [2], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js')], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 0);
                               break;
                             case 'boolean':
-                              sourceValue = __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'Boolean', '#get')['S_pp_Boolean;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'], null, [source === 'true'], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 0);
-                              value = __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'Boolean', '#get')['S_pp_Boolean;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'], null, [__hook__('#.', parsed, [2], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js') === 'true'], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 0);
+                              sourceValue = __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'Boolean', '#get')['S_uNpREdiC4aB1e_Boolean;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'], null, [source === 'true'], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 0);
+                              value = __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'Boolean', '#get')['S_uNpREdiC4aB1e_Boolean;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'], null, [__hook__('#.', parsed, [2], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js') === 'true'], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 0);
                               break;
                             case 'object':
-                              sourceValue = __hook__('#()', $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'JSON', '#get')['S_pp_JSON;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'], [
+                              sourceValue = __hook__('#()', $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'JSON', '#get')['S_uNpREdiC4aB1e_JSON;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'], [
                                 'parse',
                                 [source]
                               ], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js');
-                              value = __hook__('#()', $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'JSON', '#get')['S_pp_JSON;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'], [
+                              value = __hook__('#()', $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'JSON', '#get')['S_uNpREdiC4aB1e_JSON;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'], [
                                 'parse',
                                 [__hook__('#.', parsed, [2], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js')]
                               ], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js');
                               break;
                             case 'undefined':
-                              sourceValue = $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'undefined', '#get')['S_pp_undefined;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'];
-                              value = $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'undefined', '#get')['S_pp_undefined;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'];
+                              sourceValue = $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'undefined', '#get')['S_uNpREdiC4aB1e_undefined;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'];
+                              value = $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'undefined', '#get')['S_uNpREdiC4aB1e_undefined;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'];
                               break;
                             case 'string':
                             default:
@@ -4227,26 +4227,26 @@ __hook__(function (root, factory) {
                             // process <trans-unit restype="x-json-*">
                             switch (restype) {
                             case 'x-json-number':
-                              sourceValue = __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'Number', '#get')['S_pp_Number;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'], null, [source], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 0);
-                              value = __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'Number', '#get')['S_pp_Number;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'], null, [target], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 0);
+                              sourceValue = __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'Number', '#get')['S_uNpREdiC4aB1e_Number;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'], null, [source], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 0);
+                              value = __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'Number', '#get')['S_uNpREdiC4aB1e_Number;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'], null, [target], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 0);
                               break;
                             case 'x-json-boolean':
-                              sourceValue = __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'Boolean', '#get')['S_pp_Boolean;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'], null, [source === 'true'], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 0);
-                              value = __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'Boolean', '#get')['S_pp_Boolean;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'], null, [target === 'true'], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 0);
+                              sourceValue = __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'Boolean', '#get')['S_uNpREdiC4aB1e_Boolean;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'], null, [source === 'true'], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 0);
+                              value = __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'Boolean', '#get')['S_uNpREdiC4aB1e_Boolean;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'], null, [target === 'true'], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 0);
                               break;
                             case 'x-json-object':
-                              sourceValue = __hook__('#()', $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'JSON', '#get')['S_pp_JSON;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'], [
+                              sourceValue = __hook__('#()', $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'JSON', '#get')['S_uNpREdiC4aB1e_JSON;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'], [
                                 'parse',
                                 [source]
                               ], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js');
-                              value = __hook__('#()', $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'JSON', '#get')['S_pp_JSON;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'], [
+                              value = __hook__('#()', $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'JSON', '#get')['S_uNpREdiC4aB1e_JSON;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'], [
                                 'parse',
                                 [target]
                               ], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js');
                               break;
                             case 'x-json-undefined':
-                              sourceValue = $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'undefined', '#get')['S_pp_undefined;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'];
-                              value = $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'undefined', '#get')['S_pp_undefined;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'];
+                              sourceValue = $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'undefined', '#get')['S_uNpREdiC4aB1e_undefined;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'];
+                              value = $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'undefined', '#get')['S_uNpREdiC4aB1e_undefined;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'];
                               break;
                             case 'x-json-string':
                             default:
@@ -4553,7 +4553,7 @@ __hook__(function (root, factory) {
               [function (type, index) {
                   return __hook__((type, index) => {
                     if (!__hook__('#.', args, [index], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js') || typeof __hook__('#.', args, [index], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js') !== type) {
-                      throw __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'Error', '#get')['S_pp_Error;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'], null, ['invalid argument'], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', true);
+                      throw __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'Error', '#get')['S_uNpREdiC4aB1e_Error;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'], null, ['invalid argument'], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', true);
                     }
                   }, null, arguments, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js');
                 }]
@@ -4830,7 +4830,7 @@ __hook__(function (root, factory) {
                             ['approved']
                           ], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js') === 'yes' ? 1 : 0
                         ], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js');
-                        var nodes = __hook__('#()', __hook__('#.', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,nodes', 'Array', '#get')['S_pp_Array;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,nodes'], ['prototype'], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,nodes'), ['map'], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,nodes'), [
+                        var nodes = __hook__('#()', __hook__('#.', __hook__('#.', $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,nodes', 'Array', '#get')['S_uNpREdiC4aB1e_Array;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,nodes'], ['prototype'], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,nodes'), ['map'], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,nodes'), [
                           'call',
                           [
                             __hook__('#.', __hook__('#.', __hook__('#()', transUnitWrapper, [
@@ -4897,7 +4897,7 @@ __hook__(function (root, factory) {
             case 'number':
               return '' + value;
             case 'object':
-              return __hook__('#()', $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'JSON', '#get')['S_pp_JSON;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'], [
+              return __hook__('#()', $hook$.global(__hook__, '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js', 'JSON', '#get')['S_uNpREdiC4aB1e_JSON;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js'], [
                 'stringify',
                 [value]
               ], '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js');
@@ -5049,7 +5049,7 @@ function buildErrorHandler(errorImpl, domBuilder, locator) {
       errorImpl = domBuilder;
     }
     var errorHandler = {};
-    var isCallback = errorImpl instanceof $hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/dom-parser.js,buildErrorHandler,isCallback', 'Function', 'get')['_pp_Function;/components/thin-hook/node_modules/xmldom/dom-parser.js,buildErrorHandler,isCallback'];
+    var isCallback = errorImpl instanceof $hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/dom-parser.js,buildErrorHandler,isCallback', 'Function', 'get')['_uNpREdiC4aB1e_Function;/components/thin-hook/node_modules/xmldom/dom-parser.js,buildErrorHandler,isCallback'];
     locator = locator || {};
     function build(key) {
       return __hook__(key => {
@@ -5385,7 +5385,7 @@ __hook__('=', DOMHandler, [
 	 */
     warning: function (error) {
       return __hook__(error => {
-        __hook__('()', $hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/dom-parser.js,warning', 'console', 'get')['_pp_console;/components/thin-hook/node_modules/xmldom/dom-parser.js,warning'], [
+        __hook__('()', $hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/dom-parser.js,warning', 'console', 'get')['_uNpREdiC4aB1e_console;/components/thin-hook/node_modules/xmldom/dom-parser.js,warning'], [
           'warn',
           [
             '[xmldom warning]\t' + error,
@@ -5396,7 +5396,7 @@ __hook__('=', DOMHandler, [
     },
     error: function (error) {
       return __hook__(error => {
-        __hook__('()', $hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/dom-parser.js,error', 'console', 'get')['_pp_console;/components/thin-hook/node_modules/xmldom/dom-parser.js,error'], [
+        __hook__('()', $hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/dom-parser.js,error', 'console', 'get')['_uNpREdiC4aB1e_console;/components/thin-hook/node_modules/xmldom/dom-parser.js,error'], [
           'error',
           [
             '[xmldom error]\t' + error,
@@ -5407,7 +5407,7 @@ __hook__('=', DOMHandler, [
     },
     fatalError: function (error) {
       return __hook__(error => {
-        __hook__('()', $hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/dom-parser.js,fatalError', 'console', 'get')['_pp_console;/components/thin-hook/node_modules/xmldom/dom-parser.js,fatalError'], [
+        __hook__('()', $hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/dom-parser.js,fatalError', 'console', 'get')['_uNpREdiC4aB1e_console;/components/thin-hook/node_modules/xmldom/dom-parser.js,fatalError'], [
           'error',
           [
             '[xmldom fatalError]\t' + error,
@@ -5439,7 +5439,7 @@ function _toString(chars, start, length) {
     } else {
       //java sax connect width xmldom on rhino(what about: "? && !(chars instanceof String)")
       if (__hook__('.', chars, ['length'], '/components/thin-hook/node_modules/xmldom/dom-parser.js,_toString') >= start + length || start) {
-        return __hook__(__hook__('.', __hook__('.', $hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/dom-parser.js,_toString', 'java', 'get')['_pp_java;/components/thin-hook/node_modules/xmldom/dom-parser.js,_toString'], ['lang'], '/components/thin-hook/node_modules/xmldom/dom-parser.js,_toString'), ['String'], '/components/thin-hook/node_modules/xmldom/dom-parser.js,_toString'), null, [
+        return __hook__(__hook__('.', __hook__('.', $hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/dom-parser.js,_toString', 'java', 'get')['_uNpREdiC4aB1e_java;/components/thin-hook/node_modules/xmldom/dom-parser.js,_toString'], ['lang'], '/components/thin-hook/node_modules/xmldom/dom-parser.js,_toString'), ['String'], '/components/thin-hook/node_modules/xmldom/dom-parser.js,_toString'), null, [
           chars,
           start,
           length
@@ -5552,14 +5552,14 @@ __hook__('=', exports, [
 //[5]   	Name	   ::=   	NameStartChar (NameChar)*
 var nameStartChar = /[A-Z_a-z\xC0-\xD6\xD8-\xF6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD]/;
 //\u10000-\uEFFFF
-var nameChar = __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/sax.js,nameChar', 'RegExp', 'get')['_pp_RegExp;/components/thin-hook/node_modules/xmldom/sax.js,nameChar'], null, ['[\\-\\.0-9' + __hook__('()', __hook__('.', nameStartChar, ['source'], '/components/thin-hook/node_modules/xmldom/sax.js,nameChar'), [
+var nameChar = __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/sax.js,nameChar', 'RegExp', 'get')['_uNpREdiC4aB1e_RegExp;/components/thin-hook/node_modules/xmldom/sax.js,nameChar'], null, ['[\\-\\.0-9' + __hook__('()', __hook__('.', nameStartChar, ['source'], '/components/thin-hook/node_modules/xmldom/sax.js,nameChar'), [
     'slice',
     [
       1,
       -1
     ]
   ], '/components/thin-hook/node_modules/xmldom/sax.js,nameChar') + '\\u00B7\\u0300-\\u036F\\u203F-\\u2040]'], '/components/thin-hook/node_modules/xmldom/sax.js,nameChar', true);
-var tagNamePattern = __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/sax.js,tagNamePattern', 'RegExp', 'get')['_pp_RegExp;/components/thin-hook/node_modules/xmldom/sax.js,tagNamePattern'], null, ['^' + __hook__('.', nameStartChar, ['source'], '/components/thin-hook/node_modules/xmldom/sax.js,tagNamePattern') + __hook__('.', nameChar, ['source'], '/components/thin-hook/node_modules/xmldom/sax.js,tagNamePattern') + '*(?::' + __hook__('.', nameStartChar, ['source'], '/components/thin-hook/node_modules/xmldom/sax.js,tagNamePattern') + __hook__('.', nameChar, ['source'], '/components/thin-hook/node_modules/xmldom/sax.js,tagNamePattern') + '*)?$'], '/components/thin-hook/node_modules/xmldom/sax.js,tagNamePattern', true);
+var tagNamePattern = __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/sax.js,tagNamePattern', 'RegExp', 'get')['_uNpREdiC4aB1e_RegExp;/components/thin-hook/node_modules/xmldom/sax.js,tagNamePattern'], null, ['^' + __hook__('.', nameStartChar, ['source'], '/components/thin-hook/node_modules/xmldom/sax.js,tagNamePattern') + __hook__('.', nameChar, ['source'], '/components/thin-hook/node_modules/xmldom/sax.js,tagNamePattern') + '*(?::' + __hook__('.', nameStartChar, ['source'], '/components/thin-hook/node_modules/xmldom/sax.js,tagNamePattern') + __hook__('.', nameChar, ['source'], '/components/thin-hook/node_modules/xmldom/sax.js,tagNamePattern') + '*)?$'], '/components/thin-hook/node_modules/xmldom/sax.js,tagNamePattern', true);
 //var tagNamePattern = /^[a-zA-Z_][\w\-\.]*(?:\:[a-zA-Z_][\w\-\.]*)?$/
 //var handlers = 'resolveEntity,getExternalSubset,characters,endDocument,endElement,endPrefixMapping,ignorableWhitespace,processingInstruction,setDocumentLocator,skippedEntity,startDocument,startElement,startPrefixMapping,notationDecl,unparsedEntityDecl,error,fatalError,warning,attributeDecl,elementDecl,externalEntityDecl,internalEntityDecl,comment,endCDATA,endDTD,endEntity,startCDATA,startDTD,startEntity'.split(',')
 //S_TAG,	S_ATTR,	S_EQ,	S_ATTR_NOQUOT_VALUE
@@ -5622,7 +5622,7 @@ function parse(source, defaultNSMapCopy, entityMap, domBuilder, errorHandler) {
         if (code > 65535) {
           code -= 65536;
           var surrogate1 = 55296 + (code >> 10), surrogate2 = 56320 + (code & 1023);
-          return __hook__('()', $hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/sax.js,parse,fixedFromCharCode', 'String', 'get')['_pp_String;/components/thin-hook/node_modules/xmldom/sax.js,parse,fixedFromCharCode'], [
+          return __hook__('()', $hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/sax.js,parse,fixedFromCharCode', 'String', 'get')['_uNpREdiC4aB1e_String;/components/thin-hook/node_modules/xmldom/sax.js,parse,fixedFromCharCode'], [
             'fromCharCode',
             [
               surrogate1,
@@ -5630,7 +5630,7 @@ function parse(source, defaultNSMapCopy, entityMap, domBuilder, errorHandler) {
             ]
           ], '/components/thin-hook/node_modules/xmldom/sax.js,parse,fixedFromCharCode');
         } else {
-          return __hook__('()', $hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/sax.js,parse,fixedFromCharCode', 'String', 'get')['_pp_String;/components/thin-hook/node_modules/xmldom/sax.js,parse,fixedFromCharCode'], [
+          return __hook__('()', $hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/sax.js,parse,fixedFromCharCode', 'String', 'get')['_uNpREdiC4aB1e_String;/components/thin-hook/node_modules/xmldom/sax.js,parse,fixedFromCharCode'], [
             'fromCharCode',
             [code]
           ], '/components/thin-hook/node_modules/xmldom/sax.js,parse,fixedFromCharCode');
@@ -5652,7 +5652,7 @@ function parse(source, defaultNSMapCopy, entityMap, domBuilder, errorHandler) {
             'charAt',
             [0]
           ], '/components/thin-hook/node_modules/xmldom/sax.js,parse,entityReplacer') === '#') {
-          return __hook__(fixedFromCharCode, null, [__hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/sax.js,parse,entityReplacer', 'parseInt', 'get')['_pp_parseInt;/components/thin-hook/node_modules/xmldom/sax.js,parse,entityReplacer'], null, [__hook__('()', __hook__('()', k, [
+          return __hook__(fixedFromCharCode, null, [__hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/sax.js,parse,entityReplacer', 'parseInt', 'get')['_uNpREdiC4aB1e_parseInt;/components/thin-hook/node_modules/xmldom/sax.js,parse,entityReplacer'], null, [__hook__('()', __hook__('()', k, [
                 'substr',
                 [1]
               ], '/components/thin-hook/node_modules/xmldom/sax.js,parse,entityReplacer'), [
@@ -5985,7 +5985,7 @@ function parse(source, defaultNSMapCopy, entityMap, domBuilder, errorHandler) {
         start = end;
       } else {
         //TODO: 这里有可能sax回退，有位置错误风险
-        __hook__(appendText, null, [__hook__('()', $hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/sax.js,parse', 'Math', 'get')['_pp_Math;/components/thin-hook/node_modules/xmldom/sax.js,parse'], [
+        __hook__(appendText, null, [__hook__('()', $hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/sax.js,parse', 'Math', 'get')['_uNpREdiC4aB1e_Math;/components/thin-hook/node_modules/xmldom/sax.js,parse'], [
             'max',
             [
               tagStart,
@@ -6041,7 +6041,7 @@ function parseElementStartPart(source, start, el, currentNSMap, entityReplacer, 
           s = S_EQ;
         } else {
           //fatalError: equal must after attrName or space after attrName
-          throw __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/sax.js,parseElementStartPart', 'Error', 'get')['_pp_Error;/components/thin-hook/node_modules/xmldom/sax.js,parseElementStartPart'], null, ['attribute equal must after attrName'], '/components/thin-hook/node_modules/xmldom/sax.js,parseElementStartPart', true);
+          throw __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/sax.js,parseElementStartPart', 'Error', 'get')['_uNpREdiC4aB1e_Error;/components/thin-hook/node_modules/xmldom/sax.js,parseElementStartPart'], null, ['attribute equal must after attrName'], '/components/thin-hook/node_modules/xmldom/sax.js,parseElementStartPart', true);
         }
         break;
       case '\'':
@@ -6095,7 +6095,7 @@ function parseElementStartPart(source, start, el, currentNSMap, entityReplacer, 
             s = S_ATTR_END;
           } else {
             //fatalError: no end quot match
-            throw __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/sax.js,parseElementStartPart', 'Error', 'get')['_pp_Error;/components/thin-hook/node_modules/xmldom/sax.js,parseElementStartPart'], null, ['attribute value no end \'' + c + '\' match'], '/components/thin-hook/node_modules/xmldom/sax.js,parseElementStartPart', true);
+            throw __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/sax.js,parseElementStartPart', 'Error', 'get')['_uNpREdiC4aB1e_Error;/components/thin-hook/node_modules/xmldom/sax.js,parseElementStartPart'], null, ['attribute value no end \'' + c + '\' match'], '/components/thin-hook/node_modules/xmldom/sax.js,parseElementStartPart', true);
           }
         } else if (s == S_ATTR_NOQUOT_VALUE) {
           value = __hook__('()', __hook__('()', source, [
@@ -6129,7 +6129,7 @@ function parseElementStartPart(source, start, el, currentNSMap, entityReplacer, 
           s = S_ATTR_END;
         } else {
           //fatalError: no equal before
-          throw __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/sax.js,parseElementStartPart', 'Error', 'get')['_pp_Error;/components/thin-hook/node_modules/xmldom/sax.js,parseElementStartPart'], null, ['attribute value must after "="'], '/components/thin-hook/node_modules/xmldom/sax.js,parseElementStartPart', true);
+          throw __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/sax.js,parseElementStartPart', 'Error', 'get')['_uNpREdiC4aB1e_Error;/components/thin-hook/node_modules/xmldom/sax.js,parseElementStartPart'], null, ['attribute value must after "="'], '/components/thin-hook/node_modules/xmldom/sax.js,parseElementStartPart', true);
         }
         break;
       case '/':
@@ -6159,7 +6159,7 @@ function parseElementStartPart(source, start, el, currentNSMap, entityReplacer, 
           break;
         //case S_EQ:
         default:
-          throw __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/sax.js,parseElementStartPart', 'Error', 'get')['_pp_Error;/components/thin-hook/node_modules/xmldom/sax.js,parseElementStartPart'], null, ['attribute invalid close char(\'/\')'], '/components/thin-hook/node_modules/xmldom/sax.js,parseElementStartPart', true);
+          throw __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/sax.js,parseElementStartPart', 'Error', 'get')['_uNpREdiC4aB1e_Error;/components/thin-hook/node_modules/xmldom/sax.js,parseElementStartPart'], null, ['attribute invalid close char(\'/\')'], '/components/thin-hook/node_modules/xmldom/sax.js,parseElementStartPart', true);
         }
         break;
       case '':
@@ -6270,7 +6270,7 @@ function parseElementStartPart(source, start, el, currentNSMap, entityReplacer, 
           }
           break;
         case S_EQ:
-          throw __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/sax.js,parseElementStartPart', 'Error', 'get')['_pp_Error;/components/thin-hook/node_modules/xmldom/sax.js,parseElementStartPart'], null, ['attribute value missed!!'], '/components/thin-hook/node_modules/xmldom/sax.js,parseElementStartPart', true);
+          throw __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/sax.js,parseElementStartPart', 'Error', 'get')['_uNpREdiC4aB1e_Error;/components/thin-hook/node_modules/xmldom/sax.js,parseElementStartPart'], null, ['attribute value missed!!'], '/components/thin-hook/node_modules/xmldom/sax.js,parseElementStartPart', true);
         }
         //			console.log(tagName,tagNamePattern,tagNamePattern.test(tagName))
         return p;
@@ -6384,7 +6384,7 @@ function parseElementStartPart(source, start, el, currentNSMap, entityReplacer, 
             start = p;
             break;
           case S_TAG_CLOSE:
-            throw __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/sax.js,parseElementStartPart', 'Error', 'get')['_pp_Error;/components/thin-hook/node_modules/xmldom/sax.js,parseElementStartPart'], null, ['elements closed character \'/\' and \'>\' must be connected to'], '/components/thin-hook/node_modules/xmldom/sax.js,parseElementStartPart', true);
+            throw __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/sax.js,parseElementStartPart', 'Error', 'get')['_uNpREdiC4aB1e_Error;/components/thin-hook/node_modules/xmldom/sax.js,parseElementStartPart'], null, ['elements closed character \'/\' and \'>\' must be connected to'], '/components/thin-hook/node_modules/xmldom/sax.js,parseElementStartPart', true);
           }
         }
       }
@@ -6841,7 +6841,7 @@ __hook__('=', ElementAttributes, [
             'test',
             [tagName]
           ], '/components/thin-hook/node_modules/xmldom/sax.js,setTagName')) {
-          throw __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/sax.js,setTagName', 'Error', 'get')['_pp_Error;/components/thin-hook/node_modules/xmldom/sax.js,setTagName'], null, ['invalid tagName:' + tagName], '/components/thin-hook/node_modules/xmldom/sax.js,setTagName', true);
+          throw __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/sax.js,setTagName', 'Error', 'get')['_uNpREdiC4aB1e_Error;/components/thin-hook/node_modules/xmldom/sax.js,setTagName'], null, ['invalid tagName:' + tagName], '/components/thin-hook/node_modules/xmldom/sax.js,setTagName', true);
         }
         __hook__('=', this, [
           'tagName',
@@ -6855,7 +6855,7 @@ __hook__('=', ElementAttributes, [
             'test',
             [qName]
           ], '/components/thin-hook/node_modules/xmldom/sax.js,add')) {
-          throw __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/sax.js,add', 'Error', 'get')['_pp_Error;/components/thin-hook/node_modules/xmldom/sax.js,add'], null, ['invalid attribute:' + qName], '/components/thin-hook/node_modules/xmldom/sax.js,add', true);
+          throw __hook__($hook$.global(__hook__, '/components/thin-hook/node_modules/xmldom/sax.js,add', 'Error', 'get')['_uNpREdiC4aB1e_Error;/components/thin-hook/node_modules/xmldom/sax.js,add'], null, ['invalid attribute:' + qName], '/components/thin-hook/node_modules/xmldom/sax.js,add', true);
         }
         __hook__('=', this, [
           __hook__('p++', this, ['length'], '/components/thin-hook/node_modules/xmldom/sax.js,add'),
