@@ -7621,6 +7621,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
     const _window = window;
     const _Error = Error;
     const _EventTarget = EventTarget;
+    const _Math = Math;
     const _console = console;
     const _undefined = undefined;
     const isWhitelisted = function isWhitelisted(top, bottom) {
@@ -7832,6 +7833,19 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
                              '__lookupSetter__',
                              '__proto__',
                            ],             'window',          _window ],
+      [ _Object.prototype, [
+                             'hasOwnProperty',
+                             'isPrototypeOf',
+                             'propertyIsEnumerable',
+                             'toLocaleString',
+                             'toString',
+                             'valueOf',
+                             '__defineGetter__',
+                             '__defineSetter__',
+                             '__lookupGetter__',
+                             '__lookupSetter__',
+                             '__proto__',
+                           ],             'Math',            _Math ],
       [ _EventTarget.prototype, 
                            [
                              'addEventListener',
