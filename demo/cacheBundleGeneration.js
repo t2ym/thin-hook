@@ -91,7 +91,7 @@ default:
   console.log('waitFor(15000)');
   result = await page.evaluate(function getCaches() {
     try {
-      return caches.constructor.name;
+      return caches.constructor.name + ' at ' + location.href;
     }
     catch (error) {
       return error.message;
@@ -144,7 +144,7 @@ default:
   console.log('waitFor(15000)');
   result = await page.evaluate(function getPolymer() {
     try {
-      return Polymer.name;
+      return Polymer.name + ' at ' + location.href;
     }
     catch (error) {
       return error.message;
@@ -170,7 +170,7 @@ default:
   console.log('waitFor(15000)');
   result = await page.evaluate(function getLookupGetter() {
     try {
-      return __lookupGetter__.name;
+      return __lookupGetter__.name + ' at ' + location.href;
     }
     catch (error) {
       return error.message;
@@ -196,7 +196,7 @@ default:
   console.log('waitFor(15000)');
   result = await page.evaluate(function getAddEventListener() {
     try {
-      return addEventListener.name;
+      return addEventListener.name + ' at ' + location.href;
     }
     catch (error) {
       return error.message;
@@ -222,7 +222,7 @@ default:
   console.log('waitFor(15000)');
   result = await page.evaluate(async function getPrototypeLookupGetter() {
     try {
-      return this.__proto__.__proto__.__proto__.__proto__.__lookupGetter__.name;
+      return this.__proto__.__proto__.__proto__.__proto__.__lookupGetter__.name + ' at ' + location.href;
     }
     catch (error) {
       return error.message;
@@ -248,7 +248,7 @@ default:
   console.log('waitFor(15000)');
   result = await page.evaluate(async function getMathLookupGetter() {
     try {
-      return Math.__lookupGetter__.name;
+      return Math.__lookupGetter__.name + ' at ' + location.href;
     }
     catch (error) {
       return error.message;
@@ -267,6 +267,33 @@ default:
   });
   console.log('test: checkLocation:', result);
   chai.assert.equal(result, 'about:blank', 'location is about:blank');
+
+  await page.goto(targetURL);
+  console.log('goto', targetURL);
+  await page.waitFor(15000);
+  console.log('waitFor(15000)');
+  result = await page.evaluate(async function getMathAbsLookupGetter() {
+    try {
+      return Math.abs.__lookupGetter__.name + ' at ' + location.href;
+    }
+    catch (error) {
+      return error.message;
+    }
+  });
+  console.log('test: getMathAbsLookupGetter:', result);
+  chai.assert.equal(result, 'Cannot read property \'name\' of undefined', 'cannot access __lookupGetter__ via Math.abs');
+  await page.waitFor(1000);
+  result = await page.evaluate(function checkLocation() {
+    try {
+      return location.href;
+    }
+    catch (error) {
+      return error.message;
+    }
+  });
+  console.log('test: checkLocation:', result);
+  chai.assert.equal(result, 'about:blank', 'location is about:blank');
+
 
   // end of tests
 
