@@ -9,11 +9,11 @@
     //   hook.parameters.noHookAuthorizationFailed
     // JSONs are output to console in the learning mode
     //'*': true,
-    "97d6d1a30668b9c37da55a926e1d13530589f762050c58d3378baabda7e17780": true, // hook.min.js
+    "2ad47f2a3dc9b4597391a51ef09c7061a29dd7a5ce7bffad2867a231df2c35dd": true, // hook.min.js
     "ba451c60ef71c0df971d17a7f84b0d35327042e8284b4372eb38ce73c6aa16e7": true, // demo/disable-devtools.js
     "7e0fcbf73f8a30d98082c497e4bec73f2b49e5bee70605bb8838aed035763868": true, // demo/context-generator.js
     "a66830bdcb5410a9b17ccc01ecda4e79fe9c9642085c6e386243930dc81b837a": true, // demo/bootstrap.js
-    "80fe4cfa1fce5e9f916a7900b68f01d67a90eb70d774dcddb499a8324ee55c5b": true, // demo/hook-callback.js
+    "1366803c0ef579d89e58d8025335484f2908178088d2a2906757414e774e75ae": true, // demo/hook-callback.js
     "0979646683bec9b9682d974d549effb61b1fc981ad87dac76d44d0440d87b396": true, // demo/hook-native-api.js
     "e2e42b1f8c6c518b5878b5bd95d34c0f15e139a1afb6ab6a6642b6e81219d2c5": true, // demo/hook-worker.js
     "163ba1450660d02306936ad39a0b5977e042ba3270eca749fc30d98170e9be03": true, // demo/cache-bundle.js

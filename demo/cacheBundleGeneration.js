@@ -117,14 +117,15 @@ default:
   console.log('waitFor(15000)');
   result = await page.evaluate(function getObjectIndirect() {
     try {
-      return this.__proto__.__proto__.__proto__.__proto__.constructor.name;
+      let result = this.__proto__.__proto__.__proto__.__proto__.constructor.name;
+      return result + ' at ' + location.href;
     }
     catch (error) {
       return error.message;
     }
   });
   console.log('test: getObjectIndirect:', result);
-  chai.assert.equal(result, 'Cannot read property \'name\' of undefined', 'cannot access Object via prototype chain');
+  chai.assert.equal(result, 'Cannot read property \'__proto__\' of undefined', 'cannot access Object via prototype chain');
   await page.waitFor(1000);
   result = await page.evaluate(function checkLocation() {
     try {
@@ -176,7 +177,7 @@ default:
     }
   });
   console.log('test: getLookupGetter:', result);
-  chai.assert.equal(result, 'Cannot read property \'name\' of undefined', 'cannot access __lookupGetter__ from Object.prototype');
+  chai.assert.equal(result, 'Cannot read property \'name\' of undefined', 'cannot access __lookupGetter__');
   await page.waitFor(1000);
   result = await page.evaluate(function checkLocation() {
     try {
@@ -203,6 +204,32 @@ default:
   });
   console.log('test: getAddEventListener:', result);
   chai.assert.equal(result, 'Cannot read property \'name\' of undefined', 'cannot access addEventListener from EventTarget.prototype');
+  await page.waitFor(1000);
+  result = await page.evaluate(function checkLocation() {
+    try {
+      return location.href;
+    }
+    catch (error) {
+      return error.message;
+    }
+  });
+  console.log('test: checkLocation:', result);
+  chai.assert.equal(result, 'about:blank', 'location is about:blank');
+
+  await page.goto(targetURL);
+  console.log('goto', targetURL);
+  await page.waitFor(15000);
+  console.log('waitFor(15000)');
+  result = await page.evaluate(async function getPrototypeLookupGetter() {
+    try {
+      return this.__proto__.__proto__.__proto__.__proto__.__lookupGetter__.name;
+    }
+    catch (error) {
+      return error.message;
+    }
+  });
+  console.log('test: getPrototypeLookupGetter:', result);
+  chai.assert.equal(result, 'Cannot read property \'__proto__\' of undefined', 'cannot access __lookupGetter__ via __proto__');
   await page.waitFor(1000);
   result = await page.evaluate(function checkLocation() {
     try {

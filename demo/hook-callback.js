@@ -7830,6 +7830,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
                              '__defineSetter__',
                              '__lookupGetter__',
                              '__lookupSetter__',
+                             '__proto__',
                            ],             'window',          _window ],
       [ _EventTarget.prototype, 
                            [
