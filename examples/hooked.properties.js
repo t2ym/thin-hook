@@ -1,18 +1,29 @@
-__hook__('.', $hook$.global(__hook__, 'examples/properties.js', 'o', 'get')['_p_o;examples/properties.js'], ['pid'], 'examples/properties.js') + 1;
-__hook__('.', $hook$.global(__hook__, 'examples/properties.js', 'o', 'get')['_p_o;examples/properties.js'], ['pid'], 'examples/properties.js') + __hook__('.', $hook$.global(__hook__, 'examples/properties.js', 'o2', 'get')['_p_o2;examples/properties.js'], [$hook$.global(__hook__, 'examples/properties.js', 'pvar2', 'get')['_p_pvar2;examples/properties.js']], 'examples/properties.js');
-__hook__('.', $hook$.global(__hook__, 'examples/properties.js', 'o', 'get')['_p_o;examples/properties.js'], [$hook$.global(__hook__, 'examples/properties.js', 'pvar', 'get')['_p_pvar;examples/properties.js']], 'examples/properties.js');
-__hook__('=', __hook__('.', $hook$.global(__hook__, 'examples/properties.js', 'o', 'get')['_p_o;examples/properties.js'], ['pid'], 'examples/properties.js'), [
-  $hook$.global(__hook__, 'examples/properties.js', 'pid2', 'get')['_p_pid2;examples/properties.js'],
-  __hook__('p++', __hook__('.', $hook$.global(__hook__, 'examples/properties.js', 'x', 'get')['_p_x;examples/properties.js'], ['pid3'], 'examples/properties.js'), [$hook$.global(__hook__, 'examples/properties.js', 'pid4', 'get')['_p_pid4;examples/properties.js']], 'examples/properties.js')
-], 'examples/properties.js');
-__hook__('p++', o, ['pid'], 'examples/properties.js');
-__hook__('++p', o, ['pid'], 'examples/properties.js');
-__hook__('p--', o, [$hook$.global(__hook__, 'examples/properties.js', 'pvar', 'get')['_p_pvar;examples/properties.js']], 'examples/properties.js');
-__hook__('--p', o, [$hook$.global(__hook__, 'examples/properties.js', 'pvar', 'get')['_p_pvar;examples/properties.js']], 'examples/properties.js');
-__hook__('delete', x, ['pid'], 'examples/properties.js');
-__hook__('delete', __hook__('.', $hook$.global(__hook__, 'examples/properties.js', 'o', 'get')['_p_o;examples/properties.js'], ['x'], 'examples/properties.js'), ['pid'], 'examples/properties.js');
-__hook__('delete', __hook__('.', $hook$.global(__hook__, 'examples/properties.js', 'o', 'get')['_p_o;examples/properties.js'], ['x'], 'examples/properties.js'), [$hook$.global(__hook__, 'examples/properties.js', 'pvar', 'get')['_p_pvar;examples/properties.js']], 'examples/properties.js');
-__hook__('()', $hook$.global(__hook__, 'examples/properties.js', 'document', 'get')['_p_document;examples/properties.js'], [
+const __context_mapper__ = $hook$.$(__hook__, [
+  'examples/properties.js',
+  '_p_o;examples/properties.js',
+  '_p_o2;examples/properties.js',
+  '_p_pvar2;examples/properties.js',
+  '_p_pvar;examples/properties.js',
+  '_p_pid2;examples/properties.js',
+  '_p_x;examples/properties.js',
+  '_p_pid4;examples/properties.js',
+  '_p_document;examples/properties.js'
+]);
+__hook__('.', $hook$.global(__hook__, __context_mapper__[0], 'o', 'get')[__context_mapper__[1]], ['pid'], __context_mapper__[0]) + 1;
+__hook__('.', $hook$.global(__hook__, __context_mapper__[0], 'o', 'get')[__context_mapper__[1]], ['pid'], __context_mapper__[0]) + __hook__('.', $hook$.global(__hook__, __context_mapper__[0], 'o2', 'get')[__context_mapper__[2]], [$hook$.global(__hook__, __context_mapper__[0], 'pvar2', 'get')[__context_mapper__[3]]], __context_mapper__[0]);
+__hook__('.', $hook$.global(__hook__, __context_mapper__[0], 'o', 'get')[__context_mapper__[1]], [$hook$.global(__hook__, __context_mapper__[0], 'pvar', 'get')[__context_mapper__[4]]], __context_mapper__[0]);
+__hook__('=', __hook__('.', $hook$.global(__hook__, __context_mapper__[0], 'o', 'get')[__context_mapper__[1]], ['pid'], __context_mapper__[0]), [
+  $hook$.global(__hook__, __context_mapper__[0], 'pid2', 'get')[__context_mapper__[5]],
+  __hook__('p++', __hook__('.', $hook$.global(__hook__, __context_mapper__[0], 'x', 'get')[__context_mapper__[6]], ['pid3'], __context_mapper__[0]), [$hook$.global(__hook__, __context_mapper__[0], 'pid4', 'get')[__context_mapper__[7]]], __context_mapper__[0])
+], __context_mapper__[0]);
+__hook__('p++', o, ['pid'], __context_mapper__[0]);
+__hook__('++p', o, ['pid'], __context_mapper__[0]);
+__hook__('p--', o, [$hook$.global(__hook__, __context_mapper__[0], 'pvar', 'get')[__context_mapper__[4]]], __context_mapper__[0]);
+__hook__('--p', o, [$hook$.global(__hook__, __context_mapper__[0], 'pvar', 'get')[__context_mapper__[4]]], __context_mapper__[0]);
+__hook__('delete', x, ['pid'], __context_mapper__[0]);
+__hook__('delete', __hook__('.', $hook$.global(__hook__, __context_mapper__[0], 'o', 'get')[__context_mapper__[1]], ['x'], __context_mapper__[0]), ['pid'], __context_mapper__[0]);
+__hook__('delete', __hook__('.', $hook$.global(__hook__, __context_mapper__[0], 'o', 'get')[__context_mapper__[1]], ['x'], __context_mapper__[0]), [$hook$.global(__hook__, __context_mapper__[0], 'pvar', 'get')[__context_mapper__[4]]], __context_mapper__[0]);
+__hook__('()', $hook$.global(__hook__, __context_mapper__[0], 'document', 'get')[__context_mapper__[8]], [
   'createElement',
   ['script']
-], 'examples/properties.js');
+], __context_mapper__[0]);

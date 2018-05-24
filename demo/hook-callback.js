@@ -553,11 +553,11 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
     '/components/firebase/firebase-app.js': '@firebase_app',
     '/components/firebase/firebase-auth.js,t': '@custom_error_constructor_creator',
     '/components/polymer/lib/utils/templatize.html,script@695,upgradeTemplate': '@template_element_prototype_setter',
-    '/components/thin-hook/demo/my-view2.html,script@2655,getData': '@hook_visualizer',
-    '/components/thin-hook/demo/my-view2.html,script@2655,attached,_lastEdges': '@hook_visualizer',
-    '/components/thin-hook/demo/my-view2.html,script@2655,drawGraph': '@hook_visualizer',
-    '/components/thin-hook/demo/my-view2.html,script@2655,descriptors': '@window_enumerator',
-    '/components/thin-hook/demo/my-view2.html,script@2655': '@Object_prototype_reader',
+    '/components/thin-hook/demo/my-view2.html,script@2946,getData': '@hook_visualizer',
+    '/components/thin-hook/demo/my-view2.html,script@2946,attached,_lastEdges': '@hook_visualizer',
+    '/components/thin-hook/demo/my-view2.html,script@2946,drawGraph': '@hook_visualizer',
+    '/components/thin-hook/demo/my-view2.html,script@2946,descriptors': '@window_enumerator',
+    '/components/thin-hook/demo/my-view2.html,script@2946': '@Object_prototype_reader',
     '/components/web-animations-js/web-animations-next-lite.min.js': '@web_animations_next_lite',
     '/components/live-localizer/live-localizer-browser-storage.html,script@3348,modelReady': '@Dexie_instantiator',
     '/components/deepcopy/build/deepcopy.min.js,u': '@Object_keys_reader',
@@ -4298,7 +4298,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
   const AsyncFunction = (async function () {}).constructor;
   const FunctionPrototype = Function.prototype;
   // full features
-  const __hook__ = function __hook__(f, thisArg, args, context, newTarget) {
+  const __hook__ = function __hook__(f, thisArg, args, context, newTarget, contextSymbol) {
     let _lastContext;
     let _f;
     let normalizedThisArg = thisArg;
@@ -4307,6 +4307,18 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
     counter++;
     if (args[0] === pseudoContextArgument) {
       return context;
+    }
+    contextSymbol = context;
+    if (typeof context !== 'symbol') {
+      let e = new Error('__hook__: invalid context')
+      onThrow(e, arguments, contextStack); // result contains arguments to applyAcl, or undefined
+      throw e;
+    }
+    context = __hook__[context];
+    if (!context) {
+      let e = new Error('__hook__: invalid context')
+      onThrow(e, arguments, contextStack); // result contains arguments to applyAcl, or undefined
+      throw e;
     }
     _lastContext = lastContext;
     if (!contexts[context]) {
@@ -4417,6 +4429,8 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
           if (contentWindow) {
             if (contentWindow.__hook__) {
               //console.log('applying __hook__ of contentWindow');
+              contentWindow.__hook__[contextSymbol] = context;
+              context = contextSymbol;
               result = contentWindow.__hook__.apply(contentWindow, arguments);
               contextStack.pop();
               return result;
@@ -5800,13 +5814,25 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
   }
 
   // acl only
-  const __hook__acl = function __hook__acl(f, thisArg, args, context, newTarget) {
+  const __hook__acl = function __hook__acl(f, thisArg, args, context, newTarget, contextSymbol) {
     let _lastContext;
     let _f;
     let normalizedThisArg = thisArg;
     let _args = args;
     let boundParameters;
     counter++;
+    contextSymbol = context;
+    if (typeof context !== 'symbol') {
+      let e = new Error('__hook__: invalid context')
+      onThrow(e, arguments, contextStack); // result contains arguments to applyAcl, or undefined
+      throw e;
+    }
+    context = __hook__acl[context];
+    if (!context) {
+      let e = new Error('__hook__: invalid context')
+      onThrow(e, arguments, contextStack); // result contains arguments to applyAcl, or undefined
+      throw e;
+    }
     _lastContext = lastContext;
     lastContext = context;
     contextStack.push(context);
@@ -5834,6 +5860,8 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
           if (contentWindow) {
             if (contentWindow.__hook__) {
               //console.log('applying __hook__ of contentWindow');
+              contentWindow.__hook__[contextSymbol] = context;
+              context = contextSymbol;
               result = contentWindow.__hook__.apply(contentWindow, arguments);
               contextStack.pop();
               return result;
@@ -7593,7 +7621,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
     'importScripts',
   ].forEach((name) => {
     if (_global[name]) {
-      let hooked = hook[name]('__hook__', [[name, {}]], 'method');
+      let hooked = hook[name]('__hook__', [[name, { random: name === 'Node' }]], 'method');
       /*_global.*/_globalObjects.set(hooked, name);
       /*_global.*/_globalMethods.set(hooked, [ (typeof window === 'object' ? 'window' : 'self'), name ]);
       Object.defineProperty(_global, name, { value: hooked, configurable: true, enumerable: false, writable: false });

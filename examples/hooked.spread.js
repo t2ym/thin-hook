@@ -1,8 +1,24 @@
-$hook$.global(__hook__, 'examples/spread.js', 'gA1', 'let')['_p_gA1;examples/spread.js'] = [
+const __context_mapper__ = $hook$.$(__hook__, [
+  'examples/spread.js',
+  '_p_gA1;examples/spread.js',
+  '_p_gX1;examples/spread.js',
+  'examples/spread.js,a2',
+  '_p_gA1;examples/spread.js,a2',
+  'examples/spread.js,y',
+  '_p_gX1;examples/spread.js,y',
+  'examples/spread.js,z',
+  'examples/spread.js,ff',
+  '_p_ff;examples/spread.js,ff',
+  'examples/spread.js,ff,a2',
+  'examples/spread.js,ff,y',
+  'examples/spread.js,ff,z',
+  '_p_ff;examples/spread.js'
+]);
+$hook$.global(__hook__, __context_mapper__[0], 'gA1', 'let')[__context_mapper__[1]] = [
   1,
   2
 ];
-$hook$.global(__hook__, 'examples/spread.js', 'gX1', 'let')['_p_gX1;examples/spread.js'] = {
+$hook$.global(__hook__, __context_mapper__[0], 'gX1', 'let')[__context_mapper__[2]] = {
   a: 1,
   b: 2
 };
@@ -10,11 +26,11 @@ $hook$.global(__hook__, 'examples/spread.js', 'gX1', 'let')['_p_gX1;examples/spr
   let a2 = [
     3,
     4,
-    ...$hook$.global(__hook__, 'examples/spread.js,a2', 'gA1', 'get')['_p_gA1;examples/spread.js,a2']
+    ...$hook$.global(__hook__, __context_mapper__[3], 'gA1', 'get')[__context_mapper__[4]]
   ];
   let y = {
     c: 3,
-    ...__hook__('*', $hook$.global(__hook__, 'examples/spread.js,y', 'gX1', 'get')['_p_gX1;examples/spread.js,y'], [], 'examples/spread.js,y')
+    ...__hook__('*', $hook$.global(__hook__, __context_mapper__[5], 'gX1', 'get')[__context_mapper__[6]], [], __context_mapper__[5])
   };
   let z = {
     a: 1,
@@ -24,18 +40,18 @@ $hook$.global(__hook__, 'examples/spread.js', 'gX1', 'let')['_p_gX1;examples/spr
       ...__hook__('*', __hook__(function () {
         return __hook__(() => {
           return y;
-        }, null, arguments, 'examples/spread.js,z');
-      }, null, [], 'examples/spread.js,z', 0), [], 'examples/spread.js,z')
-    }, [], 'examples/spread.js,z')
+        }, null, arguments, __context_mapper__[7]);
+      }, null, [], __context_mapper__[7], 0), [], __context_mapper__[7])
+    }, [], __context_mapper__[7])
   };
-  __hook__('in', z, ['a'], 'examples/spread.js');
+  __hook__('in', z, ['a'], __context_mapper__[0]);
   let p;
-  for (p in __hook__('*', z, [], 'examples/spread.js')) {
+  for (p in __hook__('*', z, [], __context_mapper__[0])) {
   }
-  for (p of __hook__('*', a2, [], 'examples/spread.js')) {
+  for (p of __hook__('*', a2, [], __context_mapper__[0])) {
   }
 }
-$hook$.global(__hook__, 'examples/spread.js,ff', 'ff', 'function')['_p_ff;examples/spread.js,ff'] = function ff() {
+$hook$.global(__hook__, __context_mapper__[8], 'ff', 'function')[__context_mapper__[9]] = function ff() {
   return __hook__(() => {
     with ($hook$.with({
         gA1: [
@@ -53,18 +69,18 @@ $hook$.global(__hook__, 'examples/spread.js,ff', 'ff', 'function')['_p_ff;exampl
         ...__hook__('w.', __with__, [
           'gA1',
           () => gA1
-        ], 'examples/spread.js,ff,a2', false)
+        ], __context_mapper__[10], false)
       ];
       __hook__('()', __hook__('.', __hook__('w.', __with__, [
         'chai',
         () => chai
-      ], 'examples/spread.js,ff', false), ['assert'], 'examples/spread.js,ff'), [
+      ], __context_mapper__[8], false), ['assert'], __context_mapper__[8]), [
         'deepEqual',
         [
           __hook__('w.', __with__, [
             'a2',
             () => a2
-          ], 'examples/spread.js,ff', false),
+          ], __context_mapper__[8], false),
           [
             3,
             4,
@@ -73,24 +89,24 @@ $hook$.global(__hook__, 'examples/spread.js,ff', 'ff', 'function')['_p_ff;exampl
           ],
           'a2 is [ 3,4,5,6 ]'
         ]
-      ], 'examples/spread.js,ff');
+      ], __context_mapper__[8]);
       let y = {
         c: 3,
         ...__hook__('*', __hook__('w.', __with__, [
           'gX1',
           () => gX1
-        ], 'examples/spread.js,ff,y', false), [], 'examples/spread.js,ff,y')
+        ], __context_mapper__[11], false), [], __context_mapper__[11])
       };
       __hook__('()', __hook__('.', __hook__('w.', __with__, [
         'chai',
         () => chai
-      ], 'examples/spread.js,ff', false), ['assert'], 'examples/spread.js,ff'), [
+      ], __context_mapper__[8], false), ['assert'], __context_mapper__[8]), [
         'deepEqual',
         [
           __hook__('w.', __with__, [
             'y',
             () => y
-          ], 'examples/spread.js,ff', false),
+          ], __context_mapper__[8], false),
           {
             c: 3,
             a: 4,
@@ -98,7 +114,7 @@ $hook$.global(__hook__, 'examples/spread.js,ff', 'ff', 'function')['_p_ff;exampl
           },
           'y is { c: 3, a: 4, b: 5 }'
         ]
-      ], 'examples/spread.js,ff');
+      ], __context_mapper__[8]);
       let z = {
         a: 1,
         ...__hook__('*', {
@@ -109,21 +125,21 @@ $hook$.global(__hook__, 'examples/spread.js,ff', 'ff', 'function')['_p_ff;exampl
               return __hook__('w.', __with__, [
                 'y',
                 () => y
-              ], 'examples/spread.js,ff,z', false);
-            }, null, arguments, 'examples/spread.js,ff,z');
-          }(), [], 'examples/spread.js,ff,z')
-        }, [], 'examples/spread.js,ff,z')
+              ], __context_mapper__[12], false);
+            }, null, arguments, __context_mapper__[12]);
+          }(), [], __context_mapper__[12])
+        }, [], __context_mapper__[12])
       };
       __hook__('()', __hook__('.', __hook__('w.', __with__, [
         'chai',
         () => chai
-      ], 'examples/spread.js,ff', false), ['assert'], 'examples/spread.js,ff'), [
+      ], __context_mapper__[8], false), ['assert'], __context_mapper__[8]), [
         'deepEqual',
         [
           __hook__('w.', __with__, [
             'z',
             () => z
-          ], 'examples/spread.js,ff', false),
+          ], __context_mapper__[8], false),
           {
             c: 3,
             a: 4,
@@ -131,20 +147,20 @@ $hook$.global(__hook__, 'examples/spread.js,ff', 'ff', 'function')['_p_ff;exampl
           },
           'z is { c: 3, a: 4, b: 5 }'
         ]
-      ], 'examples/spread.js,ff');
+      ], __context_mapper__[8]);
       __hook__('()', __hook__('.', __hook__('w.', __with__, [
         'chai',
         () => chai
-      ], 'examples/spread.js,ff', false), ['assert'], 'examples/spread.js,ff'), [
+      ], __context_mapper__[8], false), ['assert'], __context_mapper__[8]), [
         'isOk',
         [
           __hook__('in', __hook__('w.', __with__, [
             'z',
             () => z
-          ], 'examples/spread.js,ff', false), ['a'], 'examples/spread.js,ff'),
+          ], __context_mapper__[8], false), ['a'], __context_mapper__[8]),
           'a in z'
         ]
-      ], 'examples/spread.js,ff');
+      ], __context_mapper__[8]);
       let p;
       let l1 = [];
       for (__hook__('w.=', __with__, [
@@ -157,34 +173,34 @@ $hook$.global(__hook__, 'examples/spread.js,ff', 'ff', 'function')['_p_ff;exampl
               return p;
             }
           }
-        ], 'examples/spread.js,ff', false)['='] in __hook__('*', __hook__('w.', __with__, [
+        ], __context_mapper__[8], false)['='] in __hook__('*', __hook__('w.', __with__, [
           'z',
           () => z
-        ], 'examples/spread.js,ff', false), [], 'examples/spread.js,ff')) {
+        ], __context_mapper__[8], false), [], __context_mapper__[8])) {
         __hook__('()', __hook__('w.', __with__, [
           'l1',
           () => l1
-        ], 'examples/spread.js,ff', false), [
+        ], __context_mapper__[8], false), [
           'push',
           [__hook__('w.', __with__, [
               'p',
               () => p
-            ], 'examples/spread.js,ff', false)]
-        ], 'examples/spread.js,ff');
+            ], __context_mapper__[8], false)]
+        ], __context_mapper__[8]);
       }
       __hook__('()', __hook__('.', __hook__('w.', __with__, [
         'chai',
         () => chai
-      ], 'examples/spread.js,ff', false), ['assert'], 'examples/spread.js,ff'), [
+      ], __context_mapper__[8], false), ['assert'], __context_mapper__[8]), [
         'deepEqual',
         [
           __hook__('()', __hook__('w.', __with__, [
             'l1',
             () => l1
-          ], 'examples/spread.js,ff', false), [
+          ], __context_mapper__[8], false), [
             'sort',
             []
-          ], 'examples/spread.js,ff'),
+          ], __context_mapper__[8]),
           [
             'a',
             'b',
@@ -192,7 +208,7 @@ $hook$.global(__hook__, 'examples/spread.js,ff', 'ff', 'function')['_p_ff;exampl
           ],
           'z has a, b, c'
         ]
-      ], 'examples/spread.js,ff');
+      ], __context_mapper__[8]);
       let l2 = [];
       for (__hook__('w.=', __with__, [
           'p',
@@ -204,31 +220,31 @@ $hook$.global(__hook__, 'examples/spread.js,ff', 'ff', 'function')['_p_ff;exampl
               return p;
             }
           }
-        ], 'examples/spread.js,ff', false)['='] of __hook__('*', __hook__('w.', __with__, [
+        ], __context_mapper__[8], false)['='] of __hook__('*', __hook__('w.', __with__, [
           'a2',
           () => a2
-        ], 'examples/spread.js,ff', false), [], 'examples/spread.js,ff')) {
+        ], __context_mapper__[8], false), [], __context_mapper__[8])) {
         __hook__('()', __hook__('w.', __with__, [
           'l2',
           () => l2
-        ], 'examples/spread.js,ff', false), [
+        ], __context_mapper__[8], false), [
           'push',
           [__hook__('w.', __with__, [
               'p',
               () => p
-            ], 'examples/spread.js,ff', false)]
-        ], 'examples/spread.js,ff');
+            ], __context_mapper__[8], false)]
+        ], __context_mapper__[8]);
       }
       __hook__('()', __hook__('.', __hook__('w.', __with__, [
         'chai',
         () => chai
-      ], 'examples/spread.js,ff', false), ['assert'], 'examples/spread.js,ff'), [
+      ], __context_mapper__[8], false), ['assert'], __context_mapper__[8]), [
         'deepEqual',
         [
           __hook__('w.', __with__, [
             'l2',
             () => l2
-          ], 'examples/spread.js,ff', false),
+          ], __context_mapper__[8], false),
           [
             3,
             4,
@@ -237,8 +253,8 @@ $hook$.global(__hook__, 'examples/spread.js,ff', 'ff', 'function')['_p_ff;exampl
           ],
           'a2 lists [3,4,5,6]'
         ]
-      ], 'examples/spread.js,ff');
+      ], __context_mapper__[8]);
     }
-  }, null, arguments, 'examples/spread.js,ff');
+  }, null, arguments, __context_mapper__[8]);
 };
-__hook__($hook$.global(__hook__, 'examples/spread.js', 'ff', 'get')['_p_ff;examples/spread.js'], null, [], 'examples/spread.js', 0);
+__hook__($hook$.global(__hook__, __context_mapper__[0], 'ff', 'get')[__context_mapper__[13]], null, [], __context_mapper__[0], 0);

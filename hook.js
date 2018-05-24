@@ -23,10 +23,10 @@ module.exports = Object.freeze(Object.assign(hook,
   serviceWorker,
   nativeWrappers, 
   {
-    utils: {
+    utils: Object.freeze({
       createHash: createHash,
       HTMLParser: htmlparser,
-    },
+    }),
     parameters: {}
   }
 ));

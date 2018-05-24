@@ -47,5 +47,7 @@
     <script xlink:href="${new URL('hook-callback.js?no-hook=true', baseURI).href.substring(location.origin.length)}"></script>
     <script xlink:href="${new URL('hook-native-api.js?no-hook=true', baseURI).href.substring(location.origin.length)}"></script>`;
   hook.parameters.noHookAuthorizationParameter = noHookAuthorization;
+  hook.parameters.noHookAuthorizationFailed = {};
+  hook.parameters.noHookAuthorizationPassed = {};
   //console.log('bootstrap.js: location.href = ' + location.href + ' baseURI = ' + baseURI + ' bootstrap = ' + hook.parameters.bootstrap);
 }

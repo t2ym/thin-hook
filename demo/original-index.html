@@ -15,7 +15,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <script src="../../thin-hook/hook.min.js?version=496&no-hook-authorization=5f00a0459fb7e83ae0466ec1042572fca6a4201d15430453d406624bb8106c53,a578e741369d927f693fedc88c75b1a90f1a79465e2bb9774a3f68ffc6e011e6,log-no-hook-authorization&sw-root=/&no-hook=true&hook-name=__hook__&context-generator-name=method&discard-hook-errors=false&fallback-page=index-fb.html&hook-property=true&hook-global=true&hook-prefix=_uNpREdiC4aB1e_&compact=true&service-worker-ready=true"></script>
+  <script src="../../thin-hook/hook.min.js?version=496&no-hook-authorization=4b9ad85fb942634d6a303aeab7475ae2653e96819e97f2580788f760740efe89,a578e741369d927f693fedc88c75b1a90f1a79465e2bb9774a3f68ffc6e011e6,log-no-hook-authorization&sw-root=/&no-hook=true&hook-name=__hook__&context-generator-name=method&discard-hook-errors=false&fallback-page=index-fb.html&hook-property=true&hook-global=true&hook-prefix=_uNpREdiC4aB1e_&compact=true&service-worker-ready=true"></script>
   <script context-generator src="no-hook-authorization.js?no-hook=true"></script>
   <script context-generator src="disable-devtools.js?no-hook=true"></script>
   <script context-generator src="context-generator.js?no-hook=true"></script>
@@ -248,7 +248,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
     }
     {
       document.writeln('<sc' + 'ript>' + '(function writeln1() { console.log("script tag via document.writeln"); chai.assert.throws(() => { let c = caches; }, /^Permission Denied:/); })()' + '</sc' + 'ript>');
-      document.writeln('<sc' + 'ript src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js?cors=true"></sc' + 'ript>');
+      document.writeln('<sc' + 'ript src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js?cors=true"></sc' + 'ript>');
       document.writeln('<sc' + 'ript no-hook>' + '(function writeln2() { console.log("no-hook script tag via document.writeln"); })()' + '</sc' + 'ript>');
       document.writeln('<div><sc' + 'ript>' + '(function writeln3() { console.log("script tag in div tag via document.writeln"); chai.assert.throws(() => { let c = caches; }, /^Permission Denied:/); })()' + '</sc' + 'ript></div>');
       document.writeln('<div><sc' + 'ript no-hook>' + '(function writeln4() { console.log("no-hook script tag in div tag via document.writeln"); })()' + '</sc' + 'ript></div>');
