@@ -125,6 +125,32 @@ default:
   console.log('goto', targetURL);
   await page.waitFor(15000);
   console.log('waitFor(15000)');
+  result = await page.evaluate(function getGoogleCharts() {
+    try {
+      return typeof google.charts + ' at ' + location.href;
+    }
+    catch (error) {
+      return error.message;
+    }
+  });
+  console.log('test: getGoogleCharts:', result);
+  chai.assert.equal(result, 'Cannot read property \'charts\' of undefined', 'cannot access caches');
+  await page.waitFor(1000);
+  result = await page.evaluate(function checkLocation() {
+    try {
+      return location.href;
+    }
+    catch (error) {
+      return error.message;
+    }
+  });
+  console.log('test: checkLocation:', result);
+  chai.assert.equal(result, 'about:blank', 'location is about:blank');
+
+  await page.goto(targetURL);
+  console.log('goto', targetURL);
+  await page.waitFor(15000);
+  console.log('waitFor(15000)');
   result = await page.evaluate(function getCaches() {
     try {
       return caches.constructor.name + ' at ' + location.href;

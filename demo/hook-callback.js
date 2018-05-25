@@ -7668,7 +7668,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
       }
       return false;
     };
-    wrapGlobalProperty = function ([object, properties, objectName, moveto]) {
+    _window[Symbol.for('wrapGlobalProperty')] = wrapGlobalProperty = function ([object, properties, objectName, moveto]) {
       let names;
       if (properties === '*') {
         names = _Object.getOwnPropertyNames(object);
