@@ -54,12 +54,14 @@ default:
   console.log('"killall chrome" may help when puppeteer is unstable');
   const targetFolder = 'demo';
   const target = 'cache-bundle.json';
-  await del([path.join(targetFolder, target)]);
-  console.log('clean up ' + target);
+  const automationCacheBundle = JSON.parse(fs.readFileSync(path.join(targetFolder, target), 'UTF-8'));
+  const automationCacheBundleStatus = JSON.parse(automationCacheBundle["https://thin-hook.localhost.localdomain/automation.json"]);
+  const serverSecret = automationCacheBundleStatus.serverSecret;
+  console.log('serverSecret', serverSecret);
   await new Promise(resolve => setTimeout(resolve, 4000));
   console.log('wait 4000');
-  const browser = await puppeteer.launch({ headless: true, args: [ '--disable-gpu' ], executablePath: chromePath });
-  const page = await browser.newPage();
+  let browser = await puppeteer.launch({ headless: true, args: [ '--disable-gpu' ], executablePath: chromePath });
+  let page = await browser.newPage();
   await page.setViewport({ width: 1200, height: 800 });
 
   /*
@@ -81,8 +83,57 @@ default:
     console.log('load');
   });
 
-
   let result;
+
+
+  // start generation of cache-bundle.json
+  await page.goto(targetURL);
+  console.log('goto', targetURL);
+  await page.waitFor(4000);
+  console.log('waitFor(4000)');
+
+  let rawCacheBundleJSON;
+  while (!rawCacheBundleJSON) {
+    try {
+      rawCacheBundleJSON = await page.evaluate(new Function(`return async function cacheBundle() {
+        try {
+          return __${serverSecret}__;
+        }
+        catch (e) {
+          return [][0]; // undefined;
+        }
+      }`)());
+    }
+    catch (e) {
+      // try again
+      console.log(e.message);
+    }
+    await new Promise(resolve => setTimeout(resolve, 5000));
+  }
+  console.log('cacheBundle raw length = ', rawCacheBundleJSON.length, ' bytes');
+
+  let rawCacheBundle = JSON.parse(rawCacheBundleJSON);
+  let cacheBundle = { version: rawCacheBundle.version };
+  let keys = Object.keys(rawCacheBundle).sort();
+  for (let key of keys) {
+    if (key !== 'version') {
+      cacheBundle[key] = rawCacheBundle[key];
+    }
+  }
+  let cacheBundleJSON = JSON.stringify(cacheBundle, null, 2);
+  let cacheBundlePath = path.join(__dirname, target);
+  fs.writeFileSync(cacheBundlePath, cacheBundleJSON);
+  keys.splice(keys.indexOf('version'), 1);
+  console.log(cacheBundlePath, 'version = ', cacheBundle.version,' length = ', cacheBundleJSON.length, ' bytes with ', keys.length, ' files = \n', JSON.stringify(keys, null, 2));
+
+  browser.close();
+
+  await new Promise(resolve => setTimeout(resolve, 4000));
+  console.log('wait 4000');
+
+  browser = await puppeteer.launch({ headless: true, args: [ '--disable-gpu' ], executablePath: chromePath });
+  page = await browser.newPage();
+  await page.setViewport({ width: 1200, height: 800 });
 
   // tests
   await page.goto(targetURL);
@@ -356,148 +407,7 @@ default:
   console.log('test: checkLocation:', result);
   chai.assert.equal(result, 'about:blank', 'location is about:blank');
 
-
   // end of tests
-
-  // start generation of cache-bundle.json
-  await page.goto(targetURL);
-  console.log('goto', targetURL);
-  await page.waitFor(15000);
-  console.log('waitFor(15000)');
-
-  result = await page.evaluate(function waitForBundleSetFetched() {
-    return new Promise(resolve => {
-      let intervalId = setInterval(async () => {
-        try {
-          let model = document.querySelector('live-localizer').shadowRoot
-            .getElementById('main').shadowRoot
-            .getElementById('dialog')
-            .querySelector('live-localizer-panel').shadowRoot
-            .getElementById('model');
-          if (model) {
-            clearInterval(intervalId);
-            // Note: bundle-set-fetched is the load completion event for live-localizer widget and irrelevant to cache-bundle.json
-            model.addEventListener('bundle-set-fetched', (event) => {
-              resolve('Event ' + event.type);
-            });
-          }
-          else {
-            // try again
-          }
-        }
-        catch (e) {
-          // try again
-        }
-      }, 100);
-    });
-  });
-  console.log('load', result);
-
-  result = await page.evaluate(function clearCache() {
-    return new Promise(resolve => {
-      let result = [];
-      caches.keys()
-        .then(keys => Promise
-          .all(keys
-            .map(key => { result.push(key); return caches.delete(key); })))
-              .then(() => { resolve(result); });
-    });
-  });
-  console.log('clear caches', result);
-
-  await page.goto(targetURL);
-  console.log('goto', targetURL);
-  await page.waitFor(2000);
-  console.log('waitFor(2000)');
-
-  result = await page.evaluate(function waitForBundleSetFetched() {
-    return new Promise(resolve => {
-      let intervalId = setInterval(async () => {
-        try {
-          let model = document.querySelector('live-localizer').shadowRoot
-            .getElementById('main').shadowRoot
-            .getElementById('dialog')
-            .querySelector('live-localizer-panel').shadowRoot
-            .getElementById('model');
-          if (model) {
-            clearInterval(intervalId);
-            // Note: bundle-set-fetched is the load completion event for live-localizer widget and irrelevant to cache-bundle.json
-            model.addEventListener('bundle-set-fetched', (event) => {
-              resolve('Event ' + event.type);
-            });
-          }
-          else {
-            // try again
-          }
-        }
-        catch (e) {
-          // try again
-        }
-      }, 100);
-    });
-  });
-  console.log('reload', result);
-
-  result = await page.evaluate(function navigateToCacheTargets() {
-    return new Promise(async (resolve) => {
-      let menuItems = document.querySelector('my-app').shadowRoot
-        .children[3] // app-drawer-layout
-        .querySelector('app-drawer')
-        .querySelector('iron-selector')
-        .querySelectorAll('a');
-      let result = [];
-      for (let i = menuItems.length - 1; i >= 0; i--) {
-        menuItems[i].click();
-        result.push(menuItems[i].href);
-        await new Promise(_resolve => {
-          setTimeout(_resolve, 20000); // Note: It is better to wait for specific events or conditions than just for a fixed period
-        });
-      }
-      resolve(result);
-    });
-  });
-  console.log('navigate\n', result);
-
-  let rawCacheBundleJSON;
-  rawCacheBundleJSON = await page.evaluate(async function cacheBundle() {
-    const target = 'cache-bundle.json';
-    const cacheBundleURL = new URL(target, hook.parameters.baseURI);
-    const PSEUDO_URL_PREFIX = 'https://thin-hook.localhost.localdomain/';
-    const DEFAULT_VERSION = '1'
-    const version = 'version_' + (new URL(document.querySelector('script').src, location.href).searchParams.get('version') || DEFAULT_VERSION);
-    let cache = await caches.open(version);
-    let requests = await cache.keys();
-    let cacheBundle = { version: version };
-    let baseURI = hook.parameters.baseURI;
-    let origin = new URL(baseURI).origin;
-
-    for (let request of requests) {
-      if (request.url.startsWith(cacheBundleURL.href) || request.url.startsWith(PSEUDO_URL_PREFIX)) {
-        continue;
-      }
-      let response = await cache.match(request);
-      let text = await response.text();
-      let url = new URL(request.url, baseURI);
-      let key = origin === url.origin ? url.pathname : request.url;
-      cacheBundle[key] = text;
-    }
-    return JSON.stringify(cacheBundle,null,0);
-  });
-  console.log('cacheBundle raw length = ', rawCacheBundleJSON.length, ' bytes');
-
-  let rawCacheBundle = JSON.parse(rawCacheBundleJSON);
-  let cacheBundle = { version: rawCacheBundle.version };
-  let keys = Object.keys(rawCacheBundle).sort();
-  for (let key of keys) {
-    if (key !== 'version') {
-      cacheBundle[key] = rawCacheBundle[key];
-    }
-  }
-  let cacheBundleJSON = JSON.stringify(cacheBundle, null, 2);
-  let cacheBundlePath = path.join(__dirname, target);
-  fs.writeFileSync(cacheBundlePath, cacheBundleJSON);
-  keys.splice(keys.indexOf('version'), 1);
-  console.log(cacheBundlePath, 'version = ', cacheBundle.version,' length = ', cacheBundleJSON.length, ' bytes with ', keys.length, ' files = \n', JSON.stringify(keys, null, 2));
 
   browser.close();
 

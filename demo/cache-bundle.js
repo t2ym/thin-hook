@@ -126,6 +126,9 @@ if (enableCacheBundle) {
         switch (cacheStatus.status) {
         default:
         case 'load': // cache-bundle.json -> Cache
+          if (self.cacheBundleLoading) {
+            break;
+          }
           self.cacheBundleLoading = true;
           await loadCache(cache); // race condition with hook.min.js
           cacheStatus.status = 'loaded';
@@ -138,10 +141,6 @@ if (enableCacheBundle) {
         case 'reset': // reset the cache
           // Note: Other loading processes are in progress and the cache is being updated in parallel
           await caches.delete(version);
-          cache = await caches.open(version);
-          // transition to 'loaded' status to skip loading cache-bundle.json on reload
-          cacheStatus.status = 'loaded';
-          await cache.put(new Request(CACHE_STATUS_PSEUDO_URL), new Response(JSON.stringify(cacheStatus), { headers: { 'Content-Type': 'application/json' }}));
           break;
         case 'save': // Cache -> cache-bundle.json
           await saveCache(cache);
@@ -198,8 +197,68 @@ if (enableCacheBundle) {
   }
   else if (self.constructor.name === 'Window' && top === self) {
     const CACHE_STATUS_PSEUDO_URL = 'https://thin-hook.localhost.localdomain/cache-status.json';
-    const DEFAULT_VERSION = '1'
-    const version = 'version_' + (new URL(document.querySelector('script').src, location.href).searchParams.get('version') || DEFAULT_VERSION);
+    const AUTOMATION_PSEUDO_URL = 'https://thin-hook.localhost.localdomain/automation.json';
+    const DEFAULT_VERSION = '1';
+    const href = location.href;
+    const version = 'version_' + (new URL(document.querySelector('script').src, href).searchParams.get('version') || DEFAULT_VERSION);
+    const currentScript = document.currentScript;
+    const automation = async function automation(status) {
+      /*
+        status = {
+          state: 'init', // optional
+          serverSecret: '459a3f38a12c261ae88bcac370c63ba9c31125733d50484650566865433f5694',
+          script: 'async function automationFunction() {}'
+        }
+      */
+      const scriptURL = new URL(currentScript.src, href);
+      const authorization = scriptURL.searchParams.get('authorization');
+      let hash = hook.utils.createHash('sha256');
+      hash.update(status.serverSecret + status.script);
+      let digest = hash.digest('hex');
+      if (digest === authorization) {
+        // script is authorized
+        const automationFunction = new Function('version', 'href', 'status', 'AUTOMATION_PSEUDO_URL', 'return ' + status.script)(version, href, status, AUTOMATION_PSEUDO_URL);
+        console.log('cache-bundle.js: automationFunction: ' + automationFunction.toString());
+        const automationFunctionResultName = '__' + status.serverSecret + '__';
+        const automationFunctionResult = await automationFunction();
+        Object.defineProperty(window, automationFunctionResultName, {
+          configurable: true,
+          enumerable: false,
+          get: function get() {
+            delete window[automationFunctionResultName];
+            return automationFunctionResult;
+          }
+        });
+      }
+      else {
+        // script is not authorized
+        await caches.delete(version); // clear the caches
+        location = 'about:blank';
+      }
+    };
+    const watcher = async function watcher() {
+      let intervalId = setInterval(async function () {
+        let cache = await caches.open(version);
+        let cacheStatus;
+        let cacheStatusResponse = await cache.match(CACHE_STATUS_PSEUDO_URL);
+        if (cacheStatusResponse) {
+          cacheStatus = JSON.parse(await cacheStatusResponse.text());
+        }
+        if (!cacheStatus || cacheStatus.status !== 'loaded') {
+          return;
+        }
+        clearInterval(intervalId);
+        let automationStatus;
+        let automationResponse = await cache.match(AUTOMATION_PSEUDO_URL);
+        if (automationResponse) {
+          automationStatus = JSON.parse(await automationResponse.text());
+        }
+        if (automationStatus) {
+          await automation(automationStatus);
+        }
+      }, 1000);
+    };
+    watcher();
     let status = new URL(location.href).searchParams.get('cache-bundle');
     if (status) {
       let cacheStatus = { status: status };

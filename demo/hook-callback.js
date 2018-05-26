@@ -700,8 +700,8 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
     '/components/thin-hook/demo/es6-module4.js,f,*': '@import.meta_reader,f',
     '/components/polymer/lib/utils/async.html,script@566,timeOut,run': '@setTimeout_reader',
     '/components/thin-hook/demo/,script@4861': '@document_writer',
-    '/components/thin-hook/demo/,script@5009': '@document_writer',
-    '/components/thin-hook/demo/,script@5010': '@document_writer',
+    '/components/thin-hook/demo/,script@5088': '@document_writer',
+    '/components/thin-hook/demo/,script@5089': '@document_writer',
     '/components/thin-hook/demo/sub-document.html,*': '@document_writer',
     '/components/thin-hook/demo/commonjs2.js': '@path_join_prohibited',
     '/components/thin-hook/demo/commonjs2.js,tty': '@tty_prohibited',
@@ -7635,7 +7635,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
   [
   ].forEach(url => whitelist.add(url));
   const wildcardWhitelist = [
-    new RegExp('^at ([^(]* [(])?' + origin + '/components/'), // trust the site contents including other components
+    new RegExp('^at (.* [(])?' + origin + '/components/'), // trust the site contents including other components
     new RegExp('^at ([^(]* [(])?' + 'https://cdnjs.cloudflare.com/ajax/libs/vis/4[.]18[.]1/vis[.]min[.]js'),
     new RegExp('^at ([^(]* [(])?' + 'https://www.gstatic.com/charts/loader[.]js'),
   ];

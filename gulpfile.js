@@ -25,6 +25,7 @@ const assert = chai.assert;
 const espree = require('espree');
 const escodegen = require('escodegen');
 const createHash = require('sha.js');
+const crypto = require('crypto');
 
 const hook = require('./hook.js');
 
@@ -56,7 +57,48 @@ gulp.task('demo', (done) => {
   runSequence('browserify-commonjs', 'webpack-es6-module', 'webpack-commonjs', 'update-no-hook-authorization', 'update-no-hook-authorization-in-html', 'encode-demo-html', 'cache-bundle', done);
 });
 
-gulp.task('cache-bundle', shell.task('npm run cache-bundle'));
+// server secret for cache-automation.js
+const serverSecret = crypto.randomFillSync(Buffer.alloc(32)).toString('hex');
+const cacheBundlePath = path.join('demo', 'cache-bundle.json');
+const cacheAutomationScriptPath = path.join('demo', 'cache-automation.js');
+const cacheAutomationScript = fs.readFileSync(cacheAutomationScriptPath, 'UTF-8');
+let version = 'version_1';
+let authorization; // sha256(serverSecret + cacheAutomationScript)
+let hash = hook.utils.createHash('sha256');
+hash.update(serverSecret + cacheAutomationScript);
+authorization = hash.digest('hex');
+
+gulp.task('cache-bundle', (done) => {
+  runSequence('get-version', 'cache-bundle-automation-json', 'cache-bundle-automation', done);
+});
+
+gulp.task('get-version', (done) => {
+  return gulp.src(['demo/original-index.html'], { base: 'demo' })
+    .pipe(through.obj((file, enc, callback) => {
+      let html = String(file.contents);
+      let versionIndex = html.indexOf('/hook.min.js?version=') + '/hook.min.js?version='.length;
+      let versionIndexEnd = html.indexOf('&', versionIndex);
+      version = 'version_' + html.substring(versionIndex, versionIndexEnd);
+      callback(null, file);
+    }))
+    .pipe(through.obj((file, enc, callback) => {
+      done();
+    }));
+});
+
+gulp.task('cache-bundle-automation-json', (done) => {
+  fs.writeFileSync(cacheBundlePath, JSON.stringify({
+    "version": version,
+    "https://thin-hook.localhost.localdomain/automation.json": JSON.stringify({
+      "state": "init", // update state in the script to perform operations including reloading
+      "serverSecret": serverSecret,
+      "script": cacheAutomationScript
+    },null,0)
+  },null,2))
+  done();
+});
+
+gulp.task('cache-bundle-automation', shell.task('npm run cache-bundle'));
 
 gulp.task('update-no-hook-authorization', (done) => {
   setTimeout(() => {
@@ -176,6 +218,7 @@ gulp.task('encode-demo-html', (done) => {
         });
         html = html.replace(/no-hook-authorization=([a-z0-9]*),([a-z0-9]*),/,
           'no-hook-authorization=' + digests.join(',') + ',');
+        html = html.replace(/(src="cache-bundle[.]js\?no-hook=true&authorization=)([a-z0-9,]*)"/, '$1' + authorization + '"');
         lastHtml = currentHtml;
         currentHtml = html;
         file.contents = new Buffer(html);
