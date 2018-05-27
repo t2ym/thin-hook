@@ -198,14 +198,21 @@ if (enableCacheBundle) {
   else if (self.constructor.name === 'Window' && top === self) {
     const CACHE_STATUS_PSEUDO_URL = 'https://thin-hook.localhost.localdomain/cache-status.json';
     const AUTOMATION_PSEUDO_URL = 'https://thin-hook.localhost.localdomain/automation.json';
+    const PSEUDO_URL_PREFIX = 'https://thin-hook.localhost.localdomain/';
     const DEFAULT_VERSION = '1';
+    const DEFAULT_HOOK_NAME = '__hook__';
+    const DEFAULT_CONTEXT_GENERATOR_NAME = 'method';
     const href = location.href;
-    const version = 'version_' + (new URL(document.querySelector('script').src, href).searchParams.get('version') || DEFAULT_VERSION);
+    const hookJsURL = new URL(document.querySelector('script').src, href);
+    const version = 'version_' + hookJsURL.searchParams.get('version') || DEFAULT_VERSION;
+    const hookName = hookJsURL.searchParams.get('hook-name') || DEFAULT_HOOK_NAME;
+    const contextGeneratorName = hookJsURL.searchParams.get('context-generator-name') || DEFAULT_CONTEXT_GENERATOR_NAME;
+    const serviceWorkerReady = hookJsURL.searchParams.get('service-worker-ready') === 'true';
     const currentScript = document.currentScript;
     const automation = async function automation(status) {
       /*
         status = {
-          state: 'init', // optional
+          state: 'init',
           serverSecret: '459a3f38a12c261ae88bcac370c63ba9c31125733d50484650566865433f5694',
           script: 'async function automationFunction() {}'
         }
@@ -217,10 +224,73 @@ if (enableCacheBundle) {
       let digest = hash.digest('hex');
       if (digest === authorization) {
         // script is authorized
-        const automationFunction = new Function('version', 'href', 'status', 'AUTOMATION_PSEUDO_URL', 'return ' + status.script)(version, href, status, AUTOMATION_PSEUDO_URL);
-        console.log('cache-bundle.js: automationFunction: ' + automationFunction.toString());
+        const automationFunction = hook.Function(hookName, [[ AUTOMATION_PSEUDO_URL, {} ]], contextGeneratorName)
+          ('version', 'href', 'status', 'return ' + status.script)(version, href, status);
+        //console.log('cache-bundle.js: automationFunction: ' + automationFunction.toString());
         const automationFunctionResultName = '__' + status.serverSecret + '__';
-        const automationFunctionResult = await automationFunction();
+        const automationFunctionWrapper = async function automationFunctionWrapper() {
+          try {
+            // clear cache
+            let automationStatus = JSON.parse(await (await (await caches.open(version)).match(AUTOMATION_PSEUDO_URL)).text());
+            if (automationStatus.state === 'init') {
+              let cache = await caches.open(version);
+              let keys = await cache.keys();
+              for (let key of keys) {
+                if (key.url.startsWith(PSEUDO_URL_PREFIX)) {
+                  continue;
+                }
+                await cache.delete(key);
+              }
+              automationStatus.state = 'cleaned';
+              //console.log('cache-bundle.js: cleaned caches');
+              await (await caches.open(version)).put(new Request(AUTOMATION_PSEUDO_URL), new Response(JSON.stringify(automationStatus), { headers: { 'Content-Type': 'application/json' }}));
+              await new Promise(resolve => setTimeout(resolve, 5000));
+              location.reload();
+            }
+
+            // automate navigation
+            await automationFunction();
+            //console.log('cache-bundle.js: automationFunction() exited');
+
+            // collect cache
+            let result = await (async function cacheBundle() {
+              const target = 'cache-bundle.json';
+              const cacheBundleURL = new URL(target, hook.parameters.baseURI);
+              const DEFAULT_VERSION = '1'
+              const version = 'version_' + (new URL(document.querySelector('script').src, location.href).searchParams.get('version') || DEFAULT_VERSION);
+              let cache = await caches.open(version);
+              let requests = await cache.keys();
+              let cacheBundle = { version: version };
+              let baseURI = hook.parameters.baseURI;
+              let origin = new URL(baseURI).origin;
+
+              for (let request of requests) {
+                if (request.url.startsWith(cacheBundleURL.href) || request.url.startsWith(PSEUDO_URL_PREFIX)) {
+                  continue;
+                }
+                let response = await cache.match(request);
+                let text = await response.text();
+                let url = new URL(request.url, baseURI);
+                let key = origin === url.origin ? url.pathname : request.url;
+                cacheBundle[key] = text;
+              }
+              return JSON.stringify(cacheBundle, null, 0);
+            })();
+            //console.log('cache-bundle.js: collected raw cache bundle');
+
+            automationStatus.state = 'done';
+            await (await caches.open(version)).put(new Request(AUTOMATION_PSEUDO_URL), new Response(JSON.stringify(automationStatus), { headers: { 'Content-Type': 'application/json' }}));
+            //console.log('cache-bundle.js: done');
+            return result;
+          }
+          catch (e) {
+            //console.log('cache-bundle.js: error ', e);
+            return e.message;
+          }
+        };
+        console.log('cache-bundle.js: calling automationFunctionWrapper()');
+        const automationFunctionResult = await automationFunctionWrapper();
+        console.log('cache-bundle.js: automationFunctionWrapper() exited with ', automationFunctionResult);
         Object.defineProperty(window, automationFunctionResultName, {
           configurable: true,
           enumerable: false,
@@ -258,7 +328,12 @@ if (enableCacheBundle) {
         }
       }, 1000);
     };
-    watcher();
+    if (serviceWorkerReady) {
+      window.addEventListener('load', function onLoad(event) {
+        window.removeEventListener('load', onLoad);
+        watcher();
+      });
+    }
     let status = new URL(location.href).searchParams.get('cache-bundle');
     if (status) {
       let cacheStatus = { status: status };

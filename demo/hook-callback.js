@@ -743,6 +743,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
     '/components/thin-hook/demo/global.js': '@global_js',
     '/components/thin-hook/demo/global.js,inaccessible': '@global_js_inaccessible',
     '/components/thin-hook/demo/global.js,inaccessible,accessible': '@global_js_accessible',
+    'https://thin-hook.localhost.localdomain/automation.json,*': '@cache_automation',
   };
   /*
     Prefixed Contexts object:
@@ -3117,6 +3118,15 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
         },
       },
     },
+    'live-localizer-main': {
+      [S_CHAIN]: () => acl['Polymer.LegacyElement'],
+    },
+    'live-localizer-panel': {
+      [S_CHAIN]: () => acl['Polymer.LegacyElement'],
+    },
+    'live-localizer-dialog': {
+      [S_CHAIN]: () => acl['Polymer.LegacyElement'],
+    },
     'live-localizer': {
       [S_DEFAULT]: 'r-x',
       [S_CHAIN]: () => acl['Polymer.LegacyElement'],
@@ -3135,6 +3145,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
             [S_DEFAULT]: '---',
             '@iron-location': 'r--',
           },
+          '@cache_automation': 'r--',
         },
       },
     },
