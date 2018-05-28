@@ -92,7 +92,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     }
     get defaultOptions() {
       return [
-        '__hook__', // [0] hookName
+        Symbol.for('__hook__'), // [0] hookName
         [[this.context, { static: '_c_' }]], // [1] initialContext
         'method', // [2] contextGeneratorName
         true, // [3] metaHooking
@@ -1698,17 +1698,17 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           },
           {
             "code": "{ let a = 1; eval('1'); }",
-            "hooked": "const _c_=$hook$.$(__hook__,[]);{let a=1;$hook$.eval('__hook__',[['HookApiTest',{}]],'method',{a:true})('1',(script,eval)=>eval(script));}",
+            "hooked": "const _c_=$hook$.$(__hook__,[]);{let a=1;$hook$.eval(Symbol.for('__hook__'),[['HookApiTest',{}]],'method',{a:true})('1',(script,eval)=>eval(script));}",
             "name": "CallExpression  { let a = 1; eval('1'); }"
           },
           {
             "code": "'use strict'; eval('1');",
-            "hooked": "'use strict';const _c_=$hook$.$(__hook__,[]);$hook$.eval('__hook__',[['HookApiTest',{}]],'method',{$use_strict$:true})('1',(script,_eval)=>_eval(script));",
+            "hooked": "'use strict';const _c_=$hook$.$(__hook__,[]);$hook$.eval(Symbol.for('__hook__'),[['HookApiTest',{}]],'method',{$use_strict$:true})('1',(script,_eval)=>_eval(script));",
             "name": "CallExpression  'use strict'; eval('1');"
           },
           {
             "code": "var a; new Promise(resolve => { a = resolve; setTimeout('let resolve = a; a = null; resolve(1);', 100); });",
-            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest','_pp_a;HookApiTest','_pp_Promise;HookApiTest']);$hook$.global(__hook__,_c_[0],'a','var')[_c_[1]];__hook__($hook$.global(__hook__,_c_[0],'Promise','get')[_c_[2]],null,[(...args)=>(__hook__(resolve=>{$hook$.global(__hook__,_c_[0],'a','set')[_c_[1]]=resolve;$hook$.setTimeout('__hook__',[['HookApiTest',{}]],'method')('let resolve = a; a = null; resolve(1);',100);},null,args,_c_[0]))],_c_[0],true);",
+            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest','_pp_a;HookApiTest','_pp_Promise;HookApiTest']);$hook$.global(__hook__,_c_[0],'a','var')[_c_[1]];__hook__($hook$.global(__hook__,_c_[0],'Promise','get')[_c_[2]],null,[(...args)=>(__hook__(resolve=>{$hook$.global(__hook__,_c_[0],'a','set')[_c_[1]]=resolve;$hook$.setTimeout(Symbol.for('__hook__'),[['HookApiTest',{}]],'method')('let resolve = a; a = null; resolve(1);',100);},null,args,_c_[0]))],_c_[0],true);",
             "asynchronous": true,
             "name": "CallExpression  var a; new Promise(resolve => { a = resolve; setTimeout('let resolve = a; a = null; resolve(1);', 100); });"
           },

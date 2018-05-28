@@ -224,7 +224,7 @@ if (enableCacheBundle) {
       let digest = hash.digest('hex');
       if (digest === authorization) {
         // script is authorized
-        const automationFunction = hook.Function(hookName, [[ AUTOMATION_PSEUDO_URL, {} ]], contextGeneratorName)
+        const automationFunction = hook.Function(Symbol.for(hookName), [[ AUTOMATION_PSEUDO_URL, {} ]], contextGeneratorName)
           ('version', 'href', 'status', 'return ' + status.script)(version, href, status);
         //console.log('cache-bundle.js: automationFunction: ' + automationFunction.toString());
         const automationFunctionResultName = '__' + status.serverSecret + '__';

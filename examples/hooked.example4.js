@@ -32,7 +32,7 @@ const __context_mapper__ = $hook$.$(__hook__, [
       }, null, args, __context_mapper__[0])),
     1000
   ], __context_mapper__[0], 0);
-  $hook$.setTimeout('__hook__', [[
+  $hook$.setTimeout(Symbol.for('__hook__'), [[
       'examples/example4.js',
       {}
     ]], 'cachedMethod')('console.log("setTimeout string")', 1000);
@@ -43,7 +43,7 @@ const __context_mapper__ = $hook$.$(__hook__, [
         ['setTimeout f1']
       ], __context_mapper__[5]);
     }, null, args, __context_mapper__[5]));
-  $hook$.setTimeout('__hook__', [[
+  $hook$.setTimeout(Symbol.for('__hook__'), [[
       'examples/example4.js',
       {}
     ]], 'cachedMethod')(f1, 1000);
@@ -68,7 +68,7 @@ const __context_mapper__ = $hook$.$(__hook__, [
       }, null, args, __context_mapper__[0])),
     1000
   ], __context_mapper__[0], 0);
-  $hook$.setInterval('__hook__', [[
+  $hook$.setInterval(Symbol.for('__hook__'), [[
       'examples/example4.js',
       {}
     ]], 'cachedMethod')('console.log("setInterval string")', 1000);
@@ -79,7 +79,7 @@ const __context_mapper__ = $hook$.$(__hook__, [
         ['setInterval f2']
       ], __context_mapper__[8]);
     }, null, args, __context_mapper__[8]));
-  $hook$.setInterval('__hook__', [[
+  $hook$.setInterval(Symbol.for('__hook__'), [[
       'examples/example4.js',
       {}
     ]], 'cachedMethod')(f2, 1000);

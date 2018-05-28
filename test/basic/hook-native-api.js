@@ -18,7 +18,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     'Document'
   ].forEach((name) => {
     if (_global[name]) {
-      hook.hook(hook[name]('__hook__', [[name, {}]], 'method'));
+      hook.hook(hook[name](Symbol.for('__hook__'), [[name, {}]], 'method'));
     }
   });
 }

@@ -407,6 +407,21 @@ default:
   console.log('test: checkLocation:', result);
   chai.assert.equal(result, 'about:blank', 'location is about:blank');
 
+  await page.goto(targetURL);
+  console.log('goto', targetURL);
+  await page.waitFor(15000);
+  console.log('waitFor(15000)');
+  result = await page.evaluate(async function getEvalObject() {
+    try {
+      return hook.eval('__hook__')('Object').name + ' at ' + location.href;
+    }
+    catch (error) {
+      return error.message;
+    }
+  });
+  console.log('test: getEvalObject:', result);
+  chai.assert.equal(result, 'unknown error', 'cannot access Object via hook.eval');
+
   // end of tests
 
   browser.close();
