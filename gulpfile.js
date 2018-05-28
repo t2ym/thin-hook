@@ -100,6 +100,8 @@ gulp.task('cache-bundle-automation-json', (done) => {
 
 gulp.task('cache-bundle-automation', shell.task('npm run cache-bundle'));
 
+gulp.task('puppeteer-attack-test', shell.task('npm run test:attack'));
+
 gulp.task('update-no-hook-authorization', (done) => {
   setTimeout(() => {
     return gulp.src(['demo/no-hook-authorization.js'], { base: 'demo' })

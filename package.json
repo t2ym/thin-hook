@@ -1,6 +1,6 @@
 {
   "name": "thin-hook",
-  "version": "0.1.13-stack.18",
+  "version": "0.1.13-stack.19",
   "description": "Thin Hook Preprocessor",
   "main": "hook.js",
   "scripts": {
@@ -12,7 +12,9 @@
     "polyserve": "polyserve -p 8080 -H 0.0.0.0 --compile never --proxy-path /components/thin-hook/demo/errorReport.json --proxy-target http://localhost:8081/errorReport.json",
     "errorReportService": "node demo/errorReportService.js",
     "cacheBundleUploadService": "node demo/cacheBundleUploadService.js",
-    "cacheBundleGeneration": "node demo/cacheBundleGeneration.js"
+    "cacheBundleGeneration": "node demo/cacheBundleGeneration.js",
+    "test:attack": "run-p -r -l polyserve cacheBundleUploadService puppeteerAttackTest",
+    "puppeteerAttackTest": "node test/puppeteerAttackTest.js"
   },
   "bin": {
     "hook": "./hook-cli.js"

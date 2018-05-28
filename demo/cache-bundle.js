@@ -196,6 +196,7 @@ if (enableCacheBundle) {
     cacheBundle();
   }
   else if (self.constructor.name === 'Window' && top === self) {
+    const createHash = hook.utils.createHash;
     const CACHE_STATUS_PSEUDO_URL = 'https://thin-hook.localhost.localdomain/cache-status.json';
     const AUTOMATION_PSEUDO_URL = 'https://thin-hook.localhost.localdomain/automation.json';
     const PSEUDO_URL_PREFIX = 'https://thin-hook.localhost.localdomain/';
@@ -219,7 +220,7 @@ if (enableCacheBundle) {
       */
       const scriptURL = new URL(currentScript.src, href);
       const authorization = scriptURL.searchParams.get('authorization');
-      let hash = hook.utils.createHash('sha256');
+      let hash = createHash('sha256');
       hash.update(status.serverSecret + status.script);
       let digest = hash.digest('hex');
       if (digest === authorization) {

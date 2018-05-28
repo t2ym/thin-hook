@@ -35,6 +35,8 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
   const Symbol = self.Symbol;
   const JSON = self.JSON;
   const URL = self.URL;
+  const createHash = hook.utils.createHash;
+  const HTMLParser = hook.utils.HTMLParser;
   let wrapGlobalProperty; // = function (object, property, objectName); assigned at the bottom of this script
   class Stack {
     constructor(stack) {
@@ -1743,7 +1745,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
             if (result) {
               if (opType === 'w') {
                 //console.log('set innerHTML: context = ' + hookArgs[3]);
-                let stream = new hook.utils.HTMLParser.WritableStream({
+                let stream = new HTMLParser.WritableStream({
                   onopentag(name, attributes) {
                     //console.log('set innerHTML: tagName = ' + name);
                     // TODO: Apply ACL for attributes as well with normalization of attributes to properties (mostly identical)
@@ -7898,6 +7900,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
                              'removeEventListener',
                              'dispatchEvent',
                            ],             'window',          _window ],
+      [ hook.utils, '*', 'hook.utils' ],
     ].forEach(wrapGlobalProperty);
   }
 }
