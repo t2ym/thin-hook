@@ -500,6 +500,8 @@ gulp.task('build', () => {
       let minifiedAstJson = JSON.stringify(minifiedAst, null, 2);
       try {
         assert.equal(minifiedAstJson, originalAstJson, 'Minified AST is identical to the original AST');
+        minifiedCode = minifiedCode.replace(/var define,module,exports;/,
+          'var define,module,exports;const _global_=new Function("return this")();const Reflect=_global_.Reflect,String=_global_.String,Array=_global_.Array,RegExp=_global_.RegExp,Object=_global_.Object,Uint8Array=_global_.Uint8Array,RangeError=_global_.RangeError,parseInt=_global_.parseInt,parseFloat=_global_.parseFloat,ArrayBuffer=_global_.ArrayBuffer,Symbol=_global_.Symbol,setTimeout=_global_.setTimeout,clearTimeout=_global_.clearTimeout,URL=_global_.URL,console=_global_.console,JSON=_global_.JSON;');
         file.contents = new Buffer(licenseHeader + minifiedCode);
       }
       catch (e) {
@@ -578,6 +580,8 @@ gulp.task('build:coverage', () => {
       let minifiedAstJson = JSON.stringify(minifiedAst, null, 2);
       try {
         assert.equal(minifiedAstJson, originalAstJson, 'Minified AST is identical to the original AST');
+        minifiedCode = minifiedCode.replace(/var define,module,exports;/,
+          'var define,module,exports;const _global_=new Function("return this")();const Reflect=_global_.Reflect,String=_global_.String,Array=_global_.Array,RegExp=_global_.RegExp,Object=_global_.Object,Uint8Array=_global_.Uint8Array,RangeError=_global_.RangeError,parseInt=_global_.parseInt,parseFloat=_global_.parseFloat,ArrayBuffer=_global_.ArrayBuffer,Symbol=_global_.Symbol,setTimeout=_global_.setTimeout,clearTimeout=_global_.clearTimeout,URL=_global_.URL,console=_global_.console,JSON=_global_.JSON;');
         file.contents = new Buffer(licenseHeader + minifiedCode);
       }
       catch (e) {

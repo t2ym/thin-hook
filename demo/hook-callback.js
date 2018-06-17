@@ -3,6 +3,8 @@
 Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 */
 {
+  const Map = self.Map;
+  const Set = self.Set;
   class SetMap extends Map {
     set(key, value) {
       let set;
@@ -35,6 +37,8 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
   const Symbol = self.Symbol;
   const JSON = self.JSON;
   const URL = self.URL;
+  const Reflect = self.Reflect;
+  const atob = self.atob;
   const createHash = hook.utils.createHash;
   const HTMLParser = hook.utils.HTMLParser;
   let wrapGlobalProperty; // = function (object, property, objectName); assigned at the bottom of this script
