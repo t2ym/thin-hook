@@ -58,14 +58,23 @@ Thin Hook Preprocessor (experimental)
 
 ### Hooked Output
 ```javascript
-  class C {
+  const __context_mapper__ = $hook$.$(__hook__, [
+    'examples/example2.js,C',
+    '_p_C;examples/example2.js,C',
+    'examples/example2.js,C,add',
+    'examples/example2.js,C,add,plus'
+  ]);
+  $hook$.global(__hook__, __context_mapper__[0], 'C', 'class')[__context_mapper__[1]] = class C {
     add(a, b) {
       return __hook__((a = 1, b = 2) => {
-        let plus = (...args) => __hook__((x, y) => x + y, this, args, 'examples/example2.js,C,add,plus');
-        return plus(a, b);
-      }, this, arguments, 'examples/example2.js,C,add');
+        let plus = (...args) => __hook__((x, y) => x + y, null, args, __context_mapper__[3]);
+        return __hook__(plus, null, [
+          a,
+          b
+        ], __context_mapper__[2], 0);
+      }, null, arguments, __context_mapper__[2]);
     }
-  }
+  };
 ```
 
 ### Preprocess
@@ -191,7 +200,7 @@ Thin Hook Preprocessor (experimental)
 //
 // Configuration:
 //   hook.parameters.hookWorker = `hook-worker.js?no-hook=true`;
-importScripts('../hook.min.js?no-hook=true', 'context-generator.js?no-hook=true');
+importScripts('../hook.min.js?no-hook=true', 'context-generator.js?no-hook=true', 'bootstrap.js?no-hook=true');
 onmessage = hook.hookWorkerHandler;
 ```
 
@@ -703,7 +712,9 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
             ? f.apply(thisArg, args)
             : f(...args);
       }
-    </script>
+    </script><!-- end of mandatory no-hook scripts -->
+    <!-- comment --->
+    <script src="..."></script>
     ...
 </html>
 ```
@@ -713,8 +724,8 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
 ```html
 <html>
   <head>
-    <script src="../thin-hook/hook.min.js?version=1&no-hook=true&hook-name=__hook__&fallback-page=index-no-sw.html&hook-property=false&service-worker-ready=false"></script></head></html><!--
-    <C!-- Hook Callback Function without hooking properties --C>
+    <script src="../thin-hook/hook.min.js?version=1&no-hook=true&hook-name=__hook__&fallback-page=index-no-sw.html&hook-property=false&service-worker-ready=false"></script></head></html>
+    <!-- Hook Callback Function without hooking properties -->
     <script no-hook>
       window.__hook__ = function __hook__(f, thisArg, args, context, newTarget) {
         ...
@@ -724,10 +735,15 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
             ? f.apply(thisArg, args)
             : f(...args);
       }
-    </script>
+    </script><!--<C!-- end of mandatory no-hook scripts --C>
+    <C!-- comment --C>
+    <script src="..."></script>
     ...
 </html>-->
 ```
+
+- `</head></html>` is inserted between the first `hook.min.js` script and the second no-hook script, which looks strange but is required for correct execution of no-hook scripts.
+  - If `</head></html>` is inserted at the end of mandatory no-hook scripts according to the normal HTML format, the page encounters the unexpected "hook is not defined" error, whose root cause is under investigation.
 
 ## Supported Syntax
 
@@ -790,6 +806,7 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
   - `hookPrefix`: Prefix for `hook.global()._p_GlobalVariable` proxy accessors. Default: `_p_`
     - Note: `hook.global()` return the global object with `get/set` accessors for the prefixed name
   - `initialScope`: Initial scope object (`{ vname: true, ... }`) for hooked eval scripts. Default: null
+- `$hook$`: `$hook$ === hook`. Alias of `hook` in hooked scripts
 - `hook.hookHtml(html: string, hookName, url, cors, contextGenerator, contextGeneratorScripts, isDecoded, metaHooking = true, scriptOffset = 0, _hookProperty = true, asynchronous = false)`
 - `hook.__hook__(f: function or string, thisArg: object, args: Array, context: string, newTarget: new.target meta property)`
   - minimal hook callback function with property hooking
@@ -837,6 +854,13 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
   - `cachedMethodDebug(astPath: Array)`: context as `'script.js,Class,Method'`, comparing contexts with those by "oldMethod" in console.warn() messages
   - `oldMethod(astPath: Array)`: context as `'script.js,Class,Method'` for compatibility
   - custom context generator function has to be added to this object with its unique contextGeneratorName
+- `hook.$(symbolToContext = __hook__, contexts)`: context symbol generator function used in hooked scripts to generate symbols corresponding to given contexts
+  - Example call inserted at the beginning of a hooked script: `const __context_mapper__ = $hook$.$(__hook__, [ 'examples/example2.js,C', ... ]);`
+  - `__context_mapper__`: `Array` of symbol contexts
+    - In a hooked script, `__context_mapper__` is actually `__ + hex(sha256(topContextOfScript + code)) + __`
+      - Note: Due to this specification, **the same script in the same URL cannot be loaded to a single document multiple times**
+    - `__context_mapper__[N]`: the symbol context corresponding to the string context `contexts[N]`
+    - `__hook__[__context_mapper__[N]]` is set as `contexts[N]` so that `__hook__` can convert symbol contexts to their corresponding string contexts
 - Hooked Native APIs: Automatically applied in `hook()` preprocessing
   - `hook.global(hookCallback: function = hookName, context: string, name: string, type: string)._p_name`: hooked global variable accessor when `hookGlobal` is true
     - `type`: one of `'var', 'function', 'let', 'const', 'class', 'get', 'set', 'delete', 'typeof'`
@@ -969,6 +993,8 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
     - `cors=true` parameter: CORS script, e.g., `<script src="https://cross.origin.host/path/script.js?cors=true"></script>`
 - `hook.serviceWorkerTransformers`:
   - `encodeHtml(html: string)`: encode HTML for Service Worker
+    - `<!-- end of mandatory no-hook scripts -->`: insert this exact marker as a comment so that all mandatory no-hook scripts before the marker in the HTML of the entry document can be executed even at the first load without Service Worker
+      - Note: `no-hook-authorization` hashes are NOT effective at the first load
   - `decodeHtml(html: string)`: decode encoded HTML for Service Worker
 - `hook.hookWorkerHandler(event)`: onmessage handler for Hook Workers
   - Usage: `onmessage = hook.hookWorkerHandler` in Hook Worker script
@@ -980,6 +1006,157 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
 - `utils`: Utilities
   - `createHash`: Synchronous SHA hash generator collections from [sha.js](https://github.com/crypto-browserify/sha.js)
   - `HTMLParser`: HTML parser from [htmlparser2](https://www.npmjs.com/package/htmlparser2)
+
+## Plugins
+
+- Plugins are no-hook scripts for enhancements
+  - Currently, they are configured for the demo application under `demo/`, but fully customizable for any target applications
+
+### `<script context-generator src="no-hook-authorization.js?no-hook=true"></script>`
+
+- Configurations
+  - `hook.parameters.noHookAuthorization = { "hex sha256 digest for no-hook script": true, ... }`
+    - Hex sha256 digests have to be updated in the build process
+      - See `update-no-hook-authorization` gulp task
+    - Hex sha256 digest of the `no-hook-authorization.js` script itself has to be set as a parameter for `hook.min.js`
+      - `<script src="../../thin-hook/hook.min.js?version=496&no-hook-authorization=6a83335a7630118516213f52715a24520efc7030b3562291e92a06482894b95e&service-worker-ready=false"></script>`
+      - See `update-no-hook-authorization-in-html` gulp task
+  - `hook.parameters.sourceMap = [...]`
+  - `hook.parameters.hookWorker = 'hook-worker.js?no-hook=true';`
+
+### `<script context-generator src="disable-devtools.js?no-hook=true"></script>`
+
+- Features
+  - Force redirection to `about:blank` when the user tries to open Developer Tools
+  - Force redirection to `about:blank` when the user tries to inspect a source code of the pages
+- Configurations
+  - `const devtoolsDisabled = true`: Use `false` and rebuild with `gulp demo` to enable Dev Tools
+
+### `<script context-generator src="context-generator.js?no-hook=true"></script>`
+
+- Configurations
+  - `hook.contextGenerators.hash`: an example custom context generator (not used for demo)
+  - `hook.contextGenerators.method2`: an example custom context generator (not used for demo)
+  - `Object.freeze(hook.contextGenerators)`
+
+### `<script context-generator src='bootstrap.js?no-hook=true'></script>`
+
+- Configurations
+  - `hook.parameters.emptyDocumentUrl`
+  - `hook.parameters.bootstrap`
+  - `hook.parameters.onloadWrapper`
+  - `hook.parameters.emptySvg`
+  - `hook.parameters.bootstrapSvgScripts`
+  - `hook.parameters.noHookAuthorizationParameter`: Value of `hook.min.js?no-hook-authorization` parameter used in `hook-callback.js`
+  - `hook.parameters.noHookAuthorizationFailed = {}`
+  - `hook.parameters.noHookAuthorizationPassed = {}`
+
+### `<script context-generator no-hook>hook.parameters.* ...</script>`
+
+- Configurations
+  - `hook.parameters.cors`
+  - `hook.parameters.opaque`
+  - `hook.parameters.worker` (Ineffective and unused for now)
+
+### `<script context-generator src="cache-bundle.js?no-hook=true&authorization=..."></script>`
+
+- Features
+  - Fetch `cache-bundle.json` and store the contents into `caches`
+    - Format: `{ "version": "version_XXX", "same origin URL path (absolute)": "text data", ..., "absolute URL": "text data", ... }`
+    - Supported MIME types: text-only for now
+      - `.js`: `application/json`
+      - `.html`: `text/html`
+      - `.json`: `application/json`
+      - `.svg`: `image/svg+xml`
+      - other extensions: `text/plain`
+  - Generate `cache-bundle.json` from `caches` and upload the data to saveURL (`errorReport.json`) if the entry page is invoked with `?cache-bundle=save` parameter
+    - The server must be `npm run upload` with `cacheBundleUploadService.js` to receive and save `cache-bundle.json`
+    - Parameters: `{ "type": "cache-bundle.json", "data": "stringified cache-bundle.json" }`
+  - Automate generation of `cache-bundle.json`
+    - Trigger automation by `cacheBundleGeneration.js` via `puppeteer`
+      - Invoked via `cache-bundle` gulp task
+    - Fetch a special `cache-bundle.json` at build time
+      - Generated by `cache-bundle-automation-json` gulp task
+      - Format:
+        - `"version": "version_123"`: version obtained via `get-version` gulp task
+        - `"https://thin-hook.localhost.localdomain/automation.json":`: `JSON.stringify()` with the object with the following properties
+          - `"state": "init"`: update state in the script to perform operations including reloading
+          - `"serverSecret": serverSecret`: one-time build-time-only secret for validating `cache-automation.js` script
+          - `"script": cacheAutomationScript`: contents of `cache-automation.js` script
+    - `cache-automation.js`: script for collecting caches by automatically navigating the target application
+      - `cache-automation.js` script is hooked with the context `https://thin-hook.localhost.localdomain/automation.json,*`
+        - ACL has to be defined for `cache-automation.js`
+      - Cache cleanup and page reload are done before `cache-automation.js` execution
+      - Cache bundle generation is performed after `cache-automation.js` execution
+
+- Configurations
+  - `const enableCacheBundle = true`: Use `false` and rebuild with `gulp demo` to disable `cache-bundle`
+  - For Service Worker
+    - `const cacheBundleURL = new URL('cache-bundle.json', hook.parameters.baseURI);`
+    - `const saveURL = new URL('errorReport.json', hook.parameters.baseURI);`
+  - `?authorization=`: `hex(sha256(serverSecret + cache-automation.js script))`
+    - Set via `encode-demo-html` gulp task
+  - For automated generation of `cache-bundle.json`
+    - `cache-automation.js` must be fully customized for the target application
+    - ACL for `cache-automation.js` with the context `https://thin-hook.localhost.localdomain/automation.json,*`
+
+### `<script src="hook-callback.js?no-hook=true"></script>`
+
+- Features
+  - ACL for objects in HTML documents, SVG, Worker, SharedWorker
+  - Maintain `contextStack` with `Stack` class object
+    - `Stack` class object is a brancheable linked list with `push/pop` operations
+      - The branching feature of `Stack` is not utilized for now
+  - Call `hook.hookCallbackCompatibilityTest()`
+  - Hook global objects
+    - Via
+      - `hooked = hook[name](Symbol.for('__hook__'), [[name, { random: name === 'Node' }]], 'method')`
+      - `Object.defineProperty(_global, name, { value: hooked, configurable: true, enumerable: false, writable: false });`
+    - Target global object names
+      - `eval`
+      - `setTimeout`
+      - `setInterval`
+      - `Node`
+      - `Element`
+      - `HTMLScriptElement`
+      - `HTMLIFrameElement`
+      - `HTMLObjectElement`
+      - `HTMLEmbedElement`
+      - `HTMLAnchorElement`
+      - `HTMLAreaElement`
+      - `Document`
+      - `importScripts`
+  - Prohibit global object access via automation like puppeteer
+    - Return `undefined` on prohibited global object access
+    - Forced redirection to `about:blank` on prohibited global object access
+- Configurations
+  - For ACL
+    - `__hook__`: hook callback function
+      - `Object.defineProperty(_global, '__hook__', { configurable: false, enumerable: false, writable: false, value: hookCallbacks.__hook__ });`
+        - `hookCallbacks.__hook__`: full features (acl + contextStack + object access graph)
+        - `hookCallbacks.__hook__acl`: acl only (acl + contextStack)
+        - `hookCallbacks.__hook__min`: minimal (no acl)
+    - `const acl`: ACL
+  - For global object access
+    - `const enableDebugging = false`: Use `true` to enable debugging by disabling forced redirection to `about:blank` on prohibited global object access
+    - `const wildcardWhitelist`: `Array` of `RegExp` for Chrome browser's `new Error().stack` format
+      - Example configurations for demo
+        - `new RegExp('^at (.* [(])?' + origin + '/components/'), // trust the site contents including other components`
+        - `new RegExp('^at ([^(]* [(])?' + 'https://cdnjs.cloudflare.com/ajax/libs/vis/4[.]18[.]1/vis[.]min[.]js'),`
+        - `new RegExp('^at ([^(]* [(])?' + 'https://www.gstatic.com/charts/loader[.]js'),`
+    - `const excludes = new Set() : { 'window.Math' }`: exclude `Math` object
+      - Note: `Math` object properties must be wrapped with `wrapGlobalProperty` function
+
+#### Notes on Performance Overheads on Global Object Access
+
+- There are significant access performance overheads on global objects due to wrapped property getter/setter functions
+- To mitigate the overheads, define local alias objects for frequently used global objects
+  - For example, `const URL = window.URL, RegExp = window.RegExp, ...`
+- Internal Details on the overheads:
+  - If `contextStack` is empty, the global object is accessed outside of hooked scripts and thus `new Error().stack` has to be analyzed, which is an extremely heavy operation
+  - If `contextStack` is not empty, the global object is accessed within a hooked script, whose access can be controlled via ACL
+    - `contextStack` operations are relatively lightweight without performance degradation on deep call stack
+  - If local alias objects are defined, the corresponding global object access is performed only once per object, whose overheads are insignificant
 
 ## TODOs
 
