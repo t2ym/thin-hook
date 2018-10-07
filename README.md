@@ -950,6 +950,9 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
       - `<script context-generator src="custom-context-generator.js?no-hook=true"></script>`: with src URL
       - Valid only in the main entry document with `hook.min.js` for Service Worker
       - Must be runnable in both Service Worker and browser document
+      - Defined variables for context generator scripts in Service Worker
+        - `version` variable: cache name as a string `version_{version number}`
+          - Note: In Service Worker, `'version_' + new URL(location.href).searchParams.get('version')` might be incorrect since Service Worker for the old version before version upgrading might still be running for the new version. In contrast, `'version_' + new URL(document.querySelector('script').src).searchParams.get('version')` in the main document is always up-to-date.
       - Extensions other than context generators:
         - Set Service Worker parameters:
           - `hook.parameters.cors = [ 'cors_url_1', 'cors_url_2', ... ]`: specify CORS script URLs

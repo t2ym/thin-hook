@@ -6,7 +6,8 @@ if (enableCacheBundle) {
     const PSEUDO_URL_PREFIX = 'https://thin-hook.localhost.localdomain/';
     const CACHE_STATUS_PSEUDO_URL = 'https://thin-hook.localhost.localdomain/cache-status.json';
     const DEFAULT_VERSION = '1'
-    const version = 'version_' + (new URL(location.href).searchParams.get('version') || DEFAULT_VERSION);
+    //const version = 'version_' + (new URL(location.href).searchParams.get('version') || DEFAULT_VERSION);
+    // Note: Service Worker provides context generator scripts with the current version as a variable
 
     const loadCache = async function loadCache(cache) {
       let response = await fetch(cacheBundleURL.href);
