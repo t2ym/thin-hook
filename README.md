@@ -989,7 +989,29 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
         - Bootstrap Scripts for SVG
           - `hook.parameters.bootstrapSvgScripts = '<script xlink:href="URL?params"></script>...'`
         - Check Request callback on Fetch at Service Worker
-          - `hook.parameters.checkRequest = function (event, response, cache) { /* check request */ return response ; }`: `response` - cached response if exists; See `demo/disable-devtools.js`
+          - `hook.parameters.checkRequest = async function (event, response, cache) { /* check request */ return response ; }`: `response` - cached response if exists; See `demo/disable-devtools.js`
+        - Check Response callback on Fetch at Service Worker
+          - `hook.parameters.checkResponse = async function (event, request, response, cache) { /* check response */ return response ; }`: `response` - just fetched response; Not called if a cache response exists
+        - List of Asynchronous Tasks before Service Worker registration
+          - `hook.parameters.preServiceWorkerTasks`: The first task is checked after `DOMContentLoaded` event; Therefore, the first task `Promise` must be pushed before `DOMContentLoaded` event 
+            - If the last task resolves to a constant string `"skipServiceWorkerRegistration"`, the default Service Worker registration processes are skipped and the last task takes the responsiblity of the Service Worker registration and reloading the entry page. Even after the Service Worker registration completed and the page is reloaded, this `"skipServiceWorkerRegistration"` value is effective for the task so that `hook.min.js` can complete remaining tasks such as starting the ping service and the hook workers.
+            - 3 Acceptable Data Types
+              - `Promise`: A single `Promise` object; Equivalent to `[ Promise ]`;
+              - `[ Promise, Promise, ...]`: `Array` of `Promise` objects
+              - `Async Iterable`: `Async Iterator` implementing `tasks[Symbol.asyncIterator]` protocol
+        - Callback on Errors from `hook.parameters.preServiceWorkerTasks`
+          - `hook.parameters.onPreServiceWorkerTasksError = async function onError(exception) {}`: Asynchronous function to handle the exception
+            - Default: `window.location = 'about:blank';`
+        - Callback to Decode Entry HTML in a plugin
+          - `hook.parameters.decodeEntryHtml = async function decodeEntryHtml(event, request, response, cache, original, decoded)`
+            - `event: FetchEvent`: Event for the fetch request
+            - `request: Request`: Request object that fetched the content
+            - `response: Response`: Response object of the fetch
+            - `cache: Cache`: Cache object for the current version
+            - `original: String` : original entry page HTML
+            - `decoded: String` : `= hook.serviceWorkerTransformers.decodeHtml(original)`
+            - return value: `String` decoded entry page HTML to respond to the document
+              - The function can just return `original` or `decoded` while it can also modify the content depending on the situation.
         - Root of Application Path
           - `hook.parameters.appPathRoot = '/';` - The app assets are under `location.origin + hook.parameters.appPathRoot`
     - register as Service Worker
