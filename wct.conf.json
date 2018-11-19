@@ -1,18 +1,11 @@
 {
   "plugins": {
     "local": {
-      "disabled": true,
-      "browsers": [
-        "chrome",
-        "firefox"
-      ]
-    },
-    "headless": {
       "browsers": [
         "chrome",
         "firefox"
       ],
-      "browsersOptions": {
+      "browserOptions": {
         "chrome": [
           "disable-gpu"
         ],
