@@ -133,6 +133,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <!-- pass iframe src with static cross-origin HTML URL, whose contents are inaccessible --> 
       <iframe id="crossOriginDocument" src="https://localhost/inexistent/" width="80%" height="400"></iframe>
 
+      <!-- pass iframe src with static same-origin HTML URL, whose contents are inexistent
+        Notes:
+         - HTTP 404 response with text/html body is treated just as a normal text/html document, which has no hooking and whose contents are freely accesible.
+         - HTTP 404 response with text/plain body is also converted to a text/html document, whose contents are freely accessible without hooking.
+         - HTTP 404 response with text/html body an inline location='about:blank' script tag is still a normal text/html document without hooking at its load event.
+         - Thus, HTTP server must respond with 30x redirection to 'about:blank' so that the response can be treated as cross-origin, whose contents are inaccessible. See demo/demoServer.js
+           - In demo/demoServer.js, there is a fallback handler app.all('*', (req, res) => { res.redirect(307, 'about:blank')); } at the tail to handle "Not Found" contents.
+      -->
+      <iframe id="sameOriginInexistentDocument" src="/inexistent/" width="80%" height="400"></iframe>
+
       <!-- block script src="javascript:..." even if the URL ends with .js -->
       <script id="scriptSrcStaticJavascript" src="javascript:chai.assert.throws(() => { caches }, /^Permission Denied:/); let o = {}; o.js"></script>
 
@@ -334,6 +344,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           }, /^SecurityError:/);
           chai.assert.throws(() => {
             this.$.crossOriginDocument.contentDocument;
+          }, /^SecurityError:/);
+        }.bind(this));
+
+        // Block accessing contents of inexistent document
+        this.$.sameOriginInexistentDocument.addEventListener('load', function (event) {
+          console.log('this.$.sameOriginInexistentDocument loaded', event.type);
+          chai.assert.throws(() => {
+            this.$.sameOriginInexistentDocument.contentWindow;
+          }, /^SecurityError:/);
+          chai.assert.throws(() => {
+            this.$.sameOriginInexistentDocument.contentDocument;
           }, /^SecurityError:/);
         }.bind(this));
 
