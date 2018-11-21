@@ -1012,6 +1012,17 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
             - `decoded: String` : `= hook.serviceWorkerTransformers.decodeHtml(original)`
             - return value: `String` decoded entry page HTML to respond to the document
               - The function can just return `original` or `decoded` while it can also modify the content depending on the situation.
+        - Optional headers to include in cache response headers
+          - `hook.parameters.significantHeaders = { "Header-Name": true }`
+        - Additional Cacheable Content-Types
+          - `hook.parameters.cacheableContentTypes = { "text/css": true, "image/png": true, ... }`
+            - Note: `text/html`, `text/javascript`, `image/svg+xml` must not be included here
+        - Callback to Validate Cacheable URL
+          - `hook.parameters.validateCacheableUrl = function (url, contentType)`
+            - `url: String`: target URL to validate
+            - `contentType: String`: normalized Content-Type without charset
+            - return a truthy value if `url` with `contentType` is cacheable
+            - If the callback function is undefined, any `contentType` values within `hook.parameters.cacheableContentTypes` are cacheable
         - Root of Application Path
           - `hook.parameters.appPathRoot = '/';` - The app assets are under `location.origin + hook.parameters.appPathRoot`
     - register as Service Worker
@@ -1089,12 +1100,20 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
 - Features
   - Fetch `cache-bundle.json` and store the contents into `caches`
     - Format: `{ "version": "version_XXX", "same origin URL path (absolute)": "text data", ..., "absolute URL": "text data", ... }`
-    - Supported MIME types: text-only for now
+    - Basic MIME types:
       - `.js`: `application/json`
       - `.html`: `text/html`
       - `.json`: `application/json`
       - `.svg`: `image/svg+xml`
-      - other extensions: `text/plain`
+    - Extended Metadata Format: See `demo/cache-bundle.json`
+      - key: `"url?param=2": Object`
+        - property: `"Location": "url?param=1"` - link to the other content to eliminate redundant identical body data for multiple URLs
+          - Note: If Non-dataURI `"Location"` exists, other metadata entries are ignored
+        - property: `"Location": "data:image/jpeg;base64,..."` - encoded body data for non-textual contents
+          - Note: `"Location"` appears only once in a metadata object, of course
+        - property: `"Content-Type": "text/xml"` - MIME type
+        - property: `"body": "body in string"` - content body
+        - property: `"Other-Headers": "header value"` - additional significant HTTP headers specified in `hook.parameters.significantHeaders`
   - Generate `cache-bundle.json` from `caches` and upload the data to saveURL (`errorReport.json`) if the entry page is invoked with `?cache-bundle=save` parameter
     - The server must be `npm run upload` with `cacheBundleUploadService.js` to receive and save `cache-bundle.json`
     - Parameters: `{ "type": "cache-bundle.json", "data": "stringified cache-bundle.json" }`
@@ -1114,9 +1133,14 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
         - ACL has to be defined for `cache-automation.js`
       - Cache cleanup and page reload are done before `cache-automation.js` execution
       - Cache bundle generation is performed after `cache-automation.js` execution
+        - Metadata are processed and redundant body data are converted to links to other contents with the same body data within `cache-bundle.json`
 
 - Configurations
   - `const enableCacheBundle = true`: Use `false` and rebuild with `gulp demo` to disable `cache-bundle`
+  - For extended metadata for `cache-bundle.json`
+    - `hook.parameters.significantHeaders = { "Header-Name": true }`: optional
+    - `hook.parameters.cacheableContentTypes = { "text/css": true, "image/png": true, ... }`: optional
+    - `hook.parameters.validateCacheableUrl = function (url, contentType)`: optional
   - For Service Worker
     - `const cacheBundleURL = new URL('cache-bundle.json', hook.parameters.baseURI);`
     - `const saveURL = new URL('errorReport.json', hook.parameters.baseURI);`

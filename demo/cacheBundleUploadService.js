@@ -26,16 +26,64 @@ app.listen(8081);
 app.post('/errorReport.json', function(req, res) {
   if (req.body.type === 'cache-bundle.json') { 
     let rawData = JSON.parse(req.body.data);
-    let data = { version: rawData.version };
+    let cacheBundle = { version: rawData.version };
     let keys = Object.keys(rawData).sort();
+    let bodyData = new Map();
     for (let key of keys) {
-      if (key !== 'version') {
-        data[key] = rawData[key];
+      if (key === 'version') {
+        continue;
+      }
+      let content = rawData[key];
+      if (typeof content === 'object') {
+        if (content['Location']) {
+          if (content['Location'].startsWith('data:')) {
+            if (bodyData.has(content['Location'])) {
+              let link = bodyData.get(content['Location']);
+              cacheBundle[key] = {
+                "Location": link
+              };
+            }
+            else {
+              bodyData.set(content['Location'], key);
+              cacheBundle[key] = content;
+            }
+          }
+          else {
+            // unexpected
+            // discarding the entry
+            console.error('Discarding the entry ' + key + ' ' + JSON.stringify(content, null, 2));
+          }
+        }
+        else if (typeof content['body'] === 'string') {
+          let bodyKey = content['Content-Type'] + '\n' + content['body'];
+          if (bodyData.has(bodyKey)) {
+            let link = bodyData.get(bodyKey);
+            cacheBundle[key] = {
+              "Location": link
+            };
+          }
+          else {
+            bodyData.set(bodyKey, key);
+            cacheBundle[key] = content;
+          }
+        }
+      }
+      else {
+        if (bodyData.has(content)) {
+          let link = bodyData.get(content);
+          cacheBundle[key] = {
+            "Location": link
+          };
+        }
+        else {
+          bodyData.set(content, key);
+          cacheBundle[key] = content;
+        }
       }
     }
-    let dataJSON = JSON.stringify(data, null, 2);
+    let dataJSON = JSON.stringify(cacheBundle, null, 2);
     fs.writeFileSync(path.join(__dirname, 'cache-bundle.json'), dataJSON);
-    console.log('/errorReport.json', 'type = ', req.body.type, ' data.version = ', data.version, ' data.length = ', dataJSON.length, 'written to ', path.join(__dirname, 'cache-bundle.json'));
+    console.log('/errorReport.json', 'type = ', req.body.type, ' data.version = ', cacheBundle.version, ' data.length = ', dataJSON.length, 'written to ', path.join(__dirname, 'cache-bundle.json'));
     res.send(JSON.stringify({
       "status": "ok",
       "message": "uploaded cache-bundle.json in " + req.body.data.length + " bytes",
