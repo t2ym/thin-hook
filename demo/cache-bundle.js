@@ -494,7 +494,12 @@ if (enableCacheBundle) {
       }
     };
     const watcher = async function watcher() {
+      let inProcessing = false;
       let intervalId = setInterval(async function () {
+        if (inProcessing) {
+          return;
+        }
+        inProcessing = true;
         let cache = await caches.open(version);
         let cacheStatus;
         let cacheStatusResponse = await cache.match(CACHE_STATUS_PSEUDO_URL);
@@ -502,6 +507,7 @@ if (enableCacheBundle) {
           cacheStatus = JSON.parse(await cacheStatusResponse.text());
         }
         if (!cacheStatus || cacheStatus.status !== 'loaded') {
+          inProcessing = false;
           return;
         }
         clearInterval(intervalId);
@@ -513,6 +519,7 @@ if (enableCacheBundle) {
         if (automationStatus) {
           await automation(automationStatus);
         }
+        inProcessing = false;
       }, 1000);
     };
     if (serviceWorkerReady) {
