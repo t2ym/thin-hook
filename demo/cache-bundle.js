@@ -1,5 +1,33 @@
 const enableCacheBundle = true;
 if (enableCacheBundle) {
+  // optional significantHeaders to include certain headers in cache response headers
+  hook.parameters.significantHeaders = {
+    //'Last-Modified': true,
+  };
+  hook.parameters.cacheableContentTypes = {
+    // Note: text/html, text/javascript, image/svg+xml must not be included here
+    'text/css': true,
+    'image/png': true,
+    'application/json': true, // for targeted URLs
+  };
+  hook.parameters.validateCacheableUrl = (url, contentType) => {
+    let _url = new URL(url);
+    if (_url.hostname === location.hostname) {
+      // contentType has been normalized by eliminating the trailing '; charset=utf-8'
+      if (contentType === 'application/json') {
+        // targeted Content-Type URL pairs
+        return _url.pathname.startsWith('/components/thin-hook/demo/locales/'); // with static JSON contents
+      }
+      else {
+        // other contents
+        return _url.pathname.startsWith('/components/');
+      }
+    }
+    else {
+      // from CDNs
+      return _url.href.match(/^(https:[/][/]cdnjs[.]cloudflare[.]com[/]ajax[/]libs[/]|https:[/][/]fonts[.]googleapis[.]com[/]css)/);
+    }
+  };
   const cacheBundleURL = new URL('cache-bundle.json', hook.parameters.baseURI);
   const saveURL = new URL('errorReport.json', hook.parameters.baseURI);
   const PSEUDO_URL_PREFIX = 'https://thin-hook.localhost.localdomain/';
@@ -26,12 +54,14 @@ if (enableCacheBundle) {
     let cacheBundle = JSON.parse(await response.text());
     let baseURI = hook.parameters.baseURI;
     if (cacheBundle.version === version) {
+      let promises = [];
       for (let key in cacheBundle) {
         if (key === 'version') {
           continue;
         }
         let url = new URL(key, baseURI);
-        let extension = url.pathname.match(/([.][a-z]*)$/)[1];
+        let match = url.pathname.match(/([.][a-z0-9_]*)$/);
+        let extension = match ? match[1] : '';
         let contentType;
         switch (extension) {
         case '.js':
@@ -50,8 +80,85 @@ if (enableCacheBundle) {
           contentType = 'text/plain';
           break;
         }
-        cache.put(new Request(new URL(key, baseURI).href), new Response(cacheBundle[key], { headers: {'Content-Type': contentType} }));
+        let content = cacheBundle[key];
+        let body = content;
+        let headers = {
+          'Content-Type': contentType
+        };
+        /*
+          Note: Metadata format
+            cacheBundle = {
+              "version": "version_123", // cache version
+              "url?param=1": "body in string", // concise format for string data for .js, .html, .json, .svg; equivalent to { "body": "body in string", "Content-Type": "{type}" }
+              "url?param=2": {
+                "Location": "url?param=1", // link to the other content
+                "Location": "data:image/jpeg;base64,...", // encoded body data; Note: "Location" appears only once in a metadata object, of course
+                // If Non-dataURI "Location" exists, other metadata entries are ignored
+                "Content-Type": "text/xml", // MIME type
+                "body": "body in string", // content body
+                "Other-Headers": "header value", // HTTP headers
+              },
+            }
+        */
+        if (typeof content === 'object') {
+          // handle metadata
+          while (typeof content === 'object') {
+            let value;
+            let _content = content;
+            if (value = content['Location']) {
+              if (value.startsWith('data:')) {
+                let match = value.match(/^data:([^,; ]*)(;[^, ]*)?,(.*)$/);
+                if (match) {
+                  contentType = match[1];
+                  if (match[2] === ';base64') {
+                    body = fetch(value).then(res => res.blob());
+                    content = undefined;
+                  }
+                  else {
+                    body = match[3];
+                    content = undefined;
+                  }
+                  headers['Content-Type'] = contentType;
+                }
+                else {
+                  console.error('cache-bundle.js: discarding malformatted data URL in Location', value);
+                  content = undefined;
+                  body = undefined;
+                }
+              }
+              else {
+                let link = value;
+                body = cacheBundle[link];
+                content = body;
+                continue;
+              }
+            }
+            for (let header in _content) {
+              switch (header) {
+              case 'Location':
+              case 'body':
+                break;
+              default:
+                headers[header] = _content[header];
+                break;
+              }
+            }
+            if (typeof _content.body === 'string') {
+              body = _content.body;
+              content = undefined;
+            }
+          }
+        }
+        if (typeof body !== 'undefined') {
+          if (body instanceof Promise) {
+            promises.push(body.then(_body => cache.put(new Request(new URL(key, baseURI).href), new Response(_body, { headers: headers }))));
+          }
+          else {
+            promises.push(cache.put(new Request(new URL(key, baseURI).href), new Response(body, { headers: headers })));
+          }
+        }
       }
+      await Promise.all(promises);
       return true;
     }
     else {
@@ -103,6 +210,86 @@ if (enableCacheBundle) {
     }
   };
 
+  const generateCacheBundleEntry = async function generateCacheBundleEntry(cacheBundle, request, response, baseURI) {
+    let origin = new URL(baseURI).origin;
+    let url = new URL(request.url, baseURI);
+    let match = url.pathname.match(/([.][a-z0-9]*)$/);
+    let extension = match ? match[1] : '';
+    let contentType;
+    switch (extension) {
+    case '.js':
+      contentType = 'text/javascript';
+      break;
+    case '.html':
+      contentType = 'text/html';
+      break;
+    case '.json':
+      contentType = 'application/json';
+      break;
+    case '.svg':
+      contentType = 'image/svg+xml';
+      break;
+    default:
+      break;
+    }
+    if (contentType) {
+      // concise format
+      // Note: Redundant body data are NOT processed here
+      let text = await response.text();
+      let key = origin === url.origin ? request.url.substring(origin.length) : request.url;
+      let significantHeaders = hook.parameters.significantHeaders;
+      let content = text;
+      if (significantHeaders && Object.keys(significantHeaders).length > 0) {
+        let headers = response.headers;
+        for (let name in significantHeaders) {
+          if (headers.has(name)) {
+            if (typeof content === 'string') {
+              content = {
+                'Content-Type': contentType,
+                body: content,
+              };
+            }
+            content[name] = headers.get(name);
+          }
+        }
+      }
+      cacheBundle[key] = content;
+    }
+    else {
+      // metadata format
+      let content = {};
+      let headers = response.headers;
+      contentType = headers.get('Content-Type');
+      content['Content-Type'] = contentType;
+      if (contentType.startsWith('text/') || contentType.match(/^application[/](xml|javascript)/)) {
+        content['body'] = await response.text();
+      }
+      else {
+        // data URL
+        let blob = await response.blob();
+        content['Location'] = await new Promise(resolve => {
+          let reader = new FileReader();
+          reader.addEventListener('loadend', () => {
+            // Note: readAsDataURL returns data:application/octet-stream;base64,...
+            resolve(reader.result.replace(/^data:([^;]*);base64,/, `data:${contentType};base64,`));
+          });
+          reader.readAsDataURL(blob);
+        });
+      }
+      let significantHeaders = hook.parameters.significantHeaders;
+      if (significantHeaders && Object.keys(significantHeaders).length > 0) {
+        let headers = response.headers;
+        for (let name in significantHeaders) {
+          if (headers.has(name)) {
+            content[name] = headers.get(name);
+          }
+        }
+      }
+      let key = origin === url.origin ? request.url.substring(origin.length) : request.url;
+      cacheBundle[key] = content;
+    }
+  }
+
   const saveCache = async function saveCache(cache, version) {
     let requests = await cache.keys();
     let cacheBundle = { version: version };
@@ -114,10 +301,7 @@ if (enableCacheBundle) {
         continue;
       }
       let response = await cache.match(request);
-      let text = await response.text();
-      let url = new URL(request.url, baseURI);
-      let key = origin === url.origin ? request.url.substring(origin.length) : request.url;
-      cacheBundle[key] = text;
+      await generateCacheBundleEntry(cacheBundle, request, response, baseURI);
     }
 
     return await uploadCacheBundle(cacheBundle);
@@ -171,6 +355,37 @@ if (enableCacheBundle) {
     return 'cacheBundle("' + version + '")';
   };
 
+  if (self.constructor.name === 'ServiceWorkerGlobalScope') {
+    if (hook.parameters.cacheableContentTypes && Object.values(hook.parameters.cacheableContentTypes).length > 0) {
+      const originalCheckResponse = hook.parameters.checkResponse;
+      const cacheableContentTypes = hook.parameters.cacheableContentTypes;
+      const validateCacheableUrl = hook.parameters.validateCacheableUrl;
+      hook.parameters.checkResponse = async function additionalCaching(event, request, response, cache) {
+        if (request.method === 'GET' && response.status === 200) {
+          let headers = response.headers;
+          let contentType = headers.get('Content-Type').split(';')[0];
+          if (cacheableContentTypes[contentType]) {
+            let isCacheableUrl = false;
+            if (validateCacheableUrl) {
+              isCacheableUrl = validateCacheableUrl(request.url, contentType);
+            }
+            else {
+              isCacheableUrl = true;
+            }
+            if (isCacheableUrl) {
+              cache.put(request, response.clone());
+            }
+          }
+        }
+        if (originalCheckResponse) {
+          return originalCheckResponse(event, request, response, cache);
+        }
+        else {
+          return response;
+        }
+      }
+    }
+  }
   if (self.constructor.name === 'Window' && top === self) {
     const createHash = hook.utils.createHash;
     const DEFAULT_VERSION = '1';
@@ -244,10 +459,7 @@ if (enableCacheBundle) {
                   continue;
                 }
                 let response = await cache.match(request);
-                let text = await response.text();
-                let url = new URL(request.url, baseURI);
-                let key = origin === url.origin ? request.url.substring(origin.length) : request.url;
-                cacheBundle[key] = text;
+                await generateCacheBundleEntry(cacheBundle, request, response, baseURI);
               }
               return JSON.stringify(cacheBundle, null, 0);
             })();
@@ -260,7 +472,7 @@ if (enableCacheBundle) {
           }
           catch (e) {
             //console.log('cache-bundle.js: error ', e);
-            return e.message;
+            return e.name + ' ' + e.message + '\n' + e.stack;
           }
         };
         console.log('cache-bundle.js: calling automationFunctionWrapper()');
@@ -282,7 +494,12 @@ if (enableCacheBundle) {
       }
     };
     const watcher = async function watcher() {
+      let inProcessing = false;
       let intervalId = setInterval(async function () {
+        if (inProcessing) {
+          return;
+        }
+        inProcessing = true;
         let cache = await caches.open(version);
         let cacheStatus;
         let cacheStatusResponse = await cache.match(CACHE_STATUS_PSEUDO_URL);
@@ -290,6 +507,7 @@ if (enableCacheBundle) {
           cacheStatus = JSON.parse(await cacheStatusResponse.text());
         }
         if (!cacheStatus || cacheStatus.status !== 'loaded') {
+          inProcessing = false;
           return;
         }
         clearInterval(intervalId);
@@ -301,6 +519,7 @@ if (enableCacheBundle) {
         if (automationStatus) {
           await automation(automationStatus);
         }
+        inProcessing = false;
       }, 1000);
     };
     if (serviceWorkerReady) {

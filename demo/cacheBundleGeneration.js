@@ -60,7 +60,7 @@ default:
   console.log('serverSecret', serverSecret);
   await new Promise(resolve => setTimeout(resolve, 4000));
   console.log('wait 4000');
-  let browser = await puppeteer.launch({ headless: true, args: [ '--disable-gpu' ], executablePath: chromePath });
+  let browser = await puppeteer.launch({ headless: true, dumpio: true, args: [ '--disable-gpu', '--enable-logging=stderr' ], executablePath: chromePath });
   let page = await browser.newPage();
   await page.setViewport({ width: 1200, height: 800 });
 
@@ -110,14 +110,76 @@ default:
     }
     await new Promise(resolve => setTimeout(resolve, 5000));
   }
-  console.log('cacheBundle raw length = ', rawCacheBundleJSON.length, ' bytes');
-
+  console.log('cacheBundle raw ', rawCacheBundleJSON.length > 1000 ? ' length = ' + rawCacheBundleJSON.length + ' bytes' : rawCacheBundleJSON);
   let rawCacheBundle = JSON.parse(rawCacheBundleJSON);
   let cacheBundle = { version: rawCacheBundle.version };
   let keys = Object.keys(rawCacheBundle).sort();
+  /*
+    Note: Metadata format
+      cacheBundle = {
+        "version": "version_123", // cache version
+        "url?param=1": "body in string", // concise format for string data for .js, .html, .json, .svg; equivalent to { "body": "body in string", "Content-Type": "{type}" }
+        "url?param=2": {
+          "Location": "url?param=1", // link to the other content
+          "Location": "data:image/jpeg;base64,...", // encoded body data; Note: "Location" appears only once in a metadata object, of course
+          // If Non-dataURI "Location" exists, other metadata entries are ignored
+          "Content-Type": "text/xml", // MIME type
+          "body": "body in string", // content body
+          "Other-Headers": "header value", // HTTP headers
+        },
+      }
+  */
+  let bodyData = new Map();
   for (let key of keys) {
-    if (key !== 'version') {
-      cacheBundle[key] = rawCacheBundle[key];
+    if (key === 'version') {
+      continue;
+    }
+    let content = rawCacheBundle[key];
+    if (typeof content === 'object') {
+      if (content['Location']) {
+        if (content['Location'].startsWith('data:')) {
+          if (bodyData.has(content['Location'])) {
+            let link = bodyData.get(content['Location']);
+            cacheBundle[key] = {
+              "Location": link
+            };
+          }
+          else {
+            bodyData.set(content['Location'], key);
+            cacheBundle[key] = content;
+          }
+        }
+        else {
+          // unexpected
+          // discarding the entry
+          console.error('Discarding the entry ' + key + ' ' + JSON.stringify(content, null, 2));
+        }
+      }
+      else if (typeof content['body'] === 'string') {
+        let bodyKey = content['Content-Type'] + '\n' + content['body'];
+        if (bodyData.has(bodyKey)) {
+          let link = bodyData.get(bodyKey);
+          cacheBundle[key] = {
+            "Location": link
+          };
+        }
+        else {
+          bodyData.set(bodyKey, key);
+          cacheBundle[key] = content;
+        }
+      }
+    }
+    else {
+      if (bodyData.has(content)) {
+        let link = bodyData.get(content);
+        cacheBundle[key] = {
+          "Location": link
+        };
+      }
+      else {
+        bodyData.set(content, key);
+        cacheBundle[key] = content;
+      }
     }
   }
   let cacheBundleJSON = JSON.stringify(cacheBundle, null, 2);
