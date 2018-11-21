@@ -1197,6 +1197,18 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
     - `const excludes = new Set() : { 'window.Math' }`: exclude `Math` object
       - Note: `Math` object properties must be wrapped with `wrapGlobalProperty` function
 
+### `<script src="wrap-globals.js?no-hook=true"></script>`
+
+- Features
+  - Wrap the remaining global objects which have not been wrapped in `hook-callback.js`
+  - Put this script at the end of global API definitions after `hook-callback.js`
+  - Use `window[Symbol.for('wrapGlobalProperty')]()` to wrap global objects
+    - Defined in `hook-callback.js`
+- Configurations
+  - For global object access
+    - `const excludes = new Set();  [ 'Math' ].forEach(name => excludes.add(name));`
+      - Set of excluded objects in wrapping `window.*`
+
 #### Notes on Performance Overheads on Global Object Access
 
 - There are significant access performance overheads on global objects due to wrapped property getter/setter functions
