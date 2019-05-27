@@ -497,7 +497,12 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
               action = 'pass'; // pass .svg requests with no referrer only from hook.parameters.emptySvg
             }
             else {
-              action = 'reject'; // reject no referrer
+              if (!event.request.destination || event.request.destination === 'sharedworker') {
+                action = 'pass'; // SharedWorker script
+              }
+              else {
+                action = 'reject'; // reject no referrer
+              }
             }
           }
           else if (event.request.url.startsWith(appUrlStartsWith)) {
