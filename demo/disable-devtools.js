@@ -125,15 +125,19 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
     const _location = location.href;
     const _console = console;
     const _JSON = JSON;
-    const isFromServiceWorker = function () {
+    if (typeof self === 'object' && self.constructor.name === 'ServiceWorkerGlobalScope') {
       _Error.stackTraceLimit = Infinity;
-      const stack = (new _Error().stack).split(/\n/);
+      Object.freeze(_Error);
+    }
+    const isFromServiceWorker = function () {
+      const rawStack = new _Error().stack;
+      const stack = rawStack.split(/\n/);
       const thirdLine = stack[3];
       const lastLine = stack[stack.length - 1];
       let result = lastLine.includes(_location) &&
-        ((thirdLine.includes('criticalServiceWorkerGlobalObjectsWrapper') && !thirdLine.includes('eval at <anonymous>')) ||
+        ((thirdLine.includes('criticalServiceWorkerGlobalObjectsWrapper') && !rawStack.includes('eval at <anonymous>')) ||
          (!lastLine.includes('haltDebugger') && !lastLine.includes('devtoolsDetectorMessageHandlerForServiceWorker')));
-      //_console.log((result ? '' : '!') + 'isFromServiceWorker', _JSON.stringify(stack, null, 2));
+      //_console.log((result ? '' : '!') + 'isFromServiceWorker ' + _JSON.stringify(stack, null, 2));
       return result;
     }
     const isFromDevTools = function () {
@@ -220,7 +224,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
         _object = _getPrototypeOf.call(_Object, _object);
       }
     }
-    const haltDebugger = async function (property, opType) {
+    const haltDebugger = async function haltDebugger (property, opType) {
       // Optionally report the hacking behavior to the server via _originalFetch.
       await reportHacking(property, opType);
       // Optionally show some warning messages to the console against the hacking
@@ -239,7 +243,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
             Object.defineProperty(object, property, {
               configurable: false,
               enumerable: desc.enumerable,
-              get: function () {
+              get: function get () {
                 if (!isFromServiceWorker()) {
                   haltDebugger(property, 'r');
                   return undefined;
@@ -252,14 +256,14 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
             Object.defineProperty(object, property, {
               configurable: false,
               enumerable: desc.enumerable,
-              get: function () {
+              get: function get () {
                 if (!isFromServiceWorker()) {
                   haltDebugger(property, 'r');
                   return undefined;
                 }
                 return desc.get.call(this);
               },
-              set: function (value) {
+              set: function set (value) {
                 if (!isFromServiceWorker()) {
                   haltDebugger(property, 'w');
                   return undefined;
@@ -272,7 +276,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
             Object.defineProperty(object, property, {
               configurable: false,
               enumerable: desc.enumerable,
-              get: function () {
+              get: function get () {
                 if (!isFromServiceWorker()) {
                   haltDebugger(property, 'r');
                   return undefined;
@@ -324,7 +328,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
             onDevToolsDetected();
           }
         }, event.data[2]);
-        eval('debugger');
+        (new Function('debugger'))(); // hide variables in the closure
         const afterDebugger = Date.now();
         workerResult[2] = 'end';
         workerResult[3] = devToolsDetectedAtServiceWorker ? event.data[2] : afterDebugger - beforeDebugger;
