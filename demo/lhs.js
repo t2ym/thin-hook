@@ -48,7 +48,7 @@ function lhsvalues() {
     let [wv9, wv10 = 2] = [wv7, wv8];
     let [wv11, ...wv12] = [wv7, ...wv8];
     [wv5, ...wv6] = [wv5, ...wv2];
-    [wv5 = wv1, ...wv6] = [wv1 = 1, ...wv2];
+    [wv5 /* = wv1 // TODO: ad-hoc workaround for syntax error on Chrome 73+ when hooked; root cause described in #288 */, ...wv6] = [wv1 = 1, ...wv2];
     [wv5.p1, ...wv6.p2] = [wv1.p1 = 1, ...wv2.p2];
     [wv5['p1'], ...wv6['p2']] = [wv1['p1'] = 1, ...wv2['p2']];
     [wv7.p3, ...[wv8.p4, wv1]] = [wv1.p1 = {}, ...[wv2.p2, wv3]];
