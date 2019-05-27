@@ -166,7 +166,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
   let _globalObjects = Object.keys(_globalPropertyDescriptors)
     .sort()
     .reduce((acc, curr) => {
-      const globalObjectNames = ['_global', 'frames', 'top', 'global', 'self', 'window', 'parent'];
+      const globalObjectNames = ['_global', 'frames', 'top', 'globalThis', 'content', 'self', 'window', 'parent'];
       //const globalProperties = { history: true, navigator: true, applicationCache: true, crypto: true, localStorage: true, indexedDB: true, caches: true, sessionStorage: true, document: true };
       if (_globalPropertyDescriptors[curr].value && typeof _globalPropertyDescriptors[curr].value !== 'number') {
         let existing = acc.get(_globalPropertyDescriptors[curr].value);
@@ -1087,7 +1087,8 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
     top: 'r--',
     parent: 'r--',
     frames: 'r--',
-    global: 'r--',
+    globalThis: 'r--',
+    content: 'r--',
     self: 'r--',
     _global: 'r--',
     [mainGlobalObjectName]: { // overwrite self: in worker threads
