@@ -3,6 +3,7 @@ async function automationFunction() {
   @license https://github.com/t2ym/thin-hook/blob/master/LICENSE.md
   Copyright (c) 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
   */
+/*__BEGIN__*/
   const timeoutForBundleSetFetched = 60000; // 60sec
   // wait for bundle-set-fetched event
   await new Promise((resolve, reject) => {
@@ -57,4 +58,5 @@ async function automationFunction() {
       reject(e.message);
     }
   });
+/*__END__*/
 }

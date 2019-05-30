@@ -59,6 +59,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <canvas id="myChart" width="400" height="400"></canvas>
 
       <!-- SVG with embedded scripts -->
+      <!--__BEGIN__-->
       <object id="objectStaticData" data="inline-script.svg"></object>
       <object id="objectSetDataAttribute"></object>
       <object id="objectSetDataProperty"></object>
@@ -66,8 +67,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <embed id="embedSetSrcAttribute" type="image/svg+xml">
       <embed id="embedSetSrcProperty" type="image/svg+xml">
       <iframe id="iframeStaticSrcSVG" class="svg" src="inline-script.svg"></iframe>
-      <img src="inline-script.svg"><!-- scripts are disabled in img -->
+      <img src="inline-script.svg"> <!--__END__--><!-- scripts are disabled in img -->
 
+      <!--__BEGIN__-->
       <object id="objectSetDataAttributeInvalid"></object>
       <object id="objectSetDataPropertyInvalid"></object>
       <embed id="embedSetSrcAttributeInvalid">
@@ -75,6 +77,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <iframe id="iframeStaticDataSrcSVG" class="svg" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bD0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiB3aWR0aD0iMjAwcHgiIGhlaWdodD0iMjAwcHgiPgogIDxzY3JpcHQgeGw6aHJlZj0iLi4vLi4vY2hhaS9jaGFpLmpzIj48L3NjcmlwdD4KICA8c2NyaXB0PgogICAgY2hhaS5hc3NlcnQudGhyb3dzKCgpID0+IHsKICAgICAgbmF2aWdhdG9yLnNlcnZpY2VXb3JrZXI7CiAgICB9LCAvXlBlcm1pc3Npb24gRGVuaWVkOi8pOwogIDwvc2NyaXB0PgogIDxzY3JpcHQ+CiAgLyogJmx0OyBjYW5ub3QgYmUgdXNlZCBpbiBpbmxpbmUgc2NyaXB0cyBmb3Igbm93IHNpbmNlIENEQVRBIGlzIG5vdCBzdXBwb3J0ZWQgKi8KICB7CiAgICBsZXQgd2lkdGggPSAyMDA7CiAgICBsZXQgaGVpZ2h0ID0gMjAwOwogICAgbGV0IGRlbHRhID0gMTA7CiAgICBsZXQgeDEgPSBNYXRoLmZsb29yKE1hdGgucmFuZG9tKCkgKiB3aWR0aCk7CiAgICBsZXQgeTEgPSBNYXRoLmZsb29yKE1hdGgucmFuZG9tKCkgKiBoZWlnaHQpOwogICAgbGV0IHgyID0gTWF0aC5mbG9vcihNYXRoLnJhbmRvbSgpICogd2lkdGgpOwogICAgbGV0IHkyID0gTWF0aC5mbG9vcihNYXRoLnJhbmRvbSgpICogaGVpZ2h0KTsKICAgIGxldCBkeDEgPSBNYXRoLmZsb29yKE1hdGgucmFuZG9tKCkgKiBkZWx0YSk7CiAgICBsZXQgZHkxID0gTWF0aC5mbG9vcihNYXRoLnJhbmRvbSgpICogZGVsdGEpOwogICAgbGV0IGR4MiA9IE1hdGguZmxvb3IoTWF0aC5yYW5kb20oKSAqIGRlbHRhKTsKICAgIGxldCBkeTIgPSBNYXRoLmZsb29yKE1hdGgucmFuZG9tKCkgKiBkZWx0YSk7CiAgICBsZXQgaW50ZXJ2YWwgPSAxMDA7CiAgICBsZXQgaW50ZXJ2YWxJZDsKICAgIGxldCBsaW5lOwogICAgbGV0IHRleHQ7CiAgICBsZXQgcmVjdDsKICAgIGxldCBzdGFydERyYXcgPSBmdW5jdGlvbiAobGluZSkgewogICAgICBpbnRlcnZhbElkID0gc2V0SW50ZXJ2YWwoKCkgPT4gewogICAgICAgIGxpbmUuc2V0QXR0cmlidXRlKCd4MScsIE51bWJlcih4MSkudG9TdHJpbmcoKSArICdweCcpOwogICAgICAgIGxpbmUuc2V0QXR0cmlidXRlKCd5MScsIE51bWJlcih5MSkudG9TdHJpbmcoKSArICdweCcpOwogICAgICAgIGxpbmUuc2V0QXR0cmlidXRlKCd4MicsIE51bWJlcih4MikudG9TdHJpbmcoKSArICdweCcpOwogICAgICAgIGxpbmUuc2V0QXR0cmlidXRlKCd5MicsIE51bWJlcih5MikudG9TdHJpbmcoKSArICdweCcpOwogICAgICAgIHgxICs9IGR4MTsKICAgICAgICBpZiAoeDEgPj0gd2lkdGgpIHsKICAgICAgICAgIHgxID0gd2lkdGggLSAoeDEgLSB3aWR0aCk7CiAgICAgICAgICBkeDEgPSAtZHgxOwogICAgICAgIH0KICAgICAgICBlbHNlIGlmICgwID4geDEpIHsKICAgICAgICAgIHgxID0gLXgxOwogICAgICAgICAgZHgxID0gLWR4MTsKICAgICAgICB9CiAgICAgICAgeTEgKz0gZHkxOwogICAgICAgIGlmICh5MSA+PSBoZWlnaHQpIHsKICAgICAgICAgIHkxID0gaGVpZ2h0IC0gKHkxIC0gaGVpZ2h0KTsKICAgICAgICAgIGR5MSA9IC1keTE7CiAgICAgICAgfQogICAgICAgIGVsc2UgaWYgKDAgPiB5MSkgewogICAgICAgICAgeTEgPSAteTE7CiAgICAgICAgICBkeTEgPSAtZHkxOwogICAgICAgIH0KICAgICAgICB4MiArPSBkeDI7CiAgICAgICAgaWYgKHgyID49IHdpZHRoKSB7CiAgICAgICAgICB4MiA9IHdpZHRoIC0gKHgyIC0gd2lkdGgpOwogICAgICAgICAgZHgyID0gLWR4MjsKICAgICAgICB9CiAgICAgICAgZWxzZSBpZiAoMCA+IHgyKSB7CiAgICAgICAgICB4MiA9IC14MjsKICAgICAgICAgIGR4MiA9IC1keDI7CiAgICAgICAgfQogICAgICAgIHkyICs9IGR5MjsKICAgICAgICBpZiAoeTIgPj0gaGVpZ2h0KSB7CiAgICAgICAgICB5MiA9IGhlaWdodCAtICh5MiAtIGhlaWdodCk7CiAgICAgICAgICBkeTIgPSAtZHkyOwogICAgICAgIH0KICAgICAgICBlbHNlIGlmICgwID4geTIpIHsKICAgICAgICAgIHkyID0gLXkyOwogICAgICAgICAgZHkyID0gLWR5MjsKICAgICAgICB9CiAgICAgIH0sIGludGVydmFsKTsKICAgIH07CiAgICBsZXQgb25DbGljayA9IGZ1bmN0aW9uIChldmVudCkgewogICAgICBpZiAodHlwZW9mIGludGVydmFsSWQgPT09ICd1bmRlZmluZWQnKSB7CiAgICAgICAgc3RhcnREcmF3KGxpbmUpOwogICAgICB9CiAgICAgIGVsc2UgewogICAgICAgIGNsZWFySW50ZXJ2YWwoaW50ZXJ2YWxJZCk7CiAgICAgICAgaW50ZXJ2YWxJZCA9IHVuZGVmaW5lZDsKICAgICAgfQogICAgfQogICAgZG9jdW1lbnQuZG9jdW1lbnRFbGVtZW50Lm9ubG9hZCA9IGZ1bmN0aW9uIChldmVudCkgewogICAgICBsaW5lID0gZG9jdW1lbnQucXVlcnlTZWxlY3RvcignI2xpbmUnKTsKICAgICAgdGV4dCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoJyN0ZXh0Jyk7CiAgICAgIHJlY3QgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKCcjcmVjdCcpCiAgICAgIHRleHQudGV4dENvbnRlbnQgPSBmcmFtZUVsZW1lbnQuaWQ7CiAgICAgIHN0YXJ0RHJhdyhsaW5lKTsKICAgICAgcmVjdC5hZGRFdmVudExpc3RlbmVyKCdjbGljaycsIG9uQ2xpY2spOwogICAgfTsKICB9CiAgPC9zY3JpcHQ+CiAgPHJlY3QgaWQ9InJlY3QiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMjAwcHgiIGhlaWdodD0iMjAwcHgiIHN0cm9rZT0iYmx1ZSIgZmlsbD0id2hpdGUiLz4KICA8bGluZSBpZD0ibGluZSIgeDE9IjBweCIgeTE9IjBweCIgeDI9IjIwMHB4IiB5Mj0iMjAwcHgiIHN0eWxlPSJzdHJva2U6cmdiKDI1NSwwLDApO3N0cm9rZS13aWR0aDoxIi8+CiAgPHRleHQgaWQ9InRleHQiIHg9IjBweCIgeT0iMTVweCIgZmlsbD0iYmxhY2siPlNWRyB3aXRoIHNjcmlwdHMgKGluaXRpYWwgdmFsdWUpPC90ZXh0Pgo8L3N2Zz4="></iframe>
       <iframe id="iframeSetDataSrcSVGAttribute" class="svg"></iframe>
       <iframe id="iframeSetDataSrcSVGProperty" class="svg"></iframe>
+      <!--__END__-->
     </div>
 
     <template>
@@ -99,6 +102,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       attached: function() {
         this.drawChart();
+        /*__BEGIN__*/
         this.$.objectSetDataAttribute.setAttribute('data', 'inline-script.svg');
         this.$.objectSetDataProperty.data = 'inline-script.svg';
         this.$.embedSetSrcAttribute.setAttribute('src', 'inline-script.svg');
@@ -137,6 +141,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         chai.assert.throws(function () {
           this.$.embedSetSrcPropertyInvalid.contentDocument;
         }.bind(this), /^Permission Denied:/);
+        /*__END__*/
       },
 
       _langUpdated: function () {
