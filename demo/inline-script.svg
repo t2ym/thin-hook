@@ -82,7 +82,7 @@
       line = document.querySelector('#line');
       text = document.querySelector('#text');
       rect = document.querySelector('#rect')
-      text.textContent = frameElement.id;
+      text.textContent = '😄 ' + frameElement.id;
       startDraw(line);
       rect.addEventListener('click', onClick);
     };
@@ -90,5 +90,5 @@
   ]]></script>
   <rect id="rect" x="0px" y="0px" width="200px" height="200px" stroke="blue" fill="white"/>
   <line id="line" x1="0px" y1="0px" x2="200px" y2="200px" style="stroke:rgb(255,0,0);stroke-width:1"/>
-  <text id="text" x="0px" y="15px" fill="black">SVG with scripts (initial value)</text>
+  <text id="text" x="0px" y="15px" fill="black">😄 SVG with scripts (initial value)</text>
 </svg>

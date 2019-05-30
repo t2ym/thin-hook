@@ -136,7 +136,9 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
     else {
       emptyDocumentURL = window.top.emptyDocumentURL;
       otherWindowObjects = window.top.otherWindowObjects;
+      otherWindowObjects.set(Object, window);
       otherWindowObjectsStatus = window.top.otherWindowObjectsStatus;
+      otherWindowObjectsStatus.set = true;
     }
   }
   const _global = typeof window === 'object' ? window : self;

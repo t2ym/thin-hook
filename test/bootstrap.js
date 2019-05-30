@@ -7,10 +7,10 @@
       baseURI = location.href;
     }
     else {
-      baseURI = top.hook.parameters.baseURI;
+      baseURI = location.href;//top.hook.parameters.baseURI;
     }
     hook.parameters.baseURI = baseURI;
-    noHookAuthorization = new URL(top.document.querySelector('script').src).searchParams.get('no-hook-authorization');
+    noHookAuthorization = new URL(document.querySelector('script').src).searchParams.get('no-hook-authorization');
     break;
   case 'ServiceWorkerGlobalScope':
     baseURI = new URL(location.origin + new URL(location.href).searchParams.get('service-worker-initiator')).href;

@@ -26,6 +26,7 @@ const espree = require('espree');
 const escodegen = require('escodegen');
 const createHash = require('sha.js');
 const crypto = require('crypto');
+const { URL } = require('url');
 
 const hook = require('./hook.js');
 
@@ -94,11 +95,28 @@ gulp.task('demo:convert:full', () => {
 });
 
 gulp.task('_demo', (done) => {
-  runSequence('browserify-commonjs', 'webpack-es6-module', 'webpack-commonjs', 'update-no-hook-authorization', 'update-no-hook-authorization-in-html', 'encode-demo-html', done);
+  runSequence(
+    'browserify-commonjs',
+    'webpack-es6-module',
+    'webpack-commonjs',
+    'update-no-hook-authorization',
+    'update-no-hook-authorization-in-html',
+    'encode-demo-html',
+    done
+  );
 });
 
 gulp.task('demo', (done) => {
-  runSequence('browserify-commonjs', 'webpack-es6-module', 'webpack-commonjs', 'update-no-hook-authorization', 'update-no-hook-authorization-in-html', 'encode-demo-html', 'cache-bundle', done);
+  runSequence(
+    'browserify-commonjs',
+    'webpack-es6-module',
+    'webpack-commonjs',
+    'update-no-hook-authorization',
+    'update-no-hook-authorization-in-html',
+    'encode-demo-html',
+    'cache-bundle',
+    done
+  );
 });
 
 // server secret for cache-automation.js
@@ -113,7 +131,7 @@ hash.update(serverSecret + cacheAutomationScript);
 authorization = hash.digest('hex');
 
 gulp.task('cache-bundle', (done) => {
-  runSequence('get-version', 'cache-bundle-automation-json', 'cache-bundle-automation', done);
+  runSequence('get-version', 'cache-bundle-automation-json', 'cache-bundle-automation', 'script-hashes', done);
 });
 
 gulp.task('get-version', (done) => {
@@ -144,6 +162,101 @@ gulp.task('cache-bundle-automation-json', (done) => {
 
 gulp.task('cache-bundle-automation', shell.task('npm run cache-bundle'));
 
+const SCRIPT_HASHES_PSEUDO_URL = 'https://thin-hook.localhost.localdomain/script-hashes.json';
+gulp.task('script-hashes', () => {
+  return gulp.src(['demo/cache-bundle.json'], { base: 'demo' })
+    .pipe(through.obj((file, enc, callback) => {
+      let cacheBundle = JSON.parse(String(file.contents));
+      let hashes = {};
+      /*
+        Note: Metadata format
+          cacheBundle = {
+            "version": "version_123", // cache version
+            "url?param=1": "body in string", // concise format for string data for .js, .html, .json, .svg; equivalent to { "body": "body in string", "Content-Type": "{type}" }
+            "url?param=2": {
+              "Location": "url?param=1", // link to the other content
+              "Location": "data:image/jpeg;base64,...", // encoded body data; Note: "Location" appears only once in a metadata object, of course
+              // If Non-dataURI "Location" exists, other metadata entries are ignored
+              "Content-Type": "text/xml", // MIME type
+              "body": "body in string", // content body
+              "Other-Headers": "header value", // HTTP headers
+            },
+          }
+      */
+      for (let key in cacheBundle) {
+        let content = cacheBundle[key];
+        let url = new URL(key, 'https://localhost/');
+        if (key === 'version') {
+          continue;
+        }
+        if (typeof content === 'object') {
+          if (typeof content['Content-Type'] === 'string' && content['Content-Type'].startsWith('text/html') && typeof content.body === 'string') {
+            if (typeof content.body !== 'string') {
+              continue;
+            }
+            content = content.body;
+          }
+          else {
+            continue;
+          }
+        }
+        let pathname = (url.protocol === 'https:' || url.protocol === 'http:') ? url.pathname : '';
+        if (pathname && pathname.match(/([.]html?|[/])$/)) {
+          let inScript = false;
+          let inlineScript;
+          let stream = new hook.utils.HTMLParser.WritableStream({
+            onopentag(name, attributes) {
+              if (name === 'script') {
+                inScript = true;
+                inlineScript = '';
+              }
+              for (let attr in attributes) {
+                let attrValue = attributes[attr];
+                if (attrValue) {
+                  let match = attrValue.match(/^\/\* ctx:(["'])([a-zA-Z0-9+/=]*)["'] raw:["']([a-zA-Z0-9+/=]*)["'] \*\/((.*\n?)*)$/);
+                  if (match) {
+                    const hash = hook.utils.createHash('sha256');
+                    hash.update(attrValue);
+                    let digest = hash.digest('hex');
+                    hashes[digest] = decodeURIComponent(new Buffer(match[2], 'base64').toString('binary'));
+                  }
+                }
+              }
+            },
+            ontext(text) {
+              if (inScript) {
+                inlineScript += text;
+              }
+            },
+            onclosetag(name) {
+              if (name === 'script' && inScript) {
+                if (inlineScript) {
+                  let match = inlineScript.match(/^\/\* ctx:(["'])([a-zA-Z0-9+/=]*)["'] raw:["']([a-zA-Z0-9+/=]*)["'] \*\/((.*\n?)*)$/);
+                  if (match) {
+                    const hash = hook.utils.createHash('sha256');
+                    hash.update(inlineScript);
+                    let digest = hash.digest('hex');
+                    hashes[digest] = decodeURIComponent(new Buffer(match[2], 'base64').toString('binary'));
+                  }
+                }
+              }
+              inScript = false;
+            }
+          });
+          stream.write(content);
+          stream.end();
+        }
+      }
+      let hashesJSON = JSON.stringify(hashes, null, 0);
+      console.log('script-hashes = \n' + JSON.stringify(hashes, null, 2));
+      cacheBundle[SCRIPT_HASHES_PSEUDO_URL] = hashesJSON;
+      let cacheBundleJSON = JSON.stringify(cacheBundle, null, 2);
+      file.contents = new Buffer(cacheBundleJSON);
+      callback(null, file);
+    }))
+    .pipe(gulp.dest('demo'));
+});
+
 gulp.task('puppeteer-attack-test', shell.task('npm run test:attack'));
 
 gulp.task('update-no-hook-authorization', (done) => {
@@ -162,6 +275,8 @@ gulp.task('update-no-hook-authorization', (done) => {
           'demo/hook-worker.js',
           'demo/cache-bundle.js',
           'demo/wrap-globals.js',
+          'demo/script-hashes.js',
+          'demo/content-loader.js',
           'demo/browserify-commonjs.js',
           'demo/webpack-es6-module.js',
           'demo/webpack-commonjs.js'
