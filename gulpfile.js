@@ -49,6 +49,50 @@ let currentHtml = '';
 let lastJs = 'old';
 let currentJs = '';
 
+gulp.task('demo:convert:skinny', () => {
+  return gulp.src([ 'demo/**/*' ], { base: 'demo' })
+    .pipe(through.obj((file, enc, callback) => {
+      if (file.path.match(/\.html$/)) {
+        let html = String(file.contents);
+        html = html.replace(/<!--__BEGIN__-->/g, '<!--{{{').replace(/<!--__END__-->/g, '}}}-->').replace(/\/\*__BEGIN__\*\//g, '/*{{{').replace(/\/\*__END__\*\//g, '}}}*/');
+        file.contents = new Buffer(html);
+        callback(null, file);
+      }
+      else if (file.path.match(/\.js$/)) {
+        let js = String(file.contents);
+        js = js.replace(/\/\*__BEGIN__\*\//g, '/*{{{').replace(/\/\*__END__\*\//g, '}}}*/');
+        file.contents = new Buffer(js);
+        callback(null, file);
+      }
+      else {
+        callback(null, null);
+      }
+    }))
+    .pipe(gulp.dest('demo'))
+});
+
+gulp.task('demo:convert:full', () => {
+  return gulp.src([ 'demo/**/*' ], { base: 'demo' })
+    .pipe(through.obj((file, enc, callback) => {
+      if (file.path.match(/\.html$/)) {
+        let html = String(file.contents);
+        html = html.replace(/<!--{{{/g, '<!--__BEGIN__-->').replace(/}}}-->/g, '<!--__END__-->').replace(/\/\*{{{/g, '/*__BEGIN__*/').replace(/}}}\*\//g, '/*__END__*/');
+        file.contents = new Buffer(html);
+        callback(null, file);
+      }
+      else if (file.path.match(/\.js$/)) {
+        let js = String(file.contents);
+        js = js.replace(/\/\*{{{/g, '/*__BEGIN__*/').replace(/}}}\*\//g, '/*__END__*/');
+        file.contents = new Buffer(js);
+        callback(null, file);
+      }
+      else {
+        callback(null, null);
+      }
+    }))
+    .pipe(gulp.dest('demo'))
+});
+
 gulp.task('_demo', (done) => {
   runSequence('browserify-commonjs', 'webpack-es6-module', 'webpack-commonjs', 'update-no-hook-authorization', 'update-no-hook-authorization-in-html', 'encode-demo-html', done);
 });
