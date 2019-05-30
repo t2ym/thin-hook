@@ -9,13 +9,13 @@
     //   hook.parameters.noHookAuthorizationFailed
     // JSONs are output to console in the learning mode
     //'*': true,
-    "8a1e85e68b707a3a2924ebfd108894b53ebc142444db375f28d9c898a492d9ae": true, // hook.min.js
+    "88354b91889e677a353702451bd940f4b63610bf1aceb0842844be651412b0a0": true, // hook.min.js
     "b883ad7c548e1043998debb49d3281b5a6179ce2aba971d53efc96aee5e6c80b": true, // demo/disable-devtools.js
     "7e0fcbf73f8a30d98082c497e4bec73f2b49e5bee70605bb8838aed035763868": true, // demo/context-generator.js
-    "57fdb8295e2d887011fd572128024e88a5dc25743a91c08d3cfb4b7bd57567e8": true, // demo/bootstrap.js
-    "372f0754ecb89bf1509c6712b65aa35b5e642e70b5a9b2118bf387d01e4b03f9": true, // demo/hook-callback.js
+    "ecf7395d2e2b4f71c81e0b974daea73315e8cf4360576275b7d39b315c254303": true, // demo/bootstrap.js
+    "822fe441f4f3c5169a1a990cdf003d21877141dd843ee03d8e4c97af34fe47c9": true, // demo/hook-callback.js
     "0979646683bec9b9682d974d549effb61b1fc981ad87dac76d44d0440d87b396": true, // demo/hook-native-api.js
-    "e2e42b1f8c6c518b5878b5bd95d34c0f15e139a1afb6ab6a6642b6e81219d2c5": true, // demo/hook-worker.js
+    "5b615aa885a0518466153be6ecb2cfeef1300f181ff60ca91cad964659c92052": true, // demo/hook-worker.js
     "1df13e95dc769815f77dae571b11a13f8b2a10d19788baf79655fd63b2a147ad": true, // demo/cache-bundle.js
     "4ad4ce1e63efcdbe9efbe99452e53b9e07bc764f8d5bfc85f769c1b8c925261d": true, // demo/browserify-commonjs.js
     "e8647e508ab87d1144ca7c5380746217b4787fff22d38a74a440dd46f7bdc308": true, // demo/webpack-es6-module.js
@@ -29,7 +29,7 @@
     "c135fd6ba3cad41e63985ecca191995bf311abc756c5f574ef5b641e7db56914": true, // (function writeln2() { console.log("no-hook script tag via document.writeln"); })()
     "e233738578fd7e8f2e961fb11885e2c187146314a8e3fc65692633ff89c5d34a": true, // (function writeln4() { console.log("no-hook script tag in div tag via document.writeln"); })()
     "4f0395d52a8c1c7edaacacade9c31fe18555b79ce963dfb1abaaa34990993374": true, // location = "about:blank";
-    "18bb2d9cf27086efbdde1f809f8d6ec9c1ce42542aa769153d293ae61cc3541a": true, // demo/script-hashes.js
+    "6fd1e73e994c97e6cf54dfde890d53bfcf2787c4ca812eba8050356a695d8690": true, // demo/script-hashes.js
     "bedb38c00455f545f33e540dd5d3c0ccc0653657f3219c2d58c3697236c2d68a": true, // demo/content-loader.js
   };
   let hidden;
