@@ -103,6 +103,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
     }
   </script>
   --C>
+  <C!--__BEGIN__--C>
   <script src="normalize.js"></script>
   <script src="spread.js"></script>
   <script src="generator.js"></script>
@@ -519,6 +520,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
   <script src="webpack-es6-module.js?no-hook=true"></script>
   <script src="browserify-commonjs.js?no-hook=true"></script>
   <script src="webpack-commonjs.js?no-hook=true"></script>
+  <C!--__END__--C>
   <C!--<script no-hook>
     {
       window.a = 9;
@@ -535,10 +537,12 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
       chai.assert.deepEqual([a, b, c, e, f], [2, 12, 6, 15, 15], 'hooked eval results');
     }
   </script>--C>
+  <C!--__BEGIN__--C>
   <script src="web-worker-client.js"></script>
   <script src="shared-worker-client.js"></script>
   <script src="web-worker-module-client.js"></script>
   <script src="global.js"></script>
+  <C!--__END__--C>
   <C!-- CORS scripts --C>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jsSHA/2.2.0/sha.js?cors=true"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
@@ -552,7 +556,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
 
   <meta name="theme-color" content="#fff">
 
-  <link rel="import" href="../../live-localizer/live-localizer-lazy.html">
+  <C!--__BEGIN__--C> <link rel="import" href="../../live-localizer/live-localizer-lazy.html"> <C!--__END__--C>
   <link rel="import" href="my-app.html">
 
   <style>
