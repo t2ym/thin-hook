@@ -30,7 +30,7 @@
     "e233738578fd7e8f2e961fb11885e2c187146314a8e3fc65692633ff89c5d34a": true, // (function writeln4() { console.log("no-hook script tag in div tag via document.writeln"); })()
     "4f0395d52a8c1c7edaacacade9c31fe18555b79ce963dfb1abaaa34990993374": true, // location = "about:blank";
     "6fd1e73e994c97e6cf54dfde890d53bfcf2787c4ca812eba8050356a695d8690": true, // demo/script-hashes.js
-    "bedb38c00455f545f33e540dd5d3c0ccc0653657f3219c2d58c3697236c2d68a": true, // demo/content-loader.js
+    "0242016e2887b322ab28b887f03779c63899db232bb036d794a0278db9e54339": true, // demo/content-loader.js
   };
   let hidden;
   const passcode = 'XX02c107ea633ed697acc12e1b3de1bcf2f0ef7cafe4f048e29553c224656ecd7a';
