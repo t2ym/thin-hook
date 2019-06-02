@@ -15,24 +15,16 @@ Copyright (c) 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     let currentScript = document.currentScript;
     let blobURL = decodeURIComponent(searchParams.get('blob'));
     onload = async (event) => {
-      let emptyDocumentHTML = currentScript.ownerDocument.querySelector('html').outerHTML;
-      emptyDocumentHTML = emptyDocumentHTML.replace(/src="content-loader[.]js[?]no-hook=true"/, '');
-      if (navigator.userAgent.indexOf('Firefox') < 0) {
-        // Variables remain intact on load except for Firefox
-        emptyDocumentHTML = '';
-      }
-      else {
-        emptyDocumentHTML = emptyDocumentHTML.replace('<head>', `<head><base href="${hook.parameters.baseURI}">`);
-      }
-      //console.log('content-loader.js: emptyDocumentHTML = ' + emptyDocumentHTML);
       let response = await fetch(new Request(blobURL));
       let blob = await response.blob();
       let reader = new FileReader();
       switch (blob.type) {
       case 'text/html':
         reader.addEventListener('loadend', () => {
+          // Recent Firefox browsers keep variables on document.write() after the load event
+          // https://developer.mozilla.org/en-US/docs/Web/API/Document/open#Notes
           //console.log('content-loader.js: blobURL ' + blobURL);
-          let content = emptyDocumentHTML + reader.result + hook.parameters.bootstrap;
+          let content = reader.result + hook.parameters.bootstrap;
           //console.log('content-loader.js: document.write ' + content);
           document.write(content);
         });
