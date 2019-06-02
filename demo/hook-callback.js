@@ -2061,6 +2061,9 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
                            onloadAttribute.startsWith('let iframe = this; fetch(new Request('))) {
                         hookArgs[2][1][0] = 'srcdoc-load';
                       }
+                      if (hook.parameters.scriptHashes && normalizedThisArg.src.startsWith(hook.parameters.emptyDocumentUrl.href)) {
+                        hookArgs[2][1][0] = 'srcdoc-load';
+                      }
                     }
                   }
                 }
