@@ -753,6 +753,12 @@ gulp.task('build:coverage', () => {
     .pipe(gulp.dest('test'));
 });
 
+// Skip the standard transform middleware for polyserve
+gulp.task('patch-wct-istanbul', () => {
+  return gulp.src([ 'test/plugin.js' ], { base: 'test' })
+    .pipe(gulp.dest('node_modules/wct-istanbul/lib'));
+});
+
 gulp.task('delayed-demo', (done) => {
   setTimeout(() => {
     runSequence('demo', done);
