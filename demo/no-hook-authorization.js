@@ -29,7 +29,7 @@
     "c135fd6ba3cad41e63985ecca191995bf311abc756c5f574ef5b641e7db56914": true, // (function writeln2() { console.log("no-hook script tag via document.writeln"); })()
     "e233738578fd7e8f2e961fb11885e2c187146314a8e3fc65692633ff89c5d34a": true, // (function writeln4() { console.log("no-hook script tag in div tag via document.writeln"); })()
     "4f0395d52a8c1c7edaacacade9c31fe18555b79ce963dfb1abaaa34990993374": true, // location = "about:blank";
-    "6fd1e73e994c97e6cf54dfde890d53bfcf2787c4ca812eba8050356a695d8690": true, // demo/script-hashes.js
+    "281dbc915940af3b2f3d74837549c15dc17e82c9caceadb5e64cee0f606fb831": true, // demo/script-hashes.js
     "0242016e2887b322ab28b887f03779c63899db232bb036d794a0278db9e54339": true, // demo/content-loader.js
   };
   let hidden;
