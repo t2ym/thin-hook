@@ -24,6 +24,10 @@
             hook.parameters.scriptHashes = scriptHashes = JSON.parse(await scriptHashesResponse.text());
             mutatedScriptHashesJs = scriptHashesJs.replace('hook.parameters.scriptHashes = ' + '{}', 'hook.parameters.scriptHashes = ' + JSON.stringify(scriptHashes, null, 2));
           }
+          else {
+            // building
+            cache.put(new Request(scriptHashesJsURLSWNotReady), new Response(scriptHashesJs, { headers: { 'Content-Type': 'text/javascript' } }));
+          }
         }
         if (event.request.url === scriptHashesJsURLSWReady) {
           responseJs = mutatedScriptHashesJs || scriptHashesJs;
@@ -31,7 +35,9 @@
         else {
           responseJs = scriptHashesJs;
         }
-        response = new Response(responseJs, { headers: { 'Content-Type': 'text/javascript' } });
+        if (event.request.url === scriptHashesJsURLSWReady) {
+          response = new Response(responseJs, { headers: { 'Content-Type': 'text/javascript' } });
+        }
         return response;
       }
       else {
