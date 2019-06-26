@@ -20,7 +20,12 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
         isMainDocument = true;
       }
       else {
-        baseURI = top.hook.parameters.baseURI;
+        if (top.hook && top.hook.parameters && top.hook.parameters.baseURI) {
+          baseURI = top.hook.parameters.baseURI;
+        }
+        else {
+          top.location = 'about:blank';
+        }
       }
       break;
     case 'ServiceWorkerGlobalScope':
