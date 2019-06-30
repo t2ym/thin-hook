@@ -483,7 +483,8 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
       let base = new URL(baseURI);
       let aboutBlankRedirectorUrl = new URL('about-blank-redirector.html', base).href;
       let appUrlStartsWith = base.origin + (hook.parameters.appPathRoot || '/');
-      hook.parameters.checkRequest = function (event, response) {
+      const originalCheckRequest = hook.parameters.checkRequest;
+      hook.parameters.checkRequest = function (event, response, cache) {
         let url = new URL(event.request.url);
         let action = 'pass';
         if (url.origin + url.pathname === baseURI) {
@@ -531,7 +532,12 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
           self.devToolsDetectedAtServiceWorker = 'view-source'; // Note: Invalid access to resources is treated as Dev Tools detection
           return Response.redirect('about:blank');
         }
-        return response;
+        if (originalCheckRequest) {
+          return originalCheckRequest(event, response, cache);
+        }
+        else {
+          return response;
+        }
       };
       // Check Clients from Service Worker
       let clientsRecentRequests = new Map();
