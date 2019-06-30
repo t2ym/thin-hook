@@ -908,6 +908,18 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
 - `hook.serviceWorkerHandlers`: Service Worker event handlers
   - `install`: 'install' event handler. Set version from the `version` parameter
   - `activate`: 'activate' event handler. Clear caches of old versions.
+  - `message`: 'message' event handler.
+    - **INTERNAL** `'channel'` message: Transfer MessageChannel port objects for hook workers from the main document to the Service Worker at initialization
+    - **INTERNAL** `'unload'` message: Trigger unloading of hook workers
+    - **INTERNAL** `'coverage'` message: Transfer `__coverage__` instanbul coverage object for the Service Worker to the main document to collect code coverage in `test/hook.min.js`
+    - `['plugin', 'pluginId', ...params ]` message: Transfer a message to the target plugin identified by `'pluginId'`. The target plugin must add its own event listener to handle the message.
+      - `['plugin', 'pluginId:enqueue', ...params ]`: When the `pluginId` ends with `:enqueue`, events with posted messages are enqueued to `hook.parameters.messageQueues['pluginId:enqueue'] = []` even before plugins are loaded into the Service Worker
+        - The target plugin must dequeue the enqueued events and append `':dequeued'` to the queue to stop further enqueueing. For example, the queue `[]` changes as follows:
+          - An event is enqueued: `[ event1 ]`
+          - The plugin append `':dequeued'`: `[ event1, ':dequeued' ]`
+          - The plugin dequeues and processes the event(s): `[ ':dequeued' ]`
+        - Enqueued messages are likely to be one-way messages as the main document is about to reload itself
+        - `hook.parameters.messageQueues['pluginId:enqueue']` may NOT exist when the plugin is loaded. So the plugin must create its own queue if it has not been created.
   - `fetch`: 'fetch' event handler. Cache hooked JavaScripts and HTMLs except for the main page loading `hook.min.js`
     - `<script src="thin-hook/hook.min.js?version=1&sw-root=/&no-hook=true&hook-name=__hook__&discard-hook-errors=true&fallback-page=index-no-sw.html&hook-property=true&service-worker-ready=true"></script>`: arguments from the page
       - `version`: default `1`. Service Worker cache version. Old caches are flushed when the version is changed in the main page and reloaded. Service Worker is updated when the controlled page is detached after the reloading.
