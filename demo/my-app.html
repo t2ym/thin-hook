@@ -62,7 +62,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     </style>
 
-    <app-location route="{{route}}"></app-location>
+    <app-location route="{{route}}" use-hash-as-path></app-location>
     <app-route
         route="{{route}}"
         pattern="{{_resolveUrlPath(':page')}}"
@@ -139,9 +139,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       _resolveUrlPath: function(name) {
-        var url = document.createElement('a');
-        url.href = this.resolveUrl('.') + name;
-        return url.pathname;
+        if (name && name.startsWith(':')) {
+          return name;
+        }
+        else {
+          var url = document.createElement('a');
+          url.href = this.resolveUrl('.') + '#' + name;
+          return url.pathname + url.hash;
+        }
       }
 
     });
