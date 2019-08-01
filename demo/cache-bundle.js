@@ -361,6 +361,9 @@ if (enableCacheBundle) {
       const cacheableContentTypes = hook.parameters.cacheableContentTypes;
       const validateCacheableUrl = hook.parameters.validateCacheableUrl;
       hook.parameters.checkResponse = async function additionalCaching(event, request, response, cache) {
+        if (originalCheckResponse) {
+          response = await originalCheckResponse(event, request, response, cache);
+        }
         if (request.method === 'GET' && response.status === 200) {
           let headers = response.headers;
           let contentType = headers.get('Content-Type').split(';')[0];
@@ -377,12 +380,7 @@ if (enableCacheBundle) {
             }
           }
         }
-        if (originalCheckResponse) {
-          return originalCheckResponse(event, request, response, cache);
-        }
-        else {
-          return response;
-        }
+        return response;
       }
     }
   }
