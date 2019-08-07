@@ -424,9 +424,12 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
                 case 'init':
                   status = 'starttimeout';
                   console.log('disable-devtools.js: timeout for start');
+                  startTimeout = devtoolsDetectionStartTimeout;
+                  resolve(startTimeout);
                   break;
                 case 'starttimeout':
                   status = 'timeout';
+                  resolve(startTimeout);
                   break;
                 case 'start':
                 case 'end':
@@ -434,8 +437,6 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
                 default:
                   break;
                 }
-                startTimeout = devtoolsDetectionStartTimeout;
-                resolve(startTimeout);
               }, startTimeout);
             })
           ]);
