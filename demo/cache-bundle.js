@@ -1,5 +1,9 @@
 const enableCacheBundle = true;
-if (enableCacheBundle) {
+if (hook.parameters[Symbol.for('cache-bundle.js')]) {
+  // skip reinstalling the plugin
+}
+else if (enableCacheBundle) {
+  hook.parameters[Symbol.for('cache-bundle.js')] = true;
   // optional significantHeaders to include certain headers in cache response headers
   hook.parameters.significantHeaders = {
     //'Last-Modified': true,

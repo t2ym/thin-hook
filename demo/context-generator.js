@@ -1,4 +1,8 @@
-{
+if (hook.parameters[Symbol.for('context-generator.js')]) {
+  // skip reinstalling the plugin
+}
+else {
+  hook.parameters[Symbol.for('context-generator.js')] = true;
   let hashSalt = '__hashSalt__';
   let contexts = {};
 

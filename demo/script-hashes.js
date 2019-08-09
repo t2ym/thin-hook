@@ -3,6 +3,10 @@
   Copyright (c) 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 */
 (function scriptHashesJsWrapper() {
+  if (hook.parameters[Symbol.for('script-hashes.js')]) {
+    return; // skip reinstalling the plugin
+  }
+  hook.parameters[Symbol.for('script-hashes.js')] = true;
   const scriptHashesJs = `/*
   @license https://github.com/t2ym/thin-hook/blob/master/LICENSE.md
   Copyright (c) 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
