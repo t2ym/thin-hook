@@ -2,7 +2,11 @@
 @license https://github.com/t2ym/thin-hook/blob/master/LICENSE.md
 Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 */
-{
+if (hook.parameters[Symbol.for('hook-callback.js')]) {
+  // skip reinstalling the plugin
+}
+else {
+  hook.parameters[self.Symbol.for('hook-callback.js')] = true;
   const Map = self.Map;
   const Set = self.Set;
   class SetMap extends Map {

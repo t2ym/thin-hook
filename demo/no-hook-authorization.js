@@ -1,4 +1,8 @@
-{
+if (hook.parameters[Symbol.for('no-hook-authorization.js')]) {
+  // skip reinstalling the plugin
+}
+else {
+  hook.parameters[Symbol.for('no-hook-authorization.js')] = true;
   // Authorization Tickets for no-hook scripts
   // Ticket for this script itself is specified in URL of script tag as
   // hook.min.js?no-hook-authorization={ticket}
@@ -76,8 +80,6 @@
   if (!noHookAuthorization['*']) {
     Object.seal(hook.parameters.noHookAuthorizationPassed);
   }
-}
-{
   hook.parameters.sourceMap = [
     url => location.origin === url.origin && url.pathname.match(/^\/components\/thin-hook\/demo\//)
   ];

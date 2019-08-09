@@ -1,4 +1,8 @@
-{
+if (hook.parameters[Symbol.for('bootstrap.js')]) {
+  // skip reinstalling the plugin
+}
+else {
+  hook.parameters[Symbol.for('bootstrap.js')] = true;
   let baseURI;
   let noHookAuthorization = '';
   switch (self.constructor.name) {
