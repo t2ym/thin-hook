@@ -7676,6 +7676,7 @@ else {
     const _window = window;
     const _Error = Error;
     const _EventTarget = EventTarget;
+    const _Infinity = Infinity;
     const _Math = Math;
     const _console = console;
     const _undefined = undefined;
@@ -7718,7 +7719,7 @@ else {
               enumerable: desc.enumerable,
               get: function get() {
                   if (contextStack.isEmpty()) {
-                    _Error.stackTraceLimit = Infinity;
+                    _Error.stackTraceLimit = _Infinity;
                     let error = new _Error();
                     let stackTrace = error.stack.split(/\n/);
                     let top = stackTrace[2].trim();
@@ -7738,7 +7739,7 @@ else {
               set: typeof desc.set === 'function'
                 ? function set(value) {
                     if (contextStack.isEmpty()) {
-                      _Error.stackTraceLimit = Infinity;
+                      _Error.stackTraceLimit = _Infinity;
                       let error = new _Error();
                       let stackTrace = error.stack.split(/\n/);
                       let top = stackTrace[2].trim();
@@ -7768,7 +7769,7 @@ else {
                 get: function get() {
                     let result = hiddenValue;
                     if (contextStack.isEmpty()) {
-                      _Error.stackTraceLimit = Infinity;
+                      _Error.stackTraceLimit = _Infinity;
                       let error = new _Error();
                       let stackTrace = error.stack.split(/\n/);
                       let top = stackTrace[2].trim();
@@ -7788,7 +7789,7 @@ else {
                 set: desc.writable
                   ? function set(value) {
                       if (contextStack.isEmpty()) {
-                        _Error.stackTraceLimit = Infinity;
+                        _Error.stackTraceLimit = _Infinity;
                         let error = new _Error();
                         let stackTrace = error.stack.split(/\n/);
                         let top = stackTrace[2].trim();
@@ -7825,7 +7826,7 @@ else {
                 get: function get() {
                     let result = hiddenValue;
                     if (contextStack.isEmpty()) {
-                      _Error.stackTraceLimit = Infinity;
+                      _Error.stackTraceLimit = _Infinity;
                       let error = new _Error();
                       let stackTrace = error.stack.split(/\n/);
                       let top = stackTrace[2].trim();
@@ -7845,7 +7846,7 @@ else {
                 set: desc.writable
                   ? function set(value) {
                       if (contextStack.isEmpty()) {
-                        _Error.stackTraceLimit = Infinity;
+                        _Error.stackTraceLimit = _Infinity;
                         let error = new _Error();
                         let stackTrace = error.stack.split(/\n/);
                         let top = stackTrace[2].trim();
