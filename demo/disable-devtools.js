@@ -2,11 +2,13 @@
 @license https://github.com/t2ym/thin-hook/blob/master/LICENSE.md
 Copyright (c) 2017, 2018, 2019, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 */
-if (hook.parameters[Symbol.for('disable-devtools.js')]) {
+if (typeof hook === 'function' && hook.parameters && hook.parameters[Symbol.for('disable-devtools.js')]) {
   // skip reinstalling the plugin
 }
 else {
-  hook.parameters[Symbol.for('disable-devtools.js')] = true;
+  if (typeof hook === 'function' && hook.parameters) {
+    hook.parameters[Symbol.for('disable-devtools.js')] = true;
+  }
   if (typeof hook === 'function') {
     hook.parameters.appPathRoot = '/'; // The app assets are under location.origin + appPathRoot
   }
