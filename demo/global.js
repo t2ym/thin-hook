@@ -7,6 +7,7 @@ chai.assert.throws(() => {
   ({ inaccessible: _global_A = { accessible: _global_A }.accessible });
 }, /^Permission Denied:/)
 {
+  const logContextStack = () => {};
   logContextStack();
   const usingPromise = function usingPromise() {
     logContextStack();
@@ -19,7 +20,7 @@ chai.assert.throws(() => {
       })
       .then(function thenCallback(result) {
         logContextStack();
-        console.error('usingPromise.then', result);
+        //console.error('usingPromise.then', result);
       });
   }
   usingPromise();
