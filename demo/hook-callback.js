@@ -1289,12 +1289,12 @@ else {
                                          applyAcl /* for recursive application of ACL */) {
           let opType = aclArgs[4];
           if (opType === 'x') {
-            console.log('requireAcl: ' + hookArgs[3] + ': require(' + (normalizedArgs[1] ? '\'' + normalizedArgs[1].toString() + '\'' : normalizedArgs[1]) + ') resolved = ' + normalizedArgs[2].toString());
+            //console.log('requireAcl: ' + hookArgs[3] + ': require(' + (normalizedArgs[1] ? '\'' + normalizedArgs[1].toString() + '\'' : normalizedArgs[1]) + ') resolved = ' + normalizedArgs[2].toString());
             // recursively apply ACL for the target module for reading
             return applyAcl(normalizedArgs[2], true, true, S_UNSPECIFIED, 'r', hookArgs[3], normalizedThisArg, normalizedArgs, hookArgs);
           }
           else {
-            console.log('requireAcl: ' + hookArgs[3] + ': opType = ' + opType + ' for require');
+            //console.log('requireAcl: ' + hookArgs[3] + ': opType = ' + opType + ' for require');
             return 'r-x'[opTypeMap[opType]] === opType; // equivalent to 'r-x' acl
           }
         },
