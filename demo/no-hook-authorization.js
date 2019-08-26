@@ -17,7 +17,7 @@ else {
     "a81209228209941097ac41c5bda3bc1cd64375e69b7c8113aff68c2fe6729ff2": true, // demo/disable-devtools.js
     "4374ae1f28cec2b969ab488895a4266244d65e28e1f82728fd2cd39130fe0d9e": true, // demo/context-generator.js
     "8ff7ce2b0f477f416c74011e0c0bf5b51b5d2e1ce682620cb5d3e672a1ff008e": true, // demo/bootstrap.js
-    "c3c0eab547099ef6f9bb8d8a11b2dec3c1c6e1b17af6c1494673fd59074bef10": true, // demo/hook-callback.js
+    "3c560b4a219e404fb65d126279fdba92fcf87e10f6b97207b88eff2aa29c78fa": true, // demo/hook-callback.js
     "0979646683bec9b9682d974d549effb61b1fc981ad87dac76d44d0440d87b396": true, // demo/hook-native-api.js
     "5b615aa885a0518466153be6ecb2cfeef1300f181ff60ca91cad964659c92052": true, // demo/hook-worker.js
     "0274c19e7a74df850e155ffb0fb1bfb0a9884d7d970b43366bb0530ce842136c": true, // demo/cache-bundle.js
