@@ -59,4 +59,10 @@ async function automationFunction() {
     }
   });
 /*__END__*/
+
+  await (async () => {
+    const baseURL = new URL(location.href);
+    await fetch(new URL('about-blank-redirector.html', baseURL));
+    await fetch(new URL('about-blank-redirector.js?no-hook=true', baseURL));
+  })();
 }
