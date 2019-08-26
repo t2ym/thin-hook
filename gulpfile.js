@@ -16,6 +16,7 @@ const loaderUtils = require('loader-utils');
 const nodeLibsBrowser = require('node-libs-browser');
 const source = require('vinyl-source-stream');
 const buffer = require('vinyl-buffer');
+const File = require('vinyl');
 const uglify = require('gulp-uglify');
 const fs = require('fs');
 const through = require('through2');
@@ -27,6 +28,11 @@ const escodegen = require('escodegen');
 const createHash = require('sha.js');
 const crypto = require('crypto');
 const { URL } = require('url');
+
+if (!gulp.series) {
+  // polyfill for gulp 3
+  gulp.series = (...tasks) => (done) => runSequence(...tasks, done);
+}
 
 const hook = require('./hook.js');
 
@@ -94,31 +100,6 @@ gulp.task('demo:convert:full', () => {
     .pipe(gulp.dest('demo'))
 });
 
-gulp.task('_demo', (done) => {
-  runSequence(
-    'browserify-commonjs',
-    'webpack-es6-module',
-    'webpack-commonjs',
-    'update-no-hook-authorization',
-    'update-no-hook-authorization-in-html',
-    'encode-demo-html',
-    done
-  );
-});
-
-gulp.task('demo', (done) => {
-  runSequence(
-    'browserify-commonjs',
-    'webpack-es6-module',
-    'webpack-commonjs',
-    'update-no-hook-authorization',
-    'update-no-hook-authorization-in-html',
-    'encode-demo-html',
-    'cache-bundle',
-    done
-  );
-});
-
 // server secret for cache-automation.js
 const serverSecret = crypto.randomFillSync(Buffer.alloc(32)).toString('hex');
 const cacheBundlePath = path.join('demo', 'cache-bundle.json');
@@ -129,10 +110,6 @@ let authorization; // sha256(serverSecret + cacheAutomationScript)
 let hash = hook.utils.createHash('sha256');
 hash.update(serverSecret + cacheAutomationScript);
 authorization = hash.digest('hex');
-
-gulp.task('cache-bundle', (done) => {
-  runSequence('get-version', 'cache-bundle-automation-json', 'cache-bundle-automation', 'script-hashes', done);
-});
 
 gulp.task('get-version', (done) => {
   return gulp.src(['demo/original-index.html'], { base: 'demo' })
@@ -401,10 +378,6 @@ gulp.task('encode-demo-html', (done) => {
   }, 1000);
 });
 
-gulp.task('build:test', (done) => {
-  runSequence('build:instrument', 'build:coverage', 'build:test-html', done);
-});
-
 gulp.task('build:test-html', () => {
   return gulp.src(['test/**/*-test-original.html'], { base: 'test/' })
     .pipe(through.obj((file, enc, callback) => {
@@ -661,7 +634,12 @@ gulp.task('build', () => {
         assert.equal(minifiedAstJson, originalAstJson, 'Minified AST is identical to the original AST');
         minifiedCode = minifiedCode.replace(/var define,module,exports;/,
           'var define,module,exports;const _global_=new Function("return this")();const Reflect=_global_.Reflect,String=_global_.String,Array=_global_.Array,RegExp=_global_.RegExp,Object=_global_.Object,Uint8Array=_global_.Uint8Array,RangeError=_global_.RangeError,parseInt=_global_.parseInt,parseFloat=_global_.parseFloat,ArrayBuffer=_global_.ArrayBuffer,Symbol=_global_.Symbol,setTimeout=_global_.setTimeout,clearTimeout=_global_.clearTimeout,URL=_global_.URL,console=_global_.console,JSON=_global_.JSON;');
-        file.contents = new Buffer(licenseHeader + minifiedCode);
+        file = new File({
+          cwd: file.cwd,
+          base: file.base,
+          path: file.path,
+        });
+        file.contents = Buffer.from(licenseHeader + minifiedCode);
       }
       catch (e) {
         fs.writeFileSync('_originalAst.json', originalAstJson);
@@ -741,7 +719,12 @@ gulp.task('build:coverage', () => {
         assert.equal(minifiedAstJson, originalAstJson, 'Minified AST is identical to the original AST');
         minifiedCode = minifiedCode.replace(/var define,module,exports;/,
           'var define,module,exports;const _global_=new Function("return this")();const Reflect=_global_.Reflect,String=_global_.String,Array=_global_.Array,RegExp=_global_.RegExp,Object=_global_.Object,Uint8Array=_global_.Uint8Array,RangeError=_global_.RangeError,parseInt=_global_.parseInt,parseFloat=_global_.parseFloat,ArrayBuffer=_global_.ArrayBuffer,Symbol=_global_.Symbol,setTimeout=_global_.setTimeout,clearTimeout=_global_.clearTimeout,URL=_global_.URL,console=_global_.console,JSON=_global_.JSON;');
-        file.contents = new Buffer(licenseHeader + minifiedCode);
+        file = new File({
+          cwd: file.cwd,
+          base: file.base,
+          path: file.path,
+        });
+        file.contents = Buffer.from(licenseHeader + minifiedCode);
       }
       catch (e) {
         fs.writeFileSync('_originalAst.json', originalAstJson);
@@ -759,26 +742,50 @@ gulp.task('patch-wct-istanbul', () => {
     .pipe(gulp.dest('node_modules/wct-istanbul/lib'));
 });
 
-gulp.task('delayed-demo', (done) => {
-  setTimeout(() => {
-    runSequence('demo', done);
-  }, 1000);
+gulp.task('delay', (done) => {
+  setTimeout(done, 1000);
 });
 
-gulp.task('watchdemo', function() {
-  gulp.watch(['demo/original-index.html', 'demo/hook-callback.js', 'demo/disable-devtools.js'], ['delayed-demo']);
-});
+gulp.task('cache-bundle',
+  gulp.series('get-version', 'cache-bundle-automation-json', 'cache-bundle-automation', 'script-hashes')
+);
 
-gulp.task('delayed-build', (done) => {
-  setTimeout(() => {
-    runSequence('build', 'build:test', 'examples', 'demo', done);
-  }, 1000);
-});
+gulp.task('build:test',
+  gulp.series('build:instrument', 'build:coverage', 'build:test-html')
+);
 
-gulp.task('watch', function() {
-  gulp.watch(['hook.js', 'lib/**/*.js'], ['delayed-build']);
-});
+gulp.task('_demo',
+  gulp.series(
+    'browserify-commonjs',
+    'webpack-es6-module',
+    'webpack-commonjs',
+    'update-no-hook-authorization',
+    'update-no-hook-authorization-in-html',
+    'encode-demo-html',
+  )
+);
 
-gulp.task('default', (done) => {
-  runSequence('build', 'build:test', 'examples', 'demo', done);
-});
+gulp.task('demo',
+  gulp.series(
+    'get-version',
+    'browserify-commonjs',
+    'webpack-es6-module',
+    'webpack-commonjs',
+    'update-no-hook-authorization',
+    'update-no-hook-authorization-in-html',
+    'encode-demo-html',
+    'cache-bundle',
+  )
+);
+
+gulp.task('delayed-demo',
+  gulp.series('delay', 'demo')
+);
+
+gulp.task('delayed-build',
+  gulp.series('delay', 'build', 'build:test', 'examples', 'demo')
+);
+
+gulp.task('default',
+  gulp.series('build', 'build:test', 'examples', 'demo')
+);
