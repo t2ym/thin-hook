@@ -55,6 +55,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <!-- pass iframe src with static HTML URL --> 
       <iframe id="subDocument" src="sub-document.html" width="80%" height="400"></iframe>
 
+      <!-- pass iframe src with errorReport.json -->
+      <iframe id="errorReport" src="errorReport.json" width="80%" height="400"></iframe>
+
       <!-- pass empty iframe srcdoc with empty-document.html -->
       <iframe id="srcdocStaticEmpty" srcdoc="" width="80%" height="100"></iframe>
 
@@ -181,6 +184,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         iframe.addEventListener('load', function (event) {
           chai.assert.throws(() => {
             iframe.contentWindow.caches;
+          }, /^Permission Denied:/);
+        });
+
+        let iframe2 = this.$.errorReport;
+        iframe2.addEventListener('load', function (event) {
+          chai.assert.throws(() => {
+            iframe2.contentWindow.caches;
           }, /^Permission Denied:/);
         });
 
