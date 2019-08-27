@@ -28,3 +28,6 @@ app.post('/errorReport.json', function(req, res) {
   "severity": "permissive"
 }`);
 });
+app.all('*', (req, res) => {
+  res.redirect(307, 'about:blank');
+});
