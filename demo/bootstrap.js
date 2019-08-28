@@ -14,7 +14,15 @@ else {
       baseURI = top.hook.parameters.baseURI;
     }
     hook.parameters.baseURI = baseURI;
-    noHookAuthorization = new URL(top.document.querySelector('script').src).searchParams.get('no-hook-authorization');
+    let script = top.document.querySelector('script');
+    let src = script.src;
+    if (!src) {
+      let attr = Array.prototype.filter.call(script.attributes, (a) => a.name.endsWith(':href'))[0];
+      if (attr) {
+        src = attr.value;
+      }
+    }
+    noHookAuthorization = new URL(src, baseURI).searchParams.get('no-hook-authorization');
     break;
   case 'ServiceWorkerGlobalScope':
     baseURI = new URL(location.origin + new URL(location.href).searchParams.get('service-worker-initiator')).href;

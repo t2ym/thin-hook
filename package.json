@@ -11,6 +11,8 @@
     "cache-bundle": "run-p -r -l demoServer cacheBundleUploadService cacheBundleGeneration",
     "polyserve": "polyserve -p 8080 -H 0.0.0.0 --compile never --proxy-path /components/thin-hook/demo/errorReport.json --proxy-target http://localhost:8081/errorReport.json",
     "demoServer": "node demo/demoServer.js -p 8080",
+    "postHtml": "run-p -l postHtmlServer errorReportService",
+    "postHtmlServer": "node demo/demoServer.js -p 8080 --middleware ./postHtml.js",
     "errorReportService": "node demo/errorReportService.js",
     "cacheBundleUploadService": "node demo/cacheBundleUploadService.js",
     "cacheBundleGeneration": "node demo/cacheBundleGeneration.js",
