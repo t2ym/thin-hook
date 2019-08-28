@@ -39,3 +39,6 @@ chai.assert.throws(() => {
   console.log('shared-worker-client.js: posting message ', JSON.stringify(message));
   worker.port.postMessage(message);
 }, /^Permission Denied:/);
+chai.assert.throws(() => {
+  new SharedWorker('shared-worker.xjs'); // illegal extensions
+}, /^Permission Denied:/);
