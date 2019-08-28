@@ -18,7 +18,7 @@ module.exports = function(app) {
         case 'text/html':
         default:
           res.send(`<html><head><!-- $hook$ is undefined error if these hook infrastructure scripts are not loaded -->
-            <script src="../../thin-hook/hook.min.js?no-hook=true&no-hook-authorization=1a451fcb1fda37f037bad7fe4a21a8d9ca363e271317ee7a2b04336d2a40dca5,log-no-hook-authorization"></script>
+            <script src="../../thin-hook/hook.min.js?no-hook=true&no-hook-authorization=e4b04642f94e9762a723ad423cf7f8da7f68bd3fa804ccff9e1cfd7dbba807be,log-no-hook-authorization"></script>
             <script context-generator src="no-hook-authorization.js?no-hook=true"></script>
             <script context-generator src="disable-devtools.js?no-hook=true"></script>
             <script context-generator src="context-generator.js?no-hook=true"></script>
