@@ -1360,8 +1360,11 @@ else {
                                                    applyAcl /* for recursive application of ACL */) {
           let opType = aclArgs[4];
           if (opType === 'x') {
-            let url = normalizedArgs[0].trim().toLowerCase();
-            if (url.startsWith('blob:') || url.startsWith('data:')) {
+            let url = new URL(normalizedArgs[0], hook.parameters.baseURI);
+            if (url.protocol === 'blob:' || url.protocol === 'data:') {
+              return false;
+            }
+            if (!url.pathname.match(/\.m?js$/)) {
               return false;
             }
           }
@@ -1389,8 +1392,11 @@ else {
                                                           applyAcl /* for recursive application of ACL */) {
           let opType = aclArgs[4];
           if (opType === 'x') {
-            let url = normalizedArgs[0].trim().toLowerCase();
-            if (url.startsWith('blob:') || url.startsWith('data:')) {
+            let url = new URL(normalizedArgs[0], hook.parameters.baseURI);
+            if (url.protocol === 'blob:' || url.protocol === 'data:') {
+              return false;
+            }
+            if (!url.pathname.match(/\.m?js$/)) {
               return false;
             }
           }

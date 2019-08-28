@@ -30,3 +30,6 @@ chai.assert.throws(() => {
   console.log('web-worker-client.js: posting message ', JSON.stringify(message));
   worker.postMessage(message);
 }, /^Permission Denied:/);
+chai.assert.throws(() => {
+  new Worker('web-worker.xjs'); // illegal extensions
+}, /^Permission Denied:/);
