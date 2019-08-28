@@ -25,9 +25,11 @@ var argParser = new ArgumentParser({
   description: 'Serve component demo',
 });
 argParser.addArgument([ '-p', '--port' ], { help: 'HTTP server port to listen. Default: ' + defaultServerPort });
+argParser.addArgument([ '--middleware'], { help: 'middleware to import. Default: null' });
 const args = argParser.parseArgs();
 
 const serverPort = args.port || defaultServerPort;
+const middleware = args.middleware ? require(args.middleware) : null;
 const demoServerScriptPhysicalPath = __dirname;
 const componentsURLPath = '/components';
 const componentsPhysicalPath = '../bower_components';
@@ -43,6 +45,10 @@ const errorReportServiceURLPath = path.join(componentsURLPath, package.name, dem
 
 let counter = -1;
 let hacked = false;
+
+if (typeof middleware === 'function') {
+  middleware(app);
+}
 
 app
   .all(forbiddenPaths.map(p => path.join(componentsURLPath, package.name, p)), (req, res, next) => { res.redirect(307, 'about:blank'); })
