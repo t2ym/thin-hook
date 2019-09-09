@@ -787,6 +787,7 @@ gulp.task('demo-frontend-core', () => {
     'hook.min.js',
     'demo/**/*',
     '!demo/original-index.html',
+    '!demo/index-fb.html',
     '!demo/gulpfile.js',
     ...blocked
   ], { base: '.' })
