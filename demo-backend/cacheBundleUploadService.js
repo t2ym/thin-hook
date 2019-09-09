@@ -22,8 +22,9 @@ const path = require('path');
 
 app.use(bodyParser.urlencoded({ limit: "100mb", extended: true, parameterLimit: 100000 }));
 app.use(bodyParser.json({limit: "100mb"}));
+app.use(bodyParser.raw());
 app.listen(8081);
-app.post('/errorReport.json', function(req, res) {
+app.post('/errorReport.json', async function(req, res) {
   if (req.body.type === 'cache-bundle.json') { 
     let rawData = JSON.parse(req.body.data);
     let cacheBundle = { version: rawData.version };
@@ -84,6 +85,7 @@ app.post('/errorReport.json', function(req, res) {
     let dataJSON = JSON.stringify(cacheBundle, null, 2);
     fs.writeFileSync(path.join(__dirname, 'cache-bundle.json'), dataJSON);
     console.log('/errorReport.json', 'type = ', req.body.type, ' data.version = ', cacheBundle.version, ' data.length = ', dataJSON.length, 'written to ', path.join(__dirname, 'cache-bundle.json'));
+    res.setHeader('content-type', 'application/json')
     res.send(JSON.stringify({
       "status": "ok",
       "message": "uploaded cache-bundle.json in " + req.body.data.length + " bytes",
@@ -92,6 +94,7 @@ app.post('/errorReport.json', function(req, res) {
   else {
     //console.log('/errorReport.json', req.body);
     // Fixed response for PoC
+    res.setHeader('content-type', 'application/json')
     res.send(JSON.stringify({
       "type": "errorReportResponse",
       "severity": "permissive"

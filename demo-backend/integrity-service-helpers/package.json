@@ -1,0 +1,14 @@
+{
+  "name": "integrity-service-helpers",
+  "version": "1.0.0",
+  "description": "native helpers for integrityService.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "BSD-2-Clause",
+  "dependencies": {
+    "node-addon-api": "^1.7.1"
+  }
+}

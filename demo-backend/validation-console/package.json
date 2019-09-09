@@ -1,0 +1,22 @@
+{
+  "scripts": {
+    "build": "rimraf dist && rollup -c rollup.config.js"
+  },
+  "browserslist": [
+    "last 2 Chrome versions"
+  ],
+  "devDependencies": {
+    "@open-wc/building-rollup": "^0.9.0",
+    "rimraf": "^2.6.3",
+    "rollup": "^1.15.4"
+  },
+  "name": "validation-console",
+  "version": "0.0.0",
+  "description": "Browser Validation Console for thin-hook validationService",
+  "author": "Tetsuya Mori <t2y3141592@gmail.com>",
+  "license": "BSD-2-Clause",
+  "dependencies": {
+    "lit-html": "^1.0.0",
+    "lit-element": "^2.0.1"
+  }
+}

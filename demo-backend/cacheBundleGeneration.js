@@ -27,7 +27,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
     }
 */
 
-let targetURL = 'https://localhost/components/thin-hook/demo/';
+let targetURL = 'https://localhost:8080/components/thin-hook/demo/'; // no nginx proxy instead of the above config
 
 const puppeteer = require('puppeteer');
 const chai = require('chai');
@@ -49,18 +49,21 @@ default:
   chromePath = '/usr/bin/google-chrome';
   break;
 }
+const loadOnly = process.argv[2] === 'loadOnly';
 
 (async () => {
   console.log('"killall chrome" may help when puppeteer is unstable');
   const targetFolder = 'demo';
   const target = 'cache-bundle.json';
-  const automationCacheBundle = JSON.parse(fs.readFileSync(path.join(targetFolder, target), 'UTF-8'));
-  const automationCacheBundleStatus = JSON.parse(automationCacheBundle["https://thin-hook.localhost.localdomain/automation.json"]);
-  const serverSecret = automationCacheBundleStatus.serverSecret;
+  const automationCacheBundle = loadOnly ? null : JSON.parse(fs.readFileSync(path.join(targetFolder, target), 'UTF-8'));
+  const automationCacheBundleStatus = loadOnly ? null : JSON.parse(automationCacheBundle["https://thin-hook.localhost.localdomain/automation.json"]);
+  const serverSecret = loadOnly ? '' : automationCacheBundleStatus.serverSecret;
   console.log('serverSecret', serverSecret);
   await new Promise(resolve => setTimeout(resolve, 4000));
   console.log('wait 4000');
-  let browser = await puppeteer.launch({ headless: true, dumpio: true, args: [ '--disable-gpu', '--enable-logging=stderr' ], executablePath: chromePath });
+  let browser = await puppeteer.launch({ headless: true, dumpio: false, args: ['--disable-gpu', '--no-sandbox', '--no-setsuid-sandbox'], executablePath: chromePath }); // terse and fastest
+  //let browser = await puppeteer.launch({ headless: false, dumpio: true, args: [ '--disable-gpu', '--enable-logging=stderr' ], executablePath: chromePath });
+  //let browser = await puppeteer.launch({ headless: false, dumpio: true, args: [ '--disable-gpu', '--enable-logging=stderr', '--auto-open-devtools-for-tabs' ], executablePath: chromePath });
   let page = await browser.newPage();
   await page.setViewport({ width: 1200, height: 800 });
 
@@ -91,6 +94,10 @@ default:
   console.log('goto', targetURL);
   await page.waitFor(4000);
   console.log('waitFor(4000)');
+  if (loadOnly) {
+    browser.close();
+    return;
+  }
 
   let rawCacheBundleJSON;
   while (!rawCacheBundleJSON) {
@@ -183,7 +190,7 @@ default:
     }
   }
   let cacheBundleJSON = JSON.stringify(cacheBundle, null, 2);
-  let cacheBundlePath = path.join(__dirname, target);
+  let cacheBundlePath = path.join(__dirname, '..', 'demo', target);
   fs.writeFileSync(cacheBundlePath, cacheBundleJSON);
   keys.splice(keys.indexOf('version'), 1);
   console.log(cacheBundlePath, 'version = ', cacheBundle.version,' length = ', cacheBundleJSON.length, ' bytes with ', keys.length, ' files = \n', JSON.stringify(keys, null, 2));

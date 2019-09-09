@@ -33,7 +33,8 @@
             cache.put(new Request(scriptHashesJsURLSWNotReady), new Response(scriptHashesJs, { headers: { 'Content-Type': 'text/javascript' } }));
           }
         }
-        if (event.request.url === scriptHashesJsURLSWReady) {
+        if ((hook.parameters[Symbol.for('integrity.js')] ? (hook.parameters.integrity && hook.parameters.integrity.version === version) : true) &&
+          event.request.url === scriptHashesJsURLSWReady) {
           responseJs = mutatedScriptHashesJs || scriptHashesJs;
         }
         else {

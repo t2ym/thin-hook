@@ -1,3 +1,6 @@
 node_modules
 bower_components
 test/coverage*
+demo-backend/integrity-service-helpers/node_modules/*
+demo-backend/integrity-service-helpers/build/*
+demo-backend/validation-console/node_modules/*
