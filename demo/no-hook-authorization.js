@@ -33,6 +33,7 @@ else {
     "c135fd6ba3cad41e63985ecca191995bf311abc756c5f574ef5b641e7db56914": true, // (function writeln2() { console.log("no-hook script tag via document.writeln"); })()
     "e233738578fd7e8f2e961fb11885e2c187146314a8e3fc65692633ff89c5d34a": true, // (function writeln4() { console.log("no-hook script tag in div tag via document.writeln"); })()
     "4f0395d52a8c1c7edaacacade9c31fe18555b79ce963dfb1abaaa34990993374": true, // location = "about:blank";
+    "9813c46beb1ba6bf61e651788c26c2fe3504cc474c2037859b7ea988e4ca6ca3": true, // demo/integrity.js
     "3278c69e73b547f2edaf1dc16b37c126cff12d9bf8c45916f960235c5d0c7b26": true, // demo/script-hashes.js
     "0242016e2887b322ab28b887f03779c63899db232bb036d794a0278db9e54339": true, // demo/content-loader.js
   };
