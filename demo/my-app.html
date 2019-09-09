@@ -151,6 +151,74 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     });
 
+    // Custom event handler for 'upgrade' event
+    //  - immediate dispatching of 'upgrade-notified' event is expected
+    //  - dispatching of 'upgrade-ready' event is expected if 'upgrade-notified' event is dispatched
+    //  - 'upgrade-ready' event must have its detail object with upgradeURL string { upgradeURL: upgradeURL }
+    //  - if the 'upgrade' handler is missing, the integrity plugin just reloads the current location after upgrading
+    window.addEventListener('upgrade', function onUpgrade(event) {
+      window.removeEventListener('upgrade', onUpgrade);
+      window.dispatchEvent(new CustomEvent('upgrade-notified', {})); // immediate response to notify pre-upgrading processes are in progress
+      preUpgradeProcess();
+    });
+    const preUpgradeProcess = async function() {
+      // Notes:
+      //  - Perform some suspending tasks here for the app before upgrading as follows
+      //    - suspending UI operations
+      //    - notify user for trying to upgrade
+      //    - saving session information
+      //    - etc.
+      const div = document.createElement('div');
+      div.setAttribute('style', 'z-index: 999999; position: fixed; width: 100%; height: 100%; background-color: rgba( 128, 128, 128, 0.50 );');
+      div.setAttribute('id', 'upgrade-mask');
+      document.body.appendChild(div);
+
+      // Generate upgradeURL string for the app to load
+      // Notes:
+      //  - Interpretation of the upgradeURL is fully up to the app itself
+      //  - upgradeURL must be a valid entry page URL string
+      const currentLocation = new URL(location.href);
+      const upgradeURL = new URL(currentLocation.pathname + '?upgrade=true' + currentLocation.hash, currentLocation).href; // example upgradeURL string
+
+      setTimeout(() => {
+        // notify the integrity plugin of the ready state
+        window.dispatchEvent(new CustomEvent('upgrade-ready', { detail: { upgradeURL: upgradeURL } }));
+      }, 1000);
+    }
+    // Custom event handler for 'suspend' event
+    //  - immediate dispatching of 'suspend-notified' event is expected
+    //  - dispatching of 'suspend-ready' event is expected if 'suspend-notified' event is dispatched
+    //  - 'suspend-ready' event must have its detail object with resumeURL string { resumeURL: resumeURL }
+    //  - if the 'suspend' handler is missing, the integrity plugin just reloads the current location after upgrading
+    window.addEventListener('suspend', function onUpgrade(event) {
+      window.removeEventListener('suspend', onUpgrade);
+      window.dispatchEvent(new CustomEvent('suspend-notified', {})); // immediate response to notify pre-suspending processes are in progress
+      preSuspendProcess();
+    });
+    const preSuspendProcess = async function () {
+      // Notes:
+      //  - Perform some suspending tasks here for the app before entering site pinging state as follows
+      //    - suspending UI operations
+      //    - notify user for suspension
+      //    - saving session information
+      //    - etc.
+      const div = document.createElement('div');
+      div.setAttribute('style', 'z-index: 999999; position: fixed; width: 100%; height: 100%; background-color: rgba( 128, 128, 128, 0.50 );');
+      div.setAttribute('id', 'suspend-mask');
+      document.body.appendChild(div);
+
+      // Generate resumeURL string for the app to load
+      // Notes:
+      //  - Interpretation of the resumeURL is fully up to the app itself
+      //  - resumeURL must be a valid entry page URL string
+      const currentLocation = new URL(location.href);
+      const resumeURL = new URL(currentLocation.pathname + '?suspend=true' + currentLocation.hash, currentLocation).href; // example resumeURL string
+
+      setTimeout(() => {
+        // notify the integrity plugin of the ready state
+        window.dispatchEvent(new CustomEvent('suspend-ready', { detail: { resumeURL: resumeURL } }));
+      }, 1000);
+    }
   </script>
 
 </dom-module>
