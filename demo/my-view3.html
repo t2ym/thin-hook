@@ -191,7 +191,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         iframe2.addEventListener('load', function (event) {
           chai.assert.throws(() => {
             iframe2.contentWindow.caches;
-          }, /^Permission Denied:/);
+          }, /^SecurityError:/);
         });
 
         this.$.srcdocStaticEmpty.addEventListener('load', function (event) {
