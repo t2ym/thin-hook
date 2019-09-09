@@ -1046,6 +1046,8 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
           - `hook.parameters.appPathRoot = '/';` - The app assets are under `location.origin + hook.parameters.appPathRoot`
         - Script Hashes
           - `hook.parameters.scriptHashes = { "SHA256(authorized inline script)": "context", ... }` - List of hashes for authorized inline scripts
+        - Integrity
+          - `hook.paremeters.integrity = { "URL path": "base64(SHA256(response data))", ... }` - List of integrity for static contents
     - register as Service Worker
       - `Service-Worker-Allowed` HTTP response header must have an appropriate scope for the target application
     - `cors=true` parameter: CORS script, e.g., `<script src="https://cross.origin.host/path/script.js?cors=true"></script>`
@@ -1081,6 +1083,19 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
       - See `update-no-hook-authorization-in-html` gulp task
   - `hook.parameters.sourceMap = [...]`
   - `hook.parameters.hookWorker = 'hook-worker.js?no-hook=true';`
+
+### `<script context-generator src="integrity.js?no-hook=true"></script>`
+
+- Features
+  - Check integrity of the browser agent
+  - Check integrity of the loaded scripts
+  - Establish and update secure connection to `integrityService.js`
+  - Check integrity of requests and responses
+  - Encrypt request body data
+  - Decrypt response body data
+  - TBD
+- Configurations
+  - TBD
 
 ### `<script context-generator src="disable-devtools.js?no-hook=true"></script>`
 
@@ -1272,6 +1287,241 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
   - If `contextStack` is not empty, the global object is accessed within a hooked script, whose access can be controlled via ACL
     - `contextStack` operations are relatively lightweight without performance degradation on deep call stack
   - If local alias objects are defined, the corresponding global object access is performed only once per object, whose overheads are insignificant
+
+## Server-side Components
+
+Server-side scripts and components configured for the demo but fully customizable for the target application
+
+### `demo-backend/demoServer.js`
+
+Back-end server for the demo. TBD
+
+### `demo-backend/errorReportService.js`
+
+Handler for `demo/errorReport.json` POST requests
+
+### `demo-backend/cacheBundleGeneration.js`
+
+Used at build time to automate generation of `cache-bundle.json` via puppeteer
+
+### `demo-backend/cacheBundleUploadService.js`
+
+Formerly used at build time to automate uploading of `cache-bundle.json` via a POST request
+
+### `demo-backend/postHtml.js`
+
+Express middleware for `demoServer.js` to handle `demo/postHtml`. This should be unnecessary and should not be used except for verification of HTML via a POST request.
+
+### `demo-backend/integrityService.js`
+
+Express middleware for `demoServer.js` to provide integrity and double encryption of body data
+- `demo-backend/whitelist.json` - list of URL paths which are allowed to access without encryption
+- `demo-backend/blacklist.json` - list of URL paths which are not allowed to access; namely `demo/index.html`
+  - Generated in `gulp encode-demo-html` task by parsing the entry page HTML
+
+### `demo-backend/integrity-service-helpers/build/release/native.node`
+
+Node addon package compiled from the C++ source `binding.cpp` to provide the following functions
+- `rsa_oaep_decrypt(ArrayBuffer encrypted, String private_key_pem)` - Decrypt ArrayBuffer data by RSA-OAEP-SHA256 with a String private key in PEM format via `openssl`
+
+### `demo-backend/validationService.js`
+
+When invoked as a CLI script, it provides the validation server for `ClientIntegrity.browserHash`. TBD
+- API: TBD
+- `demo-backend/validation-console/dist/` is served at its HTTPS root
+- `demo-keys/demoCA/${process.env["VALIDATION_HOST"]}.{key|crt}` is used for HTTPS server. Defaults to `localhost:8082`
+- `demo-keys/demoCA/client.{key|crt}` are used for client certificate authentication
+
+When imported as a package, it provides the client API for the validation server. TBD
+- `demo-keys/demoCA/client.{key|crt}` are used for client certificate authentication
+
+### `demo-backend/validation-console/dist/`
+
+Validation Console GUI served by `demo-backend/validationService.js`. TBD
+
+### `demo-keys/generate_cert.sh`
+
+Script to generate certificates in `demo-keys/demoCA/`
+
+### `demo-keys/keys.json`
+
+Key pairs and secret keys are stored for the application version.
+
+```javascript
+{
+  "version": "version_668", // application version
+  "rsa-private-key.pem": "RSA PRIVATE KEY in PEM",
+  "rsa-public-key.pem": "RSA PUBLIC KEY in PEM",
+  "ecdsa-private-key.pem": "ECDSA PRIVATE KEY in PEM",
+  "ecdsa-public-key.pem": "ECDSA PUBLIC KEY in PEM",
+  "session-id-aes-key": "base64(random(32 bytes))",
+  "session-id-aes-iv": "base64(random(12 bytes))",
+  "scriptsHashHex": "hex(ClientIntegrity.scriptsHash)",
+  "htmlHashHex": "hex(ClientIntegrity.htmlHash)"
+}
+```
+
+TBD
+
+## NPM scripts
+
+```json
+{
+  "scripts": {
+    "test": "wct",
+    "build": "gulp",
+    "demo": "run-p -l demoServer errorReportService validationService",
+    "debug": "run-p -l debugServer errorReportService validationService",
+    "https": "run-p -l httpsServer errorReportService validationService",
+    "upload": "run-p -l buildServer cacheBundleUploadService",
+    "cache-bundle": "run-p -r -l buildServer cacheBundleUploadService cacheBundleGeneration",
+    "updateHtmlHash": "run-p -r -l buildServer cacheBundleUploadService loadOnly",
+    "buildServer": "node demo-backend/demoServer.js -p 8080 -m build -P https -H \"localhost:8080\"",
+    "demoServer": "node demo-backend/demoServer.js -p 8080 -m server -c 4 -H \"${SERVER_HOST}\"",
+    "httpsServer": "node demo-backend/demoServer.js -p 8080 -m server -c 4 -P https -H \"${SERVER_HOST}:8080\"",
+    "debugServer": "node --inspect-brk=0.0.0.0:9229 demo-backend/demoServer.js -p 8080 -m debug -c 1 -H \"${SERVER_HOST}\"",
+    "postHtml": "run-p -l postHtmlServer errorReportService",
+    "postHtmlServer": "node demo-backend/demoServer.js -p 8080 -m server -c 4 -H \"${SERVER_HOST}\" --middleware ./postHtml.js",
+    "errorReportService": "node demo-backend/errorReportService.js -p 8081",
+    "validationService": "node demo-backend/validationService.js -p 8082 -m server -H \"${VALIDATION_HOST}\"",
+    "integrity-service-helpers": "cd demo-backend/integrity-service-helpers && npm install",
+    "validation-console": "cd demo-backend/validation-console && npm ci && npm run build",
+    "demo-certificates": "cd demo-keys && ./generate_cert.sh ",
+    "clean-demo-certificates": "cd demo-keys && rm -riv demoCA",
+    "cacheBundleUploadService": "node demo-backend/cacheBundleUploadService.js",
+    "cacheBundleGeneration": "node demo-backend/cacheBundleGeneration.js",
+    "loadOnly": "node demo-backend/cacheBundleGeneration.js loadOnly",
+    "test:attack": "run-p -r -l buildServer cacheBundleUploadService puppeteerAttackTest",
+    "puppeteerAttackTest": "node test/puppeteerAttackTest.js"
+  }
+}
+```
+
+### `${SERVER_HOST}` environment variable
+HTTPS server host name for the application. Defaults to `localhost`
+
+### `${VALIDATION_HOST}` environment variable
+HTTPS server host name at port 8082 for Validation Console and Validation Service API. Defaults to `localhost`
+
+### `npm test`
+Run hook tests
+
+### `npm run build`
+Build `hook.min.js` and the demo via `gulp`
+
+### `npm run demo`
+Serve the demo from `demo-frontend/` at `https://${SERVER_HOST}/components/thin-hook/demo/` via nginx proxing to `http://localhost:8080`
+
+### `npm run debug`
+Serve the demo from `demo/` at `https://${SERVER_HOST}/components/thin-hook/demo/` via nginx proxying to `http://localhost:8080`
+
+### `npm run https`
+Serve the demo from `demo-frontend/` at `https://${SERVER_HOST}:8080/components/thin-hook/demo/` with the key pair `demo-keys/demoCA/${SERVER_HOST}.{key|crt}`
+
+### `npm run upload`
+Formerly used to upload `cache-bundle.json` via `demo-backend/cacheBundleUploadService.js` at build time
+
+### `npm run cache-bundle`
+Called from `gulp cache-bundle-automation` task to automate building of `cache-bundle.json` at build time
+
+### `npm run updateHtmlHash`
+Called from `gulp update-html-hash` task to update `demo-keys/keys.json` for `"htmlHashHex"` of the entry page HTML after the `integrity` attribute of `<script src="script-hashes.js">` is updated in `gulp script-hashes-integrity` task
+
+### `npm run buildServer`
+Called from `npm run cache-bundle` to tonvoke `demoServer.js` in `build` mode at build time
+
+### `npm run demoServer`
+Called from `npm run demo` to invoke `demoServer.js` in `server` mode without TLS
+
+### `npm run httpsServer`
+Called from `npm run https` to invoke `demoServer.js` in `server` mode with TLS
+
+### `npm run debugServer`
+Called from `npm run debug` to invoke `demoServer.js` in `debug` mode attached by Node.js debugger
+
+### `npm run errorReportService`
+Called from `npm run {demo|https|debug}` to invoke `errorReportService.js` at port 8081
+
+### `npm run validationService`
+Called from `npm run {demo|https|debug}` to invoke `validationService.js` at port 8082
+
+### `npm run integrity-service-helpers`
+Build `demo-backend/integrity-service-helpers/` as Node addon API
+
+### `npm run validation-console`
+Build `demo-backend/validation-console/` Validation Console GUI, which is served via `validationService.js`
+
+### `npm run demo-certificates`
+Generate certificates for the demo
+- `npm run demo-certificates -- ${hostname}` - Server certificate at `demo-keys/demoCA/localhost.{crt|key}` ; `demo-keys/demoCA/demoCA.{crt|key}` if missing
+- `npm run demo-certificates -- client client` - Client certificate at `demo-keys/demoCA/client.{crt|key|pfx}`; `demo-keys/demoCA/demoCA.{crt|key}` if missing
+  - A password has to be specified for the client certificate. The password must not be empty on some platforms.
+- Automatically called from `gulp demo-certificates` task
+  - Notes:
+    - `demo-keys/demoCA/demoCA.crt` must be trusted as a root CA by the local Chrome browser at build time
+      - Installation on Linux: `cd demo-keys; certutil -d sql:$HOME/.pki/nssdb -A -n 'thin-hook demo CA' -i ./demoCA/demoCA.crt -t TCP,TCP,TCP`
+    - `demo-keys/demoCA/client.pfx` must be imported as a user certificate by the browser to open Validation Console
+      - Installation on Linux: `cd demo-keys; pk12util -d sql:$HOME/.pki/nssdb -i ./demoCA/client.pfx`
+
+### `npm run clean-demo-certificates`
+Clean up certificates in `demo-keys/demoCA/`. Each removal must be confirmed via `rm -rvi`
+
+### `npm run cacheBundleUploadService`
+Called from `npm run cache-bundle` to invoke `cacheBundleUploadService.js`
+
+### `npm run cacheBundleGeneration`
+Called from `npm run cache-bundle` to invoke `cacheBundleGeneration.js`
+
+### `npm run loadOnly`
+Called from `npm run updateHtmlHash` to invoke `cacheBundleGeneration.js` in `loadOnly` mode
+
+## Gulp Tasks
+
+```javascript
+gulp.task('default',
+  gulp.series(
+    'build',        // build hook.min.js
+    'build:test',   // build test/hook.min.js
+    'examples',     // hook examples/*
+    'demo'          // build demo
+  )
+);
+
+gulp.task('demo',
+  gulp.series(
+    'integrity-service-helpers',            // build demo-backend/integrity-service-helpers/
+    'validation-console',                   // build demo-backend/validation-console/
+    'clean-gzip',                           // clean demo/*.gz
+    'get-version',                          // get version from the entry page demo/original-index.html
+    'demo-certificates',                    // generate certificates in demo-keys/demoCA/ if they are missing
+    'demo-keys',                            // generate key pairs and secret keys in demo-keys/keys.json
+    'browserify-commonjs',                  // build demo/browserify-commonjs.js
+    'webpack-es6-module',                   // build demo/webpack-es6-module.js
+    'webpack-commonjs',                     // build demo/webpack-commonjs.js
+    'update-integrity-js',                  // update demo/integrity.js for the generated public keys in base64
+    'update-no-hook-authorization',         // update demo/no-hook-authorization.js
+    'update-no-hook-authorization-in-html', // update hook.min.js?no-hook-authorization=* in HTMLs
+    'encode-demo-html',                     // generate demo/index.html from demo/original-index.html
+    'cache-bundle',                         // generate demo/cache-bundle.json via puppeteer
+    'integrity-json',                       // generate demo/integrity.json
+    'gzip',                                 // gzip demo/cache-bundle.json and demo/integrity.json
+    'demo-frontend',                        // refresh and generate `demo-frontend/`
+  )
+);
+
+gulp.task('cache-bundle',
+  gulp.series(
+    'get-version',                   // get version
+    'dummy-integrity',               // generate dummy demo/integrity.json for build
+    'cache-bundle-automation-json',  // generate dummy demo/cache-bundle.json for build
+    'cache-bundle-automation',       // generate demo/cache-bundle.json via npm run cache-bundle
+    'script-hashes',                 // add script hashes to demo/cache-bundle.json
+    'script-hashes-integrity',       // update integrity attributes of script-hashes.js script element in the entry page
+    'update-html-hash'               // update "htmlHashHex" in demo-keys/keys.json via npm run updateHtmlHash
+  )
+);
+
+```
 
 ## TODOs
 
