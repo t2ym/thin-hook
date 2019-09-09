@@ -38,6 +38,9 @@ else if (enableCacheBundle) {
   const CACHE_STATUS_PSEUDO_URL = 'https://thin-hook.localhost.localdomain/cache-status.json';
   const AUTOMATION_PSEUDO_URL = 'https://thin-hook.localhost.localdomain/automation.json';
 
+  const toBase64 = function toBase64(data) {
+    return btoa(String.fromCodePoint(...new Uint8Array(data)));
+  }
   const toHex = function (data) {
     let result = '';
     let view = new DataView(data);
@@ -47,8 +50,54 @@ else if (enableCacheBundle) {
     return result;
   }
 
-  const loadCache = async function loadCache(cache, version) {
-    let response = await fetch(cacheBundleURL.href);
+  const getCacheStatus = async function getCacheStatus(cache) {
+    let cacheStatus;
+    try {
+      let cacheStatusResponse = await cache.match(CACHE_STATUS_PSEUDO_URL);
+      if (cacheStatusResponse) {
+        cacheStatus = JSON.parse(await cacheStatusResponse.text());
+      }
+    }
+    catch (e) {
+    }
+    return cacheStatus;
+  }
+
+  const loadCache = async function loadCache(cache, version, initialStatus) {
+    let integrity, secureFetch;
+    if (hook.parameters.integrityReady instanceof Promise) {
+      ({ integrity, secureFetch } = await hook.parameters.integrityReady);
+      if (version !== integrity.version) {
+        console.error('cache-bundle.js: version mismatch with integrity.version', version, integrity.version);
+        return false;
+      }
+    }
+    if (!await cache.match(AUTOMATION_PSEUDO_URL)) {
+      if (initialStatus !== 'load') {
+        let cacheStatus = await getCacheStatus(cache);
+        if (cacheStatus && cacheStatus.status) {
+          // caches for the current version exist or are being loaded
+          // skip fetching cache-bundle.json since there is nothing more to do
+          //console.log('cache-bundle.js: loadCache skip fetching cache-bundle.json; cacheStatus.status = ' + cacheStatus.status);
+          let trials = 0;
+          while (!(cacheStatus && cacheStatus.status === 'loaded')) {
+            await new Promise(resolve => setTimeout(resolve, 100)); // sleep 100ms
+            cacheStatus = await getCacheStatus(cache);
+            trials++;
+            if (trials > 300) { // 30 seconds = 100ms * 300
+              break;
+            }
+          }
+          if (trials <= 300) {
+            return true;
+          }
+          else {
+            console.error('cache-bundle.js: loadCache timed out waiting for loaded status set by other tabs');
+          }
+        }
+      }
+    }
+    let response = await (secureFetch || fetch)(cacheBundleURL.href);
     if (!response.ok) {
       // failed to fetch cache bundle
       console.error('cache-bundle.js: failed to fetch cache bundle ', cacheBundleURL.href, ' status ', response.status, ' statusText ', response.statusText);
@@ -57,6 +106,46 @@ else if (enableCacheBundle) {
     const clone = response.clone();
     let cacheBundle = JSON.parse(await response.text());
     let baseURI = hook.parameters.baseURI;
+    if (hook.parameters.integrityReady instanceof Promise) {
+      //console.log('cache-bundle.js: integrity ' + hook.parameters.integrity.version + ' is ready');
+      if (hook.parameters.integrity.version !== version) {
+        // version mismatch
+        // discard the cache bundle
+        console.error('cache-bundle.js: integrity.version ', hook.parameters.integrity.version, ' !== current version ', version);
+        return false;
+      }
+      const arrayBuffer = await clone.arrayBuffer();
+      const hash = await crypto.subtle.digest('SHA-256', arrayBuffer);
+      const digest = toBase64(hash);
+
+      let cacheBundleIntegrity =  hook.parameters.integrity[cacheBundleURL.pathname];
+      if (typeof cacheBundleIntegrity !== 'string') {
+        if (typeof hook.parameters.integrity[AUTOMATION_PSEUDO_URL] === 'string') {
+          let status = JSON.parse(hook.parameters.integrity[AUTOMATION_PSEUDO_URL]);
+          const scriptURL = new URL(Array.prototype.filter.call(document.querySelectorAll('script'), s => s.src && s.src.match(/\/cache-bundle.js/))[0].src, baseURI);
+          const authorization = scriptURL.searchParams.get('authorization');
+          const authorizationHash = await crypto.subtle.digest('SHA-256', new TextEncoder("utf-8").encode(status.serverSecret + status.script));
+          const authorizationDigest = toHex(authorizationHash);
+          if (authorizationDigest === authorization) {
+            cacheBundleIntegrity = digest; // cache-bundle.json generation is in progress
+          }
+        }
+        else {
+          // invalid integrity for cache-bundle.json
+          // discard the cache bundle
+          console.error('cache-bundle.js: invalid integrity["' + cacheBundleURL.pathname + '"] ', cacheBundleIntegrity);
+          return false;
+        }
+      }
+
+      if (cacheBundleIntegrity === digest) {
+        //console.log('cache-bundle.js: ' + version + ' integrity matched for ' + cacheBundleURL.pathname);
+      }
+      else {
+        console.error('cache-bundle.js: ' + version + ' integrity not matched for ', cacheBundleURL.pathname, cacheBundleIntegrity, digest);
+        return false;
+      }
+    }
     if (cacheBundle.version === version) {
       let promises = [];
       for (let key in cacheBundle) {
@@ -311,10 +400,10 @@ else if (enableCacheBundle) {
     return await uploadCacheBundle(cacheBundle);
   };
 
-  const cacheBundle = async function cacheBundle(version, halt) {
+  const cacheBundle = async function cacheBundle(version, halt, initialStatus) {
+    let cacheStatus = { status: initialStatus || 'load' }; // default cacheStatus
     try {
       let cache = await caches.open(version);
-      let cacheStatus = { status: 'load' }; // default cacheStatus
       let cacheStatusResponse = await cache.match(CACHE_STATUS_PSEUDO_URL);
       if (cacheStatusResponse) {
         cacheStatus = JSON.parse(await cacheStatusResponse.text());
@@ -326,7 +415,7 @@ else if (enableCacheBundle) {
         await cache.put(new Request(CACHE_STATUS_PSEUDO_URL), new Response(JSON.stringify(cacheStatus), { headers: { 'Content-Type': 'application/json' }}));
         break;
       case 'loading': // cache-bundle.json -> Cache
-        if (await loadCache(cache, version)) {
+        if (await loadCache(cache, version, initialStatus)) {
           cacheStatus.status = 'loaded';
         }
         else {
@@ -352,11 +441,24 @@ else if (enableCacheBundle) {
         await cache.put(new Request(CACHE_STATUS_PSEUDO_URL), new Response(JSON.stringify(cacheStatus), { headers: { 'Content-Type': 'application/json' }}));
         break;
       }
+      if (typeof hook.parameters.cacheBundleResolve === 'function' && cacheStatus.status === 'loaded') {
+        hook.parameters.cacheBundleResolve();
+        hook.parameters.cacheBundleResolve = null;
+      }
+      if (typeof hook.parameters.cacheBundleReject === 'function' && cacheStatus.status === 'error') {
+        hook.parameters.cacheBundleReject();
+        hook.parameters.cacheBundleReject = null;
+      }
     }
     catch (e) {
       console.error('cache-bundle.js: exception ' + e.message);
+      if (typeof hook.parameters.cacheBundleReject === 'function') {
+        hook.parameters.cacheBundleReject(e);
+        hook.parameters.cacheBundleReject = null;
+        cacheStatus.status = 'error';
+      }
     }
-    return 'cacheBundle("' + version + '")';
+    return 'cacheBundle("' + version + '", "' + cacheStatus.status + '")';
   };
 
   if (self.constructor.name === 'ServiceWorkerGlobalScope') {
@@ -552,13 +654,25 @@ else if (enableCacheBundle) {
       }
 
       const tasks = hook.parameters.preServiceWorkerTasks = hook.parameters.preServiceWorkerTasks || [];
-      status = 'load';
-      let cacheStatus = { status: status };
+      let cacheStatus;
+      let initialStatus;
       tasks.push(caches.open(version)
-        .then(cache => cache.put(new Request(CACHE_STATUS_PSEUDO_URL), new Response(JSON.stringify(cacheStatus), { headers: { 'Content-Type': 'application/json' }})))
-        .then(() => cacheBundle(version, halt))
-        .then(() => cacheBundle(version, halt))
-        .then(() => cacheBundle(version, halt)));
+        .then(cache => getCacheStatus(cache))
+        .then((_cacheStatus) => {
+          if (_cacheStatus) {
+            cacheStatus = _cacheStatus;
+            status = _cacheStatus.status;
+          }
+          else {
+            initialStatus = 'load';
+            cacheStatus = { status: status = initialStatus };
+          }
+        })
+        .then(() => caches.open(version))
+        .then(cache => initialStatus === 'load' ? cache.put(new Request(CACHE_STATUS_PSEUDO_URL), new Response(JSON.stringify(cacheStatus), { headers: { 'Content-Type': 'application/json' }})) : true)
+        .then(() => cacheBundle(version, halt, initialStatus))
+        .then(() => cacheBundle(version, halt, initialStatus))
+        .then(() => cacheBundle(version, halt, initialStatus)));
     }
   }
 }
