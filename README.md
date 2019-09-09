@@ -1216,6 +1216,38 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
     - `const excludes = new Set() : { 'window.Math' }`: exclude `Math` object
       - Note: `Math` object properties must be wrapped with `wrapGlobalProperty` function
 
+### `<script context-generator src="script-hashes.js?no-hook=true&service-worker-ready=false"></script>`
+
+- Features
+  - Provide list of authorized hashes for inline scripts in HTML to accelerate preprocessing in **HTML Imports polyfill**
+    - See [Issue #275 Support HTML Imports polyfill after the native support is removed](https://github.com/t2ym/thin-hook/issues/275)
+  - Required in the entry page and HTML subdocuments
+  - The list of authorized hashes is generated in `gulp script-hashes` task and inserted into `cache-bundle.json` with the key SCRIPT_HASHES_PSEUDO_URL `https://thin-hook.localhost.localdomain/script-hashes.json`
+  - The list is empty if `service-worker-ready=false` while it is copied from `cache-bundle.json` if `service-worker-ready=true`
+    - The list is stored at `hook.parameters.scriptHashes`
+  - SRI `integrity` attribute requires **2** integrity values for both `service-worker-ready=false` and `service-worker-ready=true`
+    - They are generated in `gulp script-hashes-integrity` task and inserted into the entry page, i.e., `original-index.html` and `index.html`
+  - Unnecessary if HTML Imports feature is natively implemented in the browser or unused in the app
+    - It is recommended to append this plugin as the behaviors without the plugin are not well verified
+- Configurations
+  - Mandatory parameter `service-worker-ready=false` for the entry page, which is automatically converted to `service-worker-ready=true` after preprocessed
+  - Mandatory parameter `service-worker-ready=true` for other HTML pages including `empty-document.html`
+  - Required gulp tasks: `script-hashes`, `script-hashes-integrity`
+
+### `<script src="content-loader.js?no-hook=true"></script>`
+
+- Features
+  - Load the target HTML without the hook infrastructure scripts after the hook infrastructure scripts are loaded in `empty-document.html` for `iframe` documents
+- Configurations
+  - The container `iframe` element is automatically configured in preprocessing HTML contents
+    - Parameter `content=base64URL(encodeURIComponent(HTML))`
+      - HTML is written into the `iframe` document via `document.write(HTML)` after preprocessing
+    - Parameter `blob=encodeURIComponent(BlobURL)`
+      - Blob is written into the `iframe` document as HTML via `document.write(fetch(Blob))` after preprocessing if the blob type is `text/html`
+      - Blob is written into the `iframe` document as a plain text via data URL if the blob type is `text/plain`
+      - Blob is blocked if the blob type is `image/svg+xml`
+      - Blob with other blob types is written into the `iframe` document as data URL
+
 ### `<script src="wrap-globals.js?no-hook=true"></script>`
 
 - Features
