@@ -1044,6 +1044,8 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
             - If the callback function is undefined, any `contentType` values within `hook.parameters.cacheableContentTypes` are cacheable
         - Root of Application Path
           - `hook.parameters.appPathRoot = '/';` - The app assets are under `location.origin + hook.parameters.appPathRoot`
+        - Script Hashes
+          - `hook.parameters.scriptHashes = { "SHA256(authorized inline script)": "context", ... }` - List of hashes for authorized inline scripts
     - register as Service Worker
       - `Service-Worker-Allowed` HTTP response header must have an appropriate scope for the target application
     - `cors=true` parameter: CORS script, e.g., `<script src="https://cross.origin.host/path/script.js?cors=true"></script>`
