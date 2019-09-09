@@ -1,0 +1,12 @@
+{
+  "/components/thin-hook/demo/": true,
+  "/components/thin-hook/hook.min.js": true,
+  "/components/thin-hook/demo/no-hook-authorization.js": true,
+  "/components/thin-hook/demo/integrity.js": true,
+  "/components/thin-hook/demo/disable-devtools.js": true,
+  "/components/thin-hook/demo/context-generator.js": true,
+  "/components/thin-hook/demo/bootstrap.js": true,
+  "/components/thin-hook/demo/cache-bundle.js": true,
+  "/components/thin-hook/demo/hook-callback.js": true,
+  "/components/thin-hook/demo/script-hashes.js": true
+}
