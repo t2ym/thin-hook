@@ -90,6 +90,8 @@ __hook__('=', module, [
   }
 ], __65c113ba194d10494e2bba7f5066029de3ada0d924cf072d5420ceca39aaa28b__[1]);
 },{"path":3,"tty":4}],3:[function(require,module,exports){
+// .dirname, .basename, and .extname methods are extracted from Node.js v8.11.1,
+// backported and transplited with Babel, with backwards-compat fixes
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -114,11 +116,10 @@ __hook__('=', module, [
 // must be no slashes, empty elements, or device names (c:\) in the array
 // (so also no leading and trailing slashes - it does not distinguish
 // relative and absolute paths)
-const __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__ = $hook$.$(__hook__, [
+const __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__ = $hook$.$(__hook__, [
   '/components/thin-hook/node_modules/path-browserify/index.js,normalizeArray',
   '/components/thin-hook/node_modules/path-browserify/index.js,normalizeArray,i',
   '/components/thin-hook/node_modules/path-browserify/index.js,normalizeArray,last',
-  '/components/thin-hook/node_modules/path-browserify/index.js,splitPath',
   '/components/thin-hook/node_modules/path-browserify/index.js',
   '/components/thin-hook/node_modules/path-browserify/index.js,i',
   '/components/thin-hook/node_modules/path-browserify/index.js,path',
@@ -134,9 +135,8 @@ const __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__ = $ho
   '/components/thin-hook/node_modules/path-browserify/index.js,toParts',
   '/components/thin-hook/node_modules/path-browserify/index.js,length',
   '_uNpREdiC4aB1e_Math;/components/thin-hook/node_modules/path-browserify/index.js,length',
-  '/components/thin-hook/node_modules/path-browserify/index.js,result',
-  '/components/thin-hook/node_modules/path-browserify/index.js,root',
-  '/components/thin-hook/node_modules/path-browserify/index.js,dir',
+  '/components/thin-hook/node_modules/path-browserify/index.js,code',
+  '/components/thin-hook/node_modules/path-browserify/index.js,basename',
   '/components/thin-hook/node_modules/path-browserify/index.js,f',
   '/components/thin-hook/node_modules/path-browserify/index.js,filter',
   '/components/thin-hook/node_modules/path-browserify/index.js,substr'
@@ -145,8 +145,8 @@ function normalizeArray(parts, allowAboveRoot) {
   return __hook__((parts, allowAboveRoot) => {
     // if the path tries to go above the root, `up` ends up > 0
     var up = 0;
-    for (var i = __hook__('.', parts, ['length'], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[1]) - 1; i >= 0; i--) {
-      var last = __hook__('.', parts, [i], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[2]);
+    for (var i = __hook__('.', parts, ['length'], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[1]) - 1; i >= 0; i--) {
+      var last = __hook__('.', parts, [i], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[2]);
       if (last === '.') {
         __hook__('()', parts, [
           'splice',
@@ -154,7 +154,7 @@ function normalizeArray(parts, allowAboveRoot) {
             i,
             1
           ]
-        ], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[0]);
+        ], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[0]);
       } else if (last === '..') {
         __hook__('()', parts, [
           'splice',
@@ -162,7 +162,7 @@ function normalizeArray(parts, allowAboveRoot) {
             i,
             1
           ]
-        ], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[0]);
+        ], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[0]);
         up++;
       } else if (up) {
         __hook__('()', parts, [
@@ -171,7 +171,7 @@ function normalizeArray(parts, allowAboveRoot) {
             i,
             1
           ]
-        ], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[0]);
+        ], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[0]);
         up--;
       }
     }
@@ -181,26 +181,12 @@ function normalizeArray(parts, allowAboveRoot) {
         __hook__('()', parts, [
           'unshift',
           ['..']
-        ], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[0]);
+        ], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[0]);
       }
     }
     return parts;
-  }, null, arguments, __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[0]);
+  }, null, arguments, __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[0]);
 }
-// Split a filename into [root, dir, basename, ext], unix version
-// 'root' is just a slash, or nothing.
-var splitPathRe = /^(\/?|)([\s\S]*?)((?:\.{1,2}|[^\/]+?|)(\.[^.\/]*|))(?:[\/]*)$/;
-var splitPath = function (filename) {
-  return __hook__(filename => {
-    return __hook__('()', __hook__('()', splitPathRe, [
-      'exec',
-      [filename]
-    ], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[3]), [
-      'slice',
-      [1]
-    ], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[3]);
-  }, null, arguments, __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[3]);
-};
 // path.resolve([from ...], to)
 // posix version
 __hook__('=', exports, [
@@ -208,14 +194,14 @@ __hook__('=', exports, [
   function () {
     return __hook__(() => {
       var resolvedPath = '', resolvedAbsolute = false;
-      for (var i = __hook__('.', arguments, ['length'], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[5]) - 1; i >= -1 && !resolvedAbsolute; i--) {
-        var path = i >= 0 ? __hook__('.', arguments, [i], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[6]) : __hook__('()', $hook$.global(__hook__, __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[6], 'process', 'get')[__76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[7]], [
+      for (var i = __hook__('.', arguments, ['length'], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[4]) - 1; i >= -1 && !resolvedAbsolute; i--) {
+        var path = i >= 0 ? __hook__('.', arguments, [i], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[5]) : __hook__('()', $hook$.global(__hook__, __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[5], 'process', 'get')[__868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[6]], [
           'cwd',
           []
-        ], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[6]);
+        ], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[5]);
         // Skip empty and invalid entries
         if (typeof path !== 'string') {
-          throw __hook__($hook$.global(__hook__, __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4], 'TypeError', 'get')[__76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[8]], null, ['Arguments to path.resolve must be strings'], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4], true);
+          throw __hook__($hook$.global(__hook__, __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3], 'TypeError', 'get')[__868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[7]], null, ['Arguments to path.resolve must be strings'], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3], true);
         } else if (!path) {
           continue;
         }
@@ -223,7 +209,7 @@ __hook__('=', exports, [
         resolvedAbsolute = __hook__('()', path, [
           'charAt',
           [0]
-        ], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4]) === '/';
+        ], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3]) === '/';
       }
       // At this point the path should be resolved to a full absolute path, but
       // handle relative paths to be safe (might happen when process.cwd() fails)
@@ -233,22 +219,22 @@ __hook__('=', exports, [
           __hook__('()', resolvedPath, [
             'split',
             ['/']
-          ], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4]),
+          ], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3]),
           function (p) {
             return __hook__(p => {
               return !!p;
-            }, null, arguments, __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4]);
+            }, null, arguments, __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3]);
           }
-        ], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4], 0),
+        ], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3], 0),
         !resolvedAbsolute
-      ], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4], 0), [
+      ], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3], 0), [
         'join',
         ['/']
-      ], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4]);
+      ], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3]);
       return (resolvedAbsolute ? '/' : '') + resolvedPath || '.';
-    }, null, arguments, __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4]);
+    }, null, arguments, __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3]);
   }
-], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4]);
+], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3]);
 // path.normalize(path)
 // posix version
 __hook__('=', exports, [
@@ -258,28 +244,28 @@ __hook__('=', exports, [
       var isAbsolute = __hook__('()', exports, [
           'isAbsolute',
           [path]
-        ], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[9]), trailingSlash = __hook__(substr, null, [
+        ], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[8]), trailingSlash = __hook__(substr, null, [
           path,
           -1
-        ], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[10], 0) === '/';
+        ], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[9], 0) === '/';
       // Normalize the path
       path = __hook__('()', __hook__(normalizeArray, null, [
         __hook__(filter, null, [
           __hook__('()', path, [
             'split',
             ['/']
-          ], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4]),
+          ], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3]),
           function (p) {
             return __hook__(p => {
               return !!p;
-            }, null, arguments, __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4]);
+            }, null, arguments, __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3]);
           }
-        ], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4], 0),
+        ], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3], 0),
         !isAbsolute
-      ], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4], 0), [
+      ], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3], 0), [
         'join',
         ['/']
-      ], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4]);
+      ], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3]);
       if (!path && !isAbsolute) {
         path = '.';
       }
@@ -287,9 +273,9 @@ __hook__('=', exports, [
         path += '/';
       }
       return (isAbsolute ? '/' : '') + path;
-    }, null, arguments, __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4]);
+    }, null, arguments, __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3]);
   }
-], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4]);
+], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3]);
 // posix version
 __hook__('=', exports, [
   'isAbsolute',
@@ -298,22 +284,22 @@ __hook__('=', exports, [
       return __hook__('()', path, [
         'charAt',
         [0]
-      ], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4]) === '/';
-    }, null, arguments, __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4]);
+      ], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3]) === '/';
+    }, null, arguments, __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3]);
   }
-], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4]);
+], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3]);
 // posix version
 __hook__('=', exports, [
   'join',
   function () {
     return __hook__(() => {
-      var paths = __hook__('()', __hook__('.', __hook__('.', $hook$.global(__hook__, __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[11], 'Array', 'get')[__76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[12]], ['prototype'], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[11]), ['slice'], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[11]), [
+      var paths = __hook__('()', __hook__('.', __hook__('.', $hook$.global(__hook__, __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[10], 'Array', 'get')[__868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[11]], ['prototype'], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[10]), ['slice'], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[10]), [
         'call',
         [
           arguments,
           0
         ]
-      ], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[11]);
+      ], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[10]);
       return __hook__('()', exports, [
         'normalize',
         [__hook__('()', __hook__(filter, null, [
@@ -321,19 +307,19 @@ __hook__('=', exports, [
             function (p, index) {
               return __hook__((p, index) => {
                 if (typeof p !== 'string') {
-                  throw __hook__($hook$.global(__hook__, __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4], 'TypeError', 'get')[__76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[8]], null, ['Arguments to path.join must be strings'], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4], true);
+                  throw __hook__($hook$.global(__hook__, __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3], 'TypeError', 'get')[__868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[7]], null, ['Arguments to path.join must be strings'], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3], true);
                 }
                 return p;
-              }, null, arguments, __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4]);
+              }, null, arguments, __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3]);
             }
-          ], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4], 0), [
+          ], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3], 0), [
             'join',
             ['/']
-          ], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4])]
-      ], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4]);
-    }, null, arguments, __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4]);
+          ], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3])]
+      ], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3]);
+    }, null, arguments, __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3]);
   }
-], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4]);
+], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3]);
 // path.relative(from, to)
 // posix version
 __hook__('=', exports, [
@@ -343,27 +329,27 @@ __hook__('=', exports, [
       from = __hook__('()', __hook__('()', exports, [
         'resolve',
         [from]
-      ], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4]), [
+      ], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3]), [
         'substr',
         [1]
-      ], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4]);
+      ], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3]);
       to = __hook__('()', __hook__('()', exports, [
         'resolve',
         [to]
-      ], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4]), [
+      ], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3]), [
         'substr',
         [1]
-      ], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4]);
+      ], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3]);
       function trim(arr) {
         return __hook__(arr => {
           var start = 0;
-          for (; start < __hook__('.', arr, ['length'], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[13]); start++) {
-            if (__hook__('.', arr, [start], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[13]) !== '')
+          for (; start < __hook__('.', arr, ['length'], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[12]); start++) {
+            if (__hook__('.', arr, [start], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[12]) !== '')
               break;
           }
-          var end = __hook__('.', arr, ['length'], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[14]) - 1;
+          var end = __hook__('.', arr, ['length'], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[13]) - 1;
           for (; end >= 0; end--) {
-            if (__hook__('.', arr, [end], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[13]) !== '')
+            if (__hook__('.', arr, [end], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[12]) !== '')
               break;
           }
           if (start > end)
@@ -374,140 +360,254 @@ __hook__('=', exports, [
               start,
               end - start + 1
             ]
-          ], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[13]);
-        }, null, arguments, __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[13]);
+          ], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[12]);
+        }, null, arguments, __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[12]);
       }
       var fromParts = __hook__(trim, null, [__hook__('()', from, [
           'split',
           ['/']
-        ], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[15])], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[15], 0);
+        ], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[14])], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[14], 0);
       var toParts = __hook__(trim, null, [__hook__('()', to, [
           'split',
           ['/']
-        ], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[16])], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[16], 0);
-      var length = __hook__('()', $hook$.global(__hook__, __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[17], 'Math', 'get')[__76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[18]], [
+        ], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[15])], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[15], 0);
+      var length = __hook__('()', $hook$.global(__hook__, __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[16], 'Math', 'get')[__868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[17]], [
         'min',
         [
-          __hook__('.', fromParts, ['length'], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[17]),
-          __hook__('.', toParts, ['length'], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[17])
+          __hook__('.', fromParts, ['length'], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[16]),
+          __hook__('.', toParts, ['length'], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[16])
         ]
-      ], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[17]);
+      ], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[16]);
       var samePartsLength = length;
       for (var i = 0; i < length; i++) {
-        if (__hook__('.', fromParts, [i], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4]) !== __hook__('.', toParts, [i], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4])) {
+        if (__hook__('.', fromParts, [i], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3]) !== __hook__('.', toParts, [i], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3])) {
           samePartsLength = i;
           break;
         }
       }
       var outputParts = [];
-      for (var i = samePartsLength; i < __hook__('.', fromParts, ['length'], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4]); i++) {
+      for (var i = samePartsLength; i < __hook__('.', fromParts, ['length'], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3]); i++) {
         __hook__('()', outputParts, [
           'push',
           ['..']
-        ], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4]);
+        ], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3]);
       }
       outputParts = __hook__('()', outputParts, [
         'concat',
         [__hook__('()', toParts, [
             'slice',
             [samePartsLength]
-          ], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4])]
-      ], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4]);
+          ], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3])]
+      ], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3]);
       return __hook__('()', outputParts, [
         'join',
         ['/']
-      ], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4]);
-    }, null, arguments, __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4]);
+      ], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3]);
+    }, null, arguments, __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3]);
   }
-], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4]);
+], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3]);
 __hook__('=', exports, [
   'sep',
   '/'
-], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4]);
+], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3]);
 __hook__('=', exports, [
   'delimiter',
   ':'
-], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4]);
+], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3]);
 __hook__('=', exports, [
   'dirname',
   function (path) {
     return __hook__(path => {
-      var result = __hook__(splitPath, null, [path], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[19], 0), root = __hook__('.', result, [0], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[20]), dir = __hook__('.', result, [1], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[21]);
-      if (!root && !dir) {
-        // No dirname whatsoever
+      if (typeof path !== 'string')
+        path = path + '';
+      if (__hook__('.', path, ['length'], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3]) === 0)
         return '.';
+      var code = __hook__('()', path, [
+        'charCodeAt',
+        [0]
+      ], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[18]);
+      var hasRoot = code === 47  /*/*/;
+      var end = -1;
+      var matchedSlash = true;
+      for (var i = __hook__('.', path, ['length'], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[4]) - 1; i >= 1; --i) {
+        code = __hook__('()', path, [
+          'charCodeAt',
+          [i]
+        ], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3]);
+        if (code === 47  /*/*/) {
+          if (!matchedSlash) {
+            end = i;
+            break;
+          }
+        } else {
+          // We saw the first non-path separator
+          matchedSlash = false;
+        }
       }
-      if (dir) {
-        // It has a dirname, strip trailing slash
-        dir = __hook__('()', dir, [
-          'substr',
-          [
-            0,
-            __hook__('.', dir, ['length'], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4]) - 1
-          ]
-        ], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4]);
+      if (end === -1)
+        return hasRoot ? '/' : '.';
+      if (hasRoot && end === 1) {
+        // return '//';
+        // Backwards-compat fix:
+        return '/';
       }
-      return root + dir;
-    }, null, arguments, __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4]);
+      return __hook__('()', path, [
+        'slice',
+        [
+          0,
+          end
+        ]
+      ], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3]);
+    }, null, arguments, __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3]);
   }
-], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4]);
+], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3]);
+function basename(path) {
+  return __hook__(path => {
+    if (typeof path !== 'string')
+      path = path + '';
+    var start = 0;
+    var end = -1;
+    var matchedSlash = true;
+    var i;
+    for (i = __hook__('.', path, ['length'], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[19]) - 1; i >= 0; --i) {
+      if (__hook__('()', path, [
+          'charCodeAt',
+          [i]
+        ], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[19]) === 47  /*/*/) {
+        // If we reached a path separator that was not part of a set of path
+        // separators at the end of the string, stop now
+        if (!matchedSlash) {
+          start = i + 1;
+          break;
+        }
+      } else if (end === -1) {
+        // We saw the first non-path separator, mark this as the end of our
+        // path component
+        matchedSlash = false;
+        end = i + 1;
+      }
+    }
+    if (end === -1)
+      return '';
+    return __hook__('()', path, [
+      'slice',
+      [
+        start,
+        end
+      ]
+    ], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[19]);
+  }, null, arguments, __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[19]);
+}
+// Uses a mixed approach for backwards-compatibility, as ext behavior changed
+// in new Node.js versions, so only basename() above is backported here
 __hook__('=', exports, [
   'basename',
   function (path, ext) {
     return __hook__((path, ext) => {
-      var f = __hook__('.', __hook__(splitPath, null, [path], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[22], 0), [2], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[22]);
-      // TODO: make this comparison case-insensitive on windows?
+      var f = __hook__(basename, null, [path], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[20], 0);
       if (ext && __hook__('()', f, [
           'substr',
-          [-1 * __hook__('.', ext, ['length'], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4])]
-        ], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4]) === ext) {
+          [-1 * __hook__('.', ext, ['length'], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3])]
+        ], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3]) === ext) {
         f = __hook__('()', f, [
           'substr',
           [
             0,
-            __hook__('.', f, ['length'], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4]) - __hook__('.', ext, ['length'], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4])
+            __hook__('.', f, ['length'], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3]) - __hook__('.', ext, ['length'], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3])
           ]
-        ], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4]);
+        ], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3]);
       }
       return f;
-    }, null, arguments, __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4]);
+    }, null, arguments, __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3]);
   }
-], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4]);
+], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3]);
 __hook__('=', exports, [
   'extname',
   function (path) {
     return __hook__(path => {
-      return __hook__('.', __hook__(splitPath, null, [path], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4], 0), [3], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4]);
-    }, null, arguments, __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4]);
+      if (typeof path !== 'string')
+        path = path + '';
+      var startDot = -1;
+      var startPart = 0;
+      var end = -1;
+      var matchedSlash = true;
+      // Track the state of characters (if any) we see before our first dot and
+      // after any path separator we find
+      var preDotState = 0;
+      for (var i = __hook__('.', path, ['length'], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[4]) - 1; i >= 0; --i) {
+        var code = __hook__('()', path, [
+          'charCodeAt',
+          [i]
+        ], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[18]);
+        if (code === 47  /*/*/) {
+          // If we reached a path separator that was not part of a set of path
+          // separators at the end of the string, stop now
+          if (!matchedSlash) {
+            startPart = i + 1;
+            break;
+          }
+          continue;
+        }
+        if (end === -1) {
+          // We saw the first non-path separator, mark this as the end of our
+          // extension
+          matchedSlash = false;
+          end = i + 1;
+        }
+        if (code === 46  /*.*/) {
+          // If this is our first dot, mark it as the start of our extension
+          if (startDot === -1)
+            startDot = i;
+          else if (preDotState !== 1)
+            preDotState = 1;
+        } else if (startDot !== -1) {
+          // We saw a non-dot and non-path separator before our dot, so we should
+          // have a good chance at having a non-empty extension
+          preDotState = -1;
+        }
+      }
+      if (startDot === -1 || end === -1 || // We saw a non-dot character immediately before the dot
+        preDotState === 0 || // The (right-most) trimmed path component is exactly '..'
+        preDotState === 1 && startDot === end - 1 && startDot === startPart + 1) {
+        return '';
+      }
+      return __hook__('()', path, [
+        'slice',
+        [
+          startDot,
+          end
+        ]
+      ], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3]);
+    }, null, arguments, __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3]);
   }
-], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[4]);
+], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[3]);
 function filter(xs, f) {
   return __hook__((xs, f) => {
-    if (__hook__('.', xs, ['filter'], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[23]))
+    if (__hook__('.', xs, ['filter'], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[21]))
       return __hook__('()', xs, [
         'filter',
         [f]
-      ], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[23]);
+      ], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[21]);
     var res = [];
-    for (var i = 0; i < __hook__('.', xs, ['length'], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[23]); i++) {
+    for (var i = 0; i < __hook__('.', xs, ['length'], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[21]); i++) {
       if (__hook__(f, null, [
-          __hook__('.', xs, [i], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[23]),
+          __hook__('.', xs, [i], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[21]),
           i,
           xs
-        ], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[23], 0))
+        ], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[21], 0))
         __hook__('()', res, [
           'push',
-          [__hook__('.', xs, [i], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[23])]
-        ], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[23]);
+          [__hook__('.', xs, [i], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[21])]
+        ], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[21]);
     }
     return res;
-  }, null, arguments, __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[23]);
+  }, null, arguments, __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[21]);
 }
 // String.prototype.substr - negative index don't work in IE8
 var substr = __hook__('()', 'ab', [
   'substr',
   [-1]
-], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[24]) === 'b' ? function (str, start, len) {
+], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[22]) === 'b' ? function (str, start, len) {
   return __hook__((str, start, len) => {
     return __hook__('()', str, [
       'substr',
@@ -515,20 +615,20 @@ var substr = __hook__('()', 'ab', [
         start,
         len
       ]
-    ], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[24]);
-  }, null, arguments, __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[24]);
+    ], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[22]);
+  }, null, arguments, __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[22]);
 } : function (str, start, len) {
   return __hook__((str, start, len) => {
     if (start < 0)
-      start = __hook__('.', str, ['length'], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[24]) + start;
+      start = __hook__('.', str, ['length'], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[22]) + start;
     return __hook__('()', str, [
       'substr',
       [
         start,
         len
       ]
-    ], __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[24]);
-  }, null, arguments, __76793008eb3b4b1306e062eda9a190192647fdecd41b811cc54ba6f6ff40a91a__[24]);
+    ], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[22]);
+  }, null, arguments, __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[22]);
 };
 },{}],4:[function(require,module,exports){
 const __457acc8c25e9a603939681278e9e0ffa242d4e6c561aa8d7ab669757b8d622ae__ = $hook$.$(__hook__, [
