@@ -1710,10 +1710,13 @@
       const getBrowserHash = async function getBrowserHash() {
         //await Promise.all(promises);
         //traverseDone = true;
-        const browserHashJSON = JSON.stringify(browserHashObject, null, 0);
+        let browserHashJSON = JSON.stringify(browserHashObject, null, 0);
         //console.log(JSON.stringify(browserHashObject, null, 2));
+        browserHashObject = null;
         const browserHashUtf8 = new TextEncoder('utf-8').encode(browserHashJSON);
+        browserHashJSON = null;
         const browserHash = await crypto.subtle.digest(SHA256.hashName, browserHashUtf8);
+        browserHashUtf8.fill(0);
         return browserHash;
       }
 
@@ -1725,13 +1728,16 @@
         ));
         const userAgentUtf8 = new TextEncoder('utf-8').encode(navigator.userAgent);
         const userAgentHash = await crypto.subtle.digest(SHA256.hashName, userAgentUtf8);
+        userAgentUtf8.fill(0);
         const browserHash = await getBrowserHash();
         const scriptsUtf8 = new TextEncoder('utf-8').encode(scripts.join('\0'));
         const scriptsHash = await crypto.subtle.digest(SHA256.hashName, scriptsUtf8); 
+        scriptsUtf8.fill(0);
         outerHTML = document.querySelector('html').outerHTML;
         //console.log('outerHTML', outerHTML);
         const htmlUtf8 = new TextEncoder('utf-8').encode(outerHTML);
         const htmlHash = await crypto.subtle.digest(SHA256.hashName, htmlUtf8);
+        htmlUtf8.fill(0);
 
         CurrentSession.ClientIntegrity = {
           userAgentHash: userAgentHash,
@@ -1749,6 +1755,7 @@
 
         Connect.encryptedHeader =
           await crypto.subtle.encrypt({ name: 'RSA-OAEP' }, RSA.serverPublicKey, decryptedHeader);
+        decryptedHeader.fill(0);
 
         const decryptedBody = HKDF.concat(
           NextSession.clientRandom,
@@ -1775,6 +1782,7 @@
           );
         Connect.encryptedBody =
           await crypto.subtle.encrypt(aesAlg, aesKey, decryptedBody);
+        decryptedBody.fill(0);
 
         Connect.encrypted = HKDF.concat(
           Connect.type,
@@ -2038,6 +2046,13 @@
             CurrentSession.ClientIntegrity.htmlHash,
           ));
 
+          // Discard ClientIntegrity
+          [ 'userAgentHash', 'browserHash', 'scriptsHash', 'htmlHash' ].forEach((name) => {
+            new Uint8Array(CurrentSession.ClientIntegrity[name]).fill(0);
+            delete CurrentSession.ClientIntegrity[name];
+          });
+          delete CurrentSession.ClientIntegrity;
+
           // Derive Pseudo-PSK for initial key derivation
           CurrentSession.PSK =
             await HKDF.Expand_Label(CurrentSession.connect_early_secret, 'connect', '', SHA256.hashBytes); // pseudo-PSK
@@ -2057,6 +2072,9 @@
               false,
               ['sign']
             );
+          // Discard connect_salt
+          new Uint8Array(CurrentSession.connect_salt).fill(0);
+          delete CurrentSession.connect_salt;
 
           if (!await sendConnectRequest(Connect, Accept, CurrentSession, NextSession)) {
             throw new Error('doConnect: sendConnectRequest failed');
