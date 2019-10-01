@@ -331,8 +331,8 @@
 
   RSA.publicKeyBits = 2048; // number of bits in RSA public key, which must be at least 2048
   RSA.publicKeySize = RSA.publicKeyBits / 8; // number of bytes for RSA-OAEP encrypted data size
-  RSA.publicKeyBase64 = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxd5OKVoLgirReke8SqdEkels5xwpJ8j9qZlyMjbFScCC9DNcbFCuOFHrpPBtauCXprygbT2WGnahU/NZGF467A1NNoi2NBxbYqhKRZ+6mHKIHEmNM+ANAOssgoFsj2bynz6G6DjN2pEBVL9mXxeogvNnn3N0EJtnrKwqRtyMay4CxrilT+v46Or99mlkJP/2UcJqoTax8FVovVb4tL69Cu6Vkn3I2ATUu3gA1evUJgNrtLdQTnpi3AK4h9zW3TuF0yAexSvb5mCmlZ92tHvvNuRUS5pevRAyDWawv9j2vZmLwBk5MSBBmqg0NNAnuSz4iKJBEV6JVPTQdxrmAFZ6YQIDAQAB';
-  ECDSA.publicKeyBase64 = 'MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEpEObqiXsmmo11EXm8PSCaZlugTs8PlDKzc9Nm46c3ERW8lDG+6XJ1nG0KaOJmB5vj3v/BOiM41QWHcfkRQgDnA==';
+  RSA.publicKeyBase64 = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAv6dGbIUSD3kQWmvBYXnaUszgJI1e8AbVcerOHOI3nSrgi3n2v/JBnuPwRlsffyRxEEZZYWh7aRMUhujTQON8xjxblhS42/veIIr9s30sOnn/u7+/+I9XdvZOZtAw0+UPhWLgmV6LRvQW/55Bq6p+FTcNpw/b3dYSKOUqz0zIXTlNEl6RTxmq5qyKGMN4MU5r1vU/199ShGnfF5EtAQL/Hr6q/M+bwINy0IW/31VFbIJyLYASJyuj28gkz3szjr9GQ8W3MOXetD/bQhYP8YPiwmf4W6EfaI5GSMaymn2Wrl68X0I1p5P5ZY4zJwh7Q1hIB1UT5l9SPE+Nrvp8Fc43ZQIDAQAB';
+  ECDSA.publicKeyBase64 = 'MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE7gUfFZDR97WPYG3rLeciBX389l4C/UflJKJ4ZUjzMkIOGWXYH1TWPGUnyW9/3bNjfHnvxRQXMvOJ/Jsxqjk3Mg==';
   ECDSA.signatureLength = SHA256.hashBytes * 2;
   ECDHE.publicKeyLength = 1 + SHA256.hashBytes * 2;
 
@@ -1710,10 +1710,13 @@
       const getBrowserHash = async function getBrowserHash() {
         //await Promise.all(promises);
         //traverseDone = true;
-        const browserHashJSON = JSON.stringify(browserHashObject, null, 0);
+        let browserHashJSON = JSON.stringify(browserHashObject, null, 0);
         //console.log(JSON.stringify(browserHashObject, null, 2));
+        browserHashObject = null;
         const browserHashUtf8 = new TextEncoder('utf-8').encode(browserHashJSON);
+        browserHashJSON = null;
         const browserHash = await crypto.subtle.digest(SHA256.hashName, browserHashUtf8);
+        browserHashUtf8.fill(0);
         return browserHash;
       }
 
@@ -1725,13 +1728,16 @@
         ));
         const userAgentUtf8 = new TextEncoder('utf-8').encode(navigator.userAgent);
         const userAgentHash = await crypto.subtle.digest(SHA256.hashName, userAgentUtf8);
+        userAgentUtf8.fill(0);
         const browserHash = await getBrowserHash();
         const scriptsUtf8 = new TextEncoder('utf-8').encode(scripts.join('\0'));
         const scriptsHash = await crypto.subtle.digest(SHA256.hashName, scriptsUtf8); 
+        scriptsUtf8.fill(0);
         outerHTML = document.querySelector('html').outerHTML;
         //console.log('outerHTML', outerHTML);
         const htmlUtf8 = new TextEncoder('utf-8').encode(outerHTML);
         const htmlHash = await crypto.subtle.digest(SHA256.hashName, htmlUtf8);
+        htmlUtf8.fill(0);
 
         CurrentSession.ClientIntegrity = {
           userAgentHash: userAgentHash,
@@ -1749,6 +1755,7 @@
 
         Connect.encryptedHeader =
           await crypto.subtle.encrypt({ name: 'RSA-OAEP' }, RSA.serverPublicKey, decryptedHeader);
+        decryptedHeader.fill(0);
 
         const decryptedBody = HKDF.concat(
           NextSession.clientRandom,
@@ -1775,6 +1782,7 @@
           );
         Connect.encryptedBody =
           await crypto.subtle.encrypt(aesAlg, aesKey, decryptedBody);
+        decryptedBody.fill(0);
 
         Connect.encrypted = HKDF.concat(
           Connect.type,
@@ -2038,6 +2046,13 @@
             CurrentSession.ClientIntegrity.htmlHash,
           ));
 
+          // Discard ClientIntegrity
+          [ 'userAgentHash', 'browserHash', 'scriptsHash', 'htmlHash' ].forEach((name) => {
+            new Uint8Array(CurrentSession.ClientIntegrity[name]).fill(0);
+            delete CurrentSession.ClientIntegrity[name];
+          });
+          delete CurrentSession.ClientIntegrity;
+
           // Derive Pseudo-PSK for initial key derivation
           CurrentSession.PSK =
             await HKDF.Expand_Label(CurrentSession.connect_early_secret, 'connect', '', SHA256.hashBytes); // pseudo-PSK
@@ -2057,6 +2072,9 @@
               false,
               ['sign']
             );
+          // Discard connect_salt
+          new Uint8Array(CurrentSession.connect_salt).fill(0);
+          delete CurrentSession.connect_salt;
 
           if (!await sendConnectRequest(Connect, Accept, CurrentSession, NextSession)) {
             throw new Error('doConnect: sendConnectRequest failed');
