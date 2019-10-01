@@ -76,18 +76,12 @@ if (isCLI) {
 
   app
     .use(bodyParser.json())
-    .all(updateAPIPath, (req, res, next) => {
+    .use((req, res, next) => {
       if (req.client.authorized) {
         const peerCert = req.socket.getPeerCertificate();
         if (peerCert.fingerprint256 === fingerprint256) { // only a single client certificate is authenticated
-          let body = req.method === 'POST' ? req.body : null;
-          //console.log('request body: ', JSON.stringify(body, null, 2));
-          updateBrowsers(req, body);
-          let result = {
-            browsers: browsers || {},
-          };
-          res.setHeader('content-type', 'application/json');
-          res.status(200).send(JSON.stringify(result, null, 2));
+          //console.log('client certificate authentication passed for ' + req.url);
+          next();
         }
         else {
           console.error('fingerprints not matched', peerCert.fingerprint256, fingerprint256);
@@ -98,6 +92,16 @@ if (isCLI) {
         console.error('client certificate is not authenticated', req.socket);
         res.sendStatus(403);
       }
+    })
+    .all(updateAPIPath, (req, res, next) => {
+      let body = req.method === 'POST' ? req.body : null;
+      //console.log('request body: ', JSON.stringify(body, null, 2));
+      updateBrowsers(req, body);
+      let result = {
+        browsers: browsers || {},
+      };
+      res.setHeader('content-type', 'application/json');
+      res.status(200).send(JSON.stringify(result, null, 2));
     })
     .get('*', express.static(path.resolve(path.join(__dirname, 'validation-console', 'dist')), {}));
 
