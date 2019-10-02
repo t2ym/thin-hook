@@ -331,8 +331,8 @@
 
   RSA.publicKeyBits = 2048; // number of bits in RSA public key, which must be at least 2048
   RSA.publicKeySize = RSA.publicKeyBits / 8; // number of bytes for RSA-OAEP encrypted data size
-  RSA.publicKeyBase64 = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAv6dGbIUSD3kQWmvBYXnaUszgJI1e8AbVcerOHOI3nSrgi3n2v/JBnuPwRlsffyRxEEZZYWh7aRMUhujTQON8xjxblhS42/veIIr9s30sOnn/u7+/+I9XdvZOZtAw0+UPhWLgmV6LRvQW/55Bq6p+FTcNpw/b3dYSKOUqz0zIXTlNEl6RTxmq5qyKGMN4MU5r1vU/199ShGnfF5EtAQL/Hr6q/M+bwINy0IW/31VFbIJyLYASJyuj28gkz3szjr9GQ8W3MOXetD/bQhYP8YPiwmf4W6EfaI5GSMaymn2Wrl68X0I1p5P5ZY4zJwh7Q1hIB1UT5l9SPE+Nrvp8Fc43ZQIDAQAB';
-  ECDSA.publicKeyBase64 = 'MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE7gUfFZDR97WPYG3rLeciBX389l4C/UflJKJ4ZUjzMkIOGWXYH1TWPGUnyW9/3bNjfHnvxRQXMvOJ/Jsxqjk3Mg==';
+  RSA.publicKeyBase64 = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwwj8C9VKCjO9szN62mjOAr/a/rx4NdGLgR2pxTiBELWKxMgZiDZ91uVQO5JtkX6x3pXsY5++TaKomP0ScdOC43cg4n+dDgGX3u6BfohDBCRx8/rOoREeaCY0SlNH6jt3X3dZ3uC9VvEi+06tQWbumCO+5a1fLaB3Y41zhGjRkTLxBsYGhjUeyPMTqUz8bNPJQMqasFjkk/q7brv1GORFYnYdVUfi7zKXDxutiEFqjL6ZD04VClYD+At1Tj5VfslDSNU8gdoUdKieFgJ1f1QgJXLCyQWV6miPih2t9qDFvZjWmnVmnlId8E1HOC2og7aqmYCdsiNjkwmF0g5lQKwmzQIDAQAB';
+  ECDSA.publicKeyBase64 = 'MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEFJpGNFS+7mDTuYaVgMpt+WAfQPwOR9VPheVhEb3DdMkYXEjgHD+y5IIPaKEGXWASBrt0Ce/goGRpJOB2ASSBng==';
   ECDSA.signatureLength = SHA256.hashBytes * 2;
   ECDHE.publicKeyLength = 1 + SHA256.hashBytes * 2;
 
@@ -1728,7 +1728,7 @@
         ));
         const userAgentUtf8 = new TextEncoder('utf-8').encode(navigator.userAgent);
         const userAgentHash = await crypto.subtle.digest(SHA256.hashName, userAgentUtf8);
-        userAgentUtf8.fill(0);
+        crypto.getRandomValues(userAgentUtf8);
         const browserHash = await getBrowserHash();
         const scriptsUtf8 = new TextEncoder('utf-8').encode(scripts.join('\0'));
         const scriptsHash = await crypto.subtle.digest(SHA256.hashName, scriptsUtf8); 
@@ -1737,7 +1737,7 @@
         //console.log('outerHTML', outerHTML);
         const htmlUtf8 = new TextEncoder('utf-8').encode(outerHTML);
         const htmlHash = await crypto.subtle.digest(SHA256.hashName, htmlUtf8);
-        htmlUtf8.fill(0);
+        crypto.getRandomValues(new Uint8Array(htmlUtf8));
 
         CurrentSession.ClientIntegrity = {
           userAgentHash: userAgentHash,
@@ -1755,7 +1755,7 @@
 
         Connect.encryptedHeader =
           await crypto.subtle.encrypt({ name: 'RSA-OAEP' }, RSA.serverPublicKey, decryptedHeader);
-        decryptedHeader.fill(0);
+        crypto.getRandomValues(new Uint8Array(decryptedHeader));
 
         const decryptedBody = HKDF.concat(
           NextSession.clientRandom,
@@ -1782,7 +1782,7 @@
           );
         Connect.encryptedBody =
           await crypto.subtle.encrypt(aesAlg, aesKey, decryptedBody);
-        decryptedBody.fill(0);
+        crypto.getRandomValues(new Uint8Array(decryptedBody));
 
         Connect.encrypted = HKDF.concat(
           Connect.type,
@@ -2048,7 +2048,7 @@
 
           // Discard ClientIntegrity
           [ 'userAgentHash', 'browserHash', 'scriptsHash', 'htmlHash' ].forEach((name) => {
-            new Uint8Array(CurrentSession.ClientIntegrity[name]).fill(0);
+            crypto.getRandomValues(new Uint8Array(CurrentSession.ClientIntegrity[name]));
             delete CurrentSession.ClientIntegrity[name];
           });
           delete CurrentSession.ClientIntegrity;
@@ -2073,7 +2073,7 @@
               ['sign']
             );
           // Discard connect_salt
-          new Uint8Array(CurrentSession.connect_salt).fill(0);
+          crypto.getRandomValues(new Uint8Array(CurrentSession.connect_salt));
           delete CurrentSession.connect_salt;
 
           if (!await sendConnectRequest(Connect, Accept, CurrentSession, NextSession)) {
