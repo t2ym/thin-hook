@@ -331,8 +331,8 @@
 
   RSA.publicKeyBits = 2048; // number of bits in RSA public key, which must be at least 2048
   RSA.publicKeySize = RSA.publicKeyBits / 8; // number of bytes for RSA-OAEP encrypted data size
-  RSA.publicKeyBase64 = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwwj8C9VKCjO9szN62mjOAr/a/rx4NdGLgR2pxTiBELWKxMgZiDZ91uVQO5JtkX6x3pXsY5++TaKomP0ScdOC43cg4n+dDgGX3u6BfohDBCRx8/rOoREeaCY0SlNH6jt3X3dZ3uC9VvEi+06tQWbumCO+5a1fLaB3Y41zhGjRkTLxBsYGhjUeyPMTqUz8bNPJQMqasFjkk/q7brv1GORFYnYdVUfi7zKXDxutiEFqjL6ZD04VClYD+At1Tj5VfslDSNU8gdoUdKieFgJ1f1QgJXLCyQWV6miPih2t9qDFvZjWmnVmnlId8E1HOC2og7aqmYCdsiNjkwmF0g5lQKwmzQIDAQAB';
-  ECDSA.publicKeyBase64 = 'MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEFJpGNFS+7mDTuYaVgMpt+WAfQPwOR9VPheVhEb3DdMkYXEjgHD+y5IIPaKEGXWASBrt0Ce/goGRpJOB2ASSBng==';
+  RSA.publicKeyBase64 = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAgcZAE0hnxNH4pBS/dl4fbOY9lj97SGEjrhEcqNjMCZDkiU7dWK5OEJu7LJ3BplzzMJ2QIool0qxW0JhEwr5bTBuJ3zO47YPl/hcI6aS4SOrBaWehI8fJTLzZWNTvj0S/aogPJiN5G1V3IhCOFHVz/Z4G4vMLhlkl9i+JIrguPA9BEbZMvMF3RckjLXpsXCWQsVBlRlSef/oW5NFLZkZSkQSh4ZwXM4FyEsW3JuYfoBJ0MYy930ddt+W1+PWZbBo+AZWzw2DeKoT0obi8Si+k9qR9zfGhjXEhMVlJRNQzMTBZ108OZ1dEG4DAEQF7oPlBzt1inQMqMaGsvq8vpHr/cwIDAQAB';
+  ECDSA.publicKeyBase64 = 'MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEYPwYJZQy+f72hS3OEL3S0Ovr/H+NaGNRMkiFnQDlpbiuw54EcfhRhA22lWpWDtn2LeastORJERqD9Iu8b8pStg==';
   ECDSA.signatureLength = SHA256.hashBytes * 2;
   ECDHE.publicKeyLength = 1 + SHA256.hashBytes * 2;
 
@@ -1004,7 +1004,7 @@
         console.error('integrity.js: halt');
       }
       await caches.keys().then(keys => Promise.all(keys.map(key => caches.delete(key))));
-      location = 'about:blank';
+      location = halt.location = 'about:blank';
       await new Promise(resolve => setTimeout(resolve, 1000));
     }
 
@@ -1946,12 +1946,21 @@
             if (serviceWorkerReady && serviceWorkerReady !== 'true') {
               let serviceWorkerPath = hookMinJsScript.src.replace(/\&service-worker-ready=.*$/, '&service-worker-initiator=' + location.pathname)
               //console.log('integrity.js: calling navigator.serviceWorker.register ' + (Date.now() - performance.timing.navigationStart) + ' ' + serviceWorkerPath);
+              let onBeforeUnload = function (event) {
+                window.removeEventListener('beforeunload', onBeforeUnload);
+                console.error('Service Worker verification failed. Hanging up.');
+                if (halt.location !== 'about:blank') {
+                  while (true) {} // Hang up as the Service Worker is hacked and can forcefully navigate the page to any URL after unloading
+                }
+              };
+              window.addEventListener('beforeunload', onBeforeUnload);
               let registration = await navigator.serviceWorker.register(
                 serviceWorkerPath,
                 { scope: src.searchParams.get('sw-root') || window.location.pathname.replace(/\/[^\/]*$/, '/'), updateViaCache: 'all' }
               );
               //console.log('integrity.js: before ready; registration.installing', registration.installing, 'registration.active', registration.active, 'registration.waiting', registration.waiting);
               if (await verifyServiceWorkerScript(serviceWorkerPath, hookMinJsScript.integrity)) {
+                window.removeEventListener('beforeunload', onBeforeUnload); // onBeforeUnload is no longer on duty
                 registration = await navigator.serviceWorker.ready;
                 //console.log('integrity.js: after ready; registration.installing', registration.installing, 'registration.active', registration.active, 'registration.waiting', registration.waiting);
                 let serviceWorker = registration ? registration.active : undefined;
