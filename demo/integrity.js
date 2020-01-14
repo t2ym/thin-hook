@@ -1004,7 +1004,7 @@
         console.error('integrity.js: halt');
       }
       await caches.keys().then(keys => Promise.all(keys.map(key => caches.delete(key))));
-      location = 'about:blank';
+      location = halt.location = 'about:blank';
       await new Promise(resolve => setTimeout(resolve, 1000));
     }
 
@@ -1946,12 +1946,21 @@
             if (serviceWorkerReady && serviceWorkerReady !== 'true') {
               let serviceWorkerPath = hookMinJsScript.src.replace(/\&service-worker-ready=.*$/, '&service-worker-initiator=' + location.pathname)
               //console.log('integrity.js: calling navigator.serviceWorker.register ' + (Date.now() - performance.timing.navigationStart) + ' ' + serviceWorkerPath);
+              let onBeforeUnload = function (event) {
+                window.removeEventListener('beforeunload', onBeforeUnload);
+                console.error('Service Worker verification failed. Hanging up.');
+                if (halt.location !== 'about:blank') {
+                  while (true) {} // Hang up as the Service Worker is hacked and can forcefully navigate the page to any URL after unloading
+                }
+              };
+              window.addEventListener('beforeunload', onBeforeUnload);
               let registration = await navigator.serviceWorker.register(
                 serviceWorkerPath,
                 { scope: src.searchParams.get('sw-root') || window.location.pathname.replace(/\/[^\/]*$/, '/'), updateViaCache: 'all' }
               );
               //console.log('integrity.js: before ready; registration.installing', registration.installing, 'registration.active', registration.active, 'registration.waiting', registration.waiting);
               if (await verifyServiceWorkerScript(serviceWorkerPath, hookMinJsScript.integrity)) {
+                window.removeEventListener('beforeunload', onBeforeUnload); // onBeforeUnload is no longer on duty
                 registration = await navigator.serviceWorker.ready;
                 //console.log('integrity.js: after ready; registration.installing', registration.installing, 'registration.active', registration.active, 'registration.waiting', registration.waiting);
                 let serviceWorker = registration ? registration.active : undefined;

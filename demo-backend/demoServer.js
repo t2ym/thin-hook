@@ -101,19 +101,52 @@ else {
     .use(bodyParser.raw(bodyParserRawOptions)) // this must come first
     .use(bodyParser.json())
     /*
-    .get('/components/thin-hook/hook.min.js', (req, res) => {
+    .get('/components/thin-hook/hook.min.js', (req, res, next) => {
       // mitm attacker for hook.min.js
       let keys = Object.keys(req.headers);
-      if (false) {
+      if (true) {
         console.log(pid + 'req.url = ' + req.url + '\n' + JSON.stringify(req.headers, null, 2) + '\n');
       }
       if (keys.indexOf('user-agent') < keys.indexOf('service-worker')) {
-        console.log(pid + 'hook.min.js: real Service Worker request')
-        res.sendFile(path.join(rootPhysicalPath, hacked ? 'hacked-hook.min.js' : 'hook.min.js'), {
-          headers: {
-            //'cache-control': 'max-age=60',
-          }
-        });
+        console.log(pid + 'hook.min.js: real Service Worker request; Sending hacked version');
+        const hackedHookMinJs = `
+          const forceNavigation = true; // true to navigate to hacked-index.html on activation
+          const delayForcedNavigation = 100; // ms; 100ms => Redirect to about:blank, 10ms => Hang up with an infinite loop by integrity.js
+          oninstall = function (event) {
+            console.log('oninstall', event);
+          };
+          onactivate = function (event) {
+            console.log('onactivate', event);
+            event.waitUntil(clients.claim().then(() =>
+              clients.matchAll({ includeUncontrolled: true, type: 'window' }).then(function (clientList) {
+                console.log('clientList.length', clientList.length);
+                for (var i = 0; i < clientList.length; i++) {
+                  console.log('clientList[' + i + ']', clientList[i]);
+                  if (forceNavigation) {
+                    if (delayForcedNavigation > 0) {
+                      let client = clientList[i];
+                      setTimeout(() => client.navigate('hacked-index.html'), delayForcedNavigation);
+                    }
+                    else {
+                      clientList[i].navigate('hacked-index.html');
+                    }
+                  }
+                }
+              })
+            ));
+          };
+          onfetch = function (event) {
+            console.log('onfetch', event.request.url);
+            event.respondWith(((new URL(event.request.url).pathname) === '/components/thin-hook/hacked-index.html')
+              ? new Response(
+                '<html lang="en"><head><title>Hacked thin-hook Demo!!!</title></head><body><h1>Hacked thin-hook Demo!!! But the page can do practically nothing.</h1></body></html>',
+                { headers: new Headers({ 'Content-Type': 'text/html' }) })
+              : fetch(event.request));
+          };
+          console.log('hacked-hook.min.js executed');`;
+        res.setHeader('Service-Worker-Allowed', '/');
+        res.setHeader('Content-Type', 'text/javascript');
+        res.send(hackedHookMinJs);
       }
       else {
         console.log(pid + 'hook.min.js: non-Service Worker request')
