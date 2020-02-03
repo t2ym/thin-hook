@@ -1866,6 +1866,10 @@
     let cannotAccessNavigator = navigator;
   }, /^Permission Denied:/);
 
+  chai.assert.throws(() => {
+    Object.assign({}, window).caches;
+  }, /^Permission Denied:/);
+
 }
 () => {
   let target, property, value, attributes, proto, prototype, receiver, args, arg1, arg2, p, v;
