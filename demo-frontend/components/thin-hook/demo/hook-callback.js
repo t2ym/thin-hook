@@ -711,7 +711,7 @@ else {
     '/components/thin-hook/demo/es6-module4.js,f': '@import.meta_reader,f',
     '/components/thin-hook/demo/es6-module4.js,f,*': '@import.meta_reader,f',
     '/components/polymer/lib/utils/async.html,script@566,timeOut,run': '@setTimeout_reader',
-    '/components/thin-hook/demo/,script@5966': '@document_writer',
+    '/components/thin-hook/demo/,script@4751': '@document_writer',
     '/components/thin-hook/demo/,script@5963': '@document_writer',
     '/components/thin-hook/demo/,script@5964': '@document_writer',
     '/components/thin-hook/demo/sub-document.html,*': '@document_writer',
@@ -4839,6 +4839,12 @@ else {
                       if (_args[1][1] instanceof Object) {
                         rawProperty = [];
                         for (let i = 1; i < _args[1].length; i++) {
+                          let _obj = _args[1][i];
+                          let _name = _globalObjects.get(_obj);
+                          if (!applyAcl(_name, true, false, S_ALL, 'r', context, _obj, _args, arguments)) {
+                            result = [_name, true, false, S_ALL, 'r', context, _obj, _args, arguments];
+                            throw new Error('Permission Denied: Cannot access ' + SetMap.getStringValues(_name));
+                          }
                           // TODO: Are inherited properties targeted?
                           rawProperty = rawProperty.concat(Object.keys(_args[1][i]));
                         }
@@ -6278,6 +6284,12 @@ else {
                       if (_args[1][1] instanceof Object) {
                         rawProperty = [];
                         for (let i = 1; i < _args[1].length; i++) {
+                          let _obj = _args[1][i];
+                          let _name = _globalObjects.get(_obj);
+                          if (!applyAcl(_name, true, false, S_ALL, 'r', context, _obj, _args, arguments)) {
+                            result = [_name, true, false, S_ALL, 'r', context, _obj, _args, arguments];
+                            throw new Error('Permission Denied: Cannot access ' + SetMap.getStringValues(_name));
+                          }
                           // TODO: Are inherited properties targeted?
                           rawProperty = rawProperty.concat(Object.keys(_args[1][i]));
                         }
