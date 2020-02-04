@@ -13,11 +13,11 @@ else {
     //   hook.parameters.noHookAuthorizationFailed
     // JSONs are output to console in the learning mode
     //'*': true,
-    "43917eabadb888227834a52a9601a8356d6f4d73879a72a3a8abb625d8eec133": true, // hook.min.js
+    "2d01e511f2240709d3747a144fa2e8360f631ca7eae50221f9ac09d8d792a77a": true, // hook.min.js
     "a81209228209941097ac41c5bda3bc1cd64375e69b7c8113aff68c2fe6729ff2": true, // demo/disable-devtools.js
     "4374ae1f28cec2b969ab488895a4266244d65e28e1f82728fd2cd39130fe0d9e": true, // demo/context-generator.js
     "4ea3e59399ae8288d6f12e68c1d31a792662e12c3fc666d08dbdfdfc914b0091": true, // demo/bootstrap.js
-    "ca1cb24a5291b9fc6b0327d24462b87e47e4b0745f4170ab45a6a2ad2f5737cc": true, // demo/hook-callback.js
+    "7063952f3b36d62641cad4e4e5948572805cb1c7b5d6427d67c713bc342f9c64": true, // demo/hook-callback.js
     "0979646683bec9b9682d974d549effb61b1fc981ad87dac76d44d0440d87b396": true, // demo/hook-native-api.js
     "5b615aa885a0518466153be6ecb2cfeef1300f181ff60ca91cad964659c92052": true, // demo/hook-worker.js
     "c59d446ea931df28736d586dc2687731dadb733c3cfd644c7df3afb36a6ae39a": true, // demo/cache-bundle.js
@@ -33,7 +33,7 @@ else {
     "c135fd6ba3cad41e63985ecca191995bf311abc756c5f574ef5b641e7db56914": true, // (function writeln2() { console.log("no-hook script tag via document.writeln"); })()
     "e233738578fd7e8f2e961fb11885e2c187146314a8e3fc65692633ff89c5d34a": true, // (function writeln4() { console.log("no-hook script tag in div tag via document.writeln"); })()
     "4f0395d52a8c1c7edaacacade9c31fe18555b79ce963dfb1abaaa34990993374": true, // location = "about:blank";
-    "3c502ad63b1f225b9464187632425ead12a7f6991115ef32fbcf55cf49bf16ee": true, // demo/integrity.js
+    "66cfcc005a8ffebfaa4ab3108444ace3116b8222a1bc20c0fa0213982a71b9d9": true, // demo/integrity.js
     "ba07654d1c24a271ba0fa7ee5c55cd60c02133b0e53cb6bb6e634da473b1e540": true, // demo/script-hashes.js
     "0242016e2887b322ab28b887f03779c63899db232bb036d794a0278db9e54339": true, // demo/content-loader.js
   };
