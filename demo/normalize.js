@@ -1798,6 +1798,102 @@
     SubClass3.staticMethod.bind(SubClass3, [1])(-1); // -1 is not a positive number
   }, /^Permission Denied:/);
 
+  Object.assign(window, { SubClass4: class SubClass4 extends SubClass2 {
+    constructor() {
+      super();
+      this.instanceProperty = 'SubClass3.instanceProperty';
+    }
+    static staticMethod(a, b) {
+      return a + b;
+    }
+    static get staticProperty() {
+      return 'SubClass4.staticProperty';
+    }
+    instanceMethod() {
+      return 'SubClass4.prototype.instanceMethod';
+    }
+  }});
+  chai.assert.throws(() => {
+    SubClass4.staticProperty = 1;
+  }, /^Permission Denied:/);
+  chai.assert.throws(() => {
+    SubClass4.staticProperty2 = 1;
+  }, /^Permission Denied:/);
+  chai.assert.equal(SubClass4.staticMethod(1, 2), 3, '3');
+  chai.assert.throws(() => {
+    SubClass4.staticMethod; // not readable
+  }, /^Permission Denied:/);
+  chai.assert.throws(() => {
+    SubClass4.staticMethod(1, 'a'); // 'a' is not a number
+  }, /^Permission Denied:/);
+  chai.assert.throws(() => {
+    SubClass4.staticMethod(1, -1); // -1 is not a positive number
+  }, /^Permission Denied:/);
+  chai.assert.throws(() => {
+    SubClass4.staticMethod.call(SubClass4, 1, 'a'); // 'a' is not a number
+  }, /^Permission Denied:/);
+  chai.assert.throws(() => {
+    SubClass4.staticMethod.apply(SubClass4, [1, -1]); // -1 is not a positive number
+  }, /^Permission Denied:/);
+  chai.assert.throws(() => {
+    SubClass4.staticMethod.bind(SubClass4, 1).call(SubClass4, 'a'); // 'a' is not a number
+  }, /^Permission Denied:/);
+  chai.assert.throws(() => {
+    SubClass4.staticMethod.bind(SubClass4, [1])(-1); // -1 is not a positive number
+  }, /^Permission Denied:/);
+
+  Object.defineProperty(window, 'DefinePropertyGlobalClass', { value: class DefinePropertyGlobalClass {}, enumerable: true, writable: true, configurable: true });
+  chai.assert.throws(() => {
+    new DefinePropertyGlobalClass();
+  }, /^Permission Denied:/);
+
+  let C = class DefinePropertyGetterGlobalClass {};
+  Object.defineProperty(window, 'DefinePropertyGetterGlobalClass', { get: function () { return C; }, enumerable: true, configurable: true });
+  chai.assert.throws(() => {
+    new DefinePropertyGetterGlobalClass();
+  }, /^Permission Denied:/);
+
+  Object.defineProperty(window, 'DefinePropertyGetterVolatileGlobalClass', { get: function () { return class DefinePropertyGetterVolatileGlobalClass { }; }, enumerable: true, configurable: true });
+  chai.assert.throws(() => {
+    new DefinePropertyGetterVolatileGlobalClass();
+  }, /^Permission Denied:/);
+
+  Object.defineProperty(window, 'DefinePropertyGetterReflectGetGlobalClass', { get: function () { return class DefinePropertyGetterReflectGetGlobalClass { }; }, enumerable: true, configurable: true });
+  chai.assert.throws(() => {
+    new (Reflect.get(window, 'DefinePropertyGetterReflectGetGlobalClass'))();
+  }, /^Permission Denied:/);
+
+  Object.defineProperty(window, 'DefinePropertyGetterReflectGetExtendedGlobalClass', { get: function () { return class DefinePropertyGetterReflectGetExtendedGlobalClass { }; }, enumerable: true, configurable: true });
+  chai.assert.throws(() => {
+    new (Reflect.get(Object.create(window), 'DefinePropertyGetterReflectGetExtendedGlobalClass'))();
+  }, /^Permission Denied:/);
+
+  Object.defineProperty(window, 'DefinePropertyGetterReflectGetExtendedGlobalClassWithReceiver', { get: function () { return class DefinePropertyGetterReflectGetExtendedGlobalClassWithReceiver { }; }, enumerable: true, configurable: true });
+  chai.assert.throws(() => {
+    new (Reflect.get(Object.create(window), 'DefinePropertyGetterReflectGetExtendedGlobalClassWithReceiver', window))();
+  }, /^Permission Denied:/);
+
+  Object.defineProperties(window, { 'DefinePropertiesGlobalClass': { value: class DefinePropertiesGlobalClass {}, enumerable: true, writable: true, configurable: true } });
+  chai.assert.throws(() => {
+    new DefinePropertiesGlobalClass();
+  }, /^Permission Denied:/);
+
+  let C2 = class DefinePropertiesGetterGlobalClass { };
+  Object.defineProperties(window, { 'DefinePropertiesGetterGlobalClass': { get: function () { return C2; }, enumerable: true, configurable: true } });
+  chai.assert.throws(() => {
+    new DefinePropertiesGetterGlobalClass();
+  }, /^Permission Denied:/);
+
+  Object.defineProperties(window, { 'DefinePropertiesGetterVolatileGlobalClass': { get: function () { return class DefinePropertiesGetterVolatileGlobalClass { }; }, enumerable: true, configurable: true } });
+  chai.assert.throws(() => {
+    new DefinePropertiesGetterVolatileGlobalClass();
+  }, /^Permission Denied:/);
+
+  Reflect.set(window, 'ReflectSetGlobalClass', class ReflectSetGlobalClass {});
+  chai.assert.throws(() => {
+    new ReflectSetGlobalClass();
+  }, /^Permission Denied:/);
+
   // multipath
   (function () {
     'use strict';

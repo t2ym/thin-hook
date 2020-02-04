@@ -411,7 +411,7 @@ else {
       },
       Reflect: {
         [S_DEFAULT]: 'xtp',
-        get: 'r01',
+        get: 'r01v',
         getPrototypeOf: 'r0P',
         has: 'r01',
         getOwnPropertyDescriptor: 'R01',
@@ -536,10 +536,12 @@ else {
     '/components/thin-hook/demo/normalize.js,SubClass1': '@normalization_checker',
     '/components/thin-hook/demo/normalize.js,SubClass2': '@normalization_checker',
     '/components/thin-hook/demo/normalize.js,SubClass3': '@normalization_checker',
+    '/components/thin-hook/demo/normalize.js,SubClass4,SubClass4': '@normalization_checker',
     '/components/thin-hook/demo/normalize.js,BaseClass1,constructor': '@XClass1_constructor',
     '/components/thin-hook/demo/normalize.js,SubClass1,constructor': '@XClass1_constructor',
     '/components/thin-hook/demo/normalize.js,SubClass2,constructor': '@XClass1_constructor',
     '/components/thin-hook/demo/normalize.js,SubClass3,constructor': '@XClass1_constructor',
+    '/components/thin-hook/demo/normalize.js,SubClass4,SubClass4,constructor': '@XClass1_constructor',
     '/components/thin-hook/demo/Function.js': '@Function_js',
     '/components/thin-hook/demo/Function.js,strictMode': '@Function_js',
     '/components/thin-hook/demo/Function.js,F': '@Function_reader',
@@ -3337,6 +3339,61 @@ else {
         '@normalization_checker': Policy.args("opType === 'x' && typeof args[0] === 'number' && typeof args[1] === 'number' && args[0] > 0 && args[1] > 0"), // check arguments
       },
     },
+    SubClass4: {
+      [S_CHAIN]: () => acl.SubClass2,
+      staticProperty: {
+        [S_CHAIN]: S_CHAIN,
+        '@normalization_checker': 'r--',
+      },
+      staticProperty2: {
+        [S_DEFAULT]: '---',
+        '@normalization_checker': 'r--',
+      },
+      staticMethod: {
+        [S_CHAIN]: S_CHAIN,
+        '@normalization_checker': Policy.args("opType === 'x' && typeof args[0] === 'number' && typeof args[1] === 'number' && args[0] > 0 && args[1] > 0"), // check arguments
+      },
+    },
+    DefinePropertyGlobalClass: {
+      [S_DEFAULT]: '---',
+      '@normalization_checker': 'rw--W',
+    },
+    DefinePropertyGetterGlobalClass: {
+      [S_DEFAULT]: '---',
+      '@normalization_checker': 'rw--W',
+    },
+    DefinePropertyGetterVolatileGlobalClass: {
+      [S_DEFAULT]: '---',
+      '@normalization_checker': 'rw--W',
+    },
+    DefinePropertyGetterReflectGetGlobalClass: {
+      [S_DEFAULT]: '---',
+      '@normalization_checker': 'rw--W',
+    },
+    DefinePropertyGetterReflectGetExtendedGlobalClass: {
+      [S_DEFAULT]: '---',
+      '@normalization_checker': 'rw--W',
+    },
+    DefinePropertyGetterReflectGetExtendedGlobalClassWithReceiver: {
+      [S_DEFAULT]: '---',
+      '@normalization_checker': 'rw--W',
+    },
+    DefinePropertiesGlobalClass: {
+      [S_DEFAULT]: '---',
+      '@normalization_checker': 'rw--W',
+    },
+    DefinePropertiesGetterGlobalClass: {
+      [S_DEFAULT]: '---',
+      '@normalization_checker': 'rw--W',
+    },
+    DefinePropertiesGetterVolatileGlobalClass: {
+      [S_DEFAULT]: '---',
+      '@normalization_checker': 'rw--W',
+    },
+    ReflectSetGlobalClass: {
+      [S_DEFAULT]: '---',
+      '@normalization_checker': 'rw--W',
+    },
     DummyContainer: {
       [S_OBJECT]: {
         [S_DEFAULT]: 'r--',
@@ -4444,6 +4501,7 @@ else {
     let result;
     try {
       let globalAssignments;
+      let trackResultAsGlobal = S_GLOBAL;
       if (otherWindowObjectsStatus.set) {
         let _Object;
         switch (typeof f) {
@@ -4766,37 +4824,70 @@ else {
                   case 'string':
                     rawProperty = _p;
                     property = _escapePlatformProperties.get(rawProperty) || rawProperty;
+                  case 'symbol':
                     if (target[3] === 'v') {
-                      switch (name) {
-                      case 'window':
-                      case 'self':
-                        switch (target) {
-                        case 'w01v':
-                        case 'W01v':
+                      switch (target) {
+                      case 'r01v':
+                        if (normalizedThisArg instanceof _global.constructor || _args[1][2] === _global) {
+                          switch (_args[0]) {
+                          case 'get': // Reflect.get(window, 'property', receiver)
+                            trackResultAsGlobal = rawProperty;
+                            break;
+                          default:
+                            break;
+                          }
+                        }
+                        break;
+                      case 'w01v':
+                      case 'W01v':
+                        if (normalizedThisArg === _global) {
                           switch (_args[0]) {
                           case 'defineProperty': // Object.defineProperty(window, 'property', { value: v }); Reflect.defineProperty(window, 'property', { value: v })
-                            if (_args[1][2] && _args[1][2].value instanceof Object) {
-                              globalAssignments[rawProperty] = _args[1][2].value;
+                            if (_args[1][2]) {
+                              let desc = _args[1][2];
+                              let value;
+                              if (typeof desc.get === 'function') {
+                                value = desc.get.call(_global);
+                              }
+                              else {
+                                value = desc.value;
+                              }
+                              if (typeof value === 'function' || (value && typeof value === 'object')) {
+                                globalAssignments[rawProperty] = value;
+                              }
                             }
                             break;
                           case 'set': // Reflect.set(window, 'property', v)
-                            if (_args[1][2] instanceof Object) {
-                              globalAssignments[rawProperty] = _args[1][2];
+                            if (_args[1][2]) {
+                              let value = _args[1][2];
+                              if (typeof value === 'function' || (value && typeof value === 'object')) {
+                                globalAssignments[rawProperty] = value;
+                              }
                             }
                             break;
                           default:
                             break;
                           }
-                          break;
-                        case 'w0.v':
-                        case 'W0.v':
+                        }
+                        break;
+                      case 'w0.v':
+                      case 'W0.v':
+                        if (normalizedThisArg === _global) {
                           let props;
                           switch (_args[0]) {
                           case 'defineProperties': // Object.defineProperties(window, { 'property': { value: v } })
                             props = _args[1][1];
                             for (let p in props) {
-                              if (props[p] && props[p].value instanceof Object) {
-                                globalAssignments[p] = props[p].value;
+                              let desc = props[p];
+                              let value;
+                              if (typeof desc.get === 'function') {
+                                value = desc.get.call(_global);
+                              }
+                              else {
+                                value = desc.value;
+                              }
+                              if (typeof value === 'function' || (value && typeof value === 'object')) {
+                                globalAssignments[p] = value;
                               }
                             }
                             break;
@@ -4815,15 +4906,18 @@ else {
                           default:
                             break;
                           }
-                          break;
-                        default:
-                          break;
                         }
                         break;
                       default:
                         break;
                       }
                     }
+                    break;
+                  default:
+                    break;
+                  }
+                  switch (typeof _p) {
+                  case 'string':
                     break;
                   case 'number':
                   case 'boolean':
@@ -4962,21 +5056,28 @@ else {
             property = rawProperty = S_ALL;
           }
           if (name instanceof Set) {
-            for (let _name of name.values()) {
-              switch (_name) {
-              case 'window':
-              case 'self':
-                if (target === 'wtpv') { // window.property = v
-                  switch (_f) {
-                  case '=':
-                  case '#=':
-                    if (_args[1] instanceof Object) {
-                      globalAssignments[rawProperty] = _args[1];
-                    }
-                    break;
-                  default:
-                    break;
+            if (normalizedThisArg === _global) {
+              switch (target) {
+              case 'rtp':
+                switch (_f) {
+                case '.':
+                case '#.':
+                  trackResultAsGlobal = rawProperty;
+                  break;
+                default:
+                  break;
+                }
+                break;
+              case 'wtpv':
+                switch (_f) {
+                case '=':
+                case '#=':
+                  if (_args[1] instanceof Object) {
+                    globalAssignments[rawProperty] = _args[1];
                   }
+                  break;
+                default:
+                  break;
                 }
                 break;
               default:
@@ -5833,6 +5934,14 @@ else {
         }
       }
       if (globalAssignments) {
+        if (trackResultAsGlobal !== S_GLOBAL) {
+          if (result !== _global && (typeof result === 'function' || (result && typeof result === 'object'))) {
+            let _name = _globalObjects.get(result);
+            if (!_name || !_name.has(trackResultAsGlobal)) {
+              Policy.trackClass(trackResultAsGlobal, result);
+            }
+          }
+        }
         if (_global.constructor.name === 'Window') {
           for (let name in globalAssignments) {
             wrapGlobalProperty([_global, name, 'window']);
@@ -5881,6 +5990,7 @@ else {
     try {
       let hasGlobalAssignments = false;
       let globalAssignments;
+      let trackResultAsGlobal = S_GLOBAL;
       if (otherWindowObjectsStatus.set) {
         let _Object;
         switch (typeof f) {
@@ -6202,17 +6312,38 @@ else {
                   case 'string':
                     rawProperty = _p;
                     property = _escapePlatformProperties.get(rawProperty) || rawProperty;
+                  case 'symbol':
                     switch (target) {
+                    case 'r01v':
+                      if (normalizedThisArg instanceof _global.constructor || _args[1][2] === _global) {
+                        switch (_args[0]) {
+                        case 'get': // Reflect.get(window, 'property', receiver)
+                          hasGlobalAssignments = true;
+                          trackResultAsGlobal = rawProperty;
+                          break;
+                        default:
+                          break;
+                        }
+                      }
+                      break;
                     case 'w01v':
                     case 'W01v':
-                      switch (name) {
-                      case 'window':
-                      case 'self':
+                      if (normalizedThisArg === _global) {
                         switch (_args[0]) {
                         case 'defineProperty': // Object.defineProperty(window, 'property', { value: v }); Reflect.defineProperty(window, 'property', { value: v })
-                          if (_args[1][2] && _args[1][2].value instanceof Object) {
-                            hasGlobalAssignments = true;
-                            globalAssignments[rawProperty] = _args[1][2].value;
+                          if (_args[1][2]) {
+                            let desc = _args[1][2];
+                            let value;
+                            if (typeof desc.get === 'function') {
+                              value = desc.get.call(_global);
+                            }
+                            else {
+                              value = desc.value;
+                            }
+                            if (typeof value === 'function' || (value && typeof value === 'object')) {
+                              hasGlobalAssignments = true;
+                              globalAssignments[rawProperty] = value;
+                            }
                           }
                           break;
                         case 'set': // Reflect.set(window, 'property', v)
@@ -6224,24 +6355,27 @@ else {
                         default:
                           break;
                         }
-                        break;
-                      default:
-                        break;
                       }
                       break;
                     case 'w0.v':
                     case 'W0.v':
-                      switch (name) {
-                      case 'window':
-                      case 'self':
+                      if (normalizedThisArg === _global) {
                         let props;
                         switch (_args[0]) {
                         case 'defineProperties': // Object.defineProperties(window, { 'property': { value: v } })
                           props = _args[1][1];
                           for (let p in props) {
-                            if (props[p] && props[p].value instanceof Object) {
+                            let desc = props[p];
+                            let value;
+                            if (typeof desc.get === 'function') {
+                              value = desc.get.call(_global);
+                            }
+                            else {
+                              value = desc.value;
+                            }
+                            if (typeof value === 'function' || (value && typeof value === 'object')) {
                               hasGlobalAssignments = true;
-                              globalAssignments[p] = props[p].value;
+                              globalAssignments[p] = value;
                             }
                           }
                           break;
@@ -6261,14 +6395,15 @@ else {
                         default:
                           break;
                         }
-                        break;
-                      default:
-                        break;
                       }
                       break;
                     default:
                       break;
                     }
+                    break;
+                  }
+                  switch (typeof _p) {
+                  case 'string':
                     break;
                   case 'number':
                   case 'boolean':
@@ -6406,22 +6541,30 @@ else {
             property = rawProperty = S_ALL;
           }
           if (name instanceof Set) {
-            for (let _name of name.values()) {
-              switch (_name) {
-              case 'window':
-              case 'self':
-                if (target === 'wtpv') { // window.property = v
-                  switch (_f) {
-                  case '=':
-                  case '#=':
-                    if (_args[1] instanceof Object) {
-                      hasGlobalAssignments = true;
-                      globalAssignments[rawProperty] = _args[1];
-                    }
-                    break;
-                  default:
-                    break;
+            if (normalizedThisArg === _global) {
+              switch (target) {
+              case 'rtp':
+                switch (_f) {
+                case '.':
+                case '#.':
+                  hasGlobalAssignments = true;
+                  trackResultAsGlobal = rawProperty;
+                  break;
+                default:
+                  break;
+                }
+                break;
+              case 'wtpv':
+                switch (_f) {
+                case '=':
+                case '#=':
+                  if (_args[1] instanceof Object) {
+                    hasGlobalAssignments = true;
+                    globalAssignments[rawProperty] = _args[1];
                   }
+                  break;
+                default:
+                  break;
                 }
                 break;
               default:
@@ -7081,6 +7224,14 @@ else {
         }
       }
       if (hasGlobalAssignments) {
+        if (trackResultAsGlobal !== S_GLOBAL) {
+          if (result !== _global && (typeof result === 'function' || (result && typeof result === 'object'))) {
+            let _name = _globalObjects.get(result);
+            if (!_name || !_name.has(trackResultAsGlobal)) {
+              Policy.trackClass(trackResultAsGlobal, result);
+            }
+          }
+        }
         if (_global.constructor.name === 'Window') {
           for (let name in globalAssignments) {
             wrapGlobalProperty([_global, name, 'window']);
