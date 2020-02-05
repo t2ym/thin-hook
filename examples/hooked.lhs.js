@@ -36,50 +36,50 @@ __hook__('=', _GV2, [
     3
   ]
 ], __context_mapper__[0]);
-[$hook$.global(__hook__, __context_mapper__[0], '_GV3', 'var')[__context_mapper__[3]], $hook$.global(__hook__, __context_mapper__[0], '_GV4', 'var')[__context_mapper__[4]] = 2] = [
+[$hook$.global(__hook__, __context_mapper__[0], '_GV3', 'var')[__context_mapper__[3]], $hook$.global(__hook__, __context_mapper__[0], '_GV4', 'var')[__context_mapper__[4]] = 2] = __hook__('*', [
   $hook$.global(__hook__, __context_mapper__[0], '_GV1', 'get')[__context_mapper__[1]],
   $hook$.global(__hook__, __context_mapper__[0], '_GV2', 'get')[__context_mapper__[2]]
-];
-[$hook$.global(__hook__, __context_mapper__[0], '_GV5', 'var')[__context_mapper__[5]], ...($hook$.global(__hook__, __context_mapper__[0], '_GV6', 'var'))[__context_mapper__[6]]] = [
+], [], __context_mapper__[0]);
+[$hook$.global(__hook__, __context_mapper__[0], '_GV5', 'var')[__context_mapper__[5]], ...($hook$.global(__hook__, __context_mapper__[0], '_GV6', 'var'))[__context_mapper__[6]]] = __hook__('*', [
   $hook$.global(__hook__, __context_mapper__[0], '_GV1', 'get')[__context_mapper__[1]],
   ...$hook$.global(__hook__, __context_mapper__[0], '_GV2', 'get')[__context_mapper__[2]]
-];
+], [], __context_mapper__[0]);
 $hook$.global(__hook__, __context_mapper__[0], '_GV7', 'let')[__context_mapper__[7]] = { p3: 1 }, $hook$.global(__hook__, __context_mapper__[0], '_GV8', 'let')[__context_mapper__[8]] = [
   6,
   1,
   2
 ];
-[$hook$.global(__hook__, __context_mapper__[0], '_GV9', 'let')[__context_mapper__[9]], $hook$.global(__hook__, __context_mapper__[0], '_GV10', 'let')[__context_mapper__[10]] = 2] = [
+[$hook$.global(__hook__, __context_mapper__[0], '_GV9', 'let')[__context_mapper__[9]], $hook$.global(__hook__, __context_mapper__[0], '_GV10', 'let')[__context_mapper__[10]] = 2] = __hook__('*', [
   $hook$.global(__hook__, __context_mapper__[0], '_GV7', 'get')[__context_mapper__[7]],
   $hook$.global(__hook__, __context_mapper__[0], '_GV8', 'get')[__context_mapper__[8]]
-];
-[$hook$.global(__hook__, __context_mapper__[0], '_GV11', 'let')[__context_mapper__[11]], ...($hook$.global(__hook__, __context_mapper__[0], '_GV12', 'let'))[__context_mapper__[12]]] = [
+], [], __context_mapper__[0]);
+[$hook$.global(__hook__, __context_mapper__[0], '_GV11', 'let')[__context_mapper__[11]], ...($hook$.global(__hook__, __context_mapper__[0], '_GV12', 'let'))[__context_mapper__[12]]] = __hook__('*', [
   $hook$.global(__hook__, __context_mapper__[0], '_GV7', 'get')[__context_mapper__[7]],
   ...$hook$.global(__hook__, __context_mapper__[0], '_GV8', 'get')[__context_mapper__[8]]
-];
-[$hook$.global(__hook__, __context_mapper__[0], '_GV5', 'set')[__context_mapper__[5]], ...($hook$.global(__hook__, __context_mapper__[0], '_GV6', 'set'))[__context_mapper__[6]]] = [
+], [], __context_mapper__[0]);
+[$hook$.global(__hook__, __context_mapper__[0], '_GV5', 'set')[__context_mapper__[5]], ...($hook$.global(__hook__, __context_mapper__[0], '_GV6', 'set'))[__context_mapper__[6]]] = __hook__('*', [
   $hook$.global(__hook__, __context_mapper__[0], '_GV5', 'get')[__context_mapper__[5]],
   ...$hook$.global(__hook__, __context_mapper__[0], '_GV2', 'get')[__context_mapper__[2]]
-];
-[$hook$.global(__hook__, __context_mapper__[0], '_GV5', 'set')[__context_mapper__[5]] = $hook$.global(__hook__, __context_mapper__[0], '_GV1', 'get')[__context_mapper__[1]], ...($hook$.global(__hook__, __context_mapper__[0], '_GV6', 'set'))[__context_mapper__[6]]] = [
+], [], __context_mapper__[0]);
+[$hook$.global(__hook__, __context_mapper__[0], '_GV5', 'set')[__context_mapper__[5]] = $hook$.global(__hook__, __context_mapper__[0], '_GV1', 'get')[__context_mapper__[1]], ...($hook$.global(__hook__, __context_mapper__[0], '_GV6', 'set'))[__context_mapper__[6]]] = __hook__('*', [
   $hook$.global(__hook__, __context_mapper__[0], '_GV1', 'set')[__context_mapper__[1]] = 1,
   ...$hook$.global(__hook__, __context_mapper__[0], '_GV2', 'get')[__context_mapper__[2]]
-];
-[__hook__('.=', $hook$.global(__hook__, __context_mapper__[0], '_GV5', 'get')[__context_mapper__[5]], ['p1'], __context_mapper__[0])['='], ...(__hook__('.=', $hook$.global(__hook__, __context_mapper__[0], '_GV6', 'get')[__context_mapper__[6]], ['p2'], __context_mapper__[0]))['=']] = [
+], [], __context_mapper__[0]);
+[__hook__('.=', $hook$.global(__hook__, __context_mapper__[0], '_GV5', 'get')[__context_mapper__[5]], ['p1'], __context_mapper__[0])['='], ...(__hook__('.=', $hook$.global(__hook__, __context_mapper__[0], '_GV6', 'get')[__context_mapper__[6]], ['p2'], __context_mapper__[0]))['=']] = __hook__('*', [
   __hook__('=', _GV1, [
     'p1',
     1
   ], __context_mapper__[0]),
   ...__hook__('.', $hook$.global(__hook__, __context_mapper__[0], '_GV2', 'get')[__context_mapper__[2]], ['p2'], __context_mapper__[0])
-];
-[__hook__('.=', $hook$.global(__hook__, __context_mapper__[0], '_GV5', 'get')[__context_mapper__[5]], ['p1'], __context_mapper__[0])['='], ...(__hook__('.=', $hook$.global(__hook__, __context_mapper__[0], '_GV6', 'get')[__context_mapper__[6]], ['p2'], __context_mapper__[0]))['=']] = [
+], [], __context_mapper__[0]);
+[__hook__('.=', $hook$.global(__hook__, __context_mapper__[0], '_GV5', 'get')[__context_mapper__[5]], ['p1'], __context_mapper__[0])['='], ...(__hook__('.=', $hook$.global(__hook__, __context_mapper__[0], '_GV6', 'get')[__context_mapper__[6]], ['p2'], __context_mapper__[0]))['=']] = __hook__('*', [
   __hook__('=', _GV1, [
     'p1',
     1
   ], __context_mapper__[0]),
   ...__hook__('.', $hook$.global(__hook__, __context_mapper__[0], '_GV2', 'get')[__context_mapper__[2]], ['p2'], __context_mapper__[0])
-];
-[__hook__('.=', $hook$.global(__hook__, __context_mapper__[0], '_GV7', 'get')[__context_mapper__[7]], ['p3'], __context_mapper__[0])['='], ...[__hook__('.=', $hook$.global(__hook__, __context_mapper__[0], '_GV8', 'get')[__context_mapper__[8]], ['p4'], __context_mapper__[0])['='], $hook$.global(__hook__, __context_mapper__[0], '_GV1', 'set')[__context_mapper__[1]]]] = [
+], [], __context_mapper__[0]);
+[__hook__('.=', $hook$.global(__hook__, __context_mapper__[0], '_GV7', 'get')[__context_mapper__[7]], ['p3'], __context_mapper__[0])['='], ...[__hook__('.=', $hook$.global(__hook__, __context_mapper__[0], '_GV8', 'get')[__context_mapper__[8]], ['p4'], __context_mapper__[0])['='], $hook$.global(__hook__, __context_mapper__[0], '_GV1', 'set')[__context_mapper__[1]]]] = __hook__('*', [
   __hook__('=', _GV1, [
     'p1',
     {}
@@ -88,8 +88,8 @@ $hook$.global(__hook__, __context_mapper__[0], '_GV7', 'let')[__context_mapper__
     __hook__('.', $hook$.global(__hook__, __context_mapper__[0], '_GV2', 'get')[__context_mapper__[2]], ['p2'], __context_mapper__[0]),
     $hook$.global(__hook__, __context_mapper__[0], '_GV3', 'get')[__context_mapper__[3]]
   ]
-];
-[__hook__('.=', __hook__('.', $hook$.global(__hook__, __context_mapper__[0], '_GV7', 'get')[__context_mapper__[7]], ['p3'], __context_mapper__[0]), ['pp3'], __context_mapper__[0])['='], ...[__hook__('.=', $hook$.global(__hook__, __context_mapper__[0], '_GV8', 'get')[__context_mapper__[8]], ['p4'], __context_mapper__[0])['='], __hook__('.=', $hook$.global(__hook__, __context_mapper__[0], '_GV1', 'get')[__context_mapper__[1]], [$hook$.global(__hook__, __context_mapper__[0], '_GV2', 'get')[__context_mapper__[2]]], __context_mapper__[0])['=']]] = [
+], [], __context_mapper__[0]);
+[__hook__('.=', __hook__('.', $hook$.global(__hook__, __context_mapper__[0], '_GV7', 'get')[__context_mapper__[7]], ['p3'], __context_mapper__[0]), ['pp3'], __context_mapper__[0])['='], ...[__hook__('.=', $hook$.global(__hook__, __context_mapper__[0], '_GV8', 'get')[__context_mapper__[8]], ['p4'], __context_mapper__[0])['='], __hook__('.=', $hook$.global(__hook__, __context_mapper__[0], '_GV1', 'get')[__context_mapper__[1]], [$hook$.global(__hook__, __context_mapper__[0], '_GV2', 'get')[__context_mapper__[2]]], __context_mapper__[0])['=']]] = __hook__('*', [
   __hook__('=', _GV1, [
     'p1',
     1
@@ -98,7 +98,7 @@ $hook$.global(__hook__, __context_mapper__[0], '_GV7', 'let')[__context_mapper__
     __hook__('.', $hook$.global(__hook__, __context_mapper__[0], '_GV2', 'get')[__context_mapper__[2]], ['p2'], __context_mapper__[0]),
     __hook__('.', $hook$.global(__hook__, __context_mapper__[0], '_GV3', 'get')[__context_mapper__[3]], [$hook$.global(__hook__, __context_mapper__[0], '_GV2', 'get')[__context_mapper__[2]]], __context_mapper__[0])
   ]
-];
+], [], __context_mapper__[0]);
 __hook__('()', __hook__('.', $hook$.global(__hook__, __context_mapper__[0], 'chai', 'get')[__context_mapper__[13]], ['assert'], __context_mapper__[0]), [
   'equal',
   [
@@ -135,11 +135,11 @@ $hook$.global(__hook__, __context_mapper__[0], '_GO1', 'let')[__context_mapper__
 ({
   p1: __hook__('.=', $hook$.global(__hook__, __context_mapper__[17], '_GO1', 'get')[__context_mapper__[18]], ['p1'], __context_mapper__[17])['='],
   ...($hook$.global(__hook__, __context_mapper__[0], '_GO2', 'set'))[__context_mapper__[16]]
-} = {
+} = __hook__('*', {
   p1: 1,
   p2: 2,
   p3: 3
-});
+}, [], __context_mapper__[0]));
 __hook__('()', __hook__('.', $hook$.global(__hook__, __context_mapper__[0], 'chai', 'get')[__context_mapper__[13]], ['assert'], __context_mapper__[0]), [
   'equal',
   [
@@ -171,50 +171,50 @@ $hook$.global(__hook__, __context_mapper__[19], 'lhsvalues', 'function')[__conte
         3
       ]
     ], __context_mapper__[19]);
-    var [lv3, lv4 = 2] = [
+    var [lv3, lv4 = 2] = __hook__('*', [
       lv1,
       lv2
-    ];
-    var [lv5, ...lv6] = [
+    ], [], __context_mapper__[19]);
+    var [lv5, ...lv6] = __hook__('*', [
       lv1,
       ...lv2
-    ];
+    ], [], __context_mapper__[19]);
     let lv7 = { p3: 1 }, lv8 = [
         6,
         1,
         2
       ];
-    let [lv9, lv10 = 2] = [
+    let [lv9, lv10 = 2] = __hook__('*', [
       lv7,
       lv8
-    ];
-    let [lv11, ...lv12] = [
+    ], [], __context_mapper__[19]);
+    let [lv11, ...lv12] = __hook__('*', [
       lv7,
       ...lv8
-    ];
-    [lv5, ...lv6] = [
+    ], [], __context_mapper__[19]);
+    [lv5, ...lv6] = __hook__('*', [
       lv5,
       ...lv2
-    ];
-    [lv5 = lv1, ...lv6] = [
+    ], [], __context_mapper__[19]);
+    [lv5 = lv1, ...lv6] = __hook__('*', [
       lv1 = 1,
       ...lv2
-    ];
-    [__hook__('.=', lv5, ['p1'], __context_mapper__[19])['='], ...(__hook__('.=', lv6, ['p2'], __context_mapper__[19]))['=']] = [
+    ], [], __context_mapper__[19]);
+    [__hook__('.=', lv5, ['p1'], __context_mapper__[19])['='], ...(__hook__('.=', lv6, ['p2'], __context_mapper__[19]))['=']] = __hook__('*', [
       __hook__('=', lv1, [
         'p1',
         1
       ], __context_mapper__[19]),
       ...__hook__('.', lv2, ['p2'], __context_mapper__[19])
-    ];
-    [__hook__('.=', lv5, ['p1'], __context_mapper__[19])['='], ...(__hook__('.=', lv6, ['p2'], __context_mapper__[19]))['=']] = [
+    ], [], __context_mapper__[19]);
+    [__hook__('.=', lv5, ['p1'], __context_mapper__[19])['='], ...(__hook__('.=', lv6, ['p2'], __context_mapper__[19]))['=']] = __hook__('*', [
       __hook__('=', lv1, [
         'p1',
         1
       ], __context_mapper__[19]),
       ...__hook__('.', lv2, ['p2'], __context_mapper__[19])
-    ];
-    [__hook__('.=', lv7, ['p3'], __context_mapper__[19])['='], ...[__hook__('.=', lv8, ['p4'], __context_mapper__[19])['='], lv1]] = [
+    ], [], __context_mapper__[19]);
+    [__hook__('.=', lv7, ['p3'], __context_mapper__[19])['='], ...[__hook__('.=', lv8, ['p4'], __context_mapper__[19])['='], lv1]] = __hook__('*', [
       __hook__('=', lv1, [
         'p1',
         {}
@@ -223,8 +223,8 @@ $hook$.global(__hook__, __context_mapper__[19], 'lhsvalues', 'function')[__conte
         __hook__('.', lv2, ['p2'], __context_mapper__[19]),
         lv3
       ]
-    ];
-    [__hook__('.=', __hook__('.', lv7, ['p3'], __context_mapper__[19]), ['pp3'], __context_mapper__[19])['='], ...[__hook__('.=', lv8, ['p4'], __context_mapper__[19])['='], __hook__('.=', lv1, [lv2], __context_mapper__[19])['=']]] = [
+    ], [], __context_mapper__[19]);
+    [__hook__('.=', __hook__('.', lv7, ['p3'], __context_mapper__[19]), ['pp3'], __context_mapper__[19])['='], ...[__hook__('.=', lv8, ['p4'], __context_mapper__[19])['='], __hook__('.=', lv1, [lv2], __context_mapper__[19])['=']]] = __hook__('*', [
       __hook__('=', lv1, [
         'p1',
         1
@@ -233,7 +233,7 @@ $hook$.global(__hook__, __context_mapper__[19], 'lhsvalues', 'function')[__conte
         __hook__('.', lv2, ['p2'], __context_mapper__[19]),
         __hook__('.', lv3, [lv2], __context_mapper__[19])
       ]
-    ];
+    ], [], __context_mapper__[19]);
     __hook__('()', __hook__('.', $hook$.global(__hook__, __context_mapper__[19], 'chai', 'get')[__context_mapper__[21]], ['assert'], __context_mapper__[19]), [
       'equal',
       [
@@ -270,11 +270,11 @@ $hook$.global(__hook__, __context_mapper__[19], 'lhsvalues', 'function')[__conte
     ({
       p1: __hook__('.=', lO1, ['p1'], __context_mapper__[23])['='],
       ...lO2
-    } = {
+    } = __hook__('*', {
       p1: 1,
       p2: 2,
       p3: 3
-    });
+    }, [], __context_mapper__[19]));
     __hook__('()', __hook__('.', $hook$.global(__hook__, __context_mapper__[19], 'chai', 'get')[__context_mapper__[21]], ['assert'], __context_mapper__[19]), [
       'equal',
       [
@@ -327,7 +327,7 @@ $hook$.global(__hook__, __context_mapper__[19], 'lhsvalues', 'function')[__conte
           3
         ]
       ], __context_mapper__[19]);
-      var [wv3, wv4 = 2] = [
+      var [wv3, wv4 = 2] = __hook__('*', [
         __hook__('w.', __with__, [
           'wv1',
           () => wv1
@@ -336,8 +336,8 @@ $hook$.global(__hook__, __context_mapper__[19], 'lhsvalues', 'function')[__conte
           'wv2',
           () => wv2
         ], __context_mapper__[19], false)
-      ];
-      var [wv5, ...wv6] = [
+      ], [], __context_mapper__[19]);
+      var [wv5, ...wv6] = __hook__('*', [
         __hook__('w.', __with__, [
           'wv1',
           () => wv1
@@ -346,13 +346,13 @@ $hook$.global(__hook__, __context_mapper__[19], 'lhsvalues', 'function')[__conte
           'wv2',
           () => wv2
         ], __context_mapper__[19], false)
-      ];
+      ], [], __context_mapper__[19]);
       let wv7 = { p3: 1 }, wv8 = [
           6,
           1,
           2
         ];
-      let [wv9, wv10 = 2] = [
+      let [wv9, wv10 = 2] = __hook__('*', [
         __hook__('w.', __with__, [
           'wv7',
           () => wv7
@@ -361,8 +361,8 @@ $hook$.global(__hook__, __context_mapper__[19], 'lhsvalues', 'function')[__conte
           'wv8',
           () => wv8
         ], __context_mapper__[19], false)
-      ];
-      let [wv11, ...wv12] = [
+      ], [], __context_mapper__[19]);
+      let [wv11, ...wv12] = __hook__('*', [
         __hook__('w.', __with__, [
           'wv7',
           () => wv7
@@ -371,7 +371,7 @@ $hook$.global(__hook__, __context_mapper__[19], 'lhsvalues', 'function')[__conte
           'wv8',
           () => wv8
         ], __context_mapper__[19], false)
-      ];
+      ], [], __context_mapper__[19]);
       [__hook__('w.=', __with__, [
           'wv5',
           {
@@ -392,7 +392,7 @@ $hook$.global(__hook__, __context_mapper__[19], 'lhsvalues', 'function')[__conte
               return wv6;
             }
           }
-        ], __context_mapper__[19], false))['=']] = [
+        ], __context_mapper__[19], false))['=']] = __hook__('*', [
         __hook__('w.', __with__, [
           'wv5',
           () => wv5
@@ -401,7 +401,7 @@ $hook$.global(__hook__, __context_mapper__[19], 'lhsvalues', 'function')[__conte
           'wv2',
           () => wv2
         ], __context_mapper__[19], false)
-      ];
+      ], [], __context_mapper__[19]);
       [__hook__('w.=', __with__, [
           'wv5',
           {
@@ -425,7 +425,7 @@ $hook$.global(__hook__, __context_mapper__[19], 'lhsvalues', 'function')[__conte
               return wv6;
             }
           }
-        ], __context_mapper__[19], false))['=']] = [
+        ], __context_mapper__[19], false))['=']] = __hook__('*', [
         __hook__('w=', __with__, [
           'wv1',
           1,
@@ -435,14 +435,14 @@ $hook$.global(__hook__, __context_mapper__[19], 'lhsvalues', 'function')[__conte
           'wv2',
           () => wv2
         ], __context_mapper__[19], false)
-      ];
+      ], [], __context_mapper__[19]);
       [__hook__('.=', __hook__('w.', __with__, [
           'wv5',
           () => wv5
         ], __context_mapper__[19], false), ['p1'], __context_mapper__[19])['='], ...(__hook__('.=', __hook__('w.', __with__, [
           'wv6',
           () => wv6
-        ], __context_mapper__[19], false), ['p2'], __context_mapper__[19]))['=']] = [
+        ], __context_mapper__[19], false), ['p2'], __context_mapper__[19]))['=']] = __hook__('*', [
         __hook__('=', wv1, [
           'p1',
           1
@@ -451,14 +451,14 @@ $hook$.global(__hook__, __context_mapper__[19], 'lhsvalues', 'function')[__conte
           'wv2',
           () => wv2
         ], __context_mapper__[19], false), ['p2'], __context_mapper__[19])
-      ];
+      ], [], __context_mapper__[19]);
       [__hook__('.=', __hook__('w.', __with__, [
           'wv5',
           () => wv5
         ], __context_mapper__[19], false), ['p1'], __context_mapper__[19])['='], ...(__hook__('.=', __hook__('w.', __with__, [
           'wv6',
           () => wv6
-        ], __context_mapper__[19], false), ['p2'], __context_mapper__[19]))['=']] = [
+        ], __context_mapper__[19], false), ['p2'], __context_mapper__[19]))['=']] = __hook__('*', [
         __hook__('=', wv1, [
           'p1',
           1
@@ -467,7 +467,7 @@ $hook$.global(__hook__, __context_mapper__[19], 'lhsvalues', 'function')[__conte
           'wv2',
           () => wv2
         ], __context_mapper__[19], false), ['p2'], __context_mapper__[19])
-      ];
+      ], [], __context_mapper__[19]);
       [__hook__('.=', __hook__('w.', __with__, [
           'wv7',
           () => wv7
@@ -484,7 +484,7 @@ $hook$.global(__hook__, __context_mapper__[19], 'lhsvalues', 'function')[__conte
                 return wv1;
               }
             }
-          ], __context_mapper__[19], false)['=']]] = [
+          ], __context_mapper__[19], false)['=']]] = __hook__('*', [
         __hook__('=', wv1, [
           'p1',
           {}
@@ -499,7 +499,7 @@ $hook$.global(__hook__, __context_mapper__[19], 'lhsvalues', 'function')[__conte
             () => wv3
           ], __context_mapper__[19], false)
         ]
-      ];
+      ], [], __context_mapper__[19]);
       [__hook__('.=', __hook__('.', __hook__('w.', __with__, [
           'wv7',
           () => wv7
@@ -512,7 +512,7 @@ $hook$.global(__hook__, __context_mapper__[19], 'lhsvalues', 'function')[__conte
           ], __context_mapper__[19], false), [__hook__('w.', __with__, [
               'wv2',
               () => wv2
-            ], __context_mapper__[19], false)], __context_mapper__[19])['=']]] = [
+            ], __context_mapper__[19], false)], __context_mapper__[19])['=']]] = __hook__('*', [
         __hook__('=', wv1, [
           'p1',
           1
@@ -530,7 +530,7 @@ $hook$.global(__hook__, __context_mapper__[19], 'lhsvalues', 'function')[__conte
               () => wv2
             ], __context_mapper__[19], false)], __context_mapper__[19])
         ]
-      ];
+      ], [], __context_mapper__[19]);
       __hook__('()', __hook__('.', __hook__('w.', __with__, [
         'chai',
         () => chai
@@ -648,11 +648,11 @@ $hook$.global(__hook__, __context_mapper__[19], 'lhsvalues', 'function')[__conte
             }
           }
         ], __context_mapper__[19], false))['=']
-      } = {
+      } = __hook__('*', {
         p1: 1,
         p2: 2,
         p3: 3
-      });
+      }, [], __context_mapper__[19]));
       __hook__('()', __hook__('.', __hook__('w.', __with__, [
         'chai',
         () => chai

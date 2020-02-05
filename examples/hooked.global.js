@@ -59,18 +59,18 @@ const __context_mapper__ = $hook$.$(__hook__, [
 ]);
 $hook$.global(__hook__, __context_mapper__[0], 'gvv', 'get')[__context_mapper__[1]];
 $hook$.global(__hook__, __context_mapper__[0], 'gvv1', 'get')[__context_mapper__[2]], $hook$.global(__hook__, __context_mapper__[0], 'gvv2', 'get')[__context_mapper__[3]];
-$hook$.global(__hook__, __context_mapper__[0], 'gv0', 'var')[__context_mapper__[4]], [$hook$.global(__hook__, __context_mapper__[0], 'gv00', 'var')[__context_mapper__[5]]] = ['gv00'];
-[$hook$.global(__hook__, __context_mapper__[0], 'ga', 'var')[__context_mapper__[6]], ...($hook$.global(__hook__, __context_mapper__[0], 'gb', 'var'))[__context_mapper__[7]]] = [
+$hook$.global(__hook__, __context_mapper__[0], 'gv0', 'var')[__context_mapper__[4]], [$hook$.global(__hook__, __context_mapper__[0], 'gv00', 'var')[__context_mapper__[5]]] = __hook__('*', ['gv00'], [], __context_mapper__[0]);
+[$hook$.global(__hook__, __context_mapper__[0], 'ga', 'var')[__context_mapper__[6]], ...($hook$.global(__hook__, __context_mapper__[0], 'gb', 'var'))[__context_mapper__[7]]] = __hook__('*', [
   3,
   4,
   5
-];
+], [], __context_mapper__[0]);
 $hook$.global(__hook__, __context_mapper__[0], 'gv0', 'get')[__context_mapper__[4]];
 $hook$.global(__hook__, __context_mapper__[0], 'gv', 'var')[__context_mapper__[8]] = 1;
-[$hook$.global(__hook__, __context_mapper__[0], 'gv2', 'var')[__context_mapper__[9]], $hook$.global(__hook__, __context_mapper__[0], 'gv3', 'var')[__context_mapper__[10]]] = [
+[$hook$.global(__hook__, __context_mapper__[0], 'gv2', 'var')[__context_mapper__[9]], $hook$.global(__hook__, __context_mapper__[0], 'gv3', 'var')[__context_mapper__[10]]] = __hook__('*', [
   'gv2value',
   'gv3value'
-];
+], [], __context_mapper__[0]);
 $hook$.global(__hook__, __context_mapper__[0], 'gv4', 'set')[__context_mapper__[11]] = $hook$.global(__hook__, __context_mapper__[0], 'gv', 'get')[__context_mapper__[8]];
 $hook$.global(__hook__, __context_mapper__[0], 'gv2', 'set')[__context_mapper__[9]]++;
 ({
@@ -79,13 +79,13 @@ $hook$.global(__hook__, __context_mapper__[0], 'gv2', 'set')[__context_mapper__[
     u: $hook$.global(__hook__, __context_mapper__[14], 'uu', 'var')[__context_mapper__[15]],
     v: $hook$.global(__hook__, __context_mapper__[16], 'vv', 'var')[__context_mapper__[17]]
   }
-} = {
+} = __hook__('*', {
   x: 11,
   z: {
     u: 12,
     v: 13
   }
-});
+}, [], __context_mapper__[0]));
 $hook$.global(__hook__, __context_mapper__[18], 'gf', 'function')[__context_mapper__[19]] = function gf() {
   return __hook__(() => {
     var local1 = 1;
@@ -126,18 +126,18 @@ $hook$.global(__hook__, __context_mapper__[0], 'lf', 'let')[__context_mapper__[3
   }, null, args, __context_mapper__[0]));
 $hook$.global(__hook__, __context_mapper__[38], 'gfunc', 'function')[__context_mapper__[39]] = async function gfunc(a1, a2) {
   return __hook__(async (a1, a2 = $hook$.global(__hook__, __context_mapper__[38], 'gv2', 'get')[__context_mapper__[40]]) => {
-    let l1, l2 = 1, [l3, [l4]] = [
+    let l1, l2 = 1, [l3, [l4]] = __hook__('*', [
         3,
         [4]
-      ];
-    [$hook$.global(__hook__, __context_mapper__[38], 'gv2', 'set')[__context_mapper__[40]], l1, [$hook$.global(__hook__, __context_mapper__[38], 'gv3', 'set')[__context_mapper__[41]], l2]] = [
+      ], [], __context_mapper__[38]);
+    [$hook$.global(__hook__, __context_mapper__[38], 'gv2', 'set')[__context_mapper__[40]], l1, [$hook$.global(__hook__, __context_mapper__[38], 'gv3', 'set')[__context_mapper__[41]], l2]] = __hook__('*', [
       2,
       1,
       [
         3,
         2
       ]
-    ];
+    ], [], __context_mapper__[38]);
     ({
       v1: $hook$.global(__hook__, __context_mapper__[42], 'gv2', 'set')[__context_mapper__[43]],
       v2: l3,
@@ -145,14 +145,14 @@ $hook$.global(__hook__, __context_mapper__[38], 'gfunc', 'function')[__context_m
         v3: $hook$.global(__hook__, __context_mapper__[44], 'gv3', 'set')[__context_mapper__[45]],
         v4: l4
       }
-    } = {
+    } = __hook__('*', {
       v1: $hook$.global(__hook__, __context_mapper__[42], 'gv2', 'get')[__context_mapper__[43]],
       [$hook$.global(__hook__, __context_mapper__[46], 'v2', 'get')[__context_mapper__[47]]]: l3,
       p: {
         v3: $hook$.global(__hook__, __context_mapper__[44], 'gv3', 'get')[__context_mapper__[45]],
         [$hook$.global(__hook__, __context_mapper__[48], 'v4', 'get')[__context_mapper__[49]]]: l4
       }
-    });
+    }, [], __context_mapper__[38]));
     $hook$.global(__hook__, __context_mapper__[38], 'gv3', 'set')[__context_mapper__[41]]++;
     ++$hook$.global(__hook__, __context_mapper__[38], 'gv3', 'set')[__context_mapper__[41]];
     $hook$.global(__hook__, __context_mapper__[38], 'gv3', 'set')[__context_mapper__[41]]--;
@@ -160,12 +160,12 @@ $hook$.global(__hook__, __context_mapper__[38], 'gfunc', 'function')[__context_m
     l2++;
     $hook$.global(__hook__, __context_mapper__[38], 'gv3', 'set')[__context_mapper__[41]] = l2;
     l2 = $hook$.global(__hook__, __context_mapper__[38], 'gv3', 'get')[__context_mapper__[41]];
-    [l1 = l2, $hook$.global(__hook__, __context_mapper__[38], 'gv', 'set')[__context_mapper__[50]] = l2, $hook$.global(__hook__, __context_mapper__[38], 'gv2', 'set')[__context_mapper__[40]] = $hook$.global(__hook__, __context_mapper__[38], 'gv3', 'get')[__context_mapper__[41]], l3 = $hook$.global(__hook__, __context_mapper__[38], 'gv3', 'get')[__context_mapper__[41]]] = [
+    [l1 = l2, $hook$.global(__hook__, __context_mapper__[38], 'gv', 'set')[__context_mapper__[50]] = l2, $hook$.global(__hook__, __context_mapper__[38], 'gv2', 'set')[__context_mapper__[40]] = $hook$.global(__hook__, __context_mapper__[38], 'gv3', 'get')[__context_mapper__[41]], l3 = $hook$.global(__hook__, __context_mapper__[38], 'gv3', 'get')[__context_mapper__[41]]] = __hook__('*', [
       $hook$.global(__hook__, __context_mapper__[38], 'gv', 'get')[__context_mapper__[50]],
       l1,
       $hook$.global(__hook__, __context_mapper__[38], 'gv2', 'get')[__context_mapper__[40]],
       l2
-    ];
+    ], [], __context_mapper__[38]);
     $hook$.global(__hook__, __context_mapper__[38], 'gv0', 'get')[__context_mapper__[51]];
     l1;
     await l1;

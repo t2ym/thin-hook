@@ -475,7 +475,7 @@ const __context_mapper__ = $hook$.$(__hook__, [
               return y;
             }
           }
-        ], __context_mapper__[0], false)['=']] = [
+        ], __context_mapper__[0], false)['=']] = __hook__('*', [
         __hook__('w.', __with__, [
           'x',
           () => x
@@ -484,7 +484,7 @@ const __context_mapper__ = $hook$.$(__hook__, [
           'y',
           () => y
         ], __context_mapper__[0], false)
-      ];
+      ], [], __context_mapper__[0]);
       [__hook__('w.=', __with__, [
           'x',
           {
@@ -505,7 +505,7 @@ const __context_mapper__ = $hook$.$(__hook__, [
               return y;
             }
           }
-        ], __context_mapper__[0], false))['=']] = [
+        ], __context_mapper__[0], false))['=']] = __hook__('*', [
         __hook__('w.', __with__, [
           'x',
           () => x
@@ -514,7 +514,7 @@ const __context_mapper__ = $hook$.$(__hook__, [
           'y',
           () => y
         ], __context_mapper__[0], false)
-      ];
+      ], [], __context_mapper__[0]);
       let o = {
         [__hook__('w.', __with__, [
           'comp',
@@ -816,7 +816,7 @@ with ($hook$.with({
         }
       }
     ], __context_mapper__[0], false))['=']
-  } = {
+  } = __hook__('*', {
     x: __hook__('w.', __with__, [
       'x',
       () => x
@@ -825,11 +825,11 @@ with ($hook$.with({
       'y',
       () => y
     ], __context_mapper__[0], false), [], __context_mapper__[0])
-  });
+  }, [], __context_mapper__[0]));
   let {
     A,
     ...B
-  } = {
+  } = __hook__('*', {
     A: __hook__('w.', __with__, [
       'y',
       () => y
@@ -842,11 +842,11 @@ with ($hook$.with({
       'y',
       () => y
     ], __context_mapper__[0], false), [], __context_mapper__[0])
-  };
+  }, [], __context_mapper__[0]);
   let [p1, p2 = __hook__('w.', __with__, [
       'y',
       () => y
-    ], __context_mapper__[0], false), ...p3] = [
+    ], __context_mapper__[0], false), ...p3] = __hook__('*', [
     2,
     ,
     5,
@@ -858,5 +858,5 @@ with ($hook$.with({
       'a2',
       () => a2
     ], __context_mapper__[0], false)
-  ];
+  ], [], __context_mapper__[0]);
 }
