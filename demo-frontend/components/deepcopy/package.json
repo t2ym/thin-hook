@@ -51,7 +51,7 @@
     "babel-plugin-transform-strict-mode": "^6.6.5",
     "babel-plugin-transform-undefined-to-void": "^6.5.0",
     "coffee-script": "^1.10.0",
-    "eslint": "^2.4.0",
+    "eslint": "^6.8.0",
     "eslint-config-sasaplus1": "sasaplus1-prototype/eslint-config-sasaplus1.git",
     "espower-babel": "4.0.3",
     "karma": "^0.13.15",
