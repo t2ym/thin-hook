@@ -109,6 +109,16 @@
   }, /^Permission Denied:/);
 
   chai.assert.throws(() => {
+    let { caches: c } = window;
+    //c.open();
+  }, /^Permission Denied:/);
+
+  chai.assert.throws(() => {
+    let { serviceWorker: sw } = navigator;
+    //sw.register();
+  }, /^Permission Denied:/);
+
+  chai.assert.throws(() => {
     Object.defineProperty(window, 'caches', { configurable: true, enumerable: true, value: null });
   }, /^Permission Denied:/);
 
