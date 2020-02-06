@@ -114,6 +114,144 @@
   }, /^Permission Denied:/);
 
   chai.assert.throws(() => {
+    function f({ caches: c }, { serviceWorker: sw }) { return [c, sw]; }
+    f(window, navigator);
+  }, /^Permission Denied:/);
+
+  (async () => {
+    let exception;
+    try {
+      async function f({ caches: c }, { serviceWorker: sw }) { return [c, sw]; }
+      await f(window, navigator);
+    }
+    catch (e) {
+      exception = e;
+    }
+    finally {
+      chai.assert.throws(() => { if (exception) throw exception; }, /^Permission Denied:/)
+    }
+  })();
+
+  chai.assert.throws(() => {
+    function* f({ caches: c }, { serviceWorker: sw }) { yield c; yield sw; }
+    for (let o of f(window, navigator)) {}
+  }, /^Permission Denied:/);
+
+  chai.assert.throws(() => {
+    (function ({ caches: c }, { serviceWorker: sw }) { return [c, sw]; })(window, navigator);
+  }, /^Permission Denied:/);
+
+  (async () => {
+    let exception;
+    try {
+      await (async function ({ caches: c }, { serviceWorker: sw }) { return [c, sw]; })(window, navigator);
+    }
+    catch (e) {
+      exception = e;
+    }
+    finally {
+      chai.assert.throws(() => { if (exception) throw exception; }, /^Permission Denied:/)
+    }
+  })();
+
+  chai.assert.throws(() => {
+    for (let o of (function* ({ caches: c }, { serviceWorker: sw }) { yield c; yield sw; })(window, navigator)) {}
+  }, /^Permission Denied:/);
+  
+  chai.assert.throws(() => {
+    (({ caches: c }) => c)(window);
+  }, /^Permission Denied:/);
+
+  (async () => {
+    let exception;
+    try {
+      await (async ({ caches: c }) => c)(window);
+    }
+    catch (e) {
+      exception = e;
+    }
+    finally {
+      chai.assert.throws(() => { if (exception) throw exception; }, /^Permission Denied:/)
+    }
+  })();
+
+  chai.assert.throws(() => {
+    class C {
+      constructor({ caches: c }) {
+        this.caches = c;
+      }
+    }
+    new C(window);
+  }, /^Permission Denied:/);
+
+  chai.assert.throws(() => {
+    class C {
+      static smethod({ caches: c }) {
+        return c;
+      }
+    }
+    C.smethod(window);
+  }, /^Permission Denied:/);
+
+  chai.assert.throws(() => {
+    class C {
+      method({ caches: c }) {
+        return c;
+      }
+    }
+    (new C()).method(window);
+  }, /^Permission Denied:/);
+
+  chai.assert.throws(() => {
+    class C {
+      * gen({ caches: c }) {
+        yield c;
+      }
+    }
+    for (let o of (new C()).gen(window)) {}
+  }, /^Permission Denied:/);
+
+  (async () => {
+    let exception;
+    try {
+      class C {
+        static async smethod({ caches: c }) {
+          return c;
+        }
+      }
+      await C.smethod(window);
+    }
+    catch (e) {
+      exception = e;
+    }
+    finally {
+      chai.assert.throws(() => { if (exception) throw exception; }, /^Permission Denied:/)
+    }
+  })();
+
+  (async () => {
+    let exception;
+    try {
+      class C {
+        async method({ caches: c }) {
+          return c;
+        }
+      }
+      await (new C()).method(window);
+    }
+    catch (e) {
+      exception = e;
+    }
+    finally {
+      chai.assert.throws(() => { if (exception) throw exception; }, /^Permission Denied:/)
+    }
+  })();
+
+  chai.assert.throws(() => {
+    ({ m({ caches: c }) { return c } }).m(window);
+  }, /^Permission Denied:/);
+
+  chai.assert.throws(() => {
     let { serviceWorker: sw } = navigator;
     //sw.register();
   }, /^Permission Denied:/);
