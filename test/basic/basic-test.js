@@ -917,17 +917,17 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           },
           {
             "code": "{ function * f([a,b,{c=3},[d=4],...[...e]]) { yield * [a,b,c,d,...e]; } let x = []; for (let v of f([1,2,{y:3},[],5,6])) { x.push(v); } x; }",
-            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest,f','HookApiTest']);{function*f(...args){yield*__hook__(function*([a,b,{c=3},[d=4],...[...e]]){yield*[a,b,c,d,...e];},this,args,_c_[0]);}let x=[];for(let v of __hook__('*',__hook__(f,null,[[1,2,{y:3},[],5,6]],_c_[1],0),[],_c_[1])){__hook__('()',x,['push',[v]],_c_[1]);}x;}",
+            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest,f','HookApiTest']);{function*f(...args){for(let arg of arguments)__hook__('*',arg,[],_c_[0]);yield*__hook__(function*([a,b,{c=3},[d=4],...[...e]]){yield*[a,b,c,d,...e];},this,args,_c_[0]);}let x=[];for(let v of __hook__('*',__hook__(f,null,[[1,2,{y:3},[],5,6]],_c_[1],0),[],_c_[1])){__hook__('()',x,['push',[v]],_c_[1]);}x;}",
             "name": "ArrayPattern  { function * f([a,b,{c=3},[d=4],...[...e]]) { yield * [a,b,c,d,...e]; } let x = []; for (let v of f([1,2,{y:3},[],5,6])) { x.push(v); } x; }"
           },
           {
             "code": "{ function f(a,b,{y:{xy:yy=7,zy:zy=8,zz=2,uu},c=3},[d=4],...[...e]) { return [a,b,yy,zz,uu,c,d,...e]; } f(1,2,{y:{xy:9,uu:0}},[],5,6); }",
-            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest,f','HookApiTest']);{function f(a,b,{y:{xy:yy,zy:zy,zz,uu},c},[d],...[...e]){return __hook__((a,b,{y:{xy:yy=7,zy:zy=8,zz=2,uu},c=3},[d=4],...[...e])=>{return[a,b,yy,zz,uu,c,d,...e];},null,arguments,_c_[0]);}__hook__(f,null,[1,2,{y:{xy:9,uu:0}},[],5,6],_c_[1],0);}",
+            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest,f','HookApiTest']);{function f(a,b,{y:{xy:yy,zy:zy,zz,uu},c},[d],...[...e]){for(let arg of arguments)__hook__('*',arg,[],_c_[0]);return __hook__((a,b,{y:{xy:yy=7,zy:zy=8,zz=2,uu},c=3},[d=4],...[...e])=>{return[a,b,yy,zz,uu,c,d,...e];},null,arguments,_c_[0]);}__hook__(f,null,[1,2,{y:{xy:9,uu:0}},[],5,6],_c_[1],0);}",
             "name": "ArrayPattern  { function f(a,b,{y:{xy:yy=7,zy:zy=8,zz=2,uu},c=3},[d=4],...[...e]) { return [a,b,yy,zz,uu,c,d,...e]; } f(1,2,{y:{xy:9,uu:0}},[],5,6); }"
           },
           {
             "code": "{ function f([a,,[b]]) { let [c,,[d]] = [4,5,[6]]; let e, g; [e,,[g]] = [7,8,[9]]; return [a,b,c,d,e,g]; } f([1,2,[3]]); }",
-            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest,f','HookApiTest']);{function f(...args){return __hook__(([a,,[b]])=>{let [c,,[d]]=__hook__('*',[4,5,[6]],[],_c_[0]);let e,g;[e,,[g]]=__hook__('*',[7,8,[9]],[],_c_[0]);return[a,b,c,d,e,g];},null,args,_c_[0]);}__hook__(f,null,[[1,2,[3]]],_c_[1],0);}",
+            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest,f','HookApiTest']);{function f(...args){for(let arg of arguments)__hook__('*',arg,[],_c_[0]);return __hook__(([a,,[b]])=>{let [c,,[d]]=__hook__('*',[4,5,[6]],[],_c_[0]);let e,g;[e,,[g]]=__hook__('*',[7,8,[9]],[],_c_[0]);return[a,b,c,d,e,g];},null,args,_c_[0]);}__hook__(f,null,[[1,2,[3]]],_c_[1],0);}",
             "name": "ArrayPattern  { function f([a,,[b]]) { let [c,,[d]] = [4,5,[6]]; let e, g; [e,,[g]] = [7,8,[9]]; return [a,b,c,d,e,g]; } f([1,2,[3]]); }"
           },
           {
@@ -1039,17 +1039,17 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           },
           {
             "code": "{ function f([...a]) { return a; } f([1,2,3]); }",
-            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest,f','HookApiTest']);{function f(...args){return __hook__(([...a])=>{return a;},null,args,_c_[0]);}__hook__(f,null,[[1,2,3]],_c_[1],0);}",
+            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest,f','HookApiTest']);{function f(...args){for(let arg of arguments)__hook__('*',arg,[],_c_[0]);return __hook__(([...a])=>{return a;},null,args,_c_[0]);}__hook__(f,null,[[1,2,3]],_c_[1],0);}",
             "name": "RestElement  { function f([...a]) { return a; } f([1,2,3]); }"
           },
           {
             "code": "{ (function f([...a]) { return a; })([1,2,3]); }",
-            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest','HookApiTest,f']);{__hook__(function f(...args){return __hook__(([...a])=>{return a;},null,args,_c_[1]);},null,[[1,2,3]],_c_[0],0);}",
+            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest','HookApiTest,f']);{__hook__(function f(...args){for(let arg of arguments)__hook__('*',arg,[],_c_[1]);return __hook__(([...a])=>{return a;},null,args,_c_[1]);},null,[[1,2,3]],_c_[0],0);}",
             "name": "RestElement  { (function f([...a]) { return a; })([1,2,3]); }"
           },
           {
             "code": "{ (([...a]) => a)([1,2,3]); }",
-            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest']);{__hook__((...args)=>__hook__(([...a])=>a,null,args,_c_[0]),null,[[1,2,3]],_c_[0],0);}",
+            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest']);{__hook__((...args)=>__hook__(([...a])=>a,null,args.map(arg=>__hook__('*',arg,[],_c_[0])),_c_[0]),null,[[1,2,3]],_c_[0],0);}",
             "name": "RestElement  { (([...a]) => a)([1,2,3]); }"
           },
           {
@@ -1111,7 +1111,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           },
           {
             "code": "{ function f({...p}) { return p; } f({a:1}); }",
-            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest,f','HookApiTest']);{function f({...p}){return __hook__(({...p})=>{return p;},null,arguments,_c_[0]);}__hook__(f,null,[{a:1}],_c_[1],0);}",
+            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest,f','HookApiTest']);{function f({...p}){for(let arg of arguments)__hook__('*',arg,[],_c_[0]);return __hook__(({...p})=>{return p;},null,arguments,_c_[0]);}__hook__(f,null,[{a:1}],_c_[1],0);}",
             "name": "ExperimentalRestProperty  { function f({...p}) { return p; } f({a:1}); }"
           },
           {
