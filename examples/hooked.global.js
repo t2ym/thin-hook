@@ -123,7 +123,7 @@ $hook$.global(__hook__, __context_mapper__[0], 'lf', 'let')[__context_mapper__[3
     }
   }) => {
     $hook$.global(__hook__, __context_mapper__[0], 'gc', 'get')[__context_mapper__[21]];
-  }, null, args, __context_mapper__[0]));
+  }, null, args.map(arg => __hook__('*', arg, [], __context_mapper__[0])), __context_mapper__[0]));
 $hook$.global(__hook__, __context_mapper__[38], 'gfunc', 'function')[__context_mapper__[39]] = async function gfunc(a1, a2) {
   return __hook__(async (a1, a2 = $hook$.global(__hook__, __context_mapper__[38], 'gv2', 'get')[__context_mapper__[40]]) => {
     let l1, l2 = 1, [l3, [l4]] = __hook__('*', [

@@ -445,6 +445,8 @@ const __context_mapper__ = $hook$.$(__hook__, [
           ], __context_mapper__[0], false)]
       ], __context_mapper__[0]);
       function f2(...args) {
+        for (let arg of arguments)
+          __hook__('*', arg, [], __context_mapper__[20]);
         return __hook__(([xx = __hook__('w.', __with__, [
             'y',
             () => y

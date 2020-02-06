@@ -202,6 +202,8 @@ $hook$.global(__hook__, __context_mapper__[31], 'gfunc', 'function')[__context_m
   }, this, arguments, __context_mapper__[31]);
 };
 $hook$.global(__hook__, __context_mapper__[33], 'destructuring', 'function')[__context_mapper__[34]] = function destructuring(...args) {
+  for (let arg of arguments)
+    __hook__('*', arg, [], __context_mapper__[33]);
   return __hook__(([x, , [y = 2], z = 3], [a, b = 5, c = 6]) => {
     return x + y + z + a + b + c;
   }, null, args, __context_mapper__[33]);
@@ -215,6 +217,8 @@ $hook$.global(__hook__, __context_mapper__[35], 'd', 'function')[__context_mappe
       x: d,
       y: e
     }, [f, g, h]) {
+      for (let arg of arguments)
+        __hook__('*', arg, [], __context_mapper__[37]);
       return __hook__(({
         a = 1,
         b = 0,
