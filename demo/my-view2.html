@@ -86,6 +86,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       while (gObject) {
         let descriptors = Object.getOwnPropertyDescriptors(gObject);
         for (let rawName in descriptors) {
+          if (rawName === '__proto__') {
+            continue;
+          }
           let name = _escapePlatformProperties.get(rawName) || rawName;
           let node = { id: name, label: rawName, group: name };
           let object;
@@ -118,6 +121,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       while (gObject) {
         let descriptors = Object.getOwnPropertyDescriptors(gObject);
         for (let rawName in descriptors) {
+          if (rawName === '__proto__') {
+            continue;
+          }
           let name = _escapePlatformProperties.get(rawName) || rawName;
           let object;
           try {
