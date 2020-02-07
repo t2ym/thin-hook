@@ -3256,6 +3256,14 @@ else {
         },
       },
     },
+    DummyObject1: {
+      [S_DEFAULT]: '---',
+      [S_ALL]: '---',
+      [S_OBJECT]: {
+        [S_DEFAULT]: '---',
+        '@normalization_checker': '-w--W', // write-only to throw on reading
+      },
+    },
     BaseClass1: {
       [S_OBJECT]: {
         [S_DEFAULT]: '---',
@@ -3275,6 +3283,10 @@ else {
         [S_DEFAULT]: '---',
         [S_INSTANCE]: {
           [S_DEFAULT]: '---',
+          $__proto__$: {
+            [S_DEFAULT]: '---',
+            '@normalization_checker': 'r--',
+          },
           instanceMethod: {
             [S_DEFAULT]: '---',
             '@normalization_checker': '--x',
@@ -4930,13 +4942,25 @@ else {
                       property = _p;
                       break;
                     case S_TARGETED:
-                      if (_args[1][1] instanceof Object) {
+                      if (_args[1][1] instanceof Object || (_args[1][1] && typeof _args[1][1] === 'object')) {
                         rawProperty = [];
                         for (let i = 1; i < _args[1].length; i++) {
                           let _obj = _args[1][i];
                           let _name = _globalObjects.get(_obj);
-                          if (!applyAcl(_name, true, false, S_ALL, 'r', context, _obj, _args, arguments)) {
-                            result = [_name, true, false, S_ALL, 'r', context, _obj, _args, arguments];
+                          let _isStatic = true;
+                          let _isObject = false;
+                          if (!_name) {
+                            let _ctor = _obj.constructor;
+                            if (typeof _ctor === 'function') {
+                              _name = _globalObjects.get(_ctor);
+                              if (_name) {
+                                _isStatic = false;
+                                _isObject = _obj instanceof _ctor;
+                              }
+                            }
+                          }
+                          if (!applyAcl(_name, _isStatic, _isObject, S_ALL, 'r', context, _obj, _args, arguments)) {
+                            result = [_name, _isStatic, _isObject, S_ALL, 'r', context, _obj, _args, arguments];
                             throw new Error('Permission Denied: Cannot access ' + SetMap.getStringValues(_name));
                           }
                           // TODO: Are inherited properties targeted?
@@ -6416,13 +6440,25 @@ else {
                       property = _p;
                       break;
                     case S_TARGETED:
-                      if (_args[1][1] instanceof Object) {
+                      if (_args[1][1] instanceof Object || (_args[1][1] && typeof _args[1][1] === 'object')) {
                         rawProperty = [];
                         for (let i = 1; i < _args[1].length; i++) {
                           let _obj = _args[1][i];
                           let _name = _globalObjects.get(_obj);
-                          if (!applyAcl(_name, true, false, S_ALL, 'r', context, _obj, _args, arguments)) {
-                            result = [_name, true, false, S_ALL, 'r', context, _obj, _args, arguments];
+                          let _isStatic = true;
+                          let _isObject = false;
+                          if (!_name) {
+                            let _ctor = _obj.constructor;
+                            if (typeof _ctor === 'function') {
+                              _name = _globalObjects.get(_ctor);
+                              if (_name) {
+                                _isStatic = false;
+                                _isObject = _obj instanceof _ctor;
+                              }
+                            }
+                          }
+                          if (!applyAcl(_name, _isStatic, _isObject, S_ALL, 'r', context, _obj, _args, arguments)) {
+                            result = [_name, _isStatic, _isObject, S_ALL, 'r', context, _obj, _args, arguments];
                             throw new Error('Permission Denied: Cannot access ' + SetMap.getStringValues(_name));
                           }
                           // TODO: Are inherited properties targeted?
