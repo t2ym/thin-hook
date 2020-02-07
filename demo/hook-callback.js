@@ -4840,6 +4840,27 @@ else {
                     if (target[3] === 'v') {
                       switch (target) {
                       case 'r01v':
+                        if (_args[1][2]) {
+                          let _obj = _args[1][2];
+                          let _name = _globalObjects.get(_obj);
+                          let _isStatic = true;
+                          let _isObject = false;
+                          let __p = _escapePlatformProperties.get(_p) || _p;
+                          if (!_name) {
+                            let _ctor = _obj.constructor;
+                            if (typeof _ctor === 'function') {
+                              _name = _globalObjects.get(_ctor);
+                              if (_name) {
+                                _isStatic = false;
+                                _isObject = _obj instanceof _ctor;
+                              }
+                            }
+                          }
+                          if (!applyAcl(_name, _isStatic, _isObject, __p, 'r', context, _obj, _args, arguments)) {
+                            result = [_name, _isStatic, _isObject, __p, 'r', context, _obj, _args, arguments];
+                            throw new Error('Permission Denied: Cannot access ' + SetMap.getStringValues(_name));
+                          }
+                        }
                         if (normalizedThisArg instanceof _global.constructor || _args[1][2] === _global) {
                           switch (_args[0]) {
                           case 'get': // Reflect.get(window, 'property', receiver)
@@ -6339,6 +6360,27 @@ else {
                   case 'symbol':
                     switch (target) {
                     case 'r01v':
+                      if (_args[1][2]) {
+                        let _obj = _args[1][2];
+                        let _name = _globalObjects.get(_obj);
+                        let _isStatic = true;
+                        let _isObject = false;
+                        let __p = _escapePlatformProperties.get(_p) || _p;
+                        if (!_name) {
+                          let _ctor = _obj.constructor;
+                          if (typeof _ctor === 'function') {
+                            _name = _globalObjects.get(_ctor);
+                            if (_name) {
+                              _isStatic = false;
+                              _isObject = _obj instanceof _ctor;
+                            }
+                          }
+                        }
+                        if (!applyAcl(_name, _isStatic, _isObject, __p, 'r', context, _obj, _args, arguments)) {
+                          result = [_name, _isStatic, _isObject, __p, 'r', context, _obj, _args, arguments];
+                          throw new Error('Permission Denied: Cannot access ' + SetMap.getStringValues(_name));
+                        }
+                      }
                       if (normalizedThisArg instanceof _global.constructor || _args[1][2] === _global) {
                         switch (_args[0]) {
                         case 'get': // Reflect.get(window, 'property', receiver)

@@ -109,6 +109,18 @@
   }, /^Permission Denied:/);
 
   chai.assert.throws(() => {
+    Reflect.get(Object.setPrototypeOf({ get c() { return this.caches; /* this === window */ } }, window), 'c', window);
+  }, /^Permission Denied:/);
+
+  chai.assert.throws(() => {
+    Reflect.get(Object.create(window), 'caches', window);
+  }, /^Permission Denied:/);
+
+  chai.assert.throws(() => {
+    Reflect.get(Object.create(navigator), 'serviceWorker', navigator);
+  }, /^Permission Denied:/);
+
+  chai.assert.throws(() => {
     let { caches: c } = window;
     //c.open();
   }, /^Permission Denied:/);
