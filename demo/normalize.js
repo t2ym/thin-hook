@@ -2114,6 +2114,28 @@
     Object.assign({}, window).caches;
   }, /^Permission Denied:/);
 
+  chai.assert.throws(() => {
+    Object.assign({}, BaseClass1);
+  }, /^Permission Denied:/);
+
+  chai.assert.throws(() => {
+    Object.assign({}, new BaseClass1());
+  }, /^Permission Denied:/);
+
+  chai.assert.throws(() => {
+    Object.assign({}, (new BaseClass1()).__proto__);
+  }, /^Permission Denied:/);
+
+  Object.assign({}, { p: 1 }); // acl.Object[S_PROTOTYPE][S_INSTANCE][S_DEFAULT]: 'rwx'; [S_ALL] not defined
+  chai.assert.throws(() => {
+    let p = Object.getPrototypeOf({});
+    Object.assign({}, p); // acl.Object[S_PROTOTYPE][S_DEFAULT]: '---'; [S_ALL] not defined
+  }, /^Permission Denied:/);
+
+  chai.assert.throws(() => {
+    window.DummyObject1 = Object.assign(Object.create(null), { p: 1 });
+    Object.assign({}, DummyObject1); // acl.DummyObject1[S_ALL]: '---'
+  }, /^Permission Denied:/);
 }
 () => {
   let target, property, value, attributes, proto, prototype, receiver, args, arg1, arg2, p, v;
