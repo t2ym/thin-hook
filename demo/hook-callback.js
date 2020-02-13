@@ -7998,7 +7998,7 @@ else {
     __hook__min, // minimal (no acl)
   };
 
-  Object.defineProperty(_global, '__hook__', { configurable: false, enumerable: false, writable: false, value: hookCallbacks.__hook__ });
+  Object.defineProperty(_global, '__hook__', { configurable: false, enumerable: false, writable: false, value: hookCallbacks.__hook__acl });
   _globalObjects.set(_global.__hook__, '__hook__');
 
   hook.hookCallbackCompatibilityTest();
