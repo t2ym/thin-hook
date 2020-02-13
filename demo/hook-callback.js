@@ -149,13 +149,18 @@ else {
   Object.defineProperty(_global, '_global', { configurable: false, enumerable: false, writable: false, value: _global });
   _global._data = data;
   _global._data2 = data2;
-  var _globalPropertyDescriptors = {};
+  const _globalPropertyDescriptors = {};
   {
     let o = _global;
+    let chain = [];
     while (o && o !== Object.prototype) {
-      Object.assign(_globalPropertyDescriptors, Object.getOwnPropertyDescriptors(o));
+      chain.unshift(Object.getOwnPropertyDescriptors(o));
       o = Object.getPrototypeOf(o);
     }
+    while (o = chain.shift()) {
+      Object.assign(_globalPropertyDescriptors, o);
+    }
+    delete _globalPropertyDescriptors.constructor; // exclude constructor === Window
   }
   let _globalMethods = new Map();
   const excludedGlobalProperties = { isSecureContext: true };
@@ -1598,9 +1603,6 @@ else {
           '@firebase_app': 'rwx',
         },
       }
-    },
-    constructor: {
-      [S_CHAIN]: () => acl.EventTarget,
     },
     EventTarget: {
       [S_CHAIN]: () => acl.Function[S_PROTOTYPE][S_INSTANCE],
