@@ -542,6 +542,7 @@ else {
     '/components/thin-hook/demo/normalize.js,SubClass2,constructor': '@XClass1_constructor',
     '/components/thin-hook/demo/normalize.js,SubClass3,constructor': '@XClass1_constructor',
     '/components/thin-hook/demo/normalize.js,SubClass4,SubClass4,constructor': '@XClass1_constructor',
+    '/components/thin-hook/demo/normalize.js,SubClass5': '@normalization_checker',
     '/components/thin-hook/demo/Function.js': '@Function_js',
     '/components/thin-hook/demo/Function.js,strictMode': '@Function_js',
     '/components/thin-hook/demo/Function.js,F': '@Function_reader',
@@ -713,7 +714,7 @@ else {
     '/components/thin-hook/demo/es6-module4.js,f': '@import.meta_reader,f',
     '/components/thin-hook/demo/es6-module4.js,f,*': '@import.meta_reader,f',
     '/components/polymer/lib/utils/async.html,script@566,timeOut,run': '@setTimeout_reader',
-    '/components/thin-hook/demo/,script@4751': '@document_writer',
+    '/components/thin-hook/demo/,script@4964': '@document_writer',
     '/components/thin-hook/demo/,script@5963': '@document_writer',
     '/components/thin-hook/demo/,script@5964': '@document_writer',
     '/components/thin-hook/demo/sub-document.html,*': '@document_writer',
@@ -755,6 +756,7 @@ else {
     '/components/paper-ripple/paper-ripple.html,script@4438,properties,_boundAnimate,type': '@Function_reader',
     '/components/iron-ajax/iron-ajax.html,script@1410,properties,_boundHandleResponse,type': '@Function_reader',
     '/components/vaadin-grid/vaadin-grid-table.html,script@8651,properties,bindData': '@Function_reader',
+    '/components/app-storage/app-storage-behavior.html,script@579,valueIsEmpty': '@Object_prototype_reader',
     '/components/thin-hook/demo/global.js': '@global_js',
     '/components/thin-hook/demo/global.js,inaccessible': '@global_js_inaccessible',
     '/components/thin-hook/demo/global.js,inaccessible,accessible': '@global_js_accessible',
@@ -957,6 +959,167 @@ else {
         return 'rwxRW'[opTypeMap[opType]] === opType; // equivalent to 'rwxRW' acl
       };
     }
+    static defaultAcl() {
+      return function defaultAcl(normalizedThisArg,
+                                 normalizedArgs /* ['property', args], ['property', value], etc. */,
+                                 aclArgs /* [name, isStatic, isObject, property, opType, context, target, normalizedArgs, hookArgs] */,
+                                 hookArgs /* [f, thisArg, args, context, newTarget] */,
+                                 applyAcl /* for recursive application of ACL */) {
+        let property = aclArgs[3];
+        let rawProperty = _unescapePlatformProperties.get(property) || property;
+        switch (property) {
+        case S_ALL:
+          switch (typeof normalizedThisArg) {
+          case 'object':
+            if (normalizedThisArg === null) {
+              break;
+            }
+          case 'function':
+            {
+              let target = normalizedThisArg;
+              // S_ALL for [S_DEFAULT] object is permitted
+              target = Object.getPrototypeOf(target); // steps to the next chain
+              let name, isStatic, isObject;
+              while (target) {
+                [name, isStatic, isObject] = detectName(target);
+                if (name) {
+                  isObject = true;
+                  if (!applyAcl(name, isStatic, isObject, property, aclArgs[4], hookArgs[3], target, normalizedArgs, hookArgs)) {
+                    //console.log('defaultAcl: permission denied ', name, target, property);
+                    return false;
+                  }
+                }
+                target = Object.getPrototypeOf(target);
+              }
+            }
+            break;
+          case 'boolean':
+          case 'number':
+          case 'string':
+          case 'symbol':
+            // TODO: access permission to primitive values and their constructors
+            break;
+          case 'undefined':
+          default: // including 'bigint'
+            break;
+          }
+          break;
+        case S_UNSPECIFIED:
+          // Unreachable for now as applyAcl is skipped for untracked functions
+          break;
+        case S_FUNCTION:
+          // f.apply(normalizedThisArg)
+          // f.call(normalizedThisArg)
+          // f.bind(normalizedThisArg)
+          // _globalMethods.get(f) === undefined
+          // TODO: proper handling of untracked functions
+          break;
+        default:
+          switch (typeof normalizedThisArg) {
+          case 'object':
+            if (normalizedThisArg === null) {
+              break;
+            }
+          case 'function':
+            switch (aclArgs[4]) {
+            case 'r':
+              if (_hasOwnProperty.call(normalizedThisArg, rawProperty)) {
+                return true; // read an own property of this anonymous object
+              }
+              else if (Reflect.has(normalizedThisArg, rawProperty)) {
+                // read an inherited property
+                let target = Object.getPrototypeOf(normalizedThisArg);
+                let _name, _isStatic, _isObject;
+                while (target) {
+                  [_name, _isStatic, _isObject] = detectName(target, null);
+                  if (_name) {
+                    _isObject = true; // Adjust _isObject as true since target is a prototype of normalizedThisArg
+                    // TODO: handle when normalizedThisArg itself is a prototype object of a function
+                    if (!applyAcl(_name, _isStatic, _isObject, property, aclArgs[4], hookArgs[3], target, normalizedArgs, hookArgs)) {
+                      return false;
+                    }
+                  }
+                  if (_hasOwnProperty.call(target, rawProperty)) {
+                    break;
+                  }
+                  target = Object.getPrototypeOf(target);
+                }
+              }
+              break;
+            case 'w':
+              /* access allowed
+              if (_hasOwnProperty.call(normalizedThisArg, rawProperty)) {
+                // write an own property of this anonymous object
+              }
+              else if (Reflect.has(normalizedThisArg, rawProperty)) {
+                // Prototype chain has the property
+                // TODO: More research on these situations
+                //   For a setter:
+                //     Since "this" object is normalizedThisArg, the optimistic assumtion is that the inherited setter should not affect the chained object
+                //   For a non-setter property
+                //     Writing to a property of normalizedThisArg is harmless to the chained object but overrides the inherited property
+              }
+              */
+              break;
+            case 'R':
+              // getOwnPropertyDescriptor on this anonymous object
+              break;
+            case 'W':
+              // defineProperty on this anonymous object
+              break;
+            case 'x':
+              if (_hasOwnProperty.call(normalizedThisArg, rawProperty)) {
+                // execute an own property method of this anonymous object
+              }
+              else if (Reflect.has(normalizedThisArg, rawProperty)) {
+                // Prototype chain has the property
+                let target = Object.getPrototypeOf(normalizedThisArg);
+                let _name, _isStatic, _isObject;
+                while (target) {
+                  [_name, _isStatic, _isObject] = detectName(target, null);
+                  if (_name) {
+                    _isObject = true; // Adjust _isObject as true since target is a prototype of normalizedThisArg
+                    // TODO: handle when normalizedThisArg itself is a prototype object of a function
+                    if (!applyAcl(_name, _isStatic, _isObject, property, 'x', hookArgs[3], target, normalizedArgs, hookArgs)) {
+                      return false;
+                    }
+                  }
+                  if (_hasOwnProperty.call(target, rawProperty)) {
+                    break;
+                  }
+                  target = Object.getPrototypeOf(target);
+                }
+              }
+              if (normalizedThisArg instanceof Object) {
+                let property = normalizedArgs[0];
+                if (Reflect.has(normalizedThisArg, property)) {
+                  let value = normalizedThisArg[property];
+                  let name = _globalMethods.get(value);
+                  if (name) {
+                    let rawProp = name[name.length - 1];
+                    let prop = _escapePlatformProperties.get(rawProp) || rawProp;
+                    let obj = name[0];
+                    // Apply ACL for the global method
+                    if (!applyAcl(obj, name[1] !== 'prototype', !Object.prototype.hasOwnProperty.call(normalizedThisArg, property), prop, 'x', hookArgs[3], _global[obj], [rawProp, normalizedArgs[1]], hookArgs)) {
+                      return false;
+                    }
+                  }
+                }
+              }
+              break;
+            default: // unknown opType
+              return false;
+            }
+            break;
+          default:
+            // TODO: handle primitives
+            break;
+          }
+          break;
+        }
+        return true; // equivalent to 'rwxRW' acl
+      };
+    }
   };
   const tagToElementClass = { // from w3schools.com - may be incomplete
     a: 'HTMLAnchorElement',
@@ -1131,11 +1294,13 @@ else {
         '@bind_normalization_checker': 'r--',
       }
     },
+    '@window_enumerator': 'r--R-',
     Window: {
       [S_DEFAULT]: 'r--',
       [S_PROTOTYPE]: {
-        [S_DEFAULT]: 'r--',
+        [S_DEFAULT]: '---',
         '@window_enumerator': 'r--R-',
+        '@Object_prototype_reader': 'r--',
         addEventListener: {
           [S_DEFAULT]: '--x',
           '@Node_prototype_writer': 'rwx',
@@ -1143,6 +1308,9 @@ else {
         removeEventListener: {
           [S_DEFAULT]: 'r-x',
           '@Node_prototype_writer': 'rwx',
+        },
+        [S_INSTANCE]: {
+          [S_CHAIN]: () => acl,
         },
       },
     },
@@ -1431,6 +1599,9 @@ else {
         },
       }
     },
+    constructor: {
+      [S_CHAIN]: () => acl.EventTarget,
+    },
     EventTarget: {
       [S_CHAIN]: () => acl.Function[S_PROTOTYPE][S_INSTANCE],
       [S_OBJECT]: 'r-x',
@@ -1444,7 +1615,7 @@ else {
         [S_INSTANCE]: {
           [S_CHAIN]: S_CHAIN,
           [S_DEFAULT]: 'r-x',
-          [S_ALL]: '---',
+          '@window_enumerator': 'r--R-',
         },
       },
     },
@@ -2316,30 +2487,8 @@ else {
         [S_DEFAULT]: 'r-x',
         [S_INSTANCE]: {
           [S_CHAIN]: S_CHAIN,
-          [S_DEFAULT]: function defaultAcl(normalizedThisArg,
-                                           normalizedArgs /* ['property', args], ['property', value], etc. */,
-                                           aclArgs /* [name, isStatic, isObject, property, opType, context] */,
-                                           hookArgs /* [f, thisArg, args, context, newTarget] */,
-                                           applyAcl /* for recursive application of ACL */) {
-            if (aclArgs[4] === 'x') {
-              if (normalizedThisArg instanceof Object) {
-                let property = normalizedArgs[0];
-                if (Reflect.has(normalizedThisArg, property)) {
-                  let value = normalizedThisArg[property];
-                  let name = _globalMethods.get(value);
-                  if (name) {
-                    let rawProp = name[name.length - 1];
-                    let prop = _escapePlatformProperties.get(rawProp) || rawProp;
-                    let obj = name[0];
-                    // Apply ACL for the global method
-                    return applyAcl(obj, name[1] !== 'prototype', !Object.prototype.hasOwnProperty.call(normalizedThisArg, property), prop, 'x', hookArgs[3], _global[obj], [rawProp, normalizedArgs[1]], hookArgs);
-                  }
-                }
-              }
-            }
-            return true; // equivalent to 'rwx' acl
-          },
-          [S_ALL]: 'r--',
+          [S_DEFAULT]: Policy.defaultAcl(),
+          //[S_ALL]: 'r--',
           $__proto__$: 'rw-',
           $prototype$: 'rw-',
           $constructor$: 'r-x',
@@ -3935,31 +4084,7 @@ else {
     },
     // default for non-global objects
     [S_DEFAULT]: {
-      [S_OBJECT]: 'rwx',
-      [S_DEFAULT]: function defaultAcl(normalizedThisArg,
-                                       normalizedArgs /* ['property', args], ['property', value], etc. */,
-                                       aclArgs /* [name, isStatic, isObject, property, opType, context] */,
-                                       hookArgs /* [f, thisArg, args, context, newTarget] */,
-                                       applyAcl /* for recursive application of ACL */) {
-        if (aclArgs[4] === 'x') {
-          if (normalizedThisArg instanceof Object) {
-            let property = normalizedArgs[0];
-            if (Reflect.has(normalizedThisArg, property)) {
-              let value = normalizedThisArg[property];
-              let name = _globalMethods.get(value);
-              if (name) {
-                let rawProp = name[name.length - 1];
-                let prop = _escapePlatformProperties.get(rawProp) || rawProp;
-                let obj = name[0];
-                // Apply ACL for the global method
-                return applyAcl(obj, name[1] !== 'prototype', !Object.prototype.hasOwnProperty.call(normalizedThisArg, property), prop, 'x', hookArgs[3], _global[obj], [rawProp, normalizedArgs[1]], hookArgs);
-              }
-            }
-          }
-        }
-        return true; // equivalent to 'rwxRW' acl
-      },
-      [S_ALL]: 'rwxRW',
+      [S_DEFAULT]: Policy.defaultAcl(),
     }
   };
   // protect hook-callback.js variables
@@ -4397,6 +4522,145 @@ else {
     static ['#|='](o, p, v) { return o[p] |= v; }
     static ['#.='](o, p) { return { set ['='](v) { o[p] = v; }, get ['=']() { return o[p]; } }; }
   }
+  const detectName = function detectName(target, boundParameters) {
+    let prototype = target;
+    let ctor = null;
+    let isStatic = false;
+    let isObject = typeof target === 'object';
+    let name;
+    let bound = false;
+    if (boundParameters && target === boundParameters._normalizedThisArg) {
+      ctor = target.constructor;
+      bound = true;
+    }
+    else {
+      try {
+        switch (typeof target) {
+        case 'object':
+          if (target === null) {
+            break;
+          }
+          name = _globalObjects.get(target);
+          if (name) {
+            isStatic = true;
+            break;
+          }
+          ctor = target.constructor;
+          if (typeof ctor === 'function' && Object.getPrototypeOf(target) === ctor.prototype) {
+            break;
+          }
+          else {
+            ctor = null;
+            try {
+              CTOR_LOOP:
+              while (!ctor) {
+                while (!_hasOwnProperty.call(prototype, 'constructor')) {
+                  prototype = Object.getPrototypeOf(prototype);
+                  name = _globalObjects.get(prototype);
+                  if (name) {
+                    isStatic = true;
+                    isObject = false;
+                    break CTOR_LOOP;
+                  }
+                }
+                ctor = prototype.constructor;
+                if (ctor && ctor.prototype === prototype) {
+                  break;
+                }
+                else {
+                  ctor = null;
+                  prototype = Object.getPrototypeOf(prototype);
+                  name = _globalObjects.get(prototype);
+                  if (name) {
+                    isStatic = true;
+                    isObject = false;
+                    break;
+                  }
+                }
+              }
+            }
+            catch (error) {
+            }
+          }
+          break;
+        case 'function':
+          name = _globalObjects.get(target); // detect the global class/function name first
+          if (name) {
+            isStatic = true;
+            break;
+          }
+          // detect its constructor
+          // Note: super classes are not tracked since they are tracked in Policy.defaultAcl(), etc.
+          ctor = target.constructor; // Most likely ctor === Function
+          if (typeof ctor === 'function' && Object.getPrototypeOf(target) === ctor.prototype) {
+            break;
+          }
+          else {
+            // rare case
+            ctor = null;
+            try {
+              while (!ctor) {
+                while (!_hasOwnProperty.call(prototype, 'constructor')) {
+                  prototype = Object.getPrototypeOf(prototype);
+                }
+                ctor = prototype.constructor;
+                if (ctor && ctor.prototype === prototype) {
+                  break;
+                }
+                else {
+                  ctor = null; // fake constructor
+                  prototype = Object.getPrototypeOf(prototype);
+                }
+              }
+            }
+            catch (error) {
+            }
+          }
+          break;
+        case 'boolean':
+        case 'number':
+        case 'string':
+        case 'symbol':
+        case 'bigint':
+          ctor = target.constructor;
+          isObject = true; // target instanceof ctor
+          break;
+        case 'undefined':
+        default:
+          ctor = null;
+          break;
+        }
+      }
+      catch (e) {
+        ctor = null;
+      }
+    }
+    if (name) {
+      return [name, isStatic, isObject];
+    }
+    if (ctor) {
+      name = _globalObjects.get(ctor);
+      if (name) {
+        if (bound) {
+          if (target.hasOwnProperty('constructor')) {
+            isObject = false;
+          }
+        }
+        else {
+          if (ctor.prototype === target) {
+            isObject = false;
+          }
+        }
+      }
+      else {
+        if (ctor.prototype === target) {
+          // TODO: function prototype object of a non-global function is mistreated as an instance object for ctor, which allows writing of prototype object properties
+          //isObject = false;
+        }
+      }
+    }
+    return [name, isStatic, isObject];
+  }
   const GeneratorFunction = (function * () {}).constructor;
   const AsyncFunction = (async function () {}).constructor;
   const FunctionPrototype = Function.prototype;
@@ -4698,16 +4962,7 @@ else {
           }
         }
         if (!name && normalizedThisArg instanceof Object) {
-          ctor = normalizedThisArg.constructor;
-          name = _globalObjects.get(ctor);
-          if (name) {
-            isStatic = false;
-            if (typeof ctor === 'function') {
-              if (_hasOwnProperty.call(normalizedThisArg, 'constructor')) {
-                isObject = false;
-              }
-            }
-          }
+          [name, isStatic, isObject] = detectName(normalizedThisArg, boundParameters);
         }
         let rawProperty = _args[0];
         let property = _escapePlatformProperties.get(rawProperty) || rawProperty;
@@ -4717,7 +4972,7 @@ else {
         globalAssignments = {};
         if (typeof target === 'object') {
           do {
-            if (normalizedThisArg instanceof Object) {
+            if (normalizedThisArg instanceof Object || typeof normalizedThisArg === 'object') {
               switch (typeof rawProperty) {
               case 'string':
                 if (boundParameters) {
@@ -4798,16 +5053,7 @@ else {
                 normalizedThisArg = _t;
                 isObject = typeof normalizedThisArg === 'object';
                 if (!name) {
-                  ctor = _t.constructor;
-                  name = _globalObjects.get(ctor);
-                  if (name) {
-                    isStatic = false;
-                    if (typeof ctor === 'function') {
-                      if (_t.hasOwnProperty('constructor')) {
-                        isObject = false;
-                      }
-                    }
-                  }
+                  [name, isStatic, isObject] = detectName(normalizedThisArg, boundParameters);
                 }
                 if (!name && typeof _f === 'string' && _f.indexOf('s') >= 0) {
                   isStatic = typeof _t === 'function';
@@ -4830,7 +5076,7 @@ else {
                     normalizedThisArg = ctor;
                   }
                 }
-                if (name) {
+                if (true /* name */) { // Note: Normalize property even for acl[S_DEFAULT][S_DEFAULT]: defaultAcl(), which is not used by default
                   property = rawProperty = undefined;
                   switch (typeof _p) {
                   case 'string':
@@ -4847,14 +5093,7 @@ else {
                           let _isObject = false;
                           let __p = _escapePlatformProperties.get(_p) || _p;
                           if (!_name) {
-                            let _ctor = _obj.constructor;
-                            if (typeof _ctor === 'function') {
-                              _name = _globalObjects.get(_ctor);
-                              if (_name) {
-                                _isStatic = false;
-                                _isObject = _obj instanceof _ctor;
-                              }
-                            }
+                            [_name, _isStatic, _isObject] = detectName(_obj, null);
                           }
                           if (!applyAcl(_name, _isStatic, _isObject, __p, 'r', context, _obj, _args, arguments)) {
                             result = [_name, _isStatic, _isObject, __p, 'r', context, _obj, _args, arguments];
@@ -4971,14 +5210,7 @@ else {
                           let _isStatic = true;
                           let _isObject = false;
                           if (!_name) {
-                            let _ctor = _obj.constructor;
-                            if (typeof _ctor === 'function') {
-                              _name = _globalObjects.get(_ctor);
-                              if (_name) {
-                                _isStatic = false;
-                                _isObject = _obj instanceof _ctor;
-                              }
-                            }
+                            [_name, _isStatic, _isObject] = detectName(_obj, null);
                           }
                           if (!applyAcl(_name, _isStatic, _isObject, S_ALL, 'r', context, _obj, _args, arguments)) {
                             result = [_name, _isStatic, _isObject, S_ALL, 'r', context, _obj, _args, arguments];
@@ -6220,16 +6452,7 @@ else {
           }
         }
         if (!name && normalizedThisArg instanceof Object) {
-          ctor = normalizedThisArg.constructor;
-          name = _globalObjects.get(ctor);
-          if (name) {
-            isStatic = false;
-            if (typeof ctor === 'function') {
-              if (_hasOwnProperty.call(normalizedThisArg, 'constructor')) {
-                isObject = false;
-              }
-            }
-          }
+          [name, isStatic, isObject] = detectName(normalizedThisArg, boundParameters);
         }
         let rawProperty = _args[0];
         let property = _escapePlatformProperties.get(rawProperty) || rawProperty;
@@ -6238,7 +6461,7 @@ else {
         globalAssignments = {};
         if (typeof target === 'object') {
           do {
-            if (normalizedThisArg instanceof Object) {
+            if (normalizedThisArg instanceof Object || typeof normalizedThisArg === 'object') {
               switch (typeof rawProperty) {
               case 'string':
                 if (boundParameters) {
@@ -6319,16 +6542,7 @@ else {
                 normalizedThisArg = _t;
                 isObject = typeof normalizedThisArg === 'object';
                 if (!name) {
-                  ctor = _t.constructor;
-                  name = _globalObjects.get(ctor);
-                  if (name) {
-                    isStatic = false;
-                    if (typeof ctor === 'function') {
-                      if (_t.hasOwnProperty('constructor')) {
-                        isObject = false;
-                      }
-                    }
-                  }
+                  [name, isStatic, isObject] = detectName(normalizedThisArg, boundParameters);
                 }
                 if (!name && isSuperOperator.get(_f)) {
                   isStatic = typeof _t === 'function';
@@ -6351,7 +6565,7 @@ else {
                     normalizedThisArg = ctor;
                   }
                 }
-                if (name) {
+                if (true /* name */) { // Note: Normalize property even for acl[S_DEFAULT][S_DEFAULT]: defaultAcl(), which is not used by default
                   property = rawProperty = undefined;
                   switch (typeof _p) {
                   case 'string':
@@ -6367,14 +6581,7 @@ else {
                         let _isObject = false;
                         let __p = _escapePlatformProperties.get(_p) || _p;
                         if (!_name) {
-                          let _ctor = _obj.constructor;
-                          if (typeof _ctor === 'function') {
-                            _name = _globalObjects.get(_ctor);
-                            if (_name) {
-                              _isStatic = false;
-                              _isObject = _obj instanceof _ctor;
-                            }
-                          }
+                          [_name, _isStatic, _isObject] = detectName(_obj, null);
                         }
                         if (!applyAcl(_name, _isStatic, _isObject, __p, 'r', context, _obj, _args, arguments)) {
                           result = [_name, _isStatic, _isObject, __p, 'r', context, _obj, _args, arguments];
@@ -6490,14 +6697,7 @@ else {
                           let _isStatic = true;
                           let _isObject = false;
                           if (!_name) {
-                            let _ctor = _obj.constructor;
-                            if (typeof _ctor === 'function') {
-                              _name = _globalObjects.get(_ctor);
-                              if (_name) {
-                                _isStatic = false;
-                                _isObject = _obj instanceof _ctor;
-                              }
-                            }
+                            [_name, _isStatic, _isObject] = detectName(_obj, null);
                           }
                           if (!applyAcl(_name, _isStatic, _isObject, S_ALL, 'r', context, _obj, _args, arguments)) {
                             result = [_name, _isStatic, _isObject, S_ALL, 'r', context, _obj, _args, arguments];
@@ -7803,13 +8003,14 @@ else {
     __hook__min, // minimal (no acl)
   };
 
-  Object.defineProperty(_global, '__hook__', { configurable: false, enumerable: false, writable: false, value: hookCallbacks.__hook__ });
+  Object.defineProperty(_global, '__hook__', { configurable: false, enumerable: false, writable: false, value: hookCallbacks.__hook__acl });
   _globalObjects.set(_global.__hook__, '__hook__');
 
   hook.hookCallbackCompatibilityTest();
   hookCallbackCompatibilityTestDone = true;
 
   function hookBenchmark(h = __hook__, r = 10000000) {
+    const context = Symbol('context');
     if (typeof h === 'string') {
       switch (h) {
       case '__hook__min':
@@ -7823,36 +8024,39 @@ else {
         break;
       }
     }
+    h[context] = 'context';
+    contextStack.push('context');
     let f = function(a) { return a; }
     let o = {a:1,f:f};
     let results = [];
     let start = Date.now();
     for (let i = 0; i < r; i++) {
-      h('.', o, ['a'], 'context');
+      h('.', o, ['a'], context);
     }
     let end = Date.now();
     results.push(['.', end - start]);
     start = Date.now();
     for (let i = 0; i < r; i++) {
-      h('=', o, ['a',i], 'context');
+      h('=', o, ['a',i], context);
     }
     end = Date.now();
     results.push(['=', end - start]);
     start = Date.now();
     for (let i = 0; i < r; i++) {
-      h('()', o, ['f', [i]], 'context');
+      h('()', o, ['f', [i]], context);
     }
     end = Date.now();
     results.push(['()', end - start]);
     start = Date.now();
     for (let i = 0; i < r; i++) {
-      h(f, null, [i], 'context');
+      h(f, null, [i], context);
     }
     end = Date.now();
     results.push(['f', end - start]);
+    contextStack.pop();
     navigator.userAgent.replace(/^.*Chrome\/([^ ]*) .*$/, 'Chrome $1')
     console.log(navigator.userAgent.replace(/^.*Chrome\/([^ ]*) .*$/, 'Chrome $1') + ' ' + results.map((result) => result[0] + ' in ' + result[1] + 'ms (' + (new Intl.NumberFormat()).format(parseInt(1000 * r / result[1])) +' op/s)').join(', ') + ' with ' + h.name + '\n' +
-    navigator.userAgent.replace(/^.*Chrome\/([^ ]*) .*$/, '| $1 ') + '| 0.0.* | ' + results.map((result) => (new Intl.NumberFormat()).format(parseInt(1000 * r / result[1]))).join(' | ') + ' |');
+    navigator.userAgent.replace(/^.*Chrome\/([^ ]*) .*$/, '| $1 ') + '| 0.4.0-alpha.* | ' + results.map((result) => (new Intl.NumberFormat()).format(parseInt(1000 * r / result[1]))).join(' | ') + ' |');
   }
 
   // Moved from hook-native-api.js
