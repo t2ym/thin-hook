@@ -563,6 +563,654 @@
 
   }
 
+  with (window) {
+    chai.assert.throws(() => {
+      caches;
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      Object.getOwnPropertyDescriptor(window, 'caches');
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      Object.getOwnPropertyDescriptors(window);
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      window.hasOwnProperty('caches');
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      window.__lookupGetter__('caches');
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      window.__lookupSetter__('caches');
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      window.__defineGetter__('caches', function () { });
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      window.__defineSetter__('caches', function () { });
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      window.propertyIsEnumerable('caches');
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      Reflect.get(window, 'caches');
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      Object.defineProperty(window, 'caches', { configurable: true, enumerable: true, value: null });
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      let o = {};
+      Object.defineProperty(o, 'caches', {
+        get: Object.getOwnPropertyDescriptor.apply(Object, [window, 'caches']).get.bind(window)
+      });
+      o.caches;
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      let o = {};
+      Object.defineProperty(o, 'caches', {
+        get: Object.getOwnPropertyDescriptor.call(Object, window, 'caches').get.bind(window)
+      });
+      o.caches;
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      Reflect.get.apply(Reflect, [window, 'caches']);
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      Reflect.get.call(Reflect, window, 'caches');
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      let caches = Reflect.apply.apply(Reflect, [Reflect.get.apply.bind(Reflect.get), Reflect.get, [Reflect, [window, 'caches']]]);
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      let caches = Reflect.get.bind(Reflect, window).apply(Object, ['caches']);
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      let caches = Object.defineProperty({}, 'caches', {
+        get: Reflect.apply(Object.getOwnPropertyDescriptor.bind(Object, window), Object.getOwnPropertyDescriptor, ['caches']).get.bind(window)
+      })
+        .caches;
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      Reflect.get.bind(Reflect).apply(Reflect, [window, 'caches']);
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      Reflect.get.bind(Reflect).call(Reflect, window, 'caches');
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      Reflect.apply(Reflect.get, Reflect, [window, 'caches']);
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      Reflect.apply(Reflect.get.bind(Reflect), Reflect, [window, 'caches']);
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      Reflect.apply(Reflect.get.bind(Reflect), null, [window, 'caches']);
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      Reflect.apply(Reflect.get.bind(Reflect), undefined, [window, 'caches']);
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      Reflect.apply(Reflect.get.bind(Reflect), Object, [window, 'caches']);
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      Reflect.apply(Reflect.get.bind(Reflect, window), Object, ['caches']);
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      Reflect.get.bind(Reflect).bind(Reflect, window).apply(Reflect, ['caches']);
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      Reflect.get.bind(Reflect).bind(Reflect, window).call(Reflect, 'caches');
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      Reflect.get.bind(Reflect).bind(Reflect, window).bind(Reflect, 'caches').apply(Reflect, []);
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      Reflect.get.bind(Reflect).bind(Reflect, window).bind(Reflect, 'caches').call(Reflect);
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      Function.bind(null)('return window.caches')();
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      const GeneratorFunction = (function* () { }).constructor;
+      GeneratorFunction.bind(null)('yield window.caches;')().next().value;
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      let F = { Function: Function };
+      let O = { Function(...args) { return super.Function(...args); } };
+      Object.setPrototypeOf(O, F);
+      O.Function('return window.caches')();
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      const GeneratorFunction = (function* () { }).constructor;
+      let F = { GeneratorFunction: GeneratorFunction };
+      let O = { GeneratorFunction(...args) { return super.GeneratorFunction(...args); } };
+      Object.setPrototypeOf(O, F);
+      O.GeneratorFunction('return window.caches')().next().value;
+    }, /^Permission Denied:/)
+
+  }
+
+  with (Object.create(window)) {
+    chai.assert.throws(() => {
+      caches;
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      Object.getOwnPropertyDescriptor(window, 'caches');
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      Object.getOwnPropertyDescriptors(window);
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      window.hasOwnProperty('caches');
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      window.__lookupGetter__('caches');
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      window.__lookupSetter__('caches');
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      window.__defineGetter__('caches', function () { });
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      window.__defineSetter__('caches', function () { });
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      window.propertyIsEnumerable('caches');
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      Reflect.get(window, 'caches');
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      Object.defineProperty(window, 'caches', { configurable: true, enumerable: true, value: null });
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      let o = {};
+      Object.defineProperty(o, 'caches', {
+        get: Object.getOwnPropertyDescriptor.apply(Object, [window, 'caches']).get.bind(window)
+      });
+      o.caches;
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      let o = {};
+      Object.defineProperty(o, 'caches', {
+        get: Object.getOwnPropertyDescriptor.call(Object, window, 'caches').get.bind(window)
+      });
+      o.caches;
+    }, /^Permission Denied:/);
+
+    chai.assert.throws(() => {
+      Reflect.get.apply(Reflect, [window, 'caches']);
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      Reflect.get.call(Reflect, window, 'caches');
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      let caches = Reflect.apply.apply(Reflect, [Reflect.get.apply.bind(Reflect.get), Reflect.get, [Reflect, [window, 'caches']]]);
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      let caches = Reflect.get.bind(Reflect, window).apply(Object, ['caches']);
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      let caches = Object.defineProperty({}, 'caches', {
+        get: Reflect.apply(Object.getOwnPropertyDescriptor.bind(Object, window), Object.getOwnPropertyDescriptor, ['caches']).get.bind(window)
+      })
+        .caches;
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      Reflect.get.bind(Reflect).apply(Reflect, [window, 'caches']);
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      Reflect.get.bind(Reflect).call(Reflect, window, 'caches');
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      Reflect.apply(Reflect.get, Reflect, [window, 'caches']);
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      Reflect.apply(Reflect.get.bind(Reflect), Reflect, [window, 'caches']);
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      Reflect.apply(Reflect.get.bind(Reflect), null, [window, 'caches']);
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      Reflect.apply(Reflect.get.bind(Reflect), undefined, [window, 'caches']);
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      Reflect.apply(Reflect.get.bind(Reflect), Object, [window, 'caches']);
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      Reflect.apply(Reflect.get.bind(Reflect, window), Object, ['caches']);
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      Reflect.get.bind(Reflect).bind(Reflect, window).apply(Reflect, ['caches']);
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      Reflect.get.bind(Reflect).bind(Reflect, window).call(Reflect, 'caches');
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      Reflect.get.bind(Reflect).bind(Reflect, window).bind(Reflect, 'caches').apply(Reflect, []);
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      Reflect.get.bind(Reflect).bind(Reflect, window).bind(Reflect, 'caches').call(Reflect);
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      Function.bind(null)('return window.caches')();
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      const GeneratorFunction = (function* () { }).constructor;
+      GeneratorFunction.bind(null)('yield window.caches;')().next().value;
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      let F = { Function: Function };
+      let O = { Function(...args) { return super.Function(...args); } };
+      Object.setPrototypeOf(O, F);
+      O.Function('return window.caches')();
+    }, /^Permission Denied:/)
+
+    chai.assert.throws(() => {
+      const GeneratorFunction = (function* () { }).constructor;
+      let F = { GeneratorFunction: GeneratorFunction };
+      let O = { GeneratorFunction(...args) { return super.GeneratorFunction(...args); } };
+      Object.setPrototypeOf(O, F);
+      O.GeneratorFunction('return window.caches')().next().value;
+    }, /^Permission Denied:/)
+
+  }
+
+  with (navigator) {
+    with ({ navigator: navigator }) {
+      chai.assert.throws(() => {
+        serviceWorker;
+      }, /^Permission Denied:/);
+
+      chai.assert.throws(() => {
+        Object.getOwnPropertyDescriptor(navigator, 'serviceWorker');
+      }, /^Permission Denied:/);
+
+      chai.assert.throws(() => {
+        Object.getOwnPropertyDescriptors(navigator);
+      }, /^Permission Denied:/);
+
+      chai.assert.throws(() => {
+        navigator.hasOwnProperty('serviceWorker');
+      }, /^Permission Denied:/);
+
+      chai.assert.throws(() => {
+        navigator.__lookupGetter__('serviceWorker');
+      }, /^Permission Denied:/);
+
+      chai.assert.throws(() => {
+        navigator.__lookupSetter__('serviceWorker');
+      }, /^Permission Denied:/);
+
+      chai.assert.throws(() => {
+        navigator.__defineGetter__('serviceWorker', function () { });
+      }, /^Permission Denied:/);
+
+      chai.assert.throws(() => {
+        navigator.__defineSetter__('serviceWorker', function () { });
+      }, /^Permission Denied:/);
+
+      chai.assert.throws(() => {
+        navigator.propertyIsEnumerable('serviceWorker');
+      }, /^Permission Denied:/);
+
+      chai.assert.throws(() => {
+        Reflect.get(navigator, 'serviceWorker');
+      }, /^Permission Denied:/);
+
+      chai.assert.throws(() => {
+        Object.defineProperty(navigator, 'serviceWorker', { configurable: true, enumerable: true, value: null });
+      }, /^Permission Denied:/);
+
+      chai.assert.throws(() => {
+        let o = {};
+        Object.defineProperty(o, 'serviceWorker', {
+          get: Object.getOwnPropertyDescriptor.apply(Object, [navigator, 'serviceWorker']).get.bind(navigator)
+        });
+        o.serviceWorker;
+      }, /^Permission Denied:/);
+
+      chai.assert.throws(() => {
+        let o = {};
+        Object.defineProperty(o, 'serviceWorker', {
+          get: Object.getOwnPropertyDescriptor.call(Object, navigator, 'serviceWorker').get.bind(navigator)
+        });
+        o.serviceWorker;
+      }, /^Permission Denied:/);
+
+      chai.assert.throws(() => {
+        Reflect.get.apply(Reflect, [navigator, 'serviceWorker']);
+      }, /^Permission Denied:/)
+
+      chai.assert.throws(() => {
+        Reflect.get.call(Reflect, navigator, 'serviceWorker');
+      }, /^Permission Denied:/)
+
+      chai.assert.throws(() => {
+        let serviceWorker = Reflect.apply.apply(Reflect, [Reflect.get.apply.bind(Reflect.get), Reflect.get, [Reflect, [navigator, 'serviceWorker']]]);
+      }, /^Permission Denied:/)
+
+      chai.assert.throws(() => {
+        let serviceWorker = Reflect.get.bind(Reflect, navigator).apply(Object, ['serviceWorker']);
+      }, /^Permission Denied:/)
+
+      chai.assert.throws(() => {
+        let serviceWorker = Object.defineProperty({}, 'serviceWorker', {
+          get: Reflect.apply(Object.getOwnPropertyDescriptor.bind(Object, navigator), Object.getOwnPropertyDescriptor, ['serviceWorker']).get.bind(navigator)
+        })
+          .serviceWorker;
+      }, /^Permission Denied:/)
+
+      chai.assert.throws(() => {
+        Reflect.get.bind(Reflect).apply(Reflect, [navigator, 'serviceWorker']);
+      }, /^Permission Denied:/)
+
+      chai.assert.throws(() => {
+        Reflect.get.bind(Reflect).call(Reflect, navigator, 'serviceWorker');
+      }, /^Permission Denied:/)
+
+      chai.assert.throws(() => {
+        Reflect.apply(Reflect.get, Reflect, [navigator, 'serviceWorker']);
+      }, /^Permission Denied:/)
+
+      chai.assert.throws(() => {
+        Reflect.apply(Reflect.get.bind(Reflect), Reflect, [navigator, 'serviceWorker']);
+      }, /^Permission Denied:/)
+
+      chai.assert.throws(() => {
+        Reflect.apply(Reflect.get.bind(Reflect), null, [navigator, 'serviceWorker']);
+      }, /^Permission Denied:/)
+
+      chai.assert.throws(() => {
+        Reflect.apply(Reflect.get.bind(Reflect), undefined, [navigator, 'serviceWorker']);
+      }, /^Permission Denied:/)
+
+      chai.assert.throws(() => {
+        Reflect.apply(Reflect.get.bind(Reflect), Object, [navigator, 'serviceWorker']);
+      }, /^Permission Denied:/)
+
+      chai.assert.throws(() => {
+        Reflect.apply(Reflect.get.bind(Reflect, navigator), Object, ['serviceWorker']);
+      }, /^Permission Denied:/)
+
+      chai.assert.throws(() => {
+        Reflect.get.bind(Reflect).bind(Reflect, navigator).apply(Reflect, ['serviceWorker']);
+      }, /^Permission Denied:/)
+
+      chai.assert.throws(() => {
+        Reflect.get.bind(Reflect).bind(Reflect, navigator).call(Reflect, 'serviceWorker');
+      }, /^Permission Denied:/)
+
+      chai.assert.throws(() => {
+        Reflect.get.bind(Reflect).bind(Reflect, navigator).bind(Reflect, 'serviceWorker').apply(Reflect, []);
+      }, /^Permission Denied:/)
+
+      chai.assert.throws(() => {
+        Reflect.get.bind(Reflect).bind(Reflect, navigator).bind(Reflect, 'serviceWorker').call(Reflect);
+      }, /^Permission Denied:/)
+
+      chai.assert.throws(() => {
+        Function.bind(null)('return navigator.serviceWorker')();
+      }, /^Permission Denied:/)
+
+      chai.assert.throws(() => {
+        const GeneratorFunction = (function* () { }).constructor;
+        GeneratorFunction.bind(null)('yield navigator.serviceWorker;')().next().value;
+      }, /^Permission Denied:/)
+
+      chai.assert.throws(() => {
+        let F = { Function: Function };
+        let O = { Function(...args) { return super.Function(...args); } };
+        Object.setPrototypeOf(O, F);
+        O.Function('return navigator.serviceWorker')();
+      }, /^Permission Denied:/)
+
+      chai.assert.throws(() => {
+        const GeneratorFunction = (function* () { }).constructor;
+        let F = { GeneratorFunction: GeneratorFunction };
+        let O = { GeneratorFunction(...args) { return super.GeneratorFunction(...args); } };
+        Object.setPrototypeOf(O, F);
+        O.GeneratorFunction('return navigator.serviceWorker')().next().value;
+      }, /^Permission Denied:/)
+
+    }
+  }
+
+  with (Object.create(navigator)) {
+    with (Object.create({ navigator: Object.create(navigator) })) {
+      chai.assert.throws(() => {
+        serviceWorker;
+      }, /^Permission Denied:/);
+
+      chai.assert.throws(() => {
+        if (!Object.getOwnPropertyDescriptor(navigator, 'serviceWorker')) {
+          Object.getOwnPropertyDescriptor(Object.getPrototypeOf(navigator), 'serviceWorker');
+        }
+      }, /^Permission Denied:/);
+
+      chai.assert.throws(() => {
+        Object.getOwnPropertyDescriptors(navigator);
+      }, /^Permission Denied:/);
+
+      chai.assert.throws(() => {
+        if (!navigator.hasOwnProperty('serviceWorker')) {
+          Object.getPrototypeOf(navigator).hasOwnProperty('serviceWorker')
+        }
+      }, /^Permission Denied:/);
+
+      chai.assert.throws(() => {
+        if (!navigator.__lookupGetter__('serviceWorker')) {
+          Object.getPrototypeOf(navigator).__lookupGetter__('serviceWorker')
+        }
+      }, /^Permission Denied:/);
+
+      chai.assert.throws(() => {
+        if (!navigator.__lookupSetter__('serviceWorker')) {
+          Object.getPrototypeOf(navigator).__lookupSetter__('serviceWorker')
+        }
+      }, /^Permission Denied:/);
+
+      chai.assert.throws(() => {
+        navigator.__defineGetter__('serviceWorker', function () { });
+        Object.getPrototypeOf(navigator).__defineGetter__('serviceWorker', function () { });
+      }, /^Permission Denied:/);
+
+      chai.assert.throws(() => {
+        navigator.__defineSetter__('serviceWorker', function () { });
+        Object.getPrototypeOf(navigator).__defineSetter__('serviceWorker', function () { });
+      }, /^Permission Denied:/);
+
+      chai.assert.throws(() => {
+        navigator.propertyIsEnumerable('serviceWorker');
+        Object.getPrototypeOf(navigator).propertyIsEnumerable('serviceWorker');
+      }, /^Permission Denied:/);
+
+      chai.assert.throws(() => {
+        Reflect.get(navigator, 'serviceWorker');
+      }, /^Permission Denied:/);
+
+      chai.assert.throws(() => {
+        Object.defineProperty(navigator, 'serviceWorker', { configurable: true, enumerable: true, value: null });
+        Object.defineProperty(Object.getPrototypeOf(navigator), 'serviceWorker', { configurable: true, enumerable: true, value: null });
+      }, /^Permission Denied:/);
+
+      chai.assert.throws(() => {
+        let o = {};
+        Object.defineProperty(o, 'serviceWorker', {
+          get: Object.getOwnPropertyDescriptor.apply(Object, [navigator, 'serviceWorker']).get.bind(navigator)
+        });
+        o.serviceWorker;
+      }, /^Permission Denied:/);
+
+      chai.assert.throws(() => {
+        let o = {};
+        Object.defineProperty(o, 'serviceWorker', {
+          get: Object.getOwnPropertyDescriptor.call(Object, navigator, 'serviceWorker').get.bind(navigator)
+        });
+        o.serviceWorker;
+      }, /^Permission Denied:/);
+
+      chai.assert.throws(() => {
+        Reflect.get.apply(Reflect, [navigator, 'serviceWorker']);
+      }, /^Permission Denied:/)
+
+      chai.assert.throws(() => {
+        Reflect.get.call(Reflect, navigator, 'serviceWorker');
+      }, /^Permission Denied:/)
+
+      chai.assert.throws(() => {
+        let serviceWorker = Reflect.apply.apply(Reflect, [Reflect.get.apply.bind(Reflect.get), Reflect.get, [Reflect, [navigator, 'serviceWorker']]]);
+      }, /^Permission Denied:/)
+
+      chai.assert.throws(() => {
+        let serviceWorker = Reflect.get.bind(Reflect, navigator).apply(Object, ['serviceWorker']);
+      }, /^Permission Denied:/)
+
+      chai.assert.throws(() => {
+        let serviceWorker = Object.defineProperty({}, 'serviceWorker', {
+          get: Reflect.apply(Object.getOwnPropertyDescriptor.bind(Object, navigator), Object.getOwnPropertyDescriptor, ['serviceWorker']).get.bind(navigator)
+        })
+          .serviceWorker;
+      }, /^Permission Denied:/)
+
+      chai.assert.throws(() => {
+        Reflect.get.bind(Reflect).apply(Reflect, [navigator, 'serviceWorker']);
+      }, /^Permission Denied:/)
+
+      chai.assert.throws(() => {
+        Reflect.get.bind(Reflect).call(Reflect, navigator, 'serviceWorker');
+      }, /^Permission Denied:/)
+
+      chai.assert.throws(() => {
+        Reflect.apply(Reflect.get, Reflect, [navigator, 'serviceWorker']);
+      }, /^Permission Denied:/)
+
+      chai.assert.throws(() => {
+        Reflect.apply(Reflect.get.bind(Reflect), Reflect, [navigator, 'serviceWorker']);
+      }, /^Permission Denied:/)
+
+      chai.assert.throws(() => {
+        Reflect.apply(Reflect.get.bind(Reflect), null, [navigator, 'serviceWorker']);
+      }, /^Permission Denied:/)
+
+      chai.assert.throws(() => {
+        Reflect.apply(Reflect.get.bind(Reflect), undefined, [navigator, 'serviceWorker']);
+      }, /^Permission Denied:/)
+
+      chai.assert.throws(() => {
+        Reflect.apply(Reflect.get.bind(Reflect), Object, [navigator, 'serviceWorker']);
+      }, /^Permission Denied:/)
+
+      chai.assert.throws(() => {
+        Reflect.apply(Reflect.get.bind(Reflect, navigator), Object, ['serviceWorker']);
+      }, /^Permission Denied:/)
+
+      chai.assert.throws(() => {
+        Reflect.get.bind(Reflect).bind(Reflect, navigator).apply(Reflect, ['serviceWorker']);
+      }, /^Permission Denied:/)
+
+      chai.assert.throws(() => {
+        Reflect.get.bind(Reflect).bind(Reflect, navigator).call(Reflect, 'serviceWorker');
+      }, /^Permission Denied:/)
+
+      chai.assert.throws(() => {
+        Reflect.get.bind(Reflect).bind(Reflect, navigator).bind(Reflect, 'serviceWorker').apply(Reflect, []);
+      }, /^Permission Denied:/)
+
+      chai.assert.throws(() => {
+        Reflect.get.bind(Reflect).bind(Reflect, navigator).bind(Reflect, 'serviceWorker').call(Reflect);
+      }, /^Permission Denied:/)
+
+      chai.assert.throws(() => {
+        Function.bind(null)('return navigator.serviceWorker')();
+      }, /^Permission Denied:/)
+
+      chai.assert.throws(() => {
+        const GeneratorFunction = (function* () { }).constructor;
+        GeneratorFunction.bind(null)('yield navigator.serviceWorker;')().next().value;
+      }, /^Permission Denied:/)
+
+      chai.assert.throws(() => {
+        let F = { Function: Function };
+        let O = { Function(...args) { return super.Function(...args); } };
+        Object.setPrototypeOf(O, F);
+        O.Function('return navigator.serviceWorker')();
+      }, /^Permission Denied:/)
+
+      chai.assert.throws(() => {
+        const GeneratorFunction = (function* () { }).constructor;
+        let F = { GeneratorFunction: GeneratorFunction };
+        let O = { GeneratorFunction(...args) { return super.GeneratorFunction(...args); } };
+        Object.setPrototypeOf(O, F);
+        O.GeneratorFunction('return navigator.serviceWorker')().next().value;
+      }, /^Permission Denied:/)
+
+    }
+  }
+
   chai.assert.throws(() => {
     'use strict';
     Function.bind(null)('return window.caches')();
@@ -2052,6 +2700,183 @@
   Reflect.set(window, 'ReflectSetGlobalClass', class ReflectSetGlobalClass {});
   chai.assert.throws(() => {
     new ReflectSetGlobalClass();
+  }, /^Permission Denied:/);
+
+  chai.assert.throws(() => {
+    Reflect.get(Object.setPrototypeOf({ constructor: null }, window), 'caches');
+  }, /^Permission Denied: Cannot access window/);
+
+  chai.assert.throws(() => {
+    Reflect.get(Object.setPrototypeOf({ constructor: null }, window), 'caches', window);
+  }, /^Permission Denied: Cannot access window/);
+
+  chai.assert.throws(() => {
+    class FakeClass { };
+    let fakeObject = new FakeClass();
+    Object.setPrototypeOf(Object.getPrototypeOf(fakeObject), window); // still (fakeObject instanceof FakeClass) === true
+    Reflect.get(fakeObject, 'caches');
+  }, /^Permission Denied:/); // As the name argument of the root call to applyAcl() is undefined, the hook callback function does not know the real name for the permission violation
+
+  chai.assert.throws(() => {
+    class FakeClass { };
+    let fakeObject = new FakeClass();
+    Object.setPrototypeOf(Object.getPrototypeOf(fakeObject), window); // still (fakeObject instanceof FakeClass) === true
+    let prototype = Object.getPrototypeOf(fakeObject);
+    Reflect.get(prototype, 'caches');
+  }, /^Permission Denied:/); // As the name argument of the root call to applyAcl() is undefined, the hook callback function does not know the real name for the permission violation
+
+  chai.assert.throws(() => {
+    class FakeClass { };
+    let fakeObject = new FakeClass();
+    Object.setPrototypeOf(Object.getPrototypeOf(fakeObject), window); // still (fakeObject instanceof FakeClass) === true
+    Reflect.get(fakeObject, 'caches', window);
+  }, /^Permission Denied: Cannot access window/);
+
+  chai.assert.throws(() => {
+    class FakeClass { };
+    let fakeObject = new FakeClass();
+    Object.setPrototypeOf(Object.getPrototypeOf(fakeObject), window); // still (fakeObject instanceof FakeClass) === true
+    Reflect.get(Object.getPrototypeOf(fakeObject), 'caches', window);
+  }, /^Permission Denied: Cannot access window/);
+
+  chai.assert.throws(() => {
+    Reflect.get(Object.setPrototypeOf({ constructor: null }, navigator), 'serviceWorker');
+  }, /^Permission Denied: Cannot access clientInformation navigator/);
+
+  chai.assert.throws(() => {
+    Reflect.get(Object.setPrototypeOf({ constructor: null }, navigator), 'serviceWorker', navigator);
+  }, /^Permission Denied: Cannot access clientInformation navigator/);
+
+  chai.assert.throws(() => {
+    class FakeClass { };
+    let fakeObject = new FakeClass();
+    Object.setPrototypeOf(Object.getPrototypeOf(fakeObject), navigator); // still (fakeObject instanceof FakeClass) === true
+    Reflect.get(fakeObject, 'serviceWorker');
+  }, /^Permission Denied:/); // As the name argument of the root call to applyAcl() is undefined, the hook callback function does not know the real name for the permission violation
+
+  chai.assert.throws(() => {
+    class FakeClass { };
+    let fakeObject = new FakeClass();
+    Object.setPrototypeOf(Object.getPrototypeOf(fakeObject), navigator); // still (fakeObject instanceof FakeClass) === true
+    Reflect.get(fakeObject, 'serviceWorker', navigator);
+  }, /^Permission Denied: Cannot access clientInformation navigator/);
+
+  chai.assert.throws(() => {
+    Object.create(BaseClass1).staticMethod;
+  }, /^Permission Denied: Cannot access BaseClass1/);
+
+  chai.assert.throws(() => {
+    Object.create(Object.create(BaseClass1)).staticMethod;
+  }, /^Permission Denied: Cannot access BaseClass1/);
+
+  chai.assert.throws(() => {
+    class SubClass5 extends BaseClass1 { };
+    SubClass5.staticMethod;
+  }, /^Permission Denied:/); // As the name argument of the root call to applyAcl() is undefined, the hook callback function does not know the real name for the permission violation
+
+  chai.assert.throws(() => {
+    class SubClass5 extends BaseClass1 { };
+    new SubClass5().instanceMethod;
+  }, /^Permission Denied:/); // As the name argument of the root call to applyAcl() is undefined, the hook callback function does not know the real name for the permission violation
+
+  chai.assert.throws(() => {
+    class SubClass5 extends BaseClass1 { };
+    let { staticMethod } = SubClass5; // '*' for SubClass5
+  }, /^Permission Denied:/);
+  
+  chai.assert.throws(() => {
+    class SubClass5 extends BaseClass1 { };
+    let { staticMethod } = Object.create(SubClass5);
+  }, /^Permission Denied:/);
+
+  chai.assert.throws(() => {
+    class SubClass5 extends BaseClass1 { };
+    let { instanceMethod } = new SubClass5();
+  }, /^Permission Denied:/);
+
+  chai.assert.throws(() => {
+    class SubClass5 extends BaseClass1 { };
+    let { instanceMethod } = Object.create(new SubClass5());
+  }, /^Permission Denied:/);
+  
+  chai.assert.throws(() => {
+    class FakeClass { };
+    let fakeObject = new FakeClass();
+    Object.setPrototypeOf(Object.getPrototypeOf(fakeObject), BaseClass1); // still (fakeObject instanceof FakeClass) === true
+    Reflect.get(fakeObject, 'staticMethod');
+  }, /^Permission Denied:/); // As the name argument of the root call to applyAcl() is undefined, the hook callback function does not know the real name for the permission violation
+
+  chai.assert.throws(() => {
+    class FakeClass { };
+    let fakeObject = new FakeClass();
+    Object.setPrototypeOf(Object.getPrototypeOf(fakeObject), BaseClass1); // still (fakeObject instanceof FakeClass) === true
+    let prototype = Object.getPrototypeOf(fakeObject);
+    Reflect.get(prototype, 'staticMethod');
+  }, /^Permission Denied:/); // As the name argument of the root call to applyAcl() is undefined, the hook callback function does not know the real name for the permission violation
+
+  chai.assert.throws(() => {
+    class FakeClass { };
+    let fakeObject = new FakeClass();
+    Object.setPrototypeOf(Object.getPrototypeOf(fakeObject), BaseClass1); // still (fakeObject instanceof FakeClass) === true
+    Reflect.get(fakeObject, 'staticMethod', BaseClass1);
+  }, /^Permission Denied:/);
+
+  chai.assert.throws(() => {
+    class FakeClass { };
+    let fakeObject = new FakeClass();
+    Object.setPrototypeOf(Object.getPrototypeOf(fakeObject), BaseClass1); // still (fakeObject instanceof FakeClass) === true
+    Reflect.get(Object.getPrototypeOf(fakeObject), 'staticMethod', BaseClass1);
+  }, /^Permission Denied:/);
+
+  chai.assert.throws(() => {
+    class FakeClass { };
+    let fakeObject = new FakeClass();
+    Object.setPrototypeOf(Object.getPrototypeOf(fakeObject), BaseClass1); // still (fakeObject instanceof FakeClass) === true
+    let { statidMethod } = fakeObject;
+  }, /^Permission Denied:/); // As the name argument of the root call to applyAcl() is undefined, the hook callback function does not know the real name for the permission violation
+
+  chai.assert.throws(() => {
+    class FakeClass { };
+    let fakeObject = new FakeClass();
+    Object.setPrototypeOf(Object.getPrototypeOf(fakeObject), BaseClass1); // still (fakeObject instanceof FakeClass) === true
+    let prototype = Object.getPrototypeOf(fakeObject);
+    let { statidMethod } = prototype;
+  }, /^Permission Denied:/); // As the name argument of the root call to applyAcl() is undefined, the hook callback function does not know the real name for the permission violation
+
+  chai.assert.throws(() => {
+    class FakeClass { };
+    let fakeObject = new FakeClass();
+    Object.setPrototypeOf(Object.getPrototypeOf(fakeObject), new BaseClass1()); // still (fakeObject instanceof FakeClass) === true
+    let { instanceMethod } = fakeObject;
+  }, /^Permission Denied:/); // As the name argument of the root call to applyAcl() is undefined, the hook callback function does not know the real name for the permission violation
+
+  chai.assert.throws(() => {
+    class FakeClass { };
+    let fakeObject = new FakeClass();
+    Object.setPrototypeOf(Object.getPrototypeOf(fakeObject), new BaseClass1()); // still (fakeObject instanceof FakeClass) === true
+    let prototype = Object.getPrototypeOf(fakeObject);
+    let { instanceMethod } = prototype;
+  }, /^Permission Denied:/); // As the name argument of the root call to applyAcl() is undefined, the hook callback function does not know the real name for the permission violation
+
+  chai.assert.throws(() => {
+    class SubClass5 extends BaseClass1 { };
+    class FakeClass { };
+    let fakeObject = new FakeClass();
+    Object.setPrototypeOf(Object.getPrototypeOf(fakeObject), new SubClass5()); // still (fakeObject instanceof FakeClass) === true
+    let { instanceMethod } = fakeObject;
+  }, /^Permission Denied:/); // As the name argument of the root call to applyAcl() is undefined, the hook callback function does not know the real name for the permission violation
+
+  chai.assert.throws(() => {
+    class SubClass5 extends BaseClass1 { };
+    class FakeClass { };
+    let fakeObject = new FakeClass();
+    Object.setPrototypeOf(Object.getPrototypeOf(fakeObject), new SubClass5()); // still (fakeObject instanceof FakeClass) === true
+    let prototype = Object.getPrototypeOf(fakeObject);
+    let { instanceMethod } = prototype;
+  }, /^Permission Denied:/); // As the name argument of the root call to applyAcl() is undefined, the hook callback function does not know the real name for the permission violation
+
+  chai.assert.throws(() => {
+    Object.create(Object.getPrototypeOf(new BaseClass1())).instanceMethod;
   }, /^Permission Denied:/);
 
   // multipath
