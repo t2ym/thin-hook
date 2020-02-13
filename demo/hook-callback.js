@@ -984,7 +984,7 @@ else {
                 [name, isStatic, isObject] = detectName(target);
                 if (name) {
                   isObject = true;
-                  if (!applyAcl(name, isStatic, isObject, property, aclArgs[4], aclArgs[5], target, normalizedArgs, hookArgs)) {
+                  if (!applyAcl(name, isStatic, isObject, property, aclArgs[4], hookArgs[3], target, normalizedArgs, hookArgs)) {
                     //console.log('defaultAcl: permission denied ', name, target, property);
                     return false;
                   }
@@ -1294,11 +1294,13 @@ else {
         '@bind_normalization_checker': 'r--',
       }
     },
+    '@window_enumerator': 'r--R-',
     Window: {
       [S_DEFAULT]: 'r--',
       [S_PROTOTYPE]: {
         [S_DEFAULT]: '---',
         '@window_enumerator': 'r--R-',
+        '@Object_prototype_reader': 'r--',
         addEventListener: {
           [S_DEFAULT]: '--x',
           '@Node_prototype_writer': 'rwx',
@@ -1597,6 +1599,9 @@ else {
         },
       }
     },
+    constructor: {
+      [S_CHAIN]: () => acl.EventTarget,
+    },
     EventTarget: {
       [S_CHAIN]: () => acl.Function[S_PROTOTYPE][S_INSTANCE],
       [S_OBJECT]: 'r-x',
@@ -1610,7 +1615,7 @@ else {
         [S_INSTANCE]: {
           [S_CHAIN]: S_CHAIN,
           [S_DEFAULT]: 'r-x',
-          [S_ALL]: '---',
+          '@window_enumerator': 'r--R-',
         },
       },
     },
