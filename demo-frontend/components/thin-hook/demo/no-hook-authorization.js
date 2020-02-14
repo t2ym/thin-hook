@@ -17,7 +17,7 @@ else {
     "a81209228209941097ac41c5bda3bc1cd64375e69b7c8113aff68c2fe6729ff2": true, // demo/disable-devtools.js
     "4374ae1f28cec2b969ab488895a4266244d65e28e1f82728fd2cd39130fe0d9e": true, // demo/context-generator.js
     "4ea3e59399ae8288d6f12e68c1d31a792662e12c3fc666d08dbdfdfc914b0091": true, // demo/bootstrap.js
-    "14a77cf3f28b5dbf50e325b44f82ae31b5b5cf789e932befcaa07964f516e395": true, // demo/hook-callback.js
+    "c9d9bbade67c90cc262af773888f75703a42a493f6dd315e0fd85812b9bb20bb": true, // demo/hook-callback.js
     "0979646683bec9b9682d974d549effb61b1fc981ad87dac76d44d0440d87b396": true, // demo/hook-native-api.js
     "5b615aa885a0518466153be6ecb2cfeef1300f181ff60ca91cad964659c92052": true, // demo/hook-worker.js
     "c59d446ea931df28736d586dc2687731dadb733c3cfd644c7df3afb36a6ae39a": true, // demo/cache-bundle.js
@@ -33,7 +33,7 @@ else {
     "c135fd6ba3cad41e63985ecca191995bf311abc756c5f574ef5b641e7db56914": true, // (function writeln2() { console.log("no-hook script tag via document.writeln"); })()
     "e233738578fd7e8f2e961fb11885e2c187146314a8e3fc65692633ff89c5d34a": true, // (function writeln4() { console.log("no-hook script tag in div tag via document.writeln"); })()
     "4f0395d52a8c1c7edaacacade9c31fe18555b79ce963dfb1abaaa34990993374": true, // location = "about:blank";
-    "6be89768f75fb4c05843eb96a95cc012f950b82870116e5bbd5be4d5100caea1": true, // demo/integrity.js
+    "ba67ec2f5c06d76826a8990237f7085717909e0dd4b6cf83978fe1994416200d": true, // demo/integrity.js
     "ba07654d1c24a271ba0fa7ee5c55cd60c02133b0e53cb6bb6e634da473b1e540": true, // demo/script-hashes.js
     "0242016e2887b322ab28b887f03779c63899db232bb036d794a0278db9e54339": true, // demo/content-loader.js
   };

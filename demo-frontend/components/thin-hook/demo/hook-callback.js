@@ -4381,32 +4381,44 @@ else {
         }
       }
     }
+    SWITCH_ACL:
     switch (typeof _acl) {
     case 'string':
-      return _acl[opTypeMap[opType]] === opType;
+      if (_acl[opTypeMap[opType]] === opType) {
+        return true;
+      }
+      break;
     case 'object':
       tmp = opTypeMap[opType];
       for (__acl of _acl) {
         switch (typeof __acl) {
         case 'string':
           if (__acl[tmp] !== opType) {
-            return false;
+            break SWITCH_ACL;
           }
           break;
         case 'function':
           if (!__acl(normalizedThisArg, normalizedArgs, arguments, hookArgs, applyAcl)) {
-            return false;
+            break SWITCH_ACL;
           }
           break;
         }
       }
       return true;
     case 'function':
-      return _acl(normalizedThisArg, normalizedArgs, arguments, hookArgs, applyAcl);
+      if (_acl(normalizedThisArg, normalizedArgs, arguments, hookArgs, applyAcl)) {
+        return true;
+      }
+      break;
     case 'undefined':
     default:
-      return false;
+      break;
     }
+    // Permission Denied
+    if (!normalizedArgs.result) {
+      normalizedArgs.result = [...arguments];
+    }
+    return false;
   }
   // Handle exceptions
   const errorReportBaseUrl = (new URL('errorReport.json', typeof window === 'object' ? top.location : location)).pathname;
@@ -6233,6 +6245,15 @@ else {
       contextStack.pop();
     }
     catch (e) {
+      if (Array.isArray(result) && Array.isArray(result[7]) && Array.isArray(result[7].result)) {
+        // result = [name, isStatic, isObject, property, opType, context, normalizedThisArg, normalizedArgs, hookArgs]
+        // Adjust error message
+        //   Note: typeof result[7].result[0] is most likely a string. Thus only the first object that has denied permission should be shown.
+        e = new Error('Permission Denied: Cannot access ' + SetMap.getStringValues(result[7].result[0]));
+        let rawContext = result[5];
+        result = result[7].result;
+        result[5] = rawContext;
+      }
       onThrow(e, arguments, contextStack, result); // result contains arguments to applyAcl, or undefined
       lastContext = _lastContext;
       contextStack.pop();
@@ -7524,6 +7545,15 @@ else {
       contextStack.pop();
     }
     catch (e) {
+      if (Array.isArray(result) && Array.isArray(result[7]) && Array.isArray(result[7].result)) {
+        // result = [name, isStatic, isObject, property, opType, context, normalizedThisArg, normalizedArgs, hookArgs]
+        // Adjust error message
+        //   Note: typeof result[7].result[0] is most likely a string. Thus only the first object that has denied permission should be shown.
+        e = new Error('Permission Denied: Cannot access ' + SetMap.getStringValues(result[7].result[0]));
+        let rawContext = result[5];
+        result = result[7].result;
+        result[5] = rawContext;
+      }
       onThrow(e, arguments, contextStack, result); // result contains arguments to applyAcl, or undefined
       lastContext = _lastContext;
       contextStack.pop();
