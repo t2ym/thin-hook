@@ -2715,16 +2715,15 @@
     let fakeObject = new FakeClass();
     Object.setPrototypeOf(Object.getPrototypeOf(fakeObject), window); // still (fakeObject instanceof FakeClass) === true
     Reflect.get(fakeObject, 'caches');
-  }, /^Permission Denied:/); // As the name argument of the root call to applyAcl() is undefined, the hook callback function does not know the real name for the permission violation
-
+  }, /^Permission Denied: Cannot access window/);
+  
   chai.assert.throws(() => {
     class FakeClass { };
     let fakeObject = new FakeClass();
     Object.setPrototypeOf(Object.getPrototypeOf(fakeObject), window); // still (fakeObject instanceof FakeClass) === true
-    let prototype = Object.getPrototypeOf(fakeObject);
-    Reflect.get(prototype, 'caches');
-  }, /^Permission Denied:/); // As the name argument of the root call to applyAcl() is undefined, the hook callback function does not know the real name for the permission violation
-
+    Reflect.get(Object.getPrototypeOf(fakeObject), 'caches');
+  }, /^Permission Denied: Cannot access window/);
+  
   chai.assert.throws(() => {
     class FakeClass { };
     let fakeObject = new FakeClass();
@@ -2741,25 +2740,25 @@
 
   chai.assert.throws(() => {
     Reflect.get(Object.setPrototypeOf({ constructor: null }, navigator), 'serviceWorker');
-  }, /^Permission Denied: Cannot access clientInformation navigator/);
+  }, /^Permission Denied: Cannot access clientInformation/); // clientInformation is an alias global object for navigator; acl.clientInformation is chained to acl.navigator
 
   chai.assert.throws(() => {
     Reflect.get(Object.setPrototypeOf({ constructor: null }, navigator), 'serviceWorker', navigator);
-  }, /^Permission Denied: Cannot access clientInformation navigator/);
+  }, /^Permission Denied: Cannot access clientInformation/);
 
   chai.assert.throws(() => {
     class FakeClass { };
     let fakeObject = new FakeClass();
     Object.setPrototypeOf(Object.getPrototypeOf(fakeObject), navigator); // still (fakeObject instanceof FakeClass) === true
     Reflect.get(fakeObject, 'serviceWorker');
-  }, /^Permission Denied:/); // As the name argument of the root call to applyAcl() is undefined, the hook callback function does not know the real name for the permission violation
+  }, /^Permission Denied: Cannot access clientInformation/);
 
   chai.assert.throws(() => {
     class FakeClass { };
     let fakeObject = new FakeClass();
     Object.setPrototypeOf(Object.getPrototypeOf(fakeObject), navigator); // still (fakeObject instanceof FakeClass) === true
     Reflect.get(fakeObject, 'serviceWorker', navigator);
-  }, /^Permission Denied: Cannot access clientInformation navigator/);
+  }, /^Permission Denied: Cannot access clientInformation/);
 
   chai.assert.throws(() => {
     Object.create(BaseClass1).staticMethod;
@@ -2772,12 +2771,12 @@
   chai.assert.throws(() => {
     class SubClass5 extends BaseClass1 { };
     SubClass5.staticMethod;
-  }, /^Permission Denied:/); // As the name argument of the root call to applyAcl() is undefined, the hook callback function does not know the real name for the permission violation
+  }, /^Permission Denied: Cannot access BaseClass1/);
 
   chai.assert.throws(() => {
     class SubClass5 extends BaseClass1 { };
     new SubClass5().instanceMethod;
-  }, /^Permission Denied:/); // As the name argument of the root call to applyAcl() is undefined, the hook callback function does not know the real name for the permission violation
+  }, /^Permission Denied: Cannot access BaseClass1/);
 
   chai.assert.throws(() => {
     class SubClass5 extends BaseClass1 { };
@@ -2804,59 +2803,56 @@
     let fakeObject = new FakeClass();
     Object.setPrototypeOf(Object.getPrototypeOf(fakeObject), BaseClass1); // still (fakeObject instanceof FakeClass) === true
     Reflect.get(fakeObject, 'staticMethod');
-  }, /^Permission Denied:/); // As the name argument of the root call to applyAcl() is undefined, the hook callback function does not know the real name for the permission violation
+  }, /^Permission Denied: Cannot access BaseClass1/);
 
   chai.assert.throws(() => {
     class FakeClass { };
     let fakeObject = new FakeClass();
     Object.setPrototypeOf(Object.getPrototypeOf(fakeObject), BaseClass1); // still (fakeObject instanceof FakeClass) === true
-    let prototype = Object.getPrototypeOf(fakeObject);
-    Reflect.get(prototype, 'staticMethod');
-  }, /^Permission Denied:/); // As the name argument of the root call to applyAcl() is undefined, the hook callback function does not know the real name for the permission violation
+    Reflect.get(Object.getPrototypeOf(fakeObject), 'staticMethod');
+  }, /^Permission Denied: Cannot access BaseClass1/);
 
   chai.assert.throws(() => {
     class FakeClass { };
     let fakeObject = new FakeClass();
     Object.setPrototypeOf(Object.getPrototypeOf(fakeObject), BaseClass1); // still (fakeObject instanceof FakeClass) === true
     Reflect.get(fakeObject, 'staticMethod', BaseClass1);
-  }, /^Permission Denied:/);
+  }, /^Permission Denied: Cannot access BaseClass1/);
 
   chai.assert.throws(() => {
     class FakeClass { };
     let fakeObject = new FakeClass();
     Object.setPrototypeOf(Object.getPrototypeOf(fakeObject), BaseClass1); // still (fakeObject instanceof FakeClass) === true
     Reflect.get(Object.getPrototypeOf(fakeObject), 'staticMethod', BaseClass1);
-  }, /^Permission Denied:/);
+  }, /^Permission Denied: Cannot access BaseClass1/);
 
   chai.assert.throws(() => {
     class FakeClass { };
     let fakeObject = new FakeClass();
     Object.setPrototypeOf(Object.getPrototypeOf(fakeObject), BaseClass1); // still (fakeObject instanceof FakeClass) === true
     let { statidMethod } = fakeObject;
-  }, /^Permission Denied:/); // As the name argument of the root call to applyAcl() is undefined, the hook callback function does not know the real name for the permission violation
+  }, /^Permission Denied: Cannot access BaseClass1/);
 
   chai.assert.throws(() => {
     class FakeClass { };
     let fakeObject = new FakeClass();
     Object.setPrototypeOf(Object.getPrototypeOf(fakeObject), BaseClass1); // still (fakeObject instanceof FakeClass) === true
-    let prototype = Object.getPrototypeOf(fakeObject);
-    let { statidMethod } = prototype;
-  }, /^Permission Denied:/); // As the name argument of the root call to applyAcl() is undefined, the hook callback function does not know the real name for the permission violation
+    let { statidMethod } = Object.getPrototypeOf(fakeObject);
+  }, /^Permission Denied: Cannot access BaseClass1/);
 
   chai.assert.throws(() => {
     class FakeClass { };
     let fakeObject = new FakeClass();
     Object.setPrototypeOf(Object.getPrototypeOf(fakeObject), new BaseClass1()); // still (fakeObject instanceof FakeClass) === true
     let { instanceMethod } = fakeObject;
-  }, /^Permission Denied:/); // As the name argument of the root call to applyAcl() is undefined, the hook callback function does not know the real name for the permission violation
+  }, /^Permission Denied: Cannot access BaseClass1/);
 
   chai.assert.throws(() => {
     class FakeClass { };
     let fakeObject = new FakeClass();
     Object.setPrototypeOf(Object.getPrototypeOf(fakeObject), new BaseClass1()); // still (fakeObject instanceof FakeClass) === true
-    let prototype = Object.getPrototypeOf(fakeObject);
-    let { instanceMethod } = prototype;
-  }, /^Permission Denied:/); // As the name argument of the root call to applyAcl() is undefined, the hook callback function does not know the real name for the permission violation
+    let { instanceMethod } = Object.getPrototypeOf(fakeObject);
+  }, /^Permission Denied: Cannot access BaseClass1/);
 
   chai.assert.throws(() => {
     class SubClass5 extends BaseClass1 { };
@@ -2864,20 +2860,19 @@
     let fakeObject = new FakeClass();
     Object.setPrototypeOf(Object.getPrototypeOf(fakeObject), new SubClass5()); // still (fakeObject instanceof FakeClass) === true
     let { instanceMethod } = fakeObject;
-  }, /^Permission Denied:/); // As the name argument of the root call to applyAcl() is undefined, the hook callback function does not know the real name for the permission violation
+  }, /^Permission Denied: Cannot access BaseClass1/);
 
   chai.assert.throws(() => {
     class SubClass5 extends BaseClass1 { };
     class FakeClass { };
     let fakeObject = new FakeClass();
     Object.setPrototypeOf(Object.getPrototypeOf(fakeObject), new SubClass5()); // still (fakeObject instanceof FakeClass) === true
-    let prototype = Object.getPrototypeOf(fakeObject);
-    let { instanceMethod } = prototype;
-  }, /^Permission Denied:/); // As the name argument of the root call to applyAcl() is undefined, the hook callback function does not know the real name for the permission violation
+    let { instanceMethod } = Object.getPrototypeOf(fakeObject);
+  }, /^Permission Denied: Cannot access BaseClass1/);
 
   chai.assert.throws(() => {
     Object.create(Object.getPrototypeOf(new BaseClass1())).instanceMethod;
-  }, /^Permission Denied:/);
+  }, /^Permission Denied: Cannot access BaseClass1/);
 
   // multipath
   (function () {
