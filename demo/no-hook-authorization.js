@@ -12,12 +12,12 @@ else {
     //   hook.parameters.noHookAuthorizationPassed,
     //   hook.parameters.noHookAuthorizationFailed
     // JSONs are output to console in the learning mode
-    //'*': true,
-    "01d1adb0c2438966d871c954acf394e879f11eb912094da66a01bccfd4ca688d": true, // hook.min.js
+    //'*': true, 
+    "906df05d2a8f9f89f65452d55c7a148daa22110721b58efe6b962dd9c76821f7": true, // hook.min.js
     "a81209228209941097ac41c5bda3bc1cd64375e69b7c8113aff68c2fe6729ff2": true, // demo/disable-devtools.js
     "4374ae1f28cec2b969ab488895a4266244d65e28e1f82728fd2cd39130fe0d9e": true, // demo/context-generator.js
     "4ea3e59399ae8288d6f12e68c1d31a792662e12c3fc666d08dbdfdfc914b0091": true, // demo/bootstrap.js
-    "c9d9bbade67c90cc262af773888f75703a42a493f6dd315e0fd85812b9bb20bb": true, // demo/hook-callback.js
+    "fb6619c52561f69fd1cd7a650f154b697f47e4ead665aa90148201656cc3126d": true, // demo/hook-callback.js
     "0979646683bec9b9682d974d549effb61b1fc981ad87dac76d44d0440d87b396": true, // demo/hook-native-api.js
     "5b615aa885a0518466153be6ecb2cfeef1300f181ff60ca91cad964659c92052": true, // demo/hook-worker.js
     "c59d446ea931df28736d586dc2687731dadb733c3cfd644c7df3afb36a6ae39a": true, // demo/cache-bundle.js
@@ -33,7 +33,7 @@ else {
     "c135fd6ba3cad41e63985ecca191995bf311abc756c5f574ef5b641e7db56914": true, // (function writeln2() { console.log("no-hook script tag via document.writeln"); })()
     "e233738578fd7e8f2e961fb11885e2c187146314a8e3fc65692633ff89c5d34a": true, // (function writeln4() { console.log("no-hook script tag in div tag via document.writeln"); })()
     "4f0395d52a8c1c7edaacacade9c31fe18555b79ce963dfb1abaaa34990993374": true, // location = "about:blank";
-    "a8626198da779e089c856cf1d055cee7af7a281576896232a4efdef359505dbd": true, // demo/integrity.js
+    "bf37f7a3bf70ab908557de7b31e362891e35f97ad7ef4fcf59b644c3753dcc04": true, // demo/integrity.js
     "ba07654d1c24a271ba0fa7ee5c55cd60c02133b0e53cb6bb6e634da473b1e540": true, // demo/script-hashes.js
     "0242016e2887b322ab28b887f03779c63899db232bb036d794a0278db9e54339": true, // demo/content-loader.js
   };

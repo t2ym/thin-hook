@@ -6249,10 +6249,12 @@ else {
         // result = [name, isStatic, isObject, property, opType, context, normalizedThisArg, normalizedArgs, hookArgs]
         // Adjust error message
         //   Note: typeof result[7].result[0] is most likely a string. Thus only the first object that has denied permission should be shown.
-        e = new Error('Permission Denied: Cannot access ' + SetMap.getStringValues(result[7].result[0]));
         let rawContext = result[5];
-        result = result[7].result;
+        let normalizedArgs = result[7];
+        e = new Error('Permission Denied: Cannot access ' + SetMap.getStringValues(normalizedArgs.result[0]));
+        result = normalizedArgs.result;
         result[5] = rawContext;
+        delete normalizedArgs.result; // delete the used result property
       }
       onThrow(e, arguments, contextStack, result); // result contains arguments to applyAcl, or undefined
       lastContext = _lastContext;
@@ -7549,10 +7551,12 @@ else {
         // result = [name, isStatic, isObject, property, opType, context, normalizedThisArg, normalizedArgs, hookArgs]
         // Adjust error message
         //   Note: typeof result[7].result[0] is most likely a string. Thus only the first object that has denied permission should be shown.
-        e = new Error('Permission Denied: Cannot access ' + SetMap.getStringValues(result[7].result[0]));
         let rawContext = result[5];
-        result = result[7].result;
+        let normalizedArgs = result[7];
+        e = new Error('Permission Denied: Cannot access ' + SetMap.getStringValues(normalizedArgs.result[0]));
+        result = normalizedArgs.result;
         result[5] = rawContext;
+        delete normalizedArgs.result; // delete the used result property
       }
       onThrow(e, arguments, contextStack, result); // result contains arguments to applyAcl, or undefined
       lastContext = _lastContext;
