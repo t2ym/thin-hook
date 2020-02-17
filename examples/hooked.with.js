@@ -10,13 +10,10 @@ const __context_mapper__ = $hook$.$(__hook__, [
   'examples/with.js,v2',
   'examples/with.js,v3',
   'examples/with.js,v4',
-  'examples/with.js,v5',
   'examples/with.js,g',
   'examples/with.js,v6',
   'examples/with.js,v7',
-  'examples/with.js,C',
   'examples/with.js,C,method',
-  'examples/with.js,CC,CC',
   'examples/with.js,CC,CC,method',
   'examples/with.js,f1',
   'examples/with.js,f2',
@@ -30,9 +27,7 @@ const __context_mapper__ = $hook$.$(__hook__, [
   'examples/with.js,a2',
   'examples/with.js,y',
   'examples/with.js,z',
-  'examples/with.js,x',
-  'examples/with.js,A',
-  'examples/with.js,p'
+  'examples/with.js,x'
 ]);
 {
   $hook$.global(__hook__, __context_mapper__[0], 'gVar1', 'var')[__context_mapper__[1]] = 1;
@@ -58,10 +53,7 @@ const __context_mapper__ = $hook$.$(__hook__, [
         () => Symbol
       ], __context_mapper__[6], false), ['unscopables'], __context_mapper__[6])]: { z: true }
     };
-    with ($hook$.with(__hook__('w.', __with__, [
-        'b',
-        () => b
-      ], __context_mapper__[0], false), {
+    with ($hook$.with(b, {
         x: true,
         y: true,
         z: true,
@@ -84,14 +76,11 @@ const __context_mapper__ = $hook$.$(__hook__, [
         () => typeof z
       ], __context_mapper__[10], false);
       let u = 11;
-      let v5 = __hook__('w.', __with__, [
-        'u',
-        () => u
-      ], __context_mapper__[11], false);
+      let v5 = u;
       let g = __hook__('w.', __with__, [
         'gVar1',
         () => gVar1
-      ], __context_mapper__[12], false);
+      ], __context_mapper__[11], false);
       __hook__('w=', __with__, [
         'foo',
         3,
@@ -102,10 +91,7 @@ const __context_mapper__ = $hook$.$(__hook__, [
         5,
         v => y = v
       ], __context_mapper__[0], false);
-      __hook__('w.', __with__, [
-        'g',
-        () => g
-      ], __context_mapper__[0], false);
+      g;
       __hook__('w++', __with__, [
         'y',
         () => y++
@@ -215,10 +201,7 @@ const __context_mapper__ = $hook$.$(__hook__, [
         ], __context_mapper__[0], false):
         break;
       }
-      __hook__('w.', __with__, [
-        'f1',
-        () => f1
-      ], __context_mapper__[0], false)`value is ${ __hook__('w.', __with__, [
+      f1`value is ${ __hook__('w.', __with__, [
         'foo',
         () => foo
       ], __context_mapper__[0], false) }`;
@@ -238,10 +221,7 @@ const __context_mapper__ = $hook$.$(__hook__, [
       ], __context_mapper__[0], false), ['assert'], __context_mapper__[0]), [
         'equal',
         [
-          __hook__('w.', __with__, [
-            'v1',
-            () => v1
-          ], __context_mapper__[0], false),
+          v1,
           1,
           'foo is 1'
         ]
@@ -252,10 +232,7 @@ const __context_mapper__ = $hook$.$(__hook__, [
       ], __context_mapper__[0], false), ['assert'], __context_mapper__[0]), [
         'equal',
         [
-          __hook__('w.', __with__, [
-            'v2',
-            () => v2
-          ], __context_mapper__[0], false),
+          v2,
           'undefined',
           'typeof bar is undefined'
         ]
@@ -266,10 +243,7 @@ const __context_mapper__ = $hook$.$(__hook__, [
       ], __context_mapper__[0], false), ['assert'], __context_mapper__[0]), [
         'equal',
         [
-          __hook__('w.', __with__, [
-            'v3',
-            () => v3
-          ], __context_mapper__[0], false),
+          v3,
           4,
           'y is 4'
         ]
@@ -280,10 +254,7 @@ const __context_mapper__ = $hook$.$(__hook__, [
       ], __context_mapper__[0], false), ['assert'], __context_mapper__[0]), [
         'equal',
         [
-          __hook__('w.', __with__, [
-            'v5',
-            () => v5
-          ], __context_mapper__[0], false),
+          v5,
           11,
           'u is 11'
         ]
@@ -294,10 +265,7 @@ const __context_mapper__ = $hook$.$(__hook__, [
       ], __context_mapper__[0], false), ['assert'], __context_mapper__[0]), [
         'equal',
         [
-          __hook__('w.', __with__, [
-            'v4',
-            () => v4
-          ], __context_mapper__[0], false),
+          v4,
           'undefined',
           'typeof z is undefined'
         ]
@@ -330,21 +298,18 @@ const __context_mapper__ = $hook$.$(__hook__, [
         let v6 = __hook__('w.', __with__, [
           'z',
           () => z
-        ], __context_mapper__[13], false);
+        ], __context_mapper__[12], false);
         let v7 = __hook__('w.', __with__, [
           'u',
           () => u
-        ], __context_mapper__[14], false);
+        ], __context_mapper__[13], false);
         __hook__('()', __hook__('.', __hook__('w.', __with__, [
           'chai',
           () => chai
         ], __context_mapper__[0], false), ['assert'], __context_mapper__[0]), [
           'equal',
           [
-            __hook__('w.', __with__, [
-              'v6',
-              () => v6
-            ], __context_mapper__[0], false),
+            v6,
             1,
             'z is 1'
           ]
@@ -355,10 +320,7 @@ const __context_mapper__ = $hook$.$(__hook__, [
         ], __context_mapper__[0], false), ['assert'], __context_mapper__[0]), [
           'equal',
           [
-            __hook__('w.', __with__, [
-              'v7',
-              () => v7
-            ], __context_mapper__[0], false),
+            v7,
             11,
             'u is 11'
           ]
@@ -372,60 +334,32 @@ const __context_mapper__ = $hook$.$(__hook__, [
           v => x = v
         ], __context_mapper__[0], false);
       }
-      __hook__('wdelete', __with__, [
-        'u',
-        () => delete u
-      ], __context_mapper__[0], false);
-      __hook__('delete', __hook__('w.', __with__, [
-        'u',
-        () => u
-      ], __context_mapper__[0], false), ['prop'], __context_mapper__[0]);
+      delete u;
+      __hook__('delete', u, ['prop'], __context_mapper__[0]);
       let method = 'method';
       class B {
       }
-      class C extends __hook__('w.', __with__, [
-        'B',
-        () => B
-      ], __context_mapper__[15], false) {
+      class C extends B {
         ['method']() {
           return __hook__(() => {
-          }, null, arguments, __context_mapper__[16]);
+          }, null, arguments, __context_mapper__[14]);
         }
       }
-      let CC = class CC extends __hook__('w.', __with__, [
-        'B',
-        () => B
-      ], __context_mapper__[17], false) {
-        [__hook__('w.', __with__, [
-          'method',
-          () => method
-        ], __context_mapper__[18], false)]() {
+      let CC = class CC extends B {
+        [method]() {
           return __hook__(() => {
-          }, null, arguments, __context_mapper__[18]);
+          }, null, arguments, __context_mapper__[15]);
         }
       };
       function f1(aa, bb) {
         return __hook__((aa = __hook__('w.', __with__, [
           'y',
           () => y
-        ], __context_mapper__[19], false), bb = __hook__('.', __hook__('w.', __with__, [
-          'u',
-          () => u
-        ], __context_mapper__[19], false), ['prop'], __context_mapper__[19])) => {
-          return __hook__('w.', __with__, [
-            'aa',
-            () => aa
-          ], __context_mapper__[19], false);
-        }, null, arguments, __context_mapper__[19]);
+        ], __context_mapper__[16], false), bb = __hook__('.', u, ['prop'], __context_mapper__[16])) => {
+          return aa;
+        }, null, arguments, __context_mapper__[16]);
       }
-      __hook__('wnew', __with__, [
-        'CC',
-        [__hook__('w.', __with__, [
-            'y',
-            () => y
-          ], __context_mapper__[0], false)],
-        (...args) => new CC(...args)
-      ], __context_mapper__[0], false);
+      new CC(y);
       __hook__('w()', __with__, [
         'x',
         [__hook__('w.', __with__, [
@@ -446,16 +380,16 @@ const __context_mapper__ = $hook$.$(__hook__, [
       ], __context_mapper__[0]);
       function f2(...args) {
         for (let arg of arguments)
-          __hook__('*', arg, [], __context_mapper__[20]);
+          __hook__('*', arg, [], __context_mapper__[17]);
         return __hook__(([xx = __hook__('w.', __with__, [
             'y',
             () => y
-          ], __context_mapper__[20], false)]) => {
+          ], __context_mapper__[17], false)]) => {
           return __hook__('w.', __with__, [
             'aa',
             () => aa
-          ], __context_mapper__[20], false);
-        }, null, args, __context_mapper__[20]);
+          ], __context_mapper__[17], false);
+        }, null, args, __context_mapper__[17]);
       }
       [__hook__('w.=', __with__, [
           'x',
@@ -521,14 +455,14 @@ const __context_mapper__ = $hook$.$(__hook__, [
         [__hook__('w.', __with__, [
           'comp',
           () => comp
-        ], __context_mapper__[21], false)]: __hook__('w.', __with__, [
+        ], __context_mapper__[18], false)]: __hook__('w.', __with__, [
           'x',
           () => x
-        ], __context_mapper__[21], false),
+        ], __context_mapper__[18], false),
         nonComputed: __hook__('w.', __with__, [
           'y',
           () => y
-        ], __context_mapper__[22], false)
+        ], __context_mapper__[19], false)
       };
       throw __hook__('w.', __with__, [
         'x',
@@ -540,26 +474,23 @@ const __context_mapper__ = $hook$.$(__hook__, [
             'foo',
             [],
             (...args) => foo(...args)
-          ], __context_mapper__[23], false);
-        }, null, arguments, __context_mapper__[23]);
+          ], __context_mapper__[20], false);
+        }, null, arguments, __context_mapper__[20]);
       }
       function* gen(x) {
         yield* __hook__(function* (x) {
           yield __hook__('w.', __with__, [
             'y',
             () => y
-          ], __context_mapper__[24], false);
+          ], __context_mapper__[21], false);
           yield* [
-            __hook__('w.', __with__, [
-              'x',
-              () => x
-            ], __context_mapper__[24], false),
+            x,
             __hook__('w.', __with__, [
               'y',
               () => y
-            ], __context_mapper__[24], false)
+            ], __context_mapper__[21], false)
           ];
-        }, this, arguments, __context_mapper__[24]);
+        }, this, arguments, __context_mapper__[21]);
       }
     }
     __hook__('()', __hook__('.', __hook__('w.', __with__, [
@@ -568,16 +499,13 @@ const __context_mapper__ = $hook$.$(__hook__, [
     ], __context_mapper__[0], false), ['assert'], __context_mapper__[0]), [
       'equal',
       [
-        __hook__('.', __hook__('w.', __with__, [
-          'b',
-          () => b
-        ], __context_mapper__[0], false), ['y'], __context_mapper__[0]),
+        __hook__('.', b, ['y'], __context_mapper__[0]),
         6,
         'b.y is 6'
       ]
     ], __context_mapper__[0]);
   }
-  __hook__('()', __hook__('.', $hook$.global(__hook__, __context_mapper__[0], 'chai', 'get')[__context_mapper__[25]], ['assert'], __context_mapper__[0]), [
+  __hook__('()', __hook__('.', $hook$.global(__hook__, __context_mapper__[0], 'chai', 'get')[__context_mapper__[22]], ['assert'], __context_mapper__[0]), [
     'equal',
     [
       __hook__('.', a, ['foo'], __context_mapper__[0]),
@@ -586,11 +514,11 @@ const __context_mapper__ = $hook$.$(__hook__, [
     ]
   ], __context_mapper__[0]);
 }
-$hook$.global(__hook__, __context_mapper__[0], 'gA1', 'let')[__context_mapper__[26]] = [
+$hook$.global(__hook__, __context_mapper__[0], 'gA1', 'let')[__context_mapper__[23]] = [
   1,
   2
 ];
-$hook$.global(__hook__, __context_mapper__[0], 'gX1', 'let')[__context_mapper__[27]] = {
+$hook$.global(__hook__, __context_mapper__[0], 'gX1', 'let')[__context_mapper__[24]] = {
   a: 1,
   b: 2
 };
@@ -610,7 +538,7 @@ with ($hook$.with({
     ...__hook__('w.', __with__, [
       'gA1',
       () => gA1
-    ], __context_mapper__[28], false)
+    ], __context_mapper__[25], false)
   ];
   __hook__('()', __hook__('.', __hook__('w.', __with__, [
     'chai',
@@ -618,10 +546,7 @@ with ($hook$.with({
   ], __context_mapper__[0], false), ['assert'], __context_mapper__[0]), [
     'deepEqual',
     [
-      __hook__('w.', __with__, [
-        'a2',
-        () => a2
-      ], __context_mapper__[0], false),
+      a2,
       [
         3,
         4,
@@ -636,7 +561,7 @@ with ($hook$.with({
     ...__hook__('*', __hook__('w.', __with__, [
       'gX1',
       () => gX1
-    ], __context_mapper__[29], false), [], __context_mapper__[29])
+    ], __context_mapper__[26], false), [], __context_mapper__[26])
   };
   __hook__('()', __hook__('.', __hook__('w.', __with__, [
     'chai',
@@ -644,10 +569,7 @@ with ($hook$.with({
   ], __context_mapper__[0], false), ['assert'], __context_mapper__[0]), [
     'deepEqual',
     [
-      __hook__('w.', __with__, [
-        'y',
-        () => y
-      ], __context_mapper__[0], false),
+      y,
       {
         c: 3,
         a: 4,
@@ -663,13 +585,10 @@ with ($hook$.with({
       b: 2,
       ...__hook__('*', function () {
         return __hook__(() => {
-          return __hook__('w.', __with__, [
-            'y',
-            () => y
-          ], __context_mapper__[30], false);
-        }, null, arguments, __context_mapper__[30]);
-      }(), [], __context_mapper__[30])
-    }, [], __context_mapper__[30])
+          return y;
+        }, null, arguments, __context_mapper__[27]);
+      }(), [], __context_mapper__[27])
+    }, [], __context_mapper__[27])
   };
   __hook__('()', __hook__('.', __hook__('w.', __with__, [
     'chai',
@@ -677,10 +596,7 @@ with ($hook$.with({
   ], __context_mapper__[0], false), ['assert'], __context_mapper__[0]), [
     'deepEqual',
     [
-      __hook__('w.', __with__, [
-        'z',
-        () => z
-      ], __context_mapper__[0], false),
+      z,
       {
         c: 3,
         a: 4,
@@ -695,38 +611,16 @@ with ($hook$.with({
   ], __context_mapper__[0], false), ['assert'], __context_mapper__[0]), [
     'isOk',
     [
-      __hook__('in', __hook__('w.', __with__, [
-        'z',
-        () => z
-      ], __context_mapper__[0], false), ['a'], __context_mapper__[0]),
+      __hook__('in', z, ['a'], __context_mapper__[0]),
       'a in z'
     ]
   ], __context_mapper__[0]);
   let p;
   let l1 = [];
-  for (__hook__('w.=', __with__, [
-      'p',
-      {
-        set ['='](v) {
-          p = v;
-        },
-        get ['=']() {
-          return p;
-        }
-      }
-    ], __context_mapper__[0], false)['='] in __hook__('*', __hook__('w.', __with__, [
-      'z',
-      () => z
-    ], __context_mapper__[0], false), [], __context_mapper__[0])) {
-    __hook__('()', __hook__('w.', __with__, [
-      'l1',
-      () => l1
-    ], __context_mapper__[0], false), [
+  for (p in __hook__('*', z, [], __context_mapper__[0])) {
+    __hook__('()', l1, [
       'push',
-      [__hook__('w.', __with__, [
-          'p',
-          () => p
-        ], __context_mapper__[0], false)]
+      [p]
     ], __context_mapper__[0]);
   }
   __hook__('()', __hook__('.', __hook__('w.', __with__, [
@@ -735,10 +629,7 @@ with ($hook$.with({
   ], __context_mapper__[0], false), ['assert'], __context_mapper__[0]), [
     'deepEqual',
     [
-      __hook__('()', __hook__('w.', __with__, [
-        'l1',
-        () => l1
-      ], __context_mapper__[0], false), [
+      __hook__('()', l1, [
         'sort',
         []
       ], __context_mapper__[0]),
@@ -751,29 +642,10 @@ with ($hook$.with({
     ]
   ], __context_mapper__[0]);
   let l2 = [];
-  for (__hook__('w.=', __with__, [
-      'p',
-      {
-        set ['='](v) {
-          p = v;
-        },
-        get ['=']() {
-          return p;
-        }
-      }
-    ], __context_mapper__[0], false)['='] of __hook__('*', __hook__('w.', __with__, [
-      'a2',
-      () => a2
-    ], __context_mapper__[0], false), [], __context_mapper__[0])) {
-    __hook__('()', __hook__('w.', __with__, [
-      'l2',
-      () => l2
-    ], __context_mapper__[0], false), [
+  for (p of __hook__('*', a2, [], __context_mapper__[0])) {
+    __hook__('()', l2, [
       'push',
-      [__hook__('w.', __with__, [
-          'p',
-          () => p
-        ], __context_mapper__[0], false)]
+      [p]
     ], __context_mapper__[0]);
   }
   __hook__('()', __hook__('.', __hook__('w.', __with__, [
@@ -782,10 +654,7 @@ with ($hook$.with({
   ], __context_mapper__[0], false), ['assert'], __context_mapper__[0]), [
     'deepEqual',
     [
-      __hook__('w.', __with__, [
-        'l2',
-        () => l2
-      ], __context_mapper__[0], false),
+      l2,
       [
         3,
         4,
@@ -806,59 +675,28 @@ with ($hook$.with({
           return x;
         }
       }
-    ], __context_mapper__[31], false)['='],
-    ...(__hook__('w.=', __with__, [
-      'y',
-      {
-        set ['='](v) {
-          y = v;
-        },
-        get ['=']() {
-          return y;
-        }
-      }
-    ], __context_mapper__[0], false))['=']
+    ], __context_mapper__[28], false)['='],
+    ...y
   } = __hook__('*', {
     x: __hook__('w.', __with__, [
       'x',
       () => x
-    ], __context_mapper__[31], false),
-    ...__hook__('*', __hook__('w.', __with__, [
-      'y',
-      () => y
-    ], __context_mapper__[0], false), [], __context_mapper__[0])
+    ], __context_mapper__[28], false),
+    ...__hook__('*', y, [], __context_mapper__[0])
   }, [], __context_mapper__[0]));
   let {
     A,
     ...B
   } = __hook__('*', {
-    A: __hook__('w.', __with__, [
-      'y',
-      () => y
-    ], __context_mapper__[32], false),
-    p: __hook__('w.', __with__, [
-      'a2',
-      () => a2
-    ], __context_mapper__[33], false),
-    ...__hook__('*', __hook__('w.', __with__, [
-      'y',
-      () => y
-    ], __context_mapper__[0], false), [], __context_mapper__[0])
+    A: y,
+    p: a2,
+    ...__hook__('*', y, [], __context_mapper__[0])
   }, [], __context_mapper__[0]);
-  let [p1, p2 = __hook__('w.', __with__, [
-      'y',
-      () => y
-    ], __context_mapper__[0], false), ...p3] = __hook__('*', [
+  let [p1, p2 = y, ...p3] = __hook__('*', [
     2,
     ,
     5,
-    __hook__('.', __hook__('w.', __with__, [
-      'z',
-      () => z
-    ], __context_mapper__[0], false), ['a'], __context_mapper__[0]),
-    ...__hook__('w.', __with__, [
-      'a2',
-      () => a2
-    ], __context_mapper__[0], false)
+    __hook__('.', z, ['a'], __context_mapper__[0]),
+    ...a2
   ], [], __context_mapper__[0]);
 }

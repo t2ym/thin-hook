@@ -77,10 +77,7 @@ $hook$.global(__hook__, __context_mapper__[8], 'ff', 'function')[__context_mappe
       ], __context_mapper__[8], false), ['assert'], __context_mapper__[8]), [
         'deepEqual',
         [
-          __hook__('w.', __with__, [
-            'a2',
-            () => a2
-          ], __context_mapper__[8], false),
+          a2,
           [
             3,
             4,
@@ -103,10 +100,7 @@ $hook$.global(__hook__, __context_mapper__[8], 'ff', 'function')[__context_mappe
       ], __context_mapper__[8], false), ['assert'], __context_mapper__[8]), [
         'deepEqual',
         [
-          __hook__('w.', __with__, [
-            'y',
-            () => y
-          ], __context_mapper__[8], false),
+          y,
           {
             c: 3,
             a: 4,
@@ -122,10 +116,7 @@ $hook$.global(__hook__, __context_mapper__[8], 'ff', 'function')[__context_mappe
           b: 2,
           ...__hook__('*', function () {
             return __hook__(() => {
-              return __hook__('w.', __with__, [
-                'y',
-                () => y
-              ], __context_mapper__[12], false);
+              return y;
             }, null, arguments, __context_mapper__[12]);
           }(), [], __context_mapper__[12])
         }, [], __context_mapper__[12])
@@ -136,10 +127,7 @@ $hook$.global(__hook__, __context_mapper__[8], 'ff', 'function')[__context_mappe
       ], __context_mapper__[8], false), ['assert'], __context_mapper__[8]), [
         'deepEqual',
         [
-          __hook__('w.', __with__, [
-            'z',
-            () => z
-          ], __context_mapper__[8], false),
+          z,
           {
             c: 3,
             a: 4,
@@ -154,38 +142,16 @@ $hook$.global(__hook__, __context_mapper__[8], 'ff', 'function')[__context_mappe
       ], __context_mapper__[8], false), ['assert'], __context_mapper__[8]), [
         'isOk',
         [
-          __hook__('in', __hook__('w.', __with__, [
-            'z',
-            () => z
-          ], __context_mapper__[8], false), ['a'], __context_mapper__[8]),
+          __hook__('in', z, ['a'], __context_mapper__[8]),
           'a in z'
         ]
       ], __context_mapper__[8]);
       let p;
       let l1 = [];
-      for (__hook__('w.=', __with__, [
-          'p',
-          {
-            set ['='](v) {
-              p = v;
-            },
-            get ['=']() {
-              return p;
-            }
-          }
-        ], __context_mapper__[8], false)['='] in __hook__('*', __hook__('w.', __with__, [
-          'z',
-          () => z
-        ], __context_mapper__[8], false), [], __context_mapper__[8])) {
-        __hook__('()', __hook__('w.', __with__, [
-          'l1',
-          () => l1
-        ], __context_mapper__[8], false), [
+      for (p in __hook__('*', z, [], __context_mapper__[8])) {
+        __hook__('()', l1, [
           'push',
-          [__hook__('w.', __with__, [
-              'p',
-              () => p
-            ], __context_mapper__[8], false)]
+          [p]
         ], __context_mapper__[8]);
       }
       __hook__('()', __hook__('.', __hook__('w.', __with__, [
@@ -194,10 +160,7 @@ $hook$.global(__hook__, __context_mapper__[8], 'ff', 'function')[__context_mappe
       ], __context_mapper__[8], false), ['assert'], __context_mapper__[8]), [
         'deepEqual',
         [
-          __hook__('()', __hook__('w.', __with__, [
-            'l1',
-            () => l1
-          ], __context_mapper__[8], false), [
+          __hook__('()', l1, [
             'sort',
             []
           ], __context_mapper__[8]),
@@ -210,29 +173,10 @@ $hook$.global(__hook__, __context_mapper__[8], 'ff', 'function')[__context_mappe
         ]
       ], __context_mapper__[8]);
       let l2 = [];
-      for (__hook__('w.=', __with__, [
-          'p',
-          {
-            set ['='](v) {
-              p = v;
-            },
-            get ['=']() {
-              return p;
-            }
-          }
-        ], __context_mapper__[8], false)['='] of __hook__('*', __hook__('w.', __with__, [
-          'a2',
-          () => a2
-        ], __context_mapper__[8], false), [], __context_mapper__[8])) {
-        __hook__('()', __hook__('w.', __with__, [
-          'l2',
-          () => l2
-        ], __context_mapper__[8], false), [
+      for (p of __hook__('*', a2, [], __context_mapper__[8])) {
+        __hook__('()', l2, [
           'push',
-          [__hook__('w.', __with__, [
-              'p',
-              () => p
-            ], __context_mapper__[8], false)]
+          [p]
         ], __context_mapper__[8]);
       }
       __hook__('()', __hook__('.', __hook__('w.', __with__, [
@@ -241,10 +185,7 @@ $hook$.global(__hook__, __context_mapper__[8], 'ff', 'function')[__context_mappe
       ], __context_mapper__[8], false), ['assert'], __context_mapper__[8]), [
         'deepEqual',
         [
-          __hook__('w.', __with__, [
-            'l2',
-            () => l2
-          ], __context_mapper__[8], false),
+          l2,
           [
             3,
             4,
