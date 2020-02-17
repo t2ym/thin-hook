@@ -333,8 +333,18 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           },
           {
             "code": "{ with ({}) { function * f(v) {yield v;}; f().next(); } }",
-            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest,f','HookApiTest']);{with($hook$.with({},{})){function*f(v){yield*__hook__(function*(v){yield __hook__('w.',__with__,['v',()=>v],_c_[0],false);},this,arguments,_c_[0]);};__hook__('()',__hook__('w()',__with__,['f',[],(...args)=>f(...args)],_c_[1],false),['next',[]],_c_[1]);}}",
-            "name": "FunctionDeclaration  { with ({}) { function * f(v) {yield v;}; f().next(); } }"
+            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest,f','HookApiTest']);{with($hook$.with({},{})){function*f(v){yield*__hook__(function*(v){yield v;},this,arguments,_c_[0]);};__hook__('()',f(),['next',[]],_c_[1]);}}",
+            "name": "FunctionDeclaration  { let v = 1; with ({}) { function * f(x) {yield v;}; f().next(); } }"
+          },
+          {
+            "code": "{ let v = 1; with ({}) { function * f(x) {yield v;}; f().next(); } }",
+            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest,f','HookApiTest']);{let v=1;with($hook$.with({},{v:true})){function*f(x){yield*__hook__(function*(x){yield __hook__('w.',__with__,['v',()=>v],_c_[0],false);},this,arguments,_c_[0]);};__hook__('()',f(),['next',[]],_c_[1]);}}",
+            "name": "FunctionDeclaration  { let v = 1; with ({}) { function * f(x) {yield v;}; f().next(); } }"
+          },
+          {
+            "code": "{ with ({}) { let v = 1; function * f(x) {yield v;}; f().next(); } }",
+            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest,f','HookApiTest']);{with($hook$.with({},{})){let v=1;function*f(x){yield*__hook__(function*(x){yield v;},this,arguments,_c_[0]);};__hook__('()',f(),['next',[]],_c_[1]);}}",
+            "name": "FunctionDeclaration  { with ({}) { let v = 1; function * f(x) {yield v;}; f().next(); } }"
           },
           {
             "code": "function * f(v) {yield v;} f().next();",
@@ -349,7 +359,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           },
           {
             "code": "{ with({}) { async function f() {return 1} f(); } }",
-            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest,f','HookApiTest']);{with($hook$.with({},{})){async function f(){return __hook__(async()=>{return 1;},null,arguments,_c_[0]);}__hook__('w()',__with__,['f',[],(...args)=>f(...args)],_c_[1],false);}}",
+            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest,f']);{with($hook$.with({},{})){async function f(){return __hook__(async()=>{return 1;},null,arguments,_c_[0]);}f();}}",
             "asynchronous": true,
             "name": "FunctionDeclaration  { with({}) { async function f() {return 1} f(); } }"
           },
@@ -394,8 +404,13 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           },
           {
             "code": "{ with ({}) { (function * f(v) {yield v})().next(); } }",
-            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest','HookApiTest,f']);{with($hook$.with({},{})){__hook__('()',function*f(v){yield*__hook__(function*(v){yield __hook__('w.',__with__,['v',()=>v],_c_[1],false);},this,arguments,_c_[1]);}(),['next',[]],_c_[0]);}}",
+            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest','HookApiTest,f']);{with($hook$.with({},{})){__hook__('()',function*f(v){yield*__hook__(function*(v){yield v;},this,arguments,_c_[1]);}(),['next',[]],_c_[0]);}}",
             "name": "FunctionExpression  { with ({}) { (function * f(v) {yield v})().next(); } }"
+          },
+          {
+            "code": "{ let v = 1; with ({}) { (function * f(x) {yield v})().next(); } }",
+            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest','HookApiTest,f']);{let v=1;with($hook$.with({},{v:true})){__hook__('()',function*f(x){yield*__hook__(function*(x){yield __hook__('w.',__with__,['v',()=>v],_c_[1],false);},this,arguments,_c_[1]);}(),['next',[]],_c_[0]);}}",
+            "name": "FunctionExpression  { let v = 1; with ({}) { (function * f(x) {yield v})().next(); } }"
           },
           {
             "code": "var f = function f() { 'use strict'; let o = {a:1}; o.a; Date; Date.now(); return o; }; f();",
@@ -421,7 +436,12 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           },
           {
             "code": "{ with({}) { p => p; (p) => { return p; }; (p1, p2) => [p1, p2]; (p1, p2) => ({ p1: p1, p2: p2 }); (p) => { var v1; let v2; const v3 = 1; }; } }",
-            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest','HookApiTest,p1','HookApiTest,p2']);{with($hook$.with({},{})){(...args)=>__hook__(p=>p,null,args,_c_[0]);(...args)=>(__hook__(p=>{return __hook__('w.',__with__,['p',()=>p],_c_[0],false);},null,args,_c_[0]));(...args)=>__hook__((p1,p2)=>[__hook__('w.',__with__,['p1',()=>p1],_c_[0],false),__hook__('w.',__with__,['p2',()=>p2],_c_[0],false)],null,args,_c_[0]);(...args)=>__hook__((p1,p2)=>({p1:__hook__('w.',__with__,['p1',()=>p1],_c_[1],false),p2:__hook__('w.',__with__,['p2',()=>p2],_c_[2],false)}),null,args,_c_[0]);(...args)=>(__hook__(p=>{var v1;let v2;const v3=1;},null,args,_c_[0]));}}",
+            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest']);{with($hook$.with({},{})){(...args)=>__hook__(p=>p,null,args,_c_[0]);(...args)=>(__hook__(p=>{return p;},null,args,_c_[0]));(...args)=>__hook__((p1,p2)=>[p1,p2],null,args,_c_[0]);(...args)=>__hook__((p1,p2)=>({p1:p1,p2:p2}),null,args,_c_[0]);(...args)=>(__hook__(p=>{var v1;let v2;const v3=1;},null,args,_c_[0]));}}",
+            "name": "ArrowFunctionExpression  { with({}) { p => p; (p) => { return p; }; (p1, p2) => [p1, p2]; (p1, p2) => ({ p1: p1, p2: p2 }); (p) => { var v1; let v2; const v3 = 1; }; } }"
+          },
+          {
+            "code": "{ let _p,_p1,_p2;with({}) { p => _p; (p) => { return _p; }; (p1, p2) => [_p1, _p2]; (p1, p2) => ({ p1: _p1, p2: _p2 }); (p) => { var v1; let v2; const v3 = 1; }; } }",
+            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest','HookApiTest,p1','HookApiTest,p2']);{let _p,_p1,_p2;with($hook$.with({},{_p:true,_p1:true,_p2:true})){(...args)=>__hook__(p=>_p,null,args,_c_[0]);(...args)=>(__hook__(p=>{return __hook__('w.',__with__,['_p',()=>_p],_c_[0],false);},null,args,_c_[0]));(...args)=>__hook__((p1,p2)=>[__hook__('w.',__with__,['_p1',()=>_p1],_c_[0],false),__hook__('w.',__with__,['_p2',()=>_p2],_c_[0],false)],null,args,_c_[0]);(...args)=>__hook__((p1,p2)=>({p1:__hook__('w.',__with__,['_p1',()=>_p1],_c_[1],false),p2:__hook__('w.',__with__,['_p2',()=>_p2],_c_[2],false)}),null,args,_c_[0]);(...args)=>(__hook__(p=>{var v1;let v2;const v3=1;},null,args,_c_[0]));}}",
             "name": "ArrowFunctionExpression  { with({}) { p => p; (p) => { return p; }; (p1, p2) => [p1, p2]; (p1, p2) => ({ p1: p1, p2: p2 }); (p) => { var v1; let v2; const v3 = 1; }; } }"
           },
           {
@@ -495,7 +515,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           {
             "name": "WithStatement nested var o0 = { z: 1 }; { with (o0) { let o1 = { a: 2 }; with (o1) { let o2 = { b: 3 }; with (o2) { a + b + z; } } } }",
             "code": "var o0 = { z: 1 }; { with (o0) { let o1 = { a: 2 }; with (o1) { let o2 = { b: 3 }; with (o2) { a + b + z; } } } }",
-            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest','_pp_o0;HookApiTest']);$hook$.global(__hook__,_c_[0],'o0','var')[_c_[1]]={z:1};{with($hook$.with($hook$.global(__hook__,_c_[0],'o0','get')[_c_[1]],{})){let o1={a:2};with($hook$.with(__hook__('w.',__with__,['o1',()=>o1],_c_[0],false),{o1:true},...__with__)){let o2={b:3};with($hook$.with(__hook__('w.',__with__,['o2',()=>o2],_c_[0],false),{o2:true},...__with__)){__hook__('w.',__with__,['a',()=>a],_c_[0],false)+__hook__('w.',__with__,['b',()=>b],_c_[0],false)+__hook__('w.',__with__,['z',()=>z],_c_[0],false);}}}}"
+            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest','_pp_o0;HookApiTest']);$hook$.global(__hook__,_c_[0],'o0','var')[_c_[1]]={z:1};{with($hook$.with($hook$.global(__hook__,_c_[0],'o0','get')[_c_[1]],{})){let o1={a:2};with($hook$.with(o1,{o1:true},...__with__)){let o2={b:3};with($hook$.with(o2,{o2:true},...__with__)){__hook__('w.',__with__,['a',()=>a],_c_[0],false)+__hook__('w.',__with__,['b',()=>b],_c_[0],false)+__hook__('w.',__with__,['z',()=>z],_c_[0],false);}}}}",
           },
           {
             "code": "{ let b = 1, o = { a: 1, b: 2, [Symbol.unscopables]: { b: true } }; with (o) { a + b; } }",
@@ -519,7 +539,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           },
           {
             "code": "{ with ({}) { (function * f(v) {yield v;})(1).next(); } }",
-            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest','HookApiTest,f']);{with($hook$.with({},{})){__hook__('()',function*f(v){yield*__hook__(function*(v){yield __hook__('w.',__with__,['v',()=>v],_c_[1],false);},this,arguments,_c_[1]);}(1),['next',[]],_c_[0]);}}",
+            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest','HookApiTest,f']);{with($hook$.with({},{})){__hook__('()',function*f(v){yield*__hook__(function*(v){yield v;},this,arguments,_c_[1]);}(1),['next',[]],_c_[0]);}}",
             "name": "YieldExpression  { with ({}) { (function * f(v) {yield v;})(1).next(); } }"
           },
           {
@@ -529,7 +549,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           },
           {
             "code": "{ with ({}) { (function * f(v) {yield *v;})([1]).next(); } }",
-            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest','HookApiTest,f']);{with($hook$.with({},{})){__hook__('()',function*f(v){yield*__hook__(function*(v){yield*__hook__('w.',__with__,['v',()=>v],_c_[1],false);},this,arguments,_c_[1]);}([1]),['next',[]],_c_[0]);}}",
+            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest','HookApiTest,f']);{with($hook$.with({},{})){__hook__('()',function*f(v){yield*__hook__(function*(v){yield*v;},this,arguments,_c_[1]);}([1]),['next',[]],_c_[0]);}}",
             "name": "YieldExpression  { with ({}) { (function * f(v) {yield *v;})([1]).next(); } }"
           },
           {
@@ -729,7 +749,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         "ForInStatement": [
           {
             "code": "with({a: 0, b: {x:1,y:2}}) { let c = 0; for (a in b) { c += b[a]; } c; }",
-            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest']);with($hook$.with({a:0,b:{x:1,y:2}},{})){let c=0;for(__hook__('w.=',__with__,['a',{set ['='](v){a=v;},get ['='](){return a;}}],_c_[0],false)['=']in __hook__('*',__hook__('w.',__with__,['b',()=>b],_c_[0],false),[],_c_[0])){__hook__('w+=',__with__,['c',__hook__('.',__hook__('w.',__with__,['b',()=>b],_c_[0],false),[__hook__('w.',__with__,['a',()=>a],_c_[0],false)],_c_[0]),v=>c+=v],_c_[0],false);}__hook__('w.',__with__,['c',()=>c],_c_[0],false);}",
+            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest']);with($hook$.with({a:0,b:{x:1,y:2}},{})){let c=0;for(__hook__('w.=',__with__,['a',{set ['='](v){a=v;},get ['='](){return a;}}],_c_[0],false)['=']in __hook__('*',__hook__('w.',__with__,['b',()=>b],_c_[0],false),[],_c_[0])){c+=__hook__('.',__hook__('w.',__with__,['b',()=>b],_c_[0],false),[__hook__('w.',__with__,['a',()=>a],_c_[0],false)],_c_[0]);}c;}",
             "name": "ForInStatement  with({a: 0, b: {x:1,y:2}}) { let c = 0; for (a in b) { c += b[a]; } c; }"
           }
         ],
@@ -751,7 +771,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           },
           {
             "code": "{ with ({b:[1, 2],c:0}) { for (let a of b) { c += a; } } }",
-            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest']);{with($hook$.with({b:[1,2],c:0},{})){for(let a of __hook__('*',__hook__('w.',__with__,['b',()=>b],_c_[0],false),[],_c_[0])){__hook__('w+=',__with__,['c',__hook__('w.',__with__,['a',()=>a],_c_[0],false),v=>c+=v],_c_[0],false);}}}",
+            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest']);{with($hook$.with({b:[1,2],c:0},{})){for(let a of __hook__('*',__hook__('w.',__with__,['b',()=>b],_c_[0],false),[],_c_[0])){__hook__('w+=',__with__,['c',a,v=>c+=v],_c_[0],false);}}}",
             "name": "ForOfStatement  { with ({b:[1, 2],c:0}) { for (let a of b) { c += a; } } }"
           },
           {
@@ -851,8 +871,13 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           },
           {
             "code": "{ with ({}) { let a = {p:1}, b = a, c = a.p; [a,b,c]; } }",
-            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest,b','HookApiTest,c','HookApiTest']);{with($hook$.with({},{})){let a={p:1},b=__hook__('w.',__with__,['a',()=>a],_c_[0],false),c=__hook__('.',__hook__('w.',__with__,['a',()=>a],_c_[1],false),['p'],_c_[1]);[__hook__('w.',__with__,['a',()=>a],_c_[2],false),__hook__('w.',__with__,['b',()=>b],_c_[2],false),__hook__('w.',__with__,['c',()=>c],_c_[2],false)];}}",
+            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest,c']);{with($hook$.with({},{})){let a={p:1},b=a,c=__hook__('.',a,['p'],_c_[0]);[a,b,c];}}",
             "name": "VariableDeclarator  { with ({}) { let a = {p:1}, b = a, c = a.p; [a,b,c]; } }"
+          },
+          {
+            "code": "{ with ({a:{p:1}}) { let b = a, c = a.p; [a,b,c]; } }",
+            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest,b','HookApiTest,c','HookApiTest']);{with($hook$.with({a:{p:1}},{})){let b=__hook__('w.',__with__,['a',()=>a],_c_[0],false),c=__hook__('.',__hook__('w.',__with__,['a',()=>a],_c_[1],false),['p'],_c_[1]);[__hook__('w.',__with__,['a',()=>a],_c_[2],false),b,c];}}",
+            "name": "VariableDeclarator  { with ({a:{p:1}}) { let b = a, c = a.p; [a,b,c]; } }"
           },
           {
             "code": "var a = {p:1}, b = a, c = a.p; [a,b,c];",
@@ -892,8 +917,13 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           },
           {
             "code": "{ with ({}) { let [a, b = a, [c], {_d: d}] = [1, 2, [3], {_d:4}]; [a,b,c,d]; } }",
-            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest']);{with($hook$.with({},{})){let [a,b=__hook__('w.',__with__,['a',()=>a],_c_[0],false),[c],{_d:d}]=__hook__('*',[1,2,[3],{_d:4}],[],_c_[0]);[__hook__('w.',__with__,['a',()=>a],_c_[0],false),__hook__('w.',__with__,['b',()=>b],_c_[0],false),__hook__('w.',__with__,['c',()=>c],_c_[0],false),__hook__('w.',__with__,['d',()=>d],_c_[0],false)];}}",
+            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest']);{with($hook$.with({},{})){let [a,b=a,[c],{_d:d}]=__hook__('*',[1,2,[3],{_d:4}],[],_c_[0]);[a,b,c,d];}}",
             "name": "ArrayPattern  { with ({}) { let [a, b = a, [c], {_d: d}] = [1, 2, [3], {_d:4}]; [a,b,c,d]; } }"
+          },
+          {
+            "code": "{ with ({a:1}) { let [_a, b = a, [c], {_d: d}] = [1, 2, [3], {_d:4}]; [a,b,c,d]; } }",
+            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest']);{with($hook$.with({a:1},{})){let [_a,b=__hook__('w.',__with__,['a',()=>a],_c_[0],false),[c],{_d:d}]=__hook__('*',[1,2,[3],{_d:4}],[],_c_[0]);[__hook__('w.',__with__,['a',()=>a],_c_[0],false),b,c,d];}}",
+            "name": "ArrayPattern  { with ({a:1}) { let [_a, b = a, [c], {_d: d}] = [1, 2, [3], {_d:4}]; [a,b,c,d]; } }"
           },
           {
             "code": "var [a, b = a, [c], {_d: d}] = [1, 2, [3], {_d:4}]; [a,b,c,d];",
@@ -907,8 +937,13 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           },
           {
             "code": "{ with ({}) { let a,b,c,d,e = {}; [a, b = a, [c], {_d: d}, e.p] = [1, 2, [3], {_d:4}, 5]; [a,b,c,d,e.p]; } }",
-            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest','HookApiTest,_d']);{with($hook$.with({},{})){let a,b,c,d,e={};[__hook__('w.=',__with__,['a',{set ['='](v){a=v;},get ['='](){return a;}}],_c_[0],false)['='],__hook__('w.=',__with__,['b',{set ['='](v){b=v;},get ['='](){return b;}}],_c_[0],false)['=']=__hook__('w.',__with__,['a',()=>a],_c_[0],false),[__hook__('w.=',__with__,['c',{set ['='](v){c=v;},get ['='](){return c;}}],_c_[0],false)['=']],{_d:__hook__('w.=',__with__,['d',{set ['='](v){d=v;},get ['='](){return d;}}],_c_[1],false)['=']},__hook__('.=',__hook__('w.',__with__,['e',()=>e],_c_[0],false),['p'],_c_[0])['=']]=__hook__('*',[1,2,[3],{_d:4},5],[],_c_[0]);[__hook__('w.',__with__,['a',()=>a],_c_[0],false),__hook__('w.',__with__,['b',()=>b],_c_[0],false),__hook__('w.',__with__,['c',()=>c],_c_[0],false),__hook__('w.',__with__,['d',()=>d],_c_[0],false),__hook__('.',__hook__('w.',__with__,['e',()=>e],_c_[0],false),['p'],_c_[0])];}}",
+            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest']);{with($hook$.with({},{})){let a,b,c,d,e={};[a,b=a,[c],{_d:d},__hook__('.=',e,['p'],_c_[0])['=']]=__hook__('*',[1,2,[3],{_d:4},5],[],_c_[0]);[a,b,c,d,__hook__('.',e,['p'],_c_[0])];}}",
             "name": "ArrayPattern  { with ({}) { let a,b,c,d,e = {}; [a, b = a, [c], {_d: d}, e.p] = [1, 2, [3], {_d:4}, 5]; [a,b,c,d,e.p]; } }"
+          },
+          {
+            "code": "{ let a,b,c,d,e = {}; with ({}) { [a, b = a, [c], {_d: d}, e.p] = [1, 2, [3], {_d:4}, 5]; [a,b,c,d,e.p]; } }",
+            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest','HookApiTest,_d']);{let a,b,c,d,e={};with($hook$.with({},{a:true,b:true,c:true,d:true,e:true})){[__hook__('w.=',__with__,['a',{set ['='](v){a=v;},get ['='](){return a;}}],_c_[0],false)['='],__hook__('w.=',__with__,['b',{set ['='](v){b=v;},get ['='](){return b;}}],_c_[0],false)['=']=__hook__('w.',__with__,['a',()=>a],_c_[0],false),[__hook__('w.=',__with__,['c',{set ['='](v){c=v;},get ['='](){return c;}}],_c_[0],false)['=']],{_d:__hook__('w.=',__with__,['d',{set ['='](v){d=v;},get ['='](){return d;}}],_c_[1],false)['=']},__hook__('.=',__hook__('w.',__with__,['e',()=>e],_c_[0],false),['p'],_c_[0])['=']]=__hook__('*',[1,2,[3],{_d:4},5],[],_c_[0]);[__hook__('w.',__with__,['a',()=>a],_c_[0],false),__hook__('w.',__with__,['b',()=>b],_c_[0],false),__hook__('w.',__with__,['c',()=>c],_c_[0],false),__hook__('w.',__with__,['d',()=>d],_c_[0],false),__hook__('.',__hook__('w.',__with__,['e',()=>e],_c_[0],false),['p'],_c_[0])];}}",
+            "name": "ArrayPattern  { let a,b,c,d,e = {}; with ({}) { [a, b = a, [c], {_d: d}, e.p] = [1, 2, [3], {_d:4}, 5]; [a,b,c,d,e.p]; } }"
           },
           {
             "code": "var a,b,c,d,e = {}; [a, b = a, [c], {_d: d}, e.p] = [1, 2, [3], {_d:4}, 5]; [a,b,c,d,e.p];",
@@ -967,7 +1002,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           },
           {
             "code": "{ let result = 0; with({}) { for (let [i,j] = [3,4]; i && j; i--, j--) { result += i + j; } result; } }",
-            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest']);{let result=0;with($hook$.with({},{result:true})){for(let [i,j]=__hook__('*',[3,4],[],_c_[0]);__hook__('w.',__with__,['i',()=>i],_c_[0],false)&&__hook__('w.',__with__,['j',()=>j],_c_[0],false);__hook__('w--',__with__,['i',()=>i--],_c_[0],false),__hook__('w--',__with__,['j',()=>j--],_c_[0],false)){__hook__('w+=',__with__,['result',__hook__('w.',__with__,['i',()=>i],_c_[0],false)+__hook__('w.',__with__,['j',()=>j],_c_[0],false),v=>result+=v],_c_[0],false);}__hook__('w.',__with__,['result',()=>result],_c_[0],false);}}",
+            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest']);{let result=0;with($hook$.with({},{result:true})){for(let [i,j]=__hook__('*',[3,4],[],_c_[0]);i&&j;i--,j--){__hook__('w+=',__with__,['result',i+j,v=>result+=v],_c_[0],false);}__hook__('w.',__with__,['result',()=>result],_c_[0],false);}}",
             "name": "ArrayPattern  { let result = 0; with({}) { for (let [i,j] = [3,4]; i && j; i--, j--) { result += i + j; } result; } }"
           },
           {
@@ -977,7 +1012,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           },
           {
             "code": "{ let result = 0; with ({}) { for (let [i,j] of [[1,2],[3,4]]) { result += i + j; } result; } }",
-            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest']);{let result=0;with($hook$.with({},{result:true})){for(let [i,j]of __hook__('*',[[1,2],[3,4]],[],_c_[0])){__hook__('w+=',__with__,['result',__hook__('w.',__with__,['i',()=>i],_c_[0],false)+__hook__('w.',__with__,['j',()=>j],_c_[0],false),v=>result+=v],_c_[0],false);}__hook__('w.',__with__,['result',()=>result],_c_[0],false);}}",
+            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest']);{let result=0;with($hook$.with({},{result:true})){for(let [i,j]of __hook__('*',[[1,2],[3,4]],[],_c_[0])){__hook__('w+=',__with__,['result',i+j,v=>result+=v],_c_[0],false);}__hook__('w.',__with__,['result',()=>result],_c_[0],false);}}",
             "name": "ArrayPattern  { let result = 0; with ({}) { for (let [i,j] of [[1,2],[3,4]]) { result += i + j; } result; } }"
           },
           {
@@ -1004,7 +1039,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           },
           {
             "code": "{ with ({}) { let [...a] = [1,2,3]; a; } }",
-            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest']);{with($hook$.with({},{})){let [...a]=__hook__('*',[1,2,3],[],_c_[0]);__hook__('w.',__with__,['a',()=>a],_c_[0],false);}}",
+            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest']);{with($hook$.with({},{})){let [...a]=__hook__('*',[1,2,3],[],_c_[0]);a;}}",
             "name": "RestElement  { with ({}) { let [...a] = [1,2,3]; a; } }"
           },
           {
@@ -1066,7 +1101,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           },
           {
             "code": "{ with ({}) { let {p1, ...b} = {p1: 1, p2: 2, p3: 3}; [p1, b]; } }",
-            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest']);{with($hook$.with({},{})){let {p1,...b}=__hook__('*',{p1:1,p2:2,p3:3},[],_c_[0]);[__hook__('w.',__with__,['p1',()=>p1],_c_[0],false),__hook__('w.',__with__,['b',()=>b],_c_[0],false)];}}",
+            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest']);{with($hook$.with({},{})){let {p1,...b}=__hook__('*',{p1:1,p2:2,p3:3},[],_c_[0]);[p1,b];}}",
             "name": "ExperimentalRestProperty  { with ({}) { let {p1, ...b} = {p1: 1, p2: 2, p3: 3}; [p1, b]; } }"
           },
           {
@@ -1081,7 +1116,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           },
           {
             "code": "{ with ({}) { let p1, b; ({p1, ...b} = {p1: 1, p2: 2, p3: 3}); [p1, b]; } }",
-            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest,p1','HookApiTest']);{with($hook$.with({},{})){let p1,b;({p1:__hook__('w.=',__with__,['p1',{set ['='](v){p1=v;},get ['='](){return p1;}}],_c_[0],false)['='],...(__hook__('w.=',__with__,['b',{set ['='](v){b=v;},get ['='](){return b;}}],_c_[1],false))['=']}=__hook__('*',{p1:1,p2:2,p3:3},[],_c_[1]));[__hook__('w.',__with__,['p1',()=>p1],_c_[1],false),__hook__('w.',__with__,['b',()=>b],_c_[1],false)];}}",
+            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest']);{with($hook$.with({},{})){let p1,b;({p1:p1,...b}=__hook__('*',{p1:1,p2:2,p3:3},[],_c_[0]));[p1,b];}}",
             "name": "ExperimentalRestProperty  { with ({}) { let p1, b; ({p1, ...b} = {p1: 1, p2: 2, p3: 3}); [p1, b]; } }"
           },
           {
@@ -1219,7 +1254,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           },
           {
             "code": "{ with ({}) { let { _a: a, _b: b = a, c, _d: [d], _e: { _f: f }, _g: o } = { _a: 1, _b: 2, c: 3, _d: [4], _e: {_f: 5}, _g: 6 }; [a,b,c,d,f,o]; } }",
-            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest,_b','HookApiTest']);{with($hook$.with({},{})){let {_a:a,_b:b=__hook__('w.',__with__,['a',()=>a],_c_[0],false),c,_d:[d],_e:{_f:f},_g:o}=__hook__('*',{_a:1,_b:2,c:3,_d:[4],_e:{_f:5},_g:6},[],_c_[1]);[__hook__('w.',__with__,['a',()=>a],_c_[1],false),__hook__('w.',__with__,['b',()=>b],_c_[1],false),__hook__('w.',__with__,['c',()=>c],_c_[1],false),__hook__('w.',__with__,['d',()=>d],_c_[1],false),__hook__('w.',__with__,['f',()=>f],_c_[1],false),__hook__('w.',__with__,['o',()=>o],_c_[1],false)];}}",
+            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest']);{with($hook$.with({},{})){let {_a:a,_b:b=a,c,_d:[d],_e:{_f:f},_g:o}=__hook__('*',{_a:1,_b:2,c:3,_d:[4],_e:{_f:5},_g:6},[],_c_[0]);[a,b,c,d,f,o];}}",
             "name": "ObjectPattern  { with ({}) { let { _a: a, _b: b = a, c, _d: [d], _e: { _f: f }, _g: o } = { _a: 1, _b: 2, c: 3, _d: [4], _e: {_f: 5}, _g: 6 }; [a,b,c,d,f,o]; } }"
           },
           {
@@ -1234,8 +1269,13 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           },
           {
             "code": "{ with ({}) { let a,b,c,d,f,o; ({ _a: a, _b: b = a, c, _d: [d], _e: { _f: f }, _g: o } = { _a: 1, _b: 2, c: 3, _d: [4], _e: {_f: 5}, _g: 6 }); [a,b,c,d,f,o]; } }",
-            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest,_a','HookApiTest,_b','HookApiTest,c','HookApiTest,_d','HookApiTest,_e,_f','HookApiTest,_g','HookApiTest']);{with($hook$.with({},{})){let a,b,c,d,f,o;({_a:__hook__('w.=',__with__,['a',{set ['='](v){a=v;},get ['='](){return a;}}],_c_[0],false)['='],_b:__hook__('w.=',__with__,['b',{set ['='](v){b=v;},get ['='](){return b;}}],_c_[1],false)['=']=__hook__('w.',__with__,['a',()=>a],_c_[1],false),c:__hook__('w.=',__with__,['c',{set ['='](v){c=v;},get ['='](){return c;}}],_c_[2],false)['='],_d:[__hook__('w.=',__with__,['d',{set ['='](v){d=v;},get ['='](){return d;}}],_c_[3],false)['=']],_e:{_f:__hook__('w.=',__with__,['f',{set ['='](v){f=v;},get ['='](){return f;}}],_c_[4],false)['=']},_g:__hook__('w.=',__with__,['o',{set ['='](v){o=v;},get ['='](){return o;}}],_c_[5],false)['=']}=__hook__('*',{_a:1,_b:2,c:3,_d:[4],_e:{_f:5},_g:6},[],_c_[6]));[__hook__('w.',__with__,['a',()=>a],_c_[6],false),__hook__('w.',__with__,['b',()=>b],_c_[6],false),__hook__('w.',__with__,['c',()=>c],_c_[6],false),__hook__('w.',__with__,['d',()=>d],_c_[6],false),__hook__('w.',__with__,['f',()=>f],_c_[6],false),__hook__('w.',__with__,['o',()=>o],_c_[6],false)];}}",
+            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest']);{with($hook$.with({},{})){let a,b,c,d,f,o;({_a:a,_b:b=a,c:c,_d:[d],_e:{_f:f},_g:o}=__hook__('*',{_a:1,_b:2,c:3,_d:[4],_e:{_f:5},_g:6},[],_c_[0]));[a,b,c,d,f,o];}}",
             "name": "ObjectPattern  { with ({}) { let a,b,c,d,f,o; ({ _a: a, _b: b = a, c, _d: [d], _e: { _f: f }, _g: o } = { _a: 1, _b: 2, c: 3, _d: [4], _e: {_f: 5}, _g: 6 }); [a,b,c,d,f,o]; } }"
+          },
+          {
+            "code": "{ let a,b,c,d,f,o; with ({}) { ({ _a: a, _b: b = a, c, _d: [d], _e: { _f: f }, _g: o } = { _a: 1, _b: 2, c: 3, _d: [4], _e: {_f: 5}, _g: 6 }); [a,b,c,d,f,o]; } }",
+            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest,_a','HookApiTest,_b','HookApiTest,c','HookApiTest,_d','HookApiTest,_e,_f','HookApiTest,_g','HookApiTest']);{let a,b,c,d,f,o;with($hook$.with({},{a:true,b:true,c:true,d:true,f:true,o:true})){({_a:__hook__('w.=',__with__,['a',{set ['='](v){a=v;},get ['='](){return a;}}],_c_[0],false)['='],_b:__hook__('w.=',__with__,['b',{set ['='](v){b=v;},get ['='](){return b;}}],_c_[1],false)['=']=__hook__('w.',__with__,['a',()=>a],_c_[1],false),c:__hook__('w.=',__with__,['c',{set ['='](v){c=v;},get ['='](){return c;}}],_c_[2],false)['='],_d:[__hook__('w.=',__with__,['d',{set ['='](v){d=v;},get ['='](){return d;}}],_c_[3],false)['=']],_e:{_f:__hook__('w.=',__with__,['f',{set ['='](v){f=v;},get ['='](){return f;}}],_c_[4],false)['=']},_g:__hook__('w.=',__with__,['o',{set ['='](v){o=v;},get ['='](){return o;}}],_c_[5],false)['=']}=__hook__('*',{_a:1,_b:2,c:3,_d:[4],_e:{_f:5},_g:6},[],_c_[6]));[__hook__('w.',__with__,['a',()=>a],_c_[6],false),__hook__('w.',__with__,['b',()=>b],_c_[6],false),__hook__('w.',__with__,['c',()=>c],_c_[6],false),__hook__('w.',__with__,['d',()=>d],_c_[6],false),__hook__('w.',__with__,['f',()=>f],_c_[6],false),__hook__('w.',__with__,['o',()=>o],_c_[6],false)];}}",
+            "name": "ObjectPattern  { let a,b,c,d,f,o; with ({}) { ({ _a: a, _b: b = a, c, _d: [d], _e: { _f: f }, _g: o } = { _a: 1, _b: 2, c: 3, _d: [4], _e: {_f: 5}, _g: 6 }); [a,b,c,d,f,o]; } }"
           },
           {
             "code": "var a,b,c,d,f,o;({ _a: a, _b: b = a, c, _d: [d], _e: { _f: f }, _g: o } = { _a: 1, _b: 2, c: 3, _d: [4], _e: {_f: 5}, _g: 6 }); [a,b,c,d,f,o];",
@@ -1281,7 +1321,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           },
           {
             "code": "{ with ({a:1,b:2}) { ({ m(p) { return p; }, [a]: b }); } }",
-            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest,m','HookApiTest,a']);{with($hook$.with({a:1,b:2},{})){({m(p){return __hook__(p=>{return __hook__('w.',__with__,['p',()=>p],_c_[0],false);},null,arguments,_c_[0]);},[__hook__('w.',__with__,['a',()=>a],_c_[1],false)]:__hook__('w.',__with__,['b',()=>b],_c_[1],false)});}}",
+            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest,m','HookApiTest,a']);{with($hook$.with({a:1,b:2},{})){({m(p){return __hook__(p=>{return p;},null,arguments,_c_[0]);},[__hook__('w.',__with__,['a',()=>a],_c_[1],false)]:__hook__('w.',__with__,['b',()=>b],_c_[1],false)});}}",
             "name": "Property  { with ({a:1,b:2}) { ({ m(p) { return p; }, [a]: b }); } }"
           },
           {
@@ -1455,8 +1495,13 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           },
           {
             "code": "{ with ({}) { class c { static get m() { return this._m; } static set m(v) { this._m = v; } } class c2 extends c { static get m2() { return ++super.m; } } c2.m = 2; c2.m2; } }",
-            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest,c,get m','HookApiTest,c,set m','HookApiTest,c2','HookApiTest,c2,get m2','HookApiTest']);{with($hook$.with({},{})){class c{static get m(){return __hook__(()=>{return __hook__('#.',this,['_m'],_c_[0]);},null,arguments,_c_[0]);}static set m(v){return __hook__(v=>{__hook__('#=',this,['_m',__hook__('w.',__with__,['v',()=>v],_c_[1],false)],_c_[1]);},null,arguments,_c_[1]);}}class c2 extends __hook__('w.',__with__,['c',()=>c],_c_[2],false){static get m2(){return __hook__(()=>{return __hook__('++s',this,['m',p=>++super[p]],_c_[3]);},null,arguments,_c_[3]);}}__hook__('=',c2,['m',2],_c_[4]);__hook__('.',__hook__('w.',__with__,['c2',()=>c2],_c_[4],false),['m2'],_c_[4]);}}",
+            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest,c,get m','HookApiTest,c,set m','HookApiTest,c2,get m2','HookApiTest']);{with($hook$.with({},{})){class c{static get m(){return __hook__(()=>{return __hook__('#.',this,['_m'],_c_[0]);},null,arguments,_c_[0]);}static set m(v){return __hook__(v=>{__hook__('#=',this,['_m',v],_c_[1]);},null,arguments,_c_[1]);}}class c2 extends c{static get m2(){return __hook__(()=>{return __hook__('++s',this,['m',p=>++super[p]],_c_[2]);},null,arguments,_c_[2]);}}__hook__('=',c2,['m',2],_c_[3]);__hook__('.',c2,['m2'],_c_[3]);}}",
             "name": "UpdateExpression  { with ({}) { class c { static get m() { return this._m; } static set m(v) { this._m = v; } } class c2 extends c { static get m2() { return ++super.m; } } c2.m = 2; c2.m2; } }"
+          },
+          {
+            "code": "{ class c { static get m() { return this._m; } static set m(v) { this._m = v; } } with ({}) { class c2 extends c { static get m2() { return ++super.m; } } c2.m = 2; c2.m2; } }",
+            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest,c,get m','HookApiTest,c,set m','HookApiTest,c2','HookApiTest,c2,get m2','HookApiTest']);{class c{static get m(){return __hook__(()=>{return __hook__('#.',this,['_m'],_c_[0]);},null,arguments,_c_[0]);}static set m(v){return __hook__(v=>{__hook__('#=',this,['_m',v],_c_[1]);},null,arguments,_c_[1]);}}with($hook$.with({},{c:true})){class c2 extends __hook__('w.',__with__,['c',()=>c],_c_[2],false){static get m2(){return __hook__(()=>{return __hook__('++s',this,['m',p=>++super[p]],_c_[3]);},null,arguments,_c_[3]);}}__hook__('=',c2,['m',2],_c_[4]);__hook__('.',c2,['m2'],_c_[4]);}}",
+            "name": "UpdateExpression  { class c { static get m() { return this._m; } static set m(v) { this._m = v; } } with ({}) { class c2 extends c { static get m2() { return ++super.m; } } c2.m = 2; c2.m2; } }"
           },
           {
             "code": "class c { static get m() { return this._m; } static set m(v) { this._m = v; } } class c2 extends c { static get m2() { return ++super.m; } } c2.m = 2; c2.m2;",
@@ -1693,8 +1738,13 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           },
           {
             "code": "{ with ({}) { let o = { f: function f() { return 1; } }; o.f() + o['f'](); } }",
-            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest,o,f,f','HookApiTest']);{with($hook$.with({},{})){let o={f:function f(){return __hook__(()=>{return 1;},null,arguments,_c_[0]);}};__hook__('()',__hook__('w.',__with__,['o',()=>o],_c_[1],false),['f',[]],_c_[1])+__hook__('()',__hook__('w.',__with__,['o',()=>o],_c_[1],false),['f',[]],_c_[1]);}}",
+            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest,o,f,f','HookApiTest']);{with($hook$.with({},{})){let o={f:function f(){return __hook__(()=>{return 1;},null,arguments,_c_[0]);}};__hook__('()',o,['f',[]],_c_[1])+__hook__('()',o,['f',[]],_c_[1]);}}",
             "name": "CallExpression  { with ({}) { let o = { f: function f() { return 1; } }; o.f() + o['f'](); } }"
+          },
+          {
+            "code": "{ let o = { f: function f() { return 1; } }; with ({}) { o.f() + o['f'](); } }",
+            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest,o,f,f','HookApiTest']);{let o={f:function f(){return __hook__(()=>{return 1;},null,arguments,_c_[0]);}};with($hook$.with({},{o:true})){__hook__('()',__hook__('w.',__with__,['o',()=>o],_c_[1],false),['f',[]],_c_[1])+__hook__('()',__hook__('w.',__with__,['o',()=>o],_c_[1],false),['f',[]],_c_[1]);}}",
+            "name": "CallExpression  { let o = { f: function f() { return 1; } }; with ({}) { o.f() + o['f'](); } }"
           },
           {
             "code": "{ let a = 1; eval('1'); }",
@@ -1808,9 +1858,15 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           },
           {
             "code": "{ with ({}) { async function f() { return 1; } async function f2() { return await f(); } f2(); } }",
-            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest,f','HookApiTest,f2','HookApiTest']);{with($hook$.with({},{})){async function f(){return __hook__(async()=>{return 1;},null,arguments,_c_[0]);}async function f2(){return __hook__(async()=>{return await __hook__('w()',__with__,['f',[],(...args)=>f(...args)],_c_[1],false);},null,arguments,_c_[1]);}__hook__('w()',__with__,['f2',[],(...args)=>f2(...args)],_c_[2],false);}}",
+            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest,f','HookApiTest,f2']);{with($hook$.with({},{})){async function f(){return __hook__(async()=>{return 1;},null,arguments,_c_[0]);}async function f2(){return __hook__(async()=>{return await f();},null,arguments,_c_[1]);}f2();}}",
             "asynchronous": true,
             "name": "AwaitExpression  { with ({}) { async function f() { return 1; } async function f2() { return await f(); } f2(); } }"
+          },
+          {
+            "code": "{ async function f() { return 1; } with ({}) { async function f2() { return await f(); } f2(); } }",
+            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest,f','HookApiTest,f2']);{async function f(){return __hook__(async()=>{return 1;},null,arguments,_c_[0]);}with($hook$.with({},{f:true})){async function f2(){return __hook__(async()=>{return await __hook__('w()',__with__,['f',[],(...args)=>f(...args)],_c_[1],false);},null,arguments,_c_[1]);}f2();}}",
+            "asynchronous": true,
+            "name": "AwaitExpression  { async function f() { return 1; } with ({}) { async function f2() { return await f(); } f2(); } }"
           },
           {
             "code": "async function f() { return 1; } async function f2() { return await f(); } f2();",
@@ -1916,7 +1972,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           },
           {
             "code": "{ with ({}) { class a {} class b extends a {} } }",
-            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest,b']);{with($hook$.with({},{})){class a{}class b extends __hook__('w.',__with__,['a',()=>a],_c_[0],false){}}}",
+            "hooked": "const _c_=$hook$.$(__hook__,[]);{with($hook$.with({},{})){class a{}class b extends a{}}}",
             "name": "ClassDeclaration  { with ({}) { class a {} class b extends a {} } }"
           },
           {
@@ -1945,7 +2001,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           },
           {
             "code": "{ with ({}) { let a = class a {}; let b = class b extends a {}; } }",
-            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest,b,b']);{with($hook$.with({},{})){let a=class a{};let b=class b extends __hook__('w.',__with__,['a',()=>a],_c_[0],false){};}}",
+            "hooked": "const _c_=$hook$.$(__hook__,[]);{with($hook$.with({},{})){let a=class a{};let b=class b extends a{};}}",
             "name": "ClassExpression  { with ({}) { let a = class a {}; let b = class b extends a {}; } }"
           },
           {
@@ -1989,22 +2045,22 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           },
           {
             "code": "{ with ({}) { class a { constructor(p) { this._p = p; } m(a) { this._p += a; } get p() { return this._p; } set p(v) { this._p = v; } } } }",
-            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest,a,constructor','HookApiTest,a,m','HookApiTest,a,get p','HookApiTest,a,set p']);{with($hook$.with({},{})){class a{constructor(p){return __hook__(p=>{__hook__('#=',this,['_p',__hook__('w.',__with__,['p',()=>p],_c_[0],false)],_c_[0]);},null,arguments,_c_[0]);}m(a){return __hook__(a=>{__hook__('#+=',this,['_p',__hook__('w.',__with__,['a',()=>a],_c_[1],false)],_c_[1]);},null,arguments,_c_[1]);}get p(){return __hook__(()=>{return __hook__('#.',this,['_p'],_c_[2]);},null,arguments,_c_[2]);}set p(v){return __hook__(v=>{__hook__('#=',this,['_p',__hook__('w.',__with__,['v',()=>v],_c_[3],false)],_c_[3]);},null,arguments,_c_[3]);}}}}",
+            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest,a,constructor','HookApiTest,a,m','HookApiTest,a,get p','HookApiTest,a,set p']);{with($hook$.with({},{})){class a{constructor(p){return __hook__(p=>{__hook__('#=',this,['_p',p],_c_[0]);},null,arguments,_c_[0]);}m(a){return __hook__(a=>{__hook__('#+=',this,['_p',a],_c_[1]);},null,arguments,_c_[1]);}get p(){return __hook__(()=>{return __hook__('#.',this,['_p'],_c_[2]);},null,arguments,_c_[2]);}set p(v){return __hook__(v=>{__hook__('#=',this,['_p',v],_c_[3]);},null,arguments,_c_[3]);}}}}",
             "name": "MethodDefinition  { with ({}) { class a { constructor(p) { this._p = p; } m(a) { this._p += a; } get p() { return this._p; } set p(v) { this._p = v; } } } }"
           },
           {
             "code": "{ with ({}) { class a { static m(a) { this._p += a; } static get p() { return this._p; } static set p(v) { this._p = v; } } } }",
-            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest,a,static m','HookApiTest,a,get p','HookApiTest,a,set p']);{with($hook$.with({},{})){class a{static m(a){return __hook__(a=>{__hook__('#+=',this,['_p',__hook__('w.',__with__,['a',()=>a],_c_[0],false)],_c_[0]);},null,arguments,_c_[0]);}static get p(){return __hook__(()=>{return __hook__('#.',this,['_p'],_c_[1]);},null,arguments,_c_[1]);}static set p(v){return __hook__(v=>{__hook__('#=',this,['_p',__hook__('w.',__with__,['v',()=>v],_c_[2],false)],_c_[2]);},null,arguments,_c_[2]);}}}}",
+            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest,a,static m','HookApiTest,a,get p','HookApiTest,a,set p']);{with($hook$.with({},{})){class a{static m(a){return __hook__(a=>{__hook__('#+=',this,['_p',a],_c_[0]);},null,arguments,_c_[0]);}static get p(){return __hook__(()=>{return __hook__('#.',this,['_p'],_c_[1]);},null,arguments,_c_[1]);}static set p(v){return __hook__(v=>{__hook__('#=',this,['_p',v],_c_[2]);},null,arguments,_c_[2]);}}}}",
             "name": "MethodDefinition  { with ({}) { class a { static m(a) { this._p += a; } static get p() { return this._p; } static set p(v) { this._p = v; } } } }"
           },
           {
             "code": "{ with ({m:'m',p:'p'}) { class a { constructor(p) { this._p = p; } [m](a) { this._p += a; } get [p]() { return this._p; } set [p](v) { this._p = v; } } } }",
-            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest,a,constructor','HookApiTest,a,m','HookApiTest,a,get p','HookApiTest,a,set p']);{with($hook$.with({m:'m',p:'p'},{})){class a{constructor(p){return __hook__(p=>{__hook__('#=',this,['_p',__hook__('w.',__with__,['p',()=>p],_c_[0],false)],_c_[0]);},null,arguments,_c_[0]);}[__hook__('w.',__with__,['m',()=>m],_c_[1],false)](a){return __hook__(a=>{__hook__('#+=',this,['_p',__hook__('w.',__with__,['a',()=>a],_c_[1],false)],_c_[1]);},null,arguments,_c_[1]);}get[__hook__('w.',__with__,['p',()=>p],_c_[2],false)](){return __hook__(()=>{return __hook__('#.',this,['_p'],_c_[2]);},null,arguments,_c_[2]);}set[__hook__('w.',__with__,['p',()=>p],_c_[3],false)](v){return __hook__(v=>{__hook__('#=',this,['_p',__hook__('w.',__with__,['v',()=>v],_c_[3],false)],_c_[3]);},null,arguments,_c_[3]);}}}}",
+            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest,a,constructor','HookApiTest,a,m','HookApiTest,a,get p','HookApiTest,a,set p']);{with($hook$.with({m:'m',p:'p'},{})){class a{constructor(p){return __hook__(p=>{__hook__('#=',this,['_p',p],_c_[0]);},null,arguments,_c_[0]);}[__hook__('w.',__with__,['m',()=>m],_c_[1],false)](a){return __hook__(a=>{__hook__('#+=',this,['_p',a],_c_[1]);},null,arguments,_c_[1]);}get[__hook__('w.',__with__,['p',()=>p],_c_[2],false)](){return __hook__(()=>{return __hook__('#.',this,['_p'],_c_[2]);},null,arguments,_c_[2]);}set[__hook__('w.',__with__,['p',()=>p],_c_[3],false)](v){return __hook__(v=>{__hook__('#=',this,['_p',v],_c_[3]);},null,arguments,_c_[3]);}}}}",
             "name": "MethodDefinition  { with ({m:'m',p:'p'}) { class a { constructor(p) { this._p = p; } [m](a) { this._p += a; } get [p]() { return this._p; } set [p](v) { this._p = v; } } } }"
           },
           {
             "code": "{ with ({m:'m',p:'p'}) { class a { static [m](a) { this._p += a; } static get [p]() { return this._p; } static set [p](v) { this._p = v; } } } }",
-            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest,a,static m','HookApiTest,a,get p','HookApiTest,a,set p']);{with($hook$.with({m:'m',p:'p'},{})){class a{static[__hook__('w.',__with__,['m',()=>m],_c_[0],false)](a){return __hook__(a=>{__hook__('#+=',this,['_p',__hook__('w.',__with__,['a',()=>a],_c_[0],false)],_c_[0]);},null,arguments,_c_[0]);}static get[__hook__('w.',__with__,['p',()=>p],_c_[1],false)](){return __hook__(()=>{return __hook__('#.',this,['_p'],_c_[1]);},null,arguments,_c_[1]);}static set[__hook__('w.',__with__,['p',()=>p],_c_[2],false)](v){return __hook__(v=>{__hook__('#=',this,['_p',__hook__('w.',__with__,['v',()=>v],_c_[2],false)],_c_[2]);},null,arguments,_c_[2]);}}}}",
+            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest,a,static m','HookApiTest,a,get p','HookApiTest,a,set p']);{with($hook$.with({m:'m',p:'p'},{})){class a{static[__hook__('w.',__with__,['m',()=>m],_c_[0],false)](a){return __hook__(a=>{__hook__('#+=',this,['_p',a],_c_[0]);},null,arguments,_c_[0]);}static get[__hook__('w.',__with__,['p',()=>p],_c_[1],false)](){return __hook__(()=>{return __hook__('#.',this,['_p'],_c_[1]);},null,arguments,_c_[1]);}static set[__hook__('w.',__with__,['p',()=>p],_c_[2],false)](v){return __hook__(v=>{__hook__('#=',this,['_p',v],_c_[2]);},null,arguments,_c_[2]);}}}}",
             "name": "MethodDefinition  { with ({m:'m',p:'p'}) { class a { static [m](a) { this._p += a; } static get [p]() { return this._p; } static set [p](v) { this._p = v; } } } }"
           },
           {
@@ -2028,7 +2084,7 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
           },
           {
             "code": "{ with ({}) { class c { constructor() { this.nt = new.target; } } (new c()).nt === c; } }",
-            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest,c,constructor','HookApiTest']);{with($hook$.with({},{})){class c{constructor(){return __hook__(()=>{__hook__('#=',this,['nt',new.target],_c_[0]);},null,arguments,_c_[0]);}}__hook__('.',__hook__('wnew',__with__,['c',[],(...args)=>new c(...args)],_c_[1],false),['nt'],_c_[1])===__hook__('w.',__with__,['c',()=>c],_c_[1],false);}}",
+            "hooked": "const _c_=$hook$.$(__hook__,['HookApiTest,c,constructor','HookApiTest']);{with($hook$.with({},{})){class c{constructor(){return __hook__(()=>{__hook__('#=',this,['nt',new.target],_c_[0]);},null,arguments,_c_[0]);}}__hook__('.',new c(),['nt'],_c_[1])===c;}}",
             "name": "MetaProperty  { with ({}) { class c { constructor() { this.nt = new.target; } } (new c()).nt === c; } }"
           },
           {
