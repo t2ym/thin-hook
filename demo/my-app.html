@@ -150,7 +150,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
     });
-
+  {
     // Custom event handler for 'upgrade' event
     //  - immediate dispatching of 'upgrade-notified' event is expected
     //  - dispatching of 'upgrade-ready' event is expected if 'upgrade-notified' event is dispatched
@@ -219,6 +219,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         window.dispatchEvent(new CustomEvent('suspend-ready', { detail: { resumeURL: resumeURL } }));
       }, 1000);
     }
+  }
   </script>
 
 </dom-module>
