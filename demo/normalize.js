@@ -2874,6 +2874,170 @@
     Object.create(Object.getPrototypeOf(new BaseClass1())).instanceMethod;
   }, /^Permission Denied: Cannot access BaseClass1/);
 
+  let OrphanedGlobalObject = Object.assign(Object.create(null), {
+    property: 1,
+    method() { return this.property },
+    get accessor() { return this.property },
+    set accessor(value) { this.property = value; },
+  });
+  window.OrphanedGlobalObject = OrphanedGlobalObject;
+
+  chai.assert.throws(() => {
+    OrphanedGlobalObject.property;
+  }, /^Permission Denied: Cannot access OrphanedGlobalObject/);
+
+  chai.assert.throws(() => {
+    OrphanedGlobalObject.property = 2;
+  }, /^Permission Denied: Cannot access OrphanedGlobalObject/);
+
+  chai.assert.throws(() => {
+    OrphanedGlobalObject.method();
+  }, /^Permission Denied: Cannot access OrphanedGlobalObject/);
+
+  chai.assert.throws(() => {
+    OrphanedGlobalObject.accessor;
+  }, /^Permission Denied: Cannot access OrphanedGlobalObject/);
+
+  chai.assert.throws(() => {
+    OrphanedGlobalObject.accessor = 3;
+  }, /^Permission Denied: Cannot access OrphanedGlobalObject/);
+
+  chai.assert.throws(() => {
+    Object.getOwnPropertyDescriptor(OrphanedGlobalObject, 'property');
+  }, /^Permission Denied: Cannot access OrphanedGlobalObject/);
+
+  chai.assert.throws(() => {
+    Object.defineProperty(OrphanedGlobalObject, 'property', { value: 2, configurable: true, enumerable: true, writable: true });
+  }, /^Permission Denied: Cannot access OrphanedGlobalObject/);
+
+  chai.assert.throws(() => {
+    Object.create(OrphanedGlobalObject).property;
+  }, /^Permission Denied: Cannot access OrphanedGlobalObject/);
+
+  chai.assert.throws(() => {
+    Object.create(OrphanedGlobalObject).method();
+  }, /^Permission Denied: Cannot access OrphanedGlobalObject/);
+
+  chai.assert.throws(() => {
+    Object.create(OrphanedGlobalObject).accessor;
+  }, /^Permission Denied: Cannot access OrphanedGlobalObject/);
+
+  Object.create(OrphanedGlobalObject).property = 2; // write this own property
+  Object.defineProperty(Object.create(OrphanedGlobalObject), 'property', { value: 3 }); // define this own property
+  Object.getOwnPropertyDescriptor(Object.create(OrphanedGlobalObject), 'property'); // get this own property descriptor
+  Object.getOwnPropertyDescriptor(Object.create(OrphanedGlobalObject, {
+    property: { value: 2, configurable: true, enumerable: true, writable: true },
+  }), 'property'); // get this own property descriptor
+  Object.create(OrphanedGlobalObject, {
+    property: { value: 2, configurable: true, enumerable: true, writable: true },
+    method: { value: function () { return this.property2; }, configurable: true, enumerable: true, writable: true },
+  }).property; // get this own property
+  Object.create(OrphanedGlobalObject, {
+    property: { value: 2, configurable: true, enumerable: true, writable: true },
+    method: { value: function () { return this.property2; }, configurable: true, enumerable: true, writable: true },
+  }).method(); // call this own method()
+  Object.create(OrphanedGlobalObject).accessor = 4; // write super accessor
+  Object.create(OrphanedGlobalObject, {
+    property: { value: 2, configurable: true, enumerable: true, writable: true },
+    method: { value: function () { return this.property2; }, configurable: true, enumerable: true, writable: true },
+    accessor: { get: function () { return this.property2; }, set: function (value) { this.property2 = value; }, configurable: true, enumerable: true },
+  }).accessor; // read this own accessor
+  Object.create(OrphanedGlobalObject, {
+    property: { value: 2, configurable: true, enumerable: true, writable: true },
+    method: { value: function () { return this.property2; }, configurable: true, enumerable: true, writable: true },
+    accessor: { get: function () { return this.property2; }, set: function (value) { this.property2 = value; }, configurable: true, enumerable: true },
+  }).accessor = 2; // write this own accessor
+
+  let GlobalObject = {
+    property: 1,
+    method() { return this.property },
+    get accessor() { return this.property },
+    set accessor(value) { this.property = value; },
+  };
+  window.GlobalObject = GlobalObject;
+
+  chai.assert.throws(() => {
+    GlobalObject.property;
+  }, /^Permission Denied: Cannot access GlobalObject/);
+
+  chai.assert.throws(() => {
+    GlobalObject.property = 2;
+  }, /^Permission Denied: Cannot access GlobalObject/);
+
+  chai.assert.throws(() => {
+    GlobalObject.method();
+  }, /^Permission Denied: Cannot access GlobalObject/);
+
+  chai.assert.throws(() => {
+    GlobalObject.accessor;
+  }, /^Permission Denied: Cannot access GlobalObject/);
+
+  chai.assert.throws(() => {
+    GlobalObject.accessor = 3;
+  }, /^Permission Denied: Cannot access GlobalObject/);
+
+  chai.assert.throws(() => {
+    Object.getOwnPropertyDescriptor(GlobalObject, 'property');
+  }, /^Permission Denied: Cannot access GlobalObject/);
+
+  chai.assert.throws(() => {
+    Object.defineProperty(GlobalObject, 'property', { value: 2, configurable: true, enumerable: true, writable: true });
+  }, /^Permission Denied: Cannot access GlobalObject/);
+
+  chai.assert.throws(() => {
+    Object.create(GlobalObject).property;
+  }, /^Permission Denied: Cannot access GlobalObject/);
+
+  chai.assert.throws(() => {
+    Object.create(GlobalObject).method();
+  }, /^Permission Denied: Cannot access GlobalObject/);
+
+  chai.assert.throws(() => {
+    Object.create(GlobalObject).accessor;
+  }, /^Permission Denied: Cannot access GlobalObject/);
+
+  Object.create(GlobalObject).property = 2; // write this own property
+  Object.defineProperty(Object.create(GlobalObject), 'property', { value: 3 }); // define this own property
+  Object.getOwnPropertyDescriptor(Object.create(GlobalObject), 'property'); // get this own property descriptor
+  Object.getOwnPropertyDescriptor(Object.create(GlobalObject, {
+    property: { value: 2, configurable: true, enumerable: true, writable: true },
+  }), 'property'); // get this own property descriptor
+  Object.create(GlobalObject, {
+    property: { value: 2, configurable: true, enumerable: true, writable: true },
+    method: { value: function () { return this.property2; }, configurable: true, enumerable: true, writable: true },
+  }).property; // get this own property
+  Object.create(GlobalObject, {
+    property: { value: 2, configurable: true, enumerable: true, writable: true },
+    method: { value: function () { return this.property2; }, configurable: true, enumerable: true, writable: true },
+  }).method(); // call this own method()
+  Object.create(GlobalObject).accessor = 4; // write super accessor
+  Object.create(GlobalObject, {
+    property: { value: 2, configurable: true, enumerable: true, writable: true },
+    method: { value: function () { return this.property2; }, configurable: true, enumerable: true, writable: true },
+    accessor: { get: function () { return this.property2; }, set: function (value) { this.property2 = value; }, configurable: true, enumerable: true },
+  }).accessor; // read this own accessor
+  Object.create(GlobalObject, {
+    property: { value: 2, configurable: true, enumerable: true, writable: true },
+    method: { value: function () { return this.property2; }, configurable: true, enumerable: true, writable: true },
+    accessor: { get: function () { return this.property2; }, set: function (value) { this.property2 = value; }, configurable: true, enumerable: true },
+  }).accessor = 2; // write this own accessor
+
+  /*
+  let NoAclGlobalObject = {
+    property: 1,
+    method() { return this.property },
+    get accessor() { return this.property },
+    set accessor(value) { this.property = value; },
+  };
+  Object.setPrototypeOf(NoAclGlobalObject, window);
+  debugger;
+  window.NoAclGlobalObject = NoAclGlobalObject;
+
+  chai.assert.throws(() => {
+    NoAclGlobalObject.caches;
+  }, /^Permission Denied: Cannot access window/);
+  */
+
   // multipath
   (function () {
     'use strict';
