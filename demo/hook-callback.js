@@ -4147,6 +4147,7 @@ else {
     _data3: {
       [S_DEFAULT]: '---',
       '@Object_prototype_reader': 'rwx',
+      '@hook_visualizer': 'rw-',
     },
     gA1: {
       [S_DEFAULT]: '---',
