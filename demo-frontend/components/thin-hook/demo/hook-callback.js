@@ -1,6 +1,6 @@
 /*
 @license https://github.com/t2ym/thin-hook/blob/master/LICENSE.md
-Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
+Copyright (c) 2017, 2018, 2019, 2020 Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 */
 if (hook.parameters[Symbol.for('hook-callback.js')]) {
   // skip reinstalling the plugin
@@ -579,7 +579,10 @@ else {
     '/components/thin-hook/demo/my-view2.html,script@2946,descriptors': '@window_enumerator',
     '/components/thin-hook/demo/my-view2.html,script@2946': '@Object_prototype_reader',
     '/components/web-animations-js/web-animations-next-lite.min.js': '@web_animations_next_lite',
+    '/components/web-animations-js/web-animations-next-lite.min.js,*': '@web_animations_next_lite',
     '/components/live-localizer/live-localizer-browser-storage.html,script@3348,modelReady': '@Dexie_instantiator',
+    '/components/deepcopy/build/deepcopy.min.js': '@deepcopy',
+    '/components/deepcopy/build/deepcopy.min.js,*': '@deepcopy',
     '/components/deepcopy/build/deepcopy.min.js,u': '@Object_keys_reader',
     '/components/dexie/dist/dexie.min.js,jn': '@Object_keys_reader',
     '/components/dexie/dist/dexie.min.js,Pn': '@Object_getPrototypeOf_reader',
@@ -589,6 +592,7 @@ else {
     '/components/firebase/firebase-auth.js': '@firebase_auth',
     '/components/firebase/firebase-auth.js,*': '@firebase_auth',
     '/components/firebase/firebase-auth.js,Xb': '@Object_defineProperty_reader',
+    '/components/firebase/firebase-auth.js,mc': '@firebase_auth_closure_global_variable_writer',
     '/components/dexie/dist/dexie.min.js,Cn': '@Object_method_reader',
     '/components/firebase/firebase-database.js': '@firebase_database',
     '/components/firebase/firebase-database.js,*': '@firebase_database',
@@ -648,6 +652,7 @@ else {
     '/components/chai/chai.js,9,hasProtoSupport': '@Object__proto__reader',
     '/components/chai/chai.js,36,getType,type': '@Object_prototype_reader',
     '/components/chai/chai.js,24,type': '@Object_prototype_reader',
+    '/components/chai/chai.js': '@chai_js',
     '/components/chai/chai.js,*': '@chai_js',
     '/components/dexie/dist/dexie.min.js,p': '@Object_static_method_user',
     '/components/dexie/dist/dexie.min.js,*': '@dexie_js',
@@ -756,15 +761,44 @@ else {
     '/components/thin-hook/demo/sub-document.html,script@8036,onLoad,*': '@iframe_contentWindow_accessor',
     'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js,41,o': '@iframe_contentWindow_accessor',
     'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js,26': '@iframe_contentWindow_accessor',
+    'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js': '@Chart.min.js',
+    'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js,*': '@Chart.min.js',
+    'https://cdnjs.cloudflare.com/ajax/libs/jsSHA/2.2.0/sha.js': '@sha.js',
+    'https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js': '@crypto-js',
+    'https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js,*': '@crypto-js',
+    'https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js': '@crypto-js',
+    'https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js,*': '@crypto-js',
     '/components/thin-hook/demo/my-view1.html,script@4544,attached': '@svg_contentWindow_accessor',
     '/components/iron-behaviors/iron-control-state.html,script@581,properties,_boundFocusBlurHandler,type': '@Function_reader',
     '/components/paper-ripple/paper-ripple.html,script@4438,properties,_boundAnimate,type': '@Function_reader',
     '/components/iron-ajax/iron-ajax.html,script@1410,properties,_boundHandleResponse,type': '@Function_reader',
     '/components/vaadin-grid/vaadin-grid-table.html,script@8651,properties,bindData': '@Function_reader',
+    '/components/vaadin-grid/vaadin-grid-active-item-behavior.html,script@320': '@vaadin-grid',
+    '/components/vaadin-grid/vaadin-grid-table-scroll-behavior.html,script@1638': '@vaadin-grid',
+    '/components/vaadin-grid/vaadin-grid-cell-click-behavior.html,script@8': '@vaadin-grid',
+    '/components/vaadin-grid/vaadin-grid-focusable-cell-container-behavior.html,script@8': '@vaadin-grid',
+    '/components/vaadin-grid/vaadin-grid-templatizer.html,script@67': '@vaadin-grid',
+    '/components/vaadin-grid/vaadin-grid-row-details-behavior.html,script@593': '@vaadin-grid',
+    '/components/vaadin-grid/vaadin-grid-data-provider-behavior.html,script@1161': '@vaadin-grid',
+    '/components/vaadin-grid/vaadin-grid-selection-behavior.html,script@8': '@vaadin-grid',
+    '/components/vaadin-grid/vaadin-grid-keyboard-navigation-behavior.html,script@623': '@vaadin-grid',
+    '/components/vaadin-grid/vaadin-grid-column-reordering-behavior.html,script@951': '@vaadin-grid',
+    '/components/vaadin-grid/vaadin-grid-column.html,script@281': '@vaadin-grid',
+    '/components/vaadin-grid/vaadin-grid-array-data-provider-behavior.html,script@8': '@vaadin-grid',
+    '/components/vaadin-grid/vaadin-grid-dynamic-columns-behavior.html,script@8': '@vaadin-grid',
+    '/components/vaadin-grid/vaadin-grid-sort-behavior.html,script@8': '@vaadin-grid',
+    '/components/vaadin-grid/vaadin-grid-filter-behavior.html,script@8': '@vaadin-grid',
+    '/components/vaadin-grid/iron-list-behavior.html,script@165': '@vaadin-grid',
     '/components/app-storage/app-storage-behavior.html,script@579,valueIsEmpty': '@Object_prototype_reader',
     '/components/thin-hook/demo/global.js': '@global_js',
     '/components/thin-hook/demo/global.js,inaccessible': '@global_js_inaccessible',
     '/components/thin-hook/demo/global.js,inaccessible,accessible': '@global_js_accessible',
+    '/components/shadycss/apply-shim.min.js': '@apply-shim',
+    '/components/shadycss/apply-shim.min.js,*': '@apply-shim',
+    '/components/shadycss/custom-style-interface.min.js': '@custom-style-interface',
+    '/components/shadycss/custom-style-interface.min.js,*': '@custom-style-interface',
+    '/components/make-plural/plurals.js': '@plurals.js',
+    '/components/make-plural/plurals.js,*': '@plurals.js',
     'https://thin-hook.localhost.localdomain/automation.json,*': '@cache_automation',
   };
   /*
@@ -962,6 +996,248 @@ else {
           }
         }
         return 'rwxRW'[opTypeMap[opType]] === opType; // equivalent to 'rwxRW' acl
+      };
+    }
+    // example: r = (name, prop) => name === 'window' && typeof prop === 'string' && prop.startsWith('prefix_')
+    static patternAcl({ r = S_GLOBAL, w = S_GLOBAL, x = S_GLOBAL, R = S_GLOBAL, W = S_GLOBAL }) {
+      const globalAcl = Policy.globalAcl();
+      const pattern = arguments[0];
+      return function patternAcl(normalizedThisArg,
+                                 normalizedArgs /* ['property', args], ['property', value], etc. */,
+                                 aclArgs /* [name, isStatic, isObject, property, opType, context, target, normalizedArgs, hookArgs] */,
+                                 hookArgs /* [f, thisArg, args, context, newTarget] */,
+                                 applyAcl /* for recursive application of ACL */) {
+        if (pattern[aclArgs[4]]) {
+          return pattern[aclArgs[4]] === S_GLOBAL ? globalAcl(...arguments) : pattern[aclArgs[4]](aclArgs[0], aclArgs[3]);
+        }
+        else {
+          return globalAcl(...arguments);
+        }
+      };
+    }
+    static globalAcl() {
+      return function globalAcl(normalizedThisArg,
+                                normalizedArgs /* ['property', args], ['property', value], etc. */,
+                                aclArgs /* [name, isStatic, isObject, property, opType, context, target, normalizedArgs, hookArgs] */,
+                                hookArgs /* [f, thisArg, args, context, newTarget] */,
+                                applyAcl /* for recursive application of ACL */) {
+        let property = aclArgs[3];
+        let rawProperty = _unescapePlatformProperties.get(property) || property;
+        switch (property) {
+        case S_ALL:
+          switch (typeof normalizedThisArg) {
+          case 'object':
+            if (normalizedThisArg === null) {
+              break;
+            }
+          case 'function':
+            {
+              let target = normalizedThisArg;
+              // S_ALL for [S_GLOBAL] object is permitted
+              target = Object.getPrototypeOf(target); // steps to the next chain
+              let names, isStatic, isObject;
+              while (target) {
+                [names, isStatic, isObject] = detectName(target);
+                if (names instanceof Set) {
+                  isObject = true;
+                  let isNoAclNameChecked = false;
+                  for (let name of names) {
+                    if (!Reflect.has(acl, name)) {
+                      if (isNoAclNameChecked) {
+                        continue;
+                      }
+                      name = undefined;
+                      isNoAclNameChecked = true;
+                    }
+                    if (!applyAcl(name, isStatic, isObject, property, aclArgs[4], hookArgs[3], target, normalizedArgs, hookArgs)) {
+                      //console.log('globalAcl: permission denied ', name, target, property);
+                      return false;
+                    }
+                  }
+                }
+                target = Object.getPrototypeOf(target);
+              }
+            }
+            break;
+          case 'boolean':
+          case 'number':
+          case 'string':
+          case 'symbol':
+            // TODO: access permission to primitive values and their constructors
+            break;
+          case 'undefined':
+          default: // including 'bigint'
+            break;
+          }
+          break;
+        case S_UNSPECIFIED:
+          // Unreachable for now as applyAcl is skipped for untracked functions
+          break;
+        case S_FUNCTION:
+          // f.apply(normalizedThisArg)
+          // f.call(normalizedThisArg)
+          // f.bind(normalizedThisArg)
+          // _globalMethods.get(f) === undefined
+          // TODO: proper handling of untracked functions
+          break;
+        default:
+          switch (typeof normalizedThisArg) {
+          case 'object':
+            if (normalizedThisArg === null) {
+              break;
+            }
+          case 'function':
+            switch (aclArgs[4]) {
+            case 'r':
+              if (_hasOwnProperty.call(normalizedThisArg, rawProperty)) {
+                return true; // read an own property of this global object
+              }
+              else if (Reflect.has(normalizedThisArg, rawProperty)) {
+                // read an inherited property
+                let target = Object.getPrototypeOf(normalizedThisArg);
+                let _names, _isStatic, _isObject;
+                while (target) {
+                  [_names, _isStatic, _isObject] = detectName(target, null);
+                  if (_names instanceof Set) {
+                    _isObject = true; // Adjust _isObject as true since target is a prototype of normalizedThisArg
+                    let isNoAclNameChecked = false;
+                    for (let _name of _names) {
+                      if (!Reflect.has(acl, _name)) {
+                        if (isNoAclNameChecked) {
+                          continue;
+                        }
+                        _name = undefined;
+                        isNoAclNameChecked = true;
+                      }
+                      // TODO: handle when normalizedThisArg itself is a prototype object of a function
+                      if (!applyAcl(_name, _isStatic, _isObject, property, aclArgs[4], hookArgs[3], target, normalizedArgs, hookArgs)) {
+                        return false;
+                      }
+                    }
+                  }
+                  if (_hasOwnProperty.call(target, rawProperty)) {
+                    break;
+                  }
+                  target = Object.getPrototypeOf(target);
+                }
+              }
+              break;
+            case 'w':
+              // TODO: Array.isArray(property) ... Is the same result as a single property?
+              if (aclArgs[1]) { // isStatic
+                // access denied for a no-acl global object
+                return false;
+              }
+              else {
+                if (!aclArgs[2]) { // !isObject
+                  // access denied for the prototype object of a no-acl global object
+                  return false;
+                }
+                else {
+                  // allow writing to an instance of this global object
+                }
+              }
+              break;
+            case 'R':
+              if (aclArgs[1]) { // isStatic
+                // access denied for getOwnPropertyDescriptor on this global object
+                return false;
+              }
+              else {
+                if (!aclArgs[2]) { // !isObject
+                  // access denied for the prototype object of a no-acl global object
+                  return false;
+                }
+                else {
+                  // allow allowed for getOwnPropertyDescriptor on an instance of this global object
+                }
+              }
+              break;
+            case 'W':
+              if (aclArgs[1]) { // isStatic
+                // access denied for defineProperty on this global object
+                return false;
+              }
+              else {
+                if (!aclArgs[2]) { // !isObject
+                  // access denied for the prototype object of a no-acl global object
+                  return false;
+                }
+                else {
+                  // allow writing to an instance of this global object
+                }
+              }
+              break;
+            case 'x':
+              if (_hasOwnProperty.call(normalizedThisArg, rawProperty)) {
+                // execute an own property method of this global object
+              }
+              else if (Reflect.has(normalizedThisArg, rawProperty)) {
+                // Prototype chain has the property
+                let target = Object.getPrototypeOf(normalizedThisArg);
+                let _names, _isStatic, _isObject;
+                while (target) {
+                  [_names, _isStatic, _isObject] = detectName(target, null);
+                  if (_names instanceof Set) {
+                    _isObject = true; // Adjust _isObject as true since target is a prototype of normalizedThisArg
+                    let isNoAclNameChecked = false;
+                    for (let _name of _names) {
+                      if (!Reflect.has(acl, _name)) {
+                        if (isNoAclNameChecked) {
+                          continue;
+                        }
+                        _name = undefined;
+                        isNoAclNameChecked = true;
+                      }
+                      // TODO: handle when normalizedThisArg itself is a prototype object of a function
+                      if (!applyAcl(_name, _isStatic, _isObject, property, 'x', hookArgs[3], target, normalizedArgs, hookArgs)) {
+                        return false;
+                      }
+                    }
+                  }
+                  if (_hasOwnProperty.call(target, rawProperty)) {
+                    break;
+                  }
+                  target = Object.getPrototypeOf(target);
+                }
+              }
+              if (normalizedThisArg instanceof Object) {
+                let property = normalizedArgs[0];
+                if (Reflect.has(normalizedThisArg, property)) {
+                  let value = normalizedThisArg[property];
+                  let name = _globalMethods.get(value);
+                  if (name) {
+                    let rawProp = name[name.length - 1];
+                    let prop = _escapePlatformProperties.get(rawProp) || rawProp;
+                    let obj = name[0];
+                    let isStatic = name[1] !== 'prototype';
+                    let isObject = !_hasOwnProperty.call(normalizedThisArg, property);
+                    if (isStatic && isGlobalScopeObject.has(obj)) {
+                      // ['window','globalObject']
+                      obj = rawProp;
+                      prop = S_UNSPECIFIED;
+                    }
+                    if (Reflect.has(acl, obj)) { // avoid recursive calls
+                      // Apply ACL for the global method
+                      if (!applyAcl(obj, isStatic, isObject, prop, 'x', hookArgs[3], value, normalizedArgs[1], hookArgs)) {
+                        return false;
+                      }
+                    }
+                  }
+                }
+              }
+              break;
+            default: // unknown opType
+              return false;
+            }
+            break;
+          default:
+            // TODO: handle primitives
+            break;
+          }
+          break;
+        }
+        return true; // equivalent to 'rwxRW' acl
       };
     }
     static defaultAcl() {
@@ -1270,7 +1546,7 @@ else {
     _global: 'r--',
     [mainGlobalObjectName]: { // overwrite self: in worker threads
       [S_OBJECT]: 'r--',
-      [S_DEFAULT]: Policy.avoidGlobalClone(),
+      [S_DEFAULT]: Policy.globalAcl(),
       [S_ALL]: '---',
       '@window_enumerator': 'r--R-',
       caches: '---',
@@ -1280,6 +1556,11 @@ else {
       __unexpected_access_to_hook_alias_object__: '---',
       hook: '---',
       $hook$: '---',
+      '@firebase_auth_closure_global_variable_writer': Policy.patternAcl({ w: (name, prop) => name === 'window' && typeof prop === 'string' && prop.startsWith('closure_') }),
+      a_new_global_variable: {
+        [S_DEFAULT]: '---',
+        '@normalization_checker': 'rw-',
+      },
       _data: {
         [S_DEFAULT]: '---',
         '@hook_visualizer': 'r--',
@@ -2503,6 +2784,10 @@ else {
         },
       },
     },
+    onload: {
+      [S_DEFAULT]: 'r-x',
+      '@demo_entry_page_scripts': 'rwx',
+    },
     Event: {
       [S_CHAIN]: () => acl.Function[S_PROTOTYPE][S_INSTANCE],
       [S_DEFAULT]: 'r-x',
@@ -3349,6 +3634,8 @@ else {
       '@i18n-behavior': 'rwx',
       '@Polymer_legacy_class': 'r-xR-',
     },
+    // accessible private API
+    DClass: 'rwx',
     // blocked private API
     DummyClass: {
       [S_OBJECT]: {
@@ -3504,6 +3791,10 @@ else {
     },
     SubClass4: {
       [S_CHAIN]: () => acl.SubClass2,
+      [S_OBJECT]: {
+        [S_DEFAULT]: '---',
+        '@normalization_checker': 'rwx',
+      },
       staticProperty: {
         [S_CHAIN]: S_CHAIN,
         '@normalization_checker': 'r--',
@@ -3516,6 +3807,26 @@ else {
         [S_CHAIN]: S_CHAIN,
         '@normalization_checker': Policy.args("opType === 'x' && typeof args[0] === 'number' && typeof args[1] === 'number' && args[0] > 0 && args[1] > 0"), // check arguments
       },
+    },
+    GlobalObject: {
+      [S_OBJECT]: {
+        [S_DEFAULT]: '---',
+        '@normalization_checker': 'rw-',
+      },
+      [S_DEFAULT]: '---',
+      property: '---',
+      method: '---',
+      accessor: '---',
+    },
+    OrphanedGlobalObject: {
+      [S_OBJECT]: {
+        [S_DEFAULT]: '---',
+        '@normalization_checker': 'rw-',
+      },
+      [S_DEFAULT]: '---',
+      property: '---',
+      method: '---',
+      accessor: '---',
     },
     DefinePropertyGlobalClass: {
       [S_DEFAULT]: '---',
@@ -3736,7 +4047,108 @@ else {
         '@web_animations_next_lite': 'rw-',
       }
     },
+    jsSHA: {
+      [S_DEFAULT]: 'r-x',
+      '@sha.js': 'rwx',
+    },
+    Chart: {
+      [S_DEFAULT]: 'r-x',
+      '@Chart.min.js': 'rwx',
+    },
+    Color: {
+      [S_DEFAULT]: 'r-x',
+      '@Chart.min.js': 'rwx',
+    },
+    CryptoJS: {
+      [S_DEFAULT]: 'r-x',
+      '@crypto-js': 'rwx',
+    },
+    JSCompiler_renameProperty: {
+      [S_DEFAULT]: 'r-x',
+      '@Polymer_lib': 'rwx',
+    },
+    plurals: {
+      [S_DEFAULT]: 'r-x',
+      '@plurals.js': 'rwxRW',
+    },
+    _cp: {
+      [S_DEFAULT]: 'r-x',
+      '@plurals.js': 'rwxRW',
+    },
+    deepcopy: {
+      [S_DEFAULT]: 'r-x',
+      '@deepcopy': 'rwxRW',
+    },
+    requestAnimationFrame: {
+      [S_DEFAULT]: 'r-x',
+      '@web_animations_next_lite': 'rwx',
+    },
+    Animation: {
+      [S_DEFAULT]: 'r-x',
+      '@web_animations_next_lite': 'rwx',
+    },
+    KeyframeEffect: {
+      [S_DEFAULT]: 'r-x',
+      '@web_animations_next_lite': 'rwx',
+    },
+    getComputedStyle: {
+      [S_DEFAULT]: 'r-x',
+      '@web_animations_next_lite': 'rwxRW',
+    },
+    true: { // This is a bug in web-animations-next-lite.min.js that creates window["true"] property
+      [S_DEFAULT]: 'r-x',
+      '@web_animations_next_lite': 'rwx',
+    },
+    vaadin: {
+      [S_DEFAULT]: 'r-x',
+      '@vaadin-grid': 'rwx',
+    },
+    webpackJsonpFirebase: {
+      [S_DEFAULT]: 'r-x',
+      '@firebase_app': 'rwx',
+    },
+    chai: {
+      [S_DEFAULT]: 'r-x',
+      '@chai_js': 'rwx',
+    },
+    ES6Promise: {
+      [S_DEFAULT]: 'r-x',
+      '@Object_assign_reader': 'rwx',
+    },
+    HTMLImports: {
+      [S_DEFAULT]: 'r-x',
+      '@Object_assign_reader': 'rwx',
+    },
+    WebComponents: {
+      [S_DEFAULT]: 'r-x',
+      '@Object_assign_reader': 'rwx',
+    },
+    CustomElementRegistry: {
+      [S_DEFAULT]: 'r-x',
+      '@Object_assign_reader': 'rwx',
+    },
+    ShadyCSS: {
+      [S_DEFAULT]: 'r-x',
+      '@Object_assign_reader': 'rwx',
+      ApplyShim: {
+        [S_DEFAULT]: 'r-x',
+        '@apply-shim': 'rwx',
+      },
+      CustomStyleInterface: {
+        [S_DEFAULT]: 'r-x',
+        '@custom-style-interface': 'rwx',
+      },
+    },
     // global variables for demo acl
+    __intervalId: {
+      [S_DEFAULT]: '---',
+      '@document_writer': 'rw-',
+    },
+    _data3: {
+      [S_DEFAULT]: '---',
+      '@Object_prototype_reader': 'rwx',
+      '@hook_visualizer': 'rw-',
+    },
     gA1: {
       [S_DEFAULT]: '---',
       '@spread_js': 'rwxRW',
@@ -4070,14 +4482,15 @@ else {
     // default for global objects
     [S_GLOBAL]: {
       [S_OBJECT]: 'r-x',
-      [S_DEFAULT]: Policy.avoidGlobalClone(),
+      [S_DEFAULT]: Policy.globalAcl(),
       [S_ALL]: 'r--',
       $__proto__$: 'r--',
       $prototype$: 'r--',
       $constructor$: 'r-x',
+      '@firebase_auth_closure_global_variable_writer': Policy.patternAcl({ w: (name, prop) => name === 'window' && typeof prop === 'string' && prop.startsWith('closure_') }),
       [S_PROTOTYPE]: {
         [S_OBJECT]: 'r--',
-        [S_DEFAULT]: Policy.avoidGlobalClone(), // TODO: Use S_INSTANCE policy
+        [S_DEFAULT]: Policy.globalAcl(), // TODO: Use S_INSTANCE policy
         [S_ALL]: 'r--',
         $__proto__$: 'r--',
         $prototype$: 'r--',
@@ -4345,11 +4758,25 @@ else {
               if (Array.isArray(property)) {
                 tmp = [];
                 for (_property of property) {
-                  __acl = Reflect.has(_acl, _property)
-                    ? _acl[_property]
+                  __acl = Reflect.has(_acl, property)
+                    ? _acl[property]
                     : Reflect.has(_acl, context)
-                      ? _acl[context]
-                      : _acl[S_DEFAULT];
+                      ? context === S_DEFAULT
+                        ? isGlobal
+                          ? Reflect.has(acl, property)
+                            ? acl[property] instanceof Object && Reflect.has(acl[property], S_OBJECT)
+                              ? acl[property][S_OBJECT]
+                              : acl[property]
+                            : acl[S_GLOBAL]
+                          : _acl[context]
+                        : _acl[context]
+                      : isGlobal
+                        ? Reflect.has(acl, property)
+                          ? acl[property] instanceof Object && Reflect.has(acl[property], S_OBJECT)
+                            ? acl[property][S_OBJECT]
+                            : acl[property]
+                          : acl[S_GLOBAL]
+                        : _acl[S_DEFAULT];
                   if (typeof __acl === 'object') {
                     __acl = Reflect.has(__acl, context)
                       ? __acl[context]
@@ -4464,7 +4891,11 @@ else {
           : 'typeof:' + typeof aclArgs[0];
       data['isStatic'] = aclArgs[1];
       data['isObject'] = aclArgs[2];
-      data['property'] =  typeof aclArgs[3] === 'string' ? aclArgs[3] : 'typeof:' + typeof aclArgs[3];
+      data['property'] = typeof aclArgs[3] === 'string' 
+                          ? aclArgs[3]
+                          : Array.isArray(aclArgs[3])
+                            ? JSON.stringify(aclArgs[3]) // this can be a raw object aclArgs[3] instead of a JSON string
+                            : 'typeof:' + typeof aclArgs[3];
       data['opType'] = aclArgs[4];
     }
     let errorReportResponseJSON;
@@ -4563,7 +4994,7 @@ else {
           if (typeof ctor === 'function' && Object.getPrototypeOf(target) === ctor.prototype) {
             break;
           }
-          else {
+          else if (ctor && ctor !== Object) {
             ctor = null;
             try {
               CTOR_LOOP:
@@ -4950,29 +5381,36 @@ else {
           _args = [ boundParameters._f, boundParameters._args.concat(_args) ];
         }
         let name = _globalObjects.get(normalizedThisArg);
-        let isStatic = typeof normalizedThisArg === 'function';
+        let isStatic = true;
         if (boundParameters) {
           isStatic = boundParameters.isStatic;
           name = boundParameters.name;
         }
         let ctor;
-        let isObject = typeof normalizedThisArg === 'object';
-        if (!name && _f.indexOf('s') >= 0) {
-          if (isStatic) {
+        let isObject = false;
+        if (!name && isSuperOperator.get(_f)) {
+          let _isStatic = isStatic;
+          let _isObject = isObject;
+          if (typeof normalizedThisArg === 'function') {
             ctor = normalizedThisArg;
           }
           else {
+            _isStatic = false;
             ctor = normalizedThisArg.constructor;
             if (ctor) {
-              if (_hasOwnProperty.call(normalizedThisArg, 'constructor')) {
-                isObject = false;
-              }
+              _isObject = !_hasOwnProperty.call(normalizedThisArg, 'constructor');
             }
           }
-          name = _globalObjects.get(ctor);
-          while (!name && typeof ctor === 'function') {
-            ctor = Object.getPrototypeOf(ctor);
+          if (ctor) {
             name = _globalObjects.get(ctor);
+            while (!name && typeof ctor === 'function') {
+              ctor = Object.getPrototypeOf(ctor);
+              name = _globalObjects.get(ctor);
+            }
+            if (name) {
+              isStatic = _isStatic;
+              isObject = _isObject;
+            }
           }
         }
         if (!name && normalizedThisArg instanceof Object) {
@@ -5063,32 +5501,37 @@ else {
                 else {
                   name = _globalObjects.get(_t);
                 }
-                isStatic = typeof _t === 'function';
                 normalizedThisArg = _t;
-                isObject = typeof normalizedThisArg === 'object';
-                if (!name) {
-                  [name, isStatic, isObject] = detectName(normalizedThisArg, boundParameters);
-                }
-                if (!name && typeof _f === 'string' && _f.indexOf('s') >= 0) {
-                  isStatic = typeof _t === 'function';
-                  if (isStatic) {
+                isStatic = true;
+                isObject = false;
+                if (!name && isSuperOperator.get(_f)) {
+                  let _isStatic = isStatic;
+                  let _isObject = isObject;
+                  if (typeof _t === 'function') {
                     ctor = _t;
                   }
                   else {
+                    _isStatic = false;
                     ctor = _t.constructor;
-                    if (isObject && typeof ctor === 'function') {
-                      if (_t.hasOwnProperty('constructor')) {
-                        isObject = false;
-                      }
+                    if (ctor) {
+                      _isObject = !_hasOwnProperty.call(_t, 'constructor');
                     }
                   }
-                  name = _globalObjects.get(ctor);
-                  normalizedThisArg = ctor;
-                  while (!name && typeof ctor === 'function') {
-                    ctor = Object.getPrototypeOf(ctor);
+                  if (ctor) {
                     name = _globalObjects.get(ctor);
-                    normalizedThisArg = ctor;
+                    while (!name && typeof ctor === 'function') {
+                      ctor = Object.getPrototypeOf(ctor);
+                      name = _globalObjects.get(ctor);
+                    }
+                    if (name) {
+                      isStatic = _isStatic;
+                      isObject = _isObject;
+                      normalizedThisArg = ctor;
+                    }
                   }
+                }
+                if (!name) {
+                  [name, isStatic, isObject] = detectName(normalizedThisArg, boundParameters);
                 }
                 if (true /* name */) { // Note: Normalize property even for acl[S_DEFAULT][S_DEFAULT]: defaultAcl(), which is not used by default
                   property = rawProperty = undefined;
@@ -5363,7 +5806,7 @@ else {
                 switch (_f) {
                 case '=':
                 case '#=':
-                  if (_args[1] instanceof Object) {
+                  if (_args[1] instanceof Object || (_args[1] && typeof _args[1] === 'object')) {
                     globalAssignments[rawProperty] = _args[1];
                   }
                   break;
@@ -6451,29 +6894,36 @@ else {
           _args = [ boundParameters._f, boundParameters._args.concat(_args) ];
         }
         let name = _globalObjects.get(normalizedThisArg);
-        let isStatic = typeof normalizedThisArg === 'function';
+        let isStatic = true;
         if (boundParameters) {
           isStatic = boundParameters.isStatic;
           name = boundParameters.name;
         }
         let ctor;
-        let isObject = typeof normalizedThisArg === 'object';
+        let isObject = false;
         if (!name && isSuperOperator.get(_f)) {
-          if (isStatic) {
+          let _isStatic = isStatic;
+          let _isObject = isObject;
+          if (typeof normalizedThisArg === 'function') {
             ctor = normalizedThisArg;
           }
           else {
+            _isStatic = false;
             ctor = normalizedThisArg.constructor;
             if (ctor) {
-              if (_hasOwnProperty.call(normalizedThisArg, 'constructor')) {
-                isObject = false;
-              }
+              _isObject = !_hasOwnProperty.call(normalizedThisArg, 'constructor');
             }
           }
-          name = _globalObjects.get(ctor);
-          while (!name && typeof ctor === 'function') {
-            ctor = Object.getPrototypeOf(ctor);
+          if (ctor) {
             name = _globalObjects.get(ctor);
+            while (!name && typeof ctor === 'function') {
+              ctor = Object.getPrototypeOf(ctor);
+              name = _globalObjects.get(ctor);
+            }
+            if (name) {
+              isStatic = _isStatic;
+              isObject = _isObject;
+            }
           }
         }
         if (!name && normalizedThisArg instanceof Object) {
@@ -6563,32 +7013,37 @@ else {
                 else {
                   name = _globalObjects.get(_t);
                 }
-                isStatic = typeof _t === 'function';
                 normalizedThisArg = _t;
-                isObject = typeof normalizedThisArg === 'object';
-                if (!name) {
-                  [name, isStatic, isObject] = detectName(normalizedThisArg, boundParameters);
-                }
+                isStatic = true;
+                isObject = false;
                 if (!name && isSuperOperator.get(_f)) {
-                  isStatic = typeof _t === 'function';
-                  if (isStatic) {
+                  let _isStatic = isStatic;
+                  let _isObject = isObject;
+                  if (typeof _t === 'function') {
                     ctor = _t;
                   }
                   else {
+                    _isStatic = false;
                     ctor = _t.constructor;
-                    if (isObject && typeof ctor === 'function') {
-                      if (_t.hasOwnProperty('constructor')) {
-                        isObject = false;
-                      }
+                    if (ctor) {
+                      _isObject = !_hasOwnProperty.call(_t, 'constructor');
                     }
                   }
-                  name = _globalObjects.get(ctor);
-                  normalizedThisArg = ctor;
-                  while (!name && typeof ctor === 'function') {
-                    ctor = Object.getPrototypeOf(ctor);
+                  if (ctor) {
                     name = _globalObjects.get(ctor);
-                    normalizedThisArg = ctor;
+                    while (!name && typeof ctor === 'function') {
+                      ctor = Object.getPrototypeOf(ctor);
+                      name = _globalObjects.get(ctor);
+                    }
+                    if (name) {
+                      isStatic = _isStatic;
+                      isObject = _isObject;
+                      normalizedThisArg = ctor;
+                    }
                   }
+                }
+                if (!name) {
+                  [name, isStatic, isObject] = detectName(normalizedThisArg, boundParameters);
                 }
                 if (true /* name */) { // Note: Normalize property even for acl[S_DEFAULT][S_DEFAULT]: defaultAcl(), which is not used by default
                   property = rawProperty = undefined;
@@ -6861,7 +7316,7 @@ else {
                 switch (_f) {
                 case '=':
                 case '#=':
-                  if (_args[1] instanceof Object) {
+                  if (_args[1] instanceof Object || (_args[1] && typeof _args[1] === 'object')) {
                     hasGlobalAssignments = true;
                     globalAssignments[rawProperty] = _args[1];
                   }

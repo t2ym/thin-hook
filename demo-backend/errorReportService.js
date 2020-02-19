@@ -45,7 +45,7 @@ else {
   app.use(bodyParser.json());
   app.listen(port);
   app.post('/errorReport.json', function(req, res) {
-    //console.log('/errorReport.json', JSON.stringify(req.body));
+    console.log('/errorReport.json', JSON.stringify(req.body));
     // Fixed response for PoC
     res.setHeader('content-type', 'application/json')
     res.send(JSON.stringify({
