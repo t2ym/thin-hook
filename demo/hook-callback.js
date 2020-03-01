@@ -1036,13 +1036,17 @@ else {
               // S_ALL for [S_GLOBAL] object is permitted
               target = Object.getPrototypeOf(target); // steps to the next chain
               let names, isStatic, isObject;
+              let isAclNameChecked = false;
               while (target) {
                 [names, isStatic, isObject] = detectName(target);
                 if (names instanceof Set) {
                   isObject = true;
                   let isNoAclNameChecked = false;
                   for (let name of names) {
-                    if (!Reflect.has(acl, name)) {
+                    if (Reflect.has(acl, name)) {
+                      isAclNameChecked = true;
+                    }
+                    else {
                       if (isNoAclNameChecked) {
                         continue;
                       }
@@ -1054,6 +1058,10 @@ else {
                       return false;
                     }
                   }
+                }
+                if (isAclNameChecked) {
+                  // stop tracking the chain if a named ACL is found and applied
+                  break;
                 }
                 target = Object.getPrototypeOf(target);
               }
@@ -1096,13 +1104,17 @@ else {
                 // read an inherited property
                 let target = Object.getPrototypeOf(normalizedThisArg);
                 let _names, _isStatic, _isObject;
+                let isAclNameChecked = false;
                 while (target) {
                   [_names, _isStatic, _isObject] = detectName(target, null);
                   if (_names instanceof Set) {
                     _isObject = true; // Adjust _isObject as true since target is a prototype of normalizedThisArg
                     let isNoAclNameChecked = false;
                     for (let _name of _names) {
-                      if (!Reflect.has(acl, _name)) {
+                      if (Reflect.has(acl, _name)) {
+                        isAclNameChecked = true;
+                      }
+                      else {
                         if (isNoAclNameChecked) {
                           continue;
                         }
@@ -1114,6 +1126,10 @@ else {
                         return false;
                       }
                     }
+                  }
+                  if (isAclNameChecked) {
+                    // stop tracking the chain if a named ACL is found and applied
+                    break;
                   }
                   if (_hasOwnProperty.call(target, rawProperty)) {
                     break;
@@ -1176,13 +1192,17 @@ else {
                 // Prototype chain has the property
                 let target = Object.getPrototypeOf(normalizedThisArg);
                 let _names, _isStatic, _isObject;
+                let isAclNameChecked = false;
                 while (target) {
                   [_names, _isStatic, _isObject] = detectName(target, null);
                   if (_names instanceof Set) {
                     _isObject = true; // Adjust _isObject as true since target is a prototype of normalizedThisArg
                     let isNoAclNameChecked = false;
                     for (let _name of _names) {
-                      if (!Reflect.has(acl, _name)) {
+                      if (Reflect.has(acl, _name)) {
+                        isAclNameChecked = true;
+                      }
+                      else {
                         if (isNoAclNameChecked) {
                           continue;
                         }
@@ -1194,6 +1214,10 @@ else {
                         return false;
                       }
                     }
+                  }
+                  if (isAclNameChecked) {
+                    // stop tracking the chain if a named ACL is found and applied
+                    break;
                   }
                   if (_hasOwnProperty.call(target, rawProperty)) {
                     break;
@@ -1260,15 +1284,25 @@ else {
               let target = normalizedThisArg;
               // S_ALL for [S_DEFAULT] object is permitted
               target = Object.getPrototypeOf(target); // steps to the next chain
-              let name, isStatic, isObject;
+              let names, isStatic, isObject;
+              let isAclNameChecked = false;
               while (target) {
-                [name, isStatic, isObject] = detectName(target);
-                if (name) {
+                [names, isStatic, isObject] = detectName(target);
+                if (names) {
                   isObject = true;
-                  if (!applyAcl(name, isStatic, isObject, property, aclArgs[4], hookArgs[3], target, normalizedArgs, hookArgs)) {
-                    //console.log('defaultAcl: permission denied ', name, target, property);
-                    return false;
+                  for (let name of names) {
+                    if (Reflect.has(acl, name)) {
+                      isAclNameChecked = true;
+                    }
+                    if (!applyAcl(name, isStatic, isObject, property, aclArgs[4], hookArgs[3], target, normalizedArgs, hookArgs)) {
+                      //console.log('defaultAcl: permission denied ', name, target, property);
+                      return false;
+                    }
                   }
+                }
+                if (isAclNameChecked) {
+                  // stop tracking the chain if a named ACL is found and applied
+                  break;
                 }
                 target = Object.getPrototypeOf(target);
               }
@@ -1310,15 +1344,25 @@ else {
               else if (Reflect.has(normalizedThisArg, rawProperty)) {
                 // read an inherited property
                 let target = Object.getPrototypeOf(normalizedThisArg);
-                let _name, _isStatic, _isObject;
+                let _names, _isStatic, _isObject;
+                let isAclNameChecked = false;
                 while (target) {
-                  [_name, _isStatic, _isObject] = detectName(target, null);
-                  if (_name) {
+                  [_names, _isStatic, _isObject] = detectName(target, null);
+                  if (_names) {
                     _isObject = true; // Adjust _isObject as true since target is a prototype of normalizedThisArg
-                    // TODO: handle when normalizedThisArg itself is a prototype object of a function
-                    if (!applyAcl(_name, _isStatic, _isObject, property, aclArgs[4], hookArgs[3], target, normalizedArgs, hookArgs)) {
-                      return false;
+                    for (let _name of _names) {
+                      if (Reflect.has(acl, _name)) {
+                        isAclNameChecked = true;
+                      }
+                      // TODO: handle when normalizedThisArg itself is a prototype object of a function
+                      if (!applyAcl(_name, _isStatic, _isObject, property, aclArgs[4], hookArgs[3], target, normalizedArgs, hookArgs)) {
+                        return false;
+                      }
                     }
+                  }
+                  if (isAclNameChecked) {
+                    // stop tracking the chain if a named ACL is found and applied
+                    break;
                   }
                   if (_hasOwnProperty.call(target, rawProperty)) {
                     break;
@@ -1355,15 +1399,25 @@ else {
               else if (Reflect.has(normalizedThisArg, rawProperty)) {
                 // Prototype chain has the property
                 let target = Object.getPrototypeOf(normalizedThisArg);
-                let _name, _isStatic, _isObject;
+                let _names, _isStatic, _isObject;
+                let isAclNameChecked = false;
                 while (target) {
-                  [_name, _isStatic, _isObject] = detectName(target, null);
-                  if (_name) {
+                  [_names, _isStatic, _isObject] = detectName(target, null);
+                  if (_names) {
                     _isObject = true; // Adjust _isObject as true since target is a prototype of normalizedThisArg
-                    // TODO: handle when normalizedThisArg itself is a prototype object of a function
-                    if (!applyAcl(_name, _isStatic, _isObject, property, 'x', hookArgs[3], target, normalizedArgs, hookArgs)) {
-                      return false;
+                    for (let _name of _names) {
+                      if (Reflect.has(acl, _name)) {
+                        isAclNameChecked = true;
+                      }
+                      // TODO: handle when normalizedThisArg itself is a prototype object of a function
+                      if (!applyAcl(_name, _isStatic, _isObject, property, 'x', hookArgs[3], target, normalizedArgs, hookArgs)) {
+                        return false;
+                      }
                     }
+                  }
+                  if (isAclNameChecked) {
+                    // stop tracking the chain if a named ACL is found and applied
+                    break;
                   }
                   if (_hasOwnProperty.call(target, rawProperty)) {
                     break;
