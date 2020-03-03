@@ -5713,10 +5713,13 @@ else {
                       property = _p;
                       break;
                     case S_TARGETED:
-                      if (_args[1][1] instanceof Object || (_args[1][1] && typeof _args[1][1] === 'object')) {
-                        rawProperty = [];
-                        for (let i = 1; i < _args[1].length; i++) {
-                          let _obj = _args[1][i];
+                      rawProperty = [];
+                      for (let i = 1; i < _args[1].length; i++) {
+                        let _obj = _args[1][i];
+                        if (!_obj) {
+                          continue;
+                        }
+                        if (_obj instanceof Object || typeof _obj === 'object') {
                           let _name = _globalObjects.get(_obj);
                           let _isStatic = true;
                           let _isObject = false;
@@ -5730,8 +5733,8 @@ else {
                           // TODO: Are inherited properties targeted?
                           rawProperty = rawProperty.concat(Object.keys(_args[1][i]));
                         }
-                        property = rawProperty.map(p => _escapePlatformProperties.get(p) || p);
                       }
+                      property = rawProperty.map(p => _escapePlatformProperties.get(p) || p);
                       break;
                     case S_ALL:
                       property = _p;
@@ -7223,10 +7226,13 @@ else {
                       property = _p;
                       break;
                     case S_TARGETED:
-                      if (_args[1][1] instanceof Object || (_args[1][1] && typeof _args[1][1] === 'object')) {
-                        rawProperty = [];
-                        for (let i = 1; i < _args[1].length; i++) {
-                          let _obj = _args[1][i];
+                      rawProperty = [];
+                      for (let i = 1; i < _args[1].length; i++) {
+                        let _obj = _args[1][i];
+                        if (!_obj) {
+                          continue;
+                        }
+                        if (_obj instanceof Object || typeof _obj === 'object') {
                           let _name = _globalObjects.get(_obj);
                           let _isStatic = true;
                           let _isObject = false;
@@ -7240,8 +7246,8 @@ else {
                           // TODO: Are inherited properties targeted?
                           rawProperty = rawProperty.concat(Object.keys(_args[1][i]));
                         }
-                        property = rawProperty.map(p => _escapePlatformProperties.get(p) || p);
                       }
+                      property = rawProperty.map(p => _escapePlatformProperties.get(p) || p);
                       break;
                     case S_ALL:
                       property = _p;
