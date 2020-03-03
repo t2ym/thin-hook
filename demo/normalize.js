@@ -3022,6 +3022,10 @@
     accessor: { get: function () { return this.property2; }, set: function (value) { this.property2 = value; }, configurable: true, enumerable: true },
   }).accessor = 2; // write this own accessor
 
+  chai.assert.throws(() => {
+    Object.assign({}, undefined, window);
+  }, /^Permission Denied: Cannot access window/);
+
   /*
   let NoAclGlobalObject = {
     property: 1,
