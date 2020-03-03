@@ -593,7 +593,6 @@ else {
     '/components/firebase/firebase-auth.js,*': '@firebase_auth',
     '/components/firebase/firebase-auth.js,Xb': '@Object_defineProperty_reader',
     '/components/firebase/firebase-auth.js,mc': '@firebase_auth_closure_global_variable_writer',
-    '/components/dexie/dist/dexie.min.js,Cn': '@Object_method_reader',
     '/components/firebase/firebase-database.js': '@firebase_database',
     '/components/firebase/firebase-database.js,*': '@firebase_database',
     '/components/firebase/firebase-database.js,u,t': '@Object_setPrototypeOf_reader',
@@ -655,6 +654,7 @@ else {
     '/components/chai/chai.js': '@chai_js',
     '/components/chai/chai.js,*': '@chai_js',
     '/components/dexie/dist/dexie.min.js,p': '@Object_static_method_user',
+    '/components/dexie/dist/dexie.min.js,Cn': '@dexie_Object_hasOwnProperty_reader',
     '/components/dexie/dist/dexie.min.js,*': '@dexie_js',
     '/components/dexie/dist/dexie.min.js': '@dexie_js',
     '/components/webcomponentsjs/webcomponents-lite.js': '@Object_assign_reader',
@@ -1716,23 +1716,22 @@ else {
         '@Object_prototype_reader': 'r-x',
         '@window_enumerator': 'r--R-',
         [S_INSTANCE]: {
-          [S_DEFAULT]: 'rwx',
-          $__proto__$: { [S_DEFAULT]: 'r-x', },
-          $constructor$: { [S_DEFAULT]: 'r-x', },
-          $__defineGetter__$: { [S_DEFAULT]: '--x', '@Object_method_reader': 'r-x', },
-          $__defineSetter__$: { [S_DEFAULT]: '--x', '@Object_method_reader': 'r-x', },
-          $__lookupGetter__$: { [S_DEFAULT]: '--x', '@Object_method_reader': 'r-x', },
-          $__lookupSetter__$: { [S_DEFAULT]: '--x', '@Object_method_reader': 'r-x', },
-          $hasOwnProperty$: { [S_DEFAULT]: '--x', '@Object_method_reader': 'r-x', },
-          $isPrototypeOf$: { [S_DEFAULT]: '--x', '@Object_method_reader': 'r-x', },
-          $propertyIsEnumerable$: { [S_DEFAULT]: '--x', '@Object_method_reader': 'r-x', },
-          $toLocaleString$: { [S_DEFAULT]: '--x', '@Object_method_reader': 'r-x', },
-          $toString$: { [S_DEFAULT]: '--x', '@Object_method_reader': 'r-x', },
-          $valueOf$: { [S_DEFAULT]: '--x', '@Object_method_reader': 'r-x', },
-          dummyObjectMethod: {
-            [S_DEFAULT]: 'r-x',
-            '@bind_normalization_checker': '---',
+          $__proto__$: 'rwx',
+          $constructor$: 'rwxRW',
+          $__defineGetter__$: '-wxRW',
+          $__defineSetter__$: '-wxRW',
+          $__lookupGetter__$: '-wxRW',
+          $__lookupSetter__$: '-wxRW',
+          $hasOwnProperty$: {
+            [S_DEFAULT]: '-wxRW',
+            '@dexie_Object_hasOwnProperty_reader': 'r--',
           },
+          $isPrototypeOf$: '-wxRW',
+          $propertyIsEnumerable$: '-wxRW',
+          $toLocaleString$: 'rwxRW',
+          $toString$: 'rwxRW',
+          $valueOf$: '-wxRW',
+          dummyObjectMethod: '---',
         },
       },
       // Polymer examines 'Object' as a Polymer property descriptor object since vaadin-grid.properties._rowDetailsTemplate has the value 'Object'.
@@ -4553,7 +4552,22 @@ else {
     },
     // default for non-global objects
     [S_DEFAULT]: {
+      // primitives
+      //  string, boolean, number, undefined, null
+      // orphaned objects
+      //  Module
+      //  plain and extended orphaned objects
+      // object[undefined] property access
       [S_DEFAULT]: Policy.defaultAcl(),
+      [S_PROTOTYPE]: {
+        // prototype objects
+        [S_DEFAULT]: Policy.defaultAcl(),
+        [S_INSTANCE]: {
+          // instances
+          [S_CHAIN]: () => acl.Object[S_PROTOTYPE][S_INSTANCE],
+          [S_DEFAULT]: Policy.defaultAcl(),
+        },
+      },
     }
   };
   // protect hook-callback.js variables
@@ -5025,7 +5039,7 @@ else {
     let prototype = target;
     let ctor = null;
     let isStatic = false;
-    let isObject = typeof target === 'object';
+    let isObject = true;
     let name;
     let bound = false;
     if (boundParameters && target === boundParameters._normalizedThisArg) {
@@ -5046,6 +5060,10 @@ else {
           }
           ctor = target.constructor;
           if (typeof ctor === 'function' && Object.getPrototypeOf(target) === ctor.prototype) {
+            break;
+          }
+          else if (typeof ctor === 'function' && target === ctor.prototype) {
+            isObject = false;
             break;
           }
           else if (ctor && ctor !== Object) {

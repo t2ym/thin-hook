@@ -3026,6 +3026,11 @@
     Object.assign({}, undefined, window);
   }, /^Permission Denied: Cannot access window/);
 
+  chai.assert.throws(() => {
+    let o = {};
+    o.hasOwnProperty;
+  }, /^Permission Denied: Cannot access Object/);
+
   /*
   let NoAclGlobalObject = {
     property: 1,
