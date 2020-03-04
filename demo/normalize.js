@@ -1800,13 +1800,11 @@
       }
     }, /^Permission Denied:/);
 
-/*
     chai.assert.throw(() => {
       with ({now:Date.now.bind(Date)}) {
         now();
       }
     }, /^Permission Denied:/);
-*/
 
   }
   bindCheck();
