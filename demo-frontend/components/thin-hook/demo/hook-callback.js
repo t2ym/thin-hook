@@ -5327,11 +5327,32 @@ else {
         }
       }
       _f = f;
+      if (newTarget === false) { // resolve the scope in 'with' statement body
+        let varName = _args[0];
+        let __with__ = thisArg;
+        let scope = _global;
+        let _scope;
+        let i;
+        for (i = 0; i < __with__.length; i++) {
+          _scope = __with__[i];
+          if (Reflect.has(_scope, varName)) {
+            if (_scope[Symbol.unscopables] && _scope[Symbol.unscopables][varName]) {
+              continue;
+            }
+            else {
+              scope = _scope;
+              break;
+            }
+          }
+        }
+        thisArg = normalizedThisArg = scope;
+      }
       boundParameters = _boundFunctions.get(f);
       if (!boundParameters) {
         switch (f) {
         case '()':
         case '#()':
+        case 'w()':
           switch (typeof thisArg) {
           case 'function':
             switch (_args[0]) {
@@ -5428,26 +5449,6 @@ else {
         }
         */
         // property access
-        if (newTarget === false) { // resolve the scope in 'with' statement body
-          let varName = _args[0];
-          let __with__ = thisArg;
-          let scope = _global;
-          let _scope;
-          let i;
-          for (i = 0; i < __with__.length; i++) {
-            _scope = __with__[i];
-            if (Reflect.has(_scope, varName)) {
-              if (_scope[Symbol.unscopables] && _scope[Symbol.unscopables][varName]) {
-                continue;
-              }
-              else {
-                scope = _scope;
-                break;
-              }
-            }
-          }
-          thisArg = normalizedThisArg = scope;
-        }
         if (boundParameters) {
           normalizedThisArg = boundParameters._normalizedThisArg;
           _args = [ boundParameters._f, boundParameters._args.concat(_args) ];
@@ -6843,11 +6844,32 @@ else {
         }
       }
       _f = f;
+      if (newTarget === false) { // resolve the scope in 'with' statement body
+        let varName = _args[0];
+        let __with__ = thisArg;
+        let scope = _global;
+        let _scope;
+        let i;
+        for (i = 0; i < __with__.length; i++) {
+          _scope = __with__[i];
+          if (Reflect.has(_scope, varName)) {
+            if (_scope[Symbol.unscopables] && _scope[Symbol.unscopables][varName]) {
+              continue;
+            }
+            else {
+              scope = _scope;
+              break;
+            }
+          }
+        }
+        thisArg = normalizedThisArg = scope;
+      }
       boundParameters = _boundFunctions.get(f);
       if (!boundParameters) {
         switch (f) {
         case '()':
         case '#()':
+        case 'w()':
           switch (typeof thisArg) {
           case 'function':
             switch (_args[0]) {
@@ -6944,26 +6966,6 @@ else {
         }
         */
         // property access
-        if (newTarget === false) { // resolve the scope in 'with' statement body
-          let varName = _args[0];
-          let __with__ = thisArg;
-          let scope = _global;
-          let _scope;
-          let i;
-          for (i = 0; i < __with__.length; i++) {
-            _scope = __with__[i];
-            if (Reflect.has(_scope, varName)) {
-              if (_scope[Symbol.unscopables] && _scope[Symbol.unscopables][varName]) {
-                continue;
-              }
-              else {
-                scope = _scope;
-                break;
-              }
-            }
-          }
-          thisArg = normalizedThisArg = scope;
-        }
         if (boundParameters) {
           normalizedThisArg = boundParameters._normalizedThisArg;
           _args = [ boundParameters._f, boundParameters._args.concat(_args) ];

@@ -331,8 +331,8 @@
 
   RSA.publicKeyBits = 2048; // number of bits in RSA public key, which must be at least 2048
   RSA.publicKeySize = RSA.publicKeyBits / 8; // number of bytes for RSA-OAEP encrypted data size
-  RSA.publicKeyBase64 = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvhfKwFBexkw+aoMwAt6kMk+wQUDhInCLcJAg7DrqoirqGcKeU1uswWMcm1b7aoZIcZbtN3OSjn0UyxiuiYaacK8s+uFQhjICXqcXmDqcjkXih87lah+jgJMoYaATvmphwNREaLTRvuXp4Dk5/Elv57cmTC0Ku9Ll2l9tszziHO82eTa6vFRQlVUc+BoM/dEJZOm782T1RvMfg0K5F7jpCOOv/s7fgW/jdvJ4SQxOxl1jDsFtD8Wxa7OUGqowDFWzGoz6B3HRYDfHKNgdd0WPXGFue/E6X72UeS+6037fDVC7KD6fUBsqxTYZAvY8G6JSXVrmAAA8k+ST5AUxTwHXjQIDAQAB';
-  ECDSA.publicKeyBase64 = 'MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEyDk0oyw4ZTFjaZR+w0WNK9fz124eP4yo+Yp1gpAN+l3VgYHZ6w4I1K1uzNGlpYBhDpkoToAhl+95yot0YDJoIw==';
+  RSA.publicKeyBase64 = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtuJTX/EzmSVCSQj8zac8sugZTqDT5so4qSYKYYOSiidWqaXQAaqVrJ9qBpX3KH1JHPFf0ov7H8yy5QG+76Fr7vkm83PL1P4tmuDeaQZQPzOrrv0GsWAb+L8vcvN9DkhzjBK+qXihV8wjdm0llhEAhpeUp5bLxE4IFCXZEYLTZ2MJrOu9jp4ENQFfiw+q1dsTvFOA/26R4Xy3xm7C37lodyJQV9GatZrnSEE+fjHNPb2V0n1Q9LJW7loH/ECeJg3ZR/MloE5tDJDEunst0m0IRKa9MxyKom+ClEqupLtbaLkaKqznB1fA4XiDPVfvzlwR68t2db4BGz2fxb6eyASRHwIDAQAB';
+  ECDSA.publicKeyBase64 = 'MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAECLSLGjpwwXdtafD8PWYwiKFHKxZbXDi3Jq6TY9b/DZ5fRzbnNNJMvvslfrE17em79Tou15BCh1NkM7BisaaHNQ==';
   ECDSA.signatureLength = SHA256.hashBytes * 2;
   ECDHE.publicKeyLength = 1 + SHA256.hashBytes * 2;
 
