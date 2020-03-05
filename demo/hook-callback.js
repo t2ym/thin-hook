@@ -1599,40 +1599,10 @@ else {
     self: 'r--',
     _global: 'r--',
     [mainGlobalObjectName]: { // overwrite self: in worker threads
+      [S_CHAIN]: () => acl,
       [S_OBJECT]: 'r--',
       [S_DEFAULT]: Policy.globalAcl(),
       [S_ALL]: '---',
-      '@window_enumerator': 'r--R-',
-      caches: '---',
-      __hook__: '---',
-      __unexpected_access_to_hook_callback_function__: '---',
-      __unexpected_access_to_hook_with_object__: '---',
-      __unexpected_access_to_hook_alias_object__: '---',
-      hook: '---',
-      $hook$: '---',
-      '@firebase_auth_closure_global_variable_writer': Policy.patternAcl({ w: (name, prop) => name === 'window' && typeof prop === 'string' && prop.startsWith('closure_') }),
-      a_new_global_variable: {
-        [S_DEFAULT]: '---',
-        '@normalization_checker': 'rw-',
-      },
-      _data: {
-        [S_DEFAULT]: '---',
-        '@hook_visualizer': 'r--',
-      },
-      _data2: {
-        [S_DEFAULT]: '---',
-        '@hook_visualizer': 'r--',
-      },
-      globalObjectAccess: {
-        [S_DEFAULT]: '---',
-        '@normalization_checker': 'r--',
-        '@Function_js': 'r--',
-      },
-      btoa: {
-        [S_DEFAULT]: 'r-x',
-        '@normalization_checker': '---',
-        '@bind_normalization_checker': 'r--',
-      }
     },
     '@window_enumerator': 'r--R-',
     Window: {
@@ -1661,6 +1631,11 @@ else {
     _data2: {
       [S_DEFAULT]: '---',
       '@hook_visualizer': 'r--',
+    },
+    globalObjectAccess: {
+      [S_DEFAULT]: '---',
+      '@normalization_checker': 'r--',
+      '@Function_js': 'r--',
     },
     Reflect: {
       [S_OBJECT]: 'r--',
@@ -3233,6 +3208,8 @@ else {
     },
     btoa: {
       [S_DEFAULT]: 'r-x',
+      '@normalization_checker': '---',
+      '@bind_normalization_checker': 'r--',
     },
     setTimeout: {
       [S_DEFAULT]: 'r-x',
@@ -4193,6 +4170,10 @@ else {
       },
     },
     // global variables for demo acl
+    a_new_global_variable: {
+      [S_DEFAULT]: '---',
+      '@normalization_checker': 'rw-',
+    },
     __intervalId: {
       [S_DEFAULT]: '---',
       '@document_writer': 'rw-',
@@ -4798,7 +4779,11 @@ else {
             case 'boolean':
             case 'undefined':
               _acl = Reflect.has(_acl, property)
-                ? _acl[property]
+                ? isGlobal
+                  ? _acl[property] instanceof Object && Reflect.has(_acl[property], S_OBJECT)
+                    ? _acl[property][S_OBJECT]
+                    : _acl[property]
+                  : _acl[property]
                 : Reflect.has(_acl, context)
                   ? context === S_DEFAULT
                     ? isGlobal
@@ -4827,7 +4812,11 @@ else {
                 tmp = [];
                 for (_property of property) {
                   __acl = Reflect.has(_acl, property)
-                    ? _acl[property]
+                    ? isGlobal
+                      ? _acl[property] instanceof Object && Reflect.has(_acl[property], S_OBJECT)
+                        ? _acl[property][S_OBJECT]
+                        : _acl[property]
+                      : _acl[property]
                     : Reflect.has(_acl, context)
                       ? context === S_DEFAULT
                         ? isGlobal
