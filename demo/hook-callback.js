@@ -5032,7 +5032,7 @@ else {
     let name;
     let bound = false;
     if (boundParameters && target === boundParameters._normalizedThisArg) {
-      ctor = target.constructor;
+      ctor = target ? target.constructor : null;
       bound = true;
     }
     else {
@@ -5554,15 +5554,7 @@ else {
               case 'function':
               case 'symbol':
               case 'boolean':
-                if (_t === null || _t === undefined) {
-                  name = _globalObjects.get(_global); // non-strict mode default this
-                  if (!name) {
-                    break;
-                  }
-                }
-                else {
-                  name = _globalObjects.get(_t);
-                }
+                name = _globalObjects.get(_t);
                 normalizedThisArg = _t;
                 isStatic = true;
                 isObject = false;
@@ -7070,15 +7062,7 @@ else {
               case 'function':
               case 'symbol':
               case 'boolean':
-                if (_t === null || _t === undefined) {
-                  name = _globalObjects.get(_global); // non-strict mode default this
-                  if (!name) {
-                    break;
-                  }
-                }
-                else {
-                  name = _globalObjects.get(_t);
-                }
+                name = _globalObjects.get(_t);
                 normalizedThisArg = _t;
                 isStatic = true;
                 isObject = false;
