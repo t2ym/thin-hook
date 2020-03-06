@@ -3029,6 +3029,183 @@
     o.hasOwnProperty;
   }, /^Permission Denied: Cannot access Object/);
 
+  chai.assert.throws(() => {
+    let s = new String('a');
+    s.hasOwnProperty;
+  }, /^Permission Denied: Cannot access String/);
+
+  chai.assert.throws(() => {
+    'a'.hasOwnProperty;
+  }, /^Permission Denied: Cannot access String/);
+  'a'.hasOwnProperty('0');
+
+  chai.assert.throws(() => {
+    'a'.small;
+  }, /^Permission Denied: Cannot access String/);
+
+  chai.assert.throws(() => {
+    'a'.small();
+  }, /^Permission Denied: Cannot access String/);
+
+  chai.assert.throws(() => {
+    'a'.__lookupGetter__;
+  }, /^Permission Denied: Cannot access String/);
+
+  chai.assert.throws(() => {
+    'a'.__lookupGetter__('length'); // Object.getOwnPropertyDescriptor('a', 'length') is prohibited. Note: length is not a getter
+  }, /^Permission Denied: Cannot access String/);
+
+  chai.assert.throws(() => {
+    Object.getOwnPropertyDescriptor('a', 'length');
+  }, /^Permission Denied: Cannot access String/);
+
+  chai.assert.throws(() => {
+    'a'[Symbol.iterator];
+  }, /^Permission Denied: Cannot access String/);
+
+  chai.assert.throws(() => {
+    'a'[Symbol.iterator]();
+  }, /^Permission Denied: Cannot access String/);
+
+  chai.assert.throws(() => {
+    Object.setPrototypeOf(String, Number);
+  }, /^Permission Denied: Cannot access String/);
+
+  chai.assert.throws(() => {
+    let n = new Number(1);
+    n.hasOwnProperty;
+  }, /^Permission Denied: Cannot access Number/);
+
+  chai.assert.throws(() => {
+    (1).hasOwnProperty;
+  }, /^Permission Denied: Cannot access Number/);
+  (1).hasOwnProperty('0');
+  
+  chai.assert.throws(() => {
+    (1).toExponential;
+  }, /^Permission Denied: Cannot access Number/);
+  
+  chai.assert.throws(() => {
+    (1).toExponential();
+  }, /^Permission Denied: Cannot access Number/);
+  
+  chai.assert.throws(() => {
+    (1).__lookupGetter__;
+  }, /^Permission Denied: Cannot access Number/);
+  
+  chai.assert.throws(() => {
+    (1).__lookupGetter__('0'); // Note: A number has no property of its own
+  }, /^Permission Denied: Cannot access Number/);
+  
+  chai.assert.throws(() => {
+    Object.getOwnPropertyDescriptor(1, '0');
+  }, /^Permission Denied: Cannot access Number/);
+  
+  chai.assert.throws(() => {
+    Object.setPrototypeOf(Number, String);
+  }, /^Permission Denied: Cannot access Number/);
+
+  chai.assert.throws(() => {
+    let b = new Boolean(true);
+    b.hasOwnProperty;
+  }, /^Permission Denied: Cannot access Boolean/);
+
+  chai.assert.throws(() => {
+    (true).hasOwnProperty;
+  }, /^Permission Denied: Cannot access Boolean/);
+  (true).hasOwnProperty('0');
+  
+  chai.assert.throws(() => {
+    (true).valueOf;
+  }, /^Permission Denied: Cannot access Boolean/);
+  
+  chai.assert.throws(() => {
+    (true).valueOf();
+  }, /^Permission Denied: Cannot access Boolean/);
+  
+  chai.assert.throws(() => {
+    (true).__lookupGetter__;
+  }, /^Permission Denied: Cannot access Boolean/);
+  
+  chai.assert.throws(() => {
+    (true).__lookupGetter__('valueOf');
+  }, /^Permission Denied: Cannot access Boolean/);
+  
+  chai.assert.throws(() => {
+    Object.getOwnPropertyDescriptor(true, 'valueOf');
+  }, /^Permission Denied: Cannot access Boolean/);
+  
+  chai.assert.throws(() => {
+    Object.setPrototypeOf(Boolean, Number);
+  }, /^Permission Denied: Cannot access Boolean/);
+
+  chai.assert.throws(() => {
+    let s = Symbol('s');
+    s.hasOwnProperty;
+  }, /^Permission Denied: Cannot access Symbol/);
+
+  chai.assert.throws(() => {
+    Symbol('s').hasOwnProperty;
+  }, /^Permission Denied: Cannot access Symbol/);
+  Symbol('s').hasOwnProperty('0');
+  
+  chai.assert.throws(() => {
+    Symbol('s').description;
+  }, /^Permission Denied: Cannot access Symbol/);
+  
+  chai.assert.throws(() => {
+    Symbol('s')[Symbol.toPrimitive];
+  }, /^Permission Denied: Cannot access Symbol/);
+  
+  chai.assert.throws(() => {
+    Symbol('s')[Symbol.toPrimitive]();
+  }, /^Permission Denied: Cannot access Symbol/);
+  
+  chai.assert.throws(() => {
+    Symbol('s').__lookupGetter__;
+  }, /^Permission Denied: Cannot access Symbol/);
+  
+  chai.assert.throws(() => {
+    Symbol('s').__lookupGetter__('any');
+  }, /^Permission Denied: Cannot access Symbol/);
+  
+  chai.assert.throws(() => {
+    Object.getOwnPropertyDescriptor(Symbol('s'), 'any');
+  }, /^Permission Denied: Cannot access Symbol/);
+  
+  chai.assert.throws(() => {
+    Object.setPrototypeOf(Symbol, Number);
+  }, /^Permission Denied: Cannot access Symbol/);
+
+  chai.assert.throws(() => {
+    let n = BigInt('1');
+    n.hasOwnProperty;
+  }, /^Permission Denied: Cannot access BigInt/);
+
+  chai.assert.throws(() => {
+    BigInt(1).valueOf;
+  }, /^Permission Denied: Cannot access BigInt/);
+  
+  chai.assert.throws(() => {
+    BigInt(1).valueOf();
+  }, /^Permission Denied: Cannot access BigInt/);
+
+  chai.assert.throws(() => {
+    BigInt(1).__lookupGetter__;
+  }, /^Permission Denied: Cannot access BigInt/);
+  
+  chai.assert.throws(() => {
+    BigInt(1).__lookupGetter__('any'); // Note: A bigint has no property of its own
+  }, /^Permission Denied: Cannot access BigInt/);
+  
+  chai.assert.throws(() => {
+    Object.getOwnPropertyDescriptor(BigInt(1), 'any');
+  }, /^Permission Denied: Cannot access BigInt/);
+  
+  chai.assert.throws(() => {
+    Object.setPrototypeOf(BigInt, String);
+  }, /^Permission Denied: Cannot access BigInt/);
+
   /*
   let NoAclGlobalObject = {
     property: 1,
