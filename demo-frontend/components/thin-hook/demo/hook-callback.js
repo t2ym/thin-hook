@@ -1446,6 +1446,16 @@ else {
               return false;
             }
             break;
+          case 'string':
+            return applyAcl('String', false, true, aclArgs[3], aclArgs[4], hookArgs[3], normalizedThisArg, normalizedArgs, hookArgs);
+          case 'number':
+            return applyAcl('Number', false, true, aclArgs[3], aclArgs[4], hookArgs[3], normalizedThisArg, normalizedArgs, hookArgs);
+          case 'boolean':
+            return applyAcl('Boolean', false, true, aclArgs[3], aclArgs[4], hookArgs[3], normalizedThisArg, normalizedArgs, hookArgs);
+          case 'symbol':
+            return applyAcl('Symbol', false, true, aclArgs[3], aclArgs[4], hookArgs[3], normalizedThisArg, normalizedArgs, hookArgs);
+          case 'bigint':
+            return applyAcl('BigInt', false, true, aclArgs[3], aclArgs[4], hookArgs[3], normalizedThisArg, normalizedArgs, hookArgs);
           default:
             // TODO: handle primitives
             break;
@@ -1730,6 +1740,101 @@ else {
       observer: {
         [S_DEFAULT]: '---',
         '@Polymer_element_mixin': 'r--',
+      },
+    },
+    String: {
+      [S_CHAIN]: () => acl.Function[S_PROTOTYPE],
+      [S_OBJECT]: 'r-x',
+      [S_DEFAULT]: 'r-x',
+      [S_PROTOTYPE]: {
+        [S_CHAIN]: () => acl.Object[S_PROTOTYPE],
+        [S_OBJECT]: 'r--',
+        [S_DEFAULT]: 'r-x',
+        [S_INSTANCE]: {
+          [S_CHAIN]: S_CHAIN,
+          [S_DEFAULT]: 'rwx',
+          small: '---', // just for acl verification; Deprecated APIs can be prohibited, of course.
+          [Symbol.iterator]: { // acl for a symbol property
+            [S_DEFAULT]: 'r-x',
+            '@normalization_checker': '---',
+          },
+        },
+      },
+    },
+    Number: {
+      [S_CHAIN]: () => acl.Function[S_PROTOTYPE],
+      [S_OBJECT]: 'r-x',
+      [S_DEFAULT]: 'r-x',
+      [S_PROTOTYPE]: {
+        [S_CHAIN]: () => acl.Object[S_PROTOTYPE],
+        [S_OBJECT]: 'r--',
+        [S_DEFAULT]: 'r-x',
+        [S_INSTANCE]: {
+          [S_CHAIN]: S_CHAIN,
+          [S_DEFAULT]: 'rwx',
+          toExponential: {
+            [S_DEFAULT]: 'r-x',
+            '@normalization_checker': '---',
+          },
+        },
+      },
+    },
+    BigInt: {
+      [S_CHAIN]: () => acl.Function[S_PROTOTYPE],
+      [S_OBJECT]: 'r-x',
+      [S_DEFAULT]: 'r-x',
+      [S_PROTOTYPE]: {
+        [S_CHAIN]: () => acl.Object[S_PROTOTYPE],
+        [S_OBJECT]: 'r--',
+        [S_DEFAULT]: 'r-x',
+        [S_INSTANCE]: {
+          [S_CHAIN]: S_CHAIN,
+          [S_DEFAULT]: 'rwx',
+          $valueOf$: {
+            [S_DEFAULT]: '--x',
+            '@normalization_checker': '---',
+          },
+        },
+      },
+    },
+    Boolean: {
+      [S_CHAIN]: () => acl.Function[S_PROTOTYPE],
+      [S_OBJECT]: 'r-x',
+      [S_DEFAULT]: 'r-x',
+      [S_PROTOTYPE]: {
+        [S_CHAIN]: () => acl.Object[S_PROTOTYPE],
+        [S_OBJECT]: 'r--',
+        [S_DEFAULT]: 'r-x',
+        [S_INSTANCE]: {
+          [S_CHAIN]: S_CHAIN,
+          [S_DEFAULT]: 'rwx',
+          $valueOf$: {
+            [S_DEFAULT]: '--x',
+            '@normalization_checker': '---',
+          },
+        },
+      },
+    },
+    Symbol: {
+      [S_CHAIN]: () => acl.Function[S_PROTOTYPE],
+      [S_OBJECT]: 'r-x',
+      [S_DEFAULT]: 'r-x',
+      [S_PROTOTYPE]: {
+        [S_CHAIN]: () => acl.Object[S_PROTOTYPE],
+        [S_OBJECT]: 'r--',
+        [S_DEFAULT]: 'r-x',
+        [S_INSTANCE]: {
+          [S_CHAIN]: S_CHAIN,
+          [S_DEFAULT]: 'rwx',
+          description: {
+            [S_DEFAULT]: 'r--',
+            '@normalization_checker': '---',
+          },
+          [Symbol.toPrimitive]: { // acl for a symbol property
+            [S_DEFAULT]: 'r-x',
+            '@normalization_checker': '---',
+          },
+        },
       },
     },
     import: {
@@ -5486,7 +5591,14 @@ else {
         globalAssignments = {};
         if (typeof target === 'object') {
           do {
-            if (normalizedThisArg instanceof Object || typeof normalizedThisArg === 'object') {
+            switch (typeof normalizedThisArg) {
+            case 'object':
+            case 'function':
+            case 'string':
+            case 'number':
+            case 'boolean':
+            case 'symbol':
+            case 'bigint':
               switch (typeof rawProperty) {
               case 'string':
                 if (boundParameters) {
@@ -5506,9 +5618,15 @@ else {
               if (!target) {
                 target = 'xtp';
               }
-            }
-            else if (typeof _args[0] === 'function') {
-              target = targetNormalizerMap.get(_args[0]);
+              break;
+            default:
+              if (typeof _args[0] === 'function') {
+                target = targetNormalizerMap.get(_args[0]);
+              }
+              else {
+                target = 'xtp';
+              }
+              break;
             }
             let _t;
             let _p;
@@ -5554,6 +5672,8 @@ else {
               case 'function':
               case 'symbol':
               case 'boolean':
+              case 'number':
+              case 'bigint':
                 name = _globalObjects.get(_t);
                 normalizedThisArg = _t;
                 isStatic = true;
@@ -5789,7 +5909,6 @@ else {
                 }
                 break;
               case 'undefined':
-              case 'number':
               default:
                 normalizedThisArg = _t;
                 rawProperty = _p;
@@ -6994,7 +7113,14 @@ else {
         globalAssignments = {};
         if (typeof target === 'object') {
           do {
-            if (normalizedThisArg instanceof Object || typeof normalizedThisArg === 'object') {
+            switch (typeof normalizedThisArg) {
+            case 'object':
+            case 'function':
+            case 'string':
+            case 'number':
+            case 'boolean':
+            case 'symbol':
+            case 'bigint':
               switch (typeof rawProperty) {
               case 'string':
                 if (boundParameters) {
@@ -7014,9 +7140,15 @@ else {
               if (!target) {
                 target = 'xtp'; // [S_DEFAULT]
               }
-            }
-            else if (typeof _args[0] === 'function') {
-              target = targetNormalizerMap.get(_args[0]);
+              break;
+            default:
+              if (typeof _args[0] === 'function') {
+                target = targetNormalizerMap.get(_args[0]);
+              }
+              else {
+                target = 'xtp';
+              }
+              break;
             }
             let _t;
             let _p;
@@ -7062,6 +7194,8 @@ else {
               case 'function':
               case 'symbol':
               case 'boolean':
+              case 'number':
+              case 'bigint':
                 name = _globalObjects.get(_t);
                 normalizedThisArg = _t;
                 isStatic = true;
@@ -7295,7 +7429,6 @@ else {
                 }
                 break;
               case 'undefined':
-              case 'number':
               default:
                 normalizedThisArg = _t;
                 rawProperty = _p;
