@@ -3206,6 +3206,195 @@
     Object.setPrototypeOf(BigInt, String);
   }, /^Permission Denied: Cannot access BigInt/);
 
+  chai.assert.equal(String.raw`\abc${1}\def`, '\\abc1\\def', 'String.raw');
+
+  chai.assert.equal(((strings, ...values) => strings.join(';') + ';' + values.join(';'))`a${1}b${2}c`, 'a;b;c;1;2', 'tag function');
+
+  let localTagFunction;
+  window.tagFunction = localTagFunction = function tagFunction(strings, ...values) { return strings.join(';') + ';' + values.join(';') };
+
+  chai.assert.throws(() => {
+    window.tagFunction;
+  }, /^Permission Denied: Cannot access window/);
+
+  chai.assert.throws(() => {
+    tagFunction;
+  }, /^Permission Denied: Cannot access window/);
+
+  chai.assert.throws(() => {
+    tagFunction();
+  }, /^Permission Denied: Cannot access window/);
+
+  chai.assert.throws(() => {
+    new tagFunction();
+  }, /^Permission Denied: Cannot access window/);
+
+  chai.assert.throws(() => {
+    tagFunction`access${'denied'}tagFunction`;
+  }, /^Permission Denied: Cannot access window/);
+
+  chai.assert.throws(() => {
+    localTagFunction();
+  }, /^Permission Denied: Cannot access tagFunction/);
+
+  chai.assert.throws(() => {
+    new localTagFunction();
+  }, /^Permission Denied: Cannot access tagFunction/);
+
+  chai.assert.throws(() => {
+    localTagFunction`access${'denied'}tagFunction`;
+  }, /^Permission Denied: Cannot access tagFunction/);
+
+  with ({}) {
+    chai.assert.equal(String.raw`\abc${1}\def`, '\\abc1\\def', 'String.raw');
+
+    let tag = (strings, ...values) => strings.join(';') + ';' + values.join(';');
+    chai.assert.equal(tag`a${1}b${2}c`, 'a;b;c;1;2', 'tag function in with clause');
+
+    chai.assert.throws(() => {
+      window.tagFunction;
+    }, /^Permission Denied: Cannot access window/);
+
+    chai.assert.throws(() => {
+      tagFunction;
+    }, /^Permission Denied: Cannot access window/);
+
+    chai.assert.throws(() => {
+      tagFunction`access${'denied'}tagFunction`;
+    }, /^Permission Denied: Cannot access window/);
+
+    chai.assert.throws(() => {
+      tagFunction();
+    }, /^Permission Denied: Cannot access window/);
+
+    chai.assert.throws(() => {
+      new tagFunction();
+    }, /^Permission Denied: Cannot access window/);
+
+    chai.assert.throws(() => {
+      localTagFunction`access${'denied'}tagFunction`;
+    }, /^Permission Denied: Cannot access tagFunction/);
+
+    chai.assert.throws(() => {
+      localTagFunction();
+    }, /^Permission Denied: Cannot access tagFunction/);
+
+    chai.assert.throws(() => {
+      new localTagFunction();
+    }, /^Permission Denied: Cannot access tagFunction/);
+  }
+
+  with ({ tagFunction: function tagFunction(strings, ...values) { let result = strings.join(';') + ';' + values.join(';'); if (new.target) { this.result = result; } else { return result; } } }) {
+    chai.assert.equal(String.raw`\abc${1}\def`, '\\abc1\\def', 'String.raw');
+
+    let tag = (strings, ...values) => strings.join(';') + ';' + values.join(';');
+    chai.assert.equal(tag`a${1}b${2}c`, 'a;b;c;1;2', 'tag function in with clause');
+
+    chai.assert.throws(() => {
+      window.tagFunction;
+    }, /^Permission Denied: Cannot access window/);
+
+    chai.assert.equal(typeof tagFunction, 'function', 'tag function in with clause'); // read
+
+    chai.assert.equal(tagFunction`a${1}b${2}c`, 'a;b;c;1;2', 'tag function in with clause'); // execute
+
+    chai.assert.equal(tagFunction`access${'allowed'}tagFunction`, 'access;tagFunction;allowed', 'with-scoped tag function');
+
+    chai.assert.equal(tagFunction(['access', 'tagFunction'], 'allowed'), 'access;tagFunction;allowed', 'with-scoped tag function call');
+
+    chai.assert.equal(new tagFunction(['access', 'tagFunction'], 'allowed').result, 'access;tagFunction;allowed', 'with-scoped constructor call');
+
+    chai.assert.throws(() => {
+      localTagFunction`access${'denied'}tagFunction`;
+    }, /^Permission Denied: Cannot access tagFunction/);
+
+    chai.assert.throws(() => {
+      localTagFunction();
+    }, /^Permission Denied: Cannot access tagFunction/);
+
+    chai.assert.throws(() => {
+      new localTagFunction();
+    }, /^Permission Denied: Cannot access tagFunction/);
+  }
+
+  with ({ tagFunction: function tagFunction(strings, ...values) { let result = strings.join(';') + ';' + values.join(';'); if (new.target) { this.result = result; } else { return result; } } }) {
+    let tagFunction = localTagFunction; // local variable; not with-scoped
+    chai.assert.equal(String.raw`\abc${1}\def`, '\\abc1\\def', 'String.raw');
+
+    let tag = (strings, ...values) => strings.join(';') + ';' + values.join(';');
+    chai.assert.equal(tag`a${1}b${2}c`, 'a;b;c;1;2', 'tag function in with clause');
+
+    chai.assert.throws(() => {
+      window.tagFunction;
+    }, /^Permission Denied: Cannot access window/);
+
+    tagFunction; // local variable can be read
+
+    chai.assert.throws(() => {
+      tagFunction`access${'denied'}tagFunction`;
+    }, /^Permission Denied: Cannot access tagFunction/);
+
+    chai.assert.throws(() => {
+      tagFunction();
+    }, /^Permission Denied: Cannot access tagFunction/);
+
+    chai.assert.throws(() => {
+      new tagFunction();
+    }, /^Permission Denied: Cannot access tagFunction/);
+
+    chai.assert.throws(() => {
+      localTagFunction`access${'denied'}tagFunction`;
+    }, /^Permission Denied: Cannot access tagFunction/);
+
+    chai.assert.throws(() => {
+      localTagFunction();
+    }, /^Permission Denied: Cannot access tagFunction/);
+
+    chai.assert.throws(() => {
+      new localTagFunction();
+    }, /^Permission Denied: Cannot access tagFunction/);
+  }
+
+  with ({}) {
+    var tagFunction = localTagFunction; // global variable
+    chai.assert.equal(String.raw`\abc${1}\def`, '\\abc1\\def', 'String.raw');
+
+    let tag = (strings, ...values) => strings.join(';') + ';' + values.join(';');
+    chai.assert.equal(tag`a${1}b${2}c`, 'a;b;c;1;2', 'tag function in with clause');
+
+    chai.assert.throws(() => {
+      window.tagFunction;
+    }, /^Permission Denied: Cannot access window/);
+
+    chai.assert.throws(() => {
+      tagFunction;
+    }, /^Permission Denied: Cannot access window/);
+
+    chai.assert.throws(() => {
+      tagFunction`access${'denied'}tagFunction`;
+    }, /^Permission Denied: Cannot access window/);
+
+    chai.assert.throws(() => {
+      tagFunction();
+    }, /^Permission Denied: Cannot access window/);
+
+    chai.assert.throws(() => {
+      new tagFunction();
+    }, /^Permission Denied: Cannot access window/);
+
+    chai.assert.throws(() => {
+      localTagFunction`access${'denied'}tagFunction`;
+    }, /^Permission Denied: Cannot access tagFunction/);
+
+    chai.assert.throws(() => {
+      localTagFunction();
+    }, /^Permission Denied: Cannot access tagFunction/);
+
+    chai.assert.throws(() => {
+      new localTagFunction();
+    }, /^Permission Denied: Cannot access tagFunction/);
+  }
+
   /*
   let NoAclGlobalObject = {
     property: 1,
