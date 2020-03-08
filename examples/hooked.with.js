@@ -201,10 +201,22 @@ const __context_mapper__ = $hook$.$(__hook__, [
         ], __context_mapper__[0], false):
         break;
       }
-      f1`value is ${ __hook__('w.', __with__, [
-        'foo',
-        () => foo
-      ], __context_mapper__[0], false) }`;
+      __hook__(f1, null, [
+        ((s, r) => {
+          s.raw = r;
+          return s;
+        })([
+          'value is ',
+          ''
+        ], [
+          'value is ',
+          ''
+        ]),
+        __hook__('w.', __with__, [
+          'foo',
+          () => foo
+        ], __context_mapper__[0], false)
+      ], __context_mapper__[0], 0);
       __hook__('w.', __with__, [
         'x',
         () => x
@@ -359,14 +371,18 @@ const __context_mapper__ = $hook$.$(__hook__, [
           return aa;
         }, null, arguments, __context_mapper__[16]);
       }
-      new CC(y);
+      __hook__(CC, null, [__hook__('w.', __with__, [
+          'y',
+          () => y
+        ], __context_mapper__[0], false)], __context_mapper__[0], true);
       __hook__('w()', __with__, [
         'x',
         [__hook__('w.', __with__, [
             'y',
             () => y
           ], __context_mapper__[0], false)],
-        (...args) => x(...args)
+        (...args) => x(...args),
+        x
       ], __context_mapper__[0], false);
       __hook__('()', __hook__('w.', __with__, [
         'y',
@@ -473,7 +489,8 @@ const __context_mapper__ = $hook$.$(__hook__, [
           await __hook__('w()', __with__, [
             'foo',
             [],
-            (...args) => foo(...args)
+            (...args) => foo(...args),
+            foo
           ], __context_mapper__[20], false);
         }, null, arguments, __context_mapper__[20]);
       }
@@ -583,11 +600,11 @@ with ($hook$.with({
     ...__hook__('*', {
       a: 1,
       b: 2,
-      ...__hook__('*', function () {
+      ...__hook__('*', __hook__(function () {
         return __hook__(() => {
           return y;
         }, null, arguments, __context_mapper__[27]);
-      }(), [], __context_mapper__[27])
+      }, null, [], __context_mapper__[27], 0), [], __context_mapper__[27])
     }, [], __context_mapper__[27])
   };
   __hook__('()', __hook__('.', __hook__('w.', __with__, [

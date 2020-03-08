@@ -114,11 +114,11 @@ $hook$.global(__hook__, __context_mapper__[8], 'ff', 'function')[__context_mappe
         ...__hook__('*', {
           a: 1,
           b: 2,
-          ...__hook__('*', function () {
+          ...__hook__('*', __hook__(function () {
             return __hook__(() => {
               return y;
             }, null, arguments, __context_mapper__[12]);
-          }(), [], __context_mapper__[12])
+          }, null, [], __context_mapper__[12], 0), [], __context_mapper__[12])
         }, [], __context_mapper__[12])
       };
       __hook__('()', __hook__('.', __hook__('w.', __with__, [

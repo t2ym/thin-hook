@@ -1229,6 +1229,14 @@ else {
                 let property = normalizedArgs[0];
                 if (Reflect.has(normalizedThisArg, property)) {
                   let value = normalizedThisArg[property];
+                  switch (hookArgs[0]) {
+                  case 'w()':
+                  case 'wnew':
+                    value = hookArgs[2][3];
+                    break;
+                  default:
+                    break;
+                  }
                   let name = _globalMethods.get(value);
                   if (name) {
                     let rawProp = name[name.length - 1];
@@ -1244,6 +1252,7 @@ else {
                     if (Reflect.has(acl, obj)) { // avoid recursive calls
                       // Apply ACL for the global method
                       if (!applyAcl(obj, isStatic, isObject, prop, 'x', hookArgs[3], value, normalizedArgs[1], hookArgs)) {
+                        normalizedArgs.result = normalizedArgs[1].result;
                         return false;
                       }
                     }
@@ -1429,13 +1438,23 @@ else {
                 let property = normalizedArgs[0];
                 if (Reflect.has(normalizedThisArg, property)) {
                   let value = normalizedThisArg[property];
+                  switch (hookArgs[0]) {
+                  case 'w()':
+                  case 'wnew':
+                    value = hookArgs[2][3];
+                    break;
+                  default:
+                    break;
+                  }
                   let name = _globalMethods.get(value);
                   if (name) {
                     let rawProp = name[name.length - 1];
                     let prop = _escapePlatformProperties.get(rawProp) || rawProp;
                     let obj = name[0];
+                    let _normalizedArgs = [rawProp, normalizedArgs[1]];
                     // Apply ACL for the global method
-                    if (!applyAcl(obj, name[1] !== 'prototype', !Object.prototype.hasOwnProperty.call(normalizedThisArg, property), prop, 'x', hookArgs[3], _global[obj], [rawProp, normalizedArgs[1]], hookArgs)) {
+                    if (!applyAcl(obj, name[1] !== 'prototype', !Object.prototype.hasOwnProperty.call(normalizedThisArg, property), prop, 'x', hookArgs[3], _global[obj], _normalizedArgs, hookArgs)) {
+                      normalizedArgs.result = _normalizedArgs.result;
                       return false;
                     }
                   }
@@ -4514,6 +4533,10 @@ else {
         '@global_js_inaccessible': '---',
         '@global_js_accessible': 'rw-',
       },
+    },
+    tagFunction: {
+      [S_DEFAULT]: 'r-x',
+      '@normalization_checker': '-w--W',
     },
     onerror: {
       [S_DEFAULT]: 'rw-',
