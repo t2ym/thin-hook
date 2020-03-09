@@ -593,6 +593,7 @@ else {
     '/components/firebase/firebase-auth.js,*': '@firebase_auth',
     '/components/firebase/firebase-auth.js,Xb': '@Object_defineProperty_reader',
     '/components/firebase/firebase-auth.js,mc': '@firebase_auth_closure_global_variable_writer',
+    '/components/firebase/firebase-auth.js,Lh': '@firebase_auth_iframecb_writer',
     '/components/firebase/firebase-database.js': '@firebase_database',
     '/components/firebase/firebase-database.js,*': '@firebase_database',
     '/components/firebase/firebase-database.js,u,t': '@Object_setPrototypeOf_reader',
@@ -608,6 +609,7 @@ else {
     '/components/firebase/firebase-database.js,Gr,t': '@Object_setPrototypeOf_reader',
     '/components/firebase/firebase-database.js,ir': '@document_createElement_reader',
     '/components/firebase/firebase-database.js,or': '@iframe_contentWindow_accessor',
+    '/components/firebase/firebase-database.js,or,t': '@firebase_database_callback_global_variable_writer',
     '/components/firebase/firebase-messaging.js': '@firebase_messaging',
     '/components/firebase/firebase-messaging.js,*': '@firebase_messaging',
     '/components/firebase/firebase-messaging.js,24,k,e': '@Object_setPrototypeOf_reader',
@@ -1729,12 +1731,22 @@ else {
           $hasOwnProperty$: {
             [S_DEFAULT]: '-wxRW',
             '@dexie_Object_hasOwnProperty_reader': 'r--',
+            '@firebase_auth': 'r--', // module-wise
           },
-          $isPrototypeOf$: '-wxRW',
-          $propertyIsEnumerable$: '-wxRW',
+          $isPrototypeOf$: {
+            [S_DEFAULT]: '-wxRW',
+            '@firebase_auth': 'r--', // module-wise
+          },
+          $propertyIsEnumerable$: {
+            [S_DEFAULT]: '-wxRW',
+            '@firebase_auth': 'r--', // module-wise
+          },
           $toLocaleString$: 'rwxRW',
           $toString$: 'rwxRW',
-          $valueOf$: '-wxRW',
+          $valueOf$: {
+            [S_DEFAULT]: '-wxRW',
+            '@firebase_auth': 'r--', // module-wise
+          },
           dummyObjectMethod: '---',
         },
       },
@@ -3754,7 +3766,7 @@ else {
         [S_CHAIN]: S_CHAIN,
         [S_INSTANCE]: {
           [S_CHAIN]: S_CHAIN,
-          [S_DEFAULT]: '---',
+          [S_DEFAULT]: 'r--',
           '@live-localizer-lazy': 'rwx',
           tagName: {
             [S_DEFAULT]: '---',
@@ -4649,7 +4661,12 @@ else {
       $__proto__$: 'r--',
       $prototype$: 'r--',
       $constructor$: 'r-x',
-      '@firebase_auth_closure_global_variable_writer': Policy.patternAcl({ w: (name, prop) => name === 'window' && typeof prop === 'string' && prop.startsWith('closure_') }),
+      '@firebase_auth_closure_global_variable_writer': Policy.patternAcl({
+        w: (name, prop) => name === 'window' && typeof prop === 'string' && prop.startsWith('closure_') && 
+          (acl[prop] = acl[prop] || { [S_DEFAULT]: 'r--', '@firebase_auth': 'rwx', '@firebase_auth_closure_global_variable_writer': 'rwx' }) // generate acl on demand
+      }),
+      '@firebase_database_callback_global_variable_writer': Policy.patternAcl({ w: (name, prop) => name === 'window' && typeof prop === 'string' && (prop.startsWith('pLPCommand') || prop.startsWith('pRTLPCB')) }),
+      '@firebase_auth_iframecb_writer': Policy.patternAcl({ w: (name, prop) => name === 'window' && typeof prop === 'string' && prop.startsWith('__iframefcb') }),
       [S_PROTOTYPE]: {
         [S_OBJECT]: 'r--',
         [S_DEFAULT]: Policy.globalAcl(), // TODO: Use S_INSTANCE policy
@@ -8817,6 +8834,7 @@ else {
     new RegExp('^at (.* [(])?' + origin + '/components/'), // trust the site contents including other components
     new RegExp('^at ([^(]* [(])?' + 'https://cdnjs.cloudflare.com/ajax/libs/vis/4[.]18[.]1/vis[.]min[.]js'),
     new RegExp('^at ([^(]* [(])?' + 'https://www.gstatic.com/charts/loader[.]js'),
+    new RegExp('^at ([^(]* [(])?' + 'https://apis.google.com/js/api[.]js'),
   ];
   const excludes = new Set();
   [
