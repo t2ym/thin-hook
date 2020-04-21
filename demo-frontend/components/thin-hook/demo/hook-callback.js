@@ -10,6 +10,13 @@ else {
   const Map = self.Map;
   const Set = self.Set;
   class SetMap extends Map {
+    constructor(...args) {
+      super(...args);
+      this.aliasMap = new Map();
+      // aliasMap groups keys and aliases which have their own value set yet
+      //   aliasMap.get(key1) === aliasMap.get(key1_alias1) === aliasMap.get(key1_alias2) === Set({ key1, key1_alias1, key1_alias2 }),
+      //   aliasMap.get(key2) === aliasMap.get(key2_alias1) === Set({ key2, key2_alias1 }), ...
+    }
     set(key, value) {
       let set;
       if (super.has(key)) {
@@ -17,9 +24,32 @@ else {
       }
       else {
         set = new Set();
-        super.set(key, set);
+        if (this.aliasMap.has(key)) {
+          for (let alias of this.aliasMap.get(key)) {
+            super.set(alias, set); // all aliases including the original key are mapped to the same set as the key
+          }
+        }
+        else {
+          super.set(key, set);
+        }
       }
       set.add(value);
+      return this;
+    }
+    setAlias(key, alias) {
+      let set = super.get(key);
+      if (set) {
+        super.set(alias, set); // alias is mapped to the same set as key
+      }
+      else {
+        let aliasSet = this.aliasMap.get(key);
+        if (!aliasSet) {
+          aliasSet = new Set([key]); // initial aliasSet contains the original key
+          this.aliasMap.set(key, aliasSet);
+        }
+        aliasSet.add(alias); // alias joins the aliasSet
+        this.aliasMap.set(alias, aliasSet); // alias is mapped to the same aliasSet as the original key
+      }
       return this;
     }
     static getStringValues(set, delim = ' ') {
@@ -42,6 +72,10 @@ else {
   const JSON = self.JSON;
   const URL = self.URL;
   const Reflect = self.Reflect;
+  const Function = self.Function;
+  const FunctionPrototypeApply = Function.prototype.apply;
+  const FunctionPrototypeCall = Function.prototype.call;
+  const ReflectApply = Reflect.apply;
   const atob = self.atob;
   const createHash = hook.utils.createHash;
   const HTMLParser = hook.utils.HTMLParser;
@@ -897,6 +931,46 @@ else {
         }
       }
       return true;
+    }
+    // ACL for new Proxy() and Proxy.revocable() to treat the created proxy object as an alias for the original target object
+    // TODO: revoked proxy objects should be released
+    static setAlias(revocable = false) {
+      if (!revocable) {
+        return function ProxyAcl(normalizedThisArg,
+                                 normalizedArgs /* ['property', args], ['property', value], etc. */,
+                                 aclArgs /* [name, isStatic, isObject, property, opType, context] */,
+                                 hookArgs /* [f, thisArg, args, context, newTarget, contextSymbol] */,
+                                 applyAcl /* for recursive application of ACL */) {
+          switch (aclArgs[4]) {
+          case 'x':
+            hookArgs[6] = (result) => _globalObjects.setAlias(normalizedArgs[0], result); // resultCallback
+            return true;
+          case 'r':
+            return true;
+          case 'w':
+          default:
+            return false;
+          }
+        };
+      }
+      else {
+        return function ProxyRevocableAcl(normalizedThisArg,
+                                          normalizedArgs /* ['property', args], ['property', value], etc. */,
+                                          aclArgs /* [name, isStatic, isObject, property, opType, context] */,
+                                          hookArgs /* [f, thisArg, args, context, newTarget, contextSymbol] */,
+                                          applyAcl /* for recursive application of ACL */) {
+          switch (aclArgs[4]) {
+          case 'x':
+            hookArgs[6] = (result) => _globalObjects.setAlias(normalizedArgs[1][0], result.proxy); // resultCallback
+            return true;
+          case 'r':
+            return true;
+          case 'w':
+          default:
+            return false;
+          }
+        };
+      }
     }
     // Avoid cloning of access-controlled global objects to other global objects which have different or no specific ACLs
     static avoidGlobalClone() {
@@ -1867,6 +1941,15 @@ else {
           },
         },
       },
+    },
+    Proxy: {
+      [S_OBJECT]: {
+        [S_DEFAULT]: Policy.setAlias(false),
+      },
+      revocable: {
+        [S_DEFAULT]: Policy.setAlias(true),
+      },
+      [S_DEFAULT]: '---',
     },
     import: {
       [S_OBJECT]: {
@@ -5974,25 +6057,33 @@ else {
                   }
                 }
               }
-              if (typeof target === 'string') {
-                switch (_args[0]) {
-                case 'apply':
-                  if (_target === 'x10R') {
-                    _args = [ rawProperty, _boundArgs ? _boundArgs.concat(_args[1][2]) : _args[1][2] ];
-                  }
-                  else {
-                    _args = [ rawProperty, _boundArgs ? _boundArgs.concat(_args[1][1]) : _args[1][1] ];
-                  }
-                  break;
-                case 'call':
-                  _args = [ rawProperty, _boundArgs ? _boundArgs.concat(Array.prototype.slice.call(_args[1], 1)) : Array.prototype.slice.call(_args[1], 1) ];
-                  break;
+              switch (_args[0]) {
+              case 'apply':
+              case FunctionPrototypeApply:
+              case ReflectApply:
+                if (_target === 'x10R') {
+                  _args = [ rawProperty, _boundArgs ? _boundArgs.concat(_args[1][2]) : _args[1][2] ];
                 }
+                else {
+                  _args = [ rawProperty, _boundArgs ? _boundArgs.concat(_args[1][1]) : _args[1][1] ];
+                }
+                break;
+              case 'call':
+              case FunctionPrototypeCall:
+                _args = [ rawProperty, _boundArgs ? _boundArgs.concat(Array.prototype.slice.call(_args[1], 1)) : Array.prototype.slice.call(_args[1], 1) ];
+                break;
+              }
+              if (typeof target === 'string') {
                 continue;
               }
               else {
                 break;
               }
+            }
+            else if (target === 'x0N') {
+              // Reflect.construct(Class, args)
+              _args = _args[1][1];
+              break;
             }
             else {
               break;
@@ -6080,20 +6171,24 @@ else {
           result = [ name, isStatic, isObject, property, opType, context, normalizedThisArg, _args, arguments ];
           throw new Error('Permission Denied: Cannot access ' + SetMap.getStringValues(name));
         }
-        if (typeof target === 'string' && target[3] === 'b') {
-          let _method = _globalMethods.get(thisArg);
+        if (target === 'r0tb') {
+          // TODO: recursive should always be true but some incompatiblity remains
+          let recursive = args !== _args;
+          let _thisArg = recursive ? normalizedThisArg[rawProperty] : thisArg;
+          let __args = recursive ? _args : args;
+          let _method = _globalMethods.get(_thisArg);
           boundParameters = {
-            f: thisArg,
+            f: _thisArg,
             name: name,
-            thisArg: args[1][0],
+            thisArg: __args[1][0],
             normalizedThisArg: _method
               ? _method[1] === 'prototype'
                 ? { constructor: _global[_method[0]] }
                 : _global[_method[0]]
-              : args[1][0],
-            isStatic: _method ? (_method[1] !== 'prototype') : (typeof args[1][0] === 'function'),
-            property: typeof rawProperty === 'string' ? rawProperty : thisArg,
-            args: args[1].slice(1),
+              : __args[1][0],
+            isStatic: _method ? (_method[1] !== 'prototype') : (typeof __args[1][0] === 'function'),
+            property: typeof rawProperty === 'string' ? rawProperty : _thisArg,
+            args: __args[1].slice(1),
           };
           f = 'bind';
         }
@@ -6898,6 +6993,9 @@ else {
           }
         }
       }
+      if (arguments[6]) {
+        arguments[6](result); // resultCallback = hookArgs[6]
+      }
 
       lastContext = _lastContext;
       // if (contextStack[contextStack.length - 1] !== context) { debugger; }
@@ -7493,25 +7591,33 @@ else {
                   }
                 }
               }
-              if (typeof target === 'string') {
-                switch (_args[0]) {
-                case 'apply':
-                  if (_target === 'x10R') {
-                    _args = [ rawProperty, _boundArgs ? _boundArgs.concat(_args[1][2]) : _args[1][2] ];
-                  }
-                  else {
-                    _args = [ rawProperty, _boundArgs ? _boundArgs.concat(_args[1][1]) : _args[1][1] ];
-                  }
-                  break;
-                case 'call':
-                  _args = [ rawProperty, _boundArgs ? _boundArgs.concat(Array.prototype.slice.call(_args[1], 1)) : Array.prototype.slice.call(_args[1], 1) ];
-                  break;
+              switch (_args[0]) {
+              case 'apply':
+              case FunctionPrototypeApply:
+              case ReflectApply:
+                if (_target === 'x10R') {
+                  _args = [ rawProperty, _boundArgs ? _boundArgs.concat(_args[1][2]) : _args[1][2] ];
                 }
+                else {
+                  _args = [ rawProperty, _boundArgs ? _boundArgs.concat(_args[1][1]) : _args[1][1] ];
+                }
+                break;
+              case 'call':
+              case FunctionPrototypeCall:
+                _args = [ rawProperty, _boundArgs ? _boundArgs.concat(Array.prototype.slice.call(_args[1], 1)) : Array.prototype.slice.call(_args[1], 1) ];
+                break;
+              }
+              if (typeof target === 'string') {
                 continue;
               }
               else {
                 break;
               }
+            }
+            else if (target === 'x0N') {
+              // Reflect.construct(Class, args)
+              _args = _args[1][1];
+              break;
             }
             else {
               break;
@@ -7601,20 +7707,24 @@ else {
           result = [ name, isStatic, isObject, property, opType, context, normalizedThisArg, _args, arguments ];
           throw new Error('Permission Denied: Cannot access ' + SetMap.getStringValues(name));
         }
-        if (typeof target === 'string' && target === 'r0tb') {
-          let _method = _globalMethods.get(thisArg);
+        if (target === 'r0tb') {
+          // TODO: recursive should always be true but some incompatiblity remains
+          let recursive = args !== _args;
+          let _thisArg = recursive ? normalizedThisArg[rawProperty] : thisArg;
+          let __args = recursive ? _args : args;
+          let _method = _globalMethods.get(_thisArg);
           boundParameters = {
-            f: thisArg,
+            f: _thisArg,
             name: name,
-            thisArg: args[1][0],
+            thisArg: __args[1][0],
             normalizedThisArg: _method
               ? _method[1] === 'prototype'
                 ? { constructor: _global[_method[0]] }
                 : _global[_method[0]]
-              : args[1][0],
-            isStatic: _method ? (_method[1] !== 'prototype') : (typeof args[1][0] === 'function'),
-            property: typeof rawProperty === 'string' ? rawProperty : thisArg,
-            args: args[1].slice(1),
+              : __args[1][0],
+            isStatic: _method ? (_method[1] !== 'prototype') : (typeof __args[1][0] === 'function'),
+            property: typeof rawProperty === 'string' ? rawProperty : _thisArg,
+            args: __args[1].slice(1),
           };
           f = 'bind';
         }
@@ -8221,6 +8331,9 @@ else {
             wrapGlobalProperty([_global, name, 'window']);
           }
         }
+      }
+      if (arguments[6]) {
+        arguments[6](result); // resultCallback = hookArgs[6]
       }
 
       lastContext = _lastContext;
