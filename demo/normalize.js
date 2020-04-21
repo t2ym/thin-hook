@@ -3395,6 +3395,105 @@
     }, /^Permission Denied: Cannot access tagFunction/);
   }
 
+  chai.assert.throws(() => {
+    new Proxy(window, {})['__hook__'];
+  }, /^Permission Denied: Cannot access window/);
+
+  chai.assert.throws(() => {
+    new Proxy(window, {})['caches'];
+  }, /^Permission Denied: Cannot access window/);
+
+  chai.assert.throws(() => {
+    new Proxy(new BaseClass1(), {}).instanceMethod;
+  }, /^Permission Denied: Cannot access BaseClass1/);
+
+  chai.assert.throws(() => {
+    new Proxy(BaseClass1, {}).staticMethod;
+  }, /^Permission Denied: Cannot access BaseClass1/);
+
+  chai.assert.throws(() => {
+    Reflect.construct(Proxy, [BaseClass1, {}]).staticMethod;
+  }, /^Permission Denied: Cannot access BaseClass1/);
+
+  chai.assert.throws(() => {
+    Reflect.construct.apply(Reflect, [Proxy, [BaseClass1, {}]]).staticMethod;
+  }, /^Permission Denied: Cannot access BaseClass1/);
+
+  chai.assert.throws(() => {
+    Reflect.construct.call(Reflect, Proxy, [BaseClass1, {}]).staticMethod;
+  }, /^Permission Denied: Cannot access BaseClass1/);
+
+  chai.assert.throws(() => {
+    Reflect.construct.bind(Reflect, Proxy)([BaseClass1, {}]).staticMethod;
+  }, /^Permission Denied: Cannot access BaseClass1/);
+
+  chai.assert.throws(() => {
+    Reflect.construct.bind(Reflect, Proxy).apply(Reflect, [[BaseClass1, {}]]).staticMethod;
+  }, /^Permission Denied: Cannot access BaseClass1/);
+
+  chai.assert.throws(() => {
+    Reflect.construct.bind(Reflect, Proxy).call(Reflect, [BaseClass1, {}]).staticMethod;
+  }, /^Permission Denied: Cannot access BaseClass1/);
+
+  chai.assert.throws(() => {
+    Reflect.construct.bind.call(Reflect.construct, Reflect, Proxy).call(Reflect, [BaseClass1, {}]).staticMethod;
+  }, /^Permission Denied: Cannot access BaseClass1/);
+
+  chai.assert.throws(() => {
+    Proxy.revocable(window, {}).proxy['__hook__'];
+  }, /^Permission Denied: Cannot access window/);
+
+  chai.assert.throws(() => {
+    Proxy.revocable(window, {}).proxy['caches'];
+  }, /^Permission Denied: Cannot access window/);
+
+  chai.assert.throws(() => {
+    Proxy.revocable(new BaseClass1(), {}).proxy.instanceMethod;
+  }, /^Permission Denied: Cannot access BaseClass1/);
+
+  chai.assert.throws(() => {
+    Proxy.revocable(BaseClass1, {}).proxy.staticMethod;
+  }, /^Permission Denied: Cannot access BaseClass1/);
+
+  chai.assert.throws(() => {
+    Proxy.revocable.apply(Proxy, [BaseClass1, {}]).proxy.staticMethod;
+  }, /^Permission Denied: Cannot access BaseClass1/);
+
+  chai.assert.throws(() => {
+    Proxy.revocable.call(Proxy, BaseClass1, {}).proxy.staticMethod;
+  }, /^Permission Denied: Cannot access BaseClass1/);
+
+  chai.assert.throws(() => {
+    Reflect.apply(Proxy.revocable, Proxy, [BaseClass1, {}]).proxy.staticMethod;
+  }, /^Permission Denied: Cannot access BaseClass1/);
+
+  chai.assert.throws(() => {
+    Reflect.apply.bind(Reflect, Proxy.revocable, Proxy)([BaseClass1, {}]).proxy.staticMethod;
+  }, /^Permission Denied: Cannot access BaseClass1/);
+
+  chai.assert.throws(() => {
+    Reflect.apply.bind(Reflect, Proxy.revocable, Proxy).apply(Reflect, [[BaseClass1, {}]]).proxy.staticMethod;
+  }, /^Permission Denied: Cannot access BaseClass1/);
+
+  chai.assert.throws(() => {
+    Reflect.apply.bind(Reflect, Proxy.revocable, Proxy).call(Reflect, [BaseClass1, {}]).proxy.staticMethod;
+  }, /^Permission Denied: Cannot access BaseClass1/);
+
+  chai.assert.throws(() => {
+    new Proxy(new Proxy(BaseClass1, {}), {}).staticMethod;
+  }, /^Permission Denied: Cannot access BaseClass1/);
+
+  chai.assert.throws(() => {
+    new Proxy(BaseClass1, { get(target, prop, receiver) { return target[prop]; }}).staticMethod;
+  }, /^Permission Denied: Cannot access BaseClass1/);
+
+  chai.assert.throws(() => {
+    let BC1;
+    BC1 = BaseClass1;
+    class SubClass6 extends BC1 {}
+    new Proxy(SubClass6, {}).staticMethod;
+  }, /^Permission Denied: Cannot access BaseClass1/);
+
   /*
   let NoAclGlobalObject = {
     property: 1,
