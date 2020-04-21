@@ -3494,6 +3494,25 @@
     new Proxy(SubClass6, {}).staticMethod;
   }, /^Permission Denied: Cannot access BaseClass1/);
 
+  chai.assert.throws(() => {
+    let DummyObject1Local = { property: 1 };
+    let proxyObject;
+    proxyObject = new Proxy(DummyObject1Local, {}); // DummyObject1Local is not a global object at this phase but proxyObject is set as an alias for DummyObject1Local
+    proxyObject.property; // accessible
+    window.DummyObject1 = DummyObject1Local; // DummyObject1Local is now tracked as the global object DummyObject1
+    proxyObject.property; // forbidden
+  }, /^Permission Denied: Cannot access DummyObject1/);
+
+  chai.assert.throws(() => {
+    let DummyObject1Local = { property: 1 };
+    let proxyObject;
+    proxyObject = new Proxy(DummyObject1Local, {}); // DummyObject1Local is not a global object at this phase but proxyObject is set as an alias for DummyObject1Local
+    proxyObject = new Proxy(proxyObject, {}); // proxy of proxy object
+    proxyObject.property; // accessible
+    window.DummyObject1 = DummyObject1Local; // DummyObject1Local is now tracked as the global object DummyObject1
+    proxyObject.property; // forbidden
+  }, /^Permission Denied: Cannot access DummyObject1/);
+
   /*
   let NoAclGlobalObject = {
     property: 1,
