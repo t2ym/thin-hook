@@ -1,6 +1,8 @@
 [![npm version](https://badge.fury.io/js/thin-hook.svg)](https://badge.fury.io/js/thin-hook)
 [![Bower version](https://badge.fury.io/bo/thin-hook.svg)](https://badge.fury.io/bo/thin-hook)
 
+<img src="https://raw.githubusercontent.com/wiki/t2ym/thin-hook/thin-hook-logo.svg?sanitize=true" width="768px">
+
 # thin-hook
 
 Thin Hook Preprocessor (experimental)
