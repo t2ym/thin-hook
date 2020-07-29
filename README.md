@@ -9,6 +9,8 @@ Thin Hook Preprocessor (experimental)
 
 ## Notes
 
+- **[Vulnerability Fix]** Since [0.4.0-alpha.22](https://github.com/t2ym/thin-hook/releases/tag/0.4.0-alpha.22) with [Fix #363 Block blob URLs](https://github.com/t2ym/thin-hook/issues/363), blob URLs are blocked except for `<a download="filename" href="blob:...">Download Link</a>`. Prior to this version, documents with blob URLs bypass Service Worker.
+- **[Vulnerability Fix]** Since [0.4.0-alpha.22](https://github.com/t2ym/thin-hook/releases/tag/0.4.0-alpha.22) with [Fix #362 Option to block `<embed>` and `<object>` elements](https://github.com/t2ym/thin-hook/issues/362), the application hangs up on `<embed>` and `<object>` activities with `hook.parameters.hangUpOnEmbedAndObjectElement = true`. Prior to this version, `<embed>` and `<object>` documents can bypass Service Worker with Chrome Canary 86.
 - **[Vulnerability Fix]** Since [0.4.0-alpha.21](https://github.com/t2ym/thin-hook/releases/tag/0.4.0-alpha.21) with [Fix #355 Treat proxy objects as alias objects in ACL](https://github.com/t2ym/thin-hook/issues/355), ACL is properly applied for proxy objects created via `new Proxy(target, handler)` and `Proxy.revocable(target, handler)` as with their original `target` objects. Prior to this version, ACL for the `target` objects are not applied to proxy objects.
 - **[Vulnerability Fix]** Since [0.4.0-alpha.20](https://github.com/t2ym/thin-hook/releases/tag/0.4.0-alpha.20) with [Fix #350 Append the target value to hooked arguments and pick it up in `Policy.defaultAcl()`](https://github.com/t2ym/thin-hook/issues/350), ACL is properly applied for `with`-scoped values in function calls and constructor calls. Prior to this version, calls to `with`-scoped functions can skip ACLs for their reference values.
 - **[Vulnerability Fix]** Since [0.4.0-alpha.20](https://github.com/t2ym/thin-hook/releases/tag/0.4.0-alpha.20) with [Fix #349 Hook local function calls in `with` clause](https://github.com/t2ym/thin-hook/issues/349), local function calls in `with` clause are property hooked. Prior to this version, local function calls in `with` clause are not hooked. This is a regression issue from the fix for [Fix #339 Local variables in a with block are mistreated as global variables in ACL #339](https://github.com/t2ym/thin-hook/issues/339).
@@ -1023,8 +1025,13 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
           - `hook.parameters.onloadWrapper = "event.target.addEventListener('srcdoc-load', () => { $onload$ })";`: Set in `demo/bootstrap.js`
           - Receive `srcdoc-load` event and trigger the original `onload` script
             - Note: `addEventListener('load', handler)` is currently called BEFORE the document from `srcdoc` is loaded and `srcdoc-load` event is fired.
+        - Flag to block `<embed>` and `<object>` elements
+          - `hook.parameters.hangUpOnEmbedAndObjectElement = false;`: Set in `demo/bootstrap.js`
+          - If the flag is set as `true`, the application hangs up on encountering activities by `<object>` and `<embed>` elements
+            - To use this flag, `hook.parameters.mutationObserver` and `hook.parameters.mutationObserverConfig` must be set in `demo/hook-callback.js`
         - Empty SVG to load the target URL
           - `hook.parameters.emptySvg = '<?xml version="1.0"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="1px" height="1px"><script>location = "$location$";</script></svg>';`
+            - If `hook.parameters.hangUpOnEmbedAndObjectElement = true`, the SVG loads `about:blank`
         - Bootstrap Scripts for SVG
           - `hook.parameters.bootstrapSvgScripts = '<script xlink:href="URL?params"></script>...'`
         - Check Request callback on Fetch at Service Worker
@@ -1067,7 +1074,11 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
         - Script Hashes
           - `hook.parameters.scriptHashes = { "SHA256(authorized inline script)": "context", ... }` - List of hashes for authorized inline scripts
         - Integrity
-          - `hook.paremeters.integrity = { "URL path": "base64(SHA256(response data))", ... }` - List of integrity for static contents
+          - `hook.parameters.integrity = { "URL path": "base64(SHA256(response data))", ... }` - List of integrity for static contents
+        - MutationObserver
+          - `hook.parameters.mutationObserver = new MutationObserver(observerCallback);` - `MutationObserver` object set in `demo/hook-callback.js`
+          - `hook.parameters.mutationObserverConfig = { childList: true, subtree: true, attributes: true, attributeOldValue: true, characterData: true, characterDataOldValue: true, };` - Configuration options for `hook.parameters.mutationObserver.observe(options)` set in `demo/hook-callback.js`
+            - Note: They are used in the wrapped `Node.attachShadow()` to track mutations in every shadow DOM as well as for all document objects of windows and frames
     - register as Service Worker
       - `Service-Worker-Allowed` HTTP response header must have an appropriate scope for the target application
     - `cors=true` parameter: CORS script, e.g., `<script src="https://cross.origin.host/path/script.js?cors=true"></script>`
@@ -1138,6 +1149,7 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
   - `hook.parameters.emptyDocumentUrl`
   - `hook.parameters.bootstrap`
   - `hook.parameters.onloadWrapper`
+  - `hook.parameters.hangUpOnEmbedAndObjectElement`
   - `hook.parameters.emptySvg`
   - `hook.parameters.bootstrapSvgScripts`
   - `hook.parameters.noHookAuthorizationParameter`: Value of `hook.min.js?no-hook-authorization` parameter used in `hook-callback.js`
@@ -1214,6 +1226,8 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
     - `Stack` class object is a brancheable linked list with `push/pop` operations
       - The branching feature of `Stack` is not utilized for now
   - Call `hook.hookCallbackCompatibilityTest()`
+  - Attach MutationObserver to audit URLs in DOM mutations
+    - Block `blob:` URLs except for downloading to local files
   - Hook global objects
     - Via
       - `hooked = hook[name](Symbol.for('__hook__'), [[name, { random: name === 'Node' }]], 'method')`
@@ -1243,6 +1257,9 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
         - `hookCallbacks.__hook__acl`: acl only (acl + contextStack)
         - `hookCallbacks.__hook__min`: minimal (no acl)
     - `const acl`: ACL
+  - For MutationObserver
+    - `hook.parameters.mutationObserver = new MutationObserver(observerCallback);` - `MutationObserver` object set in `demo/hook-callback.js`
+    - `hook.parameters.mutationObserverConfig = { childList: true, subtree: true, attributes: true, attributeOldValue: true, characterData: true, characterDataOldValue: true, };` - Configuration options for `hook.parameters.mutationObserver.observe(options)` set in `demo/hook-callback.js`
   - For global object access
     - `const enableDebugging = false`: Use `true` to enable debugging by disabling forced redirection to `about:blank` on prohibited global object access
     - `const wildcardWhitelist`: `Array` of `RegExp` for Chrome browser's `new Error().stack` format
