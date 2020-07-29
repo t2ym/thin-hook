@@ -8889,6 +8889,201 @@ else {
     navigator.userAgent.replace(/^.*Chrome\/([^ ]*) .*$/, '| $1 ') + '| 0.4.0-alpha.* | ' + results.map((result) => (new Intl.NumberFormat()).format(parseInt(1000 * r / result[1]))).join(' | ') + ' |');
   }
 
+  // Track mutations of elements
+  if (self.constructor.name === 'Window') {
+    const console = _global.console;
+    const document = _global.document;
+    const Node = _global.Node;
+    const HTMLAnchorElement = _global.HTMLAnchorElement;
+    const HTMLAreaElement = _global.HTMLAreaElement;
+    const HTMLEmbedElement = _global.HTMLEmbedElement;
+    const HTMLObjectElement = _global.HTMLObjectElement;
+    const ELEMENT_NODE = Node.ELEMENT_NODE;
+    const TEXT_NODE = Node.TEXT_NODE;
+    const CDATA_SECTION_NODE = Node.CDATA_SECTION_NODE;
+    const PROCESSING_INSTRUCTION_NODE = Node.PROCESSING_INSTRUCTION_NODE;
+    const COMMENT_NODE = Node.COMMENT_NODE;
+    const DOCUMENT_NODE = Node.DOCUMENT_NODE;
+    const DOCUMENT_TYPE_NODE = Node.DOCUMENT_TYPE_NODE;
+    const DOCUMENT_FRAGMENT_NODE = Node.DOCUMENT_FRAGMENT_NODE;
+
+    const config = {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      //attributeFilter: ['src', 'data', 'srcdoc', 'href', 'action'],
+      attributeOldValue: true,
+      characterData: true,
+      characterDataOldValue: true,
+    };
+
+    const auditURL = function (node, name, urlStr) {
+      let url = new URL(urlStr, location.href);
+      let allowed = false;
+      if (hook.parameters.hangUpOnEmbedAndObjectElement) {
+        if (node instanceof HTMLEmbedElement || node instanceof HTMLObjectElement) {
+          if (urlStr !== 'about:blank') {
+            node[name] = 'about:blank';
+            if (urlStr) {
+              _global.top.location = 'about:blank'; // The application hangs up since all <embed> and <object> nodes are unexpected and malicious
+            }
+          }
+          return;
+        }
+      }
+      switch (url.protocol) {
+      case 'javascript:':
+        if (name === 'href') {
+          if (!urlStr.match(/^javascript:const __[0-9a-zA-Z]*__=\$hook\$[.]\$/)) {
+            //console.warn(`auditURL: hooking ${node.tagName.toLowerCase()}.${name} with value "${urlStr}" for `, node);
+            node.setAttribute(name, urlStr);
+          }
+        }
+        else {
+          node.removeAttribute(name);
+          //console.warn(`auditURL: blocking ${node.tagName.toLowerCase()}.${name} with value "${urlStr}" for `, node);
+        }
+        break;
+      case 'http:':
+      case 'https:':
+        break;
+      case 'blob:':
+        if (node instanceof HTMLAnchorElement || node instanceof HTMLAreaElement) {
+          if (node.hasAttribute('download')) {
+            allowed = true; // <a download href="blob:*">
+          }
+        }
+        if (!allowed) {
+          node.removeAttribute(name);
+          //console.warn(`auditURL: blocking ${node.tagName.toLowerCase()}.${name} with value "${urlStr}" for `, node);
+        }
+        break;
+      case 'data:':
+      case 'about:':
+      default:
+        break;
+      }
+    };
+
+    const auditNode = function (node) {
+      switch (node.nodeType) {
+      case ELEMENT_NODE:
+        {
+          let tagName = node.tagName.toLowerCase();
+          let targets = Object.create(null);
+          switch (tagName) {
+          case 'script':
+            targets.src = node.src;
+            break;
+          case 'iframe':
+            targets.src = node.src;
+            targets.srcdoc = node.srcdoc;
+            break;
+          case 'object':
+            targets.data = node.data;
+            break;
+          case 'embed':
+            targets.src = node.src;
+            break;
+          case 'form':
+            targets.action = node.action;
+            break;
+          case 'a':
+          case 'area':
+            targets.href = node.href;
+            targets.download = node.download;
+            break;
+          default:
+            break;
+          }
+          for (let name in targets) {
+            switch (name) {
+            case 'srcdoc':
+              if (targets[name]) {
+                node.removeAttribute('srcdoc');
+                //console.warn(`auditURL: blocking ${node.tagName.toLowerCase()}.${name} with value "${targets[name]}" for `, node);
+              }
+              break;
+            case 'download':
+              if (!node.hasAttribute('download')) {
+                if (node.href && node.href.startsWith('blob:')) {
+                  node.removeAttribute('href'); // invalidate href link for downloading
+                }
+              }
+              break;
+            default:
+              auditURL(node, name, targets[name]);
+              break;
+            }
+          }
+        }
+        break;
+      case TEXT_NODE:
+      case CDATA_SECTION_NODE:
+      case PROCESSING_INSTRUCTION_NODE:
+      case COMMENT_NODE:
+      case DOCUMENT_NODE:
+      case DOCUMENT_TYPE_NODE:
+      case DOCUMENT_FRAGMENT_NODE:
+      default:
+        break;
+      }
+    };
+
+    const addTargetNodes = function (targetNodes, node) {
+      targetNodes.add(node);
+      if (node.children) {
+        for (let child of node.children) {
+          addTargetNodes(targetNodes, child);
+        }
+      }
+      if (node.shadowRoot) {
+        observer.observe(node.shadowRoot, config);
+        for (let child of node.shadowRoot.children) {
+          addTargetNodes(targetNodes, child);
+        }
+      }
+    };
+
+    const observerCallback = function (mutations, observer) {
+      let targetNodes = new Set();
+      for(let mutation of mutations) {
+        switch (mutation.type) {
+        case 'childList':
+          if (mutation.addedNodes.length > 0) {
+            for (let node of mutation.addedNodes) {
+              addTargetNodes(targetNodes, node);
+            }
+          }
+          break;
+        case 'attributes':
+        case 'characterData':
+          targetNodes.add(mutation.target);
+          break;
+        default:
+          break;
+        }
+      }
+      for (let node of targetNodes) {
+        auditNode(node);
+      }
+      //if (targetNodes.length > 0) { console.log('observerCallback: nodes should be audited', ...targetNodes); }
+    };
+
+    const observer = new MutationObserver(observerCallback);
+
+    // For ShadowRoot
+    hook.parameters.mutationObserver = observer;
+    hook.parameters.mutationObserverConfig = config;
+
+    try {
+      observer.observe(document, config);
+    }
+    catch (e) {
+      console.error(e, document);
+    }
+  }
+
   // Moved from hook-native-api.js
   const enableDebugging = false;
   const onUnexpectedAccessToGlobalObject = function onUnexpectedAccessToGlobalObject(op, name, value, oldValue) {
