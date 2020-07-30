@@ -15,8 +15,8 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
 }
 chai.assert.throws(() => {
   let blob = new Blob([`
-    debugger;
-    onconnect = function(event) {
+    importScripts('../../hook.min.js?no-hook=true', '../no-hook-authorization.js?no-hook=true', '../bootstrap.js?no-hook=true', '../hook-callback.js?no-hook=true', '../hook-native-api.js?no-hook=true');
+    self.addEventListener('connect', function(event) {
       let port = event.ports[0];
 
       port.addEventListener('message', function onMessage(event) {
@@ -26,7 +26,7 @@ chai.assert.throws(() => {
         port.postMessage(workerResult);
       });
       port.start();
-    }
+    });
   `], { type: 'text/javascript' });
   let blobUrl = URL.createObjectURL(blob);
   let worker = new SharedWorker(blobUrl);
@@ -38,7 +38,10 @@ chai.assert.throws(() => {
   let message = [5, 7];
   console.log('shared-worker-client.js: posting message ', JSON.stringify(message));
   worker.port.postMessage(message);
-}, /^Permission Denied:/);
+  if (!blobUrl.startsWith('blob:')) {
+    throw new Error('Virtual Blob URL');
+  }
+}, /^Permission Denied:|Virtual Blob URL/);
 chai.assert.throws(() => {
   new SharedWorker('shared-worker.xjs'); // illegal extensions
 }, /^Permission Denied:/);

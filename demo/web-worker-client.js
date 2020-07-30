@@ -15,9 +15,15 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
 }
 chai.assert.throws(() => {
   let blob = new Blob([`
-    onmessage = (event) => {
-      caches.keys().then(keys => postMessage(keys[0]));
-    }
+    importScripts('../../hook.min.js?no-hook=true', '../no-hook-authorization.js?no-hook=true', '../bootstrap.js?no-hook=true', '../hook-callback.js?no-hook=true', '../hook-native-api.js?no-hook=true');
+    self.addEventListener('message', async (event) => {
+      try {
+        caches.keys().then(keys => postMessage(keys[0]));
+      }
+      catch (e) {
+        postMessage('version_' + e.message);
+      }
+    });
   `], { type: 'text/javascript' });
   let blobUrl = URL.createObjectURL(blob);
   let worker = new Worker(blobUrl);
@@ -29,7 +35,10 @@ chai.assert.throws(() => {
   let message = [];
   console.log('web-worker-client.js: posting message ', JSON.stringify(message));
   worker.postMessage(message);
-}, /^Permission Denied:/);
+  if (!blobUrl.startsWith('blob:')) {
+    throw new Error('Virtual Blob URL');
+  }
+}, /^Permission Denied:|Virtual Blob URL/);
 chai.assert.throws(() => {
   new Worker('web-worker.xjs'); // illegal extensions
 }, /^Permission Denied:/);
