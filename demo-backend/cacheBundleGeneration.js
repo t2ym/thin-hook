@@ -61,7 +61,7 @@ const loadOnly = process.argv[2] === 'loadOnly';
   console.log('serverSecret', serverSecret);
   await new Promise(resolve => setTimeout(resolve, 4000));
   console.log('wait 4000');
-  let browser = await puppeteer.launch({ headless: true, dumpio: false, args: ['--disable-gpu', '--no-sandbox', '--no-setsuid-sandbox'], executablePath: chromePath }); // terse and fastest
+  let browser = await puppeteer.launch({ headless: true, dumpio: true, args: ['--disable-gpu', '--no-sandbox', '--enable-logging=stderr', '--no-setsuid-sandbox'], executablePath: chromePath }); // terse and fastest
   //let browser = await puppeteer.launch({ headless: false, dumpio: true, args: [ '--disable-gpu', '--enable-logging=stderr' ], executablePath: chromePath });
   //let browser = await puppeteer.launch({ headless: false, dumpio: true, args: [ '--disable-gpu', '--enable-logging=stderr', '--auto-open-devtools-for-tabs' ], executablePath: chromePath });
   let page = await browser.newPage();

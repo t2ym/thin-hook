@@ -1025,6 +1025,13 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
           - `hook.parameters.onloadWrapper = "event.target.addEventListener('srcdoc-load', () => { $onload$ })";`: Set in `demo/bootstrap.js`
           - Receive `srcdoc-load` event and trigger the original `onload` script
             - Note: `addEventListener('load', handler)` is currently called BEFORE the document from `srcdoc` is loaded and `srcdoc-load` event is fired.
+        - Virtual Blob URL (disabled by default)
+          - `hook.parameters.virtualBlobUrlTargetType = new Map([['text/html', 'file.html'],['text/javascript', 'file.js'],['image/svg+xml', 'file.svg']]);`: Set in `demo/bootstrap.js` to specify target MIME types and their corresponding virtual Blob URL file names
+          - `hook.parameters.virtualBlobBaseUrl = null;//new URL('blob/', hook.parameters.baseURI).href;`: Set in `demo/bootstrap.js` to specify the base URL for virtual Blob URLs
+          - Convert Blob URLs to Virtual Blob URLs in https so that they can be preprocessed in Service Worker and set in attributes
+            - Original Blob URL: `blob:https://origin.site/abcd...1234` for `text/html` Blob object
+            - Virtual Blob URL: `https://origin.site/entry/blob/file.html?bloburl=blob:https://origin.site/abcd...1234`
+          - If these parameters are not configured (which is default), no conversion will be performed on Blob URLs
         - Flag to block `<embed>` and `<object>` elements
           - `hook.parameters.hangUpOnEmbedAndObjectElement = false;`: Set in `demo/bootstrap.js`
           - If the flag is set as `true`, the application hangs up on encountering activities by `<object>` and `<embed>` elements
@@ -1149,6 +1156,8 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
   - `hook.parameters.emptyDocumentUrl`
   - `hook.parameters.bootstrap`
   - `hook.parameters.onloadWrapper`
+  - `hook.parameters.virtualBlobUrlTargetType`
+  - `hook.parameters.virtualBlobBaseUrl`
   - `hook.parameters.hangUpOnEmbedAndObjectElement`
   - `hook.parameters.emptySvg`
   - `hook.parameters.bootstrapSvgScripts`

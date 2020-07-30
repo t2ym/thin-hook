@@ -46,6 +46,95 @@ else {
   hook.parameters.emptyDocumentUrl = new URL('./empty-document.html', baseURI);
   hook.parameters.bootstrap = `<script>frameElement.dispatchEvent(new Event('srcdoc-load'))</script>`;
   hook.parameters.onloadWrapper = `event.target.addEventListener('srcdoc-load', () => { $onload$ })`;
+  //hook.parameters.virtualBlobUrlTargetType = new Map([['text/html', 'file.html'],['text/javascript', 'file.js'],['image/svg+xml', 'file.svg']]);
+  //hook.parameters.virtualBlobBaseUrl = new URL('blob/', baseURI).href;
+  if (hook.parameters.virtualBlobUrlTargetType && hook.parameters.virtualBlobBaseUrl) {
+    hook.parameters.revertVirtualBlobUrl = function (srcUrl) {
+      if (srcUrl instanceof URL) {
+        if (srcUrl.protocol === 'https:') {
+          if (srcUrl.href.startsWith(hook.parameters.virtualBlobBaseUrl)) {
+            let bloburl = srcUrl.searchParams.get('bloburl');
+            if (bloburl.startsWith('blob:')) {
+              srcUrl = new URL(bloburl);
+            }
+          }
+        }
+      }
+      return srcUrl;
+    };
+    if (self.constructor.name === 'Window') {
+      // wrap URL.createObjectURL(blob)
+      // target blob.type in hook.parameters.virtualBlobUrlTargetType
+      // original URL: blob:https://origin/9a76ffaa-9d4d-40dd-a7d4-b5af9491eb20
+      // virtual  URL: https://origin/entry/blob/file.html?bloburl=blob%3Ahttps%3A%2F%2Forigin%2F9a76ffaa-9d4d-40dd-a7d4-b5af9491eb20
+      const desc = Object.getOwnPropertyDescriptor(URL, 'createObjectURL');
+      Object.defineProperty(URL, 'createObjectURL', {
+        configurable: false,
+        enumerable: true,
+        writable: false,
+        value: function createObjectURL(blob) {
+          let url = desc.value.call(this, blob);
+          let filename;
+          if (blob && (filename = hook.parameters.virtualBlobUrlTargetType.get(blob.type))) {
+            url = hook.parameters.virtualBlobBaseUrl + filename + '?bloburl=' + encodeURIComponent(url);
+          }
+          return url;
+        },
+      });
+    }
+    if (self.constructor.name === 'ServiceWorkerGlobalScope') {
+      const originalCheckRequest = hook.parameters.checkRequest;
+      // interpret virtual URL and convert it to the blob URL
+      hook.parameters.checkRequest = async function (event, response, cache) {
+        if (originalCheckRequest) {
+          response = await originalCheckRequest(event, response, cache);
+        }
+        let url = new URL(event.request.url);
+        if (!response && url.href.startsWith(hook.parameters.virtualBlobBaseUrl)) {
+          let bloburl = url.searchParams.get('bloburl');
+          if (bloburl) {
+            let request = new Request(bloburl, { mode: 'same-origin' });
+            // redirect request to the blob URL by overriding event.request.clone() with a function returning the blob url request
+            //   Note: event.request.clone() is called before fetch(request)
+            Object.defineProperty(event.request, 'clone', {
+              configurable: true,
+              writable: false,
+              value: function clone() {
+                return request;
+              },
+            });
+            // disable caching by overriding cache.put() with an empty async function
+            //   Note: The cache object is dedicated to FetchEvent for the request and the response
+            Object.defineProperty(cache, 'put', {
+              configurable: true,
+              writable: false,
+              value: async function put() {
+                return undefined;
+              },
+            });
+          }
+        }
+        return response;
+      };
+      const originalCheckResponse = hook.parameters.checkResponse;
+      // adjust response as if it is fetched via the virtual URL instead of the blob URL so that the response body can be preprocessed
+      hook.parameters.checkResponse = async function (event, request, response, cache) {
+        if (typeof response.url === 'string' && response.url.startsWith('blob:')) {
+          let type = response.headers.get('content-type');
+          let filename = hook.parameters.virtualBlobUrlTargetType.get(type);
+          if (filename) {
+            let url = hook.parameters.virtualBlobBaseUrl + filename + '?bloburl=' + encodeURIComponent(response.url);
+            response = new Response(response.body, { status: response.status, statusText: response.statusText, headers: response.headers });
+            Object.defineProperty(response, 'url', { value: url, writable: false, enumerable: false });
+          }
+        }
+        if (originalCheckResponse) {
+          response = await originalCheckResponse(event, request, response, cache);
+        }
+        return response;
+      };
+    }
+  }
   // Set as true for mitigating the impacts of #362 [Vulnerability][Chrome Canary 86] SVG images and HTML documents loaded in <object>, <embed> elements bypass Service Worker
   hook.parameters.hangUpOnEmbedAndObjectElement = false; // Note: If the value is true, all <embed> and <object> elements are prohibited and the app will hang up on them
   hook.parameters.emptySvg = hook.parameters.hangUpOnEmbedAndObjectElement
