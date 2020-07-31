@@ -256,6 +256,7 @@
   });
 
   const INTEGRITY_PSEUDO_URL = 'https://thin-hook.localhost.localdomain/integrity.json';
+  const CACHE_STATUS_PSEUDO_URL = 'https://thin-hook.localhost.localdomain/cache-status.json';
 
   let Sessions = [];
   let CurrentSession;
@@ -331,8 +332,8 @@
 
   RSA.publicKeyBits = 2048; // number of bits in RSA public key, which must be at least 2048
   RSA.publicKeySize = RSA.publicKeyBits / 8; // number of bytes for RSA-OAEP encrypted data size
-  RSA.publicKeyBase64 = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA6A/ncwT+Dm6sfbT+36b181tjfCZGZ4X0LtJrCnEKjXiWHkpuUUHfw0IVSUD4tVl+WMsJ7SYXdPzgRZkNLZ2iMo3L9V7+Cctl0ZBQXgs0NVRRQlkOtEUZiOjWcdIILbWoEx62Z8A9VoHI1+hIHbZ6Fx7yGNLjE0E5Dq5caht1RzWS/u+E9aK+qlC1zkG7Rcrvd48HYBp6j6ie2NJ6c62F9U4oBsEg5GEZzS2hjq0LhANNEbdR5ccTKAFs4ocYPjeg6YDQz0zqJJZHshXMB4NY79VpRa5sAKkUY/Ra/PDoi5Ugl7A2j8AdQX9Pg9ASARVAzcUp2Cqd0VqiRl2dQn/CXQIDAQAB';
-  ECDSA.publicKeyBase64 = 'MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEGoVCwPI1JTuoUOUodJ1NWtm/lPZD82qEqNoLvcxcRrnD4zxBomZsonIlxFueKg0wIOdXAzD1bCeFP6EyQ3OloA==';
+  RSA.publicKeyBase64 = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAj/QNzjbD+ylTvVPOhoZEbdKPhkjXuNKTk2SIBT+QKnKDe3W2zm8UlLPusKhXdnOobkmR9La4VG2M3xNtAKJOO7NTGp94PnGKdE+wSr0iW3+cEQ0n7OFwyt0EgtrbJJsX7KH2RbUKCsr9gkfq56NlkyHj9ftNXc8pzgjdP+6SL0B9xglzihYEjymqnopl7IMb/Nl4yBvwydgNO4FFdsghDcXKidDqkbJtWWIF7BMs7O/w37s/vJtgp7eunqu8X3LFRcOFlAVbgHeP/vkDKszURu4QHe5ihnspkqIg5rAZm4+75DBq31VRL3ulNEagvl9jPQeHgg7nHJ4V0UyXXngMkQIDAQAB';
+  ECDSA.publicKeyBase64 = 'MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAESSfzQqieZSN4TlI/1Xu2SR7OMMSznN+1b92BgtdRUeI8j8bzVotEZ+ELx9okN0AKq74sWsWkWO9UC7QuxhgFvA==';
   ECDSA.signatureLength = SHA256.hashBytes * 2;
   ECDHE.publicKeyLength = 1 + SHA256.hashBytes * 2;
 
@@ -986,6 +987,123 @@
     else {
       console.error('secureFetch: CurrentSession is missing');
       return fetch(request, options);
+    }
+  }
+
+  if ((self.constructor.name === 'Window' && top === window) || self.constructor.name === 'ServiceWorkerGlobalScope') {
+    // main document or Service Worker
+    if (self.Cache) {
+      const native = {
+        match: Object.getOwnPropertyDescriptor(self.Cache.prototype, 'match'),
+        put: Object.getOwnPropertyDescriptor(self.Cache.prototype, 'put'),
+      };
+      const Response = self.Response;
+      Object.defineProperty(self.Cache.prototype, 'put', {
+        configurable: false,
+        enumerable: native.put.enumerable,
+        writable: false,
+        value: async function put(request, response) {
+          if (response instanceof Response) {
+            let InitialSession = Sessions[0];
+            let immutableHeaders = false;
+            let headers = response.headers;
+            let headerText = '';
+            let headerNames = [];
+            let digest;
+            let timestamp = Date.now() + '';
+            let random;
+            let body;
+            let contentType = headers.get('content-type');
+            headerText += 'content-type: ' + contentType + '\n';
+            headerNames.push('content-type');
+            try {
+              headers.append('x-cache-timestamp', timestamp);
+            }
+            catch (e) {
+              // immutable headers
+              immutableHeaders = true;
+              headers = new Headers();
+              for (let [key, value] of response.headers) {
+                headers.append(key, value);
+              }
+              headers.append('x-cache-timestamp', timestamp);
+            }
+            headerNames.push('x-cache-timestamp');
+            headerText += 'x-cache-timestamp: ' + timestamp + '\n';
+            body = await response.clone().arrayBuffer();
+            digest = SHA256.prefix + toBase64(await crypto.subtle.digest({ name: SHA256.hashName }, body));
+            headers.append('x-cache-digest', digest);
+            headerNames.push('x-cache-digest');
+            headerText += 'x-cache-digest: ' + digest + '\n';
+            if (InitialSession && InitialSession.initialRandom) {
+              random = toBase64(InitialSession.initialRandom);
+              headers.append('x-cache-random', random);
+              headerNames.push('x-cache-random');
+              headerText += 'x-cache-random: ' + random + '\n';
+            }
+            if (InitialSession && InitialSession.initialSaltKey) {
+              let hmac = HMAC.prefix + toBase64(await crypto.subtle.sign({ name: 'HMAC' }, InitialSession.initialSaltKey, encoder.encode(headerText)));
+              headers.append('x-cache-integrity', headerNames.join(',') + ';' + hmac);
+            }
+            if (immutableHeaders) {
+              response = new Response(response.body, { status: response.status, statusText: response.statusText, headers: headers });
+            }
+          }
+          return native.put.value.call(this, request, response);
+        },
+      });
+      Object.defineProperty(self.Cache.prototype, 'match', {
+        configurable: false,
+        enumerable: native.match.enumerable,
+        writable: false,
+        value: async function match(request, options) {
+          let response = await native.match.value.call(this, request, options);
+          if (response instanceof Response) {
+            let InitialSession = Sessions[0];
+            let headers = response.headers;
+            let body = await response.clone().arrayBuffer();
+            let bodyDigest = SHA256.prefix + toBase64(await crypto.subtle.digest({ name: SHA256.hashName }, body));
+            let isBodyDigestMatching;
+            isBodyDigestMatching = headers.get('x-cache-digest') === bodyDigest;
+            let integrityHeader = headers.get('x-cache-integrity');
+            let isIntegrityHeaderMatching = false;
+            let parts, headerNames, headerHmac, headerText, headerArrayBuffer, signatureBinaryString, signature;
+            if (InitialSession && InitialSession.initialSaltKey && integrityHeader) {
+              parts = integrityHeader.split(';');
+              headerNames = parts[0].split(',');
+              if (parts[1] && parts[1].indexOf(HMAC.prefix) === 0) {
+                headerHmac = parts[1].substring(HMAC.prefix.length);
+                headerText = headerNames.map((headerName) => headerName + ': ' + headers.get(headerName) + '\n').join('');
+                headerArrayBuffer = encoder.encode(headerText);
+                signatureBinaryString = atob(headerHmac);
+                signature = Uint8Array.from(signatureBinaryString, c => c.charCodeAt(0)).buffer;
+                isIntegrityHeaderMatching = await crypto.subtle.verify(
+                    {
+                      name: 'HMAC',
+                    },
+                    InitialSession.initialSaltKey,
+                    signature,
+                    headerArrayBuffer
+                  );
+              }
+            }
+            if (!(isBodyDigestMatching && isIntegrityHeaderMatching)) {
+              let url = typeof request === 'string' ? request : request.url;
+              if (url !== CACHE_STATUS_PSEUDO_URL) {
+                console.error('Cache.match: integrity check failed for ' + url);
+                response = undefined;
+              }
+              else {
+                if (!isBodyDigestMatching) {
+                  console.error('Cache.match: integrity check failed for ' + url);
+                  response = undefined;
+                }
+              }
+            }
+          }
+          return response;
+        },
+      });
     }
   }
 
@@ -2055,6 +2173,51 @@
             CurrentSession.ClientIntegrity.htmlHash,
           ));
 
+          // Initial Keys
+          CurrentSession.initialRandom = crypto.getRandomValues(new Uint8Array(clientRandomBytes));
+          const cache = await caches.open(version);
+          if (cache) {
+            const responses = await cache.matchAll(INTEGRITY_PSEUDO_URL);
+            if (responses && responses.length > 0) {
+              const response = responses[0];
+              const random = response.headers.get('x-cache-random');
+              if (random) {
+                // pick up random from cache
+                const randomBinaryString = atob(random);
+                const randomUint8Array = Uint8Array.from(randomBinaryString, c => c.charCodeAt(0));
+                CurrentSession.initialRandom = randomUint8Array;
+              }
+            }
+          }
+          CurrentSession.initialSecret = await HKDF.Extract(0, HKDF.concat(
+            CurrentSession.initialRandom,
+            CurrentSession.ClientIntegrity.userAgentHash,
+            CurrentSession.ClientIntegrity.browserHash,
+            CurrentSession.ClientIntegrity.scriptsHash,
+            CurrentSession.ClientIntegrity.htmlHash,
+          ));
+          CurrentSession.initialSalt =
+            await HKDF.Expand_Label(CurrentSession.initialSecret, 'salt', '', HMAC.saltLength);
+          CurrentSession.initialSaltKey =
+            await crypto.subtle.importKey(
+              'raw',
+              CurrentSession.initialSalt,
+              {
+                name: 'HMAC',
+                hash: {
+                  name: SHA256.hashName,
+                },
+              },
+              false,
+              ['sign', 'verify']
+            );
+          // Discard initialSecret
+          crypto.getRandomValues(new Uint8Array(CurrentSession.initialSecret));
+          delete CurrentSession.initialSecret;
+          // Discard initialSalt
+          crypto.getRandomValues(new Uint8Array(CurrentSession.initialSalt));
+          delete CurrentSession.initialSalt;
+
           // Discard ClientIntegrity
           [ 'userAgentHash', 'browserHash', 'scriptsHash', 'htmlHash' ].forEach((name) => {
             crypto.getRandomValues(new Uint8Array(CurrentSession.ClientIntegrity[name]));
@@ -2902,7 +3065,7 @@
       }
 
       const entryPageRefresherHtml = function entryPageRefresherHtml(request) {
-        return `<html><head><meta http-equiv="refresh" content = "0;URL=${request.url}" ></head><body></body></html>`;
+        throw new Error('decodeEntryHtml: refreshing entry page ' + request.url);
       }
       hook.parameters.decodeEntryHtml = async function (event, request, response, cache, original, decoded) {
         await getIntegrityJSON(cache);
