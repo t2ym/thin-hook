@@ -9,6 +9,7 @@ Thin Hook Preprocessor (experimental)
 
 ## Notes
 
+- **[Vulnerability Fix]** Since [0.4.0-alpha.24](https://github.com/t2ym/thin-hook/releases/tag/0.4.0-alpha.24) with [Fix #368 Check Service Worker cache integrity](https://github.com/t2ym/thin-hook/issues/368), integrity of Service Worker cache contents is verified with HMAC keys. Prior to this version, corrupted Service Worker cache contents can intrude into the application.
 - **[Vulnerability Fix]** Since [0.4.0-alpha.22](https://github.com/t2ym/thin-hook/releases/tag/0.4.0-alpha.22) with [Fix #363 Block blob URLs](https://github.com/t2ym/thin-hook/issues/363), blob URLs are blocked except for `<a download="filename" href="blob:...">Download Link</a>`. Prior to this version, documents with blob URLs bypass Service Worker.
 - **[Vulnerability Fix]** Since [0.4.0-alpha.22](https://github.com/t2ym/thin-hook/releases/tag/0.4.0-alpha.22) with [Fix #362 Option to block `<embed>` and `<object>` elements](https://github.com/t2ym/thin-hook/issues/362), the application hangs up on `<embed>` and `<object>` activities with `hook.parameters.hangUpOnEmbedAndObjectElement = true`. Prior to this version, `<embed>` and `<object>` documents can bypass Service Worker with Chrome Canary 86.
 - **[Vulnerability Fix]** Since [0.4.0-alpha.21](https://github.com/t2ym/thin-hook/releases/tag/0.4.0-alpha.21) with [Fix #355 Treat proxy objects as alias objects in ACL](https://github.com/t2ym/thin-hook/issues/355), ACL is properly applied for proxy objects created via `new Proxy(target, handler)` and `Proxy.revocable(target, handler)` as with their original `target` objects. Prior to this version, ACL for the `target` objects are not applied to proxy objects.
@@ -1131,6 +1132,7 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
   - Check integrity of requests and responses
   - Encrypt request body data
   - Decrypt response body data
+  - Check integrity of Service Worker cache contents by appending and verifying `x-cache-*` headers
   - TBD
 - Configurations
   - TBD
