@@ -1348,7 +1348,7 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
 ### `<script src="mark-parsed.js?no-hook=true"></script>`
 
 - Features
-  - Mark the parsed elements in DOM with `node[Symbol.for('parsed')] = true` at the end of HTML body to filter out valid DOM mutations from from invalid ones
+  - Mark the parsed elements in DOM with `node[Symbol.for('parsed')] = true` at the end of HTML body to filter out valid DOM mutations from invalid ones
 - Configurations
   - Insert the script at the end of the entry page HTML body
 
