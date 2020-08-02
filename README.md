@@ -1087,6 +1087,9 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
           - `hook.parameters.mutationObserver = new MutationObserver(observerCallback);` - `MutationObserver` object set in `demo/hook-callback.js`
           - `hook.parameters.mutationObserverConfig = { childList: true, subtree: true, attributes: true, attributeOldValue: true, characterData: true, characterDataOldValue: true, };` - Configuration options for `hook.parameters.mutationObserver.observe(options)` set in `demo/hook-callback.js`
             - Note: They are used in the wrapped `Node.attachShadow()` to track mutations in every shadow DOM as well as for all document objects of windows and frames
+        - Tracker Callback
+          - `hook.parameters.innerHTMLTracker = function (node, value, processed) {}`: Set in `demo/hook-callback.js` for mutation detection
+          - Track each `Element.innerHTML` operation before performing it
     - register as Service Worker
       - `Service-Worker-Allowed` HTTP response header must have an appropriate scope for the target application
     - `cors=true` parameter: CORS script, e.g., `<script src="https://cross.origin.host/path/script.js?cors=true"></script>`
@@ -1237,8 +1240,10 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
     - `Stack` class object is a brancheable linked list with `push/pop` operations
       - The branching feature of `Stack` is not utilized for now
   - Call `hook.hookCallbackCompatibilityTest()`
-  - Attach MutationObserver to audit URLs in DOM mutations
+  - Attach MutationObserver to audit URLs and elements in DOM mutations
     - Block `blob:` URLs except for downloading to local files
+    - Block unauthorized DOM mutations suspectedly from browser extensions
+      - On detection, an alert message **Blocked on Browser Extensions** is shown and the application hangs up
   - Hook global objects
     - Via
       - `hooked = hook[name](Symbol.for('__hook__'), [[name, { random: name === 'Node' }]], 'method')`
@@ -1271,6 +1276,9 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
   - For MutationObserver
     - `hook.parameters.mutationObserver = new MutationObserver(observerCallback);` - `MutationObserver` object set in `demo/hook-callback.js`
     - `hook.parameters.mutationObserverConfig = { childList: true, subtree: true, attributes: true, attributeOldValue: true, characterData: true, characterDataOldValue: true, };` - Configuration options for `hook.parameters.mutationObserver.observe(options)` set in `demo/hook-callback.js`
+    - `hook.parameters.innerHTMLTracker = function (node, value, processed) {}` - Tracker callback to detect coming DOM mutations from setting `Element.innerHTML`
+    - `const detectDOMIntrusion = true;` - Use `true` to detect DOM intrusion
+    - `const messagesOnUnauthorizedMutation = { en: 'Blocked on Browser Extensions' };` - Alert messages on DOM intrusion detection, indexed for `navigator.language`
   - For global object access
     - `const enableDebugging = false`: Use `true` to enable debugging by disabling forced redirection to `about:blank` on prohibited global object access
     - `const wildcardWhitelist`: `Array` of `RegExp` for Chrome browser's `new Error().stack` format
@@ -1335,6 +1343,13 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
   - If `contextStack` is not empty, the global object is accessed within a hooked script, whose access can be controlled via ACL
     - `contextStack` operations are relatively lightweight without performance degradation on deep call stack
   - If local alias objects are defined, the corresponding global object access is performed only once per object, whose overheads are insignificant
+
+### `<script src="mark-parsed.js?no-hook=true"></script>`
+
+- Features
+  - Mark the parsed elements in DOM with `node[Symbol.for('parsed')] = true` at the end of HTML body to filter out valid DOM mutations from from invalid ones
+- Configurations
+  - Insert the script at the end of the entry page HTML body
 
 ## Server-side Components
 

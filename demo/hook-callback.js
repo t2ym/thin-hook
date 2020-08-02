@@ -8906,6 +8906,173 @@ else {
     const DOCUMENT_NODE = Node.DOCUMENT_NODE;
     const DOCUMENT_TYPE_NODE = Node.DOCUMENT_TYPE_NODE;
     const DOCUMENT_FRAGMENT_NODE = Node.DOCUMENT_FRAGMENT_NODE;
+    const { appendChild, replaceChild, insertBefore } = Node.prototype;
+    const S_MUTATION = Symbol.for('mutation');
+    const S_PARSED = Symbol.for('parsed');
+    const detectDOMIntrusion = true; // false to disable DOM intrusion detection
+    let documentType;
+
+    Object.defineProperty(Node.prototype, 'appendChild', {
+      configurable: false,
+      enumerable: true,
+      writable: false,
+      value: function _appendChild (node) {
+        if (node) {
+          switch (node.nodeType) {
+          case ELEMENT_NODE:
+            node[S_MUTATION] = node[S_MUTATION] ? node[S_MUTATION] + 1 : 1;
+            break;
+          case DOCUMENT_FRAGMENT_NODE:
+            for (let child of node.children) {
+              child[S_MUTATION] = child[S_MUTATION] ? child[S_MUTATION] + 1 : 1;
+            }
+            break;
+          }  
+        }
+        return appendChild.call(this, node);
+      },
+    });
+    Object.defineProperty(Node.prototype, 'replaceChild', {
+      configurable: false,
+      enumerable: true,
+      writable: false,
+      value: function _replaceChild (newNode, oldNode) {
+        if (newNode && newNode.nodeType === ELEMENT_NODE) {
+          newNode[S_MUTATION] = newNode[S_MUTATION] ? newNode[S_MUTATION] + 1 : 1;
+        }
+        return replaceChild.call(this, newNode, oldNode);
+      },
+    });
+    Object.defineProperty(Node.prototype, 'insertBefore', {
+      configurable: false,
+      enumerable: true,
+      writable: false,
+      value: function _insertBefore (newNode, referenceNode) {
+        if (newNode) {
+          switch (newNode.nodeType) {
+          case ELEMENT_NODE:
+            newNode[S_MUTATION] = newNode[S_MUTATION] ? newNode[S_MUTATION] + 1 : 1;
+            break;
+          case DOCUMENT_FRAGMENT_NODE:
+            for (let child of newNode.children) {
+              child[S_MUTATION] = child[S_MUTATION] ? child[S_MUTATION] + 1 : 1;
+            }
+            break;
+          }  
+        }
+        return insertBefore.call(this, newNode, referenceNode);
+      },
+    });
+    hook.parameters.innerHTMLTracker = function innerHTMLTracker(node, value, processed) {
+      node[S_MUTATION] = 'parent';
+    };
+
+    let isLoaded = false;
+    if (location.href.startsWith(hook.parameters.emptyDocumentUrl.href) && _global.frameElement) {
+      documentType = 'emptyDocument';
+      _global.frameElement.addEventListener('srcdoc-load', function onSrcdocLoad(event) {
+        isLoaded = true;
+        let mutations = observer.takeRecords();
+        observerCallback(mutations, observer);
+        //console.log('emptyDocumentUrl: srcdoc-load mutations ', location.href, mutations);
+      });
+    }
+    else if (new URL(location.href).searchParams.get('referrer') === 'hook.parameters.emptySvg') {
+      documentType = 'emptySvg';
+      _global.addEventListener('load', function onLoad(event) {
+        isLoaded = true;
+        let mutations = observer.takeRecords();
+        observerCallback(mutations, observer);
+        //console.log('emptySvg: load mutations ', mutations);
+      });
+    }
+    else if (typeof frameElement === 'object' && frameElement && frameElement.tagName === 'IFRAME') {
+      documentType = 'iframe';
+      _global.addEventListener('load', function onLoad(event) {
+        isLoaded = true;
+        let mutations = observer.takeRecords();
+        observerCallback(mutations, observer);
+        //console.log('iframe: load mutations ', mutations);
+      });
+    }
+    else {
+      documentType = 'document';
+      _global.document.addEventListener('readystatechange', function onReadyStateChange(event) {
+        switch (document.readyState) {
+        case 'loading':
+          break;
+        case 'interactive':
+        case 'complete':
+          isLoaded = true;
+          let mutations = observer.takeRecords();
+          observerCallback(mutations, observer);
+          //console.log(`document: readystatechange ${document.readyState} mutations `, mutations);
+          break;
+        }
+      });
+    }
+    //console.log('documentType: ', documentType, document);
+
+    const auditChildList = function (targetNode, mutationRecord) {
+      if (!detectDOMIntrusion) { // check the configuration
+        return;
+      }
+      let unauthorized = false;
+      if (targetNode[S_MUTATION] === 'parent') {
+        targetNode[S_MUTATION] = 0;
+        //console.log('auditChildList: targetNode matched', targetNode);
+        return;
+      }
+      for (let node of mutationRecord.addedNodes) {
+        if (node.nodeType === ELEMENT_NODE) {
+          if (node[S_MUTATION]) {
+            //console.log('auditChildList: addedNode matched', node);
+            node[S_MUTATION]--;
+          }
+          else if (!node[S_PARSED]){
+            if (node.tagName === 'BODY' && node.children.length === 0) {
+              // automatically inserted empty body element
+            }
+            else {
+              //console.log('auditChildList: addedNode not matched', node);
+              unauthorized = true;
+            }
+          }
+        }
+      }
+      if (unauthorized) {
+        //console.error('auditChildList: unauthorized mutation(s) on node', targetNode, mutationRecord); // avoid giving hints to hackers
+        onUnauthorizedMutation();
+      }
+    };
+
+    const messagesOnUnauthorizedMutation = {
+      en: 'Blocked on Browser Extensions',
+      // messages for other languages based on navigator.language
+    };
+    const getMessageOnUnauthorizedMutation = function () {
+      return messagesOnUnauthorizedMutation[navigator.language] ||
+        messagesOnUnauthorizedMutation[navigator.language.replace(/^([a-z]{2,3})[-_].*$/, '$1')] ||
+        messagesOnUnauthorizedMutation['en'];
+    }
+    const halt = async function halt() {
+      let registration = await navigator.serviceWorker.getRegistration();
+      if (registration) {
+        await registration.unregister();
+      }
+      await caches.keys().then(keys => Promise.all(keys.map(key => caches.delete(key))));
+      location = halt.location = 'about:blank';
+      await new Promise(resolve => setTimeout(resolve, 1000));
+    }
+
+    // The application is blocked on an unauthorized DOM mutation suspectedly by an intrusive browser extension
+    // Since the mutation has already been done and effective, there is no choice but halting the application
+    // It should be helpful for users to be notified of the requirement that some browser extensions must be disabled
+    const onUnauthorizedMutation = async function () {
+      let message = getMessageOnUnauthorizedMutation();
+      alert(message);
+      await halt();
+    };
 
     const config = {
       childList: true,
@@ -9047,9 +9214,42 @@ else {
 
     const observerCallback = function (mutations, observer) {
       let targetNodes = new Set();
+      switch (documentType) {
+      case 'document':
+        switch (document.readyState) {
+        case 'interactive':
+        case 'complete':
+          if (!isLoaded) {
+            isLoaded = true;
+            //console.log('observerCallback: isLoaded = true for ', document, document.readyState, document.querySelector('html').outerHTML);
+          }
+          break;
+        case 'loading':
+        default:
+          break;
+        }
+        break;
+      case 'iframe':
+        switch (document.readyState) {
+        case 'complete':
+          isLoaded = true;
+          break;
+        case 'loading':
+        case 'interactive':
+          default:
+          break;
+        }
+        break;
+      case 'emptySvg':
+      case 'emptyDocument':
+        break;
+      }
       for(let mutation of mutations) {
         switch (mutation.type) {
         case 'childList':
+          if (isLoaded) {
+            auditChildList(mutation.target, mutation);
+          }
           if (mutation.addedNodes.length > 0) {
             for (let node of mutation.addedNodes) {
               addTargetNodes(targetNodes, node);

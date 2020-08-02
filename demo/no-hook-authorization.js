@@ -36,6 +36,7 @@ else {
     "18bee5dd7fa29cb958a57537e0389647d273edc2945dd0a3c62b1b22fe6ce4a1": true, // demo/integrity.js
     "ba07654d1c24a271ba0fa7ee5c55cd60c02133b0e53cb6bb6e634da473b1e540": true, // demo/script-hashes.js
     "0242016e2887b322ab28b887f03779c63899db232bb036d794a0278db9e54339": true, // demo/content-loader.js
+    "3820791eef1ed97bd149ec5d191e31c001306951e62a49b54122fad683c31f2a": true, // demo/mark-parsed.js
   };
   let hidden;
   const passcode = 'XX02c107ea633ed697acc12e1b3de1bcf2f0ef7cafe4f048e29553c224656ecd7a';

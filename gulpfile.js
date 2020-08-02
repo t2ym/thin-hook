@@ -508,6 +508,7 @@ gulp.task('update-no-hook-authorization', (done) => {
           'demo/wrap-globals.js',
           'demo/script-hashes.js',
           'demo/content-loader.js',
+          'demo/mark-parsed.js',
           'demo/browserify-commonjs.js',
           'demo/webpack-es6-module.js',
           'demo/webpack-commonjs.js'
