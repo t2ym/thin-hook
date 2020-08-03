@@ -761,6 +761,7 @@ else {
     '/components/thin-hook/demo/es6-module4.js,f,*': '@import.meta_reader,f',
     '/components/polymer/lib/utils/async.html,script@566,timeOut,run': '@setTimeout_reader',
     '/components/thin-hook/demo/,script@4964': '@document_writer',
+    '/components/thin-hook/demo/,script@5911': '@document_writer',
     '/components/thin-hook/demo/,script@5963': '@document_writer',
     '/components/thin-hook/demo/,script@5964': '@document_writer',
     '/components/thin-hook/demo/sub-document.html,*': '@document_writer',

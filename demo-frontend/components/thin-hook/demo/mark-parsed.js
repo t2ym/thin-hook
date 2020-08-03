@@ -11,4 +11,7 @@ Copyright (c) 2020, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
       }
     }
   });
+  if (self.frameElement) {
+    frameElement.dispatchEvent(new Event('srcdoc-load'))
+  }
 }
