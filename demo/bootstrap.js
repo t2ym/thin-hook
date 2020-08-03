@@ -44,18 +44,7 @@ else {
     break;
   }
   hook.parameters.emptyDocumentUrl = new URL('./empty-document.html', baseURI);
-  hook.parameters.bootstrap = `
-    <script>
-      [ document.head, document.body ].forEach(node => {
-        if (node) {
-          node[Symbol.for('parsed')] = true;
-          for (let child of node.children){
-            child[Symbol.for('parsed')] = true;
-          }
-        }
-      });
-      frameElement.dispatchEvent(new Event('srcdoc-load'))
-    </script>`;
+  hook.parameters.bootstrap = `<script src="${new URL('mark-parsed.js?no-hook=true', baseURI).href.substring(new URL(baseURI).origin.length)}"></script>`;
   hook.parameters.onloadWrapper = `event.target.addEventListener('srcdoc-load', () => { $onload$ })`;
   //hook.parameters.virtualBlobUrlTargetType = new Map([['text/html', 'file.html'],['text/javascript', 'file.js'],['image/svg+xml', 'file.svg']]);
   //hook.parameters.virtualBlobBaseUrl = new URL('blob/', baseURI).href;
