@@ -9081,8 +9081,8 @@ else {
       attributes: true,
       //attributeFilter: ['src', 'data', 'srcdoc', 'href', 'action'],
       attributeOldValue: true,
-      characterData: true,
-      characterDataOldValue: true,
+      //characterData: true, // TODO: track characterData mutation
+      //characterDataOldValue: true,
     };
 
     const auditURL = function (node, name, urlStr) {
@@ -9211,6 +9211,12 @@ else {
           addTargetNodes(targetNodes, child);
         }
       }
+      if (node.content && node.tagName === 'TEMPLATE') {
+        observer.observe(node.content, config);
+        for (let child of node.content.children) {
+          addTargetNodes(targetNodes, child);
+        }
+      }
     };
 
     const observerCallback = function (mutations, observer) {
@@ -9258,8 +9264,9 @@ else {
           }
           break;
         case 'attributes':
-        case 'characterData':
           targetNodes.add(mutation.target);
+          break;
+        case 'characterData': // TODO: track characterData mutation
           break;
         default:
           break;
