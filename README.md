@@ -1349,8 +1349,10 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
 
 - Features
   - Mark the parsed elements in DOM with `node[Symbol.for('parsed')] = true` at the end of HTML body to filter out valid DOM mutations from invalid ones
+  - In `iframe` documents, dispatch `srcdoc-load` event for the containing `frameElement`
 - Configurations
   - Insert the script at the end of the entry page HTML body
+  - Use the script in `hook.parameters.bootstrap` for the `iframe` document wrapped via `hook.parameters.emptyDocumentUrl`
 
 ## Server-side Components
 
