@@ -9062,7 +9062,12 @@ else {
         await registration.unregister();
       }
       await caches.keys().then(keys => Promise.all(keys.map(key => caches.delete(key))));
-      location = halt.location = 'about:blank';
+      if (self.top) {
+        top.location = halt.location = 'about:blank';
+      }
+      else {
+        location = halt.location = 'about:blank';
+      }
       await new Promise(resolve => setTimeout(resolve, 1000));
     }
 

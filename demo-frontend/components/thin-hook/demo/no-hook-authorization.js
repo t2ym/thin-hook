@@ -13,11 +13,11 @@ else {
     //   hook.parameters.noHookAuthorizationFailed
     // JSONs are output to console in the learning mode
     //'*': true, 
-    "ad4aab709510727fc4eb9cff4a4a2985e09ece7b768bff8cab787b577040653f": true, // hook.min.js
+    "69fe8cafb7520d3f53e6b22fa54aa84d554ed02f750cab64789cf7469ee7026e": true, // hook.min.js
     "a81209228209941097ac41c5bda3bc1cd64375e69b7c8113aff68c2fe6729ff2": true, // demo/disable-devtools.js
     "4374ae1f28cec2b969ab488895a4266244d65e28e1f82728fd2cd39130fe0d9e": true, // demo/context-generator.js
     "c88e40d453ce15fc7a1827043a21c213be26bd77bf8311d9e1d0a850e1fa58c8": true, // demo/bootstrap.js
-    "3c0f37b622bc3adb671c5794e683de1353b19b11477146af8f47bd186a8474be": true, // demo/hook-callback.js
+    "95c1452c1e0b9bc2a8ad7551baa9e013756b8e847436788518440cc13ef7dc2f": true, // demo/hook-callback.js
     "0979646683bec9b9682d974d549effb61b1fc981ad87dac76d44d0440d87b396": true, // demo/hook-native-api.js
     "5b615aa885a0518466153be6ecb2cfeef1300f181ff60ca91cad964659c92052": true, // demo/hook-worker.js
     "c59d446ea931df28736d586dc2687731dadb733c3cfd644c7df3afb36a6ae39a": true, // demo/cache-bundle.js
@@ -33,7 +33,7 @@ else {
     "c135fd6ba3cad41e63985ecca191995bf311abc756c5f574ef5b641e7db56914": true, // (function writeln2() { console.log("no-hook script tag via document.writeln"); })()
     "e233738578fd7e8f2e961fb11885e2c187146314a8e3fc65692633ff89c5d34a": true, // (function writeln4() { console.log("no-hook script tag in div tag via document.writeln"); })()
     "4f0395d52a8c1c7edaacacade9c31fe18555b79ce963dfb1abaaa34990993374": true, // location = "about:blank";
-    "a2bcd7f63147b7c3573a0a81fe3803fab76da5b742e92afdd8c44ffc4c3e5eb0": true, // demo/integrity.js
+    "47a4c0d92b2304e7b1b1d9d7bed0cfe896fa01db02cc24b8161d24f682c83696": true, // demo/integrity.js
     "ba07654d1c24a271ba0fa7ee5c55cd60c02133b0e53cb6bb6e634da473b1e540": true, // demo/script-hashes.js
     "0242016e2887b322ab28b887f03779c63899db232bb036d794a0278db9e54339": true, // demo/content-loader.js
     "6249373b8a4e3bb915788ea4f77e8b892f5bb77407e4fe5d981ebd118876be20": true, // demo/mark-parsed.js
