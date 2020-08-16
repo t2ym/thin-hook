@@ -1,0 +1,8 @@
+{
+  "imports": {
+    "module-name": "/components/module-name/index.js",
+    "module-name/": "/components/module-name/",
+    "module-name2": "/components/module-name2/index.js",
+    "module-name?param1=value1&param2=value2": "/components/module-name/index.js?param1=value1&param2=value2"
+  }
+}

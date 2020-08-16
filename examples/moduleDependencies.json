@@ -1,0 +1,960 @@
+{
+  "/components/examples/circular1.js": {
+    "imports": {
+      "/components/examples/circular2.js": {
+        "n": [
+          "n"
+        ]
+      }
+    },
+    "exports": {}
+  },
+  "/components/examples/circular2.js": {
+    "imports": {},
+    "exports": {
+      "n": "n"
+    }
+  },
+  "/components/examples/circular3.js": {
+    "imports": {
+      "/components/examples/circular4.js": {
+        "*": [
+          "exportedName",
+          "ns2"
+        ],
+        "default": [
+          "D",
+          "D2"
+        ],
+        "ExportedClass": [
+          "aliasClass"
+        ]
+      },
+      "/components/examples/circular3.js": {
+        "*": [
+          "ns"
+        ]
+      }
+    },
+    "exports": {
+      "exportedName": "/components/examples/circular4.js",
+      "default": "/components/examples/circular4.js,default",
+      "aliasClass": "/components/examples/circular4.js,ExportedClass"
+    }
+  },
+  "/components/examples/circular4.js": {
+    "imports": {},
+    "exports": {
+      "default": true,
+      "e": "e",
+      "ExportedClass": "ExportedClass"
+    }
+  },
+  "/components/examples/export1.js": {
+    "imports": {
+      "/components/module-name/index.js": {
+        "reexportname1": [
+          true
+        ],
+        "reexportname2": [
+          true
+        ],
+        "reexportnameN": [
+          true
+        ],
+        "import1": [
+          true
+        ],
+        "import2": [
+          true
+        ],
+        "*": [
+          "*"
+        ]
+      }
+    },
+    "exports": {
+      "letname1": "letname1",
+      "letname2": "letname2",
+      "letnameN": "letnameN",
+      "varname1": "varname1",
+      "varname2": "varname2",
+      "varnameN": "varnameN",
+      "constname1": "constname1",
+      "constname2": "constname2",
+      "constnameN": "constnameN",
+      "constproperty1": "constproperty1",
+      "constproperty2": "constproperty2",
+      "constelement1": "constelement1",
+      "constelement2": "constelement2",
+      "restelement1": "restelement1",
+      "functionName": "functionName",
+      "ClassName": "ClassName",
+      "name1": "name1",
+      "name2": "name2",
+      "nameN": "nameN",
+      "variable1export": "variable1",
+      "variable2export": "variable2",
+      "global1export": "global1",
+      "name1property": "name1property",
+      "name2property": "name2property",
+      "default": true,
+      "/components/module-name/index.js,*": "/components/module-name/index.js",
+      "reexportname1": "/components/module-name/index.js,reexportname1",
+      "reexportname2": "/components/module-name/index.js,reexportname2",
+      "reexportnameN": "/components/module-name/index.js,reexportnameN",
+      "name1import1": "/components/module-name/index.js,import1",
+      "name2import2": "/components/module-name/index.js,import2"
+    }
+  },
+  "/components/examples/export2.js": {
+    "imports": {
+      "/components/examples/es6-module6.js": {
+        "default": [
+          "importedOnlyDefault"
+        ]
+      },
+      "/components/examples/es6-module7.js": {
+        "importedOnly": [
+          "importedOnlyAlias"
+        ]
+      },
+      "/components/examples/es6-module2.js": {
+        "default": [
+          "D"
+        ]
+      },
+      "/components/examples/es6-module5.js": {
+        "*": [
+          "module5"
+        ]
+      },
+      "/components/examples/es6-module.js": {
+        "exported": [
+          "alias"
+        ]
+      },
+      "/components/examples/es6-module4.js": {
+        "*": [
+          "module4"
+        ]
+      },
+      "/components/examples/es6-module3.js": {
+        "default": [
+          "D2"
+        ]
+      },
+      "/components/examples/es6-module8.js": {
+        "reexport1": [
+          true
+        ]
+      },
+      "/components/examples/es6-module9.js": {
+        "*": [
+          "*"
+        ]
+      },
+      "/components/examples/es6-module10.js": {}
+    },
+    "exports": {
+      "exportedD": "/components/examples/es6-module2.js,default",
+      "exportedModule5": "/components/examples/es6-module5.js",
+      "reexportedalias": "/components/examples/es6-module.js,exported",
+      "exportedModule4": "/components/examples/es6-module4.js",
+      "exportedOnlyLet": "exportedOnlyLet",
+      "exportedNameForExportedOnlyObject": "exportedOnlyObject",
+      "reexport1renamed": "/components/examples/es6-module8.js,reexport1",
+      "/components/examples/es6-module9.js,*": "/components/examples/es6-module9.js",
+      "default": true
+    }
+  },
+  "/components/examples/module-export-array-destructuring-local-as-is.js": {
+    "imports": {},
+    "exports": {
+      "localName": "localName"
+    }
+  },
+  "/components/examples/module-export-array-destructuring-local-nested.js": {
+    "imports": {},
+    "exports": {
+      "localName": "localName"
+    }
+  },
+  "/components/examples/module-export-array-destructuring-local-with-default-value.js": {
+    "imports": {},
+    "exports": {
+      "localName": "localName"
+    }
+  },
+  "/components/examples/module-export-array-destructuring-local.js": {
+    "imports": {},
+    "exports": {
+      "localName": "localName"
+    }
+  },
+  "/components/examples/module-export-array-rest-local-as-is.js": {
+    "imports": {},
+    "exports": {
+      "localName": "localName"
+    }
+  },
+  "/components/examples/module-export-array-rest-local-nested-as-is.js": {
+    "imports": {},
+    "exports": {
+      "localName": "localName"
+    }
+  },
+  "/components/examples/module-export-array-rest-local-nested.js": {
+    "imports": {},
+    "exports": {
+      "localName": "localName"
+    }
+  },
+  "/components/examples/module-export-array-rest-local.js": {
+    "imports": {},
+    "exports": {
+      "localName": "localName"
+    }
+  },
+  "/components/examples/module-export-as-default-from-source.js": {
+    "imports": {
+      "/components/module-name/index.js": {
+        "exportedName": [
+          true
+        ]
+      }
+    },
+    "exports": {
+      "default": "/components/module-name/index.js,exportedName"
+    }
+  },
+  "/components/examples/module-export-as-multiple-names.js": {
+    "imports": {},
+    "exports": {
+      "C": "C",
+      "C2": "C",
+      "C3": "C"
+    }
+  },
+  "/components/examples/module-export-as-reexported-from-source.js": {
+    "imports": {
+      "/components/module-name/index.js": {
+        "exportedName": [
+          true
+        ]
+      }
+    },
+    "exports": {
+      "reexportedName": "/components/module-name/index.js,exportedName"
+    }
+  },
+  "/components/examples/module-export-assignement-pattern-left-shorthand.js": {
+    "imports": {},
+    "exports": {
+      "localName": "localName"
+    }
+  },
+  "/components/examples/module-export-assignement-pattern-left.js": {
+    "imports": {},
+    "exports": {
+      "localName": "localName"
+    }
+  },
+  "/components/examples/module-export-class.js": {
+    "imports": {},
+    "exports": {
+      "localName": "localName"
+    }
+  },
+  "/components/examples/module-export-const-local.js": {
+    "imports": {},
+    "exports": {
+      "localName": "localName"
+    }
+  },
+  "/components/examples/module-export-const-shorthand.js": {
+    "imports": {},
+    "exports": {
+      "short": "short"
+    }
+  },
+  "/components/examples/module-export-default-as-reexported-from-source.js": {
+    "imports": {
+      "/components/module-name/index.js": {
+        "default": [
+          true
+        ]
+      }
+    },
+    "exports": {
+      "reexportedName": "/components/module-name/index.js,default"
+    }
+  },
+  "/components/examples/module-export-default-expression.js": {
+    "imports": {},
+    "exports": {
+      "default": true
+    }
+  },
+  "/components/examples/module-export-default-from-source.js": {
+    "imports": {
+      "/components/module-name/index.js": {
+        "default": [
+          true
+        ]
+      }
+    },
+    "exports": {
+      "default": "/components/module-name/index.js,default"
+    }
+  },
+  "/components/examples/module-export-function.js": {
+    "imports": {},
+    "exports": {
+      "localName": "localName"
+    }
+  },
+  "/components/examples/module-export-let-local-as-default.js": {
+    "imports": {},
+    "exports": {
+      "default": "localName"
+    }
+  },
+  "/components/examples/module-export-let-local-as-exported.js": {
+    "imports": {},
+    "exports": {
+      "exportedName": "localName"
+    }
+  },
+  "/components/examples/module-export-let-local-as-exported2.js": {
+    "imports": {},
+    "exports": {
+      "exportedName": "localName",
+      "exportedName2": "localName"
+    }
+  },
+  "/components/examples/module-export-let-local-as-is.js": {
+    "imports": {},
+    "exports": {
+      "localName": "localName"
+    }
+  },
+  "/components/examples/module-export-let-local-default-expression.js": {
+    "imports": {},
+    "exports": {
+      "default": true
+    }
+  },
+  "/components/examples/module-export-let-local-then-export-default-expression.js": {
+    "imports": {},
+    "exports": {
+      "localName": "localName",
+      "default": true
+    }
+  },
+  "/components/examples/module-export-let-local-then-export-local-as-default.js": {
+    "imports": {},
+    "exports": {
+      "localName": "localName",
+      "default": "localName"
+    }
+  },
+  "/components/examples/module-export-let-local-then-export-local-as-exported.js": {
+    "imports": {},
+    "exports": {
+      "localName": "localName",
+      "exportedName": "localName"
+    }
+  },
+  "/components/examples/module-export-let-local-then-export-local-as-exported2.js": {
+    "imports": {},
+    "exports": {
+      "localName": "localName",
+      "exportedName": "localName",
+      "exportedName2": "localName"
+    }
+  },
+  "/components/examples/module-export-let-local.js": {
+    "imports": {},
+    "exports": {
+      "localName": "localName"
+    }
+  },
+  "/components/examples/module-export-lhs.js": {
+    "imports": {},
+    "exports": {
+      "_mv1": "_mv1",
+      "_mv2": "_mv2",
+      "_mv3": "_mv3",
+      "_mv4": "_mv4",
+      "_mv5": "_mv5",
+      "_mv6": "_mv6",
+      "_mv7": "_mv7",
+      "_mv8": "_mv8",
+      "_mv9": "_mv9",
+      "_mv10": "_mv10",
+      "_mv11": "_mv11",
+      "_mv12": "_mv12",
+      "_mo1": "_mo1",
+      "_mo2": "_mo2"
+    }
+  },
+  "/components/examples/module-export-local-as-default-let.js": {
+    "imports": {},
+    "exports": {
+      "default": "localName"
+    }
+  },
+  "/components/examples/module-export-local-as-exported-let.js": {
+    "imports": {},
+    "exports": {
+      "exportedName": "localName"
+    }
+  },
+  "/components/examples/module-export-local-as-is-let.js": {
+    "imports": {},
+    "exports": {
+      "localName": "localName",
+      "default": true
+    }
+  },
+  "/components/examples/module-export-namespace-from-source.js": {
+    "imports": {
+      "/components/module-name/index.js": {
+        "*": [
+          "*"
+        ]
+      }
+    },
+    "exports": {
+      "/components/module-name/index.js,*": "/components/module-name/index.js"
+    }
+  },
+  "/components/examples/module-export-object-destructuring-local-as-is.js": {
+    "imports": {},
+    "exports": {
+      "localName": "localName"
+    }
+  },
+  "/components/examples/module-export-object-destructuring-local-with-property-name-and-default-value.js": {
+    "imports": {},
+    "exports": {
+      "localName": "localName"
+    }
+  },
+  "/components/examples/module-export-object-destructuring-local-with-property-name-nested.js": {
+    "imports": {},
+    "exports": {
+      "localName": "localName"
+    }
+  },
+  "/components/examples/module-export-object-destructuring-local-with-property-name.js": {
+    "imports": {},
+    "exports": {
+      "localName": "localName"
+    }
+  },
+  "/components/examples/module-export-object-destructuring-local.js": {
+    "imports": {},
+    "exports": {
+      "localName": "localName"
+    }
+  },
+  "/components/examples/module-export-object-rest-property-local-nested.js": {
+    "imports": {},
+    "exports": {
+      "localName": "localName"
+    }
+  },
+  "/components/examples/module-export-object-rest-property-local.js": {
+    "imports": {},
+    "exports": {
+      "localName": "localName"
+    }
+  },
+  "/components/examples/module-export-reexported-from-source.js": {
+    "imports": {
+      "/components/module-name/index.js": {
+        "reexportedName": [
+          true
+        ]
+      }
+    },
+    "exports": {
+      "reexportedName": "/components/module-name/index.js,reexportedName"
+    }
+  },
+  "/components/examples/module-export-var-local.js": {
+    "imports": {},
+    "exports": {
+      "localName": "localName"
+    }
+  },
+  "/components/examples/module-import-default-and-module-namespace-from-source.js": {
+    "imports": {
+      "/components/module-name/index.js": {
+        "default": [
+          "localName"
+        ],
+        "*": [
+          "namespace"
+        ]
+      }
+    },
+    "exports": {}
+  },
+  "/components/examples/module-import-default-and-named-objects-from-source.js": {
+    "imports": {
+      "/components/module-name/index.js": {
+        "default": [
+          "localName"
+        ],
+        "localName2": [
+          "localName2"
+        ],
+        "importedName": [
+          "localName3"
+        ]
+      }
+    },
+    "exports": {}
+  },
+  "/components/examples/module-import-default-as-local-from-source-then-export-default-expression.js": {
+    "imports": {
+      "/components/module-name/index.js": {
+        "default": [
+          "localName"
+        ]
+      }
+    },
+    "exports": {
+      "default": true
+    }
+  },
+  "/components/examples/module-import-default-as-local-from-source-then-export-local-as-default.js": {
+    "imports": {
+      "/components/module-name/index.js": {
+        "default": [
+          "localName"
+        ]
+      }
+    },
+    "exports": {
+      "default": "/components/module-name/index.js,default"
+    }
+  },
+  "/components/examples/module-import-default-as-local-from-source-then-export-local-as-exported.js": {
+    "imports": {
+      "/components/module-name/index.js": {
+        "default": [
+          "localName"
+        ]
+      }
+    },
+    "exports": {
+      "exportedName": "/components/module-name/index.js,default"
+    }
+  },
+  "/components/examples/module-import-default-as-local-from-source-then-export-local-as-is.js": {
+    "imports": {
+      "/components/module-name/index.js": {
+        "default": [
+          "localName"
+        ]
+      }
+    },
+    "exports": {
+      "localName": "/components/module-name/index.js,default"
+    }
+  },
+  "/components/examples/module-import-default-as-local-from-source.js": {
+    "imports": {
+      "/components/module-name/index.js": {
+        "default": [
+          "localName"
+        ]
+      }
+    },
+    "exports": {}
+  },
+  "/components/examples/module-import-default-from-source-then-export-as-local.js": {
+    "imports": {
+      "/components/module-name/index.js": {
+        "default": [
+          "localName"
+        ]
+      }
+    },
+    "exports": {
+      "localName": "/components/module-name/index.js,default"
+    }
+  },
+  "/components/examples/module-import-default-from-source-then-export-default-expression.js": {
+    "imports": {
+      "/components/module-name/index.js": {
+        "default": [
+          "localName"
+        ]
+      }
+    },
+    "exports": {
+      "default": true
+    }
+  },
+  "/components/examples/module-import-default-from-source-then-export-local-as-default.js": {
+    "imports": {
+      "/components/module-name/index.js": {
+        "default": [
+          "localName"
+        ]
+      }
+    },
+    "exports": {
+      "default": "/components/module-name/index.js,default"
+    }
+  },
+  "/components/examples/module-import-default-from-source-then-export-local-as-exported.js": {
+    "imports": {
+      "/components/module-name/index.js": {
+        "default": [
+          "localName"
+        ]
+      }
+    },
+    "exports": {
+      "exportedName": "/components/module-name/index.js,default"
+    }
+  },
+  "/components/examples/module-import-default-from-source-with-https-url.js": {
+    "imports": {
+      "https://host.cdn.domain.com/components/module-name.js": {
+        "default": [
+          "localName"
+        ]
+      }
+    },
+    "exports": {}
+  },
+  "/components/examples/module-import-default-from-source-with-parameters.js": {
+    "imports": {
+      "/components/module-name/index.js?param1=value1&param2=value2": {
+        "default": [
+          "localName"
+        ]
+      }
+    },
+    "exports": {}
+  },
+  "/components/examples/module-import-default-from-source.js": {
+    "imports": {
+      "/components/module-name/index.js": {
+        "default": [
+          "localName"
+        ]
+      }
+    },
+    "exports": {}
+  },
+  "/components/examples/module-import-dynamic.js": {
+    "imports": {},
+    "exports": {
+      "default": true
+    }
+  },
+  "/components/examples/module-import-imported-as-local-from-source-then-export-default-expression.js": {
+    "imports": {
+      "/components/module-name/index.js": {
+        "importedName": [
+          "localName"
+        ]
+      }
+    },
+    "exports": {
+      "default": true
+    }
+  },
+  "/components/examples/module-import-imported-as-local-from-source-then-export-local-as-default.js": {
+    "imports": {
+      "/components/module-name/index.js": {
+        "importedName": [
+          "localName"
+        ]
+      }
+    },
+    "exports": {
+      "default": "/components/module-name/index.js,importedName"
+    }
+  },
+  "/components/examples/module-import-imported-as-local-from-source-then-export-local-as-exported.js": {
+    "imports": {
+      "/components/module-name/index.js": {
+        "importedName": [
+          "localName"
+        ]
+      }
+    },
+    "exports": {
+      "exportedName": "/components/module-name/index.js,importedName"
+    }
+  },
+  "/components/examples/module-import-imported-as-local-from-source-then-export-local-as-is.js": {
+    "imports": {
+      "/components/module-name/index.js": {
+        "importedName": [
+          "localName"
+        ]
+      }
+    },
+    "exports": {
+      "localName": "/components/module-name/index.js,importedName"
+    }
+  },
+  "/components/examples/module-import-name-as-local-from-source.js": {
+    "imports": {
+      "/components/module-name/index.js": {
+        "importedName": [
+          "localName"
+        ]
+      }
+    },
+    "exports": {}
+  },
+  "/components/examples/module-import-name-from-source-relative.js": {
+    "imports": {
+      "/components/examples/module-name/index.js": {
+        "localName": [
+          "localName"
+        ]
+      }
+    },
+    "exports": {}
+  },
+  "/components/examples/module-import-name-from-source-then-export-default-expression.js": {
+    "imports": {
+      "/components/module-name/index.js": {
+        "localName": [
+          "localName"
+        ]
+      }
+    },
+    "exports": {
+      "default": true
+    }
+  },
+  "/components/examples/module-import-name-from-source-then-export-local-as-default.js": {
+    "imports": {
+      "/components/module-name/index.js": {
+        "localName": [
+          "localName"
+        ]
+      }
+    },
+    "exports": {
+      "default": "/components/module-name/index.js,localName"
+    }
+  },
+  "/components/examples/module-import-name-from-source-then-export-local-as-exported.js": {
+    "imports": {
+      "/components/module-name/index.js": {
+        "localName": [
+          "localName"
+        ]
+      }
+    },
+    "exports": {
+      "exportedName": "/components/module-name/index.js,localName"
+    }
+  },
+  "/components/examples/module-import-name-from-source-then-export-local-as-is.js": {
+    "imports": {
+      "/components/module-name/index.js": {
+        "localName": [
+          "localName"
+        ]
+      }
+    },
+    "exports": {
+      "localName": "/components/module-name/index.js,localName"
+    }
+  },
+  "/components/examples/module-import-name-from-source.js": {
+    "imports": {
+      "/components/module-name/index.js": {
+        "localName": [
+          "localName"
+        ]
+      }
+    },
+    "exports": {}
+  },
+  "/components/examples/module-import-namespace-as-local-from-source-then-export-default-expression.js": {
+    "imports": {
+      "/components/module-name/index.js": {
+        "*": [
+          "localName"
+        ]
+      }
+    },
+    "exports": {
+      "default": true
+    }
+  },
+  "/components/examples/module-import-namespace-as-local-from-source-then-export-local-as-default.js": {
+    "imports": {
+      "/components/module-name/index.js": {
+        "*": [
+          "localName"
+        ]
+      }
+    },
+    "exports": {
+      "default": "/components/module-name/index.js"
+    }
+  },
+  "/components/examples/module-import-namespace-as-local-from-source-then-export-local-as-exported.js": {
+    "imports": {
+      "/components/module-name/index.js": {
+        "*": [
+          "localName"
+        ]
+      }
+    },
+    "exports": {
+      "exportedName": "/components/module-name/index.js"
+    }
+  },
+  "/components/examples/module-import-namespace-as-local-from-source-then-export-local-as-is.js": {
+    "imports": {
+      "/components/module-name/index.js": {
+        "*": [
+          "localName"
+        ]
+      }
+    },
+    "exports": {
+      "localName": "/components/module-name/index.js"
+    }
+  },
+  "/components/examples/module-import-namespace-as-local-from-source.js": {
+    "imports": {
+      "/components/module-name/index.js": {
+        "*": [
+          "localName"
+        ]
+      }
+    },
+    "exports": {}
+  },
+  "/components/examples/module-import-source.js": {
+    "imports": {
+      "/components/module-name/index.js": {}
+    },
+    "exports": {}
+  },
+  "/components/examples/module1.js": {
+    "imports": {
+      "/components/module-name/index.js": {
+        "default": [
+          "defaultExport",
+          "defaultExport2",
+          "defaultExport3"
+        ],
+        "export1": [
+          "alias1",
+          "alias11"
+        ],
+        "export2": [
+          "export2",
+          "alias2"
+        ],
+        "*": [
+          "name2"
+        ]
+      },
+      "/components/examples/relative-module-name/module1.js": {
+        "*": [
+          "name"
+        ]
+      },
+      "/components/module-name/path/to/specific/un-exported/file.js": {
+        "foo": [
+          "foo"
+        ],
+        "bar": [
+          "bar"
+        ]
+      },
+      "/components/module-name2/index.js": {},
+      "std:kv-storage": {
+        "storage": [
+          "storage"
+        ]
+      }
+    },
+    "exports": {
+      "alias1exported": "/components/module-name/index.js,export1",
+      "default": true
+    }
+  },
+  "/components/examples/module2.js": {
+    "imports": {
+      "/components/examples/module1.js": {}
+    },
+    "exports": {}
+  },
+  "/components/examples/module3.js": {
+    "imports": {
+      "/components/module-name/index.js": {
+        "default": [
+          "defaultExport",
+          "defaultExport2",
+          "defaultExport3"
+        ],
+        "export1": [
+          "alias1",
+          "alias11"
+        ],
+        "export2": [
+          "export2",
+          "alias2"
+        ],
+        "*": [
+          "name2"
+        ]
+      },
+      "/components/examples/relative-module-name/module1.js": {
+        "*": [
+          "name"
+        ]
+      },
+      "/components/module-name/path/to/specific/un-exported/file.js": {
+        "foo": [
+          "foo"
+        ],
+        "bar": [
+          "bar"
+        ]
+      },
+      "/components/module-name2/index.js": {},
+      "std:kv-storage": {
+        "storage": [
+          "storage"
+        ]
+      }
+    },
+    "exports": {
+      "alias1exported": "/components/module-name/index.js,export1",
+      "default": true
+    }
+  },
+  "/components/examples/module4.js": {
+    "imports": {
+      "/components/examples/module1.js": {
+        "BaseClass": [
+          "BaseClass"
+        ]
+      }
+    },
+    "exports": {}
+  }
+}
