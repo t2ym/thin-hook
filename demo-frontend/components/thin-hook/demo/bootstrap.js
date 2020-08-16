@@ -150,5 +150,65 @@ else {
   hook.parameters.noHookAuthorizationParameter = noHookAuthorization;
   hook.parameters.noHookAuthorizationFailed = {};
   hook.parameters.noHookAuthorizationPassed = {};
+  hook.parameters.importMapsJson = `{
+    "imports": {
+      "thin-hook-demo/": "/components/thin-hook/demo/",
+      "thin-hook-demo": "/components/thin-hook/demo/index",
+      "lit-element": "/components/thin-hook/demo/node_modules/lit-element/lit-element.js",
+      "lit-html": "/components/thin-hook/demo/node_modules/lit-html/lit-html.js",
+      "module-name": "/components/thin-hook/demo/modules/module-name/index.js",
+      "module-name/": "/components/thin-hook/demo/modules/module-name/",
+      "module-name2": "/components/thin-hook/demo/modules/module-name2/index.js",
+      "foo": "/components/thin-hook/demo/bar.js",
+      "module-on-cdn": "https://cdn.domain.com/path/cdn-module/index.js",
+      "lit-element/": "/components/thin-hook/demo/node_modules/lit-element/",
+      "lit-html/": "/components/thin-hook/demo/node_modules/lit-html/"
+    },
+    "scopes": {
+      "/components/thin-hook/demo/node_modules/lit-element/": {
+        "lit-element/": "/components/thin-hook/demo/node_modules/lit-element/"
+      },
+      "/components/thin-hook/demo/node_modules/lit-html/": {
+        "lit-html/": "/components/thin-hook/demo/node_modules/lit-html/"
+      }
+    }
+  }`;
+  if (typeof hook.parameters.importMapsJson === 'string') {
+    const origin = location.host;
+    let baseURL = new URL(hook.parameters.baseURI).pathname;
+    let normalizedBaseURL = baseURL[0] === '/'
+      ? location.origin + baseURL
+      : baseURL;
+    let resolvedURLCache = new Map();
+    hook.parameters.parsedImportMap = hook.utils.importMaps.parseFromString(hook.parameters.importMapsJson, normalizedBaseURL);
+    hook.parameters.importMapper =
+      (specifier, scriptURL) => {
+        const key = specifier + ';' + scriptURL;
+        let resolvedURL = resolvedURLCache.get(key);
+        try {
+          if (!resolvedURL) {
+            if (scriptURL[0] === '/') {
+              scriptURL = 'https://' + origin + scriptURL;
+            }
+            if (specifier.endsWith('/')) {
+              specifier = specifier.substring(0, specifier.length - 1);
+            }
+            resolvedURL = hook.utils.importMaps.resolve(specifier, hook.parameters.parsedImportMap, new URL(scriptURL));
+            if (resolvedURL.host === origin) {
+              resolvedURL = resolvedURL.pathname + resolvedURL.search + resolvedURL.hash;
+            }
+            else {
+              resolvedURL = resolvedURL.href;
+            }
+            resolvedURLCache.set(key, resolvedURL);
+          }
+        }
+        catch (e) {
+          resolvedURL = specifier;
+        }
+        //console.log(`importMapper(${specifier}, ${scriptURL}) = ${resolvedURL}`);
+        return resolvedURL;
+      }
+  }
   //console.log('bootstrap.js: location.href = ' + location.href + ' baseURI = ' + baseURI + ' bootstrap = ' + hook.parameters.bootstrap);
 }

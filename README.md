@@ -9,6 +9,7 @@ Thin Hook Preprocessor (experimental)
 
 ## Notes
 
+- **[Enhancement]** Since [0.4.0-alpha.28](https://github.com/t2ym/thin-hook/releases/tag/0.4.0-alpha.28) with [Issue #376 Support ES modules](https://github.com/t2ym/thin-hook/issues/376), ACL policies are applied to ES modules by hooking ES module objects. This feature is optional and can be disabled by `hook.parameters.importMapper = null` in `demo/bootstrap.js`
 - **[Vulnerability Fix]** Since [0.4.0-alpha.25](https://github.com/t2ym/thin-hook/releases/tag/0.4.0-alpha.25) with [Fix #369 Block DOM intrusion by Browser Extensions](https://github.com/t2ym/thin-hook/issues/369), the application hangs up with an alert message on DOM intrusion by Browser Extensions. Prior to this version, Browser Extensions can intrude into DOM and manipulate contents.
 - **[Vulnerability Fix]** Since [0.4.0-alpha.24](https://github.com/t2ym/thin-hook/releases/tag/0.4.0-alpha.24) with [Fix #368 Check Service Worker cache integrity](https://github.com/t2ym/thin-hook/issues/368), integrity of Service Worker cache contents is verified with HMAC keys. Prior to this version, corrupted Service Worker cache contents can intrude into the application.
 - **[Vulnerability Fix]** Since [0.4.0-alpha.22](https://github.com/t2ym/thin-hook/releases/tag/0.4.0-alpha.22) with [Fix #363 Block blob URLs](https://github.com/t2ym/thin-hook/issues/363), blob URLs are blocked except for `<a download="filename" href="blob:...">Download Link</a>`. Prior to this version, documents with blob URLs bypass Service Worker.
