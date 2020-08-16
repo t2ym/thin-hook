@@ -1091,6 +1091,11 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
         - Tracker Callback
           - `hook.parameters.innerHTMLTracker = function (node, value, processed) {}`: Set in `demo/hook-callback.js` for mutation detection
           - Track each `Element.innerHTML` operation before performing it
+        - Import Maps
+          - `hook.parameters.importMapsJson = "{ JSON string for Import Maps }"`: Optional import maps object in JSON string.
+          - `hook.parameters.importMapper(specifier, scriptURL)`: Wrapper function for import maps. Resolve module `specifier` from `scriptURL`
+            - Resolution of bare specifiers for ES modules can be disabled by setting this function as `hook.parameters.importMapper = null`
+          - `hook.parameters.moduleDependencies = {}`: Optional object to dump module dependencies for hooked modules
     - register as Service Worker
       - `Service-Worker-Allowed` HTTP response header must have an appropriate scope for the target application
     - `cors=true` parameter: CORS script, e.g., `<script src="https://cross.origin.host/path/script.js?cors=true"></script>`
@@ -1109,6 +1114,9 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
 - `utils`: Utilities
   - `createHash`: Synchronous SHA hash generator collections from [sha.js](https://github.com/crypto-browserify/sha.js)
   - `HTMLParser`: HTML parser from [htmlparser2](https://www.npmjs.com/package/htmlparser2)
+  - `importMaps`: Forked reference implementation of [Import maps](https://github.com/t2ym/import-maps/tree/browserify/reference-implementation/lib)
+    - `parseFromString(importMapsJsonString, baseURL)`: Parser of import maps JSON string at `baseURL`. Return `parsedImportMap` object for `resolve()`
+    - `resolve(specifier, parsedImportMap, scriptURL)`: Resolver of `specifier` for `scriptURL` based on `parsedImportMap`
 
 ## Plugins
 
@@ -1458,7 +1466,9 @@ TBD
     "cacheBundleGeneration": "node demo-backend/cacheBundleGeneration.js",
     "loadOnly": "node demo-backend/cacheBundleGeneration.js loadOnly",
     "test:attack": "run-p -r -l buildServer cacheBundleUploadService puppeteerAttackTest",
-    "puppeteerAttackTest": "node test/puppeteerAttackTest.js"
+    "puppeteerAttackTest": "node test/puppeteerAttackTest.js",
+    "demo-frontend-modules": "cd demo/ && npm install",
+    "demo-frontend-modules-locked": "cd demo/ && npm ci"
   }
 }
 ```
@@ -1541,6 +1551,12 @@ Called from `npm run cache-bundle` to invoke `cacheBundleGeneration.js`
 ### `npm run loadOnly`
 Called from `npm run updateHtmlHash` to invoke `cacheBundleGeneration.js` in `loadOnly` mode
 
+### `npm run demo-frontend-modules`
+Install `demo/node_modules` based on `demo/package.json` for frontend modules for the demo. `demo/package-lock.json` is updated.
+
+### `npm run demo-frontend-modules-locked`
+Called from `gulp demo-frontend-modules-locked` to install `demo/node_modules` based on `demo/package-lock.json`
+
 ## Gulp Tasks
 
 ```javascript
@@ -1553,6 +1569,14 @@ gulp.task('default',
   )
 );
 
+gulp.task('examples',
+  gulp.series(
+    'script-examples',                      // hook non-module script examples
+    'module-examples',                      // hook module examples
+    'module-examples-dependencies'          // save hook.parameters.moduleDependencies at examples/moduleDependencies.json
+  )
+);
+
 gulp.task('demo',
   gulp.series(
     'integrity-service-helpers',            // build demo-backend/integrity-service-helpers/
@@ -1561,9 +1585,11 @@ gulp.task('demo',
     'get-version',                          // get version from the entry page demo/original-index.html
     'demo-certificates',                    // generate certificates in demo-keys/demoCA/ if they are missing
     'demo-keys',                            // generate key pairs and secret keys in demo-keys/keys.json
+    'import-maps',                          // generate import maps for demo at demo/modules.importmap
     'browserify-commonjs',                  // build demo/browserify-commonjs.js
     'webpack-es6-module',                   // build demo/webpack-es6-module.js
     'webpack-commonjs',                     // build demo/webpack-commonjs.js
+    'rollup-es-modules',                    // build demo/rollup-module1.js and demo/rollup-es6-module.js
     'update-integrity-js',                  // update demo/integrity.js for the generated public keys in base64
     'update-no-hook-authorization',         // update demo/no-hook-authorization.js
     'update-no-hook-authorization-in-html', // update hook.min.js?no-hook-authorization=* in HTMLs
@@ -1572,6 +1598,14 @@ gulp.task('demo',
     'integrity-json',                       // generate demo/integrity.json
     'gzip',                                 // gzip demo/cache-bundle.json and demo/integrity.json
     'demo-frontend',                        // refresh and generate `demo-frontend/`
+  )
+);
+
+gulp.task('import-maps', 
+  gulp.series(
+    'demo-frontend-modules-locked',  // install demo/node_modules based on demo/package.json and demo/package-lock.json
+    'generate-import-maps',          // generate import maps for demo frontend at demo/modules.importmap based on demo/node_modules/* and demo/modules-private.importmap
+    'embed-import-maps',             // embed the generated import maps JSON into demo/bootstrap.js
   )
 );
 
