@@ -17,15 +17,17 @@ export { default as T3 } from './es6-module.js';
 export { mod as es6Module, Test as default };
 class C2 extends Test {}
 mod.mutateClass(C2);
+/*
 chai.assert.throws(() => {
   MutatableClass = class C3 extends C2 {};
 }, /Assignment to constant variable|MutatableClass is not defined|assignment to undeclared variable MutatableClass|Can\'t find variable: MutatableClass/);
+*/
 chai.assert.equal(MutatableClass, C2, 'MutatableClass === C2');
 chai.assert.equal(mod.MutatableClass, C2, 'mod.MutatableClass === C2');
 setv2(3);
 chai.assert.throws(() => {
   mod.v2 = 4;
-}, /Cannot assign to read only property|Cannot set property|setting getter-only property|Attempted to assign to readonly property/);
+}, /Permission Denied: Cannot access|Cannot assign to read only property|Cannot set property|setting getter-only property|Attempted to assign to readonly property/);
 chai.assert.equal(v2, 3, 'v2 is 3');
 chai.assert.equal(mod.v2, 3, 'mod.v2 is 3');
 mod.setv2(5);
@@ -47,7 +49,7 @@ async function f2(a) {
     chai.assert.equal(t.a, a, 't.a is ' + a);
   }
   catch (e) {
-    if (e.stack.indexOf('webpack-')) {
+    if (e.stack.indexOf('webpack-') >= 0) {
       console.log('Dynamic import is not yet supported in webpack');
       console.log(e);
     }

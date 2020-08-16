@@ -1,0 +1,13 @@
+{
+  "name": "thin-hook-demo",
+  "version": "0.0.0",
+  "description": "Frontend NodeJS packages for thin-hook demo",
+  "dependencies": {
+    "lit-element": "^2.3.1",
+    "lit-html": "^1.2.1"
+  },
+  "devDependencies": {},
+  "scripts": {},
+  "author": "Tetsuya Mori <t2y3141592@gmail.com>",
+  "license": "BSD-2-Clause"
+}

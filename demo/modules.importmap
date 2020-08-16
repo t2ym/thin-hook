@@ -1,0 +1,23 @@
+{
+  "imports": {
+    "thin-hook-demo/": "/components/thin-hook/demo/",
+    "thin-hook-demo": "/components/thin-hook/demo/index",
+    "lit-element": "/components/thin-hook/demo/node_modules/lit-element/lit-element.js",
+    "lit-html": "/components/thin-hook/demo/node_modules/lit-html/lit-html.js",
+    "module-name": "/components/thin-hook/demo/modules/module-name/index.js",
+    "module-name/": "/components/thin-hook/demo/modules/module-name/",
+    "module-name2": "/components/thin-hook/demo/modules/module-name2/index.js",
+    "foo": "/components/thin-hook/demo/bar.js",
+    "module-on-cdn": "https://cdn.domain.com/path/cdn-module/index.js",
+    "lit-element/": "/components/thin-hook/demo/node_modules/lit-element/",
+    "lit-html/": "/components/thin-hook/demo/node_modules/lit-html/"
+  },
+  "scopes": {
+    "/components/thin-hook/demo/node_modules/lit-element/": {
+      "lit-element/": "/components/thin-hook/demo/node_modules/lit-element/"
+    },
+    "/components/thin-hook/demo/node_modules/lit-html/": {
+      "lit-html/": "/components/thin-hook/demo/node_modules/lit-html/"
+    }
+  }
+}
