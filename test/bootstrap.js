@@ -49,5 +49,50 @@
   hook.parameters.noHookAuthorizationParameter = noHookAuthorization;
   hook.parameters.noHookAuthorizationFailed = {};
   hook.parameters.noHookAuthorizationPassed = {};
+  const origin = location.host;
+  let importMapsJson = `
+    {
+      "imports": {
+        "HookApiTest": "/components/HookApiTest/index.js",
+        "module-name.js": "/components/module-name/module-name.js",
+        "module-name.mjs": "/components/module-name/module-name.mjs",
+        "module.js": "/components/module/module.js",
+        "module.mjs": "/components/module/module.mjs"
+      }
+    }`;
+  if (importMapsJson) {
+    let baseURL = new URL(hook.parameters.baseURI).pathname;
+    let normalizedBaseURL = baseURL[0] === '/'
+      ? location.origin + baseURL
+      : baseURL;
+    let resolvedURLCache = new Map();
+    hook.parameters.parsedImportMap = hook.utils.importMaps.parseFromString(importMapsJson, normalizedBaseURL);
+    hook.parameters.XimportMapper =
+      (specifier, scriptURL) => {
+        console.log(`importMapper(${specifier}, ${scriptURL})`);
+        const key = specifier + ';' + scriptURL;
+        let resolvedURL = resolvedURLCache.get(key);
+        try {
+          if (!resolvedURL) {
+            if (scriptURL[0] === '/') {
+              scriptURL = 'https://' + origin + scriptURL;
+            }
+            resolvedURL = hook.utils.importMaps.resolve(specifier, hook.parameters.parsedImportMap, scriptURL);
+            if (resolvedURL.host === origin) {
+              resolvedURL = resolvedURL.pathname + resolvedURL.search + resolvedURL.hash;
+            }
+            else {
+              resolvedURL = resolvedURL.href;
+            }
+            resolvedURLCache.set(key, resolvedURL);
+          }
+        }
+        catch (e) {
+          resolvedURL = specifier;
+        }
+        return resolvedURL;
+      }
+  }
+
   //console.log('bootstrap.js: location.href = ' + location.href + ' baseURI = ' + baseURI + ' bootstrap = ' + hook.parameters.bootstrap);
 }

@@ -2109,22 +2109,106 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         ],
         "ImportDeclaration": [
           {
-            "code": "import defaultExport from \"module-name.js\";\nimport * as name1 from \"module-name.js\";\nimport { export0 } from \"module-name.js\";\nimport { export1 as alias1 } from \"module-name.js\";\nimport { export2 , export3 } from \"module-name.js\";\nimport { export4 , export5 as alias2 } from \"module-name.js\";\nimport defaultExport2, { export6, export7 as alias3 } from \"module-name.js\";\nimport defaultExport3, * as name2 from \"module-name.js\";\nimport \"module-name.js\";",
-            "hooked": "const _c_ = $hook$.$(__hook__, []);\nimport defaultExport from 'module-name.js';\nimport * as name1 from 'module-name.js';\nimport { export0 } from 'module-name.js';\nimport { export1 as alias1 } from 'module-name.js';\nimport {\n  export2,\n  export3\n} from 'module-name.js';\nimport {\n  export4,\n  export5 as alias2\n} from 'module-name.js';\nimport defaultExport2, {\n  export6,\n  export7 as alias3\n} from 'module-name.js';\nimport defaultExport3, * as name2 from 'module-name.js';\nimport 'module-name.js';",
+            "code":
+`import defaultExport from "module-name.js";
+import * as name1 from "module-name.js";
+import { export0 } from "module-name.js";
+import { export1 as alias1 } from "module-name.js";
+import { export2 , export3 } from "module-name.js";
+import { export4 , export5 as alias2 } from "module-name.js";
+import defaultExport2, { export6, export7 as alias3 } from "module-name.js";
+import defaultExport3, * as name2 from "module-name.js";
+import "module-name.js";`,
+            "hooked":
+`const _c_ = $hook$.$(__hook__, []);
+import defaultExport from 'module-name.js';
+import * as name1 from 'module-name.js';
+import { export0 } from 'module-name.js';
+import { export1 as alias1 } from 'module-name.js';
+import {
+  export2,
+  export3
+} from 'module-name.js';
+import {
+  export4,
+  export5 as alias2
+} from 'module-name.js';
+import defaultExport2, {
+  export6,
+  export7 as alias3
+} from 'module-name.js';
+import defaultExport3, * as name2 from 'module-name.js';
+import 'module-name.js';`,
             "options": "compact=false",
             "eval": () => true,
             "name": "ImportDeclaration  import defaultExport from \"module-name.js\"; import * as name1 from \"module-name.js\"; import { export0 } from \"module-name.js\"; import { export1 as alias1 } from \"module-name.js\"; import { export2 , export3 } from \"module-name.js\"; import { export4 , export5 as alias2 } from \"module-name.js\"; import defaultExport2, { export6, export7 as alias3 } from \"module-name.js\"; import defaultExport3, * as name2 from \"module-name.js\"; import \"module-name.js\"; // compact=false"
           },
           {
-            "code": "import defaultExport from \"module-name.mjs\";\nimport * as name1 from \"module-name.mjs\";\nimport { export0 } from \"module-name.mjs\";\nimport { export1 as alias1 } from \"module-name.mjs\";\nimport { export2 , export3 } from \"module-name.mjs\";\nimport { export4 , export5 as alias2 } from \"module-name.mjs\";\nimport defaultExport2, { export6, export7 as alias3 } from \"module-name.mjs\";\nimport defaultExport3, * as name2 from \"module-name.mjs\";\nimport \"module-name.mjs\";",
-            "hooked": "const _c_ = $hook$.$(__hook__, []);\nimport defaultExport from 'module-name.mjs';\nimport * as name1 from 'module-name.mjs';\nimport { export0 } from 'module-name.mjs';\nimport { export1 as alias1 } from 'module-name.mjs';\nimport {\n  export2,\n  export3\n} from 'module-name.mjs';\nimport {\n  export4,\n  export5 as alias2\n} from 'module-name.mjs';\nimport defaultExport2, {\n  export6,\n  export7 as alias3\n} from 'module-name.mjs';\nimport defaultExport3, * as name2 from 'module-name.mjs';\nimport 'module-name.mjs';",
+            "code":
+`import defaultExport from "module-name.mjs";
+import * as name1 from "module-name.mjs";
+import { export0 } from "module-name.mjs";
+import { export1 as alias1 } from "module-name.mjs";
+import { export2 , export3 } from "module-name.mjs";
+import { export4 , export5 as alias2 } from "module-name.mjs";
+import defaultExport2, { export6, export7 as alias3 } from "module-name.mjs";
+import defaultExport3, * as name2 from "module-name.mjs";
+import "module-name.mjs";`,
+            "hooked":
+`const _c_ = $hook$.$(__hook__, []);
+import defaultExport from 'module-name.mjs';
+import * as name1 from 'module-name.mjs';
+import { export0 } from 'module-name.mjs';
+import { export1 as alias1 } from 'module-name.mjs';
+import {
+  export2,
+  export3
+} from 'module-name.mjs';
+import {
+  export4,
+  export5 as alias2
+} from 'module-name.mjs';
+import defaultExport2, {
+  export6,
+  export7 as alias3
+} from 'module-name.mjs';
+import defaultExport3, * as name2 from 'module-name.mjs';
+import 'module-name.mjs';`,
             "options": "compact=false",
             "eval": () => true,
             "name": "ImportDeclaration  import defaultExport from \"module-name.mjs\"; import * as name1 from \"module-name.mjs\"; import { export0 } from \"module-name.mjs\"; import { export1 as alias1 } from \"module-name.mjs\"; import { export2 , export3 } from \"module-name.mjs\"; import { export4 , export5 as alias2 } from \"module-name.mjs\"; import defaultExport2, { export6, export7 as alias3 } from \"module-name.mjs\"; import defaultExport3, * as name2 from \"module-name.mjs\"; import \"module-name.mjs\"; // compact=false"
           },
           {
-            "code": "import defaultExport from \"invalid-module-name\";\nimport * as name1 from \"invalid-module-name\";\nimport { export0 } from \"invalid-module-name\";\nimport { export1 as alias1 } from \"invalid-module-name\";\nimport { export2 , export3 } from \"invalid-module-name\";\nimport { export4 , export5 as alias2 } from \"invalid-module-name\";\nimport defaultExport2, { export6, export7 as alias3 } from \"invalid-module-name\";\nimport defaultExport3, * as name2 from \"invalid-module-name\";\nimport \"invalid-module-name\";",
-            "hooked": "const _c_ = $hook$.$(__hook__, []);\nimport defaultExport from '!!! invalid script url !!!';\nimport * as name1 from '!!! invalid script url !!!';\nimport { export0 } from '!!! invalid script url !!!';\nimport { export1 as alias1 } from '!!! invalid script url !!!';\nimport {\n  export2,\n  export3\n} from '!!! invalid script url !!!';\nimport {\n  export4,\n  export5 as alias2\n} from '!!! invalid script url !!!';\nimport defaultExport2, {\n  export6,\n  export7 as alias3\n} from '!!! invalid script url !!!';\nimport defaultExport3, * as name2 from '!!! invalid script url !!!';\nimport '!!! invalid script url !!!';",
+            "code":
+`import defaultExport from "invalid-module-name";
+import * as name1 from "invalid-module-name";
+import { export0 } from "invalid-module-name";
+import { export1 as alias1 } from "invalid-module-name";
+import { export2 , export3 } from "invalid-module-name";
+import { export4 , export5 as alias2 } from "invalid-module-name";
+import defaultExport2, { export6, export7 as alias3 } from "invalid-module-name";
+import defaultExport3, * as name2 from "invalid-module-name";
+import "invalid-module-name";`,
+            "hooked":
+`const _c_ = $hook$.$(__hook__, []);
+import defaultExport from '!!! invalid script url !!!';
+import * as name1 from '!!! invalid script url !!!';
+import { export0 } from '!!! invalid script url !!!';
+import { export1 as alias1 } from '!!! invalid script url !!!';
+import {
+  export2,
+  export3
+} from '!!! invalid script url !!!';
+import {
+  export4,
+  export5 as alias2
+} from '!!! invalid script url !!!';
+import defaultExport2, {
+  export6,
+  export7 as alias3
+} from '!!! invalid script url !!!';
+import defaultExport3, * as name2 from '!!! invalid script url !!!';
+import '!!! invalid script url !!!';`,
             "options": "compact=false",
             "eval": () => true,
             "name": "ImportDeclaration  import defaultExport from \"invalid-module-name\"; import * as name1 from \"invalid-module-name\"; import { export0 } from \"invalid-module-name\"; import { export1 as alias1 } from \"invalid-module-name\"; import { export2 , export3 } from \"invalid-module-name\"; import { export4 , export5 as alias2 } from \"invalid-module-name\"; import defaultExport2, { export6, export7 as alias3 } from \"invalid-module-name\"; import defaultExport3, * as name2 from \"invalid-module-name\"; import \"invalid-module-name\"; // compact=false"
@@ -2146,8 +2230,43 @@ Copyright (c) 2017, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
         ],
         "ExportNamedDeclaration": [
           {
-            "code": "function name1() {}\nclass name2 {}\nlet name3 = 1;\nconst name4 = 2;\nexport { name1, name2, name3, name4 };\nexport { name1 as alias1, name2 as alias2, name3 as alias3, name4 as alias4 };\nexport let name5 = name1.name, name6 = name2.name;\nexport const name7 = 3, name8 = 4;",
-            "hooked": "const _c_ = $hook$.$(__hook__, [\n  'HookApiTest,name1',\n  'HookApiTest,name5',\n  'HookApiTest,name6'\n]);\nfunction name1() {\n  return __hook__(() => {\n  }, null, arguments, _c_[0]);\n}\nclass name2 {\n}\nlet name3 = 1;\nconst name4 = 2;\nexport {\n  name1,\n  name2,\n  name3,\n  name4\n};\nexport {\n  name1 as alias1,\n  name2 as alias2,\n  name3 as alias3,\n  name4 as alias4\n};\nexport let name5 = __hook__('#.', name1, ['name'], _c_[1]), name6 = __hook__('#.', name2, ['name'], _c_[2]);\nexport const name7 = 3, name8 = 4;",
+            "code":
+`function name1() {}
+class name2 {}
+let name3 = 1;
+const name4 = 2;
+export { name1, name2, name3, name4 };
+export { name1 as alias1, name2 as alias2, name3 as alias3, name4 as alias4 };
+export let name5 = name1.name, name6 = name2.name;
+export const name7 = 3, name8 = 4;`,
+            "hooked":
+`const _c_ = $hook$.$(__hook__, [
+  'HookApiTest,name1',
+  'HookApiTest,name5',
+  'HookApiTest,name6'
+]);
+function name1() {
+  return __hook__(() => {
+  }, null, arguments, _c_[0]);
+}
+class name2 {
+}
+let name3 = 1;
+const name4 = 2;
+export {
+  name1,
+  name2,
+  name3,
+  name4
+};
+export {
+  name1 as alias1,
+  name2 as alias2,
+  name3 as alias3,
+  name4 as alias4
+};
+export let name5 = __hook__('#.', name1, ['name'], _c_[1]), name6 = __hook__('#.', name2, ['name'], _c_[2]);
+export const name7 = 3, name8 = 4;`,
             "options": "compact=false",
             "eval": () => true,
             "name": "ExportNamedDeclaration  function name1() {} class name2 {} let name3 = 1; const name4 = 2; export { name1, name2, name3, name4 }; export { name1 as alias1, name2 as alias2, name3 as alias3, name4 as alias4 }; export let name5 = name1.name, name6 = name2.name; export const name7 = 3, name8 = 4; // compact=false"
