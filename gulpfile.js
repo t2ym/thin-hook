@@ -6,6 +6,9 @@ const runSequence = require('run-sequence');
 const shell = require('gulp-shell');
 const rename = require('gulp-rename');
 const sourcemaps = require('gulp-sourcemaps');
+const ImportMaps = require("@jsenv/node-module-import-map");
+const rollup = require('rollup');
+const rollupPluginBrowserifyTransform = require('rollup-plugin-browserify-transform');
 const browserify = require('browserify');
 const browserifyBuiltins = require('browserify/lib/builtins.js');
 const licensify = require('licensify');
@@ -38,20 +41,99 @@ if (!gulp.series) {
 
 const hook = require('./hook.js');
 
-gulp.task('examples', () => {
-  return gulp.src([ 'examples/**/*.js', '!examples/**/hooked.*' ])
+const moduleExampleDependencies = {};
+const moduleExamples = []
+
+gulp.task('module-examples', () => {
+  const examples = {
+    importMapsPath: 'examples/examples.importmap',
+    baseURL: '/components/'
+  };
+  let json = fs.readFileSync(examples.importMapsPath, 'UTF-8');
+  return gulp.src([ 'examples/module*.js', 'examples/export*.js', 'examples/circular*.js', '!examples/module-import1.js' ])
+    //.pipe(sourcemaps.init())
+    .pipe(through.obj(function (file, enc, callback) {
+      // bundle files must come earlier
+      moduleExamples.push(file);
+      callback();
+    }, function (callback) {
+      moduleExamples.sort(function(file1, file2) {
+        var path1 = file1.path;
+        var path2 = file2.path;
+        return path1.localeCompare(path2);
+      });
+      for (let i = 0; i < moduleExamples.length; i++) {
+        let file = moduleExamples[i];
+        let code = String(file.contents);
+        let basename = path.basename(file.path);
+        let relativePath = path.relative(__dirname, file.path);
+        const origin = 'location.origin';
+        let baseURL = path.join(examples.baseURL, relativePath);
+        let normalizedBaseURL = baseURL[0] === '/'
+          ? 'https://' + origin + baseURL
+          : baseURL;
+        let resolvedURLCache = new Map();
+        hook.parameters.parsedImportMap = hook.utils.importMaps.parseFromString(json, normalizedBaseURL);
+        hook.parameters.importMapper =
+          (specifier, scriptURL) => {
+            const key = specifier + ';' + scriptURL;
+            let resolvedURL = resolvedURLCache.get(key);
+            if (!resolvedURL) {
+              if (scriptURL[0] === '/') {
+                scriptURL = 'https://' + origin + scriptURL;
+              }
+              if (specifier.endsWith('/')) {
+                specifier = specifier.substring(0, specifier.length - 1);
+              }
+              resolvedURL = hook.utils.importMaps.resolve(specifier, hook.parameters.parsedImportMap, new URL(scriptURL));
+              if (resolvedURL.host === origin) {
+                resolvedURL = resolvedURL.pathname + resolvedURL.search + resolvedURL.hash;
+              }
+              else {
+                resolvedURL = resolvedURL.href;
+              }
+              resolvedURLCache.set(key, resolvedURL);
+            }
+            //console.log(`importMapper(${specifier}, ${scriptURL}) = ${resolvedURL}`);
+            return resolvedURL;
+          }
+        hook.parameters.moduleDependencies = moduleExampleDependencies;
+        let hooked = hook(code, '__hook__', [ [ baseURL, { static: '__context_mapper__' } ] ], 'cachedMethod');
+        file.contents = Buffer.from(hooked);
+        this.push(file);
+      }
+      hook.parameters.importMapper = null;
+      callback();
+    }))
+    .pipe(rename((path) => { path.basename = 'hooked.' + path.basename; }))
+    //.pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest('./examples'));
+});
+
+gulp.task('module-examples-dependencies', (done) => {
+  fs.writeFileSync('examples/moduleDependencies.json', JSON.stringify(moduleExampleDependencies, null, 2), 'utf8');
+  hook.parameters.moduleDependencies = null;
+  done();
+});
+
+gulp.task('script-examples', () => {
+  return gulp.src([ 'examples/**/*.js', '!examples/**/hooked.*', '!examples/module*.js', '!examples/export*.js', '!examples/circular*.js' ])
     //.pipe(sourcemaps.init())
     .pipe(through.obj((file, enc, callback) => {
       let code = String(file.contents);
       let basename = path.basename(file.path);
       let hooked = hook(code, '__hook__', [ [ 'examples/' + basename, { static: '__context_mapper__' } ] ], 'cachedMethod');
-      file.contents = new Buffer(hooked);
+      file.contents = Buffer.from(hooked);
       callback(null, file);
     }))
     .pipe(rename((path) => { path.basename = 'hooked.' + path.basename; }))
     //.pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('./examples'));
 });
+
+gulp.task('examples',
+  gulp.series('script-examples', 'module-examples', 'module-examples-dependencies')
+);
 
 let lastHtml = 'old';
 let currentHtml = '';
@@ -511,7 +593,9 @@ gulp.task('update-no-hook-authorization', (done) => {
           'demo/mark-parsed.js',
           'demo/browserify-commonjs.js',
           'demo/webpack-es6-module.js',
-          'demo/webpack-commonjs.js'
+          'demo/webpack-commonjs.js',
+          'demo/rollup-es6-module.js',
+          'demo/rollup-module1.js',
         ];
         let digests = scripts.map(scriptPath => {
           const hash = hook.utils.createHash('sha256');
@@ -868,7 +952,7 @@ const urlForCurrentDir = '/components/thin-hook';
 
 function bundlerContextGeneratorFactory(nodeLibs) {
   // Note: Not tested on Windows
-  return function requireContextGenerator(astPath) {
+  return function bundlerContextGenerator(astPath) {
     let ast = astPath[astPath.length - 1][1];
     let context = hook.contextGenerators.method(astPath);
     if (ast.type === 'CallExpression' &&
@@ -900,15 +984,40 @@ function bundlerContextGeneratorFactory(nodeLibs) {
       console.log('requireContextGenerator: context = ' + context + ' name = ' + name + ' componentName = ' + componentName);
       context += '|' + componentName;
     }
+    else if ((ast.type === 'ImportDeclaration' || ast.type === 'ExportNamedDeclaration' || ast.type === 'ExportAllDeclaration') && ast.source && ast.resolvedSource) {
+      ast.resolvedSource = path.relative(path.dirname(astPath[0][0]), ast.resolvedSource);
+      if (!ast.resolvedSource.startsWith('.')) {
+        ast.resolvedSource = './' + ast.resolvedSource;
+      }
+    }
+    else if (ast.type === 'Program' && ast.moduleDependencies) {
+      for (let _module in ast.moduleDependencies) {
+        let resolvedSource;
+        if (ast.moduleDependencies[_module][0] === 'export') {
+          resolvedSource = './' + path.relative(path.dirname(ast.moduleDependencies[_module].source), ast.moduleDependencies[_module].source);
+        }
+        else if (ast.moduleDependencies[_module].source.startsWith('.')) {
+          resolvedSource = ast.moduleDependencies[_module].source; // relative path
+        }
+        else {
+          resolvedSource = path.relative(path.dirname(astPath[0][0]), _module);
+          if (!resolvedSource.startsWith('.')) {
+            resolvedSource = './' + ast.resolvedSource;
+          }
+        }
+        ast.moduleDependencies[_module].resolvedSource = resolvedSource; // for rollup
+      }
+    }
     return context;
   };
 }
 
+hook.contextGenerators.rollup = bundlerContextGeneratorFactory({});
 hook.contextGenerators.webpack = bundlerContextGeneratorFactory(nodeLibsBrowser);
 hook.contextGenerators.browserify = bundlerContextGeneratorFactory(browserifyBuiltins);
 
 // Hook transformer - browserify transform
-function hookTransformFactory(contextGeneratorName) {
+function hookTransformFactory(contextGeneratorName, importMapperFactory) {
   return function hookTransform(file) {
     let cwd = process.cwd();
     let chunks = [];
@@ -923,9 +1032,12 @@ function hookTransformFactory(contextGeneratorName) {
         //file.substring(cwd.length); // based on the build path
         urlForCurrentDir + file.substring(cwd.length); // based on the polyserve path mapping without --npm option
       if (!file.match(/\/node_modules\/webpack\/buildin\/module[.]js$/)) { // TODO: Hooking webpack/buildin/module.js raises an error
+        if (importMapperFactory) {
+          hook.parameters.importMapper = importMapperFactory(file);
+        }
         code = hook(code,
           '__hook__', // hookName = '__hook__',
-          [ [ context, {} ] ], // initialContext = [],
+          [ Object.assign([ context, {} ], { source: file }) ], // initialContext = [],
           contextGeneratorName, // contextGeneratorName = 'method',
           true, // metaHooking = true,
           true, // _hookProperty = getHookProperty(),
@@ -936,6 +1048,9 @@ function hookTransformFactory(contextGeneratorName) {
           '_uNpREdiC4aB1e_', // _hookPrefix = getHookPrefix(),
           { require: true, module: true, exports: true } // initialScope = null
         );
+        if (importMapperFactory) {
+          hook.parameters.importMapper = null;
+        }
       }
       console.log('hook ', file);
       stream.push(code);
@@ -945,6 +1060,201 @@ function hookTransformFactory(contextGeneratorName) {
   }
 }
 
+// Paths for import maps
+const demoProjectDirectoryRelativePathFromCurrentDir = 'demo/';
+  // demo/ -- project directory for demo
+  // demo/package.json -- frontend nodejs package.json for the thin-hook demo
+  // demo/package-lock.json -- lock file for the frontend nodejs packages
+  // demo/node_modules/ -- frontend nodejs packages for modules
+  // demo/modules/ -- private/local frontend modules, whose paths are configurable in demo/modules-private.importmap
+const privateImportMapFileInDemoProjectDirectory = 'modules-private.importmap'; // import maps for private/local modules for demo (manually configured)
+  // demo/modules-private.importmap
+const normalizedUrlPathImportMapFileInProjectDirectory = 'modules.importmap'; // embedded into bootstrap.js as hook.parameters.importMapsJson
+  // demo/modules.importmap
+  // Notes:
+  //  - JSON for the generated import maps is embedded into demo/bootstrap.js as a string value for hook.parameters.importMapsJson 
+  //  - Normalized absolute URL paths for modules are used as their contexts in preprocessed code and acl
+  //  - Scoped import maps for "bare-specifier/" are copied to global imports so that "bare-specifier/path/module.js" can be resolved from outside of the module scope
+  //  - **NOT** loaded via <script type="importmap" src="modules.importmap"></script> nor <script type="importmap">JSON</script> for the time being
+
+// Convert relative URL paths to their corresponding absolute URL paths
+// Note: baseUrlPath must end with '/' if it is for a directory URL
+const convertToAbsoluteUrlPath = function (url, baseUrlPath) {
+  if (url.startsWith('.')) {
+    //console.log('convertToAbsolutePath', baseUrlPath, url);
+    url = new URL(url, 'file://' + baseUrlPath).pathname;
+    //url = path.resolve(baseUrlPath, url) + (url.endsWith('/') ? '/' : '');
+  }
+  return url;
+};
+
+// Normalize relative URL paths in an import maps object as their corresponding absolute ones
+const normalizeImportMap = function (importMaps, baseUrlPath) {
+  function _normalize(normalized, original) {
+    switch (typeof original) {
+    case 'object':
+      if (original) {
+        for (let key in original) {
+          normalized[convertToAbsoluteUrlPath(key, baseUrlPath)] = _normalize({}, original[key]);
+        }
+      }
+      return normalized;
+    case 'string':
+      return convertToAbsoluteUrlPath(original, baseUrlPath);
+    default:
+      return original;
+    }
+  }
+  return _normalize({}, importMaps);
+};
+
+// Copy module scopes with "bare-specifier/" to global imports in import maps 
+// so that "bare-specifier/path/to/module.js" can be resolved from outside of the "bare-specifier" module
+/*
+  importMaps = {
+    "imports": {
+      "bare-specifier": "/components/bare-specifier/main.js"
+    },
+    "scopes": {
+      "/components/bare-specifier/": {
+        "bare-specifier/": "/components/bare-specifier/" // copy this property to imports["bare-specifier/"]
+      }
+    }
+  }
+*/
+const copyModuleScopesToImports = function (importMaps) {
+  for (let mod in importMaps.scopes) {
+    let scope = importMaps.scopes[mod];
+    for (let specifier in scope) {
+      if (specifier.endsWith('/') && importMaps.imports && !importMaps.imports[specifier]) {
+        let bareSpecifier = specifier.substring(0, specifier.length - 1);
+        if (importMaps.imports[bareSpecifier]) {
+          importMaps.imports[specifier] = scope[specifier];
+        }
+      }
+    }
+  }
+  return importMaps;
+}
+
+// Reinstall frontend nodejs modules for demo in demo/node_modules/ with the locked versions in demo/package-lock.json
+gulp.task('demo-frontend-modules-locked', shell.task('npm run demo-frontend-modules-locked'));
+
+// Generate import maps
+//  - Using "@jsenv/node-module-import-map" for the time being
+gulp.task('generate-import-maps', async () => {
+  const projectDirectoryFileUrl = new URL(demoProjectDirectoryRelativePathFromCurrentDir, `file://${__dirname}/`);
+  const baseUrlPath = new URL(demoProjectDirectoryRelativePathFromCurrentDir, `file://${urlForCurrentDir}/`).pathname;
+  const privateImportMapFileUrl = new URL(privateImportMapFileInDemoProjectDirectory, projectDirectoryFileUrl);
+  const normalizedImportMapFilePath = new URL(normalizedUrlPathImportMapFileInProjectDirectory, projectDirectoryFileUrl).pathname;
+  const importMapInputs = [
+    ImportMaps.getImportMapFromNodeModules({
+      projectDirectoryUrl: projectDirectoryFileUrl,
+      projectPackageDevDependenciesIncluded: false,
+      packagesExportsPreference: ["import", "node", "require"],
+    }),
+    ImportMaps.getImportMapFromFile(privateImportMapFileUrl),
+    {
+      imports: {
+        foo: "./bar.js", // dummy
+        "module-on-cdn": "https://cdn.domain.com/path/cdn-module/index.js" // dummy
+      },
+    },
+  ];
+  
+  let importMaps = await ImportMaps.generateImportMapForProject(importMapInputs, {
+    projectDirectoryUrl: projectDirectoryFileUrl,
+    importMapFile: false,
+  });
+  
+  const importMapsJSON = JSON.stringify(copyModuleScopesToImports(normalizeImportMap(importMaps, baseUrlPath)), null, 2);
+  fs.writeFileSync(normalizedImportMapFilePath, importMapsJSON);
+  console.log(importMapsJSON);
+});
+
+// Embed demo/modules.importmap into demo/bootstrap.js as a JSON string value for hook.parameters.importMapsJson
+gulp.task('embed-import-maps', () => {
+  return gulp.src(['demo/bootstrap.js'], { base: 'demo' })
+    .pipe(through.obj((file, enc, callback) => {
+      const normalizedImportMapFilePath = path.resolve(__dirname, demoProjectDirectoryRelativePathFromCurrentDir, normalizedUrlPathImportMapFileInProjectDirectory);
+      let importMapsJson = fs.readFileSync(normalizedImportMapFilePath, 'utf-8');
+      importMapsJson = importMapsJson.split(/\n/).join('\n  '); // indent JSON with 2 spaces
+      let code = String(file.contents);
+      code = code.replace(/hook[.]parameters[.]importMapsJson = `[^`]*`/, 'hook.parameters.importMapsJson = `' + importMapsJson + '`');
+      file.contents = Buffer.from(code);
+      callback(null, file);
+    }))
+    .pipe(gulp.dest('demo'))
+});
+
+// Update import maps
+gulp.task('import-maps', 
+  gulp.series(
+    'demo-frontend-modules-locked',
+    'generate-import-maps',
+    'embed-import-maps',
+  )
+);
+
+// Hook ES6 modules in rollup
+// NOTES:
+gulp.task('rollup-es-modules', async () => {
+  const importMapperFactory = function importMapperFactory(filePath) {
+    const importMapsJson = fs.readFileSync(path.resolve(__dirname, demoProjectDirectoryRelativePathFromCurrentDir, normalizedUrlPathImportMapFileInProjectDirectory), 'utf8');
+    const baseURLDirPath = path.join(urlForCurrentDir, demoProjectDirectoryRelativePathFromCurrentDir);
+    const packageRelativeFilePath = path.relative(path.join(__dirname, demoProjectDirectoryRelativePathFromCurrentDir), filePath);
+    const origin = 'location.origin';
+    let baseURLPath = path.join(baseURLDirPath, packageRelativeFilePath);
+    let normalizedBaseURL = baseURLPath[0] === '/'
+      ? 'https://' + origin + baseURLPath
+      : baseURLPath;
+    let resolvedURLCache = new Map();
+    hook.parameters.parsedImportMap = hook.utils.importMaps.parseFromString(importMapsJson, normalizedBaseURL);
+    hook.parameters._importMapper =
+      (specifier, scriptURL) => {
+        const key = specifier + ';' + scriptURL;
+        let resolvedURL = resolvedURLCache.get(key);
+        if (!resolvedURL) {
+          if (scriptURL[0] === '/') {
+            scriptURL = 'https://' + origin + scriptURL;
+          }
+          if (specifier.endsWith('/')) {
+            specifier = specifier.substring(0, specifier.length - 1);
+          }
+          resolvedURL = hook.utils.importMaps.resolve(specifier, hook.parameters.parsedImportMap, new URL(scriptURL));
+          if (resolvedURL.host === origin) {
+            resolvedURL = resolvedURL.pathname + resolvedURL.search + resolvedURL.hash;
+          }
+          else {
+            resolvedURL = resolvedURL.href;
+          }
+          resolvedURLCache.set(key, resolvedURL);
+        }
+        //console.log(`importMapper(${specifier}, ${scriptURL}) = ${resolvedURL}`);
+        return resolvedURL;
+      }
+    return hook.parameters._importMapper;
+  };
+
+  const targets = [
+    [ './demo/es6-module3.js', './demo/rollup-es6-module.js' ],
+    [ './demo/modules/module1.js', './demo/rollup-module1.js' ],
+  ];
+  for (let [input, output] of targets) {
+    const bundle = await rollup.rollup({
+      input: input,
+      treeshake: false,
+      plugins: [
+        rollupPluginBrowserifyTransform(hookTransformFactory('rollup', importMapperFactory))
+      ]
+    });
+  
+    await bundle.write({
+      file: output,
+      format: 'esm',
+    });
+  }
+});
 
 // Hook CommonJs modules in browserify
 // NOTES:
@@ -1226,9 +1536,11 @@ gulp.task('demo',
     'get-version',
     'demo-certificates',
     'demo-keys',
+    'import-maps',
     'browserify-commonjs',
     'webpack-es6-module',
     'webpack-commonjs',
+    'rollup-es-modules',
     'update-integrity-js',
     'update-no-hook-authorization',
     'update-no-hook-authorization-in-html',
