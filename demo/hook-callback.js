@@ -6,16 +6,66 @@ if (hook.parameters[Symbol.for('hook-callback.js')]) {
   // skip reinstalling the plugin
 }
 else {
+  const hook = self.hook;
   hook.parameters[self.Symbol.for('hook-callback.js')] = true;
   const Map = self.Map;
   const Set = self.Set;
+  const Object = self.Object;
+  const _hasOwnProperty = Object.prototype.hasOwnProperty;
+  const Array = self.Array;
+  const Symbol = self.Symbol;
+  const JSON = self.JSON;
+  const URL = self.URL;
+  const Reflect = self.Reflect;
+  const Function = self.Function;
+  const FunctionPrototypeApply = Function.prototype.apply;
+  const FunctionPrototypeCall = Function.prototype.call;
+  const ReflectApply = Reflect.apply;
+  const atob = self.atob;
+  const createHash = hook.utils.createHash;
+  const HTMLParser = hook.utils.HTMLParser;
+  // DistinctSet treats values are redundant if typeof this.target[value2] === 'object' && this.target[value1] === this.target[value2]
+  class DistinctSet extends Set {
+    constructor(target = Object.create(null)) {
+      super();
+      this.distinctObjects = new Set();
+      this.allValues = new Set();
+      this.target = target;
+    }
+    add(value) {
+      if (this.allValues.has(value)) {
+        return this;
+      }
+      let object = this.target[value];
+      if (typeof object === 'object') {
+        if (!this.distinctObjects.has(object)) {
+          this.distinctObjects.add(object);
+          super.add(value);
+        }
+      }
+      else {
+        super.add(value);
+      }
+      this.allValues.add(value);
+      return this;
+    }
+    has(value) {
+      return this.allValues.has(value); // behaves as all values are in the set
+    }
+    rawHas(value) {
+      return super.has(value);
+    }
+    // Unsupported: clear(), delete()
+  }
+
   class SetMap extends Map {
-    constructor(...args) {
-      super(...args);
+    constructor(target = null) {
+      super(); // no init values are supported
       this.aliasMap = new Map();
       // aliasMap groups keys and aliases which have their own value set yet
       //   aliasMap.get(key1) === aliasMap.get(key1_alias1) === aliasMap.get(key1_alias2) === Set({ key1, key1_alias1, key1_alias2 }),
       //   aliasMap.get(key2) === aliasMap.get(key2_alias1) === Set({ key2, key2_alias1 }), ...
+      this.target = target;
     }
     set(key, value) {
       let set;
@@ -23,7 +73,7 @@ else {
         set = super.get(key);
       }
       else {
-        set = new Set();
+        set = new DistinctSet(this.target);
         if (this.aliasMap.has(key)) {
           for (let alias of this.aliasMap.get(key)) {
             super.set(alias, set); // all aliases including the original key are mapped to the same set as the key
@@ -34,7 +84,7 @@ else {
         }
       }
       set.add(value);
-      return this;
+      return set;
     }
     setAlias(key, alias) {
       let set = super.get(key);
@@ -65,20 +115,117 @@ else {
       return values.join(delim);
     }
   };
-  const Object = self.Object;
-  const _hasOwnProperty = Object.prototype.hasOwnProperty;
-  const Array = self.Array;
-  const Symbol = self.Symbol;
-  const JSON = self.JSON;
-  const URL = self.URL;
-  const Reflect = self.Reflect;
-  const Function = self.Function;
-  const FunctionPrototypeApply = Function.prototype.apply;
-  const FunctionPrototypeCall = Function.prototype.call;
-  const ReflectApply = Reflect.apply;
-  const atob = self.atob;
-  const createHash = hook.utils.createHash;
-  const HTMLParser = hook.utils.HTMLParser;
+
+  /*
+    These forEach functions are the same function object
+      "Array.prototype.forEach",
+      "CSSNumericArray.prototype.forEach",
+      "CSSTransformValue.prototype.forEach",
+      "CSSUnparsedValue.prototype.forEach",
+      "DOMTokenList.prototype.forEach",
+      "NodeList.prototype.forEach",
+      "XRInputSourceArray.prototype.forEach"
+
+    Array.prototype.forEach to represent them in ACL to avoid applying all 7 ACLs for a single call
+  */
+  const forEachFunction = Array.prototype.forEach;
+  const forEachName = 'Array,prototype,forEach';
+
+  // _globalMethods as wrapped _globalObjects
+  class GlobalMethodsWrapper {
+    constructor(gObjects) {
+      this.gObjects = gObjects; // _globalObjects: SetMap
+      this.splitCache = new Map(); // cache for obj,prototype,method => [obj,prototype,method]
+      this.pattern = new RegExp('(.*,)([^,]{1,},)?([^,]{1,})$');
+    }
+    // class,prototype,method => [ class, prototype, method ]
+    // class,staticMethod => [ class, staticMethod ]
+    // /module/name.js,class,prototype,method => [ "/module/name.js,class", prototype, method ]
+    // /module/name.js,class,staticMethod => [ "/module/name.js,class", staticMethod ]
+    // /module/name.js,class => [ "/module/name.js", class ]
+    split(name) {
+      let value = this.splitCache.get(name);
+      if (!value) {
+        let splitValue = name.split(',');
+        let length = splitValue.length;
+        let method;
+        switch (length) {
+        case 1:
+        case 2:
+          value = splitValue;
+          break;
+        case 3:
+          if (splitValue[1] === 'prototype') {
+            value = splitValue;
+          }
+          else {
+            value = [ splitValue[0] + ',' + splitValue[1], splitValue[2] ];
+          }
+          break;
+        default:
+          if (splitValue[length - 2] === 'prototype') {
+            method = splitValue.pop();
+            splitValue.pop(); // 'prototype'
+            value = [ splitValue.join(','), 'prototype', method ];
+          }
+          else {
+            method = splitValue.pop();
+            value = [ splitValue.join(','), method ];
+          }
+          break;
+        }
+        this.splitCache.set(name, value);
+      }
+      return value;
+    }
+    get(key) {
+      let names = this.gObjects.get(key); // DistinctSet or undefined
+      let value;
+      if (names) {
+        for (let name of names) {
+          value = this.split(name);
+          break; // TODO: multiple names
+        }
+        return value;
+      }
+      else {
+        return undefined;
+      }
+    }
+    // key: function, value: [ class, (prototype,) method ]
+    set(key, value) {
+      let name = value.join(',');
+      this.splitCache.set(name, value);
+      let names = this.gObjects.get(key);
+      if (names) {
+        let isGlobal = false;
+        for (let _name of names) {
+          if (_name.indexOf(',') < 0) {
+            isGlobal = true;
+            break;
+          }
+        }
+        if (isGlobal) {
+          // avoid enlisting a global object so that this property ACL cannot pollute ACL for the global object
+          return this;
+        }
+      }
+      if (name.endsWith(',prototype')) { // skip Class.prototype objects
+        return this;
+      }
+      if (name.endsWith(',prototype,constructor')) {
+        name = name.substring(0, name.length - 22);
+      }
+      if (key === forEachFunction) { // key === Array.prototype.forEach
+        if (name !== forEachName) {
+          // skip registering forEach function other than Array.prototype.forEach
+          return this;
+        }
+      }
+      this.gObjects.set(key, name);
+      return this;
+    }
+  };
   let wrapGlobalProperty; // = function (object, property, objectName); assigned at the bottom of this script
   class Stack {
     constructor(stack) {
@@ -187,7 +334,7 @@ else {
   {
     let o = _global;
     let chain = [];
-    while (o && o !== Object.prototype) {
+    while (o && o !== Object.prototype && o.constructor.name !== 'EventTarget') {
       chain.unshift(Object.getOwnPropertyDescriptors(o));
       o = Object.getPrototypeOf(o);
     }
@@ -196,7 +343,9 @@ else {
     }
     delete _globalPropertyDescriptors.constructor; // exclude constructor === Window
   }
-  let _globalMethods = new Map();
+  const acl = Object.create(null); // declared here for early reference
+  const _globalObjects = new SetMap(acl);
+  const _globalMethods = new GlobalMethodsWrapper(_globalObjects);
   const excludedGlobalProperties = { isSecureContext: true };
   const mainGlobalObjectName = typeof window === 'object' ? 'window' : 'self';
   Object.entries(Object.getOwnPropertyDescriptors(_global))
@@ -208,7 +357,7 @@ else {
     .forEach((name) => {
       excludedGlobalProperties[name] = true;
     });
-  let _globalObjects = Object.keys(_globalPropertyDescriptors)
+  Object.keys(_globalPropertyDescriptors)
     .sort()
     .reduce((acc, curr) => {
       const globalObjectNames = ['_global', 'frames', 'top', 'globalThis', 'content', 'self', 'window', 'parent'];
@@ -218,16 +367,16 @@ else {
         if (globalObjectNames.indexOf(curr) >= 0) {
           if (curr === mainGlobalObjectName) {
             acc.set(_globalPropertyDescriptors[curr].value, curr);
-            let properties = Object.getOwnPropertyDescriptors(_globalPropertyDescriptors[curr].value);
-            let prop;
-            for (prop in properties) {
-              if (typeof properties[prop].value === 'function') {
-                _globalMethods.set(properties[prop].value, [curr, prop]);
-              }
-            }
           }
         }
         else {
+          if (existing) {
+            if (curr.startsWith('webkit') || curr.startsWith('WebKit')) {
+              //console.log('_globalObjects.set: existing = ', [...existing], 'skipping = ', curr);
+              return acc;
+            }
+            //console.log('_globalObjects.set: existing = ', [...existing], 'adding = ', curr);
+          }
           acc.set(_globalPropertyDescriptors[curr].value, curr);
           let properties = Object.getOwnPropertyDescriptors(_globalPropertyDescriptors[curr].value);
           let prop;
@@ -236,9 +385,12 @@ else {
               _globalMethods.set(properties[prop].value, [curr, prop]);
             }
           }
-          if (_globalPropertyDescriptors[curr].value.prototype) {
+          if (_globalPropertyDescriptors[curr].value.prototype && curr !== 'WorkerGlobalScope') { // skipping WorkerGlobalScope.prototype.*
             properties = Object.getOwnPropertyDescriptors(_globalPropertyDescriptors[curr].value.prototype);
             for (prop in properties) {
+              if (prop === 'constructor') {
+                continue; // skipping class.prototype.constructor === class
+              }
               if (typeof properties[prop].value === 'function') {
                 _globalMethods.set(properties[prop].value, [curr, 'prototype', prop]);
               }
@@ -252,18 +404,18 @@ else {
           if (curr === mainGlobalObjectName) {
             if (_global[curr]) {
               acc.set(_global[curr], curr);
-              let properties = Object.getOwnPropertyDescriptors(_global[curr]);
-              let prop;
-              for (prop in properties) {
-                if (typeof properties[prop].value === 'function') {
-                  _globalMethods.set(properties[prop].value, [curr, prop]);
-                }
-              }
             }
           }
         }
         else {
           if (!excludedGlobalProperties[curr]) {
+            if (existing) {
+              if (curr.startsWith('webkit') || curr.startsWith('WebKit')) {
+                //console.log('_globalObjects.set: existing = ', [...existing], 'skipping = ', curr);
+                return acc;
+              }
+              //console.log('_globalObjects.set: existing = ', [...existing], 'adding = ', curr);
+            }
             acc.set(_global[curr], curr);
             let properties = Object.getOwnPropertyDescriptors(_global[curr]);
             let prop;
@@ -272,9 +424,12 @@ else {
                 _globalMethods.set(properties[prop].value, [curr, prop]);
               }
             }
-            if (_global[curr].prototype) {
+            if (_global[curr].prototype && curr !== 'WorkerGlobalScope') { // skipping WorkerGlobalScope.prototype.*
               properties = Object.getOwnPropertyDescriptors(_global[curr].prototype);
               for (prop in properties) {
+                if (prop === 'constructor') {
+                  continue; // skipping class.prototype.constructor === class
+                }
                 if (typeof properties[prop].value === 'function') {
                   _globalMethods.set(properties[prop].value, [curr, 'prototype', prop]);
                 }
@@ -284,7 +439,7 @@ else {
         }
       }
       return acc;
-    }, new SetMap());
+    }, _globalObjects);
   const _objectStaticPropertyDescriptors = Object.getOwnPropertyDescriptors(Object);
   const _objectPropertyDescriptors = Object.getOwnPropertyDescriptors(Object.prototype);
   const _arrayStaticPropertyDescriptors = Object.getOwnPropertyDescriptors(Array);
@@ -313,6 +468,11 @@ else {
   const S_DEFAULT = Symbol('default'); // default policy
   const S_OBJECT = Symbol('object'); // parent object
   const S_INSTANCE = Symbol('instance'); // instance object
+  const S_MODULE = Symbol('module'); // module object
+  const S_TYPE = Symbol('type'); // ACL type property
+  const S_NAMESPACE = Symbol('namespace'); // namespace ACL type
+  const S_CLASS = Symbol('class'); // class ACL type
+  const S_PROXY = Symbol('proxy'); // proxied policy
   const S_CHAIN = Symbol('chain'); // chained policy
   const S_FUNCTION = Symbol('function'); // function
   const S_CONSTRUCT = Symbol('construct'); // new operation
@@ -412,6 +572,28 @@ else {
     'w&=': '=',
     'w^=': '=',
     'w|=': '=',
+    'm': 'm',
+    'm()': 'm()',
+    'mnew': 'm()',
+    'm++': 'm=',
+    '++m': 'm=',
+    'm--': 'm=',
+    '--m': 'm=',
+    'mtypeof': 'm',
+    'm.=': 'm.=',
+    'm=': 'm=v',
+    'm+=': 'm=',
+    'm-=': 'm=',
+    'm*=': 'm=',
+    'm/=': 'm=',
+    'm%=': 'm=',
+    'm**=': 'm=',
+    'm<<=': 'm=',
+    'm>>=': 'm=',
+    'm>>>=': 'm=',
+    'm&=': 'm=',
+    'm^=': 'm=',
+    'm|=': 'm=',
   };
   const targetNormalizer = {
     'f': 'xtf', // thisArg may not be this object for f
@@ -420,6 +602,11 @@ else {
     '*': 'rt*',
     '=': 'wtpv',
     'd': 'Wtp',
+    'm': 'rt-',
+    'm()': 'xt-',
+    'm=': 'wt-',
+    'm.=': 'wt-c',
+    'm=v': 'wt-v',
     '()': {
       Object: {
         [S_DEFAULT]: 'xtp',
@@ -753,14 +940,20 @@ else {
     '/components/webcomponentsjs/webcomponents-lite.js,cc': '@customElements_reader',
     '/components/webcomponentsjs/webcomponents-lite.js,T': '@customElements_reader',
     '/components/webcomponentsjs/webcomponents-lite.js,*': '@webcomponents-lite',
+    '/components/thin-hook/demo/es6-module.js': '@es6-module',
+    '/components/thin-hook/demo/es6-module.js,*': '@es6-module',
     '/components/thin-hook/demo/es6-module2.js,f2,module': '@Module_importer',
     '/components/thin-hook/demo/es6-module2.js': '@Module_importer',
-    '/components/thin-hook/demo/es6-module4.js': '@import.meta_reader',
-    '/components/thin-hook/demo/es6-module4.js,baseUrl': '@import.meta_reader',
-    '/components/thin-hook/demo/es6-module4.js,f': '@import.meta_reader,f',
-    '/components/thin-hook/demo/es6-module4.js,f,*': '@import.meta_reader,f',
+    '/components/thin-hook/demo/es6-module2.js,*': '@es6-module2',
+    '/components/thin-hook/demo/es6-module3.js': '@es6-module3',
+    '/components/thin-hook/demo/es6-module3.js,*': '@es6-module3',
+    '/components/thin-hook/demo/es6-module4.js': '@es6-module4',
+    '/components/thin-hook/demo/es6-module4.js,baseUrl': '@es6-module4',
+    '/components/thin-hook/demo/es6-module4.js,f': '@es6-module4,f',
+    '/components/thin-hook/demo/es6-module4.js,f,*': '@es6-module4,f',
     '/components/polymer/lib/utils/async.html,script@566,timeOut,run': '@setTimeout_reader',
     '/components/thin-hook/demo/,script@4964': '@document_writer',
+    '/components/thin-hook/demo/,script@5028': '@document_writer',
     '/components/thin-hook/demo/,script@5911': '@document_writer',
     '/components/thin-hook/demo/,script@5963': '@document_writer',
     '/components/thin-hook/demo/,script@5964': '@document_writer',
@@ -836,8 +1029,129 @@ else {
     '/components/shadycss/custom-style-interface.min.js,*': '@custom-style-interface',
     '/components/make-plural/plurals.js': '@plurals.js',
     '/components/make-plural/plurals.js,*': '@plurals.js',
+    "lit-html": "@lit-html",
+    "lit-html,*": "@lit-html",
+    "lit-html/*": "@lit-html",
+    "lit-element/": "@lit-element",
+    "lit-element/,*": "@lit-element",
+    "lit-element/lib/*": "@lit-element",
+    "lit-element/*": "@lit-element",
+    "./modules/module1.js": "@module1",
+    "./modules/module1.js,*": "@module1",
+    "./modules/module2.js": "@module2",
+    "./modules/module2.js,*": "@module2",
     'https://thin-hook.localhost.localdomain/automation.json,*': '@cache_automation',
   };
+  /*
+    resolve module paths via hook.parameters.importMapper(specifier, baseURI)
+    
+    Notes:
+     - No resolution if hook.parameters.importMapper is not configured
+       - hook.parameters.importMapper is a wrapper function of the Import Maps reference implementation
+     - baseURI is hook.parameters.baseURI
+     - Import Maps JSON is set in hook.parameters.importMapsJson as a string
+       - Picking up from the native import maps script tag has not been implemented yet
+     - A trivial fork of the Import Maps reference implementation is used for resolution
+       - GitHub repository: https://github.com/t2ym/import-maps/tree/browserify/reference-implementation/lib
+       - package.json at the top of the repository is added so that NPM can fetch the package from GitHub
+
+    Resolutions:
+    
+     - Type: bare specifiers
+
+        "lit-html": "@lit-html" -> "/components/thin-hook/demo/node_modules/lit-html/lit-html.js": "@lit-html"
+        "lit-html/": "@lit-html" -> "/components/thin-hook/demo/node_modules/lit-html/lit-html.js": "@lit-html"
+        "lit-html/*": "@lit-html" -> "/components/thin-hook/demo/node_modules/lit-html/*": "@lit-html"
+        "lit-html,*": "@lit-html" -> "/components/thin-hook/demo/node_modules/lit-html/lit-html.js,*": "@lit-html"
+        "lit-html/,*": "@lit-html" -> "/components/thin-hook/demo/node_modules/lit-html/lit-html.js,*": "@lit-html"
+
+     - Type: relative paths from hook.parameters.baseURI
+
+        "./modules/module1.js": "@module1" -> "/components/thin-hook/demo/modules/module1.js": "@module1"
+        "./modules/module1.js,*": "@module1" -> "/components/thin-hook/demo/modules/module1.js,*": "@module1"
+
+  */
+  if (hook.parameters.importMapper) {
+    // resolve bare specifiers in context normalizer
+    let paths;
+    let resolved;
+    for (let c in contextNormalizer) {
+      if (c.startsWith('https://') || c.startsWith('/')) {
+        continue; // skip already resolved specifiers
+      }
+      paths = c.split(',');
+      if (paths.length === 1) {
+        if (c.endsWith('/*')) {
+          // bare-specifier/*
+          resolved = hook.parameters.importMapper(c + '.js', hook.parameters.baseURI).replace(/\*\.js$/, '*');
+        }
+        else if (c.endsWith('/')) {
+          // bare-specifier/
+          resolved = hook.parameters.importMapper(c.substring(0, c.length - 1), hook.parameters.baseURI);
+        }
+        else {
+          // bare-specifier
+          resolved = hook.parameters.importMapper(c, hook.parameters.baseURI);
+        }
+      }
+      else {
+        // bare-specifier,anything,*
+        if (paths[0].endsWith('/')) {
+          paths[0] = hook.parameters.importMapper(paths[0].substring(0, paths[0].length - 1), hook.parameters.baseURI);
+        }
+        else {
+          paths[0] = hook.parameters.importMapper(paths[0], hook.parameters.baseURI);
+        }
+        resolved = paths.join(',');
+      }
+      contextNormalizer[resolved] = contextNormalizer[c];
+      delete contextNormalizer[c];
+    }
+  }
+  /*
+    Prefixed Module Contexts object:
+      {
+        "": { // root
+          "components": {
+            "thin-hook": {
+              "demo": {
+                "node_modules": {
+                  "lit-html": {
+                    "*": "@lit-html",
+                  },
+                  "lit-element": {
+                    "*": "@lit-element",
+                  },
+                },
+              },
+            },
+          },
+        },
+      };
+
+    Notes:
+    - Prefixed module context must end with '/*' like this:
+      '/some/module-name/*'
+  */
+  const prefixedModuleContexts = Object.create(null);
+  for (let c in contextNormalizer) {
+    let paths = c.split('/');
+    let cursor = prefixedModuleContexts;
+    if (paths.length > 1 && paths[0] === '' && paths[paths.length - 1] === '*') {
+      for (let path of paths) {
+        if (path === '*') {
+          cursor[path] = contextNormalizer[c];
+          break;
+        }
+        else {
+          if (!Reflect.has(cursor, path)) {
+            cursor[path] = {};
+          }
+          cursor = cursor[path];
+        }
+      }
+    }
+  }
   /*
     Prefixed Contexts object:
       {
@@ -855,7 +1169,7 @@ else {
     - Prefixed context must end with ',*' like this:
       '/some/filepath.js,something,*'
   */
-  const prefixedContexts = {};
+  const prefixedContexts = Object.create(null);
   for (let c in contextNormalizer) {
     let paths = c.split(',');
     let cursor = prefixedContexts;
@@ -907,6 +1221,16 @@ else {
     // Note:
     //  - Not applicable to module namespace objects, which have classes in properties like MODULE_NAME.CLASS_NAME
     static trackClass(virtualName, _class) {
+      switch (typeof _class) {
+      case 'object':
+        if (_class === null) {
+          return false;
+        }
+      case 'function':
+        break;
+      default:
+        return false;
+      }
       let gprop = virtualName;
       let gvalue = _class;
       let set = _globalObjects.get(_class);
@@ -915,7 +1239,11 @@ else {
           return false; // TODO: this redundancy checking may drop new properties of _class
         }
       }
-      _globalObjects.set(gvalue, gprop);
+      set = _globalObjects.set(gvalue, gprop);
+      if (!set.rawHas(gprop)) {
+        // Avoid redundant registration of the same object with proxied policies
+        return false;
+      }
       let _properties = Object.getOwnPropertyDescriptors(gvalue);
       let _prop;
       for (_prop in _properties) {
@@ -1262,75 +1590,89 @@ else {
               }
               break;
             case 'x':
-              if (_hasOwnProperty.call(normalizedThisArg, rawProperty)) {
-                // execute an own property method of this global object
-              }
-              else if (Reflect.has(normalizedThisArg, rawProperty)) {
-                // Prototype chain has the property
-                let target = Object.getPrototypeOf(normalizedThisArg);
-                let _names, _isStatic, _isObject;
-                let isAclNameChecked = false;
-                while (target) {
-                  [_names, _isStatic, _isObject] = detectName(target, null);
-                  if (_names instanceof Set) {
-                    _isObject = true; // Adjust _isObject as true since target is a prototype of normalizedThisArg
-                    let isNoAclNameChecked = false;
-                    for (let _name of _names) {
-                      if (Reflect.has(acl, _name)) {
-                        isAclNameChecked = true;
-                      }
-                      else {
-                        if (isNoAclNameChecked) {
-                          continue;
-                        }
-                        _name = undefined;
-                        isNoAclNameChecked = true;
-                      }
-                      // TODO: handle when normalizedThisArg itself is a prototype object of a function
-                      if (!applyAcl(_name, _isStatic, _isObject, property, 'x', hookArgs[3], target, normalizedArgs, hookArgs)) {
-                        return false;
-                      }
-                    }
-                  }
-                  if (isAclNameChecked) {
-                    // stop tracking the chain if a named ACL is found and applied
-                    break;
-                  }
-                  if (_hasOwnProperty.call(target, rawProperty)) {
-                    break;
-                  }
-                  target = Object.getPrototypeOf(target);
+              {
+                let target = normalizedThisArg;
+                if (_hasOwnProperty.call(normalizedThisArg, rawProperty)) {
+                  // execute an own property method of this global object
                 }
-              }
-              if (normalizedThisArg instanceof Object) {
-                let property = normalizedArgs[0];
-                if (Reflect.has(normalizedThisArg, property)) {
-                  let value = normalizedThisArg[property];
-                  switch (hookArgs[0]) {
-                  case 'w()':
-                  case 'wnew':
-                    value = hookArgs[2][3];
-                    break;
-                  default:
-                    break;
-                  }
-                  let name = _globalMethods.get(value);
-                  if (name) {
-                    let rawProp = name[name.length - 1];
-                    let prop = _escapePlatformProperties.get(rawProp) || rawProp;
-                    let obj = name[0];
-                    let isStatic = name[1] !== 'prototype';
-                    let isObject = !_hasOwnProperty.call(normalizedThisArg, property);
-                    if (isStatic && isGlobalScopeObject.has(obj)) {
-                      // ['window','globalObject']
-                      obj = rawProp;
-                      prop = S_UNSPECIFIED;
+                else if (Reflect.has(normalizedThisArg, rawProperty)) {
+                  // Prototype chain has the property
+                  target = Object.getPrototypeOf(normalizedThisArg);
+                  let _names, _isStatic, _isObject;
+                  let isAclNameChecked = false;
+                  while (target) {
+                    [_names, _isStatic, _isObject] = detectName(target, null);
+                    if (_names instanceof Set) {
+                      _isObject = true; // Adjust _isObject as true since target is a prototype of normalizedThisArg
+                      let isNoAclNameChecked = false;
+                      for (let _name of _names) {
+                        if (Reflect.has(acl, _name)) {
+                          isAclNameChecked = true;
+                        }
+                        else {
+                          if (isNoAclNameChecked) {
+                            continue;
+                          }
+                          _name = undefined;
+                          isNoAclNameChecked = true;
+                        }
+                        // TODO: handle when normalizedThisArg itself is a prototype object of a function
+                        if (!applyAcl(_name, _isStatic, _isObject, property, 'x', hookArgs[3], target, normalizedArgs, hookArgs)) {
+                          return false;
+                        }
+                      }
                     }
-                    if (Reflect.has(acl, obj)) { // avoid recursive calls
-                      // Apply ACL for the global method
-                      if (!applyAcl(obj, isStatic, isObject, prop, 'x', hookArgs[3], value, normalizedArgs[1], hookArgs)) {
-                        normalizedArgs.result = normalizedArgs[1].result;
-                        return false;
+                    if (isAclNameChecked) {
+                      // stop tracking the chain if a named ACL is found and applied
+                      break;
+                    }
+                    if (_hasOwnProperty.call(target, rawProperty)) {
+                      break;
+                    }
+                    target = Object.getPrototypeOf(target);
+                  }
+                }
+                if (normalizedThisArg instanceof Object) {
+                  let property = normalizedArgs[0];
+                  if (Reflect.has(normalizedThisArg, property)) {
+                    let value;
+                    let desc;
+                    if (_hasOwnProperty.call(target, property)) {
+                      desc = Object.getOwnPropertyDescriptor(target, property);
+                      value = desc.value;
+                    }
+                    switch (hookArgs[0]) {
+                    case 'w()':
+                    case 'wnew':
+                      value = hookArgs[2][3];
+                      break;
+                    default:
+                      break;
+                    }
+                    if (!value) {
+                      break;
+                    }
+                    let names = _globalObjects.get(value);
+                    if (names) {
+                      for (let virtualName of names) {
+                        let name = _globalMethods.split(virtualName);
+                        let rawProp = name[name.length - 1];
+                        let prop = _escapePlatformProperties.get(rawProp) || rawProp;
+                        let obj = name[0];
+                        let isStatic = name[1] !== 'prototype';
+                        let isObject = !_hasOwnProperty.call(normalizedThisArg, property);
+                        if (isStatic && isGlobalScopeObject.has(obj)) {
+                          // ['window','globalObject']
+                          obj = rawProp;
+                          prop = S_UNSPECIFIED;
+                        }
+                        if (Reflect.has(acl, obj)) { // avoid recursive calls
+                          // Apply ACL for the global method
+                          if (!applyAcl(obj, isStatic, isObject, prop, 'x', hookArgs[3], value, normalizedArgs[1], hookArgs)) {
+                            normalizedArgs.result = normalizedArgs[1].result;
+                            return false;
+                          }
+                        }
                       }
                     }
                   }
@@ -1479,60 +1821,74 @@ else {
               // defineProperty on this anonymous object
               break;
             case 'x':
-              if (_hasOwnProperty.call(normalizedThisArg, rawProperty)) {
-                // execute an own property method of this anonymous object
-              }
-              else if (Reflect.has(normalizedThisArg, rawProperty)) {
-                // Prototype chain has the property
-                let target = Object.getPrototypeOf(normalizedThisArg);
-                let _names, _isStatic, _isObject;
-                let isAclNameChecked = false;
-                while (target) {
-                  [_names, _isStatic, _isObject] = detectName(target, null);
-                  if (_names) {
-                    _isObject = true; // Adjust _isObject as true since target is a prototype of normalizedThisArg
-                    for (let _name of _names) {
-                      if (Reflect.has(acl, _name)) {
-                        isAclNameChecked = true;
-                      }
-                      // TODO: handle when normalizedThisArg itself is a prototype object of a function
-                      if (!applyAcl(_name, _isStatic, _isObject, property, 'x', hookArgs[3], target, normalizedArgs, hookArgs)) {
-                        return false;
+              {
+                let target = normalizedThisArg;
+                if (_hasOwnProperty.call(normalizedThisArg, rawProperty)) {
+                  // execute an own property method of this anonymous object
+                }
+                else if (Reflect.has(normalizedThisArg, rawProperty)) {
+                  // Prototype chain has the property
+                  target = Object.getPrototypeOf(normalizedThisArg);
+                  let _names, _isStatic, _isObject;
+                  let isAclNameChecked = false;
+                  while (target) {
+                    [_names, _isStatic, _isObject] = detectName(target, null);
+                    if (_names) {
+                      _isObject = true; // Adjust _isObject as true since target is a prototype of normalizedThisArg
+                      for (let _name of _names) {
+                        if (Reflect.has(acl, _name)) {
+                          isAclNameChecked = true;
+                        }
+                        // TODO: handle when normalizedThisArg itself is a prototype object of a function
+                        if (!applyAcl(_name, _isStatic, _isObject, property, 'x', hookArgs[3], target, normalizedArgs, hookArgs)) {
+                          return false;
+                        }
                       }
                     }
+                    if (isAclNameChecked) {
+                      // stop tracking the chain if a named ACL is found and applied
+                      break;
+                    }
+                    if (_hasOwnProperty.call(target, rawProperty)) {
+                      break;
+                    }
+                    target = Object.getPrototypeOf(target);
                   }
-                  if (isAclNameChecked) {
-                    // stop tracking the chain if a named ACL is found and applied
-                    break;
-                  }
-                  if (_hasOwnProperty.call(target, rawProperty)) {
-                    break;
-                  }
-                  target = Object.getPrototypeOf(target);
                 }
-              }
-              if (normalizedThisArg instanceof Object) {
-                let property = normalizedArgs[0];
-                if (Reflect.has(normalizedThisArg, property)) {
-                  let value = normalizedThisArg[property];
-                  switch (hookArgs[0]) {
-                  case 'w()':
-                  case 'wnew':
-                    value = hookArgs[2][3];
-                    break;
-                  default:
-                    break;
-                  }
-                  let name = _globalMethods.get(value);
-                  if (name) {
-                    let rawProp = name[name.length - 1];
-                    let prop = _escapePlatformProperties.get(rawProp) || rawProp;
-                    let obj = name[0];
-                    let _normalizedArgs = [rawProp, normalizedArgs[1]];
-                    // Apply ACL for the global method
-                    if (!applyAcl(obj, name[1] !== 'prototype', !Object.prototype.hasOwnProperty.call(normalizedThisArg, property), prop, 'x', hookArgs[3], _global[obj], _normalizedArgs, hookArgs)) {
-                      normalizedArgs.result = _normalizedArgs.result;
-                      return false;
+                if (normalizedThisArg instanceof Object) {
+                  let property = normalizedArgs[0];
+                  if (Reflect.has(normalizedThisArg, property)) {
+                    let value;
+                    let desc;
+                    if (_hasOwnProperty.call(target, property)) {
+                      desc = Object.getOwnPropertyDescriptor(target, property);
+                      value = desc.value;
+                    }
+                    switch (hookArgs[0]) {
+                    case 'w()':
+                    case 'wnew':
+                      value = hookArgs[2][3];
+                      break;
+                    default:
+                      break;
+                    }
+                    if (!value) {
+                      break;
+                    }
+                    let names = _globalObjects.get(value);
+                    if (names) {
+                      for (let virtualName of names) {
+                        let name = _globalMethods.split(virtualName);
+                        let rawProp = name[name.length - 1];
+                        let prop = _escapePlatformProperties.get(rawProp) || rawProp;
+                        let obj = name[0];
+                        let _normalizedArgs = [rawProp, normalizedArgs[1]];
+                        // Apply ACL for the global method
+                        if (!applyAcl(obj, name[1] !== 'prototype', !Object.prototype.hasOwnProperty.call(normalizedThisArg, property), prop, 'x', hookArgs[3], _global[obj], _normalizedArgs, hookArgs)) {
+                          normalizedArgs.result = _normalizedArgs.result;
+                          return false;
+                        }
+                      }
                     }
                   }
                 }
@@ -1688,7 +2044,7 @@ else {
     video: 'HTMLVideoElement',
     wbr: 'HTMLElement',
   };
-  const acl = {
+  Object.assign(acl, {
     // blacklist objects/classes
     caches: '---',
     __hook__: '---', // TODO: ineffective
@@ -1712,8 +2068,10 @@ else {
     },
     '@window_enumerator': 'r--R-',
     Window: {
+      [S_CHAIN]: () => acl.EventTarget, // EventTarget is a prototype of Window
       [S_DEFAULT]: 'r--',
       [S_PROTOTYPE]: {
+        [S_CHAIN]: S_CHAIN,
         [S_DEFAULT]: '---',
         '@window_enumerator': 'r--R-',
         '@Object_prototype_reader': 'r--',
@@ -1954,8 +2312,7 @@ else {
     },
     import: {
       [S_OBJECT]: {
-        [S_DEFAULT]: '---',
-        '@Module_importer': '--x',
+        [S_DEFAULT]: '--x',
       },
       [S_DEFAULT]: '---',
       invalidImportUrl: '---',
@@ -1967,18 +2324,20 @@ else {
                                             applyAcl /* for recursive application of ACL */) {
           let opType = aclArgs[4];
           const contexts = {
-            '@import.meta_reader': true,
-            '@import.meta_reader,f': true,
+            '@es6-module4': true,
+            '@es6-module4,f': true,
+            '@module1': true,
           };
           if (contexts.hasOwnProperty(aclArgs[5]) && opType === 'r') {
-            Policy.trackClass('import.meta', hookArgs[0]());
+            Policy.trackClass('import.meta', hookArgs[0]()); // TODO: this tracking may be inefficient
             return true;
           }
           return false;
         },
         url: {
           [S_DEFAULT]: '---',
-          '@import.meta_reader': 'r--',
+          '@module1': 'r--',
+          '@es6-module4': 'r--',
         },
       },
     },
@@ -2133,6 +2492,8 @@ else {
         },
       }
     },
+    [S_CHAIN]: () => acl.EventTarget[S_PROTOTYPE][S_INSTANCE], // self instanceof EventTarget;
+    // Thus, acl for window.addEventListener should reside at acl.EventTarget[S_PROTOTYPE][S_INSTANCE].addEventListener
     EventTarget: {
       [S_CHAIN]: () => acl.Function[S_PROTOTYPE][S_INSTANCE],
       [S_OBJECT]: 'r-x',
@@ -3620,12 +3981,15 @@ else {
         '@Event___domApi_writer': 'r--',
         '@Polymer_lib': 'r--',
         '@Object_assign_reader': 'rwxRW', // webcomponents-lite.js
+        "@lit-html": 'r--',
+        "@module1": 'r--',
       },
       [S_DEFAULT]: '---',
       define: {
         [S_DEFAULT]: '---',
         '@Object_assign_reader': 'rwx',
         '@customElements_reader': 'rwx',
+        '@module1': 'r-x', // TODO: integrate with customElementsDefineAcl()
         '@Polymer_lib': function customElementsDefineAcl(normalizedThisArg,
                                                          normalizedArgs /* ['property', args], ['property', value], etc. */,
                                                          aclArgs /* [name, isStatic, isObject, property, opType, context] */,
@@ -3670,6 +4034,7 @@ else {
       get: {
         [S_DEFAULT]: '--x',
         '@Object_assign_reader': 'r-x',
+        '@module1': 'r-x',
       },
       whenDefined: {
         [S_DEFAULT]: '--x',
@@ -3682,6 +4047,7 @@ else {
         [S_DEFAULT]: '---',
         '@Object_assign_reader': 'rwx',
         '@Event___domApi_writer': 'r-x',
+        "@lit-html": "r--",
       },
       '@Object_assign_reader': 'rwx',
       '@customElements_reader': 'r--',
@@ -4316,6 +4682,7 @@ else {
     JSCompiler_renameProperty: {
       [S_DEFAULT]: 'r-x',
       '@Polymer_lib': 'rwx',
+      "@lit-element": 'rwx',
     },
     plurals: {
       [S_DEFAULT]: 'r-x',
@@ -4737,6 +5104,294 @@ else {
       [S_DEFAULT]: 'r-x',
       '@tty_prohibited': '---',
     },
+    './es6-module.js': { // module namespace object
+      [S_TYPE]: S_NAMESPACE,
+      [S_OBJECT]: {
+        [S_DEFAULT]: 'r--',
+        '@es6-module': 'rw-RW',
+        '@es6-module2': 'rw-RW',
+        '@es6-module3': 'rw-R-',
+        '@es6-module4': 'rw-R-',
+        '@Module_importer': 'r--RW',
+      },
+      [S_DEFAULT]: {
+        [S_DEFAULT]: 'r-x',
+        '@es6-module': 'rwxRW',
+        '@es6-module2': 'r-xR-',
+        '@es6-module3': 'r-xR-',
+        '@Module_importer': 'r-xR-',
+      },
+      [S_ALL]: {
+        [S_DEFAULT]: 'r--R-',
+      },
+      default: { // default export
+        [S_OBJECT]: {
+          [S_DEFAULT]: 'r-x',
+          '@es6-module': 'rw-RW',
+          '@es6-module2': 'r-xRW',
+          '@es6-module3': 'rw-RW',
+          '@es6-module4': 'rw-R-',
+          '@Module_importer': 'r-xRW',
+        },
+        [S_DEFAULT]: {
+          [S_DEFAULT]: 'r-x',
+          '@es6-module': 'rwxRW',
+          '@es6-module2': 'r-x',
+          '@es6-module4': 'rw-R-',
+          '@Module_importer': 'r-xRW',
+        },
+        [S_PROTOTYPE]: {
+          [S_DEFAULT]: '---',
+          [S_INSTANCE]: {
+            [S_DEFAULT]: 'r-x',
+            '@es6-module': 'rwx',
+            '@es6-module2': 'rwx',
+            '@es6-module4': 'rwx',
+            '@Module_importer': 'rwx',
+          },
+        },
+      },
+      MutatableClass: { // named export
+        [S_OBJECT]: {
+          [S_DEFAULT]: 'r-xRW',
+          '@es6-module': 'rw-RW',
+          '@es6-module2': 'r-xRW',
+          '@Module_importer': 'r-xRW',
+        },
+        [S_DEFAULT]: {
+          [S_DEFAULT]: 'r-x',
+          '@es6-module': 'rwxRW',
+          '@es6-module2': 'r-x',
+          '@Module_importer': 'r-xRW',
+        },
+      },
+      Class1: { // named export
+        [S_OBJECT]: {
+          [S_DEFAULT]: '---',
+          '@normalization_checker': 'rwx',
+          '@XClass1_constructor': 'rwx',
+        },
+        [S_DEFAULT]: '---',
+        staticMethod: {
+          [S_DEFAULT]: '---',
+          '@normalization_checker': '--x',
+        },
+        staticProperty: {
+          [S_DEFAULT]: '---',
+          '@normalization_checker': 'rw-',
+        },
+        [S_PROTOTYPE]: {
+          [S_DEFAULT]: '---',
+          [S_INSTANCE]: {
+            [S_DEFAULT]: '---',
+            instanceMethod: {
+              [S_DEFAULT]: '---',
+              '@normalization_checker': '--x',
+            },
+            instanceProperty: {
+              [S_DEFAULT]: '---',
+              '@XClass1_constructor': 'rw-',
+              '@normalization_checker': 'rw-',
+            },
+          },
+        },
+      },
+    },
+    './es6-module2.js': {
+      [S_TYPE]: S_NAMESPACE,
+      [S_OBJECT]: {
+        [S_DEFAULT]: 'r--',
+        '@es6-module2': 'r--RW',
+        '@es6-module3': 'r--RW',
+        '@Module_importer': 'r--RW',
+      },
+      [S_DEFAULT]: {
+        [S_DEFAULT]: 'r-x',
+        '@es6-module': 'rwxRW',
+        '@es6-module2': 'rwxRW',
+        '@es6-module3': 'rwxRW',
+        '@es6-module4': 'r-xRW',
+        '@Module_importer': 'rwxRW',
+      },
+      es6Module: {
+        [S_PROXY]: () => acl['./es6-module.js'],
+      },
+      T3: {
+        [S_PROXY]: () => acl['./es6-module.js'].default,
+      },
+    },
+    './es6-module3.js': {
+      [S_TYPE]: S_NAMESPACE,
+      [S_OBJECT]: {
+        [S_DEFAULT]: 'r-x',
+        '@es6-module3': 'rw-RW',
+      },
+      [S_DEFAULT]: {
+        [S_DEFAULT]: 'r-x',
+        '@es6-module3': 'rwxRW',
+      },
+    },
+    './es6-module4.js': {
+      [S_TYPE]: S_NAMESPACE,
+      [S_OBJECT]: {
+        [S_DEFAULT]: 'r--',
+        '@es6-module4': 'rw-RW',
+      },
+      [S_DEFAULT]: {
+        [S_DEFAULT]: 'r-xRW',
+        '@es6-module4': 'rwxRW',
+      },
+    },
+    litHtmlVersions: {
+      [S_OBJECT]: {
+        [S_DEFAULT]: 'r--',
+        "@lit-html": 'rw-',
+      },
+      [S_CHAIN]: () => acl.Array[S_PROTOTYPE][S_INSTANCE],
+    },
+    litElementVersions: {
+      [S_OBJECT]: {
+        [S_DEFAULT]: 'r--',
+        "@lit-element": 'rw-',
+      },
+      [S_CHAIN]: () => acl.Array[S_PROTOTYPE][S_INSTANCE],
+    },
+    "lit-element/": {
+      [S_TYPE]: S_NAMESPACE,
+      [S_OBJECT]: {
+        [S_DEFAULT]: 'r--RW',
+      },
+      [S_DEFAULT]: 'rwxRW', // TODO: too loose
+    },
+    "lit-element/lib/updating-element.js": {
+      [S_TYPE]: S_NAMESPACE,
+      [S_OBJECT]: {
+        [S_DEFAULT]: 'r--RW',
+      },
+      [S_DEFAULT]: 'rwxRW', // TODO: too loose
+    },
+    "lit-html/lib/directive.js": {
+      [S_TYPE]: S_NAMESPACE,
+      [S_OBJECT]: {
+        [S_DEFAULT]: 'r--RW',
+      },
+      [S_DEFAULT]: 'rwxRW', // TODO: too loose
+    },
+    "lit-html/lib/dom.js": {
+      [S_TYPE]: S_NAMESPACE,
+      [S_OBJECT]: {
+        [S_DEFAULT]: 'r--RW',
+      },
+      [S_DEFAULT]: 'rwxRW', // TODO: too loose
+    },
+    "lit-html/lib/part.js": {
+      [S_TYPE]: S_NAMESPACE,
+      [S_OBJECT]: {
+        [S_DEFAULT]: 'r--RW',
+      },
+      [S_DEFAULT]: 'rwxRW', // TODO: too loose
+    },
+    "./modules/module2.js": {
+      [S_TYPE]: S_NAMESPACE,
+      [S_OBJECT]: {
+        [S_DEFAULT]: 'r--R-', // not re-exportable
+        "@module2": 'r--RW',
+      },
+      [S_DEFAULT]: '---RW',
+      exportedName: {
+        [S_DEFAULT]: 'r--RW',
+        "@module2": 'rw-RW',
+      },
+      inaccessibleString: '---RW',
+      inaccessibleNumber: '---RW',
+      inaccessibleBoolean: '---RW',
+      inaccessibleSymbol: '---RW',
+      inaccessibleNull: '---RW',
+      inaccessibleUndefined: '---RW',
+      inaccessibleBigInt: '---RW',
+      inaccessibleFunction: '---RW',
+      inaccessibleObject: '---RW',
+      ExportedClass: {
+        [S_CHAIN]: S_FUNCTION,
+        [S_OBJECT]: {
+          [S_DEFAULT]: 'r-xR-',
+          "@module2": 'r-xRW',
+        },
+        [S_DEFAULT]: {
+          [S_DEFAULT]: 'r-x',
+          "@module2": 'rwx',
+        },
+        callableStaticMethod: '--x',
+        [S_PROTOTYPE]: {
+          [S_DEFAULT]: '---',
+          [S_INSTANCE]: {
+            [S_CHAIN]: S_OBJECT,
+            [S_DEFAULT]: '---',
+            readableProperty: {
+              [S_DEFAULT]: 'r--',
+              "@module2": 'rw-',
+            },
+            unreadableProperty: {
+              [S_DEFAULT]: '---',
+              "@module2": 'rw-',
+            },
+            callableMethod: '--x',
+          },
+        },
+      },
+    },
+    "./modules/module1.js": {
+      [S_TYPE]: S_NAMESPACE,
+      [S_OBJECT]: {
+        [S_DEFAULT]: 'r--RW',
+      },
+      [S_DEFAULT]: 'r-xRW',
+      ReexportedClass: {
+        [S_PROXY]: () => acl["./modules/module2.js"].ExportedClass,
+        [S_OBJECT]: {
+          "@module1": 'r-xRW',
+        },
+        callableStaticMethod: {
+          "@module1": '-wx',
+        },
+        [S_PROTOTYPE]: {
+          [S_INSTANCE]: {
+            unreadableProperty: {
+              "@module1": '-w-',
+            },
+          },
+        },
+      },
+      HelloWorld: {
+        [S_OBJECT]: 'r-xRW',
+        [S_DEFAULT]: {
+          [S_DEFAULT]: 'r-xRW',
+          "@module1": 'rwxRW',
+          "@lit-element": 'rwxRW',
+        },
+      },
+    },
+    // default for module namespace objects
+    [S_MODULE]: {
+      [S_TYPE]: S_NAMESPACE,
+      [S_OBJECT]: {
+        [S_DEFAULT]: 'r-xRW',
+      },
+      [S_DEFAULT]: { // default for module exports
+        [S_OBJECT]: {
+          [S_DEFAULT]: 'r-xRW',
+        },
+        [S_DEFAULT]: Policy.globalAcl(),//'rwx', // TODO: Policy.moduleAcl() required?
+        /*
+        [S_PROTOTYPE]: {
+          [S_DEFAULT]: 'r-x',
+          [S_INSTANCE]: {
+            [S_DEFAULT]: 'rwxRW',
+          },
+        },
+        */
+      },
+    },
     // default for global objects
     [S_GLOBAL]: {
       [S_OBJECT]: 'r-x',
@@ -4779,7 +5434,7 @@ else {
         },
       },
     }
-  };
+  });
   // protect hook-callback.js variables
   [
     'emptyDocumentURL',
@@ -4821,6 +5476,7 @@ else {
     for (let property of properties) {
       if (property === S_CHAIN) {
         let chain = _acl[S_CHAIN];
+        let __acl;
         switch (typeof chain) {
         case 'object':
           if (chain) {
@@ -4831,7 +5487,7 @@ else {
           }
           break;
         case 'function':
-          let __acl = chain(path);
+          __acl = chain(path);
           if (__acl) {
             Object.setPrototypeOf(_acl, __acl);
           }
@@ -4842,11 +5498,39 @@ else {
         case 'symbol':
           switch (chain) {
           case S_CHAIN:
-            let __acl = path[path.length - 2][0].__proto__[path[path.length - 1][1]];
+            __acl = path[path.length - 2][0].__proto__[path[path.length - 1][1]];
             if (__acl) {
               Object.setPrototypeOf(_acl, __acl);
             }
             else {
+              console.error('chainAcl: cannot chain to ' + chain.toString(), _acl);
+            }
+            break;
+          case S_OBJECT:
+            try {
+              __acl = path[0][0].Object[S_PROTOTYPE][S_INSTANCE];
+              if (__acl) {
+                Object.setPrototypeOf(_acl, __acl);
+              }
+              else {
+                console.error('chainAcl: cannot chain to ' + chain.toString(), _acl);
+              }
+            }
+            catch (e) {
+              console.error('chainAcl: cannot chain to ' + chain.toString(), _acl);
+            }
+            break;
+          case S_FUNCTION:
+            try {
+              __acl = path[0][0].Function[S_PROTOTYPE][S_INSTANCE];
+              if (__acl) {
+                Object.setPrototypeOf(_acl, __acl);
+              }
+              else {
+                console.error('chainAcl: cannot chain to ' + chain.toString(), _acl);
+              }
+            }
+            catch (e) {
               console.error('chainAcl: cannot chain to ' + chain.toString(), _acl);
             }
             break;
@@ -4876,6 +5560,345 @@ else {
     }
   }
   chainAcl(acl);
+  const mergeAcl = function mergeAcl(target, source) {
+    if (!source) {
+      return target;
+    }
+    let properties = Object.getOwnPropertySymbols(source).concat(Object.getOwnPropertyNames(source));
+    PROPERTY_LOOP:
+    for (let property of properties) {
+      switch (property) {
+      case S_PROXY:
+      case S_CHAIN:
+        continue PROPERTY_LOOP; // skip S_PROXY and S_CHAIN properties
+      }
+      if (_hasOwnProperty.call(target, property)) {
+        let _target = target[property];
+        let _source = source[property];
+        switch (typeof _target) {
+        case 'string':
+        case 'function':
+          if (typeof property === 'string' && property.startsWith('@')) {
+            // override the target property
+            _target = target[property] = _source;
+            break;
+          }
+          // convert property: 'string' to property: { [S_DEFAULT]: 'string' }
+          // convert property: func to property: { [S_DEFAULT]: func }
+          _target = target[property] = { [S_DEFAULT]: _target };
+        case 'object':
+          switch (typeof _source) {
+          case 'string':
+          case 'function':
+            // convert property: 'string' to property: { [S_DEFAULT]: 'string' }
+            // convert property: func to property: { [S_DEFAULT]: func }
+            _source = source[property] = { [S_DEFAULT]: _source };
+          case 'object':
+            mergeAcl(_target, _source); // recursively merge the object property
+            break;
+          default:
+            console.error('mergeAcl: unexpected source property type', typeof _source, _source);
+            break;
+          }
+          break;
+        default:
+          console.error('mergeAcl: unexpected target property type', typeof _target, _target);
+          break;
+        }
+      }
+      else if (Reflect.has(target, property)) {
+        // inherited target[property]
+        let _target = target[property];
+        let _source = source[property];
+        switch (typeof _target) {
+        case 'string':
+        case 'function':
+          if (typeof property === 'string' && property.startsWith('@')) {
+            // override the target property
+            _target = target[property] = _source;
+            break;
+          }
+          // convert property: 'string' to property: { [S_DEFAULT]: 'string' }
+          // convert property: func to property: { [S_DEFAULT]: func }
+          _target = target[property] = { [S_DEFAULT]: target[property] };
+          switch (typeof _source) {
+          case 'string':
+          case 'function':
+            // convert property: 'string' to property: { [S_DEFAULT]: 'string' }
+            // convert property: func to property: { [S_DEFAULT]: func }
+            _source = source[property] = { [S_DEFAULT]: _source };
+          case 'object':
+            mergeAcl(_target, _source); // recursively merge the object property
+            break;
+          default:
+            console.error('mergeAcl: unexpected source property type', typeof _source, _source);
+            break;
+          }
+          break;
+        case 'object':
+          // create a new own property inherited from target[property]
+          _target = target[property] = Object.create(_target);
+          switch (typeof _source) {
+          case 'string':
+          case 'function':
+            // convert property: 'string' to property: { [S_DEFAULT]: 'string' }
+            // convert property: func to property: { [S_DEFAULT]: func }
+            _source = source[property] = { [S_DEFAULT]: _source };
+          case 'object':
+            mergeAcl(_target, _source); // recursively merge the object property
+            break;
+          default:
+            console.error('mergeAcl: unexpected source property type', typeof _source, _source);
+            break;
+          }
+        default:
+          console.error('mergeAcl: unexpected target property type', typeof _target, _target);
+          break;
+        }
+      }
+      else {
+        // no target[property]
+        target[property] = source[property]; // copy the source property
+      }
+    }
+    return target;
+  };
+  const proxyAcl = function proxyAcl(_acl, path = [ [_acl, 'acl'] ]) {
+    let properties = Object.getOwnPropertySymbols(_acl).concat(Object.getOwnPropertyNames(_acl));
+    for (let property of properties) {
+      if (property === S_PROXY) {
+        let proxy = _acl[S_PROXY];
+        switch (typeof proxy) {
+        case 'object':
+          if (proxy && path && path.length >= 2) {
+            mergeAcl(proxy, _acl);
+            path[path.length - 2][0][path[path.length - 1][1]] = proxy;
+          }
+          else {
+            console.error('proxyAcl: cannot proxy from', path, 'to', proxy, _acl);
+          }
+          break;
+        case 'function':
+          let __acl = proxy(path);
+          if (__acl && path && path.length >= 2) {
+            mergeAcl(__acl, _acl);
+            path[path.length - 2][0][path[path.length - 1][1]] = __acl;
+          }
+          else {
+            console.error('proxyAcl: cannot proxy from', path, 'to ' + proxy.toString(), _acl);
+          }
+          break;
+        case 'symbol':
+          /*
+          switch (proxy) {
+          case S_PROXY:
+            let __acl = path[path.length - 2][0].__proto__[path[path.length - 1][1]];
+            if (__acl) {
+              Object.setPrototypeOf(_acl, __acl);
+            }
+            else {
+              console.error('proxyAcl: cannot proxy to ' + proxy.toString(), _acl);
+            }
+            break;
+          default:
+            console.error('proxyAcl: cannot recongnize proxy ' + proxy.toString(), _acl);
+            break;
+          }
+          */
+          break;
+        default:
+          break;
+        }
+      }
+      else {
+        let __acl = _acl[property];
+        switch (typeof __acl) {
+        case 'object':
+          if (__acl) {
+            path.push([__acl, property]);
+            proxyAcl(__acl, path);
+            path.pop();
+          }
+          break;
+        default:
+          break;
+        }
+      }
+    }
+  }
+  proxyAcl(acl);
+  /*
+    resolve module paths via hook.parameters.importMapper(specifier, baseURI)
+    
+    Notes:
+     - No resolution if hook.parameters.importMapper is not configured
+       - hook.parameters.importMapper is a wrapper function of the Import Maps reference implementation
+     - baseURI is hook.parameters.baseURI
+     - Import Maps JSON is set in hook.parameters.importMapsJson as a string
+       - Picking up from the native import maps script tag has not been implemented yet
+     - A trivial fork of the Import Maps reference implementation is used for resolution
+       - GitHub repository: https://github.com/t2ym/import-maps/tree/browserify/reference-implementation/lib
+       - package.json at the top of the repository is added so that NPM can fetch the package from GitHub
+
+    Resolutions:
+    
+     - Type: bare specifiers
+
+        "lit-html" -> "/components/thin-hook/demo/node_modules/lit-html/lit-html.js"
+        "lit-html/" -> "/components/thin-hook/demo/node_modules/lit-html/lit-html.js" - never conflicts with global property names
+        "lit-html/*" -> "/components/thin-hook/demo/node_modules/lit-html/*"
+        "lit-html/directives/repeat.js" -> "/components/thin-hook/demo/node_modules/lit-html/directives/repeat.js"
+        "lit-html/,*" -> "/components/thin-hook/demo/node_modules/lit-html/lit-html.js,*"
+
+     - Type: relative paths from hook.parameters.baseURI
+
+        "./modules/module1.js" -> "/components/thin-hook/demo/modules/module1.js"
+        "./modules/module1.js,*" -> "/components/thin-hook/demo/modules/module1.js,*"
+
+  */
+  const resolveBareSpecifierAcl = function resolveBareSpecifierAcl(_acl) {
+    // resolve bare specifiers in acl
+    let paths;
+    let resolved;
+    for (let name in _acl) {
+      if (name.startsWith('https://') || name.startsWith('/')) {
+        continue; // skip already resolved specifiers
+      }
+      if (_acl[name][S_TYPE] !== S_NAMESPACE) {
+        continue; // skip non-module ACLs
+      }
+      paths = name.split(',');
+      if (paths.length === 1) {
+        if (name.endsWith('/*')) {
+          // bare-specifier/*
+          resolved = hook.parameters.importMapper(name + '.js', hook.parameters.baseURI).replace(/\*\.js$/, '*');
+        }
+        else if (name.endsWith('/')) {
+          // bare-specifier/
+          resolved = hook.parameters.importMapper(name.substring(0, name.length - 1), hook.parameters.baseURI);
+        }
+        else {
+          // bare-specifier
+          resolved = hook.parameters.importMapper(name, hook.parameters.baseURI);
+        }
+      }
+      else {
+        // bare-specifier,anything,*
+        if (paths[0].endsWith('/')) {
+          paths[0] = hook.parameters.importMapper(paths[0].substring(0, paths[0].length - 1), hook.parameters.baseURI);
+        }
+        else {
+          paths[0] = hook.parameters.importMapper(paths[0], hook.parameters.baseURI);
+        }
+        resolved = paths.join(',');
+      }
+      _acl[resolved] = _acl[name];
+      delete _acl[name];
+    }
+  }
+  if (hook.parameters.importMapper) {
+    resolveBareSpecifierAcl(acl);
+  }
+  /*
+    Prefixed Module Name object:
+      {
+        "": { // root
+          "components": {
+            "thin-hook": {
+              "demo": {
+                "node_modules": {
+                  "lit-html": {
+                    "*": "@lit-html",
+                  },
+                  "lit-element": {
+                    "*": "@lit-element",
+                  },
+                },
+              },
+            },
+          },
+        },
+      };
+
+    Notes:
+    - Prefixed module names must end with '/*' like this:
+      '/some/module-name/*'
+  */
+  const prefixedModuleNames = Object.create(null);
+  const generatePrefixedModuleNames = function generatePrefixedModuleNames(_acl) {
+    for (let name in _acl) {
+      let paths = name.split('/');
+      let cursor = prefixedModuleNames;
+      if (paths.length > 1 && paths[0] === '' && paths[paths.length - 1] === '*') {
+        for (let path of paths) {
+          if (path === '*') {
+            cursor[path] = contextNormalizer[c];
+            break;
+          }
+          else {
+            if (!Reflect.has(cursor, path)) {
+              cursor[path] = {};
+            }
+            cursor = cursor[path];
+          }
+        }
+      }
+    }
+  }
+  generatePrefixedModuleNames(acl);
+  /*
+    flatternAcl(_acl):
+    acl = {
+      'module-name': {
+        [S_TYPE]: S_NAMESPACE,
+        exported: { // flattened as 'module-name,exported'
+
+        },
+      },
+      className: {
+        classProperty: { // flattened as 'className,classProperty'
+          [S_TYPE]: S_CLASS,
+        }
+      },
+    };
+   */
+  const flattenAcl = function flattenAcl(_acl) { // only 1 level for now
+    for (let name in _acl) {
+      if (typeof name === 'string' && typeof _acl[name] === 'object' && _acl[name]) {
+        if (_acl[name][S_TYPE] === S_NAMESPACE) {
+          // module namespace object
+          for (let _export in _acl[name]) {
+            if (_export[0] === '@') {
+              continue;
+            }
+            let flattenName = name + ',' + _export;
+            if (!_acl[flattenName]) {
+              _acl[flattenName] = _acl[name][_export];
+            }
+          }
+        }
+        else {
+          // class object
+          for (let _property in _acl[name]) {
+            if (_property[0] === '@') {
+              continue;
+            }
+            if (!(_acl[name][_property] && typeof _acl[name][_property] === 'object' && _acl[name][_property][S_TYPE] === S_CLASS)) {
+              continue;
+            }
+            // class property
+            let flattenName = name + ',' + _property;
+            if (!_acl[flattenName]) {
+              _acl[flattenName] = _acl[name][_property];
+            }
+          }
+        }
+      }
+    }
+  }
+  flattenAcl(acl);
+  const globalPolicy = Reflect.has(acl, S_GLOBAL) ? acl[S_GLOBAL] : acl[S_DEFAULT];
+  const modulePolicy = Reflect.has(acl, S_MODULE) ? acl[S_MODULE] : acl[S_DEFAULT];
   const applyAcl = function applyAcl(name, isStatic, isObject, property, opType, context, normalizedThisArg, normalizedArgs, hookArgs) {
     const names = name;
     if (names instanceof Set) {
@@ -4899,32 +5922,62 @@ else {
     }
     if (!_context) {
       // prefixedSearch for context
-      let cursor = prefixedContexts;
-      let index = 0;
-      let prevIndex = index;
+      let cursor;
+      let index;
+      let prevIndex;
       let path;
       let length = context.length;
-      let result = S_DEFAULT;
+      let result;
 
-      while (index < length) {
-        index = context.indexOf(',', prevIndex); // next comma
-        if (index === -1) {
-          index = context.length;
+      if (context[0] === '/' && (cursor = prefixedModuleContexts[''])) {
+        index = prevIndex = 1;
+        while (index < length) {
+          index = context.indexOf('/', prevIndex); // next slash
+          if (index === -1) {
+            index = length;
+          }
+          path = context.substring(prevIndex, index);
+          index++;
+          if (Reflect.has(cursor, '*')) {
+            result = cursor['*'];
+          }
+          if (Reflect.has(cursor, path)) {
+            cursor = cursor[path];
+            prevIndex = index;
+          }
+          else {
+            break;
+          }
         }
-        path = context.substring(prevIndex, index);
-        index++;
-        if (Reflect.has(cursor, '*')) {
-          result = cursor['*'];
-        }
-        if (Reflect.has(cursor, path)) {
-          cursor = cursor[path];
-          prevIndex = index;
-        }
-        else {
-          break;
+        if (result) {
+          context = contextNormalizer[context] = result; // cache the result
         }
       }
-      context = contextNormalizer[context] = result; // cache the result
+
+      if (!result) {
+        result = S_DEFAULT;
+        index = prevIndex = 0;
+        cursor = prefixedContexts;
+        while (index < length) {
+          index = context.indexOf(',', prevIndex); // next comma
+          if (index === -1) {
+            index = length;
+          }
+          path = context.substring(prevIndex, index);
+          index++;
+          if (Reflect.has(cursor, '*')) {
+            result = cursor['*'];
+          }
+          if (Reflect.has(cursor, path)) {
+            cursor = cursor[path];
+            prevIndex = index;
+          }
+          else {
+            break;
+          }
+        }
+        context = contextNormalizer[context] = result; // cache the result
+      }
     }
     //context = _context ? context : S_DEFAULT;
     isGlobal = isGlobalScopeObject.has(name);
@@ -4933,9 +5986,21 @@ else {
         ? acl[S_DEFAULT]
         : Reflect.has(acl, name)
           ? acl[name]
-          : Reflect.has(acl, S_GLOBAL)
-            ? acl[S_GLOBAL]
-            : acl[S_DEFAULT]
+          : (tmp = _globalMethods.split(name)).length === 1
+            ? property === S_MODULE
+              ? modulePolicy
+              : globalPolicy // acl[S_GLOBAL] for a real global property
+            : tmp.length === 2
+              ? Reflect.has(acl, tmp[0])
+                ? acl[tmp[0]][S_TYPE] === S_NAMESPACE
+                  ? Reflect.has(acl[tmp[0]], tmp[1])
+                    ? (acl[name] = acl[tmp[0]][tmp[1]])
+                    : Reflect.has(acl[tmp[0]], S_DEFAULT)
+                      ? acl[tmp[0]][S_DEFAULT]
+                      : modulePolicy[S_DEFAULT]
+                  : modulePolicy[S_DEFAULT]
+                : modulePolicy[S_DEFAULT]
+              : acl[S_DEFAULT]
       : acl[S_DEFAULT];
     if (typeof _acl === 'object') {
       if (typeof property === 'undefined') {
@@ -4979,6 +6044,7 @@ else {
             }
             break;
           case S_UNSPECIFIED:
+          case S_MODULE:
             if (Reflect.has(_acl, S_OBJECT)) {
               _acl = _acl[S_OBJECT];
             }
@@ -5031,9 +6097,19 @@ else {
                       : acl[S_GLOBAL]
                     : _acl[S_DEFAULT];
               if (typeof _acl === 'object') {
-                _acl = Reflect.has(_acl, context)
-                  ? _acl[context]
-                  : _acl[S_DEFAULT];
+                _acl = Reflect.has(_acl, S_OBJECT)
+                  ? typeof _acl[S_OBJECT] === 'object'
+                    ? Reflect.has(_acl[S_OBJECT], context)
+                      ? _acl[S_OBJECT][context]
+                      : _acl[S_OBJECT][S_DEFAULT]
+                    : _acl[S_OBJECT]
+                  : Reflect.has(_acl, context)
+                    ? _acl[context]
+                    : typeof _acl[S_DEFAULT] === 'object'
+                      ? Reflect.has(_acl[S_DEFAULT], context)
+                        ? _acl[S_DEFAULT][context]
+                        : _acl[S_DEFAULT][S_DEFAULT]
+                      : _acl[S_DEFAULT];
               }
               break;
             case 'object':
@@ -5181,7 +6257,9 @@ else {
                           ? aclArgs[3]
                           : Array.isArray(aclArgs[3])
                             ? JSON.stringify(aclArgs[3]) // this can be a raw object aclArgs[3] instead of a JSON string
-                            : 'typeof:' + typeof aclArgs[3];
+                            : typeof aclArgs[3] === 'symbol'
+                              ? aclArgs[3].toString()
+                              : 'typeof:' + typeof aclArgs[3];
       data['opType'] = aclArgs[4];
     }
     let errorReportResponseJSON;
@@ -5545,7 +6623,25 @@ else {
         }
       }
       _f = f;
-      if (newTarget === false) { // resolve the scope in 'with' statement body
+      switch (newTarget) {
+      case null: // resolve module context
+        let moduleContextSymbol, moduleContext;
+        moduleContextSymbol = args[0];
+        if (typeof moduleContextSymbol !== 'symbol') {
+          let e = new Error('__hook__: invalid module context')
+          onThrow(e, arguments, contextStack); // result contains arguments to applyAcl, or undefined
+          throw e;
+        }
+        moduleContext = __hook__[moduleContextSymbol];
+        if (!moduleContext) {
+          let e = new Error('__hook__: invalid module context')
+          onThrow(e, arguments, contextStack); // result contains arguments to applyAcl, or undefined
+          throw e;
+        }
+        args[0] = moduleContext; // override the module symbol context in args[0] with its corresponding string module context for applyAcl
+        _f = null;
+        break;
+      case false: // resolve the scope in 'with' statement body
         let varName = _args[0];
         let __with__ = thisArg;
         let scope = _global;
@@ -5564,6 +6660,7 @@ else {
           }
         }
         thisArg = normalizedThisArg = scope;
+        break;
       }
       boundParameters = _boundFunctions.get(f);
       if (!boundParameters) {
@@ -6009,9 +7106,14 @@ else {
                     else {
                       let _method = _globalMethods.get(_p);
                       if (_method) {
-                        if (_method[0] === name) {
-                          rawProperty = _method[_method.length - 1];
-                          property = _escapePlatformProperties.get(rawProperty) || rawProperty;
+                        if (name && name.has(_method[0])) {
+                          if (_method.length > 1) {
+                            rawProperty = _method[_method.length - 1];
+                            property = _escapePlatformProperties.get(rawProperty) || rawProperty;
+                          }
+                          else {
+                            property = rawProperty = S_UNSPECIFIED;
+                          }
                         }
                         else {
                           name = _method[0]; // Overwrite name, e.g., Array.prototype.map.call(document.querySelectorAll('div'), (node) => node.name); 'NodeList' is overwritten by 'Array'
@@ -6195,23 +7297,7 @@ else {
         }
         for (let gprop in globalAssignments) {
           //console.log('global assignment ', gprop);
-          let gvalue = globalAssignments[gprop];
-          _globalObjects.set(gvalue, gprop);
-          let _properties = Object.getOwnPropertyDescriptors(gvalue);
-          let _prop;
-          for (_prop in _properties) {
-            if (typeof _properties[_prop].value === 'function') {
-              _globalMethods.set(_properties[_prop].value, [gprop, _prop]);
-            }
-          }
-          if (gvalue.prototype) {
-            _properties = Object.getOwnPropertyDescriptors(gvalue.prototype);
-            for (_prop in _properties) {
-              if (typeof _properties[_prop].value === 'function') {
-                _globalMethods.set(_properties[_prop].value, [gprop, 'prototype', _prop]);
-              }
-            }
-          }
+          Policy.trackClass(gprop, globalAssignments[gprop]);
         }
         let it = name instanceof Set ? name.values() : [];
         for (let _name of it) {
@@ -6341,44 +7427,107 @@ else {
           }
         }
       }
+      else if (newTarget === null) {
+        // module
+        let name = args[0]; // moduleContext;
+        switch (typeof thisArg) {
+        case 'object':
+          if (thisArg === null) {
+            break;
+          }
+        case 'function':
+          // functions and non-null objects
+          _globalObjects.set(thisArg, name);
+          name = _globalObjects.get(thisArg);
+          break;
+        }
+        let target = targetNormalizerMapObject.get(f);
+        switch (target) {
+        case 'wt-v':
+          hasGlobalAssignments = true;
+          trackResultAsGlobal = args[0]; // moduleContext
+        case 'rt-':
+        case 'xt-':
+        case 'wt-':
+        case 'wt-c':
+          if (!applyAcl(name, true, false, S_MODULE, target[0], context, normalizedThisArg, _args, arguments)) {
+            result = [ name, true, false, S_MODULE, target[0], context, normalizedThisArg, _args, arguments ];
+            throw new Error('Permission Denied: Cannot access ' + SetMap.getStringValues(name));
+          }
+          break;
+        default:
+          break;
+        }
+      }
       else {
-        let name = _globalMethods.get(f);
-        if (name) {
-          // call of a native method
-          let forName;
-          let forProp;
-          let id = name.join('.');
-          let rawProp = name[name.length - 1];
-          let prop = _escapePlatformProperties.get(rawProp) || rawProp;
-          let obj = name[0];
-          if (!applyAcl(obj, name[1] !== 'prototype', false, prop, 'x', context, normalizedThisArg, _args, arguments)) {
-            result = [ obj, name[1] !== 'prototype', false, prop, 'x', context, normalizedThisArg, _args, arguments ];
-            throw new Error('Permission Denied: Cannot access ' + obj);
-            //console.error('ACL: denied name =', name, 'isStatic =', name[1] !== 'prototype', 'isObject = ', false, 'property =', prop, 'opType =', 'x', 'context = ', context);
-            //debugger;
-            //applyAcl(obj, name[1] !== 'prototype', false, prop, 'x', context);
+        let name;
+        if ((name = _globalObjects.get(f))) {
+          if (!applyAcl(name, true, false, S_UNSPECIFIED, 'x', context, normalizedThisArg, _args, arguments)) {
+            result = [ name, true, false, S_UNSPECIFIED, 'x', context, normalizedThisArg, _args, arguments ];
+            throw new Error('Permission Denied: Cannot access ' + SetMap.getStringValues(name));
           }
-          if (!globalPropertyContexts[context]) {
-            let group = context.split(/[,:]/)[0];
-            data2.nodes.push({ id: '/' + context, label: context, group: group });
-            globalPropertyContexts[context] = true;
+          if (name) {
+            // function call for a global function
+            for (let _name of name.values()) {
+              let forName;
+              if (!globalPropertyContexts[context]) {
+                let group = context.split(/[,:]/)[0];
+                data2.nodes.push({ id: '/' + context, label: context, group: group });
+                globalPropertyContexts[context] = true;
+              }
+              if (!globalObjectAccess[_name]) {
+                globalObjectAccess[_name] = {};
+                data2.nodes.push({ id: _name, label: _name, group: _name });
+              }
+              forName = globalObjectAccess[_name];
+              if (!forName[context]) {
+                forName[context] = { from: '/' + context, to: _name, label: 0, arrows: 'to' };
+                data2.edges.push(forName[context]);
+              }
+              forName[context].label++;
+            }
           }
-          if (!globalObjectAccess[obj]) {
-            globalObjectAccess[obj] = {};
-            data2.nodes.push({ id: obj, label: obj, group: obj });
+          for (let _name of name) {
+            let _method = _globalMethods.split(_name);
+            if (_method.length === 1) {
+              continue;
+            }
+            let rawProp = _method[_method.length - 1];
+            let prop = _escapePlatformProperties.get(rawProp) || rawProp;
+            let obj = _method[0];
+            if (!applyAcl(obj, _method[1] !== 'prototype', false, prop, 'x', context, normalizedThisArg, _args, arguments)) {
+              result = [ obj, _method[1] !== 'prototype', false, prop, 'x', context, normalizedThisArg, _args, arguments ];
+              throw new Error('Permission Denied: Cannot access ' + obj);
+            }
+            let forName;
+            let forProp;
+            let id = _method.join('.');
+            if (!applyAcl(obj, _method[1] !== 'prototype', false, prop, 'x', context, normalizedThisArg, _args, arguments)) {
+              result = [ obj, _method[1] !== 'prototype', false, prop, 'x', context, normalizedThisArg, _args, arguments ];
+              throw new Error('Permission Denied: Cannot access ' + obj);
+            }
+            if (!globalPropertyContexts[context]) {
+              let group = context.split(/[,:]/)[0];
+              data2.nodes.push({ id: '/' + context, label: context, group: group });
+              globalPropertyContexts[context] = true;
+            }
+            if (!globalObjectAccess[obj]) {
+              globalObjectAccess[obj] = {};
+              data2.nodes.push({ id: obj, label: obj, group: obj });
+            }
+            forName = globalObjectAccess[obj];
+            if (!forName[prop]) {
+              forName[prop] = {};
+              data2.nodes.push({ id: id, label: rawProp, group: obj });
+              data2.edges.push({ from: obj, to: id, dashes: true, arrows: 'to' });
+            }
+            forProp = forName[prop];
+            if (!forProp[context]) {
+              forProp[context] = { from: context, to: id, label: 0, arrows: 'to' };
+              data2.edges.push(forProp[context]);
+            }
+            forProp[context].label++;
           }
-          forName = globalObjectAccess[obj];
-          if (!forName[prop]) {
-            forName[prop] = {};
-            data2.nodes.push({ id: id, label: rawProp, group: obj });
-            data2.edges.push({ from: obj, to: id, dashes: true, arrows: 'to' });
-          }
-          forProp = forName[prop];
-          if (!forProp[context]) {
-            forProp[context] = { from: context, to: id, label: 0, arrows: 'to' };
-            data2.edges.push(forProp[context]);
-          }
-          forProp[context].label++;
         }
         else if (newTarget === '') {
           let obj = Object.getPrototypeOf(args[0]);
@@ -6424,15 +7573,161 @@ else {
         else if (Number.isNaN(newTarget)) {
           name = args[0];
           switch (name) {
+          case 'export':
+            {
+              // import * as __context_mapper__module_namespace_0 from '/resolved/self-module-name.js'; // circular import of self module
+              // At the tail of each module
+              // __hook__(() => {}, null, ['export',__context_mapper__[0], __context_mapper__module_namespace_0], __context_mapper__[0], NaN)
+              const moduleContextSymbol = args[1];
+              if (typeof moduleContextSymbol !== 'symbol') {
+                let e = new Error('__hook__: invalid context');
+                onThrow(e, arguments, contextStack); // result contains arguments to applyAcl, or undefined
+                throw e;
+              }
+              const moduleContext = __hook__[moduleContextSymbol];
+              if (!moduleContext) {
+                let e = new Error('__hook__: invalid context');
+                onThrow(e, arguments, contextStack); // result contains arguments to applyAcl, or undefined
+                throw e;
+              }
+              let property;
+              if (!applyAcl(moduleContext, true, false, S_MODULE, 'W', context, normalizedThisArg, _args, arguments)) {
+                result = [moduleContext, true, false, S_MODULE, 'W', context, normalizedThisArg, _args, arguments];
+                throw new Error('Permission Denied: Cannot access ' + moduleContext);
+              }
+              // export access allowed
+              // register the object with its virtual name
+              thisArg = normalizedThisArg = args[2]; // module namespace object for moduleContext
+              if (typeof thisArg === 'object' && thisArg[Symbol.toStringTag] === 'Module') {
+                _globalObjects.set(thisArg, moduleContext);
+                let virtualName = moduleContext + ','; // /components-path/module-name/file.js,
+                for (property in thisArg) { // enumerate named exports including default
+                  let _export = thisArg[property];
+                  if (_export) {
+                    switch (typeof _export) {
+                    case 'object':
+                    case 'function':
+                      // TODO: Properly handle mutations of methods in _export
+                      Policy.trackClass(virtualName + property, _export);
+                      break;
+                    default:
+                      break;
+                    }
+                  }
+                }
+                // apply ACLs for named exports
+                for (property in thisArg) {
+                  let _export = thisArg[property];
+                  let _name = virtualName + property;
+                  switch (typeof _export) {
+                  case 'object':
+                    if (_export === null) {
+                      break;
+                    }
+                  case 'function':
+                    _name = _globalObjects.get(_export);
+                    break;
+                  }
+                  if (!applyAcl(_name, true, false, S_MODULE, 'W', context, _export, _args, arguments)) {
+                    result = [_name, true, false, S_MODULE, 'W', context, _export, _args, arguments];
+                    throw new Error('Permission Denied: Cannot access ' + SetMap.getStringValues(_name));
+                  }
+                }
+              }
+            }
+            break;
+          case 'import':
+            {
+              /* 
+                // At the head of each module
+                import * as __context_mapper__module_namespace_0 from "/components/this-module/index.js";
+                import * as __context_mapper__module_namespace_1 from "/components/module-name/index.js";
+                import * as __context_mapper__module_namespace_2 from "/components/module-name/path/to/specific/un-exported/file.js";
+                __hook__(() => {}, null, ['import',
+                  {
+                    [__context_mapper__[6]]: [
+                      __context_mapper__module_namespace_1,
+                      'default',
+                      '*',
+                      'export1',
+                      'export2',
+                      'export3',
+                      'reexportname1',
+                      'reexportname2',
+                      'reexportnameN',
+                      'import1',
+                      'import2',
+                    ],
+                    [__context_mapper__[11]]: [
+                      __context_mapper__module_namespace_2,
+                      'foo',
+                      'bar',
+                    ],
+                  }
+                ], __context_mapper__[0], NaN);
+              */
+              for (let moduleContextSymbol of Object.getOwnPropertySymbols(args[1])) {
+                const moduleContext = __hook__[moduleContextSymbol];
+                const imports = args[1][moduleContextSymbol];
+                if (!moduleContext) {
+                  let e = new Error('__hook__: invalid context');
+                  onThrow(e, arguments, contextStack); // result contains arguments to applyAcl, or undefined
+                  throw e;
+                }
+                let property = S_MODULE;
+                if (!applyAcl(moduleContext, true, false, property, 'R', context, normalizedThisArg, _args, arguments)) {
+                  result = [moduleContext, true, false, property, 'R', context, normalizedThisArg, _args, arguments];
+                  throw new Error('Permission Denied: Cannot access ' + moduleContext);
+                }
+                // import access allowed
+                thisArg = normalizedThisArg = imports[0]; // module namespace object for moduleContext
+                if (typeof thisArg === 'object' && thisArg[Symbol.toStringTag] === 'Module') {
+                  // apply ACLs for named imports
+                  let virtualName = moduleContext + ',';
+                  for (let i = 1; i < imports.length; i++) {
+                    property = imports[i];
+                    let _import = thisArg[property];
+                    let _name = property === '*' ? moduleContext : virtualName + property;
+                    switch (typeof _import) {
+                    case 'object':
+                      if (_import === null) {
+                        break;
+                      }
+                    case 'function':
+                      _name = _globalObjects.get(_import);
+                      break;
+                    }
+                    if (!applyAcl(_name, true, false, S_MODULE, 'R', context, _import, _args, arguments)) {
+                      result = [_name, true, false, S_MODULE, 'R', context, _import, _args, arguments];
+                      throw new Error('Permission Denied: Cannot access ' + SetMap.getStringValues(_name));
+                    }
+                  }
+                }
+              }
+            }
+            break;
           case 'import()':
             {
               // import('module.js')
-              name = 'import'; // Note: virtual object name 'import'
               let property = S_UNSPECIFIED;
-              if (!args[1] || typeof args[1] !== 'string' ||
-                !args[1].match(/^\s*(([^:\/?#]+):)?(\/\/([^\/?#]*))?([^?#]*[.]m?js)(\?([^#]*))?(#(.*))?\s*$/)) {
+              let specifier = args[1];
+              let importMeta = args[2];
+              if (specifier && hook.parameters.importMapper && importMeta) {
+                specifier = hook.parameters.importMapper(specifier, importMeta.url);
+              }
+              if (!specifier || typeof specifier !== 'string' ||
+                !specifier.match(/^\s*(([^:\/?#]+):)?(\/\/([^\/?#]*))?([^?#]*[.]m?js)(\?([^#]*))?(#(.*))?\s*$/)) {
                 property = 'invalidImportUrl'; // Note: virtual property 'invalidImportUrl'
               }
+              else {
+                name = specifier;
+                if (!applyAcl(name, true, false, S_MODULE, 'R', context, normalizedThisArg, _args, arguments)) {
+                  result = [ name, true, false, S_MODULE, 'R', context, normalizedThisArg, _args, arguments ];
+                  throw new Error('Permission Denied: Cannot access ' + name);
+                }
+                args[1] = specifier; // resolved path name
+              }
+              name = 'import'; // Note: virtual object name 'import'
               if (!applyAcl(name, true, false, property, 'x', context, normalizedThisArg, _args, arguments)) {
                 result = [ name, true, false, property, 'x', context, normalizedThisArg, _args, arguments ];
                 throw new Error('Permission Denied: Cannot access ' + SetMap.getStringValues(name));
@@ -6498,23 +7793,7 @@ else {
                 // load and register the object with its virtual name
                 thisArg = f(); // The path argument is not required since it is embedded in the function body
                 if (thisArg instanceof Object) {
-                  let virtualName = args[2];
-                  _globalObjects.set(thisArg, virtualName);
-                  let _properties = Object.getOwnPropertyDescriptors(thisArg);
-                  let _prop;
-                  for (_prop in _properties) {
-                    if (typeof _properties[_prop].value === 'function') {
-                      _globalMethods.set(_properties[_prop].value, [virtualName, _prop]);
-                    }
-                  }
-                  if (thisArg.prototype) {
-                    _properties = Object.getOwnPropertyDescriptors(thisArg.prototype);
-                    for (_prop in _properties) {
-                      if (typeof _properties[_prop].value === 'function') {
-                        _globalMethods.set(_properties[_prop].value, [virtualName, 'prototype', _prop]);
-                      }
-                    }
-                  }
+                  Policy.trackClass(args[2] /* virtualName */, thisArg);
                 }
                 f = '*'; // return result = thisArg;
               }
@@ -6972,6 +8251,47 @@ else {
         case 'w|=':
           result = args[2](args[1]);
           break;
+        // read ES module
+        case 'm':
+          result = thisArg;
+          break;
+        // function call to ES module
+        case 'm()':
+          result = args[2](...args[1]);
+          break;
+        // constructor call to ES module
+        case 'mnew':
+          result = args[2](...args[1]);
+          break;
+        // update operators
+        case 'm++':
+        case '++m':
+        case 'm--':
+        case '--m':
+        // unary operator
+        case 'mtypeof':
+          result = args[1]();
+          break;
+        // LHS value assignment on ES module with args[1] = (cb) => ({set ['='](v){a=v;cb(v);}, get ['='](){return a;}}) 
+        case 'm.=':
+          result = args[1](v => Policy.trackClass(args[0] /* moduleContext */, v));
+          break;
+        // assignment operators on ES module
+        case 'm=': // trackResultAsGlobal === args[0] === moduleContext
+        case 'm+=':
+        case 'm-=':
+        case 'm*=':
+        case 'm/=':
+        case 'm%=':
+        case 'm**=':
+        case 'm<<=':
+        case 'm>>=':
+        case 'm>>>=':
+        case 'm&=':
+        case 'm^=':
+        case 'm|=':
+          result = args[2](args[1]);
+          break;
         // default (invalid operator)
         default:
           f(); // throw TypeError: f is not a function
@@ -7083,7 +8403,25 @@ else {
         }
       }
       _f = f;
-      if (newTarget === false) { // resolve the scope in 'with' statement body
+      switch (newTarget) {
+      case null: // resolve module context
+        let moduleContextSymbol, moduleContext;
+        moduleContextSymbol = args[0];
+        if (typeof moduleContextSymbol !== 'symbol') {
+          let e = new Error('__hook__: invalid module context')
+          onThrow(e, arguments, contextStack); // result contains arguments to applyAcl, or undefined
+          throw e;
+        }
+        moduleContext = __hook__acl[moduleContextSymbol];
+        if (!moduleContext) {
+          let e = new Error('__hook__: invalid module context')
+          onThrow(e, arguments, contextStack); // result contains arguments to applyAcl, or undefined
+          throw e;
+        }
+        args[0] = moduleContext; // override the module symbol context in args[0] with its corresponding string module context for applyAcl
+        _f = null;
+        break;
+      case false: // resolve the scope in 'with' statement body
         let varName = _args[0];
         let __with__ = thisArg;
         let scope = _global;
@@ -7102,6 +8440,7 @@ else {
           }
         }
         thisArg = normalizedThisArg = scope;
+        break;
       }
       boundParameters = _boundFunctions.get(f);
       if (!boundParameters) {
@@ -7544,9 +8883,14 @@ else {
                     else {
                       let _method = _globalMethods.get(_p);
                       if (_method) {
-                        if (_method[0] === name) {
-                          rawProperty = _method[_method.length - 1];
-                          property = _escapePlatformProperties.get(rawProperty) || rawProperty;
+                        if (name && name.has(_method[0])) {
+                          if (_method.length > 1) {
+                            rawProperty = _method[_method.length - 1];
+                            property = _escapePlatformProperties.get(rawProperty) || rawProperty;
+                          }
+                          else {
+                            property = rawProperty = S_UNSPECIFIED;
+                          }
                         }
                         else {
                           name = _method[0]; // Overwrite name, e.g., Array.prototype.map.call(document.querySelectorAll('div'), (node) => node.name); 'NodeList' is overwritten by 'Array'
@@ -7732,23 +9076,7 @@ else {
         if (hasGlobalAssignments) {
           for (let gprop in globalAssignments) {
             //console.log('global assignment ', gprop);
-            let gvalue = globalAssignments[gprop];
-            _globalObjects.set(gvalue, gprop);
-            let _properties = Object.getOwnPropertyDescriptors(gvalue);
-            let _prop;
-            for (_prop in _properties) {
-              if (typeof _properties[_prop].value === 'function') {
-                _globalMethods.set(_properties[_prop].value, [gprop, _prop]);
-              }
-            }
-            if (gvalue.prototype) {
-              _properties = Object.getOwnPropertyDescriptors(gvalue.prototype);
-              for (_prop in _properties) {
-                if (typeof _properties[_prop].value === 'function') {
-                  _globalMethods.set(_properties[_prop].value, [gprop, 'prototype', _prop]);
-                }
-              }
-            }
+            Policy.trackClass(gprop, globalAssignments[gprop]);
           }
         }
       }
@@ -7767,19 +9095,57 @@ else {
           //applyAcl(name, true, false, S_UNSPECIFIED, 'x', context);
         }
       }
+      else if (newTarget === null) {
+        // module
+        let name = args[0]; // moduleContext;
+        switch (typeof thisArg) {
+        case 'object':
+          if (thisArg === null) {
+            break;
+          }
+        case 'function':
+          // functions and non-null objects
+          _globalObjects.set(thisArg, name);
+          name = _globalObjects.get(thisArg);
+          break;
+        }
+        let target = targetNormalizerMapObject.get(f);
+        switch (target) {
+        case 'wt-v':
+          hasGlobalAssignments = true;
+          trackResultAsGlobal = args[0]; // moduleContext
+        case 'rt-':
+        case 'xt-':
+        case 'wt-':
+        case 'wt-c':
+          if (!applyAcl(name, true, false, S_MODULE, target[0], context, normalizedThisArg, _args, arguments)) {
+            result = [ name, true, false, S_MODULE, target[0], context, normalizedThisArg, _args, arguments ];
+            throw new Error('Permission Denied: Cannot access ' + SetMap.getStringValues(name));
+          }
+          break;
+        default:
+          break;
+        }
+      }
       else {
-        let name = _globalMethods.get(f);
-        if (name) {
-          // call of a native method
-          let rawProp = name[name.length - 1];
-          let prop = _escapePlatformProperties.get(rawProp) || rawProp;
-          let obj = name[0];
-          if (!applyAcl(obj, name[1] !== 'prototype', false, prop, 'x', context, normalizedThisArg, _args, arguments)) {
-            result = [ obj, name[1] !== 'prototype', false, prop, 'x', context, normalizedThisArg, _args, arguments ];
-            throw new Error('Permission Denied: Cannot access ' + obj);
-            //console.error('ACL: denied name =', name, 'isStatic =', name[1] !== 'prototype', 'isObject = ', false, 'property =', prop, 'opType =', 'x', 'context = ', context);
-            //debugger;
-            //applyAcl(obj, name[1] !== 'prototype', false, prop, 'x', context);
+        let name;
+        if ((name = _globalObjects.get(f))) {
+          if (!applyAcl(name, true, false, S_UNSPECIFIED, 'x', context, normalizedThisArg, _args, arguments)) {
+            result = [ name, true, false, S_UNSPECIFIED, 'x', context, normalizedThisArg, _args, arguments ];
+            throw new Error('Permission Denied: Cannot access ' + SetMap.getStringValues(name));
+          }
+          for (let _name of name) {
+            let _method = _globalMethods.split(_name);
+            if (_method.length === 1) {
+              continue;
+            }
+            let rawProp = _method[_method.length - 1];
+            let prop = _escapePlatformProperties.get(rawProp) || rawProp;
+            let obj = _method[0];
+            if (!applyAcl(obj, _method[1] !== 'prototype', false, prop, 'x', context, normalizedThisArg, _args, arguments)) {
+              result = [ obj, _method[1] !== 'prototype', false, prop, 'x', context, normalizedThisArg, _args, arguments ];
+              throw new Error('Permission Denied: Cannot access ' + obj);
+            }
           }
         }
         else if (newTarget === '') {
@@ -7807,15 +9173,161 @@ else {
         else if (Number.isNaN(newTarget)) {
           name = args[0];
           switch (name) {
+          case 'export':
+            {
+              // import * as __context_mapper__module_namespace_0 from '/resolved/self-module-name.js'; // circular import of self module
+              // At the tail of each module
+              // __hook__(() => {}, null, ['export',__context_mapper__[0], __context_mapper__module_namespace_0], __context_mapper__[0], NaN)
+              const moduleContextSymbol = args[1];
+              if (typeof moduleContextSymbol !== 'symbol') {
+                let e = new Error('__hook__: invalid context');
+                onThrow(e, arguments, contextStack); // result contains arguments to applyAcl, or undefined
+                throw e;
+              }
+              const moduleContext = __hook__acl[moduleContextSymbol];
+              if (!moduleContext) {
+                let e = new Error('__hook__: invalid context');
+                onThrow(e, arguments, contextStack); // result contains arguments to applyAcl, or undefined
+                throw e;
+              }
+              let property;
+              if (!applyAcl(moduleContext, true, false, S_MODULE, 'W', context, normalizedThisArg, _args, arguments)) {
+                result = [moduleContext, true, false, S_MODULE, 'W', context, normalizedThisArg, _args, arguments];
+                throw new Error('Permission Denied: Cannot access ' + moduleContext);
+              }
+              // export access allowed
+              // register the object with its virtual name
+              thisArg = normalizedThisArg = args[2]; // module namespace object for moduleContext
+              if (typeof thisArg === 'object' && thisArg[Symbol.toStringTag] === 'Module') {
+                _globalObjects.set(thisArg, moduleContext);
+                let virtualName = moduleContext + ','; // /components-path/module-name/file.js,
+                for (property in thisArg) { // enumerate named exports including default
+                  let _export = thisArg[property];
+                  if (_export) {
+                    switch (typeof _export) {
+                    case 'object':
+                    case 'function':
+                      // TODO: Properly handle mutations of methods in _export
+                      Policy.trackClass(virtualName + property, _export);
+                      break;
+                    default:
+                      break;
+                    }
+                  }
+                }
+                // apply ACLs for named exports
+                for (property in thisArg) {
+                  let _export = thisArg[property];
+                  let _name = virtualName + property;
+                  switch (typeof _export) {
+                  case 'object':
+                    if (_export === null) {
+                      break;
+                    }
+                  case 'function':
+                    _name = _globalObjects.get(_export);
+                    break;
+                  }
+                  if (!applyAcl(_name, true, false, S_MODULE, 'W', context, _export, _args, arguments)) {
+                    result = [_name, true, false, S_MODULE, 'W', context, _export, _args, arguments];
+                    throw new Error('Permission Denied: Cannot access ' + SetMap.getStringValues(_name));
+                  }
+                }
+              }
+            }
+            break;
+          case 'import':
+            {
+              /* 
+                // At the head of each module
+                import * as __context_mapper__module_namespace_0 from "/components/this-module/index.js";
+                import * as __context_mapper__module_namespace_1 from "/components/module-name/index.js";
+                import * as __context_mapper__module_namespace_2 from "/components/module-name/path/to/specific/un-exported/file.js";
+                __hook__(() => {}, null, ['import',
+                  {
+                    [__context_mapper__[6]]: [
+                      __context_mapper__module_namespace_1,
+                      'default',
+                      '*',
+                      'export1',
+                      'export2',
+                      'export3',
+                      'reexportname1',
+                      'reexportname2',
+                      'reexportnameN',
+                      'import1',
+                      'import2',
+                    ],
+                    [__context_mapper__[11]]: [
+                      __context_mapper__module_namespace_2,
+                      'foo',
+                      'bar',
+                    ],
+                  }
+                ], __context_mapper__[0], NaN);
+              */
+              for (let moduleContextSymbol of Object.getOwnPropertySymbols(args[1])) {
+                const moduleContext = __hook__acl[moduleContextSymbol];
+                const imports = args[1][moduleContextSymbol];
+                if (!moduleContext) {
+                  let e = new Error('__hook__: invalid context');
+                  onThrow(e, arguments, contextStack); // result contains arguments to applyAcl, or undefined
+                  throw e;
+                }
+                let property = S_MODULE;
+                if (!applyAcl(moduleContext, true, false, property, 'R', context, normalizedThisArg, _args, arguments)) {
+                  result = [moduleContext, true, false, property, 'R', context, normalizedThisArg, _args, arguments];
+                  throw new Error('Permission Denied: Cannot access ' + moduleContext);
+                }
+                // import access allowed
+                thisArg = normalizedThisArg = imports[0]; // module namespace object for moduleContext
+                if (typeof thisArg === 'object' && thisArg[Symbol.toStringTag] === 'Module') {
+                  // apply ACLs for named imports
+                  let virtualName = moduleContext + ',';
+                  for (let i = 1; i < imports.length; i++) {
+                    property = imports[i];
+                    let _import = thisArg[property];
+                    let _name = property === '*' ? moduleContext : virtualName + property;
+                    switch (typeof _import) {
+                    case 'object':
+                      if (_import === null) {
+                        break;
+                      }
+                    case 'function':
+                      _name = _globalObjects.get(_import);
+                      break;
+                    }
+                    if (!applyAcl(_name, true, false, S_MODULE, 'R', context, _import, _args, arguments)) {
+                      result = [_name, true, false, S_MODULE, 'R', context, _import, _args, arguments];
+                      throw new Error('Permission Denied: Cannot access ' + SetMap.getStringValues(_name));
+                    }
+                  }
+                }
+              }
+            }
+            break;
           case 'import()':
             {
               // import('module.js')
-              name = 'import'; // Note: virtual object name 'import'
               let property = S_UNSPECIFIED;
-              if (!args[1] || typeof args[1] !== 'string' ||
-                !args[1].match(/^\s*(([^:\/?#]+):)?(\/\/([^\/?#]*))?([^?#]*[.]m?js)(\?([^#]*))?(#(.*))?\s*$/)) {
+              let specifier = args[1];
+              let importMeta = args[2];
+              if (specifier && hook.parameters.importMapper && importMeta) {
+                specifier = hook.parameters.importMapper(specifier, importMeta.url);
+              }
+              if (!specifier || typeof specifier !== 'string' ||
+                !specifier.match(/^\s*(([^:\/?#]+):)?(\/\/([^\/?#]*))?([^?#]*[.]m?js)(\?([^#]*))?(#(.*))?\s*$/)) {
                 property = 'invalidImportUrl'; // Note: virtual property 'invalidImportUrl'
               }
+              else {
+                name = specifier;
+                if (!applyAcl(name, true, false, S_MODULE, 'R', context, normalizedThisArg, _args, arguments)) {
+                  result = [ name, true, false, S_MODULE, 'R', context, normalizedThisArg, _args, arguments ];
+                  throw new Error('Permission Denied: Cannot access ' + name);
+                }
+                args[1] = specifier; // resolved path name
+              }
+              name = 'import'; // Note: virtual object name 'import'
               if (!applyAcl(name, true, false, property, 'x', context, normalizedThisArg, _args, arguments)) {
                 result = [ name, true, false, property, 'x', context, normalizedThisArg, _args, arguments ];
                 throw new Error('Permission Denied: Cannot access ' + name);
@@ -7849,23 +9361,7 @@ else {
                 // load and register the object with its virtual name
                 thisArg = f(); // The path argument is not required since it is embedded in the function body
                 if (thisArg instanceof Object) {
-                  let virtualName = args[2];
-                  _globalObjects.set(thisArg, virtualName);
-                  let _properties = Object.getOwnPropertyDescriptors(thisArg);
-                  let _prop;
-                  for (_prop in _properties) {
-                    if (typeof _properties[_prop].value === 'function') {
-                      _globalMethods.set(_properties[_prop].value, [virtualName, _prop]);
-                    }
-                  }
-                  if (thisArg.prototype) {
-                    _properties = Object.getOwnPropertyDescriptors(thisArg.prototype);
-                    for (_prop in _properties) {
-                      if (typeof _properties[_prop].value === 'function') {
-                        _globalMethods.set(_properties[_prop].value, [virtualName, 'prototype', _prop]);
-                      }
-                    }
-                  }
+                  Policy.trackClass(args[2] /* virtualName */, thisArg);
                 }
                 f = '*'; // return result = thisArg;
               }
@@ -8309,6 +9805,47 @@ else {
         case 'w&=':
         case 'w^=':
         case 'w|=':
+          result = args[2](args[1]);
+          break;
+        // read ES module
+        case 'm':
+          result = thisArg;
+          break;
+        // function call to ES module
+        case 'm()':
+          result = args[2](...args[1]);
+          break;
+        // constructor call to ES module
+        case 'mnew':
+          result = args[2](...args[1]);
+          break;
+        // update operators
+        case 'm++':
+        case '++m':
+        case 'm--':
+        case '--m':
+        // unary operator
+        case 'mtypeof':
+          result = args[1]();
+          break;
+        // LHS value assignment on ES module with args[1] = (cb) => ({set ['='](v){a=v;cb(v);}, get ['='](){return a;}}) 
+        case 'm.=':
+          result = args[1](v => Policy.trackClass(args[0] /* moduleContext */, v));
+          break;
+        // assignment operators on ES module
+        case 'm=': // trackResultAsGlobal === args[0] === moduleContext
+        case 'm+=':
+        case 'm-=':
+        case 'm*=':
+        case 'm/=':
+        case 'm%=':
+        case 'm**=':
+        case 'm<<=':
+        case 'm>>=':
+        case 'm>>>=':
+        case 'm&=':
+        case 'm^=':
+        case 'm|=':
           result = args[2](args[1]);
           break;
         // default (invalid operator)
@@ -8816,6 +10353,47 @@ else {
       case 'w&=':
       case 'w^=':
       case 'w|=':
+        result = args[2](args[1]);
+        break;
+      // read ES module
+      case 'm':
+        result = thisArg;
+        break;
+      // function call to ES module
+      case 'm()':
+        result = args[2](...args[1]);
+        break;
+      // constructor call to ES module
+      case 'mnew':
+        result = args[2](...args[1]);
+        break;
+      // update operators
+      case 'm++':
+      case '++m':
+      case 'm--':
+      case '--m':
+      // unary operator
+      case 'mtypeof':
+        result = args[1]();
+        break;
+      // LHS value assignment on ES module with args[1] = (cb) => ({set ['='](v){a=v;cb(v);}, get ['='](){return a;}}) 
+      case 'm.=':
+        result = args[1](v => Policy.trackClass(args[0] /* moduleContext */, v));
+        break;
+      // assignment operators on ES module
+      case 'm=': // trackResultAsGlobal === args[0] === moduleContext
+      case 'm+=':
+      case 'm-=':
+      case 'm*=':
+      case 'm/=':
+      case 'm%=':
+      case 'm**=':
+      case 'm<<=':
+      case 'm>>=':
+      case 'm>>>=':
+      case 'm&=':
+      case 'm^=':
+      case 'm|=':
         result = args[2](args[1]);
         break;
       // default (invalid operator)
@@ -9340,7 +10918,6 @@ else {
     if (_global[name]) {
       let hooked = hook[name](Symbol.for('__hook__'), [[name, { random: name === 'Node' }]], 'method');
       /*_global.*/_globalObjects.set(hooked, name);
-      /*_global.*/_globalMethods.set(hooked, [ (typeof window === 'object' ? 'window' : 'self'), name ]);
       Object.defineProperty(_global, name, { value: hooked, configurable: true, enumerable: false, writable: false });
       //hook.hook(hooked);
     }

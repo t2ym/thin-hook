@@ -33,7 +33,7 @@
   let f7 = F('p1', 'p2', 'return p1 + p2');
   chai.assert.equal(f7(1, 2), 3, 'indirect Function() call');
   chai.assert.isOk(f7.toString().includes('__hook__'), 'Generated function is hooked');
-  chai.assert.isOk(Object.keys(globalObjectAccess).length ? globalObjectAccess.window.Function['/components/thin-hook/demo/Function.js,f7'] : true, 'indirect Function() call is hooked');
+  chai.assert.isOk(Object.keys(globalObjectAccess).length ? globalObjectAccess.Function['/components/thin-hook/demo/Function.js,f7'] : true, 'indirect Function() call is hooked');
 
   let f8 = new F('p1', 'p2', 'return p1 + p2');
   chai.assert.equal(f8(1, 2), 3, 'indirect new Function() call');
@@ -74,12 +74,15 @@
   let f13 = ES5SubclassFunction('p1', 'p2', 'return p1 + p2');
   chai.assert.equal(f13(1, 2), 3, 'ES5 subclass Function() call');
   chai.assert.isOk(f13.toString().includes('__hook__'), 'Generated function is hooked');
-  chai.assert.equal(Object.keys(globalObjectAccess).length ? globalObjectAccess.window.Function['/components/thin-hook/demo/Function.js,ES5SubclassFunction'].label : 1, 1, 'ES5 subclass Function() call is hooked');
+  chai.assert.equal(Object.keys(globalObjectAccess).length ? globalObjectAccess.Function['/components/thin-hook/demo/Function.js,ES5SubclassFunction'].label : 1, 1, 'ES5 subclass Function() call is hooked');
 
   let f14 = new SubclassFunction('p1', 'p2', 'return p1 + p2');
   chai.assert.equal(f14(1, 2), 3, 'new subclass Function() call');
   chai.assert.isOk(f14.toString().includes('__hook__'), 'Generated function is hooked');
   chai.assert.isOk(Object.keys(globalObjectAccess).length ? globalObjectAccess.Function['/components/thin-hook/demo/Function.js,f14'] : true, 'new subclass Function() call is hooked');
+  chai.assert.throws(() => {
+    f14.__proto__.__proto__.bind = null;
+  }, /^Permission Denied: Cannot access Function/);
 
   let f15 = Reflect.construct(SubclassFunction, ['p1', 'p2', 'return p1 + p2']);
   chai.assert.equal(f15(1, 2), 3, 'Reflect.construct(subclass Function) call');
@@ -89,17 +92,17 @@
   let f16 = Reflect.apply(ES5SubclassFunction, window, ['p1', 'p2', 'return p1 + p2']);
   chai.assert.equal(f16(1, 2), 3, 'Reflect.apply(ES5 subclass Function) call');
   chai.assert.isOk(f16.toString().includes('__hook__'), 'Generated function is hooked');
-  chai.assert.equal(Object.keys(globalObjectAccess).length ? globalObjectAccess.window.Function['/components/thin-hook/demo/Function.js,ES5SubclassFunction'].label : 2, 2, 'Reflect.apply(ES5 subclass Function) call is normalized');
+  chai.assert.equal(Object.keys(globalObjectAccess).length ? globalObjectAccess.Function['/components/thin-hook/demo/Function.js,ES5SubclassFunction'].label : 2, 2, 'Reflect.apply(ES5 subclass Function) call is normalized');
 
   let f17 = ES5SubclassFunction.apply(window, ['p1', 'p2', 'return p1 + p2']);
   chai.assert.equal(f17(1, 2), 3, 'ES5 subclass Function.apply() call');
   chai.assert.isOk(f17.toString().includes('__hook__'), 'Generated function is hooked');
-  chai.assert.equal(Object.keys(globalObjectAccess).length ? globalObjectAccess.window.Function['/components/thin-hook/demo/Function.js,ES5SubclassFunction'].label : 3, 3, 'ES5 subclass Function.apply() call is normalized');
+  chai.assert.equal(Object.keys(globalObjectAccess).length ? globalObjectAccess.Function['/components/thin-hook/demo/Function.js,ES5SubclassFunction'].label : 3, 3, 'ES5 subclass Function.apply() call is normalized');
 
   let f18 = ES5SubclassFunction.call(window, 'p1', 'p2', 'return p1 + p2');
   chai.assert.equal(f18(1, 2), 3, 'ES5 subclass Function.call() call');
   chai.assert.isOk(f18.toString().includes('__hook__'), 'Generated function is hooked');
-  chai.assert.equal(Object.keys(globalObjectAccess).length ? globalObjectAccess.window.Function['/components/thin-hook/demo/Function.js,ES5SubclassFunction'].label : 4, 4, 'ES5 subclass Function.call() call is normalized');
+  chai.assert.equal(Object.keys(globalObjectAccess).length ? globalObjectAccess.Function['/components/thin-hook/demo/Function.js,ES5SubclassFunction'].label : 4, 4, 'ES5 subclass Function.call() call is normalized');
 
   class CustomConstructorSubclassFunction extends Function {
     constructor(dummy, ...args) {
@@ -158,7 +161,7 @@
     let f7 = F('p1', 'p2', 'return p1 + p2');
     chai.assert.equal(f7(1, 2), 3, 'indirect Function() call');
     chai.assert.isOk(f7.toString().includes('__hook__'), 'Generated function is hooked');
-    chai.assert.isOk(Object.keys(globalObjectAccess).length ? globalObjectAccess.window.Function['/components/thin-hook/demo/Function.js,strictMode,f7'] : true, 'indirect Function() call is hooked');
+    chai.assert.isOk(Object.keys(globalObjectAccess).length ? globalObjectAccess.Function['/components/thin-hook/demo/Function.js,strictMode,f7'] : true, 'indirect Function() call is hooked');
 
     let f8 = new F('p1', 'p2', 'return p1 + p2');
     chai.assert.equal(f8(1, 2), 3, 'indirect new Function() call');
@@ -195,7 +198,7 @@
     let f13 = ES5SubclassFunction('p1', 'p2', 'return p1 + p2');
     chai.assert.equal(f13(1, 2), 3, 'ES5 subclass Function() call');
     chai.assert.isOk(f13.toString().includes('__hook__'), 'Generated function is hooked');
-    chai.assert.equal(Object.keys(globalObjectAccess).length ? globalObjectAccess.window.Function['/components/thin-hook/demo/Function.js,strictMode,ES5SubclassFunction'].label : 1, 1, 'ES5 subclass Function() call is hooked');
+    chai.assert.equal(Object.keys(globalObjectAccess).length ? globalObjectAccess.Function['/components/thin-hook/demo/Function.js,strictMode,ES5SubclassFunction'].label : 1, 1, 'ES5 subclass Function() call is hooked');
 
     let f14 = new SubclassFunction('p1', 'p2', 'return p1 + p2');
     chai.assert.equal(f14(1, 2), 3, 'new subclass Function() call');
@@ -210,17 +213,17 @@
     let f16 = Reflect.apply(ES5SubclassFunction, window, ['p1', 'p2', 'return p1 + p2']);
     chai.assert.equal(f16(1, 2), 3, 'Reflect.apply(ES5 subclass Function) call');
     chai.assert.isOk(f16.toString().includes('__hook__'), 'Generated function is hooked');
-    chai.assert.equal(Object.keys(globalObjectAccess).length ? globalObjectAccess.window.Function['/components/thin-hook/demo/Function.js,strictMode,ES5SubclassFunction'].label : 2, 2, 'Reflect.apply(ES5 subclass Function) call is normalized');
+    chai.assert.equal(Object.keys(globalObjectAccess).length ? globalObjectAccess.Function['/components/thin-hook/demo/Function.js,strictMode,ES5SubclassFunction'].label : 2, 2, 'Reflect.apply(ES5 subclass Function) call is normalized');
 
     let f17 = ES5SubclassFunction.apply(window, ['p1', 'p2', 'return p1 + p2']);
     chai.assert.equal(f17(1, 2), 3, 'ES5 subclass Function.apply() call');
     chai.assert.isOk(f17.toString().includes('__hook__'), 'Generated function is hooked');
-    chai.assert.equal(Object.keys(globalObjectAccess).length ? globalObjectAccess.window.Function['/components/thin-hook/demo/Function.js,strictMode,ES5SubclassFunction'].label : 3, 3, 'ES5 subclass Function.apply() call is normalized');
+    chai.assert.equal(Object.keys(globalObjectAccess).length ? globalObjectAccess.Function['/components/thin-hook/demo/Function.js,strictMode,ES5SubclassFunction'].label : 3, 3, 'ES5 subclass Function.apply() call is normalized');
 
     let f18 = ES5SubclassFunction.call(window, 'p1', 'p2', 'return p1 + p2');
     chai.assert.equal(f18(1, 2), 3, 'ES5 subclass Function.call() call');
     chai.assert.isOk(f18.toString().includes('__hook__'), 'Generated function is hooked');
-    chai.assert.equal(Object.keys(globalObjectAccess).length ? globalObjectAccess.window.Function['/components/thin-hook/demo/Function.js,strictMode,ES5SubclassFunction'].label : 4, 4, 'ES5 subclass Function.call() call is normalized');
+    chai.assert.equal(Object.keys(globalObjectAccess).length ? globalObjectAccess.Function['/components/thin-hook/demo/Function.js,strictMode,ES5SubclassFunction'].label : 4, 4, 'ES5 subclass Function.call() call is normalized');
 
     class CustomConstructorSubclassFunction extends Function {
       constructor(dummy, ...args) {
