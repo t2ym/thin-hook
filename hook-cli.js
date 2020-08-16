@@ -15,6 +15,9 @@ let metaHooking = true;
 let hashSalt = '__hashSalt__';
 let contexts = {};
 let contextsJson = './contexts.json';
+let importMaps = null;
+let baseURL;
+let dependencies = null;
 let out = '';
 
 if (process.argv.length <= 2) {
@@ -30,7 +33,10 @@ Options:
   --metaHooking={metaHooking}: Enable meta hooking (run-time hooking for metaprogramming) if true. Default: true
   --hashSalt={hashSalt} : Salt for hash generator. Default: __hashSalt__
   --contextsJson={contexts.json} : Path to contexts.json. Default: contexts.json
-  --out={outPath} : Path for output HTML
+  --importMaps={import-maps.importmap} : Path to import-maps.importmap Default: null
+  --baseURL=/base/url/path.js : Base URL. Default: file pathname
+  --dependencies(={dependencies.json|-}) : Dump module dependencies in JSON. Default: null
+  --out={outPath} : Path for output
 `);
 }
 
@@ -95,6 +101,26 @@ for (let i = 2; i < process.argv.length; i++) {
     contextsJson = match[1];
     continue;
   }
+  match = process.argv[i].match(/^--importMaps=(.*)$/);
+  if (match) {
+    importMaps = match[1];
+    continue;
+  }
+  match = process.argv[i].match(/^--baseURL=(.*)$/);
+  if (match) {
+    baseURL = match[1];
+    continue;
+  }
+  match = process.argv[i].match(/^--dependencies(=.*)?$/);
+  if (match) {
+    if (match[1] && match[1][0] === '=' && match[1].length > 1) {
+      dependencies = match[1].substring(1);
+    }
+    else {
+      dependencies = '-'; // stdout
+    }
+    continue;
+  }
   if (path.basename(process.argv[i]).match(/^hooked[.]/)) {
     continue;
   }
@@ -105,12 +131,56 @@ for (let i = 2; i < process.argv.length; i++) {
   }
   if (process.argv[i].match(/[.]js$/)) {
     let code = fs.readFileSync(process.argv[i], 'UTF-8');
+    const origin = 'location.origin';
+    baseURL = baseURL || process.argv[i];
+    if (importMaps) {
+      let json = fs.readFileSync(importMaps, 'UTF-8');
+      let normalizedBaseURL = baseURL[0] === '/'
+        ? 'https://' + origin + baseURL
+        : baseURL;
+      let resolvedURLCache = new Map();
+      hook.parameters.parsedImportMap = hook.utils.importMaps.parseFromString(json, normalizedBaseURL);
+      hook.parameters.importMapper =
+        (specifier, scriptURL) => {
+          const key = specifier + ';' + scriptURL;
+          let resolvedURL = resolvedURLCache.get(key);
+          if (!resolvedURL) {
+            if (scriptURL[0] === '/') {
+              scriptURL = 'https://' + origin + scriptURL;
+            }
+            if (specifier.endsWith('/')) {
+              specifier = specifier.substring(0, specifier.length - 1);
+            }
+            resolvedURL = hook.utils.importMaps.resolve(specifier, hook.parameters.parsedImportMap, new URL(scriptURL));
+            if (resolvedURL.host === origin) {
+              resolvedURL = resolvedURL.pathname + resolvedURL.search + resolvedURL.hash;
+            }
+            else {
+              resolvedURL = resolvedURL.href;
+            }
+            resolvedURLCache.set(key, resolvedURL);
+          }
+          console.log(`importMapper(${specifier}, ${scriptURL}) = ${resolvedURL}`);
+          return resolvedURL;
+        }
+      if (dependencies) {
+        hook.parameters.moduleDependencies = {};
+      }
+    }
     let start = Date.now();
-    let gen = hook(code, hookName, [ [ process.argv[i], contexts ] ], contextGenerator, metaHooking);
+    let gen = hook(code, hookName, [ [ baseURL, contexts ] ], contextGenerator, metaHooking);
     let end = Date.now();
-    let outPath = path.join(path.dirname(process.argv[i]), 'hooked.' + path.basename(process.argv[i]));
+    let outPath = out || path.join(path.dirname(process.argv[i]), 'hooked.' + path.basename(process.argv[i]));
     console.log('Hooked: ', outPath, ' in ' + (end - start) + 'ms');
     fs.writeFileSync(outPath, gen);
+    if (hook.parameters.moduleDependencies) {
+      if (dependencies !== '-') {
+        fs.writeFileSync(dependencies, JSON.stringify(hook.parameters.moduleDependencies, null, 2));
+      }
+      else {
+        console.log(JSON.stringify(hook.parameters.moduleDependencies, null, 2));
+      }
+    }
   }
   else if (process.argv[i].match(/[.]html?$/)) {
     let html = fs.readFileSync(process.argv[i], 'UTF-8');
