@@ -10,6 +10,8 @@ const createHash = require('sha.js');
 const convert = require('convert-source-map');
 const he = require('he');
 const zlib = require('pako');
+const { parseFromString } = require('import-maps/reference-implementation/lib/parser.js');
+const { resolve } = require('import-maps/reference-implementation/lib/resolver.js');
 const preprocess = require('./lib/preprocess.js')(espree, escodegen, htmlparser, createHash, convert, he);
 const hook = preprocess.hook;
 const serviceWorker = require('./lib/service-worker.js')(hook, preprocess);
@@ -28,6 +30,10 @@ module.exports = Object.freeze(Object.assign(hook,
       createHash: createHash,
       HTMLParser: htmlparser,
       zlib: zlib,
+      importMaps: {
+        parseFromString: parseFromString,
+        resolve: resolve
+      }
     },
     parameters: {}
   }
