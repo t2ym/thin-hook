@@ -13,11 +13,11 @@ else {
     //   hook.parameters.noHookAuthorizationFailed
     // JSONs are output to console in the learning mode
     //'*': true,
-    "1ce53bfcf05701dcd7e1d5128f7a16cd7e853c51236b6474900567510d0a081f": true, // hook.min.js
+    "b0492759f4e9f4415947325b4b06e4cb175183fc9c31a6a5caadebf01ba49013": true, // hook.min.js
     "a81209228209941097ac41c5bda3bc1cd64375e69b7c8113aff68c2fe6729ff2": true, // demo/disable-devtools.js
     "4374ae1f28cec2b969ab488895a4266244d65e28e1f82728fd2cd39130fe0d9e": true, // demo/context-generator.js
-    "2ff1896fefb2968599546a0eacc312877d8834021b31efe7634312fea04d8387": true, // demo/bootstrap.js
-    "b173227c34086aa6154a617903724ecc6fddaccba369a34021ce28c6a417dc41": true, // demo/hook-callback.js
+    "d440a188f3993a10d8137af094566f7e8f8acb27c0b3b84762bd3040998ee6d1": true, // demo/bootstrap.js
+    "fcaf345121c0d2966c8d3e56ced1dbd93f96301ca1195efbe81cb370c36672a2": true, // demo/hook-callback.js
     "0979646683bec9b9682d974d549effb61b1fc981ad87dac76d44d0440d87b396": true, // demo/hook-native-api.js
     "5b615aa885a0518466153be6ecb2cfeef1300f181ff60ca91cad964659c92052": true, // demo/hook-worker.js
     "c59d446ea931df28736d586dc2687731dadb733c3cfd644c7df3afb36a6ae39a": true, // demo/cache-bundle.js
@@ -25,7 +25,7 @@ else {
     "e992640bf3759389183b8cb9f06e289f97d6390ebd10515eef7f670366db9291": true, // demo/webpack-es6-module.js
     "97f2022963c310fadb096c328d849fdb6658c1cd509cad030f71cb426c7841a4": true, // demo/webpack-commonjs.js
     "be62ecde142b4cdf07dfa764b264215b0d52ab6209d666fe0f3bc1832f021cd0": true, // demo/rollup-es6-module.js
-    "8d8badcc39b41ee02b66ca022336049e1cf89425a49b3682bcd35135662dd16a": true, // demo/rollup-module1.js
+    "74cabeede2facbea8a7efa4c03bf50f6b87a75e2b51c16aae3445be937c34e3e": true, // demo/rollup-module1.js
     "c46af0c64c274fa3ce4859243777218fc83c7f57f8176e8e35ab815b8eecb19c": true, // demo/wrap-globals.js
     "a578e741369d927f693fedc88c75b1a90f1a79465e2bb9774a3f68ffc6e011e6": true, // /components/thin-hook/demo/ inline cors
     "9c84034cd3f81fcd3e39cf0065e297ba7dae755044aec3a1c4fc3b6ab418ccbd": true, // /components/thin-hook/demo/ inline hooked eval results
@@ -35,7 +35,7 @@ else {
     "c135fd6ba3cad41e63985ecca191995bf311abc756c5f574ef5b641e7db56914": true, // (function writeln2() { console.log("no-hook script tag via document.writeln"); })()
     "e233738578fd7e8f2e961fb11885e2c187146314a8e3fc65692633ff89c5d34a": true, // (function writeln4() { console.log("no-hook script tag in div tag via document.writeln"); })()
     "4f0395d52a8c1c7edaacacade9c31fe18555b79ce963dfb1abaaa34990993374": true, // location = "about:blank";
-    "4b443a9b32ef00a6a0cb96ba20a222d016253af3d3d3d1daf33bc6649931b696": true, // demo/integrity.js
+    "41e760b6d5755fe2009925861ebacb5e7229f5028aa58f55b6c5ce9882344701": true, // demo/integrity.js
     "ba07654d1c24a271ba0fa7ee5c55cd60c02133b0e53cb6bb6e634da473b1e540": true, // demo/script-hashes.js
     "0242016e2887b322ab28b887f03779c63899db232bb036d794a0278db9e54339": true, // demo/content-loader.js
     "6249373b8a4e3bb915788ea4f77e8b892f5bb77407e4fe5d981ebd118876be20": true, // demo/mark-parsed.js

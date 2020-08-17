@@ -129,7 +129,7 @@ var __90693844b86f4d9de9bee5c9026eefe73aa20a0dcf4c48ca6c0898a0743e76a8__module_n
     get unsafeCSS () { return unsafeCSS; },
     get css () { return css; }
 });
-var __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__module_namespace_1 = /*#__PURE__*/Object.freeze({
+var __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__module_namespace_1 = /*#__PURE__*/Object.freeze({
     __proto__: null,
     get LitElement () { return LitElement; },
     get html () { return html; },
@@ -152,11 +152,372 @@ var __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__module_n
     get unsafeCSS () { return unsafeCSS; },
     get css () { return css; }
 });
-var __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__module_namespace_2 = /*#__PURE__*/Object.freeze({
+var __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__module_namespace_2 = /*#__PURE__*/Object.freeze({
     __proto__: null,
     get repeat () { return repeat; }
 });
-var __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__module_namespace_4 = /*#__PURE__*/Object.freeze({
+var __6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__module_namespace_1 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get __extends () { return __extends; },
+    get __assign () { return __assign; },
+    get __rest () { return __rest; },
+    get __decorate () { return __decorate; },
+    get __param () { return __param; },
+    get __metadata () { return __metadata; },
+    get __awaiter () { return __awaiter; },
+    get __generator () { return __generator; },
+    get __createBinding () { return __createBinding; },
+    get __exportStar () { return __exportStar; },
+    get __values () { return __values; },
+    get __read () { return __read; },
+    get __spread () { return __spread; },
+    get __spreadArrays () { return __spreadArrays; },
+    get __await () { return __await; },
+    get __asyncGenerator () { return __asyncGenerator; },
+    get __asyncDelegator () { return __asyncDelegator; },
+    get __asyncValues () { return __asyncValues; },
+    get __makeTemplateObject () { return __makeTemplateObject; },
+    get __importStar () { return __importStar; },
+    get __importDefault () { return __importDefault; },
+    get __classPrivateFieldGet () { return __classPrivateFieldGet; },
+    get __classPrivateFieldSet () { return __classPrivateFieldSet; }
+});
+var __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__module_namespace_3 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get ifDefined () { return ifDefined; }
+});
+var __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__module_namespace_4 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get LikeAnchor () { return LikeAnchor; }
+});
+var __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__module_namespace_3 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get default () { return styles; }
+});
+var __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__module_namespace_4 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get FocusVisiblePolyfillMixin () { return FocusVisiblePolyfillMixin; }
+});
+var __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__module_namespace_5 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get Focusable () { return Focusable; }
+});
+var __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__module_namespace_6 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get ObserveSlotText () { return ObserveSlotText; }
+});
+var __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__module_namespace_7 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get default () { return styles$1; }
+});
+var __6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__module_namespace_3 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get ButtonBase () { return ButtonBase; }
+});
+var __da30b35bc5b0bbf9c1d0c3dee38d84c8819ae8d80faf85f42d52c1019798046f__module_namespace_4 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get default () { return styles$2; }
+});
+var __1e8df5e471cb411f030f7d2f67a33fc489222df99ec4e45f6ff138345a47f550__module_namespace_1 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get Button () { return Button; }
+});
+var __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__module_namespace_4 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get default () { return styles$3; }
+});
+var __57a4ba8749659179686903efd686c13024f3a9b0bde1749d740b048da3d5bd07__module_namespace_2 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get ActionButton () { return ActionButton; }
+});
+var __6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__module_namespace_4 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get default () { return styles$4; }
+});
+var __aac039a38c86b6c8494b13a8f590ea8e5d3546bbfcacde36ca1e8f8b117ce6f8__module_namespace_2 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get tag () { return tag; },
+    get setCustomTemplateLiteralTag () { return setCustomTemplateLiteralTag; },
+    get TemplateResult () { return TemplateResult; }
+});
+var __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_1 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get AlertMediumIcon () { return AlertMediumIcon; },
+    get setCustomTemplateLiteralTag () { return setCustomTemplateLiteralTag; }
+});
+var __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_2 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get AlertSmallIcon () { return AlertSmallIcon; },
+    get setCustomTemplateLiteralTag () { return setCustomTemplateLiteralTag; }
+});
+var __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_3 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get ArrowDownSmallIcon () { return ArrowDownSmallIcon; },
+    get setCustomTemplateLiteralTag () { return setCustomTemplateLiteralTag; }
+});
+var __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_4 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get ArrowLeftMediumIcon () { return ArrowLeftMediumIcon; },
+    get setCustomTemplateLiteralTag () { return setCustomTemplateLiteralTag; }
+});
+var __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_5 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get ArrowUpSmallIcon () { return ArrowUpSmallIcon; },
+    get setCustomTemplateLiteralTag () { return setCustomTemplateLiteralTag; }
+});
+var __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_6 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get AsteriskIcon () { return AsteriskIcon; },
+    get setCustomTemplateLiteralTag () { return setCustomTemplateLiteralTag; }
+});
+var __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_7 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get CheckmarkMediumIcon () { return CheckmarkMediumIcon; },
+    get setCustomTemplateLiteralTag () { return setCustomTemplateLiteralTag; }
+});
+var __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_8 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get CheckmarkSmallIcon () { return CheckmarkSmallIcon; },
+    get setCustomTemplateLiteralTag () { return setCustomTemplateLiteralTag; }
+});
+var __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_9 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get ChevronDownMediumIcon () { return ChevronDownMediumIcon; },
+    get setCustomTemplateLiteralTag () { return setCustomTemplateLiteralTag; }
+});
+var __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_10 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get ChevronDownSmallIcon () { return ChevronDownSmallIcon; },
+    get setCustomTemplateLiteralTag () { return setCustomTemplateLiteralTag; }
+});
+var __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_11 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get ChevronLeftLargeIcon () { return ChevronLeftLargeIcon; },
+    get setCustomTemplateLiteralTag () { return setCustomTemplateLiteralTag; }
+});
+var __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_12 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get ChevronLeftMediumIcon () { return ChevronLeftMediumIcon; },
+    get setCustomTemplateLiteralTag () { return setCustomTemplateLiteralTag; }
+});
+var __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_13 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get ChevronRightLargeIcon () { return ChevronRightLargeIcon; },
+    get setCustomTemplateLiteralTag () { return setCustomTemplateLiteralTag; }
+});
+var __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_14 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get ChevronRightMediumIcon () { return ChevronRightMediumIcon; },
+    get setCustomTemplateLiteralTag () { return setCustomTemplateLiteralTag; }
+});
+var __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_15 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get ChevronRightSmallIcon () { return ChevronRightSmallIcon; },
+    get setCustomTemplateLiteralTag () { return setCustomTemplateLiteralTag; }
+});
+var __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_16 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get ChevronUpSmallIcon () { return ChevronUpSmallIcon; },
+    get setCustomTemplateLiteralTag () { return setCustomTemplateLiteralTag; }
+});
+var __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_17 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get CornerTriangleIcon () { return CornerTriangleIcon; },
+    get setCustomTemplateLiteralTag () { return setCustomTemplateLiteralTag; }
+});
+var __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_18 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get CrossLargeIcon () { return CrossLargeIcon; },
+    get setCustomTemplateLiteralTag () { return setCustomTemplateLiteralTag; }
+});
+var __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_19 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get CrossMediumIcon () { return CrossMediumIcon; },
+    get setCustomTemplateLiteralTag () { return setCustomTemplateLiteralTag; }
+});
+var __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_20 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get CrossSmallIcon () { return CrossSmallIcon; },
+    get setCustomTemplateLiteralTag () { return setCustomTemplateLiteralTag; }
+});
+var __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_21 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get DashSmallIcon () { return DashSmallIcon; },
+    get setCustomTemplateLiteralTag () { return setCustomTemplateLiteralTag; }
+});
+var __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_22 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get DoubleGripperIcon () { return DoubleGripperIcon; },
+    get setCustomTemplateLiteralTag () { return setCustomTemplateLiteralTag; }
+});
+var __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_23 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get FolderBreadcrumbIcon () { return FolderBreadcrumbIcon; },
+    get setCustomTemplateLiteralTag () { return setCustomTemplateLiteralTag; }
+});
+var __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_24 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get HelpMediumIcon () { return HelpMediumIcon; },
+    get setCustomTemplateLiteralTag () { return setCustomTemplateLiteralTag; }
+});
+var __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_25 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get HelpSmallIcon () { return HelpSmallIcon; },
+    get setCustomTemplateLiteralTag () { return setCustomTemplateLiteralTag; }
+});
+var __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_26 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get InfoMediumIcon () { return InfoMediumIcon; },
+    get setCustomTemplateLiteralTag () { return setCustomTemplateLiteralTag; }
+});
+var __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_27 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get InfoSmallIcon () { return InfoSmallIcon; },
+    get setCustomTemplateLiteralTag () { return setCustomTemplateLiteralTag; }
+});
+var __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_28 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get MagnifierIcon () { return MagnifierIcon; },
+    get setCustomTemplateLiteralTag () { return setCustomTemplateLiteralTag; }
+});
+var __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_29 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get MoreIcon () { return MoreIcon; },
+    get setCustomTemplateLiteralTag () { return setCustomTemplateLiteralTag; }
+});
+var __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_30 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get SkipLeftIcon () { return SkipLeftIcon; },
+    get setCustomTemplateLiteralTag () { return setCustomTemplateLiteralTag; }
+});
+var __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_31 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get SkipRightIcon () { return SkipRightIcon; },
+    get setCustomTemplateLiteralTag () { return setCustomTemplateLiteralTag; }
+});
+var __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_32 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get StarIcon () { return StarIcon; },
+    get setCustomTemplateLiteralTag () { return setCustomTemplateLiteralTag; }
+});
+var __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_33 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get StarOutlineIcon () { return StarOutlineIcon; },
+    get setCustomTemplateLiteralTag () { return setCustomTemplateLiteralTag; }
+});
+var __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_34 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get SuccessMediumIcon () { return SuccessMediumIcon; },
+    get setCustomTemplateLiteralTag () { return setCustomTemplateLiteralTag; }
+});
+var __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_35 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get SuccessSmallIcon () { return SuccessSmallIcon; },
+    get setCustomTemplateLiteralTag () { return setCustomTemplateLiteralTag; }
+});
+var __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_36 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get TripleGripperIcon () { return TripleGripperIcon; },
+    get setCustomTemplateLiteralTag () { return setCustomTemplateLiteralTag; }
+});
+var __aac039a38c86b6c8494b13a8f590ea8e5d3546bbfcacde36ca1e8f8b117ce6f8__module_namespace_3 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get AlertMediumIcon () { return AlertMediumIcon; },
+    get AlertSmallIcon () { return AlertSmallIcon; },
+    get ArrowDownSmallIcon () { return ArrowDownSmallIcon; },
+    get ArrowLeftMediumIcon () { return ArrowLeftMediumIcon; },
+    get ArrowUpSmallIcon () { return ArrowUpSmallIcon; },
+    get AsteriskIcon () { return AsteriskIcon; },
+    get CheckmarkMediumIcon () { return CheckmarkMediumIcon; },
+    get CheckmarkSmallIcon () { return CheckmarkSmallIcon; },
+    get ChevronDownMediumIcon () { return ChevronDownMediumIcon; },
+    get ChevronDownSmallIcon () { return ChevronDownSmallIcon; },
+    get ChevronLeftLargeIcon () { return ChevronLeftLargeIcon; },
+    get ChevronLeftMediumIcon () { return ChevronLeftMediumIcon; },
+    get ChevronRightLargeIcon () { return ChevronRightLargeIcon; },
+    get ChevronRightMediumIcon () { return ChevronRightMediumIcon; },
+    get ChevronRightSmallIcon () { return ChevronRightSmallIcon; },
+    get ChevronUpSmallIcon () { return ChevronUpSmallIcon; },
+    get CornerTriangleIcon () { return CornerTriangleIcon; },
+    get CrossLargeIcon () { return CrossLargeIcon; },
+    get CrossMediumIcon () { return CrossMediumIcon; },
+    get CrossSmallIcon () { return CrossSmallIcon; },
+    get DashSmallIcon () { return DashSmallIcon; },
+    get DoubleGripperIcon () { return DoubleGripperIcon; },
+    get FolderBreadcrumbIcon () { return FolderBreadcrumbIcon; },
+    get HelpMediumIcon () { return HelpMediumIcon; },
+    get HelpSmallIcon () { return HelpSmallIcon; },
+    get InfoMediumIcon () { return InfoMediumIcon; },
+    get InfoSmallIcon () { return InfoSmallIcon; },
+    get MagnifierIcon () { return MagnifierIcon; },
+    get MoreIcon () { return MoreIcon; },
+    get SkipLeftIcon () { return SkipLeftIcon; },
+    get SkipRightIcon () { return SkipRightIcon; },
+    get StarIcon () { return StarIcon; },
+    get StarOutlineIcon () { return StarOutlineIcon; },
+    get SuccessMediumIcon () { return SuccessMediumIcon; },
+    get SuccessSmallIcon () { return SuccessSmallIcon; },
+    get TripleGripperIcon () { return TripleGripperIcon; },
+    get setCustomTemplateLiteralTag () { return setCustomTemplateLiteralTag; }
+});
+var __6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__module_namespace_5 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get setCustomTemplateLiteralTag () { return setCustomTemplateLiteralTag; },
+    get AlertMediumIcon () { return AlertMediumIcon; },
+    get AlertSmallIcon () { return AlertSmallIcon; },
+    get ArrowDownSmallIcon () { return ArrowDownSmallIcon; },
+    get ArrowLeftMediumIcon () { return ArrowLeftMediumIcon; },
+    get ArrowUpSmallIcon () { return ArrowUpSmallIcon; },
+    get AsteriskIcon () { return AsteriskIcon; },
+    get CheckmarkMediumIcon () { return CheckmarkMediumIcon; },
+    get CheckmarkSmallIcon () { return CheckmarkSmallIcon; },
+    get ChevronDownMediumIcon () { return ChevronDownMediumIcon; },
+    get ChevronDownSmallIcon () { return ChevronDownSmallIcon; },
+    get ChevronLeftLargeIcon () { return ChevronLeftLargeIcon; },
+    get ChevronLeftMediumIcon () { return ChevronLeftMediumIcon; },
+    get ChevronRightLargeIcon () { return ChevronRightLargeIcon; },
+    get ChevronRightMediumIcon () { return ChevronRightMediumIcon; },
+    get ChevronRightSmallIcon () { return ChevronRightSmallIcon; },
+    get ChevronUpSmallIcon () { return ChevronUpSmallIcon; },
+    get CornerTriangleIcon () { return CornerTriangleIcon; },
+    get CrossLargeIcon () { return CrossLargeIcon; },
+    get CrossMediumIcon () { return CrossMediumIcon; },
+    get CrossSmallIcon () { return CrossSmallIcon; },
+    get DashSmallIcon () { return DashSmallIcon; },
+    get DoubleGripperIcon () { return DoubleGripperIcon; },
+    get FolderBreadcrumbIcon () { return FolderBreadcrumbIcon; },
+    get HelpMediumIcon () { return HelpMediumIcon; },
+    get HelpSmallIcon () { return HelpSmallIcon; },
+    get InfoMediumIcon () { return InfoMediumIcon; },
+    get InfoSmallIcon () { return InfoSmallIcon; },
+    get MagnifierIcon () { return MagnifierIcon; },
+    get MoreIcon () { return MoreIcon; },
+    get SkipLeftIcon () { return SkipLeftIcon; },
+    get SkipRightIcon () { return SkipRightIcon; },
+    get StarIcon () { return StarIcon; },
+    get StarOutlineIcon () { return StarOutlineIcon; },
+    get SuccessMediumIcon () { return SuccessMediumIcon; },
+    get SuccessSmallIcon () { return SuccessSmallIcon; },
+    get TripleGripperIcon () { return TripleGripperIcon; }
+});
+var __6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__module_namespace_6 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get default () { return styles$5; }
+});
+var __57a4ba8749659179686903efd686c13024f3a9b0bde1749d740b048da3d5bd07__module_namespace_3 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get ClearButton () { return ClearButton; }
+});
+var __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__module_namespace_4 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    get Button () { return Button; },
+    get ActionButton () { return ActionButton; },
+    get ClearButton () { return ClearButton; }
+});
+var __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__module_namespace_5 = /*#__PURE__*/Object.freeze({
+    __proto__: null
+});
+var __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__module_namespace_6 = /*#__PURE__*/Object.freeze({
     __proto__: null,
     get exportedName () { return exportedName; },
     get exportedName2 () { return exportedName2; },
@@ -171,11 +532,11 @@ var __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__module_n
     get inaccessibleObject () { return inaccessibleObject; },
     get ExportedClass () { return ExportedClass; }
 });
-var __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__module_namespace_5 = /*#__PURE__*/Object.freeze({
+var __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__module_namespace_7 = /*#__PURE__*/Object.freeze({
     __proto__: null,
     get UnspecifiedExport () { return UnspecifiedExport; }
 });
-var __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__module_namespace_0 = /*#__PURE__*/Object.freeze({
+var __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__module_namespace_0 = /*#__PURE__*/Object.freeze({
     __proto__: null,
     get HelloWorld () { return HelloWorld; }
 });
@@ -5999,7 +6360,7 @@ __hook__('#=', __hook__('m', LitElement, [__90693844b86f4d9de9bee5c9026eefe73aa2
 }, null, [
   'export',
   __90693844b86f4d9de9bee5c9026eefe73aa20a0dcf4c48ca6c0898a0743e76a8__[0],
-  __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__module_namespace_1
+  __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__module_namespace_1
 ], __90693844b86f4d9de9bee5c9026eefe73aa20a0dcf4c48ca6c0898a0743e76a8__[0], NaN);
 
 /**
@@ -6632,8 +6993,6295 @@ const repeat = __hook__('m()', directive, [
 }, null, [
   'export',
   __b15b4641592e06cb6bd58e2388a36a7686fd420263ed87c79d1810ba30d7006d__[0],
-  __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__module_namespace_2
+  __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__module_namespace_2
 ], __b15b4641592e06cb6bd58e2388a36a7686fd420263ed87c79d1810ba30d7006d__[0], NaN);
+
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation.
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
+***************************************************************************** */
+/* global Reflect, Promise */
+const __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,extendStatics',
+  'S_uNpREdiC4aB1e_Object;/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,extendStatics',
+  'S_uNpREdiC4aB1e_Array;/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,extendStatics',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__extends',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__extends,__',
+  'S_uNpREdiC4aB1e_Object;/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__extends',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__assign',
+  'S_uNpREdiC4aB1e_Object;/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__assign',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__assign,__assign',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__assign,__assign,n',
+  'S_uNpREdiC4aB1e_Object;/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__assign,__assign',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__rest',
+  'S_uNpREdiC4aB1e_Object;/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__rest',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__rest,p',
+  'S_uNpREdiC4aB1e_Object;/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__rest,p',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__decorate',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__decorate,c',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__decorate,r',
+  'S_uNpREdiC4aB1e_Object;/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__decorate,r',
+  'S_uNpREdiC4aB1e_Reflect;/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__decorate',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__decorate,i',
+  'S_uNpREdiC4aB1e_Object;/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__decorate',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__param',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__metadata',
+  'S_uNpREdiC4aB1e_Reflect;/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__metadata',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__awaiter',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__awaiter,adopt',
+  'S_uNpREdiC4aB1e_Promise;/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__awaiter',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__awaiter,fulfilled',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__awaiter,rejected',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__awaiter,step',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__generator',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__generator,_,sent',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__generator,next',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__generator,throw',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__generator,return',
+  'S_uNpREdiC4aB1e_Symbol;/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__generator',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__generator,verb',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__generator,step',
+  'S_uNpREdiC4aB1e_TypeError;/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__generator,step',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__generator,step,value',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__createBinding',
+  'S_uNpREdiC4aB1e_Object;/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__createBinding',
+  'S_uNpREdiC4aB1e_undefined;/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__createBinding',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__createBinding,get',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__exportStar',
+  'S_uNpREdiC4aB1e_Object;/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__exportStar',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__values',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__values,s',
+  'S_uNpREdiC4aB1e_Symbol;/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__values,s',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__values,m',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__values,next',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__values,next,value',
+  'S_uNpREdiC4aB1e_TypeError;/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__values',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__read',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__read,m',
+  'S_uNpREdiC4aB1e_Symbol;/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__read,m',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__read,i',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__spread',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__spreadArrays',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__spreadArrays,il',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__spreadArrays,r',
+  'S_uNpREdiC4aB1e_Array;/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__spreadArrays,r',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__spreadArrays,a',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__spreadArrays,jl',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__await',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__asyncGenerator',
+  'S_uNpREdiC4aB1e_Symbol;/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__asyncGenerator',
+  'S_uNpREdiC4aB1e_TypeError;/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__asyncGenerator',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__asyncGenerator,g',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__asyncGenerator,verb',
+  'S_uNpREdiC4aB1e_Promise;/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__asyncGenerator,verb',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__asyncGenerator,resume',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__asyncGenerator,step',
+  'S_uNpREdiC4aB1e_Promise;/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__asyncGenerator,step',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__asyncGenerator,fulfill',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__asyncGenerator,reject',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__asyncGenerator,settle',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__asyncDelegator',
+  'S_uNpREdiC4aB1e_Symbol;/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__asyncDelegator',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__asyncDelegator,verb',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__asyncDelegator,verb,value',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__asyncValues',
+  'S_uNpREdiC4aB1e_Symbol;/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__asyncValues',
+  'S_uNpREdiC4aB1e_TypeError;/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__asyncValues',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__asyncValues,m',
+  'S_uNpREdiC4aB1e_Symbol;/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__asyncValues,m',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__asyncValues,verb',
+  'S_uNpREdiC4aB1e_Promise;/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__asyncValues,verb',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__asyncValues,settle',
+  'S_uNpREdiC4aB1e_Promise;/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__asyncValues,settle',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__makeTemplateObject',
+  'S_uNpREdiC4aB1e_Object;/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__makeTemplateObject',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__setModuleDefault',
+  'S_uNpREdiC4aB1e_Object;/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__setModuleDefault',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__importStar',
+  'S_uNpREdiC4aB1e_Object;/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__importStar',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__importDefault',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__classPrivateFieldGet',
+  'S_uNpREdiC4aB1e_TypeError;/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__classPrivateFieldGet',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__classPrivateFieldSet',
+  'S_uNpREdiC4aB1e_TypeError;/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__classPrivateFieldSet'
+]);
+var extendStatics = function (d, b) {
+  return __hook__((d, b) => {
+    extendStatics = __hook__('#.', $hook$.global(__hook__, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[1], 'Object', '#get')[__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[2]], ['setPrototypeOf'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[1]) || { __proto__: [] } instanceof $hook$.global(__hook__, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[1], 'Array', '#get')[__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[3]] && function (d, b) {
+      return __hook__((d, b) => {
+        __hook__('#=', d, [
+          '__proto__',
+          b
+        ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[1]);
+      }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[1]);
+    } || function (d, b) {
+      return __hook__((d, b) => {
+        for (var p in __hook__('#*', b, [], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[1]))
+          if (__hook__('#()', __hook__('#.', __hook__('#.', $hook$.global(__hook__, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[1], 'Object', '#get')[__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[2]], ['prototype'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[1]), ['hasOwnProperty'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[1]), [
+              'call',
+              [
+                b,
+                p
+              ]
+            ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[1]))
+            __hook__('#=', d, [
+              p,
+              __hook__('#.', b, [p], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[1])
+            ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[1]);
+      }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[1]);
+    };
+    return __hook__(extendStatics, null, [
+      d,
+      b
+    ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[1], 0);
+  }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[1]);
+};
+function __extends(d, b) {
+  return __hook__((d, b) => {
+    __hook__(extendStatics, null, [
+      d,
+      b
+    ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[4], 0);
+    function __() {
+      return __hook__(() => {
+        __hook__('#=', this, [
+          'constructor',
+          d
+        ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[5]);
+      }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[5]);
+    }
+    __hook__('#=', d, [
+      'prototype',
+      b === null ? __hook__('#()', $hook$.global(__hook__, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[4], 'Object', '#get')[__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[6]], [
+        'create',
+        [b]
+      ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[4]) : (__hook__('#=', __, [
+        'prototype',
+        __hook__('#.', b, ['prototype'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[4])
+      ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[4]), __hook__(__, null, [], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[4], true))
+    ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[4]);
+  }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[4]);
+}
+var __assign = function () {
+  return __hook__(() => {
+    __hook__('m=', __assign, [
+      __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[7],
+      __hook__('#.', $hook$.global(__hook__, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[7], 'Object', '#get')[__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[8]], ['assign'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[7]) || function __assign(t) {
+        return __hook__(t => {
+          for (var s, i = 1, n = __hook__('#.', arguments, ['length'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[10]); i < n; i++) {
+            s = __hook__('#.', arguments, [i], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[9]);
+            for (var p in __hook__('#*', s, [], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[9]))
+              if (__hook__('#()', __hook__('#.', __hook__('#.', $hook$.global(__hook__, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[9], 'Object', '#get')[__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[11]], ['prototype'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[9]), ['hasOwnProperty'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[9]), [
+                  'call',
+                  [
+                    s,
+                    p
+                  ]
+                ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[9]))
+                __hook__('#=', t, [
+                  p,
+                  __hook__('#.', s, [p], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[9])
+                ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[9]);
+          }
+          return t;
+        }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[9]);
+      },
+      v => __assign = v
+    ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[7], null);
+    return __hook__('#()', __hook__('m', __assign, [__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[7]], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[7], null), [
+      'apply',
+      [
+        this,
+        arguments
+      ]
+    ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[7]);
+  }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[7]);
+};
+function __rest(s, e) {
+  return __hook__((s, e) => {
+    var t = {};
+    for (var p in __hook__('#*', s, [], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[12]))
+      if (__hook__('#()', __hook__('#.', __hook__('#.', $hook$.global(__hook__, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[12], 'Object', '#get')[__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[13]], ['prototype'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[12]), ['hasOwnProperty'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[12]), [
+          'call',
+          [
+            s,
+            p
+          ]
+        ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[12]) && __hook__('#()', e, [
+          'indexOf',
+          [p]
+        ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[12]) < 0)
+        __hook__('#=', t, [
+          p,
+          __hook__('#.', s, [p], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[12])
+        ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[12]);
+    if (s != null && typeof __hook__('#.', $hook$.global(__hook__, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[12], 'Object', '#get')[__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[13]], ['getOwnPropertySymbols'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[12]) === 'function')
+      for (var i = 0, p = __hook__('#()', $hook$.global(__hook__, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[14], 'Object', '#get')[__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[15]], [
+            'getOwnPropertySymbols',
+            [s]
+          ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[14]); i < __hook__('#.', p, ['length'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[12]); i++) {
+        if (__hook__('#()', e, [
+            'indexOf',
+            [__hook__('#.', p, [i], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[12])]
+          ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[12]) < 0 && __hook__('#()', __hook__('#.', __hook__('#.', $hook$.global(__hook__, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[12], 'Object', '#get')[__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[13]], ['prototype'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[12]), ['propertyIsEnumerable'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[12]), [
+            'call',
+            [
+              s,
+              __hook__('#.', p, [i], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[12])
+            ]
+          ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[12]))
+          __hook__('#=', t, [
+            __hook__('#.', p, [i], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[12]),
+            __hook__('#.', s, [__hook__('#.', p, [i], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[12])], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[12])
+          ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[12]);
+      }
+    return t;
+  }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[12]);
+}
+function __decorate(decorators, target, key, desc) {
+  return __hook__((decorators, target, key, desc) => {
+    var c = __hook__('#.', arguments, ['length'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[17]), r = c < 3 ? target : desc === null ? desc = __hook__('#()', $hook$.global(__hook__, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[18], 'Object', '#get')[__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[19]], [
+        'getOwnPropertyDescriptor',
+        [
+          target,
+          key
+        ]
+      ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[18]) : desc, d;
+    if (typeof $hook$.global(__hook__, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[16], 'Reflect', '#typeof')[__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[20]] === 'object' && typeof __hook__('#.', $hook$.global(__hook__, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[16], 'Reflect', '#get')[__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[20]], ['decorate'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[16]) === 'function')
+      r = __hook__('#()', $hook$.global(__hook__, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[16], 'Reflect', '#get')[__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[20]], [
+        'decorate',
+        [
+          decorators,
+          target,
+          key,
+          desc
+        ]
+      ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[16]);
+    else
+      for (var i = __hook__('#.', decorators, ['length'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[21]) - 1; i >= 0; i--)
+        if (d = __hook__('#.', decorators, [i], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[16]))
+          r = (c < 3 ? __hook__(d, null, [r], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[16], 0) : c > 3 ? __hook__(d, null, [
+            target,
+            key,
+            r
+          ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[16], 0) : __hook__(d, null, [
+            target,
+            key
+          ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[16], 0)) || r;
+    return c > 3 && r && __hook__('#()', $hook$.global(__hook__, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[16], 'Object', '#get')[__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[22]], [
+      'defineProperty',
+      [
+        target,
+        key,
+        r
+      ]
+    ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[16]), r;
+  }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[16]);
+}
+function __param(paramIndex, decorator) {
+  return __hook__((paramIndex, decorator) => {
+    return function (target, key) {
+      return __hook__((target, key) => {
+        __hook__(decorator, null, [
+          target,
+          key,
+          paramIndex
+        ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[23], 0);
+      }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[23]);
+    };
+  }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[23]);
+}
+function __metadata(metadataKey, metadataValue) {
+  return __hook__((metadataKey, metadataValue) => {
+    if (typeof $hook$.global(__hook__, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[24], 'Reflect', '#typeof')[__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[25]] === 'object' && typeof __hook__('#.', $hook$.global(__hook__, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[24], 'Reflect', '#get')[__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[25]], ['metadata'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[24]) === 'function')
+      return __hook__('#()', $hook$.global(__hook__, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[24], 'Reflect', '#get')[__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[25]], [
+        'metadata',
+        [
+          metadataKey,
+          metadataValue
+        ]
+      ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[24]);
+  }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[24]);
+}
+function __awaiter(thisArg, _arguments, P, generator) {
+  return __hook__((thisArg, _arguments, P, generator) => {
+    function adopt(value) {
+      return __hook__(value => {
+        return value instanceof P ? value : __hook__(P, null, [function (resolve) {
+            return __hook__(resolve => {
+              __hook__(resolve, null, [value], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[27], 0);
+            }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[27]);
+          }], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[27], true);
+      }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[27]);
+    }
+    return __hook__(P || (P = $hook$.global(__hook__, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[26], 'Promise', '#get')[__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[28]]), null, [function (resolve, reject) {
+        return __hook__((resolve, reject) => {
+          function fulfilled(value) {
+            return __hook__(value => {
+              try {
+                __hook__(step, null, [__hook__('#()', generator, [
+                    'next',
+                    [value]
+                  ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[29])], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[29], 0);
+              } catch (e) {
+                __hook__(reject, null, [e], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[29], 0);
+              }
+            }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[29]);
+          }
+          function rejected(value) {
+            return __hook__(value => {
+              try {
+                __hook__(step, null, [__hook__('#()', generator, [
+                    'throw',
+                    [value]
+                  ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[30])], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[30], 0);
+              } catch (e) {
+                __hook__(reject, null, [e], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[30], 0);
+              }
+            }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[30]);
+          }
+          function step(result) {
+            return __hook__(result => {
+              __hook__('#.', result, ['done'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[31]) ? __hook__(resolve, null, [__hook__('#.', result, ['value'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[31])], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[31], 0) : __hook__('#()', __hook__(adopt, null, [__hook__('#.', result, ['value'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[31])], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[31], 0), [
+                'then',
+                [
+                  fulfilled,
+                  rejected
+                ]
+              ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[31]);
+            }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[31]);
+          }
+          __hook__(step, null, [__hook__('#()', generator = __hook__('#()', generator, [
+              'apply',
+              [
+                thisArg,
+                _arguments || []
+              ]
+            ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[26]), [
+              'next',
+              []
+            ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[26])], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[26], 0);
+        }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[26]);
+      }], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[26], true);
+  }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[26]);
+}
+function __generator(thisArg, body) {
+  return __hook__((thisArg, body) => {
+    var _ = {
+        label: 0,
+        sent: function () {
+          return __hook__(() => {
+            if (__hook__('#.', t, [0], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[33]) & 1)
+              throw __hook__('#.', t, [1], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[33]);
+            return __hook__('#.', t, [1], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[33]);
+          }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[33]);
+        },
+        trys: [],
+        ops: []
+      }, f, y, t, g;
+    return g = {
+      next: __hook__(verb, null, [0], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[34], 0),
+      'throw': __hook__(verb, null, [1], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[35], 0),
+      'return': __hook__(verb, null, [2], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[36], 0)
+    }, typeof $hook$.global(__hook__, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[32], 'Symbol', '#typeof')[__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[37]] === 'function' && __hook__('#=', g, [
+      __hook__('#.', $hook$.global(__hook__, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[32], 'Symbol', '#get')[__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[37]], ['iterator'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[32]),
+      function () {
+        return __hook__(() => {
+          return this;
+        }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[32]);
+      }
+    ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[32]), g;
+    function verb(n) {
+      return __hook__(n => {
+        return function (v) {
+          return __hook__(v => {
+            return __hook__(step, null, [[
+                n,
+                v
+              ]], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[38], 0);
+          }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[38]);
+        };
+      }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[38]);
+    }
+    function step(op) {
+      return __hook__(op => {
+        if (f)
+          throw __hook__($hook$.global(__hook__, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[39], 'TypeError', '#get')[__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[40]], null, ['Generator is already executing.'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[39], true);
+        while (_)
+          try {
+            if (f = 1, y && (t = __hook__('#.', op, [0], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[39]) & 2 ? __hook__('#.', y, ['return'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[39]) : __hook__('#.', op, [0], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[39]) ? __hook__('#.', y, ['throw'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[39]) || ((t = __hook__('#.', y, ['return'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[39])) && __hook__('#()', t, [
+                'call',
+                [y]
+              ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[39]), 0) : __hook__('#.', y, ['next'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[39])) && !__hook__('#.', t = __hook__('#()', t, [
+                'call',
+                [
+                  y,
+                  __hook__('#.', op, [1], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[39])
+                ]
+              ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[39]), ['done'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[39]))
+              return t;
+            if (y = 0, t)
+              op = [
+                __hook__('#.', op, [0], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[39]) & 2,
+                __hook__('#.', t, ['value'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[39])
+              ];
+            switch (__hook__('#.', op, [0], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[39])) {
+            case 0:
+            case 1:
+              t = op;
+              break;
+            case 4:
+              __hook__('#p++', _, ['label'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[39]);
+              return {
+                value: __hook__('#.', op, [1], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[41]),
+                done: false
+              };
+            case 5:
+              __hook__('#p++', _, ['label'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[39]);
+              y = __hook__('#.', op, [1], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[39]);
+              op = [0];
+              continue;
+            case 7:
+              op = __hook__('#()', __hook__('#.', _, ['ops'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[39]), [
+                'pop',
+                []
+              ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[39]);
+              __hook__('#()', __hook__('#.', _, ['trys'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[39]), [
+                'pop',
+                []
+              ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[39]);
+              continue;
+            default:
+              if (!(t = __hook__('#.', _, ['trys'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[39]), t = __hook__('#.', t, ['length'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[39]) > 0 && __hook__('#.', t, [__hook__('#.', t, ['length'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[39]) - 1], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[39])) && (__hook__('#.', op, [0], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[39]) === 6 || __hook__('#.', op, [0], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[39]) === 2)) {
+                _ = 0;
+                continue;
+              }
+              if (__hook__('#.', op, [0], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[39]) === 3 && (!t || __hook__('#.', op, [1], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[39]) > __hook__('#.', t, [0], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[39]) && __hook__('#.', op, [1], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[39]) < __hook__('#.', t, [3], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[39]))) {
+                __hook__('#=', _, [
+                  'label',
+                  __hook__('#.', op, [1], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[39])
+                ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[39]);
+                break;
+              }
+              if (__hook__('#.', op, [0], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[39]) === 6 && __hook__('#.', _, ['label'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[39]) < __hook__('#.', t, [1], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[39])) {
+                __hook__('#=', _, [
+                  'label',
+                  __hook__('#.', t, [1], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[39])
+                ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[39]);
+                t = op;
+                break;
+              }
+              if (t && __hook__('#.', _, ['label'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[39]) < __hook__('#.', t, [2], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[39])) {
+                __hook__('#=', _, [
+                  'label',
+                  __hook__('#.', t, [2], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[39])
+                ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[39]);
+                __hook__('#()', __hook__('#.', _, ['ops'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[39]), [
+                  'push',
+                  [op]
+                ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[39]);
+                break;
+              }
+              if (__hook__('#.', t, [2], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[39]))
+                __hook__('#()', __hook__('#.', _, ['ops'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[39]), [
+                  'pop',
+                  []
+                ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[39]);
+              __hook__('#()', __hook__('#.', _, ['trys'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[39]), [
+                'pop',
+                []
+              ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[39]);
+              continue;
+            }
+            op = __hook__('#()', body, [
+              'call',
+              [
+                thisArg,
+                _
+              ]
+            ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[39]);
+          } catch (e) {
+            op = [
+              6,
+              e
+            ];
+            y = 0;
+          } finally {
+            f = t = 0;
+          }
+        if (__hook__('#.', op, [0], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[39]) & 5)
+          throw __hook__('#.', op, [1], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[39]);
+        return {
+          value: __hook__('#.', op, [0], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[41]) ? __hook__('#.', op, [1], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[41]) : void 0,
+          done: true
+        };
+      }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[39]);
+    }
+  }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[32]);
+}
+var __createBinding = __hook__('#.', $hook$.global(__hook__, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[42], 'Object', '#get')[__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[43]], ['create'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[42]) ? function (o, m, k, k2) {
+  return __hook__((o, m, k, k2) => {
+    if (k2 === $hook$.global(__hook__, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[42], 'undefined', '#get')[__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[44]])
+      k2 = k;
+    __hook__('#()', $hook$.global(__hook__, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[42], 'Object', '#get')[__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[43]], [
+      'defineProperty',
+      [
+        o,
+        k2,
+        {
+          enumerable: true,
+          get: function () {
+            return __hook__(() => {
+              return __hook__('#.', m, [k], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[45]);
+            }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[45]);
+          }
+        }
+      ]
+    ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[42]);
+  }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[42]);
+} : function (o, m, k, k2) {
+  return __hook__((o, m, k, k2) => {
+    if (k2 === $hook$.global(__hook__, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[42], 'undefined', '#get')[__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[44]])
+      k2 = k;
+    __hook__('#=', o, [
+      k2,
+      __hook__('#.', m, [k], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[42])
+    ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[42]);
+  }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[42]);
+};
+function __exportStar(m, o) {
+  return __hook__((m, o) => {
+    for (var p in __hook__('#*', m, [], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[46]))
+      if (p !== 'default' && !__hook__('#()', __hook__('#.', __hook__('#.', $hook$.global(__hook__, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[46], 'Object', '#get')[__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[47]], ['prototype'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[46]), ['hasOwnProperty'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[46]), [
+          'call',
+          [
+            o,
+            p
+          ]
+        ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[46]))
+        __hook__('m()', __createBinding, [
+          __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[42],
+          [
+            o,
+            m,
+            p
+          ],
+          (...args) => __createBinding(...args)
+        ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[46], null);
+  }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[46]);
+}
+function __values(o) {
+  return __hook__(o => {
+    var s = typeof $hook$.global(__hook__, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[49], 'Symbol', '#typeof')[__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[50]] === 'function' && __hook__('#.', $hook$.global(__hook__, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[49], 'Symbol', '#get')[__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[50]], ['iterator'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[49]), m = s && __hook__('#.', o, [s], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[51]), i = 0;
+    if (m)
+      return __hook__('#()', m, [
+        'call',
+        [o]
+      ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[48]);
+    if (o && typeof __hook__('#.', o, ['length'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[48]) === 'number')
+      return {
+        next: function () {
+          return __hook__(() => {
+            if (o && i >= __hook__('#.', o, ['length'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[52]))
+              o = void 0;
+            return {
+              value: o && __hook__('#.', o, [i++], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[53]),
+              done: !o
+            };
+          }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[52]);
+        }
+      };
+    throw __hook__($hook$.global(__hook__, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[48], 'TypeError', '#get')[__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[54]], null, [s ? 'Object is not iterable.' : 'Symbol.iterator is not defined.'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[48], true);
+  }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[48]);
+}
+function __read(o, n) {
+  return __hook__((o, n) => {
+    var m = typeof $hook$.global(__hook__, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[56], 'Symbol', '#typeof')[__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[57]] === 'function' && __hook__('#.', o, [__hook__('#.', $hook$.global(__hook__, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[56], 'Symbol', '#get')[__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[57]], ['iterator'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[56])], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[56]);
+    if (!m)
+      return o;
+    var i = __hook__('#()', m, [
+        'call',
+        [o]
+      ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[58]), r, ar = [], e;
+    try {
+      while ((n === void 0 || n-- > 0) && !__hook__('#.', r = __hook__('#()', i, [
+          'next',
+          []
+        ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[55]), ['done'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[55]))
+        __hook__('#()', ar, [
+          'push',
+          [__hook__('#.', r, ['value'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[55])]
+        ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[55]);
+    } catch (error) {
+      e = { error: error };
+    } finally {
+      try {
+        if (r && !__hook__('#.', r, ['done'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[55]) && (m = __hook__('#.', i, ['return'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[55])))
+          __hook__('#()', m, [
+            'call',
+            [i]
+          ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[55]);
+      } finally {
+        if (e)
+          throw __hook__('#.', e, ['error'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[55]);
+      }
+    }
+    return ar;
+  }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[55]);
+}
+function __spread() {
+  return __hook__(() => {
+    for (var ar = [], i = 0; i < __hook__('#.', arguments, ['length'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[59]); i++)
+      ar = __hook__('#()', ar, [
+        'concat',
+        [__hook__('m()', __read, [
+            __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[55],
+            [__hook__('#.', arguments, [i], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[59])],
+            (...args) => __read(...args)
+          ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[59], null)]
+      ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[59]);
+    return ar;
+  }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[59]);
+}
+function __spreadArrays() {
+  return __hook__(() => {
+    for (var s = 0, i = 0, il = __hook__('#.', arguments, ['length'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[61]); i < il; i++)
+      s += __hook__('#.', __hook__('#.', arguments, [i], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[60]), ['length'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[60]);
+    for (var r = __hook__($hook$.global(__hook__, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[62], 'Array', '#get')[__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[63]], null, [s], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[62], 0), k = 0, i = 0; i < il; i++)
+      for (var a = __hook__('#.', arguments, [i], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[64]), j = 0, jl = __hook__('#.', a, ['length'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[65]); j < jl; j++, k++)
+        __hook__('#=', r, [
+          k,
+          __hook__('#.', a, [j], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[60])
+        ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[60]);
+    return r;
+  }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[60]);
+}
+;
+function __await(v) {
+  return __hook__(v => {
+    return this instanceof __hook__('m', __await, [__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[66]], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[66], null) ? (__hook__('#=', this, [
+      'v',
+      v
+    ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[66]), this) : __hook__('mnew', __await, [
+      __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[66],
+      [v],
+      (...args) => new __await(...args)
+    ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[66], null);
+  }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[66]);
+}
+function __asyncGenerator(thisArg, _arguments, generator) {
+  return __hook__((thisArg, _arguments, generator) => {
+    if (!__hook__('#.', $hook$.global(__hook__, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[67], 'Symbol', '#get')[__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[68]], ['asyncIterator'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[67]))
+      throw __hook__($hook$.global(__hook__, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[67], 'TypeError', '#get')[__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[69]], null, ['Symbol.asyncIterator is not defined.'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[67], true);
+    var g = __hook__('#()', generator, [
+        'apply',
+        [
+          thisArg,
+          _arguments || []
+        ]
+      ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[70]), i, q = [];
+    return i = {}, __hook__(verb, null, ['next'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[67], 0), __hook__(verb, null, ['throw'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[67], 0), __hook__(verb, null, ['return'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[67], 0), __hook__('#=', i, [
+      __hook__('#.', $hook$.global(__hook__, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[67], 'Symbol', '#get')[__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[68]], ['asyncIterator'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[67]),
+      function () {
+        return __hook__(() => {
+          return this;
+        }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[67]);
+      }
+    ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[67]), i;
+    function verb(n) {
+      return __hook__(n => {
+        if (__hook__('#.', g, [n], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[71]))
+          __hook__('#=', i, [
+            n,
+            function (v) {
+              return __hook__(v => {
+                return __hook__($hook$.global(__hook__, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[71], 'Promise', '#get')[__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[72]], null, [function (a, b) {
+                    return __hook__((a, b) => {
+                      __hook__('#()', q, [
+                        'push',
+                        [[
+                            n,
+                            v,
+                            a,
+                            b
+                          ]]
+                      ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[71]) > 1 || __hook__(resume, null, [
+                        n,
+                        v
+                      ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[71], 0);
+                    }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[71]);
+                  }], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[71], true);
+              }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[71]);
+            }
+          ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[71]);
+      }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[71]);
+    }
+    function resume(n, v) {
+      return __hook__((n, v) => {
+        try {
+          __hook__(step, null, [__hook__('#()', g, [
+              n,
+              [v]
+            ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[73])], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[73], 0);
+        } catch (e) {
+          __hook__(settle, null, [
+            __hook__('#.', __hook__('#.', q, [0], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[73]), [3], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[73]),
+            e
+          ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[73], 0);
+        }
+      }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[73]);
+    }
+    function step(r) {
+      return __hook__(r => {
+        __hook__('#.', r, ['value'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[74]) instanceof __hook__('m', __await, [__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[66]], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[74], null) ? __hook__('#()', __hook__('#()', $hook$.global(__hook__, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[74], 'Promise', '#get')[__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[75]], [
+          'resolve',
+          [__hook__('#.', __hook__('#.', r, ['value'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[74]), ['v'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[74])]
+        ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[74]), [
+          'then',
+          [
+            fulfill,
+            reject
+          ]
+        ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[74]) : __hook__(settle, null, [
+          __hook__('#.', __hook__('#.', q, [0], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[74]), [2], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[74]),
+          r
+        ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[74], 0);
+      }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[74]);
+    }
+    function fulfill(value) {
+      return __hook__(value => {
+        __hook__(resume, null, [
+          'next',
+          value
+        ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[76], 0);
+      }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[76]);
+    }
+    function reject(value) {
+      return __hook__(value => {
+        __hook__(resume, null, [
+          'throw',
+          value
+        ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[77], 0);
+      }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[77]);
+    }
+    function settle(f, v) {
+      return __hook__((f, v) => {
+        if (__hook__(f, null, [v], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[78], 0), __hook__('#()', q, [
+            'shift',
+            []
+          ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[78]), __hook__('#.', q, ['length'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[78]))
+          __hook__(resume, null, [
+            __hook__('#.', __hook__('#.', q, [0], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[78]), [0], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[78]),
+            __hook__('#.', __hook__('#.', q, [0], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[78]), [1], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[78])
+          ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[78], 0);
+      }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[78]);
+    }
+  }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[67]);
+}
+function __asyncDelegator(o) {
+  return __hook__(o => {
+    var i, p;
+    return i = {}, __hook__(verb, null, ['next'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[79], 0), __hook__(verb, null, [
+      'throw',
+      function (e) {
+        return __hook__(e => {
+          throw e;
+        }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[79]);
+      }
+    ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[79], 0), __hook__(verb, null, ['return'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[79], 0), __hook__('#=', i, [
+      __hook__('#.', $hook$.global(__hook__, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[79], 'Symbol', '#get')[__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[80]], ['iterator'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[79]),
+      function () {
+        return __hook__(() => {
+          return this;
+        }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[79]);
+      }
+    ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[79]), i;
+    function verb(n, f) {
+      return __hook__((n, f) => {
+        __hook__('#=', i, [
+          n,
+          __hook__('#.', o, [n], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[81]) ? function (v) {
+            return __hook__(v => {
+              return (p = !p) ? {
+                value: __hook__('m()', __await, [
+                  __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[66],
+                  [__hook__('#()', o, [
+                      n,
+                      [v]
+                    ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[82])],
+                  (...args) => __await(...args)
+                ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[82], null),
+                done: n === 'return'
+              } : f ? __hook__(f, null, [v], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[81], 0) : v;
+            }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[81]);
+          } : f
+        ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[81]);
+      }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[81]);
+    }
+  }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[79]);
+}
+function __asyncValues(o) {
+  return __hook__(o => {
+    if (!__hook__('#.', $hook$.global(__hook__, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[83], 'Symbol', '#get')[__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[84]], ['asyncIterator'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[83]))
+      throw __hook__($hook$.global(__hook__, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[83], 'TypeError', '#get')[__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[85]], null, ['Symbol.asyncIterator is not defined.'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[83], true);
+    var m = __hook__('#.', o, [__hook__('#.', $hook$.global(__hook__, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[86], 'Symbol', '#get')[__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[87]], ['asyncIterator'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[86])], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[86]), i;
+    return m ? __hook__('#()', m, [
+      'call',
+      [o]
+    ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[83]) : (o = __hook__('mtypeof', __values, [
+      __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[48],
+      () => typeof __values
+    ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[83], null) === 'function' ? __hook__('m()', __values, [
+      __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[48],
+      [o],
+      (...args) => __values(...args)
+    ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[83], null) : __hook__('#()', o, [
+      __hook__('#.', $hook$.global(__hook__, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[83], 'Symbol', '#get')[__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[84]], ['iterator'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[83]),
+      []
+    ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[83]), i = {}, __hook__(verb, null, ['next'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[83], 0), __hook__(verb, null, ['throw'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[83], 0), __hook__(verb, null, ['return'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[83], 0), __hook__('#=', i, [
+      __hook__('#.', $hook$.global(__hook__, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[83], 'Symbol', '#get')[__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[84]], ['asyncIterator'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[83]),
+      function () {
+        return __hook__(() => {
+          return this;
+        }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[83]);
+      }
+    ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[83]), i);
+    function verb(n) {
+      return __hook__(n => {
+        __hook__('#=', i, [
+          n,
+          __hook__('#.', o, [n], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[88]) && function (v) {
+            return __hook__(v => {
+              return __hook__($hook$.global(__hook__, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[88], 'Promise', '#get')[__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[89]], null, [function (resolve, reject) {
+                  return __hook__((resolve, reject) => {
+                    v = __hook__('#()', o, [
+                      n,
+                      [v]
+                    ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[88]), __hook__(settle, null, [
+                      resolve,
+                      reject,
+                      __hook__('#.', v, ['done'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[88]),
+                      __hook__('#.', v, ['value'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[88])
+                    ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[88], 0);
+                  }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[88]);
+                }], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[88], true);
+            }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[88]);
+          }
+        ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[88]);
+      }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[88]);
+    }
+    function settle(resolve, reject, d, v) {
+      return __hook__((resolve, reject, d, v) => {
+        __hook__('#()', __hook__('#()', $hook$.global(__hook__, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[90], 'Promise', '#get')[__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[91]], [
+          'resolve',
+          [v]
+        ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[90]), [
+          'then',
+          [
+            function (v) {
+              return __hook__(v => {
+                __hook__(resolve, null, [{
+                    value: v,
+                    done: d
+                  }], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[90], 0);
+              }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[90]);
+            },
+            reject
+          ]
+        ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[90]);
+      }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[90]);
+    }
+  }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[83]);
+}
+function __makeTemplateObject(cooked, raw) {
+  return __hook__((cooked, raw) => {
+    if (__hook__('#.', $hook$.global(__hook__, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[92], 'Object', '#get')[__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[93]], ['defineProperty'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[92])) {
+      __hook__('#()', $hook$.global(__hook__, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[92], 'Object', '#get')[__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[93]], [
+        'defineProperty',
+        [
+          cooked,
+          'raw',
+          { value: raw }
+        ]
+      ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[92]);
+    } else {
+      __hook__('#=', cooked, [
+        'raw',
+        raw
+      ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[92]);
+    }
+    return cooked;
+  }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[92]);
+}
+;
+var __setModuleDefault = __hook__('#.', $hook$.global(__hook__, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[94], 'Object', '#get')[__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[95]], ['create'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[94]) ? function (o, v) {
+  return __hook__((o, v) => {
+    __hook__('#()', $hook$.global(__hook__, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[94], 'Object', '#get')[__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[95]], [
+      'defineProperty',
+      [
+        o,
+        'default',
+        {
+          enumerable: true,
+          value: v
+        }
+      ]
+    ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[94]);
+  }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[94]);
+} : function (o, v) {
+  return __hook__((o, v) => {
+    __hook__('#=', o, [
+      'default',
+      v
+    ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[94]);
+  }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[94]);
+};
+function __importStar(mod) {
+  return __hook__(mod => {
+    if (mod && __hook__('#.', mod, ['__esModule'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[96]))
+      return mod;
+    var result = {};
+    if (mod != null)
+      for (var k in __hook__('#*', mod, [], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[96]))
+        if (k !== 'default' && __hook__('#()', __hook__('#.', __hook__('#.', $hook$.global(__hook__, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[96], 'Object', '#get')[__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[97]], ['prototype'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[96]), ['hasOwnProperty'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[96]), [
+            'call',
+            [
+              mod,
+              k
+            ]
+          ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[96]))
+          __hook__('m()', __createBinding, [
+            __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[42],
+            [
+              result,
+              mod,
+              k
+            ],
+            (...args) => __createBinding(...args)
+          ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[96], null);
+    __hook__(__setModuleDefault, null, [
+      result,
+      mod
+    ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[96], 0);
+    return result;
+  }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[96]);
+}
+function __importDefault(mod) {
+  return __hook__(mod => {
+    return mod && __hook__('#.', mod, ['__esModule'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[98]) ? mod : { default: mod };
+  }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[98]);
+}
+function __classPrivateFieldGet(receiver, privateMap) {
+  return __hook__((receiver, privateMap) => {
+    if (!__hook__('#()', privateMap, [
+        'has',
+        [receiver]
+      ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[99])) {
+      throw __hook__($hook$.global(__hook__, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[99], 'TypeError', '#get')[__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[100]], null, ['attempted to get private field on non-instance'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[99], true);
+    }
+    return __hook__('#()', privateMap, [
+      'get',
+      [receiver]
+    ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[99]);
+  }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[99]);
+}
+function __classPrivateFieldSet(receiver, privateMap, value) {
+  return __hook__((receiver, privateMap, value) => {
+    if (!__hook__('#()', privateMap, [
+        'has',
+        [receiver]
+      ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[101])) {
+      throw __hook__($hook$.global(__hook__, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[101], 'TypeError', '#get')[__bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[102]], null, ['attempted to set private field on non-instance'], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[101], true);
+    }
+    __hook__('#()', privateMap, [
+      'set',
+      [
+        receiver,
+        value
+      ]
+    ], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[101]);
+    return value;
+  }, null, arguments, __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[101]);
+}
+__hook__(() => {
+}, null, [
+  'export',
+  __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[0],
+  __6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__module_namespace_1
+], __bfac0a4f0ce95635ca78d9a645c99661353d025ed686523c65b850633a741dd0__[0], NaN);
+
+/**
+ * @license
+ * Copyright (c) 2018 The Polymer Project Authors. All rights reserved.
+ * This code may only be used under the BSD style license found at
+ * http://polymer.github.io/LICENSE.txt
+ * The complete set of authors may be found at
+ * http://polymer.github.io/AUTHORS.txt
+ * The complete set of contributors may be found at
+ * http://polymer.github.io/CONTRIBUTORS.txt
+ * Code distributed by Google as part of the polymer project is also
+ * subject to an additional IP rights grant found at
+ * http://polymer.github.io/PATENTS.txt
+ */
+const __cc6c9649cf984caf0ef2d5dab56de5ae63427969962edacd184bf4e66fadadff__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/lit-html/directives/if-defined.js',
+  '/components/thin-hook/demo/node_modules/lit-html/lit-html.js',
+  '/components/thin-hook/demo/node_modules/lit-html/directives/if-defined.js,previousValues',
+  'S_uNpREdiC4aB1e_WeakMap;/components/thin-hook/demo/node_modules/lit-html/directives/if-defined.js,previousValues',
+  '/components/thin-hook/demo/node_modules/lit-html/directives/if-defined.js,ifDefined',
+  '/components/thin-hook/demo/node_modules/lit-html/lit-html.js,directive',
+  '/components/thin-hook/demo/node_modules/lit-html/directives/if-defined.js,ifDefined,previousValue',
+  'S_uNpREdiC4aB1e_undefined;/components/thin-hook/demo/node_modules/lit-html/directives/if-defined.js,ifDefined',
+  '/components/thin-hook/demo/node_modules/lit-html/lit-html.js,AttributePart',
+  '/components/thin-hook/demo/node_modules/lit-html/directives/if-defined.js,ifDefined,name'
+]);
+__hook__(() => {
+}, null, [
+  'import',
+  {
+    [__cc6c9649cf984caf0ef2d5dab56de5ae63427969962edacd184bf4e66fadadff__[1]]: [
+      litHtmlNamespace,
+      'AttributePart',
+      'directive'
+    ]
+  }
+], __cc6c9649cf984caf0ef2d5dab56de5ae63427969962edacd184bf4e66fadadff__[0], NaN);
+const previousValues = __hook__($hook$.global(__hook__, __cc6c9649cf984caf0ef2d5dab56de5ae63427969962edacd184bf4e66fadadff__[2], 'WeakMap', '#get')[__cc6c9649cf984caf0ef2d5dab56de5ae63427969962edacd184bf4e66fadadff__[3]], null, [], __cc6c9649cf984caf0ef2d5dab56de5ae63427969962edacd184bf4e66fadadff__[2], true);
+/**
+ * For AttributeParts, sets the attribute if the value is defined and removes
+ * the attribute if the value is undefined.
+ *
+ * For other part types, this directive is a no-op.
+ */
+const ifDefined = __hook__('m()', directive, [
+  __cc6c9649cf984caf0ef2d5dab56de5ae63427969962edacd184bf4e66fadadff__[5],
+  [(...args) => __hook__(value => (...args) =>
+      (__hook__(part => {
+        const previousValue = __hook__('#()', previousValues, [
+          'get',
+          [part]
+        ], __cc6c9649cf984caf0ef2d5dab56de5ae63427969962edacd184bf4e66fadadff__[6]);
+        if (value === $hook$.global(__hook__, __cc6c9649cf984caf0ef2d5dab56de5ae63427969962edacd184bf4e66fadadff__[4], 'undefined', '#get')[__cc6c9649cf984caf0ef2d5dab56de5ae63427969962edacd184bf4e66fadadff__[7]] && part instanceof __hook__('m', AttributePart, [__cc6c9649cf984caf0ef2d5dab56de5ae63427969962edacd184bf4e66fadadff__[8]], __cc6c9649cf984caf0ef2d5dab56de5ae63427969962edacd184bf4e66fadadff__[4], null)) {
+          // If the value is undefined, remove the attribute, but only if the value
+          // was previously defined.
+          if (previousValue !== $hook$.global(__hook__, __cc6c9649cf984caf0ef2d5dab56de5ae63427969962edacd184bf4e66fadadff__[4], 'undefined', '#get')[__cc6c9649cf984caf0ef2d5dab56de5ae63427969962edacd184bf4e66fadadff__[7]] || !__hook__('#()', previousValues, [
+              'has',
+              [part]
+            ], __cc6c9649cf984caf0ef2d5dab56de5ae63427969962edacd184bf4e66fadadff__[4])) {
+            const name = __hook__('#.', __hook__('#.', part, ['committer'], __cc6c9649cf984caf0ef2d5dab56de5ae63427969962edacd184bf4e66fadadff__[9]), ['name'], __cc6c9649cf984caf0ef2d5dab56de5ae63427969962edacd184bf4e66fadadff__[9]);
+            __hook__('#()', __hook__('#.', __hook__('#.', part, ['committer'], __cc6c9649cf984caf0ef2d5dab56de5ae63427969962edacd184bf4e66fadadff__[4]), ['element'], __cc6c9649cf984caf0ef2d5dab56de5ae63427969962edacd184bf4e66fadadff__[4]), [
+              'removeAttribute',
+              [name]
+            ], __cc6c9649cf984caf0ef2d5dab56de5ae63427969962edacd184bf4e66fadadff__[4]);
+          }
+        } else if (value !== previousValue) {
+          __hook__('#()', part, [
+            'setValue',
+            [value]
+          ], __cc6c9649cf984caf0ef2d5dab56de5ae63427969962edacd184bf4e66fadadff__[4]);
+        }
+        __hook__('#()', previousValues, [
+          'set',
+          [
+            part,
+            value
+          ]
+        ], __cc6c9649cf984caf0ef2d5dab56de5ae63427969962edacd184bf4e66fadadff__[4]);
+      }, null, args, __cc6c9649cf984caf0ef2d5dab56de5ae63427969962edacd184bf4e66fadadff__[4])), null, args, __cc6c9649cf984caf0ef2d5dab56de5ae63427969962edacd184bf4e66fadadff__[4])],
+  (...args) => directive(...args)
+], __cc6c9649cf984caf0ef2d5dab56de5ae63427969962edacd184bf4e66fadadff__[4], null);  __hook__(() => {
+}, null, [
+  'export',
+  __cc6c9649cf984caf0ef2d5dab56de5ae63427969962edacd184bf4e66fadadff__[0],
+  __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__module_namespace_3
+], __cc6c9649cf984caf0ef2d5dab56de5ae63427969962edacd184bf4e66fadadff__[0], NaN);
+
+const __ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/like-anchor.js',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js',
+  '/components/thin-hook/demo/node_modules/lit-element/lit-element.js',
+  '/components/thin-hook/demo/node_modules/lit-html/directives/if-defined.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/like-anchor.js,LikeAnchor',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/like-anchor.js,LikeAnchor,LikeAnchorElement,renderAnchor',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/like-anchor.js,LikeAnchor,LikeAnchorElement,renderAnchor,anchorContent',
+  '/components/thin-hook/demo/node_modules/lit-element/lit-element.js,html',
+  '/components/thin-hook/demo/node_modules/lit-html/directives/if-defined.js,ifDefined',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__decorate',
+  '/components/thin-hook/demo/node_modules/lit-element/lit-element.js,property'
+]);
+__hook__(() => {
+}, null, [
+  'import',
+  {
+    [__ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[1]]: [
+      __6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__module_namespace_1,
+      '__decorate'
+    ],
+    [__ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[2]]: [
+      __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__module_namespace_1,
+      'property',
+      'html'
+    ],
+    [__ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[3]]: [
+      __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__module_namespace_3,
+      'ifDefined'
+    ]
+  }
+], __ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[0], NaN);
+function LikeAnchor(constructor) {
+  return __hook__(constructor => {
+    class LikeAnchorElement extends constructor {
+      renderAnchor({id, // prettier-ignore
+        anchorContent}) {
+        for (let arg of arguments)
+          __hook__('#*', arg, [], __ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[5]);
+        return __hook__(({id, // prettier-ignore
+          anchorContent = __hook__(__hook__('m', html, [__ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[7]], __ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[6], null), null, [((s, r) => {
+              s.raw = r;
+              return s;
+            })(['<slot></slot>'], ['<slot></slot>'])], __ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[6], 0)}) => {
+          // prettier-ignore
+          return __hook__(__hook__('m', html, [__ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[7]], __ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[5], null), null, [
+            ((s, r) => {
+              s.raw = r;
+              return s;
+            })([
+              '<a\n                    id=',
+              '\n                    href=',
+              '\n                    download=',
+              '\n                    target=',
+              '\n                    aria-label=',
+              '\n                    rel=',
+              '\n                >',
+              '</a>'
+            ], [
+              '<a\n                    id=',
+              '\n                    href=',
+              '\n                    download=',
+              '\n                    target=',
+              '\n                    aria-label=',
+              '\n                    rel=',
+              '\n                >',
+              '</a>'
+            ]),
+            id,
+            __hook__('m()', ifDefined, [
+              __ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[8],
+              [__hook__('#.', this, ['href'], __ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[5])],
+              (...args) => ifDefined(...args)
+            ], __ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[5], null),
+            __hook__('m()', ifDefined, [
+              __ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[8],
+              [__hook__('#.', this, ['download'], __ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[5])],
+              (...args) => ifDefined(...args)
+            ], __ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[5], null),
+            __hook__('m()', ifDefined, [
+              __ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[8],
+              [__hook__('#.', this, ['target'], __ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[5])],
+              (...args) => ifDefined(...args)
+            ], __ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[5], null),
+            __hook__('m()', ifDefined, [
+              __ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[8],
+              [__hook__('#.', this, ['label'], __ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[5])],
+              (...args) => ifDefined(...args)
+            ], __ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[5], null),
+            __hook__('m()', ifDefined, [
+              __ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[8],
+              [__hook__('#.', this, ['rel'], __ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[5])],
+              (...args) => ifDefined(...args)
+            ], __ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[5], null),
+            anchorContent
+          ], __ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[5], 0);
+        }, null, arguments, __ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[5]);
+      }
+    }
+    __hook__('m()', __decorate, [
+      __ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[9],
+      [
+        [__hook__('m()', property, [
+            __ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[10],
+            [{ reflect: true }],
+            (...args) => property(...args)
+          ], __ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[4], null)],
+        __hook__('#.', LikeAnchorElement, ['prototype'], __ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[4]),
+        'download',
+        void 0
+      ],
+      (...args) => __decorate(...args)
+    ], __ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[4], null);
+    __hook__('m()', __decorate, [
+      __ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[9],
+      [
+        [__hook__('m()', property, [
+            __ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[10],
+            [],
+            (...args) => property(...args)
+          ], __ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[4], null)],
+        __hook__('#.', LikeAnchorElement, ['prototype'], __ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[4]),
+        'label',
+        void 0
+      ],
+      (...args) => __decorate(...args)
+    ], __ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[4], null);
+    __hook__('m()', __decorate, [
+      __ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[9],
+      [
+        [__hook__('m()', property, [
+            __ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[10],
+            [{ reflect: true }],
+            (...args) => property(...args)
+          ], __ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[4], null)],
+        __hook__('#.', LikeAnchorElement, ['prototype'], __ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[4]),
+        'href',
+        void 0
+      ],
+      (...args) => __decorate(...args)
+    ], __ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[4], null);
+    __hook__('m()', __decorate, [
+      __ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[9],
+      [
+        [__hook__('m()', property, [
+            __ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[10],
+            [{ reflect: true }],
+            (...args) => property(...args)
+          ], __ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[4], null)],
+        __hook__('#.', LikeAnchorElement, ['prototype'], __ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[4]),
+        'target',
+        void 0
+      ],
+      (...args) => __decorate(...args)
+    ], __ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[4], null);
+    __hook__('m()', __decorate, [
+      __ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[9],
+      [
+        [__hook__('m()', property, [
+            __ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[10],
+            [{ reflect: true }],
+            (...args) => property(...args)
+          ], __ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[4], null)],
+        __hook__('#.', LikeAnchorElement, ['prototype'], __ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[4]),
+        'rel',
+        void 0
+      ],
+      (...args) => __decorate(...args)
+    ], __ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[4], null);
+    return LikeAnchorElement;
+  }, null, arguments, __ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[4]);
+}
+__hook__(() => {
+}, null, [
+  'export',
+  __ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[0],
+  __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__module_namespace_4
+], __ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[0], NaN);
+
+/*
+Copyright 2020 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+const __2bd8d707ca1a843f9695b7094693fa9db54f6aa534e8fa286eb25f11c57b6207__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/focusable.css.js',
+  '/components/thin-hook/demo/node_modules/lit-element/lit-element.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/focusable.css.js,styles',
+  '/components/thin-hook/demo/node_modules/lit-element/lit-element.js,css'
+]);
+__hook__(() => {
+}, null, [
+  'import',
+  {
+    [__2bd8d707ca1a843f9695b7094693fa9db54f6aa534e8fa286eb25f11c57b6207__[1]]: [
+      __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__module_namespace_1,
+      'css'
+    ]
+  }
+], __2bd8d707ca1a843f9695b7094693fa9db54f6aa534e8fa286eb25f11c57b6207__[0], NaN);
+const styles = __hook__(__hook__('m', css, [__2bd8d707ca1a843f9695b7094693fa9db54f6aa534e8fa286eb25f11c57b6207__[3]], __2bd8d707ca1a843f9695b7094693fa9db54f6aa534e8fa286eb25f11c57b6207__[2], null), null, [((s, r) => {
+    s.raw = r;
+    return s;
+  })(['\n:host{pointer-events:none}:host(:not([disabled]))>*{pointer-events:all}\n'], ['\n:host{pointer-events:none}:host(:not([disabled]))>*{pointer-events:all}\n'])], __2bd8d707ca1a843f9695b7094693fa9db54f6aa534e8fa286eb25f11c57b6207__[2], 0);
+  __hook__(() => {
+}, null, [
+  'export',
+  __2bd8d707ca1a843f9695b7094693fa9db54f6aa534e8fa286eb25f11c57b6207__[0],
+  __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__module_namespace_3
+], __2bd8d707ca1a843f9695b7094693fa9db54f6aa534e8fa286eb25f11c57b6207__[0], NaN);
+
+const __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/focus-visible/dist/focus-visible.js',
+  '_uNpREdiC4aB1e_define;/components/thin-hook/demo/node_modules/focus-visible/dist/focus-visible.js',
+  '/components/thin-hook/demo/node_modules/focus-visible/dist/focus-visible.js,applyFocusVisiblePolyfill',
+  '/components/thin-hook/demo/node_modules/focus-visible/dist/focus-visible.js,applyFocusVisiblePolyfill,isValidFocusTarget',
+  'S_uNpREdiC4aB1e_document;/components/thin-hook/demo/node_modules/focus-visible/dist/focus-visible.js,applyFocusVisiblePolyfill,isValidFocusTarget',
+  '/components/thin-hook/demo/node_modules/focus-visible/dist/focus-visible.js,applyFocusVisiblePolyfill,focusTriggersKeyboardModality',
+  '/components/thin-hook/demo/node_modules/focus-visible/dist/focus-visible.js,applyFocusVisiblePolyfill,focusTriggersKeyboardModality,type',
+  '/components/thin-hook/demo/node_modules/focus-visible/dist/focus-visible.js,applyFocusVisiblePolyfill,focusTriggersKeyboardModality,tagName',
+  '/components/thin-hook/demo/node_modules/focus-visible/dist/focus-visible.js,applyFocusVisiblePolyfill,addFocusVisibleClass',
+  '/components/thin-hook/demo/node_modules/focus-visible/dist/focus-visible.js,applyFocusVisiblePolyfill,removeFocusVisibleClass',
+  '/components/thin-hook/demo/node_modules/focus-visible/dist/focus-visible.js,applyFocusVisiblePolyfill,onKeyDown',
+  '/components/thin-hook/demo/node_modules/focus-visible/dist/focus-visible.js,applyFocusVisiblePolyfill,onPointerDown',
+  '/components/thin-hook/demo/node_modules/focus-visible/dist/focus-visible.js,applyFocusVisiblePolyfill,onFocus',
+  '/components/thin-hook/demo/node_modules/focus-visible/dist/focus-visible.js,applyFocusVisiblePolyfill,onBlur',
+  'S_uNpREdiC4aB1e_window;/components/thin-hook/demo/node_modules/focus-visible/dist/focus-visible.js,applyFocusVisiblePolyfill,onBlur',
+  '/components/thin-hook/demo/node_modules/focus-visible/dist/focus-visible.js,applyFocusVisiblePolyfill,onVisibilityChange',
+  'S_uNpREdiC4aB1e_document;/components/thin-hook/demo/node_modules/focus-visible/dist/focus-visible.js,applyFocusVisiblePolyfill,onVisibilityChange',
+  '/components/thin-hook/demo/node_modules/focus-visible/dist/focus-visible.js,applyFocusVisiblePolyfill,addInitialPointerMoveListeners',
+  'S_uNpREdiC4aB1e_document;/components/thin-hook/demo/node_modules/focus-visible/dist/focus-visible.js,applyFocusVisiblePolyfill,addInitialPointerMoveListeners',
+  '/components/thin-hook/demo/node_modules/focus-visible/dist/focus-visible.js,applyFocusVisiblePolyfill,removeInitialPointerMoveListeners',
+  'S_uNpREdiC4aB1e_document;/components/thin-hook/demo/node_modules/focus-visible/dist/focus-visible.js,applyFocusVisiblePolyfill,removeInitialPointerMoveListeners',
+  '/components/thin-hook/demo/node_modules/focus-visible/dist/focus-visible.js,applyFocusVisiblePolyfill,onInitialPointerMove',
+  'S_uNpREdiC4aB1e_document;/components/thin-hook/demo/node_modules/focus-visible/dist/focus-visible.js,applyFocusVisiblePolyfill',
+  'S_uNpREdiC4aB1e_Node;/components/thin-hook/demo/node_modules/focus-visible/dist/focus-visible.js,applyFocusVisiblePolyfill',
+  'S_uNpREdiC4aB1e_window;/components/thin-hook/demo/node_modules/focus-visible/dist/focus-visible.js',
+  'S_uNpREdiC4aB1e_document;/components/thin-hook/demo/node_modules/focus-visible/dist/focus-visible.js',
+  'S_uNpREdiC4aB1e_CustomEvent;/components/thin-hook/demo/node_modules/focus-visible/dist/focus-visible.js'
+]);
+__hook__(function (global, factory) {
+  return __hook__((global, factory) => {
+    typeof exports === 'object' && typeof module !== 'undefined' ? __hook__(factory, null, [], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[0], 0) : typeof $hook$.global(__hook__, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[0], 'define', 'typeof')[__bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[1]] === 'function' && __hook__('.', $hook$.global(__hook__, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[0], 'define', 'get')[__bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[1]], ['amd'], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[0]) ? __hook__($hook$.global(__hook__, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[0], 'define', 'get')[__bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[1]], null, [factory], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[0], 0) : __hook__(factory, null, [], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[0], 0);
+  }, null, arguments, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[0]);
+}, null, [
+  undefined,
+  function () {
+    'use strict';
+    return __hook__(() => {
+      /**
+   * Applies the :focus-visible polyfill at the given scope.
+   * A scope in this case is either the top-level Document or a Shadow Root.
+   *
+   * @param {(Document|ShadowRoot)} scope
+   * @see https://github.com/WICG/focus-visible
+   */
+      function applyFocusVisiblePolyfill(scope) {
+        return __hook__(scope => {
+          var hadKeyboardEvent = true;
+          var hadFocusVisibleRecently = false;
+          var hadFocusVisibleRecentlyTimeout = null;
+          var inputTypesWhitelist = {
+            text: true,
+            search: true,
+            url: true,
+            tel: true,
+            email: true,
+            password: true,
+            number: true,
+            date: true,
+            month: true,
+            week: true,
+            time: true,
+            datetime: true,
+            'datetime-local': true
+          };
+          /**
+     * Helper function for legacy browsers and iframes which sometimes focus
+     * elements like document, body, and non-interactive SVG.
+     * @param {Element} el
+     */
+          function isValidFocusTarget(el) {
+            return __hook__(el => {
+              if (el && el !== $hook$.global(__hook__, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[3], 'document', '#get')[__bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[4]] && __hook__('#.', el, ['nodeName'], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[3]) !== 'HTML' && __hook__('#.', el, ['nodeName'], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[3]) !== 'BODY' && __hook__('#in', el, ['classList'], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[3]) && __hook__('#in', __hook__('#.', el, ['classList'], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[3]), ['contains'], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[3])) {
+                return true;
+              }
+              return false;
+            }, null, arguments, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[3]);
+          }
+          /**
+     * Computes whether the given element should automatically trigger the
+     * `focus-visible` class being added, i.e. whether it should always match
+     * `:focus-visible` when focused.
+     * @param {Element} el
+     * @return {boolean}
+     */
+          function focusTriggersKeyboardModality(el) {
+            return __hook__(el => {
+              var type = __hook__('#.', el, ['type'], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[6]);
+              var tagName = __hook__('#.', el, ['tagName'], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[7]);
+              if (tagName === 'INPUT' && __hook__('#.', inputTypesWhitelist, [type], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[5]) && !__hook__('#.', el, ['readOnly'], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[5])) {
+                return true;
+              }
+              if (tagName === 'TEXTAREA' && !__hook__('#.', el, ['readOnly'], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[5])) {
+                return true;
+              }
+              if (__hook__('#.', el, ['isContentEditable'], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[5])) {
+                return true;
+              }
+              return false;
+            }, null, arguments, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[5]);
+          }
+          /**
+     * Add the `focus-visible` class to the given element if it was not added by
+     * the author.
+     * @param {Element} el
+     */
+          function addFocusVisibleClass(el) {
+            return __hook__(el => {
+              if (__hook__('#()', __hook__('#.', el, ['classList'], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[8]), [
+                  'contains',
+                  ['focus-visible']
+                ], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[8])) {
+                return;
+              }
+              __hook__('#()', __hook__('#.', el, ['classList'], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[8]), [
+                'add',
+                ['focus-visible']
+              ], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[8]);
+              __hook__('#()', el, [
+                'setAttribute',
+                [
+                  'data-focus-visible-added',
+                  ''
+                ]
+              ], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[8]);
+            }, null, arguments, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[8]);
+          }
+          /**
+     * Remove the `focus-visible` class from the given element if it was not
+     * originally added by the author.
+     * @param {Element} el
+     */
+          function removeFocusVisibleClass(el) {
+            return __hook__(el => {
+              if (!__hook__('#()', el, [
+                  'hasAttribute',
+                  ['data-focus-visible-added']
+                ], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[9])) {
+                return;
+              }
+              __hook__('#()', __hook__('#.', el, ['classList'], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[9]), [
+                'remove',
+                ['focus-visible']
+              ], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[9]);
+              __hook__('#()', el, [
+                'removeAttribute',
+                ['data-focus-visible-added']
+              ], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[9]);
+            }, null, arguments, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[9]);
+          }
+          /**
+     * If the most recent user interaction was via the keyboard;
+     * and the key press did not include a meta, alt/option, or control key;
+     * then the modality is keyboard. Otherwise, the modality is not keyboard.
+     * Apply `focus-visible` to any current active element and keep track
+     * of our keyboard modality state with `hadKeyboardEvent`.
+     * @param {KeyboardEvent} e
+     */
+          function onKeyDown(e) {
+            return __hook__(e => {
+              if (__hook__('#.', e, ['metaKey'], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[10]) || __hook__('#.', e, ['altKey'], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[10]) || __hook__('#.', e, ['ctrlKey'], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[10])) {
+                return;
+              }
+              if (__hook__(isValidFocusTarget, null, [__hook__('#.', scope, ['activeElement'], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[10])], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[10], 0)) {
+                __hook__(addFocusVisibleClass, null, [__hook__('#.', scope, ['activeElement'], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[10])], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[10], 0);
+              }
+              hadKeyboardEvent = true;
+            }, null, arguments, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[10]);
+          }
+          /**
+     * If at any point a user clicks with a pointing device, ensure that we change
+     * the modality away from keyboard.
+     * This avoids the situation where a user presses a key on an already focused
+     * element, and then clicks on a different element, focusing it with a
+     * pointing device, while we still think we're in keyboard modality.
+     * @param {Event} e
+     */
+          function onPointerDown(e) {
+            return __hook__(e => {
+              hadKeyboardEvent = false;
+            }, null, arguments, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[11]);
+          }
+          /**
+     * On `focus`, add the `focus-visible` class to the target if:
+     * - the target received focus as a result of keyboard navigation, or
+     * - the event target is an element that will likely require interaction
+     *   via the keyboard (e.g. a text box)
+     * @param {Event} e
+     */
+          function onFocus(e) {
+            return __hook__(e => {
+              // Prevent IE from focusing the document or HTML element.
+              if (!__hook__(isValidFocusTarget, null, [__hook__('#.', e, ['target'], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[12])], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[12], 0)) {
+                return;
+              }
+              if (hadKeyboardEvent || __hook__(focusTriggersKeyboardModality, null, [__hook__('#.', e, ['target'], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[12])], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[12], 0)) {
+                __hook__(addFocusVisibleClass, null, [__hook__('#.', e, ['target'], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[12])], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[12], 0);
+              }
+            }, null, arguments, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[12]);
+          }
+          /**
+     * On `blur`, remove the `focus-visible` class from the target.
+     * @param {Event} e
+     */
+          function onBlur(e) {
+            return __hook__(e => {
+              if (!__hook__(isValidFocusTarget, null, [__hook__('#.', e, ['target'], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[13])], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[13], 0)) {
+                return;
+              }
+              if (__hook__('#()', __hook__('#.', __hook__('#.', e, ['target'], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[13]), ['classList'], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[13]), [
+                  'contains',
+                  ['focus-visible']
+                ], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[13]) || __hook__('#()', __hook__('#.', e, ['target'], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[13]), [
+                  'hasAttribute',
+                  ['data-focus-visible-added']
+                ], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[13])) {
+                // To detect a tab/window switch, we look for a blur event followed
+                // rapidly by a visibility change.
+                // If we don't see a visibility change within 100ms, it's probably a
+                // regular focus change.
+                hadFocusVisibleRecently = true;
+                __hook__('#()', $hook$.global(__hook__, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[13], 'window', '#get')[__bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[14]], [
+                  'clearTimeout',
+                  [hadFocusVisibleRecentlyTimeout]
+                ], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[13]);
+                hadFocusVisibleRecentlyTimeout = __hook__('#()', $hook$.global(__hook__, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[13], 'window', '#get')[__bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[14]], [
+                  'setTimeout',
+                  [
+                    function () {
+                      return __hook__(() => {
+                        hadFocusVisibleRecently = false;
+                      }, null, arguments, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[13]);
+                    },
+                    100
+                  ]
+                ], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[13]);
+                __hook__(removeFocusVisibleClass, null, [__hook__('#.', e, ['target'], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[13])], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[13], 0);
+              }
+            }, null, arguments, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[13]);
+          }
+          /**
+     * If the user changes tabs, keep track of whether or not the previously
+     * focused element had .focus-visible.
+     * @param {Event} e
+     */
+          function onVisibilityChange(e) {
+            return __hook__(e => {
+              if (__hook__('#.', $hook$.global(__hook__, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[15], 'document', '#get')[__bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[16]], ['visibilityState'], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[15]) === 'hidden') {
+                // If the tab becomes active again, the browser will handle calling focus
+                // on the element (Safari actually calls it twice).
+                // If this tab change caused a blur on an element with focus-visible,
+                // re-apply the class when the user switches back to the tab.
+                if (hadFocusVisibleRecently) {
+                  hadKeyboardEvent = true;
+                }
+                __hook__(addInitialPointerMoveListeners, null, [], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[15], 0);
+              }
+            }, null, arguments, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[15]);
+          }
+          /**
+     * Add a group of listeners to detect usage of any pointing devices.
+     * These listeners will be added when the polyfill first loads, and anytime
+     * the window is blurred, so that they are active when the window regains
+     * focus.
+     */
+          function addInitialPointerMoveListeners() {
+            return __hook__(() => {
+              __hook__('#()', $hook$.global(__hook__, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[17], 'document', '#get')[__bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[18]], [
+                'addEventListener',
+                [
+                  'mousemove',
+                  onInitialPointerMove
+                ]
+              ], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[17]);
+              __hook__('#()', $hook$.global(__hook__, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[17], 'document', '#get')[__bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[18]], [
+                'addEventListener',
+                [
+                  'mousedown',
+                  onInitialPointerMove
+                ]
+              ], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[17]);
+              __hook__('#()', $hook$.global(__hook__, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[17], 'document', '#get')[__bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[18]], [
+                'addEventListener',
+                [
+                  'mouseup',
+                  onInitialPointerMove
+                ]
+              ], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[17]);
+              __hook__('#()', $hook$.global(__hook__, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[17], 'document', '#get')[__bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[18]], [
+                'addEventListener',
+                [
+                  'pointermove',
+                  onInitialPointerMove
+                ]
+              ], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[17]);
+              __hook__('#()', $hook$.global(__hook__, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[17], 'document', '#get')[__bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[18]], [
+                'addEventListener',
+                [
+                  'pointerdown',
+                  onInitialPointerMove
+                ]
+              ], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[17]);
+              __hook__('#()', $hook$.global(__hook__, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[17], 'document', '#get')[__bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[18]], [
+                'addEventListener',
+                [
+                  'pointerup',
+                  onInitialPointerMove
+                ]
+              ], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[17]);
+              __hook__('#()', $hook$.global(__hook__, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[17], 'document', '#get')[__bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[18]], [
+                'addEventListener',
+                [
+                  'touchmove',
+                  onInitialPointerMove
+                ]
+              ], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[17]);
+              __hook__('#()', $hook$.global(__hook__, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[17], 'document', '#get')[__bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[18]], [
+                'addEventListener',
+                [
+                  'touchstart',
+                  onInitialPointerMove
+                ]
+              ], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[17]);
+              __hook__('#()', $hook$.global(__hook__, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[17], 'document', '#get')[__bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[18]], [
+                'addEventListener',
+                [
+                  'touchend',
+                  onInitialPointerMove
+                ]
+              ], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[17]);
+            }, null, arguments, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[17]);
+          }
+          function removeInitialPointerMoveListeners() {
+            return __hook__(() => {
+              __hook__('#()', $hook$.global(__hook__, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[19], 'document', '#get')[__bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[20]], [
+                'removeEventListener',
+                [
+                  'mousemove',
+                  onInitialPointerMove
+                ]
+              ], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[19]);
+              __hook__('#()', $hook$.global(__hook__, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[19], 'document', '#get')[__bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[20]], [
+                'removeEventListener',
+                [
+                  'mousedown',
+                  onInitialPointerMove
+                ]
+              ], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[19]);
+              __hook__('#()', $hook$.global(__hook__, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[19], 'document', '#get')[__bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[20]], [
+                'removeEventListener',
+                [
+                  'mouseup',
+                  onInitialPointerMove
+                ]
+              ], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[19]);
+              __hook__('#()', $hook$.global(__hook__, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[19], 'document', '#get')[__bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[20]], [
+                'removeEventListener',
+                [
+                  'pointermove',
+                  onInitialPointerMove
+                ]
+              ], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[19]);
+              __hook__('#()', $hook$.global(__hook__, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[19], 'document', '#get')[__bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[20]], [
+                'removeEventListener',
+                [
+                  'pointerdown',
+                  onInitialPointerMove
+                ]
+              ], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[19]);
+              __hook__('#()', $hook$.global(__hook__, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[19], 'document', '#get')[__bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[20]], [
+                'removeEventListener',
+                [
+                  'pointerup',
+                  onInitialPointerMove
+                ]
+              ], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[19]);
+              __hook__('#()', $hook$.global(__hook__, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[19], 'document', '#get')[__bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[20]], [
+                'removeEventListener',
+                [
+                  'touchmove',
+                  onInitialPointerMove
+                ]
+              ], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[19]);
+              __hook__('#()', $hook$.global(__hook__, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[19], 'document', '#get')[__bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[20]], [
+                'removeEventListener',
+                [
+                  'touchstart',
+                  onInitialPointerMove
+                ]
+              ], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[19]);
+              __hook__('#()', $hook$.global(__hook__, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[19], 'document', '#get')[__bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[20]], [
+                'removeEventListener',
+                [
+                  'touchend',
+                  onInitialPointerMove
+                ]
+              ], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[19]);
+            }, null, arguments, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[19]);
+          }
+          /**
+     * When the polfyill first loads, assume the user is in keyboard modality.
+     * If any event is received from a pointing device (e.g. mouse, pointer,
+     * touch), turn off keyboard modality.
+     * This accounts for situations where focus enters the page from the URL bar.
+     * @param {Event} e
+     */
+          function onInitialPointerMove(e) {
+            return __hook__(e => {
+              // Work around a Safari quirk that fires a mousemove on <html> whenever the
+              // window blurs, even if you're tabbing out of the page. ¯\_(ツ)_/¯
+              if (__hook__('#.', __hook__('#.', e, ['target'], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[21]), ['nodeName'], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[21]) && __hook__('#()', __hook__('#.', __hook__('#.', e, ['target'], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[21]), ['nodeName'], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[21]), [
+                  'toLowerCase',
+                  []
+                ], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[21]) === 'html') {
+                return;
+              }
+              hadKeyboardEvent = false;
+              __hook__(removeInitialPointerMoveListeners, null, [], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[21], 0);
+            }, null, arguments, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[21]);
+          }
+          // For some kinds of state, we are interested in changes at the global scope
+          // only. For example, global pointer input, global key presses and global
+          // visibility change should affect the state at every scope:
+          __hook__('#()', $hook$.global(__hook__, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[2], 'document', '#get')[__bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[22]], [
+            'addEventListener',
+            [
+              'keydown',
+              onKeyDown,
+              true
+            ]
+          ], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[2]);
+          __hook__('#()', $hook$.global(__hook__, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[2], 'document', '#get')[__bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[22]], [
+            'addEventListener',
+            [
+              'mousedown',
+              onPointerDown,
+              true
+            ]
+          ], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[2]);
+          __hook__('#()', $hook$.global(__hook__, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[2], 'document', '#get')[__bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[22]], [
+            'addEventListener',
+            [
+              'pointerdown',
+              onPointerDown,
+              true
+            ]
+          ], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[2]);
+          __hook__('#()', $hook$.global(__hook__, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[2], 'document', '#get')[__bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[22]], [
+            'addEventListener',
+            [
+              'touchstart',
+              onPointerDown,
+              true
+            ]
+          ], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[2]);
+          __hook__('#()', $hook$.global(__hook__, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[2], 'document', '#get')[__bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[22]], [
+            'addEventListener',
+            [
+              'visibilitychange',
+              onVisibilityChange,
+              true
+            ]
+          ], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[2]);
+          __hook__(addInitialPointerMoveListeners, null, [], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[2], 0);
+          // For focus and blur, we specifically care about state changes in the local
+          // scope. This is because focus / blur events that originate from within a
+          // shadow root are not re-dispatched from the host element if it was already
+          // the active element in its own scope:
+          __hook__('#()', scope, [
+            'addEventListener',
+            [
+              'focus',
+              onFocus,
+              true
+            ]
+          ], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[2]);
+          __hook__('#()', scope, [
+            'addEventListener',
+            [
+              'blur',
+              onBlur,
+              true
+            ]
+          ], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[2]);
+          // We detect that a node is a ShadowRoot by ensuring that it is a
+          // DocumentFragment and also has a host property. This check covers native
+          // implementation and polyfill implementation transparently. If we only cared
+          // about the native implementation, we could just check if the scope was
+          // an instance of a ShadowRoot.
+          if (__hook__('#.', scope, ['nodeType'], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[2]) === __hook__('#.', $hook$.global(__hook__, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[2], 'Node', '#get')[__bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[23]], ['DOCUMENT_FRAGMENT_NODE'], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[2]) && __hook__('#.', scope, ['host'], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[2])) {
+            // Since a ShadowRoot is a special kind of DocumentFragment, it does not
+            // have a root element to add a class to. So, we add this attribute to the
+            // host element instead:
+            __hook__('#()', __hook__('#.', scope, ['host'], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[2]), [
+              'setAttribute',
+              [
+                'data-js-focus-visible',
+                ''
+              ]
+            ], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[2]);
+          } else if (__hook__('#.', scope, ['nodeType'], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[2]) === __hook__('#.', $hook$.global(__hook__, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[2], 'Node', '#get')[__bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[23]], ['DOCUMENT_NODE'], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[2])) {
+            __hook__('#()', __hook__('#.', __hook__('#.', $hook$.global(__hook__, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[2], 'document', '#get')[__bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[22]], ['documentElement'], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[2]), ['classList'], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[2]), [
+              'add',
+              ['js-focus-visible']
+            ], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[2]);
+            __hook__('#()', __hook__('#.', $hook$.global(__hook__, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[2], 'document', '#get')[__bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[22]], ['documentElement'], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[2]), [
+              'setAttribute',
+              [
+                'data-js-focus-visible',
+                ''
+              ]
+            ], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[2]);
+          }
+        }, null, arguments, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[2]);
+      }
+      // It is important to wrap all references to global window and document in
+      // these checks to support server-side rendering use cases
+      // @see https://github.com/WICG/focus-visible/issues/199
+      if (typeof $hook$.global(__hook__, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[0], 'window', '#typeof')[__bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[24]] !== 'undefined' && typeof $hook$.global(__hook__, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[0], 'document', '#typeof')[__bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[25]] !== 'undefined') {
+        // Make the polyfill helper globally available. This can be used as a signal
+        // to interested libraries that wish to coordinate with the polyfill for e.g.,
+        // applying the polyfill to a shadow root:
+        __hook__('#=', window, [
+          'applyFocusVisiblePolyfill',
+          applyFocusVisiblePolyfill
+        ], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[0]);
+        // Notify interested libraries of the polyfill's presence, in case the
+        // polyfill was loaded lazily:
+        var event;
+        try {
+          event = __hook__($hook$.global(__hook__, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[0], 'CustomEvent', '#get')[__bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[26]], null, ['focus-visible-polyfill-ready'], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[0], true);
+        } catch (error) {
+          // IE11 does not support using CustomEvent as a constructor directly:
+          event = __hook__('#()', $hook$.global(__hook__, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[0], 'document', '#get')[__bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[25]], [
+            'createEvent',
+            ['CustomEvent']
+          ], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[0]);
+          __hook__('#()', event, [
+            'initCustomEvent',
+            [
+              'focus-visible-polyfill-ready',
+              false,
+              false,
+              {}
+            ]
+          ], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[0]);
+        }
+        __hook__('#()', $hook$.global(__hook__, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[0], 'window', '#get')[__bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[24]], [
+          'dispatchEvent',
+          [event]
+        ], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[0]);
+      }
+      if (typeof $hook$.global(__hook__, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[0], 'document', '#typeof')[__bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[25]] !== 'undefined') {
+        // Apply the polyfill to the global document, so that no JavaScript
+        // coordination is required to use the polyfill in the top-level document:
+        __hook__(applyFocusVisiblePolyfill, null, [$hook$.global(__hook__, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[0], 'document', '#get')[__bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[25]]], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[0], 0);
+      }
+    }, null, arguments, __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[0]);
+  }
+], __bf1ee9cd48cbbd729145fbae50cbbc8d2da4a1907396ab8bf143206bca9bf9de__[0], 0);
+
+var __18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__module_namespace_1 = /*#__PURE__*/Object.freeze({
+    __proto__: null
+});
+
+/*
+Copyright 2020 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+const __18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/focus-visible.js',
+  '/components/thin-hook/demo/node_modules/focus-visible/dist/focus-visible.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/focus-visible.js,FocusVisiblePolyfillMixin',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/focus-visible.js,FocusVisiblePolyfillMixin,coordinateWithPolyfill',
+  'S_uNpREdiC4aB1e_self;/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/focus-visible.js,FocusVisiblePolyfillMixin,coordinateWithPolyfill',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/focus-visible.js,FocusVisiblePolyfillMixin,coordinateWithPolyfill,coordinationHandler',
+  'S_uNpREdiC4aB1e_self;/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/focus-visible.js,FocusVisiblePolyfillMixin,coordinateWithPolyfill,coordinationHandler',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/focus-visible.js,FocusVisiblePolyfillMixin,$endPolyfillCoordination',
+  'S_uNpREdiC4aB1e_Symbol;/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/focus-visible.js,FocusVisiblePolyfillMixin,$endPolyfillCoordination',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/focus-visible.js,FocusVisiblePolyfillMixin,FocusVisibleCoordinator,constructor',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/focus-visible.js,FocusVisiblePolyfillMixin,FocusVisibleCoordinator,connectedCallback',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/focus-visible.js,FocusVisiblePolyfillMixin,FocusVisibleCoordinator,disconnectedCallback'
+]);
+__hook__(() => {
+}, null, [
+  'import',
+  { [__18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__[1]]: [__18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__module_namespace_1] }
+], __18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__[0], NaN);
+/**
+ * This mixin function is designed to be applied to a class that inherits
+ * from HTMLElement. It makes it easy for a custom element to coordinate with
+ * the :focus-visible polyfill.
+ *
+ * NOTE(cdata): The code here was adapted from an example proposed with the
+ * introduction of ShadowDOM support in the :focus-visible polyfill.
+ *
+ * @see https://github.com/WICG/focus-visible/pull/196
+ * @param {Function} SuperClass The base class implementation to decorate with
+ * implementation that coordinates with the :focus-visible polyfill
+ */
+const FocusVisiblePolyfillMixin = (...args) =>
+  (__hook__(SuperClass => {
+    var _a;
+    const coordinateWithPolyfill = (...args) =>
+      (__hook__(instance => {
+        // If there is no shadow root, there is no need to coordinate with
+        // the polyfill. If we already coordinated with the polyfill, we can
+        // skip subsequent invokcations:
+        if (__hook__('#.', instance, ['shadowRoot'], __18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__[3]) == null || __hook__('#()', instance, [
+            'hasAttribute',
+            ['data-js-focus-visible']
+          ], __18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__[3])) {
+          // eslint-disable-next-line @typescript-eslint/no-empty-function
+          return (...args) =>
+            (__hook__(() => {
+            }, null, args, __18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__[3]));
+        }
+        // The polyfill might already be loaded. If so, we can apply it to
+        // the shadow root immediately:
+        if (__hook__('#.', $hook$.global(__hook__, __18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__[3], 'self', '#get')[__18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__[4]], ['applyFocusVisiblePolyfill'], __18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__[3])) {
+          __hook__('#()', $hook$.global(__hook__, __18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__[3], 'self', '#get')[__18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__[4]], [
+            'applyFocusVisiblePolyfill',
+            [__hook__('#.', instance, ['shadowRoot'], __18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__[3])]
+          ], __18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__[3]);
+        } else {
+          const coordinationHandler = (...args) =>
+            (__hook__(() => {
+              if (__hook__('#.', $hook$.global(__hook__, __18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__[5], 'self', '#get')[__18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__[6]], ['applyFocusVisiblePolyfill'], __18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__[5]) && __hook__('#.', instance, ['shadowRoot'], __18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__[5])) {
+                __hook__('#()', $hook$.global(__hook__, __18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__[5], 'self', '#get')[__18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__[6]], [
+                  'applyFocusVisiblePolyfill',
+                  [__hook__('#.', instance, ['shadowRoot'], __18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__[5])]
+                ], __18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__[5]);
+              }
+              if (__hook__('#.', instance, ['manageAutoFocus'], __18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__[5])) {
+                __hook__('#()', instance, [
+                  'manageAutoFocus',
+                  []
+                ], __18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__[5]);
+              }
+            }, null, args, __18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__[5]));
+          // Otherwise, wait for the polyfill to be loaded lazily. It might
+          // never be loaded, but if it is then we can apply it to the
+          // shadow root at the appropriate time by waiting for the ready
+          // event:
+          __hook__('#()', $hook$.global(__hook__, __18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__[3], 'self', '#get')[__18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__[4]], [
+            'addEventListener',
+            [
+              'focus-visible-polyfill-ready',
+              coordinationHandler,
+              { once: true }
+            ]
+          ], __18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__[3]);
+          return (...args) =>
+            (__hook__(() => {
+              __hook__('#()', $hook$.global(__hook__, __18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__[3], 'self', '#get')[__18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__[4]], [
+                'removeEventListener',
+                [
+                  'focus-visible-polyfill-ready',
+                  coordinationHandler
+                ]
+              ], __18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__[3]);
+            }, null, args, __18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__[3]));
+        }
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        return (...args) =>
+          (__hook__(() => {
+          }, null, args, __18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__[3]));
+      }, null, args, __18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__[3]));
+    const $endPolyfillCoordination = __hook__($hook$.global(__hook__, __18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__[7], 'Symbol', '#get')[__18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__[8]], null, ['endPolyfillCoordination'], __18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__[7], 0);
+    // IE11 doesn't natively support custom elements or JavaScript class
+    // syntax The mixin implementation assumes that the user will take the
+    // appropriate steps to support both:
+    class FocusVisibleCoordinator extends SuperClass {
+      constructor() {
+        return __hook__(() => {
+          __hook__((newTarget, ...args) => super(...args), null, [
+            new.target,
+            ...arguments
+          ], __18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__[9], '');
+          __hook__('#=', this, [
+            _a,
+            null
+          ], __18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__[9]);
+        }, null, arguments, __18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__[9]);
+      }
+      // Attempt to coordinate with the polyfill when connected to the
+      // document:
+      connectedCallback() {
+        return __hook__(() => {
+          __hook__('s.', this, [
+            'connectedCallback',
+            p => super[p]
+          ], __18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__[10]) && __hook__('s()', this, [
+            'connectedCallback',
+            [],
+            p => super[p]
+          ], __18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__[10]);
+          if (__hook__('#.', this, [$endPolyfillCoordination], __18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__[10]) == null) {
+            __hook__('#=', this, [
+              $endPolyfillCoordination,
+              __hook__(coordinateWithPolyfill, null, [this], __18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__[10], 0)
+            ], __18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__[10]);
+          }
+        }, null, arguments, __18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__[10]);
+      }
+      disconnectedCallback() {
+        return __hook__(() => {
+          __hook__('s.', this, [
+            'disconnectedCallback',
+            p => super[p]
+          ], __18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__[11]) && __hook__('s()', this, [
+            'disconnectedCallback',
+            [],
+            p => super[p]
+          ], __18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__[11]);
+          // It's important to remove the polyfill event listener when we
+          // disconnect, otherwise we will leak the whole element via window:
+          if (__hook__('#.', this, [$endPolyfillCoordination], __18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__[11]) != null) {
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            __hook__('#()', this, [
+              $endPolyfillCoordination,
+              []
+            ], __18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__[11]);
+            __hook__('#=', this, [
+              $endPolyfillCoordination,
+              null
+            ], __18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__[11]);
+          }
+        }, null, arguments, __18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__[11]);
+      }
+    }
+    _a = $endPolyfillCoordination;
+    return FocusVisibleCoordinator;
+  }, null, args, __18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__[2]));  __hook__(() => {
+}, null, [
+  'export',
+  __18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__[0],
+  __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__module_namespace_4
+], __18c1ca21e1afa638b59f1babf508f208a4e3db88e3685d2af2d3c725fd62a1f4__[0], NaN);
+
+const __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/focusable.js',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js',
+  '/components/thin-hook/demo/node_modules/lit-element/lit-element.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/focusable.css.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/focus-visible.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/focusable.js,Focusable',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/focus-visible.js,FocusVisiblePolyfillMixin',
+  '/components/thin-hook/demo/node_modules/lit-element/lit-element.js,LitElement',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/focusable.js,Focusable,constructor',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/focusable.js,Focusable,get styles',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/focusable.css.js,default',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/focusable.js,Focusable,get focusElement',
+  'S_uNpREdiC4aB1e_Error;/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/focusable.js,Focusable,get focusElement',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/focusable.js,Focusable,focus',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/focusable.js,Focusable,blur',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/focusable.js,Focusable,click',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/focusable.js,Focusable,manageAutoFocus',
+  'S_uNpREdiC4aB1e_KeyboardEvent;/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/focusable.js,Focusable,manageAutoFocus',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/focusable.js,Focusable,firstUpdated',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/focusable.js,Focusable,manageFocusIn',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/focusable.js,Focusable,manageFocusIn,innerHandler',
+  'S_uNpREdiC4aB1e_setTimeout;/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/focusable.js,Focusable,manageFocusIn,innerHandler',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/focusable.js,Focusable,manageFocusIn,outerHandler',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/focusable.js,Focusable,manageShiftTab',
+  'S_uNpREdiC4aB1e_HTMLElement;/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/focusable.js,Focusable,manageShiftTab',
+  'S_uNpREdiC4aB1e_setTimeout;/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/focusable.js,Focusable,manageShiftTab',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/focusable.js,Focusable,update',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/focusable.js,Focusable,updated',
+  'S_uNpREdiC4aB1e_undefined;/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/focusable.js,Focusable,updated',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/focusable.js,Focusable,handleFocus',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/focusable.js,Focusable,handleDisabledChanged',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/focusable.js,Focusable,handleTabIndexChanged',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__decorate',
+  '/components/thin-hook/demo/node_modules/lit-element/lit-element.js,property',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/focusable.js,type',
+  'S_uNpREdiC4aB1e_Boolean;/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/focusable.js,type',
+  'S_uNpREdiC4aB1e_Number;/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/focusable.js,type'
+]);
+__hook__(() => {
+}, null, [
+  'import',
+  {
+    [__71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[1]]: [
+      __6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__module_namespace_1,
+      '__decorate'
+    ],
+    [__71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[2]]: [
+      __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__module_namespace_1,
+      'LitElement',
+      'property'
+    ],
+    [__71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[3]]: [
+      __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__module_namespace_3,
+      'default'
+    ],
+    [__71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[4]]: [
+      __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__module_namespace_4,
+      'FocusVisiblePolyfillMixin'
+    ]
+  }
+], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[0], NaN);
+/**
+ * Focusable base class handles tabindex setting into shadowed elements automatically.
+ *
+ * This implementation is based heavily on the aybolit delegate-focus-mixin at
+ * https://github.com/web-padawan/aybolit/blob/master/packages/core/src/mixins/delegate-focus-mixin.js
+ */
+class Focusable extends __hook__('m()', FocusVisiblePolyfillMixin, [
+  __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[6],
+  [__hook__('m', LitElement, [__71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[7]], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[5], null)],
+  (...args) => FocusVisiblePolyfillMixin(...args)
+], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[5], null) {
+  constructor() {
+    return __hook__(() => {
+      __hook__((newTarget, ...args) => super(...args), null, [
+        new.target,
+        ...arguments
+      ], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[8], '');
+      /**
+         * Disable this control. It will not receive focus or events
+         */
+      __hook__('#=', this, [
+        'disabled',
+        false
+      ], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[8]);
+      /**
+         * When this control is rendered, focus it automatically
+         */
+      __hook__('#=', this, [
+        'autofocus',
+        false
+      ], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[8]);
+      /**
+         * The tab index to apply to this control. See general documentation about
+         * the tabindex HTML property
+         */
+      __hook__('#=', this, [
+        'tabIndex',
+        0
+      ], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[8]);
+      __hook__('#=', this, [
+        'isShiftTabbing',
+        false
+      ], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[8]);
+      __hook__('#=', this, [
+        'newTabindex',
+        0
+      ], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[8]);
+      __hook__('#=', this, [
+        'oldTabindex',
+        0
+      ], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[8]);
+    }, null, arguments, __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[8]);
+  }
+  static get styles() {
+    return __hook__(() => {
+      return [__hook__('m', styles, [__71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[10]], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[9], null)];
+    }, null, arguments, __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[9]);
+  }
+  get focusElement() {
+    return __hook__(() => {
+      throw __hook__($hook$.global(__hook__, __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[11], 'Error', '#get')[__71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[12]], null, ['Must implement focusElement getter!'], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[11], true);
+    }, null, arguments, __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[11]);
+  }
+  focus() {
+    return __hook__(() => {
+      if (__hook__('#.', this, ['disabled'], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[13])) {
+        return;
+      }
+      __hook__('#()', __hook__('#.', this, ['focusElement'], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[13]), [
+        'focus',
+        []
+      ], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[13]);
+    }, null, arguments, __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[13]);
+  }
+  blur() {
+    return __hook__(() => {
+      __hook__('#()', __hook__('#.', this, ['focusElement'], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[14]), [
+        'blur',
+        []
+      ], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[14]);
+    }, null, arguments, __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[14]);
+  }
+  click() {
+    return __hook__(() => {
+      __hook__('#()', __hook__('#.', this, ['focusElement'], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[15]), [
+        'click',
+        []
+      ], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[15]);
+    }, null, arguments, __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[15]);
+  }
+  manageAutoFocus() {
+    return __hook__(() => {
+      if (__hook__('#.', this, ['autofocus'], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[16])) {
+        /* Trick :focus-visible polyfill into thinking keyboard based focus */
+        __hook__('#()', this, [
+          'dispatchEvent',
+          [__hook__($hook$.global(__hook__, __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[16], 'KeyboardEvent', '#get')[__71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[17]], null, [
+              'keydown',
+              { code: 'Tab' }
+            ], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[16], true)]
+        ], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[16]);
+        __hook__('#()', this, [
+          'focus',
+          []
+        ], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[16]);
+      }
+    }, null, arguments, __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[16]);
+  }
+  firstUpdated(changes) {
+    return __hook__(changes => {
+      __hook__('s()', this, [
+        'firstUpdated',
+        [changes],
+        p => super[p]
+      ], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[18]);
+      __hook__('#()', this, [
+        'manageAutoFocus',
+        []
+      ], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[18]);
+      __hook__('#()', this, [
+        'manageFocusIn',
+        []
+      ], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[18]);
+      __hook__('#()', this, [
+        'manageShiftTab',
+        []
+      ], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[18]);
+    }, null, arguments, __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[18]);
+  }
+  manageFocusIn() {
+    return __hook__(() => {
+      __hook__('#()', this, [
+        'addEventListener',
+        [
+          'focusin',
+          (...args) =>
+            (__hook__(event => {
+              // only throw focus when `focusin` occurs directly on the `:host()`
+              if (__hook__('#.', __hook__('#()', event, [
+                  'composedPath',
+                  []
+                ], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[19]), [0], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[19]) === this) {
+                __hook__('#()', this, [
+                  'handleFocus',
+                  []
+                ], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[19]);
+              }
+              // when focus has been thrown do not reapply `focusout` listeners
+              if (__hook__('#.', event, ['relatedTarget'], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[19]) === this) {
+                return;
+              }
+              let doTimeout = true;
+              const innerHandler = (...args) =>
+                (__hook__(() => {
+                  __hook__($hook$.global(__hook__, __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[20], 'setTimeout', '#get')[__71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[21]], null, [(...args) =>
+                      (__hook__(() => {
+                        // Typically this would be done via `clearTimeout()`.
+                        // However, there are moment when the asyncrony of native
+                        // DOM events causes the `outerHandler` to run before the
+                        // value returned from `setTimeout` can be cached, which
+                        // prevents the following call to be prevented. In ALL
+                        // cases the `outerHandler` will run before the callback
+                        // for the `setTimeout` which leads to the use of this
+                        // technique instead.
+                        if (doTimeout) {
+                          __hook__('#()', this, [
+                            'focus',
+                            []
+                          ], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[20]);
+                        }
+                      }, null, args, __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[20]))], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[20], 0);
+                }, null, args, __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[20]));
+              const outerHandler = (...args) =>
+                (__hook__(() => {
+                  doTimeout = false;
+                  __hook__('#()', __hook__('#.', this, ['focusElement'], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[22]), [
+                    'removeEventListener',
+                    [
+                      'focusout',
+                      innerHandler
+                    ]
+                  ], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[22]);
+                  __hook__('#()', this, [
+                    'removeEventListener',
+                    [
+                      'focusout',
+                      outerHandler
+                    ]
+                  ], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[22]);
+                }, null, args, __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[22]));
+              __hook__('#()', __hook__('#.', this, ['focusElement'], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[19]), [
+                'addEventListener',
+                [
+                  'focusout',
+                  innerHandler
+                ]
+              ], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[19]);
+              __hook__('#()', this, [
+                'addEventListener',
+                [
+                  'focusout',
+                  outerHandler
+                ]
+              ], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[19]);
+            }, null, args, __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[19]))
+        ]
+      ], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[19]);
+    }, null, arguments, __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[19]);
+  }
+  manageShiftTab() {
+    return __hook__(() => {
+      __hook__('#()', this, [
+        'addEventListener',
+        [
+          'keydown',
+          (...args) =>
+            (__hook__(event => {
+              if (!__hook__('#.', event, ['defaultPrevented'], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[23]) && __hook__('#.', event, ['shiftKey'], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[23]) && __hook__('#.', event, ['code'], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[23]) === 'Tab') {
+                __hook__('#=', this, [
+                  'isShiftTabbing',
+                  true
+                ], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[23]);
+                __hook__('#()', __hook__('#.', __hook__('#.', $hook$.global(__hook__, __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[23], 'HTMLElement', '#get')[__71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[24]], ['prototype'], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[23]), ['focus'], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[23]), [
+                  'apply',
+                  [this]
+                ], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[23]);
+                __hook__($hook$.global(__hook__, __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[23], 'setTimeout', '#get')[__71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[25]], null, [
+                  (...args) => __hook__(() => __hook__('#=', this, [
+                    'isShiftTabbing',
+                    false
+                  ], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[23]), null, args, __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[23]),
+                  0
+                ], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[23], 0);
+              }
+            }, null, args, __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[23]))
+        ]
+      ], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[23]);
+    }, null, arguments, __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[23]);
+  }
+  update(changedProperties) {
+    return __hook__(changedProperties => {
+      if (__hook__('#()', changedProperties, [
+          'has',
+          ['disabled']
+        ], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[26])) {
+        __hook__('#()', this, [
+          'handleDisabledChanged',
+          [
+            __hook__('#.', this, ['disabled'], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[26]),
+            __hook__('#()', changedProperties, [
+              'get',
+              ['disabled']
+            ], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[26])
+          ]
+        ], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[26]);
+      }
+      if (__hook__('#()', changedProperties, [
+          'has',
+          ['tabIndex']
+        ], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[26])) {
+        // save value of tabindex, as it can be overridden to
+        // undefined in case if the element is disabled
+        __hook__('#=', this, [
+          'newTabindex',
+          __hook__('#.', this, ['tabIndex'], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[26])
+        ], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[26]);
+        __hook__('#()', this, [
+          'handleTabIndexChanged',
+          [__hook__('#.', this, ['tabIndex'], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[26])]
+        ], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[26]);
+      }
+      __hook__('s()', this, [
+        'update',
+        [changedProperties],
+        p => super[p]
+      ], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[26]);
+    }, null, arguments, __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[26]);
+  }
+  updated(changedProperties) {
+    return __hook__(changedProperties => {
+      __hook__('s()', this, [
+        'updated',
+        [changedProperties],
+        p => super[p]
+      ], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[27]);
+      if (__hook__('#()', changedProperties, [
+          'has',
+          ['disabled']
+        ], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[27])) {
+        __hook__('#=', __hook__('#.', this, ['focusElement'], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[27]), [
+          'disabled',
+          __hook__('#.', this, ['disabled'], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[27])
+        ], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[27]);
+        if (__hook__('#.', this, ['disabled'], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[27])) {
+          __hook__('#()', this, [
+            'blur',
+            []
+          ], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[27]);
+        }
+      }
+      if (__hook__('#()', changedProperties, [
+          'has',
+          ['tabIndex']
+        ], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[27]) && __hook__('#.', this, ['newTabindex'], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[27]) !== $hook$.global(__hook__, __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[27], 'undefined', '#get')[__71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[28]]) {
+        __hook__('#=', __hook__('#.', this, ['focusElement'], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[27]), [
+          'tabIndex',
+          __hook__('#.', this, ['newTabindex'], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[27])
+        ], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[27]);
+        __hook__('#=', this, [
+          'newTabindex',
+          $hook$.global(__hook__, __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[27], 'undefined', '#get')[__71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[28]]
+        ], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[27]);
+      }
+    }, null, arguments, __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[27]);
+  }
+  handleFocus() {
+    return __hook__(() => {
+      if (__hook__('#.', this, ['isShiftTabbing'], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[29])) {
+        return;
+      }
+      __hook__('#()', __hook__('#.', this, ['focusElement'], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[29]), [
+        'focus',
+        []
+      ], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[29]);
+    }, null, arguments, __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[29]);
+  }
+  handleDisabledChanged(disabled, oldDisabled) {
+    return __hook__((disabled, oldDisabled) => {
+      if (disabled) {
+        __hook__('#=', this, [
+          'oldTabindex',
+          __hook__('#.', this, ['tabIndex'], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[30])
+        ], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[30]);
+        __hook__('#=', this, [
+          'tabIndex',
+          -1
+        ], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[30]);
+        __hook__('#()', this, [
+          'setAttribute',
+          [
+            'aria-disabled',
+            'true'
+          ]
+        ], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[30]);
+      } else if (oldDisabled) {
+        __hook__('#=', this, [
+          'tabIndex',
+          __hook__('#.', this, ['oldTabindex'], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[30])
+        ], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[30]);
+        __hook__('#()', this, [
+          'removeAttribute',
+          ['aria-disabled']
+        ], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[30]);
+      }
+    }, null, arguments, __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[30]);
+  }
+  handleTabIndexChanged(tabindex) {
+    return __hook__(tabindex => {
+      if (__hook__('#.', this, ['disabled'], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[31]) && tabindex) {
+        if (__hook__('#.', this, ['tabIndex'], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[31]) !== -1) {
+          __hook__('#=', this, [
+            'oldTabindex',
+            __hook__('#.', this, ['tabIndex'], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[31])
+          ], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[31]);
+        }
+        __hook__('#=', this, [
+          'tabIndex',
+          -1
+        ], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[31]);
+      }
+    }, null, arguments, __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[31]);
+  }
+}
+__hook__('m()', __decorate, [
+  __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[32],
+  [
+    [__hook__('m()', property, [
+        __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[33],
+        [{
+            type: $hook$.global(__hook__, __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[34], 'Boolean', '#get')[__71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[35]],
+            reflect: true
+          }],
+        (...args) => property(...args)
+      ], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[0], null)],
+    __hook__('#.', __hook__('m', Focusable, [__71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[5]], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[0], null), ['prototype'], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[0]),
+    'disabled',
+    void 0
+  ],
+  (...args) => __decorate(...args)
+], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[0], null);
+__hook__('m()', __decorate, [
+  __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[32],
+  [
+    [__hook__('m()', property, [
+        __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[33],
+        [{ type: $hook$.global(__hook__, __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[34], 'Boolean', '#get')[__71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[35]] }],
+        (...args) => property(...args)
+      ], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[0], null)],
+    __hook__('#.', __hook__('m', Focusable, [__71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[5]], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[0], null), ['prototype'], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[0]),
+    'autofocus',
+    void 0
+  ],
+  (...args) => __decorate(...args)
+], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[0], null);
+__hook__('m()', __decorate, [
+  __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[32],
+  [
+    [__hook__('m()', property, [
+        __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[33],
+        [{
+            type: $hook$.global(__hook__, __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[34], 'Number', '#get')[__71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[36]],
+            reflect: true
+          }],
+        (...args) => property(...args)
+      ], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[0], null)],
+    __hook__('#.', __hook__('m', Focusable, [__71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[5]], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[0], null), ['prototype'], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[0]),
+    'tabIndex',
+    void 0
+  ],
+  (...args) => __decorate(...args)
+], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[0], null);  __hook__(() => {
+}, null, [
+  'export',
+  __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[0],
+  __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__module_namespace_5
+], __71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[0], NaN);
+
+const __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/observe-slot-text.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/observe-slot-text.js,observedSlotElement',
+  'S_uNpREdiC4aB1e_Symbol;/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/observe-slot-text.js,observedSlotElement',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/observe-slot-text.js,slotElementObserver',
+  'S_uNpREdiC4aB1e_Symbol;/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/observe-slot-text.js,slotElementObserver',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/observe-slot-text.js,startObserving',
+  'S_uNpREdiC4aB1e_Symbol;/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/observe-slot-text.js,startObserving',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/observe-slot-text.js,ObserveSlotText',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/observe-slot-text.js,ObserveSlotText,SlotTextObservingElement,constructor',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/observe-slot-text.js,ObserveSlotText,SlotTextObservingElement,manageObservedSlot',
+  'S_uNpREdiC4aB1e_undefined;/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/observe-slot-text.js,ObserveSlotText,SlotTextObservingElement,manageObservedSlot',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/observe-slot-text.js,ObserveSlotText,SlotTextObservingElement,manageObservedSlot,slot',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/observe-slot-text.js,ObserveSlotText,SlotTextObservingElement,manageObservedSlot,assignedNodes',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/observe-slot-text.js,ObserveSlotText,SlotTextObservingElement,firstUpdated',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/observe-slot-text.js,ObserveSlotText,SlotTextObservingElement,startObserving',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/observe-slot-text.js,ObserveSlotText,SlotTextObservingElement,startObserving,callback',
+  'S_uNpREdiC4aB1e_MutationObserver;/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/observe-slot-text.js,ObserveSlotText,SlotTextObservingElement,startObserving',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/observe-slot-text.js,ObserveSlotText,SlotTextObservingElement,connectedCallback',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/observe-slot-text.js,ObserveSlotText,SlotTextObservingElement,disconnectedCallback'
+]);
+const observedSlotElement = __hook__($hook$.global(__hook__, __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[1], 'Symbol', '#get')[__5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[2]], null, ['observedSlotElement'], __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[1], 0);
+const slotElementObserver = __hook__($hook$.global(__hook__, __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[3], 'Symbol', '#get')[__5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[4]], null, ['slotElementObserver'], __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[3], 0);
+const startObserving = __hook__($hook$.global(__hook__, __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[5], 'Symbol', '#get')[__5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[6]], null, ['startObserving'], __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[5], 0);
+function ObserveSlotText(constructor, slotSelector) {
+  return __hook__((constructor, slotSelector = '#slot') => {
+    return class SlotTextObservingElement extends constructor {
+      constructor() {
+        return __hook__(() => {
+          __hook__((newTarget, ...args) => super(...args), null, [
+            new.target,
+            ...arguments
+          ], __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[8], '');
+          __hook__('#=', this, [
+            'slotHasContent',
+            false
+          ], __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[8]);
+        }, null, arguments, __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[8]);
+      }
+      manageObservedSlot() {
+        return __hook__(() => {
+          __hook__('#=', this, [
+            observedSlotElement,
+            __hook__('#.', this, [observedSlotElement], __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[9]) || (__hook__('#.', this, ['shadowRoot'], __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[9]) ? __hook__('#()', __hook__('#.', this, ['shadowRoot'], __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[9]), [
+              'querySelector',
+              [slotSelector]
+            ], __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[9]) : $hook$.global(__hook__, __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[9], 'undefined', '#get')[__5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[10]])
+          ], __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[9]);
+          if (!__hook__('#.', this, [observedSlotElement], __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[9])) {
+            return;
+          }
+          const slot = __hook__('#.', this, [observedSlotElement], __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[11]);
+          let assignedNodes = __hook__('#.', slot, ['assignedNodes'], __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[12]) ? __hook__('#()', slot, [
+            'assignedNodes',
+            []
+          ], __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[12]) : __hook__('#()', [...__hook__('#.', this, ['childNodes'], __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[12])], [
+            'filter',
+            [(...args) =>
+                (__hook__(node => {
+                  const el = node;
+                  return !__hook__('#()', el, [
+                    'hasAttribute',
+                    ['slot']
+                  ], __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[12]);
+                }, null, args, __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[12]))]
+          ], __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[12]);
+          assignedNodes = __hook__('#()', assignedNodes, [
+            'filter',
+            [(...args) =>
+                (__hook__(node => {
+                  if (__hook__('#.', node, ['tagName'], __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[9])) {
+                    return true;
+                  }
+                  return __hook__('#.', node, ['textContent'], __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[9]) ? __hook__('#()', __hook__('#.', node, ['textContent'], __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[9]), [
+                    'trim',
+                    []
+                  ], __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[9]) : false;
+                }, null, args, __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[9]))]
+          ], __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[9]);
+          __hook__('#=', this, [
+            'slotHasContent',
+            __hook__('#.', assignedNodes, ['length'], __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[9]) > 0
+          ], __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[9]);
+          __hook__('#()', this, [
+            'requestUpdate',
+            []
+          ], __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[9]);
+        }, null, arguments, __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[9]);
+      }
+      firstUpdated(changedProperties) {
+        return __hook__(changedProperties => {
+          __hook__('s()', this, [
+            'firstUpdated',
+            [changedProperties],
+            p => super[p]
+          ], __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[13]);
+          __hook__('#()', this, [
+            'manageObservedSlot',
+            []
+          ], __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[13]);
+        }, null, arguments, __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[13]);
+      }
+      [startObserving]() {
+        return __hook__(() => {
+          const config = {
+            characterData: true,
+            subtree: true
+          };
+          if (!__hook__('#.', this, [slotElementObserver], __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[14])) {
+            const callback = (...args) =>
+              (__hook__(mutationsList => {
+                for (const mutation of __hook__('#*', mutationsList, [], __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[15])) {
+                  /* istanbul ignore else */
+                  if (__hook__('#.', mutation, ['type'], __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[15]) === 'characterData') {
+                    __hook__('#()', this, [
+                      'manageObservedSlot',
+                      []
+                    ], __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[15]);
+                  }
+                }
+              }, null, args, __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[15]));
+            __hook__('#=', this, [
+              slotElementObserver,
+              __hook__($hook$.global(__hook__, __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[14], 'MutationObserver', '#get')[__5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[16]], null, [callback], __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[14], true)
+            ], __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[14]);
+          }
+          __hook__('#()', __hook__('#.', this, [slotElementObserver], __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[14]), [
+            'observe',
+            [
+              this,
+              config
+            ]
+          ], __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[14]);
+        }, null, arguments, __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[14]);
+      }
+      connectedCallback() {
+        return __hook__(() => {
+          __hook__('s()', this, [
+            'connectedCallback',
+            [],
+            p => super[p]
+          ], __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[17]);
+          __hook__('#()', this, [
+            startObserving,
+            []
+          ], __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[17]);
+        }, null, arguments, __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[17]);
+      }
+      disconnectedCallback() {
+        return __hook__(() => {
+          /* istanbul ignore else */
+          if (__hook__('#.', this, [slotElementObserver], __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[18])) {
+            __hook__('#()', __hook__('#.', this, [slotElementObserver], __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[18]), [
+              'disconnect',
+              []
+            ], __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[18]);
+          }
+          __hook__('s()', this, [
+            'disconnectedCallback',
+            [],
+            p => super[p]
+          ], __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[18]);
+        }, null, arguments, __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[18]);
+      }
+    };
+  }, null, arguments, __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[7]);
+}
+__hook__(() => {
+}, null, [
+  'export',
+  __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[0],
+  __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__module_namespace_6
+], __5b67eef6a092eb3e5acb3b5a2078cd81eaf8cb96423d27eae1c89f64bb0b039a__[0], NaN);
+
+/*
+Copyright 2020 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+const __a65496d9a815ca901df9d64519d66e4b98930104f853ef0e0992268e99a6fd6e__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/button-base.css.js',
+  '/components/thin-hook/demo/node_modules/lit-element/lit-element.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/button-base.css.js,styles',
+  '/components/thin-hook/demo/node_modules/lit-element/lit-element.js,css'
+]);
+__hook__(() => {
+}, null, [
+  'import',
+  {
+    [__a65496d9a815ca901df9d64519d66e4b98930104f853ef0e0992268e99a6fd6e__[1]]: [
+      __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__module_namespace_1,
+      'css'
+    ]
+  }
+], __a65496d9a815ca901df9d64519d66e4b98930104f853ef0e0992268e99a6fd6e__[0], NaN);
+const styles$1 = __hook__(__hook__('m', css, [__a65496d9a815ca901df9d64519d66e4b98930104f853ef0e0992268e99a6fd6e__[3]], __a65496d9a815ca901df9d64519d66e4b98930104f853ef0e0992268e99a6fd6e__[2], null), null, [((s, r) => {
+    s.raw = r;
+    return s;
+  })(['\n#button{position:relative;display:inline-flex;box-sizing:border-box;align-items:center;justify-content:center;overflow:visible;margin:0;border-style:solid;text-transform:none;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;-webkit-appearance:button;vertical-align:top;transition:background var(--spectrum-global-animation-duration-100,.13s) ease-out,border-color var(--spectrum-global-animation-duration-100,.13s) ease-out,color var(--spectrum-global-animation-duration-100,.13s) ease-out,box-shadow var(--spectrum-global-animation-duration-100,.13s) ease-out;text-decoration:none;font-family:var(--spectrum-alias-body-text-font-family,var(--spectrum-global-font-family-base));line-height:1.3;cursor:pointer}#button:focus{outline:none}#button::-moz-focus-inner{border:0;border-style:none;padding:0;margin-top:-2px;margin-bottom:-2px}#button:disabled{cursor:default}::slotted([slot=icon]){max-height:100%;flex-shrink:0}:host{display:inline-flex;flex-direction:row;vertical-align:top}#button{display:flex;flex:1 1 auto;-webkit-appearance:none}slot[name=icon]::slotted(svg){fill:currentColor;stroke:currentColor;width:var(--spectrum-alias-workflow-icon-size,18px);height:var(--spectrum-alias-workflow-icon-size,18px)}\n'], ['\n#button{position:relative;display:inline-flex;box-sizing:border-box;align-items:center;justify-content:center;overflow:visible;margin:0;border-style:solid;text-transform:none;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;-webkit-appearance:button;vertical-align:top;transition:background var(--spectrum-global-animation-duration-100,.13s) ease-out,border-color var(--spectrum-global-animation-duration-100,.13s) ease-out,color var(--spectrum-global-animation-duration-100,.13s) ease-out,box-shadow var(--spectrum-global-animation-duration-100,.13s) ease-out;text-decoration:none;font-family:var(--spectrum-alias-body-text-font-family,var(--spectrum-global-font-family-base));line-height:1.3;cursor:pointer}#button:focus{outline:none}#button::-moz-focus-inner{border:0;border-style:none;padding:0;margin-top:-2px;margin-bottom:-2px}#button:disabled{cursor:default}::slotted([slot=icon]){max-height:100%;flex-shrink:0}:host{display:inline-flex;flex-direction:row;vertical-align:top}#button{display:flex;flex:1 1 auto;-webkit-appearance:none}slot[name=icon]::slotted(svg){fill:currentColor;stroke:currentColor;width:var(--spectrum-alias-workflow-icon-size,18px);height:var(--spectrum-alias-workflow-icon-size,18px)}\n'])], __a65496d9a815ca901df9d64519d66e4b98930104f853ef0e0992268e99a6fd6e__[2], 0);
+  __hook__(() => {
+}, null, [
+  'export',
+  __a65496d9a815ca901df9d64519d66e4b98930104f853ef0e0992268e99a6fd6e__[0],
+  __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__module_namespace_7
+], __a65496d9a815ca901df9d64519d66e4b98930104f853ef0e0992268e99a6fd6e__[0], NaN);
+
+/*
+Copyright 2020 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+const __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/ButtonBase.js',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js',
+  '/components/thin-hook/demo/node_modules/lit-element/lit-element.js',
+  '/components/thin-hook/demo/node_modules/lit-html/directives/if-defined.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/like-anchor.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/focusable.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/observe-slot-text.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/button-base.css.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/ButtonBase.js,ButtonBase',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/like-anchor.js,LikeAnchor',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/observe-slot-text.js,ObserveSlotText',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/focusable.js,Focusable',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/ButtonBase.js,ButtonBase,constructor',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/ButtonBase.js,ButtonBase,get styles',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/button-base.css.js,default',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/ButtonBase.js,ButtonBase,get hasIcon',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/ButtonBase.js,ButtonBase,get hasLabel',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/ButtonBase.js,ButtonBase,get focusElement',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/ButtonBase.js,ButtonBase,get buttonContent',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/ButtonBase.js,ButtonBase,get buttonContent,icon',
+  '/components/thin-hook/demo/node_modules/lit-element/lit-element.js,html',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/ButtonBase.js,ButtonBase,get buttonContent,content',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/ButtonBase.js,ButtonBase,render',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/ButtonBase.js,ButtonBase,render,anchorContent',
+  '/components/thin-hook/demo/node_modules/lit-html/directives/if-defined.js,ifDefined',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__decorate',
+  '/components/thin-hook/demo/node_modules/lit-element/lit-element.js,property',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/ButtonBase.js,type',
+  'S_uNpREdiC4aB1e_Boolean;/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/ButtonBase.js,type'
+]);
+__hook__(() => {
+}, null, [
+  'import',
+  {
+    [__297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[1]]: [
+      __6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__module_namespace_1,
+      '__decorate'
+    ],
+    [__297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[2]]: [
+      __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__module_namespace_1,
+      'property',
+      'html'
+    ],
+    [__297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[3]]: [
+      __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__module_namespace_3,
+      'ifDefined'
+    ],
+    [__297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[4]]: [
+      __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__module_namespace_4,
+      'LikeAnchor'
+    ],
+    [__297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[5]]: [
+      __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__module_namespace_5,
+      'Focusable'
+    ],
+    [__297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[6]]: [
+      __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__module_namespace_6,
+      'ObserveSlotText'
+    ],
+    [__297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[7]]: [
+      __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__module_namespace_7,
+      'default'
+    ]
+  }
+], __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[0], NaN);
+class ButtonBase extends __hook__('m()', LikeAnchor, [
+  __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[9],
+  [__hook__('m()', ObserveSlotText, [
+      __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[10],
+      [__hook__('m', Focusable, [__297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[11]], __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[8], null)],
+      (...args) => ObserveSlotText(...args)
+    ], __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[8], null)],
+  (...args) => LikeAnchor(...args)
+], __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[8], null) {
+  constructor() {
+    return __hook__(() => {
+      __hook__((newTarget, ...args) => super(...args), null, [
+        new.target,
+        ...arguments
+      ], __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[12], '');
+      __hook__('#=', this, [
+        'iconRight',
+        false
+      ], __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[12]);
+    }, null, arguments, __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[12]);
+  }
+  static get styles() {
+    return __hook__(() => {
+      return [
+        ...__hook__('s.', this, [
+          'styles',
+          p => super[p]
+        ], __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[13]),
+        __hook__('m', styles$1, [__297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[14]], __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[13], null)
+      ];
+    }, null, arguments, __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[13]);
+  }
+  get hasIcon() {
+    return __hook__(() => {
+      return !!__hook__('#()', this, [
+        'querySelector',
+        ['[slot="icon"]']
+      ], __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[15]);
+    }, null, arguments, __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[15]);
+  }
+  get hasLabel() {
+    return __hook__(() => {
+      return __hook__('#.', this, ['slotHasContent'], __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[16]);
+    }, null, arguments, __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[16]);
+  }
+  get focusElement() {
+    return __hook__(() => {
+      /* istanbul ignore if */
+      if (!__hook__('#.', this, ['shadowRoot'], __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[17])) {
+        return this;
+      }
+      return __hook__('#()', __hook__('#.', this, ['shadowRoot'], __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[17]), [
+        'querySelector',
+        ['#button']
+      ], __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[17]);
+    }, null, arguments, __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[17]);
+  }
+  get buttonContent() {
+    return __hook__(() => {
+      const icon = __hook__(__hook__('m', html, [__297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[20]], __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[19], null), null, [((s, r) => {
+          s.raw = r;
+          return s;
+        })(['\n            <slot name="icon"></slot>\n        '], ['\n            <slot name="icon"></slot>\n        '])], __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[19], 0);
+      const content = [__hook__(__hook__('m', html, [__297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[20]], __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[21], null), null, [
+          ((s, r) => {
+            s.raw = r;
+            return s;
+          })([
+            '\n                <div id="label" ?hidden=',
+            '>\n                    <slot\n                        id="slot"\n                        @slotchange=',
+            '\n                    ></slot>\n                </div>\n            '
+          ], [
+            '\n                <div id="label" ?hidden=',
+            '>\n                    <slot\n                        id="slot"\n                        @slotchange=',
+            '\n                    ></slot>\n                </div>\n            '
+          ]),
+          !__hook__('#.', this, ['hasLabel'], __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[21]),
+          __hook__('#.', this, ['manageObservedSlot'], __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[21])
+        ], __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[21], 0)];
+      if (!__hook__('#.', this, ['hasIcon'], __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[18])) {
+        return content;
+      }
+      __hook__('#.', this, ['iconRight'], __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[18]) ? __hook__('#()', content, [
+        'push',
+        [icon]
+      ], __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[18]) : __hook__('#()', content, [
+        'unshift',
+        [icon]
+      ], __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[18]);
+      return content;
+    }, null, arguments, __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[18]);
+  }
+  render() {
+    return __hook__(() => {
+      return __hook__('#.', this, ['href'], __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[22]) && __hook__('#.', __hook__('#.', this, ['href'], __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[22]), ['length'], __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[22]) > 0 ? __hook__('#()', this, [
+        'renderAnchor',
+        [{
+            id: 'button',
+            anchorContent: __hook__('#.', this, ['buttonContent'], __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[23])
+          }]
+      ], __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[22]) : __hook__(__hook__('m', html, [__297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[20]], __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[22], null), null, [
+        ((s, r) => {
+          s.raw = r;
+          return s;
+        })([
+          '\n                  <button id="button" aria-label=',
+          '>\n                      ',
+          '\n                  </button>\n              '
+        ], [
+          '\n                  <button id="button" aria-label=',
+          '>\n                      ',
+          '\n                  </button>\n              '
+        ]),
+        __hook__('m()', ifDefined, [
+          __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[24],
+          [__hook__('#.', this, ['label'], __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[22])],
+          (...args) => ifDefined(...args)
+        ], __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[22], null),
+        __hook__('#.', this, ['buttonContent'], __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[22])
+      ], __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[22], 0);
+    }, null, arguments, __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[22]);
+  }
+}
+__hook__('m()', __decorate, [
+  __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[25],
+  [
+    [__hook__('m()', property, [
+        __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[26],
+        [{
+            type: $hook$.global(__hook__, __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[27], 'Boolean', '#get')[__297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[28]],
+            reflect: true,
+            attribute: 'icon-right'
+          }],
+        (...args) => property(...args)
+      ], __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[0], null)],
+    __hook__('#.', __hook__('m', ButtonBase, [__297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[8]], __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[0], null), ['prototype'], __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[0]),
+    'iconRight',
+    void 0
+  ],
+  (...args) => __decorate(...args)
+], __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[0], null);  __hook__(() => {
+}, null, [
+  'export',
+  __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[0],
+  __6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__module_namespace_3
+], __297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[0], NaN);
+
+/*
+Copyright 2020 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+const __f55191443e535b24459d786e10f0b1fb2a0bd7a0895986d18177ffa666cca04b__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/button.css.js',
+  '/components/thin-hook/demo/node_modules/lit-element/lit-element.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/button.css.js,styles',
+  '/components/thin-hook/demo/node_modules/lit-element/lit-element.js,css'
+]);
+__hook__(() => {
+}, null, [
+  'import',
+  {
+    [__f55191443e535b24459d786e10f0b1fb2a0bd7a0895986d18177ffa666cca04b__[1]]: [
+      __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__module_namespace_1,
+      'css'
+    ]
+  }
+], __f55191443e535b24459d786e10f0b1fb2a0bd7a0895986d18177ffa666cca04b__[0], NaN);
+const styles$2 = __hook__(__hook__('m', css, [__f55191443e535b24459d786e10f0b1fb2a0bd7a0895986d18177ffa666cca04b__[3]], __f55191443e535b24459d786e10f0b1fb2a0bd7a0895986d18177ffa666cca04b__[2], null), null, [((s, r) => {
+    s.raw = r;
+    return s;
+  })(['\n#button:after{border-radius:calc(var(--spectrum-button-primary-border-radius,\nvar(--spectrum-alias-border-radius-large)) + var(--spectrum-alias-focus-ring-gap,\nvar(--spectrum-global-dimension-static-size-25)));content:"";display:block;position:absolute;left:0;right:0;bottom:0;top:0;margin:calc(var(--spectrum-alias-focus-ring-gap,\nvar(--spectrum-global-dimension-static-size-25))*-1);transition:box-shadow var(--spectrum-global-animation-duration-100,.13s) ease-out,margin var(--spectrum-global-animation-duration-100,.13s) ease-out}#button.focus-visible:after{margin:calc(var(--spectrum-alias-focus-ring-gap,\nvar(--spectrum-global-dimension-static-size-25))*-2)}#button{border-width:var(--spectrum-button-primary-border-size,var(--spectrum-alias-border-size-thick));border-style:solid;border-radius:var(--spectrum-button-primary-border-radius,var(--spectrum-alias-border-radius-large));min-height:var(--spectrum-button-primary-height,var(--spectrum-alias-single-line-height));height:auto;min-width:var(--spectrum-button-primary-min-width);padding:var(--spectrum-global-dimension-size-50) calc(var(--spectrum-button-primary-padding-x,\nvar(--spectrum-global-dimension-size-200)) - var(--spectrum-button-primary-border-size,\nvar(--spectrum-alias-border-size-thick)));padding-bottom:calc(var(--spectrum-global-dimension-size-50) + 1px);padding-top:calc(var(--spectrum-global-dimension-size-50) - 1px);font-size:var(--spectrum-button-primary-text-size,var(--spectrum-alias-pill-button-text-size));font-weight:var(--spectrum-button-primary-text-font-weight,var(--spectrum-global-font-weight-bold))}#button:active,#button:hover{box-shadow:none}slot[name=icon]+#label{margin-left:var(--spectrum-button-primary-text-gap,var(--spectrum-global-dimension-size-100))}#label+::slotted([slot=icon]){margin-left:calc(var(--spectrum-button-primary-text-gap,\nvar(--spectrum-global-dimension-size-100))/2)}#label{align-self:center;justify-self:center;text-align:center;width:100%}#label:empty{display:none}#button.focus-visible:after,#button.is-focused:after{box-shadow:0 0 0 var(--spectrum-button-primary-focus-ring-size-key-focus,var(--spectrum-alias-focus-ring-size)) var(--spectrum-button-primary-focus-ring-color-key-focus,var(--spectrum-alias-focus-ring-color))}:host([variant=cta]) #button{background-color:var(--spectrum-button-cta-background-color,var(--spectrum-semantic-cta-color-background-default));border-color:var(--spectrum-button-cta-border-color,var(--spectrum-semantic-cta-color-background-default));color:var(--spectrum-button-cta-text-color,var(--spectrum-global-color-static-white))}:host([variant=cta]) #button:hover{background-color:var(--spectrum-button-cta-background-color-hover,var(--spectrum-semantic-cta-color-background-hover));border-color:var(--spectrum-button-cta-border-color-hover,var(--spectrum-semantic-cta-color-background-hover));color:var(--spectrum-button-cta-text-color-hover,var(--spectrum-global-color-static-white))}:host([variant=cta]) #button.focus-visible{background-color:var(--spectrum-button-cta-background-color-key-focus,var(--spectrum-semantic-cta-color-background-hover));border-color:var(--spectrum-button-cta-border-color-key-focus,var(--spectrum-semantic-cta-color-background-hover));color:var(--spectrum-button-cta-text-color-key-focus,var(--spectrum-global-color-static-white))}:host([variant=cta]) #button:active{background-color:var(--spectrum-button-cta-background-color-down,var(--spectrum-semantic-cta-color-background-down));border-color:var(--spectrum-button-cta-border-color-down,var(--spectrum-semantic-cta-color-background-down));color:var(--spectrum-button-cta-text-color-down,var(--spectrum-global-color-static-white))}:host([variant=cta][disabled]) #button{background-color:var(--spectrum-button-cta-background-color-disabled,var(--spectrum-global-color-gray-200));border-color:var(--spectrum-button-cta-border-color-disabled,var(--spectrum-global-color-gray-200));color:var(--spectrum-button-cta-text-color-disabled,var(--spectrum-global-color-gray-500))}:host([variant=primary]) #button{background-color:var(--spectrum-button-primary-background-color,var(--spectrum-alias-background-color-transparent));border-color:var(--spectrum-button-primary-border-color,var(--spectrum-global-color-gray-800));color:var(--spectrum-button-primary-text-color,var(--spectrum-global-color-gray-800))}:host([variant=primary]) #button:hover{background-color:var(--spectrum-button-primary-background-color-hover,var(--spectrum-global-color-gray-800));border-color:var(--spectrum-button-primary-border-color-hover,var(--spectrum-global-color-gray-800));color:var(--spectrum-button-primary-text-color-hover,var(--spectrum-global-color-gray-50))}:host([variant=primary]) #button.focus-visible{background-color:var(--spectrum-button-primary-background-color-key-focus,var(--spectrum-global-color-gray-800));border-color:var(--spectrum-button-primary-border-color-key-focus,var(--spectrum-global-color-gray-800));color:var(--spectrum-button-primary-text-color-key-focus,var(--spectrum-global-color-gray-50))}:host([variant=primary]) #button:active{background-color:var(--spectrum-button-primary-background-color-down,var(--spectrum-global-color-gray-900));border-color:var(--spectrum-button-primary-border-color-down,var(--spectrum-global-color-gray-900));color:var(--spectrum-button-primary-text-color-down,var(--spectrum-global-color-gray-50))}:host([variant=primary][disabled]) #button{background-color:var(--spectrum-button-primary-background-color-disabled,var(--spectrum-global-color-gray-200));border-color:var(--spectrum-button-primary-border-color-disabled,var(--spectrum-global-color-gray-200));color:var(--spectrum-button-primary-text-color-disabled,var(--spectrum-global-color-gray-500))}:host([variant=secondary]) #button{background-color:var(--spectrum-button-secondary-background-color,var(--spectrum-alias-background-color-transparent));border-color:var(--spectrum-button-secondary-border-color,var(--spectrum-global-color-gray-700));color:var(--spectrum-button-secondary-text-color,var(--spectrum-global-color-gray-700))}:host([variant=secondary]) #button:hover{background-color:var(--spectrum-button-secondary-background-color-hover,var(--spectrum-global-color-gray-700));border-color:var(--spectrum-button-secondary-border-color-hover,var(--spectrum-global-color-gray-700));color:var(--spectrum-button-secondary-text-color-hover,var(--spectrum-global-color-gray-50))}:host([variant=secondary]) #button.focus-visible{background-color:var(--spectrum-button-secondary-background-color-key-focus,var(--spectrum-global-color-gray-700));border-color:var(--spectrum-button-secondary-border-color-key-focus,var(--spectrum-global-color-gray-700));color:var(--spectrum-button-secondary-text-color-key-focus,var(--spectrum-global-color-gray-50))}:host([variant=secondary]) #button:active{background-color:var(--spectrum-button-secondary-background-color-down,var(--spectrum-global-color-gray-800));border-color:var(--spectrum-button-secondary-border-color-down,var(--spectrum-global-color-gray-800));color:var(--spectrum-button-secondary-text-color-down,var(--spectrum-global-color-gray-50))}:host([variant=secondary][disabled]) #button{background-color:var(--spectrum-button-secondary-background-color-disabled,var(--spectrum-global-color-gray-200));border-color:var(--spectrum-button-secondary-border-color-disabled,var(--spectrum-global-color-gray-200));color:var(--spectrum-button-secondary-text-color-disabled,var(--spectrum-global-color-gray-500))}:host([variant=negative]) #button{background-color:var(--spectrum-button-warning-background-color,var(--spectrum-alias-background-color-transparent));border-color:var(--spectrum-button-warning-border-color,var(--spectrum-semantic-negative-color-text-small));color:var(--spectrum-button-warning-text-color,var(--spectrum-semantic-negative-color-text-small))}:host([variant=negative]) #button:hover{background-color:var(--spectrum-button-warning-background-color-hover,var(--spectrum-semantic-negative-color-text-small));border-color:var(--spectrum-button-warning-border-color-hover,var(--spectrum-semantic-negative-color-text-small));color:var(--spectrum-button-warning-text-color-hover,var(--spectrum-global-color-gray-50))}:host([variant=negative]) #button.focus-visible{background-color:var(--spectrum-button-warning-background-color-key-focus,var(--spectrum-semantic-negative-color-text-small));border-color:var(--spectrum-button-warning-border-color-key-focus,var(--spectrum-semantic-negative-color-text-small));color:var(--spectrum-button-warning-text-color-key-focus,var(--spectrum-global-color-gray-50))}:host([variant=negative]) #button:active{background-color:var(--spectrum-button-warning-background-color-down,var(--spectrum-global-color-red-700));border-color:var(--spectrum-button-warning-border-color-down,var(--spectrum-global-color-red-700));color:var(--spectrum-button-warning-text-color-down,var(--spectrum-global-color-gray-50))}:host([variant=negative][disabled]) #button{background-color:var(--spectrum-button-warning-background-color-disabled,var(--spectrum-global-color-gray-200));border-color:var(--spectrum-button-warning-border-color-disabled,var(--spectrum-global-color-gray-200));color:var(--spectrum-button-warning-text-color-disabled,var(--spectrum-global-color-gray-500))}:host([variant=overBackground]) #button{background-color:var(--spectrum-button-over-background-background-color,var(--spectrum-alias-background-color-transparent));border-color:var(--spectrum-button-over-background-border-color,var(--spectrum-global-color-static-white));color:var(--spectrum-button-over-background-text-color,var(--spectrum-global-color-static-white))}:host([variant=overBackground]) #button.focus-visible,:host([variant=overBackground]) #button:hover{background-color:var(--spectrum-button-over-background-background-color-hover,var(--spectrum-global-color-static-white));border-color:var(--spectrum-button-over-background-border-color-hover,var(--spectrum-global-color-static-white));color:inherit}:host([variant=overBackground]) #button.focus-visible:after{box-shadow:0 0 0 var(--spectrum-alias-focus-ring-size,var(--spectrum-global-dimension-static-size-25)) var(--spectrum-button-over-background-border-color-key-focus,var(--spectrum-global-color-static-white))}:host([variant=overBackground]) #button:active{background-color:var(--spectrum-button-over-background-background-color-down,var(--spectrum-global-color-static-white));border-color:var(--spectrum-button-over-background-border-color-down,var(--spectrum-global-color-static-white));color:inherit}:host([variant=overBackground][disabled]) #button{background-color:var(--spectrum-button-over-background-background-color-disabled,hsla(0,0%,100%,.1));border-color:var(--spectrum-button-over-background-border-color-disabled,var(--spectrum-alias-border-color-transparent));color:var(--spectrum-button-over-background-text-color-disabled,hsla(0,0%,100%,.35))}:host([variant=overBackground][quiet]) #button{background-color:var(--spectrum-button-quiet-over-background-background-color,var(--spectrum-alias-background-color-transparent));border-color:var(--spectrum-button-quiet-over-background-border-color,var(--spectrum-alias-border-color-transparent));color:var(--spectrum-button-quiet-over-background-text-color,var(--spectrum-global-color-static-white))}:host([variant=overBackground][quiet]) #button.focus-visible,:host([variant=overBackground][quiet]) #button:hover{background-color:var(--spectrum-button-quiet-over-background-background-color-hover,hsla(0,0%,100%,.1));border-color:var(--spectrum-button-quiet-over-background-border-color-hover,var(--spectrum-alias-border-color-transparent));color:var(--spectrum-button-quiet-over-background-text-color-hover,var(--spectrum-global-color-static-white))}:host([variant=overBackground][quiet]) #button.focus-visible{box-shadow:none}:host([variant=overBackground][quiet]) #button.focus-visible:after{box-shadow:0 0 0 var(--spectrum-alias-focus-ring-size,var(--spectrum-global-dimension-static-size-25)) var(--spectrum-button-over-background-border-color-key-focus,var(--spectrum-global-color-static-white))}:host([variant=overBackground][quiet]) #button:active{background-color:var(--spectrum-button-quiet-over-background-background-color-down,hsla(0,0%,100%,.15));border-color:var(--spectrum-button-quiet-over-background-border-color-down,var(--spectrum-alias-border-color-transparent));color:var(--spectrum-button-quiet-over-background-text-color-down,var(--spectrum-global-color-static-white))}:host([variant=overBackground][quiet][disabled]) #button{background-color:var(--spectrum-button-quiet-over-background-background-color-disabled,var(--spectrum-alias-background-color-transparent));border-color:var(--spectrum-button-quiet-over-background-border-color-disabled,var(--spectrum-alias-border-color-transparent));color:var(--spectrum-button-quiet-over-background-text-color-disabled,hsla(0,0%,100%,.15))}:host([variant=primary][quiet]) #button{background-color:var(--spectrum-button-quiet-primary-background-color,var(--spectrum-alias-background-color-transparent));border-color:var(--spectrum-button-quiet-primary-border-color,var(--spectrum-alias-border-color-transparent));color:var(--spectrum-button-quiet-primary-text-color,var(--spectrum-global-color-gray-800))}:host([variant=primary][quiet]) #button:hover{background-color:var(--spectrum-button-quiet-primary-background-color-hover,var(--spectrum-global-color-gray-200));border-color:var(--spectrum-button-quiet-primary-border-color-hover,var(--spectrum-global-color-gray-200));color:var(--spectrum-button-quiet-primary-text-color-hover,var(--spectrum-global-color-gray-900))}:host([variant=primary][quiet]) #button.focus-visible{background-color:var(--spectrum-button-quiet-primary-background-color-key-focus,var(--spectrum-global-color-gray-200));border-color:var(--spectrum-button-quiet-primary-border-color-key-focus,var(--spectrum-global-color-gray-200));color:var(--spectrum-button-quiet-primary-text-color-key-focus,var(--spectrum-global-color-gray-900))}:host([variant=primary][quiet]) #button:active{background-color:var(--spectrum-button-quiet-primary-background-color-down,var(--spectrum-global-color-gray-300));border-color:var(--spectrum-button-quiet-primary-border-color-down,var(--spectrum-global-color-gray-300));color:var(--spectrum-button-quiet-primary-text-color-down,var(--spectrum-global-color-gray-900))}:host([variant=primary][quiet][disabled]) #button{background-color:var(--spectrum-button-quiet-primary-background-color-disabled,var(--spectrum-alias-background-color-transparent));border-color:var(--spectrum-button-quiet-primary-border-color-disabled,var(--spectrum-alias-border-color-transparent));color:var(--spectrum-button-quiet-primary-text-color-disabled,var(--spectrum-global-color-gray-500))}:host([variant=secondary][quiet]) #button{background-color:var(--spectrum-button-quiet-secondary-background-color,var(--spectrum-alias-background-color-transparent));border-color:var(--spectrum-button-quiet-secondary-border-color,var(--spectrum-alias-border-color-transparent));color:var(--spectrum-button-quiet-secondary-text-color,var(--spectrum-global-color-gray-700))}:host([variant=secondary][quiet]) #button:hover{background-color:var(--spectrum-button-quiet-secondary-background-color-hover,var(--spectrum-global-color-gray-200));border-color:var(--spectrum-button-quiet-secondary-border-color-hover,var(--spectrum-global-color-gray-200));color:var(--spectrum-button-quiet-secondary-text-color-hover,var(--spectrum-global-color-gray-800))}:host([variant=secondary][quiet]) #button.focus-visible{background-color:var(--spectrum-button-quiet-secondary-background-color-key-focus,var(--spectrum-global-color-gray-200));border-color:var(--spectrum-button-quiet-secondary-border-color-key-focus,var(--spectrum-global-color-gray-200));color:var(--spectrum-button-quiet-secondary-text-color-key-focus,var(--spectrum-global-color-gray-800))}:host([variant=secondary][quiet]) #button:active{background-color:var(--spectrum-button-quiet-secondary-background-color-down,var(--spectrum-global-color-gray-300));border-color:var(--spectrum-button-quiet-secondary-border-color-down,var(--spectrum-global-color-gray-300));color:var(--spectrum-button-quiet-secondary-text-color-down,var(--spectrum-global-color-gray-800))}:host([variant=secondary][quiet][disabled]) #button{background-color:var(--spectrum-button-quiet-secondary-background-color-disabled,var(--spectrum-alias-background-color-transparent));border-color:var(--spectrum-button-quiet-secondary-border-color-disabled,var(--spectrum-alias-border-color-transparent));color:var(--spectrum-button-quiet-secondary-text-color-disabled,var(--spectrum-global-color-gray-500))}:host([variant=negative][quiet]) #button{background-color:var(--spectrum-button-quiet-warning-background-color,var(--spectrum-alias-background-color-transparent));border-color:var(--spectrum-button-quiet-warning-border-color,var(--spectrum-alias-border-color-transparent));color:var(--spectrum-button-quiet-warning-text-color,var(--spectrum-semantic-negative-color-text-small))}:host([variant=negative][quiet]) #button:hover{background-color:var(--spectrum-button-quiet-warning-background-color-hover,var(--spectrum-global-color-gray-200));border-color:var(--spectrum-button-quiet-warning-border-color-hover,var(--spectrum-global-color-gray-200));color:var(--spectrum-button-quiet-warning-text-color-hover,var(--spectrum-global-color-red-700))}:host([variant=negative][quiet]) #button.focus-visible{background-color:var(--spectrum-button-quiet-warning-background-color-key-focus,var(--spectrum-global-color-gray-200));border-color:var(--spectrum-button-quiet-warning-border-color-key-focus,var(--spectrum-global-color-gray-200));color:var(--spectrum-button-quiet-warning-text-color-key-focus,var(--spectrum-global-color-red-700))}:host([variant=negative][quiet]) #button:active{background-color:var(--spectrum-button-quiet-warning-background-color-down,var(--spectrum-global-color-gray-300));border-color:var(--spectrum-button-quiet-warning-border-color-down,var(--spectrum-global-color-gray-300));color:var(--spectrum-button-quiet-warning-text-color-down,var(--spectrum-global-color-red-700))}:host([variant=negative][quiet][disabled]) #button{background-color:var(--spectrum-button-quiet-warning-background-color-disabled,var(--spectrum-alias-background-color-transparent));border-color:var(--spectrum-button-quiet-warning-border-color-disabled,var(--spectrum-alias-border-color-transparent));color:var(--spectrum-button-quiet-warning-text-color-disabled,var(--spectrum-global-color-gray-500))}\n'], ['\n#button:after{border-radius:calc(var(--spectrum-button-primary-border-radius,\nvar(--spectrum-alias-border-radius-large)) + var(--spectrum-alias-focus-ring-gap,\nvar(--spectrum-global-dimension-static-size-25)));content:"";display:block;position:absolute;left:0;right:0;bottom:0;top:0;margin:calc(var(--spectrum-alias-focus-ring-gap,\nvar(--spectrum-global-dimension-static-size-25))*-1);transition:box-shadow var(--spectrum-global-animation-duration-100,.13s) ease-out,margin var(--spectrum-global-animation-duration-100,.13s) ease-out}#button.focus-visible:after{margin:calc(var(--spectrum-alias-focus-ring-gap,\nvar(--spectrum-global-dimension-static-size-25))*-2)}#button{border-width:var(--spectrum-button-primary-border-size,var(--spectrum-alias-border-size-thick));border-style:solid;border-radius:var(--spectrum-button-primary-border-radius,var(--spectrum-alias-border-radius-large));min-height:var(--spectrum-button-primary-height,var(--spectrum-alias-single-line-height));height:auto;min-width:var(--spectrum-button-primary-min-width);padding:var(--spectrum-global-dimension-size-50) calc(var(--spectrum-button-primary-padding-x,\nvar(--spectrum-global-dimension-size-200)) - var(--spectrum-button-primary-border-size,\nvar(--spectrum-alias-border-size-thick)));padding-bottom:calc(var(--spectrum-global-dimension-size-50) + 1px);padding-top:calc(var(--spectrum-global-dimension-size-50) - 1px);font-size:var(--spectrum-button-primary-text-size,var(--spectrum-alias-pill-button-text-size));font-weight:var(--spectrum-button-primary-text-font-weight,var(--spectrum-global-font-weight-bold))}#button:active,#button:hover{box-shadow:none}slot[name=icon]+#label{margin-left:var(--spectrum-button-primary-text-gap,var(--spectrum-global-dimension-size-100))}#label+::slotted([slot=icon]){margin-left:calc(var(--spectrum-button-primary-text-gap,\nvar(--spectrum-global-dimension-size-100))/2)}#label{align-self:center;justify-self:center;text-align:center;width:100%}#label:empty{display:none}#button.focus-visible:after,#button.is-focused:after{box-shadow:0 0 0 var(--spectrum-button-primary-focus-ring-size-key-focus,var(--spectrum-alias-focus-ring-size)) var(--spectrum-button-primary-focus-ring-color-key-focus,var(--spectrum-alias-focus-ring-color))}:host([variant=cta]) #button{background-color:var(--spectrum-button-cta-background-color,var(--spectrum-semantic-cta-color-background-default));border-color:var(--spectrum-button-cta-border-color,var(--spectrum-semantic-cta-color-background-default));color:var(--spectrum-button-cta-text-color,var(--spectrum-global-color-static-white))}:host([variant=cta]) #button:hover{background-color:var(--spectrum-button-cta-background-color-hover,var(--spectrum-semantic-cta-color-background-hover));border-color:var(--spectrum-button-cta-border-color-hover,var(--spectrum-semantic-cta-color-background-hover));color:var(--spectrum-button-cta-text-color-hover,var(--spectrum-global-color-static-white))}:host([variant=cta]) #button.focus-visible{background-color:var(--spectrum-button-cta-background-color-key-focus,var(--spectrum-semantic-cta-color-background-hover));border-color:var(--spectrum-button-cta-border-color-key-focus,var(--spectrum-semantic-cta-color-background-hover));color:var(--spectrum-button-cta-text-color-key-focus,var(--spectrum-global-color-static-white))}:host([variant=cta]) #button:active{background-color:var(--spectrum-button-cta-background-color-down,var(--spectrum-semantic-cta-color-background-down));border-color:var(--spectrum-button-cta-border-color-down,var(--spectrum-semantic-cta-color-background-down));color:var(--spectrum-button-cta-text-color-down,var(--spectrum-global-color-static-white))}:host([variant=cta][disabled]) #button{background-color:var(--spectrum-button-cta-background-color-disabled,var(--spectrum-global-color-gray-200));border-color:var(--spectrum-button-cta-border-color-disabled,var(--spectrum-global-color-gray-200));color:var(--spectrum-button-cta-text-color-disabled,var(--spectrum-global-color-gray-500))}:host([variant=primary]) #button{background-color:var(--spectrum-button-primary-background-color,var(--spectrum-alias-background-color-transparent));border-color:var(--spectrum-button-primary-border-color,var(--spectrum-global-color-gray-800));color:var(--spectrum-button-primary-text-color,var(--spectrum-global-color-gray-800))}:host([variant=primary]) #button:hover{background-color:var(--spectrum-button-primary-background-color-hover,var(--spectrum-global-color-gray-800));border-color:var(--spectrum-button-primary-border-color-hover,var(--spectrum-global-color-gray-800));color:var(--spectrum-button-primary-text-color-hover,var(--spectrum-global-color-gray-50))}:host([variant=primary]) #button.focus-visible{background-color:var(--spectrum-button-primary-background-color-key-focus,var(--spectrum-global-color-gray-800));border-color:var(--spectrum-button-primary-border-color-key-focus,var(--spectrum-global-color-gray-800));color:var(--spectrum-button-primary-text-color-key-focus,var(--spectrum-global-color-gray-50))}:host([variant=primary]) #button:active{background-color:var(--spectrum-button-primary-background-color-down,var(--spectrum-global-color-gray-900));border-color:var(--spectrum-button-primary-border-color-down,var(--spectrum-global-color-gray-900));color:var(--spectrum-button-primary-text-color-down,var(--spectrum-global-color-gray-50))}:host([variant=primary][disabled]) #button{background-color:var(--spectrum-button-primary-background-color-disabled,var(--spectrum-global-color-gray-200));border-color:var(--spectrum-button-primary-border-color-disabled,var(--spectrum-global-color-gray-200));color:var(--spectrum-button-primary-text-color-disabled,var(--spectrum-global-color-gray-500))}:host([variant=secondary]) #button{background-color:var(--spectrum-button-secondary-background-color,var(--spectrum-alias-background-color-transparent));border-color:var(--spectrum-button-secondary-border-color,var(--spectrum-global-color-gray-700));color:var(--spectrum-button-secondary-text-color,var(--spectrum-global-color-gray-700))}:host([variant=secondary]) #button:hover{background-color:var(--spectrum-button-secondary-background-color-hover,var(--spectrum-global-color-gray-700));border-color:var(--spectrum-button-secondary-border-color-hover,var(--spectrum-global-color-gray-700));color:var(--spectrum-button-secondary-text-color-hover,var(--spectrum-global-color-gray-50))}:host([variant=secondary]) #button.focus-visible{background-color:var(--spectrum-button-secondary-background-color-key-focus,var(--spectrum-global-color-gray-700));border-color:var(--spectrum-button-secondary-border-color-key-focus,var(--spectrum-global-color-gray-700));color:var(--spectrum-button-secondary-text-color-key-focus,var(--spectrum-global-color-gray-50))}:host([variant=secondary]) #button:active{background-color:var(--spectrum-button-secondary-background-color-down,var(--spectrum-global-color-gray-800));border-color:var(--spectrum-button-secondary-border-color-down,var(--spectrum-global-color-gray-800));color:var(--spectrum-button-secondary-text-color-down,var(--spectrum-global-color-gray-50))}:host([variant=secondary][disabled]) #button{background-color:var(--spectrum-button-secondary-background-color-disabled,var(--spectrum-global-color-gray-200));border-color:var(--spectrum-button-secondary-border-color-disabled,var(--spectrum-global-color-gray-200));color:var(--spectrum-button-secondary-text-color-disabled,var(--spectrum-global-color-gray-500))}:host([variant=negative]) #button{background-color:var(--spectrum-button-warning-background-color,var(--spectrum-alias-background-color-transparent));border-color:var(--spectrum-button-warning-border-color,var(--spectrum-semantic-negative-color-text-small));color:var(--spectrum-button-warning-text-color,var(--spectrum-semantic-negative-color-text-small))}:host([variant=negative]) #button:hover{background-color:var(--spectrum-button-warning-background-color-hover,var(--spectrum-semantic-negative-color-text-small));border-color:var(--spectrum-button-warning-border-color-hover,var(--spectrum-semantic-negative-color-text-small));color:var(--spectrum-button-warning-text-color-hover,var(--spectrum-global-color-gray-50))}:host([variant=negative]) #button.focus-visible{background-color:var(--spectrum-button-warning-background-color-key-focus,var(--spectrum-semantic-negative-color-text-small));border-color:var(--spectrum-button-warning-border-color-key-focus,var(--spectrum-semantic-negative-color-text-small));color:var(--spectrum-button-warning-text-color-key-focus,var(--spectrum-global-color-gray-50))}:host([variant=negative]) #button:active{background-color:var(--spectrum-button-warning-background-color-down,var(--spectrum-global-color-red-700));border-color:var(--spectrum-button-warning-border-color-down,var(--spectrum-global-color-red-700));color:var(--spectrum-button-warning-text-color-down,var(--spectrum-global-color-gray-50))}:host([variant=negative][disabled]) #button{background-color:var(--spectrum-button-warning-background-color-disabled,var(--spectrum-global-color-gray-200));border-color:var(--spectrum-button-warning-border-color-disabled,var(--spectrum-global-color-gray-200));color:var(--spectrum-button-warning-text-color-disabled,var(--spectrum-global-color-gray-500))}:host([variant=overBackground]) #button{background-color:var(--spectrum-button-over-background-background-color,var(--spectrum-alias-background-color-transparent));border-color:var(--spectrum-button-over-background-border-color,var(--spectrum-global-color-static-white));color:var(--spectrum-button-over-background-text-color,var(--spectrum-global-color-static-white))}:host([variant=overBackground]) #button.focus-visible,:host([variant=overBackground]) #button:hover{background-color:var(--spectrum-button-over-background-background-color-hover,var(--spectrum-global-color-static-white));border-color:var(--spectrum-button-over-background-border-color-hover,var(--spectrum-global-color-static-white));color:inherit}:host([variant=overBackground]) #button.focus-visible:after{box-shadow:0 0 0 var(--spectrum-alias-focus-ring-size,var(--spectrum-global-dimension-static-size-25)) var(--spectrum-button-over-background-border-color-key-focus,var(--spectrum-global-color-static-white))}:host([variant=overBackground]) #button:active{background-color:var(--spectrum-button-over-background-background-color-down,var(--spectrum-global-color-static-white));border-color:var(--spectrum-button-over-background-border-color-down,var(--spectrum-global-color-static-white));color:inherit}:host([variant=overBackground][disabled]) #button{background-color:var(--spectrum-button-over-background-background-color-disabled,hsla(0,0%,100%,.1));border-color:var(--spectrum-button-over-background-border-color-disabled,var(--spectrum-alias-border-color-transparent));color:var(--spectrum-button-over-background-text-color-disabled,hsla(0,0%,100%,.35))}:host([variant=overBackground][quiet]) #button{background-color:var(--spectrum-button-quiet-over-background-background-color,var(--spectrum-alias-background-color-transparent));border-color:var(--spectrum-button-quiet-over-background-border-color,var(--spectrum-alias-border-color-transparent));color:var(--spectrum-button-quiet-over-background-text-color,var(--spectrum-global-color-static-white))}:host([variant=overBackground][quiet]) #button.focus-visible,:host([variant=overBackground][quiet]) #button:hover{background-color:var(--spectrum-button-quiet-over-background-background-color-hover,hsla(0,0%,100%,.1));border-color:var(--spectrum-button-quiet-over-background-border-color-hover,var(--spectrum-alias-border-color-transparent));color:var(--spectrum-button-quiet-over-background-text-color-hover,var(--spectrum-global-color-static-white))}:host([variant=overBackground][quiet]) #button.focus-visible{box-shadow:none}:host([variant=overBackground][quiet]) #button.focus-visible:after{box-shadow:0 0 0 var(--spectrum-alias-focus-ring-size,var(--spectrum-global-dimension-static-size-25)) var(--spectrum-button-over-background-border-color-key-focus,var(--spectrum-global-color-static-white))}:host([variant=overBackground][quiet]) #button:active{background-color:var(--spectrum-button-quiet-over-background-background-color-down,hsla(0,0%,100%,.15));border-color:var(--spectrum-button-quiet-over-background-border-color-down,var(--spectrum-alias-border-color-transparent));color:var(--spectrum-button-quiet-over-background-text-color-down,var(--spectrum-global-color-static-white))}:host([variant=overBackground][quiet][disabled]) #button{background-color:var(--spectrum-button-quiet-over-background-background-color-disabled,var(--spectrum-alias-background-color-transparent));border-color:var(--spectrum-button-quiet-over-background-border-color-disabled,var(--spectrum-alias-border-color-transparent));color:var(--spectrum-button-quiet-over-background-text-color-disabled,hsla(0,0%,100%,.15))}:host([variant=primary][quiet]) #button{background-color:var(--spectrum-button-quiet-primary-background-color,var(--spectrum-alias-background-color-transparent));border-color:var(--spectrum-button-quiet-primary-border-color,var(--spectrum-alias-border-color-transparent));color:var(--spectrum-button-quiet-primary-text-color,var(--spectrum-global-color-gray-800))}:host([variant=primary][quiet]) #button:hover{background-color:var(--spectrum-button-quiet-primary-background-color-hover,var(--spectrum-global-color-gray-200));border-color:var(--spectrum-button-quiet-primary-border-color-hover,var(--spectrum-global-color-gray-200));color:var(--spectrum-button-quiet-primary-text-color-hover,var(--spectrum-global-color-gray-900))}:host([variant=primary][quiet]) #button.focus-visible{background-color:var(--spectrum-button-quiet-primary-background-color-key-focus,var(--spectrum-global-color-gray-200));border-color:var(--spectrum-button-quiet-primary-border-color-key-focus,var(--spectrum-global-color-gray-200));color:var(--spectrum-button-quiet-primary-text-color-key-focus,var(--spectrum-global-color-gray-900))}:host([variant=primary][quiet]) #button:active{background-color:var(--spectrum-button-quiet-primary-background-color-down,var(--spectrum-global-color-gray-300));border-color:var(--spectrum-button-quiet-primary-border-color-down,var(--spectrum-global-color-gray-300));color:var(--spectrum-button-quiet-primary-text-color-down,var(--spectrum-global-color-gray-900))}:host([variant=primary][quiet][disabled]) #button{background-color:var(--spectrum-button-quiet-primary-background-color-disabled,var(--spectrum-alias-background-color-transparent));border-color:var(--spectrum-button-quiet-primary-border-color-disabled,var(--spectrum-alias-border-color-transparent));color:var(--spectrum-button-quiet-primary-text-color-disabled,var(--spectrum-global-color-gray-500))}:host([variant=secondary][quiet]) #button{background-color:var(--spectrum-button-quiet-secondary-background-color,var(--spectrum-alias-background-color-transparent));border-color:var(--spectrum-button-quiet-secondary-border-color,var(--spectrum-alias-border-color-transparent));color:var(--spectrum-button-quiet-secondary-text-color,var(--spectrum-global-color-gray-700))}:host([variant=secondary][quiet]) #button:hover{background-color:var(--spectrum-button-quiet-secondary-background-color-hover,var(--spectrum-global-color-gray-200));border-color:var(--spectrum-button-quiet-secondary-border-color-hover,var(--spectrum-global-color-gray-200));color:var(--spectrum-button-quiet-secondary-text-color-hover,var(--spectrum-global-color-gray-800))}:host([variant=secondary][quiet]) #button.focus-visible{background-color:var(--spectrum-button-quiet-secondary-background-color-key-focus,var(--spectrum-global-color-gray-200));border-color:var(--spectrum-button-quiet-secondary-border-color-key-focus,var(--spectrum-global-color-gray-200));color:var(--spectrum-button-quiet-secondary-text-color-key-focus,var(--spectrum-global-color-gray-800))}:host([variant=secondary][quiet]) #button:active{background-color:var(--spectrum-button-quiet-secondary-background-color-down,var(--spectrum-global-color-gray-300));border-color:var(--spectrum-button-quiet-secondary-border-color-down,var(--spectrum-global-color-gray-300));color:var(--spectrum-button-quiet-secondary-text-color-down,var(--spectrum-global-color-gray-800))}:host([variant=secondary][quiet][disabled]) #button{background-color:var(--spectrum-button-quiet-secondary-background-color-disabled,var(--spectrum-alias-background-color-transparent));border-color:var(--spectrum-button-quiet-secondary-border-color-disabled,var(--spectrum-alias-border-color-transparent));color:var(--spectrum-button-quiet-secondary-text-color-disabled,var(--spectrum-global-color-gray-500))}:host([variant=negative][quiet]) #button{background-color:var(--spectrum-button-quiet-warning-background-color,var(--spectrum-alias-background-color-transparent));border-color:var(--spectrum-button-quiet-warning-border-color,var(--spectrum-alias-border-color-transparent));color:var(--spectrum-button-quiet-warning-text-color,var(--spectrum-semantic-negative-color-text-small))}:host([variant=negative][quiet]) #button:hover{background-color:var(--spectrum-button-quiet-warning-background-color-hover,var(--spectrum-global-color-gray-200));border-color:var(--spectrum-button-quiet-warning-border-color-hover,var(--spectrum-global-color-gray-200));color:var(--spectrum-button-quiet-warning-text-color-hover,var(--spectrum-global-color-red-700))}:host([variant=negative][quiet]) #button.focus-visible{background-color:var(--spectrum-button-quiet-warning-background-color-key-focus,var(--spectrum-global-color-gray-200));border-color:var(--spectrum-button-quiet-warning-border-color-key-focus,var(--spectrum-global-color-gray-200));color:var(--spectrum-button-quiet-warning-text-color-key-focus,var(--spectrum-global-color-red-700))}:host([variant=negative][quiet]) #button:active{background-color:var(--spectrum-button-quiet-warning-background-color-down,var(--spectrum-global-color-gray-300));border-color:var(--spectrum-button-quiet-warning-border-color-down,var(--spectrum-global-color-gray-300));color:var(--spectrum-button-quiet-warning-text-color-down,var(--spectrum-global-color-red-700))}:host([variant=negative][quiet][disabled]) #button{background-color:var(--spectrum-button-quiet-warning-background-color-disabled,var(--spectrum-alias-background-color-transparent));border-color:var(--spectrum-button-quiet-warning-border-color-disabled,var(--spectrum-alias-border-color-transparent));color:var(--spectrum-button-quiet-warning-text-color-disabled,var(--spectrum-global-color-gray-500))}\n'])], __f55191443e535b24459d786e10f0b1fb2a0bd7a0895986d18177ffa666cca04b__[2], 0);
+  __hook__(() => {
+}, null, [
+  'export',
+  __f55191443e535b24459d786e10f0b1fb2a0bd7a0895986d18177ffa666cca04b__[0],
+  __da30b35bc5b0bbf9c1d0c3dee38d84c8819ae8d80faf85f42d52c1019798046f__module_namespace_4
+], __f55191443e535b24459d786e10f0b1fb2a0bd7a0895986d18177ffa666cca04b__[0], NaN);
+
+/*
+Copyright 2020 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+const __da30b35bc5b0bbf9c1d0c3dee38d84c8819ae8d80faf85f42d52c1019798046f__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/Button.js',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js',
+  '/components/thin-hook/demo/node_modules/lit-element/lit-element.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/ButtonBase.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/button.css.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/Button.js,Button',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/ButtonBase.js,ButtonBase',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/Button.js,Button,constructor',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/Button.js,Button,get styles',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/button.css.js,default',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__decorate',
+  '/components/thin-hook/demo/node_modules/lit-element/lit-element.js,property',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/Button.js,type',
+  'S_uNpREdiC4aB1e_Boolean;/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/Button.js,type'
+]);
+__hook__(() => {
+}, null, [
+  'import',
+  {
+    [__da30b35bc5b0bbf9c1d0c3dee38d84c8819ae8d80faf85f42d52c1019798046f__[1]]: [
+      __6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__module_namespace_1,
+      '__decorate'
+    ],
+    [__da30b35bc5b0bbf9c1d0c3dee38d84c8819ae8d80faf85f42d52c1019798046f__[2]]: [
+      __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__module_namespace_1,
+      'property'
+    ],
+    [__da30b35bc5b0bbf9c1d0c3dee38d84c8819ae8d80faf85f42d52c1019798046f__[3]]: [
+      __6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__module_namespace_3,
+      'ButtonBase'
+    ],
+    [__da30b35bc5b0bbf9c1d0c3dee38d84c8819ae8d80faf85f42d52c1019798046f__[4]]: [
+      __da30b35bc5b0bbf9c1d0c3dee38d84c8819ae8d80faf85f42d52c1019798046f__module_namespace_4,
+      'default'
+    ]
+  }
+], __da30b35bc5b0bbf9c1d0c3dee38d84c8819ae8d80faf85f42d52c1019798046f__[0], NaN);
+/**
+ * A Spectrum button control.
+ * @element sp-button
+ */
+class Button extends __hook__('m', ButtonBase, [__da30b35bc5b0bbf9c1d0c3dee38d84c8819ae8d80faf85f42d52c1019798046f__[6]], __da30b35bc5b0bbf9c1d0c3dee38d84c8819ae8d80faf85f42d52c1019798046f__[5], null) {
+  constructor() {
+    return __hook__(() => {
+      __hook__((newTarget, ...args) => super(...args), null, [
+        new.target,
+        ...arguments
+      ], __da30b35bc5b0bbf9c1d0c3dee38d84c8819ae8d80faf85f42d52c1019798046f__[7], '');
+      /**
+         * The visual variant to apply to this button.
+         */
+      __hook__('#=', this, [
+        'variant',
+        'cta'
+      ], __da30b35bc5b0bbf9c1d0c3dee38d84c8819ae8d80faf85f42d52c1019798046f__[7]);
+      /**
+         * There is a warning in place for this control
+         */
+      __hook__('#=', this, [
+        'warning',
+        false
+      ], __da30b35bc5b0bbf9c1d0c3dee38d84c8819ae8d80faf85f42d52c1019798046f__[7]);
+      /**
+         * Style this button to be less obvious
+         */
+      __hook__('#=', this, [
+        'quiet',
+        false
+      ], __da30b35bc5b0bbf9c1d0c3dee38d84c8819ae8d80faf85f42d52c1019798046f__[7]);
+    }, null, arguments, __da30b35bc5b0bbf9c1d0c3dee38d84c8819ae8d80faf85f42d52c1019798046f__[7]);
+  }
+  static get styles() {
+    return __hook__(() => {
+      return [
+        ...__hook__('s.', this, [
+          'styles',
+          p => super[p]
+        ], __da30b35bc5b0bbf9c1d0c3dee38d84c8819ae8d80faf85f42d52c1019798046f__[8]),
+        __hook__('m', styles$2, [__da30b35bc5b0bbf9c1d0c3dee38d84c8819ae8d80faf85f42d52c1019798046f__[9]], __da30b35bc5b0bbf9c1d0c3dee38d84c8819ae8d80faf85f42d52c1019798046f__[8], null)
+      ];
+    }, null, arguments, __da30b35bc5b0bbf9c1d0c3dee38d84c8819ae8d80faf85f42d52c1019798046f__[8]);
+  }
+}
+__hook__('m()', __decorate, [
+  __da30b35bc5b0bbf9c1d0c3dee38d84c8819ae8d80faf85f42d52c1019798046f__[10],
+  [
+    [__hook__('m()', property, [
+        __da30b35bc5b0bbf9c1d0c3dee38d84c8819ae8d80faf85f42d52c1019798046f__[11],
+        [{ reflect: true }],
+        (...args) => property(...args)
+      ], __da30b35bc5b0bbf9c1d0c3dee38d84c8819ae8d80faf85f42d52c1019798046f__[0], null)],
+    __hook__('#.', __hook__('m', Button, [__da30b35bc5b0bbf9c1d0c3dee38d84c8819ae8d80faf85f42d52c1019798046f__[5]], __da30b35bc5b0bbf9c1d0c3dee38d84c8819ae8d80faf85f42d52c1019798046f__[0], null), ['prototype'], __da30b35bc5b0bbf9c1d0c3dee38d84c8819ae8d80faf85f42d52c1019798046f__[0]),
+    'variant',
+    void 0
+  ],
+  (...args) => __decorate(...args)
+], __da30b35bc5b0bbf9c1d0c3dee38d84c8819ae8d80faf85f42d52c1019798046f__[0], null);
+__hook__('m()', __decorate, [
+  __da30b35bc5b0bbf9c1d0c3dee38d84c8819ae8d80faf85f42d52c1019798046f__[10],
+  [
+    [__hook__('m()', property, [
+        __da30b35bc5b0bbf9c1d0c3dee38d84c8819ae8d80faf85f42d52c1019798046f__[11],
+        [{
+            type: $hook$.global(__hook__, __da30b35bc5b0bbf9c1d0c3dee38d84c8819ae8d80faf85f42d52c1019798046f__[12], 'Boolean', '#get')[__da30b35bc5b0bbf9c1d0c3dee38d84c8819ae8d80faf85f42d52c1019798046f__[13]],
+            reflect: true
+          }],
+        (...args) => property(...args)
+      ], __da30b35bc5b0bbf9c1d0c3dee38d84c8819ae8d80faf85f42d52c1019798046f__[0], null)],
+    __hook__('#.', __hook__('m', Button, [__da30b35bc5b0bbf9c1d0c3dee38d84c8819ae8d80faf85f42d52c1019798046f__[5]], __da30b35bc5b0bbf9c1d0c3dee38d84c8819ae8d80faf85f42d52c1019798046f__[0], null), ['prototype'], __da30b35bc5b0bbf9c1d0c3dee38d84c8819ae8d80faf85f42d52c1019798046f__[0]),
+    'warning',
+    void 0
+  ],
+  (...args) => __decorate(...args)
+], __da30b35bc5b0bbf9c1d0c3dee38d84c8819ae8d80faf85f42d52c1019798046f__[0], null);
+__hook__('m()', __decorate, [
+  __da30b35bc5b0bbf9c1d0c3dee38d84c8819ae8d80faf85f42d52c1019798046f__[10],
+  [
+    [__hook__('m()', property, [
+        __da30b35bc5b0bbf9c1d0c3dee38d84c8819ae8d80faf85f42d52c1019798046f__[11],
+        [{
+            type: $hook$.global(__hook__, __da30b35bc5b0bbf9c1d0c3dee38d84c8819ae8d80faf85f42d52c1019798046f__[12], 'Boolean', '#get')[__da30b35bc5b0bbf9c1d0c3dee38d84c8819ae8d80faf85f42d52c1019798046f__[13]],
+            reflect: true
+          }],
+        (...args) => property(...args)
+      ], __da30b35bc5b0bbf9c1d0c3dee38d84c8819ae8d80faf85f42d52c1019798046f__[0], null)],
+    __hook__('#.', __hook__('m', Button, [__da30b35bc5b0bbf9c1d0c3dee38d84c8819ae8d80faf85f42d52c1019798046f__[5]], __da30b35bc5b0bbf9c1d0c3dee38d84c8819ae8d80faf85f42d52c1019798046f__[0], null), ['prototype'], __da30b35bc5b0bbf9c1d0c3dee38d84c8819ae8d80faf85f42d52c1019798046f__[0]),
+    'quiet',
+    void 0
+  ],
+  (...args) => __decorate(...args)
+], __da30b35bc5b0bbf9c1d0c3dee38d84c8819ae8d80faf85f42d52c1019798046f__[0], null);  __hook__(() => {
+}, null, [
+  'export',
+  __da30b35bc5b0bbf9c1d0c3dee38d84c8819ae8d80faf85f42d52c1019798046f__[0],
+  __1e8df5e471cb411f030f7d2f67a33fc489222df99ec4e45f6ff138345a47f550__module_namespace_1
+], __da30b35bc5b0bbf9c1d0c3dee38d84c8819ae8d80faf85f42d52c1019798046f__[0], NaN);
+
+/*
+Copyright 2020 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+const __10794f8d3fcc55f090012295a1525a955a78674ddd5303532a5cd059381577ed__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/action-button.css.js',
+  '/components/thin-hook/demo/node_modules/lit-element/lit-element.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/action-button.css.js,styles',
+  '/components/thin-hook/demo/node_modules/lit-element/lit-element.js,css'
+]);
+__hook__(() => {
+}, null, [
+  'import',
+  {
+    [__10794f8d3fcc55f090012295a1525a955a78674ddd5303532a5cd059381577ed__[1]]: [
+      __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__module_namespace_1,
+      'css'
+    ]
+  }
+], __10794f8d3fcc55f090012295a1525a955a78674ddd5303532a5cd059381577ed__[0], NaN);
+const styles$3 = __hook__(__hook__('m', css, [__10794f8d3fcc55f090012295a1525a955a78674ddd5303532a5cd059381577ed__[3]], __10794f8d3fcc55f090012295a1525a955a78674ddd5303532a5cd059381577ed__[2], null), null, [((s, r) => {
+    s.raw = r;
+    return s;
+  })(['\n#button{position:relative;height:var(--spectrum-actionbutton-height,var(--spectrum-alias-single-line-height));min-width:var(--spectrum-actionbutton-min-width,var(--spectrum-global-dimension-size-400));padding:0 calc(var(--spectrum-actionbutton-icon-padding-x,\nvar(--spectrum-global-dimension-size-85)) - var(--spectrum-actionbutton-border-size,\nvar(--spectrum-alias-border-size-thin)));border-width:var(--spectrum-actionbutton-border-size,var(--spectrum-alias-border-size-thin));border-radius:var(--spectrum-actionbutton-border-radius,var(--spectrum-alias-border-radius-regular));font-size:var(--spectrum-actionbutton-text-size,var(--spectrum-alias-font-size-default));font-weight:var(--spectrum-actionbutton-text-font-weight,var(--spectrum-alias-body-text-font-weight));background-color:var(--spectrum-actionbutton-background-color,var(--spectrum-global-color-gray-75));border-color:var(--spectrum-actionbutton-border-color,var(--spectrum-alias-border-color));color:var(--spectrum-actionbutton-text-color,var(--spectrum-alias-text-color))}slot[name=icon]+#label{padding-left:var(--spectrum-actionbutton-icon-padding-x,var(--spectrum-global-dimension-size-85));padding-right:calc(var(--spectrum-actionbutton-text-padding-x,\nvar(--spectrum-global-dimension-size-150)) - var(--spectrum-actionbutton-icon-padding-x,\nvar(--spectrum-global-dimension-size-85)))}.spectrum-Icon--sizeS:only-child{position:absolute;top:calc(50% - var(--spectrum-actionbutton-icon-size,\nvar(--spectrum-alias-workflow-icon-size))/2);left:calc(50% - var(--spectrum-actionbutton-icon-size,\nvar(--spectrum-alias-workflow-icon-size))/2)}#label:only-child{padding:0 calc(var(--spectrum-actionbutton-text-padding-x,\nvar(--spectrum-global-dimension-size-150)) - var(--spectrum-actionbutton-icon-padding-x,\nvar(--spectrum-global-dimension-size-85)))}#hold-affordance{position:absolute;right:var(--spectrum-actionbutton-hold-icon-padding-right,var(--spectrum-global-dimension-size-40));bottom:var(--spectrum-actionbutton-hold-icon-padding-bottom,var(--spectrum-global-dimension-size-40));color:var(--spectrum-actionbutton-hold-icon-color,var(--spectrum-alias-icon-color))}#label{align-self:center;justify-self:center;text-align:center;width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#label:empty{display:none}:host([quiet]) #button{border-width:var(--spectrum-actionbutton-quiet-border-size,var(--spectrum-alias-border-size-thin));border-radius:var(--spectrum-actionbutton-quiet-border-radius,var(--spectrum-alias-border-radius-regular));font-size:var(--spectrum-actionbutton-quiet-text-size,var(--spectrum-alias-font-size-default));font-weight:var(--spectrum-actionbutton-quiet-text-font-weight,var(--spectrum-alias-body-text-font-weight));background-color:var(--spectrum-actionbutton-quiet-background-color,var(--spectrum-alias-background-color-transparent));border-color:var(--spectrum-actionbutton-quiet-border-color,var(--spectrum-alias-border-color-transparent));color:var(--spectrum-actionbutton-quiet-text-color,var(--spectrum-alias-text-color))}::slotted([slot=icon]){color:var(--spectrum-actionbutton-icon-color,var(--spectrum-alias-icon-color))}#button:hover{background-color:var(--spectrum-actionbutton-background-color-hover,var(--spectrum-global-color-gray-50));border-color:var(--spectrum-actionbutton-border-color-hover,var(--spectrum-alias-border-color-hover));color:var(--spectrum-actionbutton-text-color-hover,var(--spectrum-alias-text-color-hover))}#button:hover ::slotted([slot=icon]){color:var(--spectrum-actionbutton-icon-color-hover,var(--spectrum-alias-icon-color-hover))}#button:hover #hold-affordance{color:var(--spectrum-actionbutton-hold-icon-color-hover,var(--spectrum-alias-icon-color-hover))}#button.focus-visible{background-color:var(--spectrum-actionbutton-background-color-key-focus,var(--spectrum-global-color-gray-50));border-color:var(--spectrum-actionbutton-border-color-key-focus,var(--spectrum-alias-border-color-focus));box-shadow:0 0 0 var(--spectrum-button-primary-border-size-increase-key-focus,1px) var(--spectrum-actionbutton-border-color-key-focus,var(--spectrum-alias-border-color-focus));color:var(--spectrum-actionbutton-text-color-key-focus,var(--spectrum-alias-text-color-hover))}#button.focus-visible ::slotted([slot=icon]){color:var(--spectrum-actionbutton-icon-color-key-focus,var(--spectrum-alias-icon-color-focus))}#button.focus-visible #hold-affordance{color:var(--spectrum-actionbutton-hold-icon-color-key-focus,var(--spectrum-alias-icon-color-hover))}#button:active{background-color:var(--spectrum-actionbutton-background-color-down,var(--spectrum-global-color-gray-200));border-color:var(--spectrum-actionbutton-border-color-down,var(--spectrum-global-color-gray-400));color:var(--spectrum-actionbutton-text-color-down,var(--spectrum-alias-text-color-down))}#button:active #hold-affordance{color:var(--spectrum-actionbutton-hold-icon-color-down,var(--spectrum-alias-icon-color-down))}:host([disabled]) #button{background-color:var(--spectrum-actionbutton-background-color-disabled,var(--spectrum-global-color-gray-200));border-color:var(--spectrum-actionbutton-border-color-disabled,var(--spectrum-global-color-gray-200));color:var(--spectrum-actionbutton-text-color-disabled,var(--spectrum-alias-text-color-disabled))}:host([disabled]) #button ::slotted([slot=icon]){color:var(--spectrum-actionbutton-icon-color-disabled,var(--spectrum-alias-icon-color-disabled))}:host([disabled]) #button #hold-affordance{color:var(--spectrum-actionbutton-hold-icon-color-disabled,var(--spectrum-alias-icon-color-disabled))}:host([selected]) #button{background-color:var(--spectrum-actionbutton-background-color-selected,var(--spectrum-global-color-gray-200));border-color:var(--spectrum-actionbutton-border-color-selected,var(--spectrum-global-color-gray-300));color:var(--spectrum-actionbutton-text-color-selected,var(--spectrum-alias-text-color))}:host([selected]) #button ::slotted([slot=icon]){color:var(--spectrum-actionbutton-icon-color-selected,var(--spectrum-alias-icon-color))}:host([selected]) #button.focus-visible{background-color:var(--spectrum-actionbutton-background-color-selected-key-focus,var(--spectrum-global-color-gray-200));border-color:var(--spectrum-actionbutton-border-color-selected-key-focus,var(--spectrum-alias-border-color-focus));color:var(--spectrum-actionbutton-text-color-selected-key-focus,var(--spectrum-alias-text-color-hover))}:host([selected]) #button.focus-visible ::slotted([slot=icon]){color:var(--spectrum-actionbutton-icon-color-selected-key-focus,var(--spectrum-alias-icon-color-hover))}:host([selected]) #button:hover{background-color:var(--spectrum-actionbutton-background-color-selected-hover,var(--spectrum-global-color-gray-200));border-color:var(--spectrum-actionbutton-border-color-selected-hover,var(--spectrum-global-color-gray-400));color:var(--spectrum-actionbutton-text-color-selected-hover,var(--spectrum-alias-text-color-hover))}:host([selected]) #button:hover ::slotted([slot=icon]){color:var(--spectrum-actionbutton-icon-color-selected-hover,var(--spectrum-alias-icon-color-hover))}:host([selected]) #button:active{background-color:var(--spectrum-actionbutton-background-color-selected-down,var(--spectrum-global-color-gray-200));border-color:var(--spectrum-actionbutton-border-color-selected-down,var(--spectrum-global-color-gray-400));color:var(--spectrum-actionbutton-text-color-selected-down,var(--spectrum-alias-text-color-down))}:host([selected]) #button:active ::slotted([slot=icon]){color:var(--spectrum-actionbutton-icon-color-selected-down,var(--spectrum-alias-icon-color-down))}:host([selected][disabled]) #button{background-color:var(--spectrum-actionbutton-background-color-selected-disabled,var(--spectrum-global-color-gray-200));border-color:var(--spectrum-actionbutton-border-color-selected-disabled,var(--spectrum-global-color-gray-200));color:var(--spectrum-actionbutton-text-color-selected-disabled,var(--spectrum-alias-text-color-disabled))}:host([selected][disabled]) #button ::slotted([slot=icon]){color:var(--spectrum-actionbutton-icon-color-selected-disabled,var(--spectrum-alias-icon-color-disabled))}:host([quiet]) #button:hover{background-color:var(--spectrum-actionbutton-quiet-background-color-hover,var(--spectrum-alias-background-color-transparent));border-color:var(--spectrum-actionbutton-quiet-border-color-hover,var(--spectrum-alias-border-color-transparent));color:var(--spectrum-actionbutton-quiet-text-color-hover,var(--spectrum-alias-text-color-hover))}:host([quiet]) #button.focus-visible{background-color:var(--spectrum-actionbutton-quiet-background-color-key-focus,var(--spectrum-alias-background-color-transparent));box-shadow:0 0 0 1px var(--spectrum-actionbutton-quiet-border-color-key-focus,var(--spectrum-alias-border-color-focus));border-color:var(--spectrum-actionbutton-quiet-border-color-key-focus,var(--spectrum-alias-border-color-focus));color:var(--spectrum-actionbutton-quiet-text-color-key-focus,var(--spectrum-alias-text-color-hover))}:host([quiet]) #button:active{background-color:var(--spectrum-actionbutton-quiet-background-color-down,var(--spectrum-global-color-gray-300));border-color:var(--spectrum-actionbutton-quiet-border-color-down,var(--spectrum-global-color-gray-300));color:var(--spectrum-actionbutton-quiet-text-color-down,var(--spectrum-alias-text-color-down))}:host([quiet][disabled]) #button{background-color:var(--spectrum-actionbutton-quiet-background-color-disabled,var(--spectrum-alias-background-color-transparent));border-color:var(--spectrum-actionbutton-quiet-border-color-disabled,var(--spectrum-alias-border-color-transparent));color:var(--spectrum-actionbutton-quiet-text-color-disabled,var(--spectrum-alias-text-color-disabled))}:host([quiet][selected]) #button{background-color:var(--spectrum-actionbutton-quiet-background-color-selected,var(--spectrum-global-color-gray-300));border-color:var(--spectrum-actionbutton-quiet-border-color-selected,var(--spectrum-global-color-gray-300));color:var(--spectrum-actionbutton-quiet-text-color-selected,var(--spectrum-alias-text-color))}:host([quiet][selected]) #button.focus-visible{background-color:var(--spectrum-actionbutton-quiet-background-color-selected-key-focus,var(--spectrum-global-color-gray-300));border-color:var(--spectrum-actionbutton-quiet-border-color-selected-key-focus,var(--spectrum-alias-border-color-focus));color:var(--spectrum-actionbutton-quiet-text-color-selected-key-focus,var(--spectrum-alias-text-color-hover))}:host([quiet][selected]) #button:hover{background-color:var(--spectrum-actionbutton-quiet-background-color-selected-hover,var(--spectrum-global-color-gray-300));border-color:var(--spectrum-actionbutton-quiet-border-color-selected-hover,var(--spectrum-global-color-gray-300));color:var(--spectrum-actionbutton-quiet-text-color-selected-hover,var(--spectrum-alias-text-color-hover))}:host([quiet][selected]) #button:active{background-color:var(--spectrum-actionbutton-quiet-background-color-selected-down,var(--spectrum-global-color-gray-300));border-color:var(--spectrum-actionbutton-quiet-border-color-selected-down,var(--spectrum-global-color-gray-300));color:var(--spectrum-actionbutton-quiet-text-color-selected-down,var(--spectrum-alias-text-color-down))}:host([quiet][selected][disabled]) #button{background-color:var(--spectrum-actionbutton-quiet-background-color-selected-disabled,var(--spectrum-global-color-gray-200));border-color:var(--spectrum-actionbutton-quiet-border-color-selected-disabled,var(--spectrum-global-color-gray-200));color:var(--spectrum-actionbutton-quiet-text-color-selected-disabled,var(--spectrum-alias-text-color-disabled))}:host(.spectrum-Dropdown-trigger) #button{text-align:left}::slotted([slot=icon]){flex-shrink:0}#label{flex-grow:var(--spectrum-actionbutton-label-flex-grow);text-align:var(--spectrum-actionbutton-label-text-align)}\n'], ['\n#button{position:relative;height:var(--spectrum-actionbutton-height,var(--spectrum-alias-single-line-height));min-width:var(--spectrum-actionbutton-min-width,var(--spectrum-global-dimension-size-400));padding:0 calc(var(--spectrum-actionbutton-icon-padding-x,\nvar(--spectrum-global-dimension-size-85)) - var(--spectrum-actionbutton-border-size,\nvar(--spectrum-alias-border-size-thin)));border-width:var(--spectrum-actionbutton-border-size,var(--spectrum-alias-border-size-thin));border-radius:var(--spectrum-actionbutton-border-radius,var(--spectrum-alias-border-radius-regular));font-size:var(--spectrum-actionbutton-text-size,var(--spectrum-alias-font-size-default));font-weight:var(--spectrum-actionbutton-text-font-weight,var(--spectrum-alias-body-text-font-weight));background-color:var(--spectrum-actionbutton-background-color,var(--spectrum-global-color-gray-75));border-color:var(--spectrum-actionbutton-border-color,var(--spectrum-alias-border-color));color:var(--spectrum-actionbutton-text-color,var(--spectrum-alias-text-color))}slot[name=icon]+#label{padding-left:var(--spectrum-actionbutton-icon-padding-x,var(--spectrum-global-dimension-size-85));padding-right:calc(var(--spectrum-actionbutton-text-padding-x,\nvar(--spectrum-global-dimension-size-150)) - var(--spectrum-actionbutton-icon-padding-x,\nvar(--spectrum-global-dimension-size-85)))}.spectrum-Icon--sizeS:only-child{position:absolute;top:calc(50% - var(--spectrum-actionbutton-icon-size,\nvar(--spectrum-alias-workflow-icon-size))/2);left:calc(50% - var(--spectrum-actionbutton-icon-size,\nvar(--spectrum-alias-workflow-icon-size))/2)}#label:only-child{padding:0 calc(var(--spectrum-actionbutton-text-padding-x,\nvar(--spectrum-global-dimension-size-150)) - var(--spectrum-actionbutton-icon-padding-x,\nvar(--spectrum-global-dimension-size-85)))}#hold-affordance{position:absolute;right:var(--spectrum-actionbutton-hold-icon-padding-right,var(--spectrum-global-dimension-size-40));bottom:var(--spectrum-actionbutton-hold-icon-padding-bottom,var(--spectrum-global-dimension-size-40));color:var(--spectrum-actionbutton-hold-icon-color,var(--spectrum-alias-icon-color))}#label{align-self:center;justify-self:center;text-align:center;width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#label:empty{display:none}:host([quiet]) #button{border-width:var(--spectrum-actionbutton-quiet-border-size,var(--spectrum-alias-border-size-thin));border-radius:var(--spectrum-actionbutton-quiet-border-radius,var(--spectrum-alias-border-radius-regular));font-size:var(--spectrum-actionbutton-quiet-text-size,var(--spectrum-alias-font-size-default));font-weight:var(--spectrum-actionbutton-quiet-text-font-weight,var(--spectrum-alias-body-text-font-weight));background-color:var(--spectrum-actionbutton-quiet-background-color,var(--spectrum-alias-background-color-transparent));border-color:var(--spectrum-actionbutton-quiet-border-color,var(--spectrum-alias-border-color-transparent));color:var(--spectrum-actionbutton-quiet-text-color,var(--spectrum-alias-text-color))}::slotted([slot=icon]){color:var(--spectrum-actionbutton-icon-color,var(--spectrum-alias-icon-color))}#button:hover{background-color:var(--spectrum-actionbutton-background-color-hover,var(--spectrum-global-color-gray-50));border-color:var(--spectrum-actionbutton-border-color-hover,var(--spectrum-alias-border-color-hover));color:var(--spectrum-actionbutton-text-color-hover,var(--spectrum-alias-text-color-hover))}#button:hover ::slotted([slot=icon]){color:var(--spectrum-actionbutton-icon-color-hover,var(--spectrum-alias-icon-color-hover))}#button:hover #hold-affordance{color:var(--spectrum-actionbutton-hold-icon-color-hover,var(--spectrum-alias-icon-color-hover))}#button.focus-visible{background-color:var(--spectrum-actionbutton-background-color-key-focus,var(--spectrum-global-color-gray-50));border-color:var(--spectrum-actionbutton-border-color-key-focus,var(--spectrum-alias-border-color-focus));box-shadow:0 0 0 var(--spectrum-button-primary-border-size-increase-key-focus,1px) var(--spectrum-actionbutton-border-color-key-focus,var(--spectrum-alias-border-color-focus));color:var(--spectrum-actionbutton-text-color-key-focus,var(--spectrum-alias-text-color-hover))}#button.focus-visible ::slotted([slot=icon]){color:var(--spectrum-actionbutton-icon-color-key-focus,var(--spectrum-alias-icon-color-focus))}#button.focus-visible #hold-affordance{color:var(--spectrum-actionbutton-hold-icon-color-key-focus,var(--spectrum-alias-icon-color-hover))}#button:active{background-color:var(--spectrum-actionbutton-background-color-down,var(--spectrum-global-color-gray-200));border-color:var(--spectrum-actionbutton-border-color-down,var(--spectrum-global-color-gray-400));color:var(--spectrum-actionbutton-text-color-down,var(--spectrum-alias-text-color-down))}#button:active #hold-affordance{color:var(--spectrum-actionbutton-hold-icon-color-down,var(--spectrum-alias-icon-color-down))}:host([disabled]) #button{background-color:var(--spectrum-actionbutton-background-color-disabled,var(--spectrum-global-color-gray-200));border-color:var(--spectrum-actionbutton-border-color-disabled,var(--spectrum-global-color-gray-200));color:var(--spectrum-actionbutton-text-color-disabled,var(--spectrum-alias-text-color-disabled))}:host([disabled]) #button ::slotted([slot=icon]){color:var(--spectrum-actionbutton-icon-color-disabled,var(--spectrum-alias-icon-color-disabled))}:host([disabled]) #button #hold-affordance{color:var(--spectrum-actionbutton-hold-icon-color-disabled,var(--spectrum-alias-icon-color-disabled))}:host([selected]) #button{background-color:var(--spectrum-actionbutton-background-color-selected,var(--spectrum-global-color-gray-200));border-color:var(--spectrum-actionbutton-border-color-selected,var(--spectrum-global-color-gray-300));color:var(--spectrum-actionbutton-text-color-selected,var(--spectrum-alias-text-color))}:host([selected]) #button ::slotted([slot=icon]){color:var(--spectrum-actionbutton-icon-color-selected,var(--spectrum-alias-icon-color))}:host([selected]) #button.focus-visible{background-color:var(--spectrum-actionbutton-background-color-selected-key-focus,var(--spectrum-global-color-gray-200));border-color:var(--spectrum-actionbutton-border-color-selected-key-focus,var(--spectrum-alias-border-color-focus));color:var(--spectrum-actionbutton-text-color-selected-key-focus,var(--spectrum-alias-text-color-hover))}:host([selected]) #button.focus-visible ::slotted([slot=icon]){color:var(--spectrum-actionbutton-icon-color-selected-key-focus,var(--spectrum-alias-icon-color-hover))}:host([selected]) #button:hover{background-color:var(--spectrum-actionbutton-background-color-selected-hover,var(--spectrum-global-color-gray-200));border-color:var(--spectrum-actionbutton-border-color-selected-hover,var(--spectrum-global-color-gray-400));color:var(--spectrum-actionbutton-text-color-selected-hover,var(--spectrum-alias-text-color-hover))}:host([selected]) #button:hover ::slotted([slot=icon]){color:var(--spectrum-actionbutton-icon-color-selected-hover,var(--spectrum-alias-icon-color-hover))}:host([selected]) #button:active{background-color:var(--spectrum-actionbutton-background-color-selected-down,var(--spectrum-global-color-gray-200));border-color:var(--spectrum-actionbutton-border-color-selected-down,var(--spectrum-global-color-gray-400));color:var(--spectrum-actionbutton-text-color-selected-down,var(--spectrum-alias-text-color-down))}:host([selected]) #button:active ::slotted([slot=icon]){color:var(--spectrum-actionbutton-icon-color-selected-down,var(--spectrum-alias-icon-color-down))}:host([selected][disabled]) #button{background-color:var(--spectrum-actionbutton-background-color-selected-disabled,var(--spectrum-global-color-gray-200));border-color:var(--spectrum-actionbutton-border-color-selected-disabled,var(--spectrum-global-color-gray-200));color:var(--spectrum-actionbutton-text-color-selected-disabled,var(--spectrum-alias-text-color-disabled))}:host([selected][disabled]) #button ::slotted([slot=icon]){color:var(--spectrum-actionbutton-icon-color-selected-disabled,var(--spectrum-alias-icon-color-disabled))}:host([quiet]) #button:hover{background-color:var(--spectrum-actionbutton-quiet-background-color-hover,var(--spectrum-alias-background-color-transparent));border-color:var(--spectrum-actionbutton-quiet-border-color-hover,var(--spectrum-alias-border-color-transparent));color:var(--spectrum-actionbutton-quiet-text-color-hover,var(--spectrum-alias-text-color-hover))}:host([quiet]) #button.focus-visible{background-color:var(--spectrum-actionbutton-quiet-background-color-key-focus,var(--spectrum-alias-background-color-transparent));box-shadow:0 0 0 1px var(--spectrum-actionbutton-quiet-border-color-key-focus,var(--spectrum-alias-border-color-focus));border-color:var(--spectrum-actionbutton-quiet-border-color-key-focus,var(--spectrum-alias-border-color-focus));color:var(--spectrum-actionbutton-quiet-text-color-key-focus,var(--spectrum-alias-text-color-hover))}:host([quiet]) #button:active{background-color:var(--spectrum-actionbutton-quiet-background-color-down,var(--spectrum-global-color-gray-300));border-color:var(--spectrum-actionbutton-quiet-border-color-down,var(--spectrum-global-color-gray-300));color:var(--spectrum-actionbutton-quiet-text-color-down,var(--spectrum-alias-text-color-down))}:host([quiet][disabled]) #button{background-color:var(--spectrum-actionbutton-quiet-background-color-disabled,var(--spectrum-alias-background-color-transparent));border-color:var(--spectrum-actionbutton-quiet-border-color-disabled,var(--spectrum-alias-border-color-transparent));color:var(--spectrum-actionbutton-quiet-text-color-disabled,var(--spectrum-alias-text-color-disabled))}:host([quiet][selected]) #button{background-color:var(--spectrum-actionbutton-quiet-background-color-selected,var(--spectrum-global-color-gray-300));border-color:var(--spectrum-actionbutton-quiet-border-color-selected,var(--spectrum-global-color-gray-300));color:var(--spectrum-actionbutton-quiet-text-color-selected,var(--spectrum-alias-text-color))}:host([quiet][selected]) #button.focus-visible{background-color:var(--spectrum-actionbutton-quiet-background-color-selected-key-focus,var(--spectrum-global-color-gray-300));border-color:var(--spectrum-actionbutton-quiet-border-color-selected-key-focus,var(--spectrum-alias-border-color-focus));color:var(--spectrum-actionbutton-quiet-text-color-selected-key-focus,var(--spectrum-alias-text-color-hover))}:host([quiet][selected]) #button:hover{background-color:var(--spectrum-actionbutton-quiet-background-color-selected-hover,var(--spectrum-global-color-gray-300));border-color:var(--spectrum-actionbutton-quiet-border-color-selected-hover,var(--spectrum-global-color-gray-300));color:var(--spectrum-actionbutton-quiet-text-color-selected-hover,var(--spectrum-alias-text-color-hover))}:host([quiet][selected]) #button:active{background-color:var(--spectrum-actionbutton-quiet-background-color-selected-down,var(--spectrum-global-color-gray-300));border-color:var(--spectrum-actionbutton-quiet-border-color-selected-down,var(--spectrum-global-color-gray-300));color:var(--spectrum-actionbutton-quiet-text-color-selected-down,var(--spectrum-alias-text-color-down))}:host([quiet][selected][disabled]) #button{background-color:var(--spectrum-actionbutton-quiet-background-color-selected-disabled,var(--spectrum-global-color-gray-200));border-color:var(--spectrum-actionbutton-quiet-border-color-selected-disabled,var(--spectrum-global-color-gray-200));color:var(--spectrum-actionbutton-quiet-text-color-selected-disabled,var(--spectrum-alias-text-color-disabled))}:host(.spectrum-Dropdown-trigger) #button{text-align:left}::slotted([slot=icon]){flex-shrink:0}#label{flex-grow:var(--spectrum-actionbutton-label-flex-grow);text-align:var(--spectrum-actionbutton-label-text-align)}\n'])], __10794f8d3fcc55f090012295a1525a955a78674ddd5303532a5cd059381577ed__[2], 0);
+  __hook__(() => {
+}, null, [
+  'export',
+  __10794f8d3fcc55f090012295a1525a955a78674ddd5303532a5cd059381577ed__[0],
+  __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__module_namespace_4
+], __10794f8d3fcc55f090012295a1525a955a78674ddd5303532a5cd059381577ed__[0], NaN);
+
+/*
+Copyright 2020 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+const __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/ActionButton.js',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js',
+  '/components/thin-hook/demo/node_modules/lit-element/lit-element.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/ButtonBase.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/action-button.css.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/ActionButton.js,ActionButton',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/ButtonBase.js,ButtonBase',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/ActionButton.js,ActionButton,constructor',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/ActionButton.js,ActionButton,get styles',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/action-button.css.js,default',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/ActionButton.js,ActionButton,updated',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__decorate',
+  '/components/thin-hook/demo/node_modules/lit-element/lit-element.js,property',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/ActionButton.js,type',
+  'S_uNpREdiC4aB1e_Boolean;/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/ActionButton.js,type'
+]);
+__hook__(() => {
+}, null, [
+  'import',
+  {
+    [__a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[1]]: [
+      __6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__module_namespace_1,
+      '__decorate'
+    ],
+    [__a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[2]]: [
+      __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__module_namespace_1,
+      'property'
+    ],
+    [__a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[3]]: [
+      __6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__module_namespace_3,
+      'ButtonBase'
+    ],
+    [__a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[4]]: [
+      __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__module_namespace_4,
+      'default'
+    ]
+  }
+], __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[0], NaN);
+class ActionButton extends __hook__('m', ButtonBase, [__a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[6]], __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[5], null) {
+  constructor() {
+    return __hook__(() => {
+      __hook__((newTarget, ...args) => super(...args), null, [new.target], __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[7], '');
+      __hook__('#=', this, [
+        'holdAffordance',
+        false
+      ], __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[7]);
+      __hook__('#=', this, [
+        'selected',
+        false
+      ], __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[7]);
+      __hook__('#=', this, [
+        'toggles',
+        false
+      ], __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[7]);
+      __hook__('#=', this, [
+        'quiet',
+        false
+      ], __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[7]);
+      __hook__('#=', this, [
+        'onClick',
+        (...args) =>
+          (__hook__(() => {
+            if (!__hook__('#.', this, ['toggles'], __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[7])) {
+              return;
+            }
+            __hook__('#=', this, [
+              'selected',
+              !__hook__('#.', this, ['selected'], __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[7])
+            ], __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[7]);
+          }, null, args, __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[7]))
+      ], __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[7]);
+      __hook__('#()', this, [
+        'addEventListener',
+        [
+          'click',
+          __hook__('#.', this, ['onClick'], __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[7])
+        ]
+      ], __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[7]);
+    }, null, arguments, __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[7]);
+  }
+  static get styles() {
+    return __hook__(() => {
+      return [
+        ...__hook__('s.', this, [
+          'styles',
+          p => super[p]
+        ], __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[8]),
+        __hook__('m', styles$3, [__a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[9]], __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[8], null)
+      ];
+    }, null, arguments, __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[8]);
+  }
+  updated(changes) {
+    return __hook__(changes => {
+      __hook__('s()', this, [
+        'updated',
+        [changes],
+        p => super[p]
+      ], __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[10]);
+      if (__hook__('#.', this, ['toggles'], __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[10]) && __hook__('#()', changes, [
+          'has',
+          ['selected']
+        ], __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[10])) {
+        __hook__('#()', __hook__('#.', this, ['focusElement'], __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[10]), [
+          'setAttribute',
+          [
+            'aria-pressed',
+            __hook__('#.', this, ['selected'], __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[10]) ? 'true' : 'false'
+          ]
+        ], __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[10]);
+      }
+    }, null, arguments, __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[10]);
+  }
+}
+__hook__('m()', __decorate, [
+  __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[11],
+  [
+    [__hook__('m()', property, [
+        __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[12],
+        [{
+            type: $hook$.global(__hook__, __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[13], 'Boolean', '#get')[__a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[14]],
+            reflect: true,
+            attribute: 'hold-affordance'
+          }],
+        (...args) => property(...args)
+      ], __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[0], null)],
+    __hook__('#.', __hook__('m', ActionButton, [__a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[5]], __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[0], null), ['prototype'], __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[0]),
+    'holdAffordance',
+    void 0
+  ],
+  (...args) => __decorate(...args)
+], __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[0], null);
+__hook__('m()', __decorate, [
+  __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[11],
+  [
+    [__hook__('m()', property, [
+        __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[12],
+        [{
+            type: $hook$.global(__hook__, __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[13], 'Boolean', '#get')[__a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[14]],
+            reflect: true
+          }],
+        (...args) => property(...args)
+      ], __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[0], null)],
+    __hook__('#.', __hook__('m', ActionButton, [__a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[5]], __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[0], null), ['prototype'], __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[0]),
+    'selected',
+    void 0
+  ],
+  (...args) => __decorate(...args)
+], __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[0], null);
+__hook__('m()', __decorate, [
+  __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[11],
+  [
+    [__hook__('m()', property, [
+        __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[12],
+        [{
+            type: $hook$.global(__hook__, __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[13], 'Boolean', '#get')[__a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[14]],
+            reflect: true
+          }],
+        (...args) => property(...args)
+      ], __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[0], null)],
+    __hook__('#.', __hook__('m', ActionButton, [__a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[5]], __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[0], null), ['prototype'], __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[0]),
+    'toggles',
+    void 0
+  ],
+  (...args) => __decorate(...args)
+], __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[0], null);
+__hook__('m()', __decorate, [
+  __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[11],
+  [
+    [__hook__('m()', property, [
+        __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[12],
+        [{
+            type: $hook$.global(__hook__, __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[13], 'Boolean', '#get')[__a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[14]],
+            reflect: true
+          }],
+        (...args) => property(...args)
+      ], __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[0], null)],
+    __hook__('#.', __hook__('m', ActionButton, [__a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[5]], __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[0], null), ['prototype'], __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[0]),
+    'quiet',
+    void 0
+  ],
+  (...args) => __decorate(...args)
+], __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[0], null);  __hook__(() => {
+}, null, [
+  'export',
+  __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[0],
+  __57a4ba8749659179686903efd686c13024f3a9b0bde1749d740b048da3d5bd07__module_namespace_2
+], __a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[0], NaN);
+
+/*
+Copyright 2020 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+const __0ff57c2b0fc041c8bd6e5f015512f754715a80e282ae13927b3693fffeebec73__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/clear-button.css.js',
+  '/components/thin-hook/demo/node_modules/lit-element/lit-element.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/clear-button.css.js,styles',
+  '/components/thin-hook/demo/node_modules/lit-element/lit-element.js,css'
+]);
+__hook__(() => {
+}, null, [
+  'import',
+  {
+    [__0ff57c2b0fc041c8bd6e5f015512f754715a80e282ae13927b3693fffeebec73__[1]]: [
+      __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__module_namespace_1,
+      'css'
+    ]
+  }
+], __0ff57c2b0fc041c8bd6e5f015512f754715a80e282ae13927b3693fffeebec73__[0], NaN);
+const styles$4 = __hook__(__hook__('m', css, [__0ff57c2b0fc041c8bd6e5f015512f754715a80e282ae13927b3693fffeebec73__[3]], __0ff57c2b0fc041c8bd6e5f015512f754715a80e282ae13927b3693fffeebec73__[2], null), null, [((s, r) => {
+    s.raw = r;
+    return s;
+  })(['\n:host([variant=overBackground]) #button.focus-visible:after{margin:calc(var(--spectrum-alias-focus-ring-gap,\nvar(--spectrum-global-dimension-static-size-25))*-1);box-shadow:0 0 0 var(--spectrum-alias-focus-ring-size,var(--spectrum-global-dimension-static-size-25)) var(--spectrum-button-over-background-border-color-key-focus,var(--spectrum-global-color-static-white))}#button{width:var(--spectrum-clearbutton-medium-width,var(--spectrum-alias-single-line-height));height:var(--spectrum-clearbutton-medium-height,var(--spectrum-alias-single-line-height));border-radius:100%;padding:0;border:none;background-color:var(--spectrum-clearbutton-medium-background-color,var(--spectrum-alias-background-color-transparent));color:var(--spectrum-clearbutton-medium-icon-color,var(--spectrum-alias-icon-color))}#button,#button>.icon{margin:0}:host([small]) #button{width:var(--spectrum-clearbutton-small-width,var(--spectrum-global-dimension-size-300));height:var(--spectrum-clearbutton-small-height,var(--spectrum-global-dimension-size-300))}#button:hover{background-color:var(--spectrum-clearbutton-medium-background-color-hover,var(--spectrum-alias-background-color-transparent));color:var(--spectrum-clearbutton-medium-icon-color-hover,var(--spectrum-alias-icon-color-hover))}#button:active{background-color:var(--spectrum-clearbutton-medium-background-color-down,var(--spectrum-alias-background-color-transparent));color:var(--spectrum-clearbutton-medium-icon-color-down,var(--spectrum-alias-icon-color-down))}#button.focus-visible{background-color:var(--spectrum-clearbutton-medium-background-color-key-focus,var(--spectrum-alias-background-color-transparent));color:var(--spectrum-clearbutton-medium-icon-color-key-focus,var(--spectrum-alias-icon-color-focus))}#button.is-disabled,#button:disabled{background-color:var(--spectrum-clearbutton-medium-background-color-disabled,var(--spectrum-alias-background-color-transparent));color:var(--spectrum-clearbutton-medium-icon-color-disabled,var(--spectrum-alias-icon-color-disabled))}:host([variant=overBackground]) #button{background-color:var(--spectrum-button-quiet-over-background-background-color,var(--spectrum-alias-background-color-transparent));border-color:var(--spectrum-button-quiet-over-background-border-color,var(--spectrum-alias-border-color-transparent));color:var(--spectrum-button-quiet-over-background-text-color,var(--spectrum-global-color-static-white))}:host([variant=overBackground]) #button.focus-visible,:host([variant=overBackground]) #button:hover{background-color:var(--spectrum-button-quiet-over-background-background-color-hover,hsla(0,0%,100%,.1));border-color:var(--spectrum-button-quiet-over-background-border-color-hover,var(--spectrum-alias-border-color-transparent));color:var(--spectrum-button-quiet-over-background-text-color-hover,var(--spectrum-global-color-static-white))}:host([variant=overBackground]) #button.focus-visible{box-shadow:none}:host([variant=overBackground]) #button:active{background-color:var(--spectrum-button-quiet-over-background-background-color-down,hsla(0,0%,100%,.15));border-color:var(--spectrum-button-quiet-over-background-border-color-down,var(--spectrum-alias-border-color-transparent));color:var(--spectrum-button-quiet-over-background-text-color-down,var(--spectrum-global-color-static-white))}:host([variant=overBackground]) #button.is-disabled,:host([variant=overBackground]) #button:disabled{background-color:var(--spectrum-button-quiet-over-background-background-color-disabled,var(--spectrum-alias-background-color-transparent));border-color:var(--spectrum-button-quiet-over-background-border-color-disabled,var(--spectrum-alias-border-color-transparent));color:var(--spectrum-button-quiet-over-background-text-color-disabled,hsla(0,0%,100%,.15))}\n'], ['\n:host([variant=overBackground]) #button.focus-visible:after{margin:calc(var(--spectrum-alias-focus-ring-gap,\nvar(--spectrum-global-dimension-static-size-25))*-1);box-shadow:0 0 0 var(--spectrum-alias-focus-ring-size,var(--spectrum-global-dimension-static-size-25)) var(--spectrum-button-over-background-border-color-key-focus,var(--spectrum-global-color-static-white))}#button{width:var(--spectrum-clearbutton-medium-width,var(--spectrum-alias-single-line-height));height:var(--spectrum-clearbutton-medium-height,var(--spectrum-alias-single-line-height));border-radius:100%;padding:0;border:none;background-color:var(--spectrum-clearbutton-medium-background-color,var(--spectrum-alias-background-color-transparent));color:var(--spectrum-clearbutton-medium-icon-color,var(--spectrum-alias-icon-color))}#button,#button>.icon{margin:0}:host([small]) #button{width:var(--spectrum-clearbutton-small-width,var(--spectrum-global-dimension-size-300));height:var(--spectrum-clearbutton-small-height,var(--spectrum-global-dimension-size-300))}#button:hover{background-color:var(--spectrum-clearbutton-medium-background-color-hover,var(--spectrum-alias-background-color-transparent));color:var(--spectrum-clearbutton-medium-icon-color-hover,var(--spectrum-alias-icon-color-hover))}#button:active{background-color:var(--spectrum-clearbutton-medium-background-color-down,var(--spectrum-alias-background-color-transparent));color:var(--spectrum-clearbutton-medium-icon-color-down,var(--spectrum-alias-icon-color-down))}#button.focus-visible{background-color:var(--spectrum-clearbutton-medium-background-color-key-focus,var(--spectrum-alias-background-color-transparent));color:var(--spectrum-clearbutton-medium-icon-color-key-focus,var(--spectrum-alias-icon-color-focus))}#button.is-disabled,#button:disabled{background-color:var(--spectrum-clearbutton-medium-background-color-disabled,var(--spectrum-alias-background-color-transparent));color:var(--spectrum-clearbutton-medium-icon-color-disabled,var(--spectrum-alias-icon-color-disabled))}:host([variant=overBackground]) #button{background-color:var(--spectrum-button-quiet-over-background-background-color,var(--spectrum-alias-background-color-transparent));border-color:var(--spectrum-button-quiet-over-background-border-color,var(--spectrum-alias-border-color-transparent));color:var(--spectrum-button-quiet-over-background-text-color,var(--spectrum-global-color-static-white))}:host([variant=overBackground]) #button.focus-visible,:host([variant=overBackground]) #button:hover{background-color:var(--spectrum-button-quiet-over-background-background-color-hover,hsla(0,0%,100%,.1));border-color:var(--spectrum-button-quiet-over-background-border-color-hover,var(--spectrum-alias-border-color-transparent));color:var(--spectrum-button-quiet-over-background-text-color-hover,var(--spectrum-global-color-static-white))}:host([variant=overBackground]) #button.focus-visible{box-shadow:none}:host([variant=overBackground]) #button:active{background-color:var(--spectrum-button-quiet-over-background-background-color-down,hsla(0,0%,100%,.15));border-color:var(--spectrum-button-quiet-over-background-border-color-down,var(--spectrum-alias-border-color-transparent));color:var(--spectrum-button-quiet-over-background-text-color-down,var(--spectrum-global-color-static-white))}:host([variant=overBackground]) #button.is-disabled,:host([variant=overBackground]) #button:disabled{background-color:var(--spectrum-button-quiet-over-background-background-color-disabled,var(--spectrum-alias-background-color-transparent));border-color:var(--spectrum-button-quiet-over-background-border-color-disabled,var(--spectrum-alias-border-color-transparent));color:var(--spectrum-button-quiet-over-background-text-color-disabled,hsla(0,0%,100%,.15))}\n'])], __0ff57c2b0fc041c8bd6e5f015512f754715a80e282ae13927b3693fffeebec73__[2], 0);
+  __hook__(() => {
+}, null, [
+  'export',
+  __0ff57c2b0fc041c8bd6e5f015512f754715a80e282ae13927b3693fffeebec73__[0],
+  __6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__module_namespace_4
+], __0ff57c2b0fc041c8bd6e5f015512f754715a80e282ae13927b3693fffeebec73__[0], NaN);
+
+/*
+Copyright 2020 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+const __adaad9ae1be7c78c0efe808a0127495450c16ff5a9476a41f6b4bd9c46fa6384__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js',
+  '/components/thin-hook/demo/node_modules/lit-html/lit-html.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js,tag',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js,setCustomTemplateLiteralTag'
+]);
+__hook__(() => {
+}, null, [
+  'import',
+  {
+    [__adaad9ae1be7c78c0efe808a0127495450c16ff5a9476a41f6b4bd9c46fa6384__[1]]: [
+      litHtmlNamespace,
+      'TemplateResult'
+    ]
+  }
+], __adaad9ae1be7c78c0efe808a0127495450c16ff5a9476a41f6b4bd9c46fa6384__[0], NaN);
+let customTemplateLiteralTag;
+const tag = function (strings, ...values) {
+  return __hook__((strings, ...values) => {
+    if (customTemplateLiteralTag) {
+      return __hook__(customTemplateLiteralTag, null, [
+        strings,
+        ...values
+      ], __adaad9ae1be7c78c0efe808a0127495450c16ff5a9476a41f6b4bd9c46fa6384__[2], 0);
+    }
+    return __hook__('#()', values, [
+      'reduce',
+      [
+        (...args) => __hook__((acc, v, idx) => acc + v + __hook__('#.', strings, [idx + 1], __adaad9ae1be7c78c0efe808a0127495450c16ff5a9476a41f6b4bd9c46fa6384__[2]), null, args, __adaad9ae1be7c78c0efe808a0127495450c16ff5a9476a41f6b4bd9c46fa6384__[2]),
+        __hook__('#.', strings, [0], __adaad9ae1be7c78c0efe808a0127495450c16ff5a9476a41f6b4bd9c46fa6384__[2])
+      ]
+    ], __adaad9ae1be7c78c0efe808a0127495450c16ff5a9476a41f6b4bd9c46fa6384__[2]);
+  }, null, arguments, __adaad9ae1be7c78c0efe808a0127495450c16ff5a9476a41f6b4bd9c46fa6384__[2]);
+};
+const setCustomTemplateLiteralTag = (...args) =>
+  (__hook__(tag => {
+    customTemplateLiteralTag = tag;
+  }, null, args, __adaad9ae1be7c78c0efe808a0127495450c16ff5a9476a41f6b4bd9c46fa6384__[3]));  __hook__(() => {
+}, null, [
+  'export',
+  __adaad9ae1be7c78c0efe808a0127495450c16ff5a9476a41f6b4bd9c46fa6384__[0],
+  __aac039a38c86b6c8494b13a8f590ea8e5d3546bbfcacde36ca1e8f8b117ce6f8__module_namespace_2
+], __adaad9ae1be7c78c0efe808a0127495450c16ff5a9476a41f6b4bd9c46fa6384__[0], NaN);
+
+/*
+Copyright 2020 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+const __36cba82b0d1bf2a872fcc75375bc280a43378f2ab55884e6c09db52c809f5f92__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/AlertMedium.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/AlertMedium.js,AlertMediumIcon',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js,tag',
+  'S_uNpREdiC4aB1e_width;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/AlertMedium.js,AlertMediumIcon',
+  'S_uNpREdiC4aB1e_height;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/AlertMedium.js,AlertMediumIcon',
+  'S_uNpREdiC4aB1e_hidden;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/AlertMedium.js,AlertMediumIcon',
+  'S_uNpREdiC4aB1e_title;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/AlertMedium.js,AlertMediumIcon'
+]);
+__hook__(() => {
+}, null, [
+  'import',
+  {
+    [__36cba82b0d1bf2a872fcc75375bc280a43378f2ab55884e6c09db52c809f5f92__[1]]: [
+      __aac039a38c86b6c8494b13a8f590ea8e5d3546bbfcacde36ca1e8f8b117ce6f8__module_namespace_2,
+      'tag',
+      'setCustomTemplateLiteralTag'
+    ]
+  }
+], __36cba82b0d1bf2a872fcc75375bc280a43378f2ab55884e6c09db52c809f5f92__[0], NaN);
+const AlertMediumIcon = (...args) =>
+  (__hook__(({width = 24, height = 24, hidden = false, title = 'Alert Medium'} = {}) => {
+    return __hook__(__hook__('m', tag, [__36cba82b0d1bf2a872fcc75375bc280a43378f2ab55884e6c09db52c809f5f92__[3]], __36cba82b0d1bf2a872fcc75375bc280a43378f2ab55884e6c09db52c809f5f92__[2], null), null, [
+      ((s, r) => {
+        s.raw = r;
+        return s;
+      })([
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 18 18"\n  >\n    <path\n      d="M8.564 1.289L.2 16.256A.5.5 0 00.636 17h16.728a.5.5 0 00.436-.744L9.436 1.289a.5.5 0 00-.872 0zM10 14.75a.25.25 0 01-.25.25h-1.5a.25.25 0 01-.25-.25v-1.5a.25.25 0 01.25-.25h1.5a.25.25 0 01.25.25zm0-3a.25.25 0 01-.25.25h-1.5a.25.25 0 01-.25-.25v-6a.25.25 0 01.25-.25h1.5a.25.25 0 01.25.25z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ], [
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 18 18"\n  >\n    <path\n      d="M8.564 1.289L.2 16.256A.5.5 0 00.636 17h16.728a.5.5 0 00.436-.744L9.436 1.289a.5.5 0 00-.872 0zM10 14.75a.25.25 0 01-.25.25h-1.5a.25.25 0 01-.25-.25v-1.5a.25.25 0 01.25-.25h1.5a.25.25 0 01.25.25zm0-3a.25.25 0 01-.25.25h-1.5a.25.25 0 01-.25-.25v-6a.25.25 0 01.25-.25h1.5a.25.25 0 01.25.25z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ]),
+      $hook$.global(__hook__, __36cba82b0d1bf2a872fcc75375bc280a43378f2ab55884e6c09db52c809f5f92__[2], 'width', '#get')[__36cba82b0d1bf2a872fcc75375bc280a43378f2ab55884e6c09db52c809f5f92__[4]],
+      $hook$.global(__hook__, __36cba82b0d1bf2a872fcc75375bc280a43378f2ab55884e6c09db52c809f5f92__[2], 'height', '#get')[__36cba82b0d1bf2a872fcc75375bc280a43378f2ab55884e6c09db52c809f5f92__[5]],
+      $hook$.global(__hook__, __36cba82b0d1bf2a872fcc75375bc280a43378f2ab55884e6c09db52c809f5f92__[2], 'hidden', '#get')[__36cba82b0d1bf2a872fcc75375bc280a43378f2ab55884e6c09db52c809f5f92__[6]] ? 'true' : 'false',
+      $hook$.global(__hook__, __36cba82b0d1bf2a872fcc75375bc280a43378f2ab55884e6c09db52c809f5f92__[2], 'title', '#get')[__36cba82b0d1bf2a872fcc75375bc280a43378f2ab55884e6c09db52c809f5f92__[7]]
+    ], __36cba82b0d1bf2a872fcc75375bc280a43378f2ab55884e6c09db52c809f5f92__[2], 0);
+  }, null, args, __36cba82b0d1bf2a872fcc75375bc280a43378f2ab55884e6c09db52c809f5f92__[2]));  __hook__(() => {
+}, null, [
+  'export',
+  __36cba82b0d1bf2a872fcc75375bc280a43378f2ab55884e6c09db52c809f5f92__[0],
+  __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_1
+], __36cba82b0d1bf2a872fcc75375bc280a43378f2ab55884e6c09db52c809f5f92__[0], NaN);
+
+/*
+Copyright 2020 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+const __9055782c0242330fb0a2e9b455282164a8496c15dc656089903915f701dc4787__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/AlertSmall.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/AlertSmall.js,AlertSmallIcon',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js,tag',
+  'S_uNpREdiC4aB1e_width;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/AlertSmall.js,AlertSmallIcon',
+  'S_uNpREdiC4aB1e_height;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/AlertSmall.js,AlertSmallIcon',
+  'S_uNpREdiC4aB1e_hidden;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/AlertSmall.js,AlertSmallIcon',
+  'S_uNpREdiC4aB1e_title;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/AlertSmall.js,AlertSmallIcon'
+]);
+__hook__(() => {
+}, null, [
+  'import',
+  {
+    [__9055782c0242330fb0a2e9b455282164a8496c15dc656089903915f701dc4787__[1]]: [
+      __aac039a38c86b6c8494b13a8f590ea8e5d3546bbfcacde36ca1e8f8b117ce6f8__module_namespace_2,
+      'tag',
+      'setCustomTemplateLiteralTag'
+    ]
+  }
+], __9055782c0242330fb0a2e9b455282164a8496c15dc656089903915f701dc4787__[0], NaN);
+const AlertSmallIcon = (...args) =>
+  (__hook__(({width = 24, height = 24, hidden = false, title = 'Alert Small'} = {}) => {
+    return __hook__(__hook__('m', tag, [__9055782c0242330fb0a2e9b455282164a8496c15dc656089903915f701dc4787__[3]], __9055782c0242330fb0a2e9b455282164a8496c15dc656089903915f701dc4787__[2], null), null, [
+      ((s, r) => {
+        s.raw = r;
+        return s;
+      })([
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 14 14"\n  >\n    <path\n      d="M6.66 1.003L.157 12.643a.389.389 0 00.339.58h13.01a.389.389 0 00.34-.58L7.338 1.004a.389.389 0 00-.678 0zm1.118 10.47a.194.194 0 01-.195.194H6.417a.194.194 0 01-.195-.195v-1.166a.194.194 0 01.195-.195h1.166a.194.194 0 01.195.195zm0-2.334a.194.194 0 01-.195.194H6.417a.194.194 0 01-.195-.194V4.472a.194.194 0 01.195-.194h1.166a.194.194 0 01.195.194z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ], [
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 14 14"\n  >\n    <path\n      d="M6.66 1.003L.157 12.643a.389.389 0 00.339.58h13.01a.389.389 0 00.34-.58L7.338 1.004a.389.389 0 00-.678 0zm1.118 10.47a.194.194 0 01-.195.194H6.417a.194.194 0 01-.195-.195v-1.166a.194.194 0 01.195-.195h1.166a.194.194 0 01.195.195zm0-2.334a.194.194 0 01-.195.194H6.417a.194.194 0 01-.195-.194V4.472a.194.194 0 01.195-.194h1.166a.194.194 0 01.195.194z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ]),
+      $hook$.global(__hook__, __9055782c0242330fb0a2e9b455282164a8496c15dc656089903915f701dc4787__[2], 'width', '#get')[__9055782c0242330fb0a2e9b455282164a8496c15dc656089903915f701dc4787__[4]],
+      $hook$.global(__hook__, __9055782c0242330fb0a2e9b455282164a8496c15dc656089903915f701dc4787__[2], 'height', '#get')[__9055782c0242330fb0a2e9b455282164a8496c15dc656089903915f701dc4787__[5]],
+      $hook$.global(__hook__, __9055782c0242330fb0a2e9b455282164a8496c15dc656089903915f701dc4787__[2], 'hidden', '#get')[__9055782c0242330fb0a2e9b455282164a8496c15dc656089903915f701dc4787__[6]] ? 'true' : 'false',
+      $hook$.global(__hook__, __9055782c0242330fb0a2e9b455282164a8496c15dc656089903915f701dc4787__[2], 'title', '#get')[__9055782c0242330fb0a2e9b455282164a8496c15dc656089903915f701dc4787__[7]]
+    ], __9055782c0242330fb0a2e9b455282164a8496c15dc656089903915f701dc4787__[2], 0);
+  }, null, args, __9055782c0242330fb0a2e9b455282164a8496c15dc656089903915f701dc4787__[2]));  __hook__(() => {
+}, null, [
+  'export',
+  __9055782c0242330fb0a2e9b455282164a8496c15dc656089903915f701dc4787__[0],
+  __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_2
+], __9055782c0242330fb0a2e9b455282164a8496c15dc656089903915f701dc4787__[0], NaN);
+
+/*
+Copyright 2020 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+const __e10907a0badae818c24b062e7f8735fa7d45b1aecd88be591e60e466401b21de__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ArrowDownSmall.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ArrowDownSmall.js,ArrowDownSmallIcon',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js,tag',
+  'S_uNpREdiC4aB1e_width;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ArrowDownSmall.js,ArrowDownSmallIcon',
+  'S_uNpREdiC4aB1e_height;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ArrowDownSmall.js,ArrowDownSmallIcon',
+  'S_uNpREdiC4aB1e_hidden;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ArrowDownSmall.js,ArrowDownSmallIcon',
+  'S_uNpREdiC4aB1e_title;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ArrowDownSmall.js,ArrowDownSmallIcon'
+]);
+__hook__(() => {
+}, null, [
+  'import',
+  {
+    [__e10907a0badae818c24b062e7f8735fa7d45b1aecd88be591e60e466401b21de__[1]]: [
+      __aac039a38c86b6c8494b13a8f590ea8e5d3546bbfcacde36ca1e8f8b117ce6f8__module_namespace_2,
+      'tag',
+      'setCustomTemplateLiteralTag'
+    ]
+  }
+], __e10907a0badae818c24b062e7f8735fa7d45b1aecd88be591e60e466401b21de__[0], NaN);
+const ArrowDownSmallIcon = (...args) =>
+  (__hook__(({width = 24, height = 24, hidden = false, title = 'Arrow Down Small'} = {}) => {
+    return __hook__(__hook__('m', tag, [__e10907a0badae818c24b062e7f8735fa7d45b1aecd88be591e60e466401b21de__[3]], __e10907a0badae818c24b062e7f8735fa7d45b1aecd88be591e60e466401b21de__[2], null), null, [
+      ((s, r) => {
+        s.raw = r;
+        return s;
+      })([
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 8 10"\n  >\n    <path\n      d="M7.99 6.01a1 1 0 00-1.707-.707L5 6.586V1a1 1 0 00-2 0v5.586L1.717 5.303A1 1 0 10.303 6.717l2.99 2.98a1 1 0 001.414 0l2.99-2.98a.997.997 0 00.293-.707z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ], [
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 8 10"\n  >\n    <path\n      d="M7.99 6.01a1 1 0 00-1.707-.707L5 6.586V1a1 1 0 00-2 0v5.586L1.717 5.303A1 1 0 10.303 6.717l2.99 2.98a1 1 0 001.414 0l2.99-2.98a.997.997 0 00.293-.707z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ]),
+      $hook$.global(__hook__, __e10907a0badae818c24b062e7f8735fa7d45b1aecd88be591e60e466401b21de__[2], 'width', '#get')[__e10907a0badae818c24b062e7f8735fa7d45b1aecd88be591e60e466401b21de__[4]],
+      $hook$.global(__hook__, __e10907a0badae818c24b062e7f8735fa7d45b1aecd88be591e60e466401b21de__[2], 'height', '#get')[__e10907a0badae818c24b062e7f8735fa7d45b1aecd88be591e60e466401b21de__[5]],
+      $hook$.global(__hook__, __e10907a0badae818c24b062e7f8735fa7d45b1aecd88be591e60e466401b21de__[2], 'hidden', '#get')[__e10907a0badae818c24b062e7f8735fa7d45b1aecd88be591e60e466401b21de__[6]] ? 'true' : 'false',
+      $hook$.global(__hook__, __e10907a0badae818c24b062e7f8735fa7d45b1aecd88be591e60e466401b21de__[2], 'title', '#get')[__e10907a0badae818c24b062e7f8735fa7d45b1aecd88be591e60e466401b21de__[7]]
+    ], __e10907a0badae818c24b062e7f8735fa7d45b1aecd88be591e60e466401b21de__[2], 0);
+  }, null, args, __e10907a0badae818c24b062e7f8735fa7d45b1aecd88be591e60e466401b21de__[2]));  __hook__(() => {
+}, null, [
+  'export',
+  __e10907a0badae818c24b062e7f8735fa7d45b1aecd88be591e60e466401b21de__[0],
+  __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_3
+], __e10907a0badae818c24b062e7f8735fa7d45b1aecd88be591e60e466401b21de__[0], NaN);
+
+/*
+Copyright 2020 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+const __fdbe19f3ed3627cafc378aa389c504f984b4951b267dbc4461467c3fe50cb1c0__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ArrowLeftMedium.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ArrowLeftMedium.js,ArrowLeftMediumIcon',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js,tag',
+  'S_uNpREdiC4aB1e_width;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ArrowLeftMedium.js,ArrowLeftMediumIcon',
+  'S_uNpREdiC4aB1e_height;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ArrowLeftMedium.js,ArrowLeftMediumIcon',
+  'S_uNpREdiC4aB1e_hidden;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ArrowLeftMedium.js,ArrowLeftMediumIcon',
+  'S_uNpREdiC4aB1e_title;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ArrowLeftMedium.js,ArrowLeftMediumIcon'
+]);
+__hook__(() => {
+}, null, [
+  'import',
+  {
+    [__fdbe19f3ed3627cafc378aa389c504f984b4951b267dbc4461467c3fe50cb1c0__[1]]: [
+      __aac039a38c86b6c8494b13a8f590ea8e5d3546bbfcacde36ca1e8f8b117ce6f8__module_namespace_2,
+      'tag',
+      'setCustomTemplateLiteralTag'
+    ]
+  }
+], __fdbe19f3ed3627cafc378aa389c504f984b4951b267dbc4461467c3fe50cb1c0__[0], NaN);
+const ArrowLeftMediumIcon = (...args) =>
+  (__hook__(({width = 24, height = 24, hidden = false, title = 'Arrow Left Medium'} = {}) => {
+    return __hook__(__hook__('m', tag, [__fdbe19f3ed3627cafc378aa389c504f984b4951b267dbc4461467c3fe50cb1c0__[3]], __fdbe19f3ed3627cafc378aa389c504f984b4951b267dbc4461467c3fe50cb1c0__[2], null), null, [
+      ((s, r) => {
+        s.raw = r;
+        return s;
+      })([
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 14 10"\n  >\n    <path\n      d="M12.99 4H3.414l2.283-2.283A1 1 0 104.283.303l-3.98 3.99a1 1 0 000 1.414l3.98 3.99a1 1 0 101.414-1.414L3.414 6h9.576a1 1 0 100-2z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ], [
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 14 10"\n  >\n    <path\n      d="M12.99 4H3.414l2.283-2.283A1 1 0 104.283.303l-3.98 3.99a1 1 0 000 1.414l3.98 3.99a1 1 0 101.414-1.414L3.414 6h9.576a1 1 0 100-2z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ]),
+      $hook$.global(__hook__, __fdbe19f3ed3627cafc378aa389c504f984b4951b267dbc4461467c3fe50cb1c0__[2], 'width', '#get')[__fdbe19f3ed3627cafc378aa389c504f984b4951b267dbc4461467c3fe50cb1c0__[4]],
+      $hook$.global(__hook__, __fdbe19f3ed3627cafc378aa389c504f984b4951b267dbc4461467c3fe50cb1c0__[2], 'height', '#get')[__fdbe19f3ed3627cafc378aa389c504f984b4951b267dbc4461467c3fe50cb1c0__[5]],
+      $hook$.global(__hook__, __fdbe19f3ed3627cafc378aa389c504f984b4951b267dbc4461467c3fe50cb1c0__[2], 'hidden', '#get')[__fdbe19f3ed3627cafc378aa389c504f984b4951b267dbc4461467c3fe50cb1c0__[6]] ? 'true' : 'false',
+      $hook$.global(__hook__, __fdbe19f3ed3627cafc378aa389c504f984b4951b267dbc4461467c3fe50cb1c0__[2], 'title', '#get')[__fdbe19f3ed3627cafc378aa389c504f984b4951b267dbc4461467c3fe50cb1c0__[7]]
+    ], __fdbe19f3ed3627cafc378aa389c504f984b4951b267dbc4461467c3fe50cb1c0__[2], 0);
+  }, null, args, __fdbe19f3ed3627cafc378aa389c504f984b4951b267dbc4461467c3fe50cb1c0__[2]));  __hook__(() => {
+}, null, [
+  'export',
+  __fdbe19f3ed3627cafc378aa389c504f984b4951b267dbc4461467c3fe50cb1c0__[0],
+  __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_4
+], __fdbe19f3ed3627cafc378aa389c504f984b4951b267dbc4461467c3fe50cb1c0__[0], NaN);
+
+/*
+Copyright 2020 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+const __f17336bc694bcd1666eb6af1e87424e9bddbb7bf10d9760ced96247e11060cfe__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ArrowUpSmall.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ArrowUpSmall.js,ArrowUpSmallIcon',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js,tag',
+  'S_uNpREdiC4aB1e_width;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ArrowUpSmall.js,ArrowUpSmallIcon',
+  'S_uNpREdiC4aB1e_height;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ArrowUpSmall.js,ArrowUpSmallIcon',
+  'S_uNpREdiC4aB1e_hidden;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ArrowUpSmall.js,ArrowUpSmallIcon',
+  'S_uNpREdiC4aB1e_title;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ArrowUpSmall.js,ArrowUpSmallIcon'
+]);
+__hook__(() => {
+}, null, [
+  'import',
+  {
+    [__f17336bc694bcd1666eb6af1e87424e9bddbb7bf10d9760ced96247e11060cfe__[1]]: [
+      __aac039a38c86b6c8494b13a8f590ea8e5d3546bbfcacde36ca1e8f8b117ce6f8__module_namespace_2,
+      'tag',
+      'setCustomTemplateLiteralTag'
+    ]
+  }
+], __f17336bc694bcd1666eb6af1e87424e9bddbb7bf10d9760ced96247e11060cfe__[0], NaN);
+const ArrowUpSmallIcon = (...args) =>
+  (__hook__(({width = 24, height = 24, hidden = false, title = 'Arrow Up Small'} = {}) => {
+    return __hook__(__hook__('m', tag, [__f17336bc694bcd1666eb6af1e87424e9bddbb7bf10d9760ced96247e11060cfe__[3]], __f17336bc694bcd1666eb6af1e87424e9bddbb7bf10d9760ced96247e11060cfe__[2], null), null, [
+      ((s, r) => {
+        s.raw = r;
+        return s;
+      })([
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 8 10"\n  >\n    <path\n      d="M7.99 3.99a1 1 0 01-1.707.707L5 3.414V9a1 1 0 01-2 0V3.414L1.717 4.697A1 1 0 11.303 3.283l2.99-2.98a1 1 0 011.414 0l2.99 2.98a.997.997 0 01.293.707z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ], [
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 8 10"\n  >\n    <path\n      d="M7.99 3.99a1 1 0 01-1.707.707L5 3.414V9a1 1 0 01-2 0V3.414L1.717 4.697A1 1 0 11.303 3.283l2.99-2.98a1 1 0 011.414 0l2.99 2.98a.997.997 0 01.293.707z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ]),
+      $hook$.global(__hook__, __f17336bc694bcd1666eb6af1e87424e9bddbb7bf10d9760ced96247e11060cfe__[2], 'width', '#get')[__f17336bc694bcd1666eb6af1e87424e9bddbb7bf10d9760ced96247e11060cfe__[4]],
+      $hook$.global(__hook__, __f17336bc694bcd1666eb6af1e87424e9bddbb7bf10d9760ced96247e11060cfe__[2], 'height', '#get')[__f17336bc694bcd1666eb6af1e87424e9bddbb7bf10d9760ced96247e11060cfe__[5]],
+      $hook$.global(__hook__, __f17336bc694bcd1666eb6af1e87424e9bddbb7bf10d9760ced96247e11060cfe__[2], 'hidden', '#get')[__f17336bc694bcd1666eb6af1e87424e9bddbb7bf10d9760ced96247e11060cfe__[6]] ? 'true' : 'false',
+      $hook$.global(__hook__, __f17336bc694bcd1666eb6af1e87424e9bddbb7bf10d9760ced96247e11060cfe__[2], 'title', '#get')[__f17336bc694bcd1666eb6af1e87424e9bddbb7bf10d9760ced96247e11060cfe__[7]]
+    ], __f17336bc694bcd1666eb6af1e87424e9bddbb7bf10d9760ced96247e11060cfe__[2], 0);
+  }, null, args, __f17336bc694bcd1666eb6af1e87424e9bddbb7bf10d9760ced96247e11060cfe__[2]));  __hook__(() => {
+}, null, [
+  'export',
+  __f17336bc694bcd1666eb6af1e87424e9bddbb7bf10d9760ced96247e11060cfe__[0],
+  __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_5
+], __f17336bc694bcd1666eb6af1e87424e9bddbb7bf10d9760ced96247e11060cfe__[0], NaN);
+
+/*
+Copyright 2020 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+const __11626c02638f3787362c141730903b195533ac4e55b9bb7a0725e9240242685e__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/Asterisk.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/Asterisk.js,AsteriskIcon',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js,tag',
+  'S_uNpREdiC4aB1e_width;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/Asterisk.js,AsteriskIcon',
+  'S_uNpREdiC4aB1e_height;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/Asterisk.js,AsteriskIcon',
+  'S_uNpREdiC4aB1e_hidden;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/Asterisk.js,AsteriskIcon',
+  'S_uNpREdiC4aB1e_title;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/Asterisk.js,AsteriskIcon'
+]);
+__hook__(() => {
+}, null, [
+  'import',
+  {
+    [__11626c02638f3787362c141730903b195533ac4e55b9bb7a0725e9240242685e__[1]]: [
+      __aac039a38c86b6c8494b13a8f590ea8e5d3546bbfcacde36ca1e8f8b117ce6f8__module_namespace_2,
+      'tag',
+      'setCustomTemplateLiteralTag'
+    ]
+  }
+], __11626c02638f3787362c141730903b195533ac4e55b9bb7a0725e9240242685e__[0], NaN);
+const AsteriskIcon = (...args) =>
+  (__hook__(({width = 24, height = 24, hidden = false, title = 'Asterisk'} = {}) => {
+    return __hook__(__hook__('m', tag, [__11626c02638f3787362c141730903b195533ac4e55b9bb7a0725e9240242685e__[3]], __11626c02638f3787362c141730903b195533ac4e55b9bb7a0725e9240242685e__[2], null), null, [
+      ((s, r) => {
+        s.raw = r;
+        return s;
+      })([
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 8 8"\n  >\n    <path\n      d="M6.573 6.558c.056.055.092.13 0 .204l-1.148.74c-.093.056-.13.02-.167-.073L3.832 4.947l-1.87 2.055c-.02.037-.075.074-.13 0l-.889-.926c-.092-.055-.074-.111 0-.167l2.111-1.76-2.408-.906c-.037 0-.092-.074-.055-.167l.63-1.259a.097.097 0 01.166-.036l2.111 1.37.13-2.704a.097.097 0 01.111-.11L5.277.54c.092 0 .11.037.092.13l-.722 2.647 2.444-.74c.056-.038.111-.038.148.073l.241 1.37c.019.093 0 .13-.074.13l-2.556.204z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ], [
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 8 8"\n  >\n    <path\n      d="M6.573 6.558c.056.055.092.13 0 .204l-1.148.74c-.093.056-.13.02-.167-.073L3.832 4.947l-1.87 2.055c-.02.037-.075.074-.13 0l-.889-.926c-.092-.055-.074-.111 0-.167l2.111-1.76-2.408-.906c-.037 0-.092-.074-.055-.167l.63-1.259a.097.097 0 01.166-.036l2.111 1.37.13-2.704a.097.097 0 01.111-.11L5.277.54c.092 0 .11.037.092.13l-.722 2.647 2.444-.74c.056-.038.111-.038.148.073l.241 1.37c.019.093 0 .13-.074.13l-2.556.204z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ]),
+      $hook$.global(__hook__, __11626c02638f3787362c141730903b195533ac4e55b9bb7a0725e9240242685e__[2], 'width', '#get')[__11626c02638f3787362c141730903b195533ac4e55b9bb7a0725e9240242685e__[4]],
+      $hook$.global(__hook__, __11626c02638f3787362c141730903b195533ac4e55b9bb7a0725e9240242685e__[2], 'height', '#get')[__11626c02638f3787362c141730903b195533ac4e55b9bb7a0725e9240242685e__[5]],
+      $hook$.global(__hook__, __11626c02638f3787362c141730903b195533ac4e55b9bb7a0725e9240242685e__[2], 'hidden', '#get')[__11626c02638f3787362c141730903b195533ac4e55b9bb7a0725e9240242685e__[6]] ? 'true' : 'false',
+      $hook$.global(__hook__, __11626c02638f3787362c141730903b195533ac4e55b9bb7a0725e9240242685e__[2], 'title', '#get')[__11626c02638f3787362c141730903b195533ac4e55b9bb7a0725e9240242685e__[7]]
+    ], __11626c02638f3787362c141730903b195533ac4e55b9bb7a0725e9240242685e__[2], 0);
+  }, null, args, __11626c02638f3787362c141730903b195533ac4e55b9bb7a0725e9240242685e__[2]));  __hook__(() => {
+}, null, [
+  'export',
+  __11626c02638f3787362c141730903b195533ac4e55b9bb7a0725e9240242685e__[0],
+  __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_6
+], __11626c02638f3787362c141730903b195533ac4e55b9bb7a0725e9240242685e__[0], NaN);
+
+/*
+Copyright 2020 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+const __8a5d65ef951c3f238541abadd174942061f7405b0f3d498c555b37bd5c7aeeea__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/CheckmarkMedium.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/CheckmarkMedium.js,CheckmarkMediumIcon',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js,tag',
+  'S_uNpREdiC4aB1e_width;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/CheckmarkMedium.js,CheckmarkMediumIcon',
+  'S_uNpREdiC4aB1e_height;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/CheckmarkMedium.js,CheckmarkMediumIcon',
+  'S_uNpREdiC4aB1e_hidden;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/CheckmarkMedium.js,CheckmarkMediumIcon',
+  'S_uNpREdiC4aB1e_title;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/CheckmarkMedium.js,CheckmarkMediumIcon'
+]);
+__hook__(() => {
+}, null, [
+  'import',
+  {
+    [__8a5d65ef951c3f238541abadd174942061f7405b0f3d498c555b37bd5c7aeeea__[1]]: [
+      __aac039a38c86b6c8494b13a8f590ea8e5d3546bbfcacde36ca1e8f8b117ce6f8__module_namespace_2,
+      'tag',
+      'setCustomTemplateLiteralTag'
+    ]
+  }
+], __8a5d65ef951c3f238541abadd174942061f7405b0f3d498c555b37bd5c7aeeea__[0], NaN);
+const CheckmarkMediumIcon = (...args) =>
+  (__hook__(({width = 24, height = 24, hidden = false, title = 'Checkmark Medium'} = {}) => {
+    return __hook__(__hook__('m', tag, [__8a5d65ef951c3f238541abadd174942061f7405b0f3d498c555b37bd5c7aeeea__[3]], __8a5d65ef951c3f238541abadd174942061f7405b0f3d498c555b37bd5c7aeeea__[2], null), null, [
+      ((s, r) => {
+        s.raw = r;
+        return s;
+      })([
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 12 12"\n  >\n    <path\n      d="M4.5 10a1.022 1.022 0 01-.799-.384l-2.488-3a1 1 0 011.576-1.233L4.5 7.376l4.712-5.991a1 1 0 111.576 1.23l-5.51 7A.978.978 0 014.5 10z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ], [
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 12 12"\n  >\n    <path\n      d="M4.5 10a1.022 1.022 0 01-.799-.384l-2.488-3a1 1 0 011.576-1.233L4.5 7.376l4.712-5.991a1 1 0 111.576 1.23l-5.51 7A.978.978 0 014.5 10z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ]),
+      $hook$.global(__hook__, __8a5d65ef951c3f238541abadd174942061f7405b0f3d498c555b37bd5c7aeeea__[2], 'width', '#get')[__8a5d65ef951c3f238541abadd174942061f7405b0f3d498c555b37bd5c7aeeea__[4]],
+      $hook$.global(__hook__, __8a5d65ef951c3f238541abadd174942061f7405b0f3d498c555b37bd5c7aeeea__[2], 'height', '#get')[__8a5d65ef951c3f238541abadd174942061f7405b0f3d498c555b37bd5c7aeeea__[5]],
+      $hook$.global(__hook__, __8a5d65ef951c3f238541abadd174942061f7405b0f3d498c555b37bd5c7aeeea__[2], 'hidden', '#get')[__8a5d65ef951c3f238541abadd174942061f7405b0f3d498c555b37bd5c7aeeea__[6]] ? 'true' : 'false',
+      $hook$.global(__hook__, __8a5d65ef951c3f238541abadd174942061f7405b0f3d498c555b37bd5c7aeeea__[2], 'title', '#get')[__8a5d65ef951c3f238541abadd174942061f7405b0f3d498c555b37bd5c7aeeea__[7]]
+    ], __8a5d65ef951c3f238541abadd174942061f7405b0f3d498c555b37bd5c7aeeea__[2], 0);
+  }, null, args, __8a5d65ef951c3f238541abadd174942061f7405b0f3d498c555b37bd5c7aeeea__[2]));  __hook__(() => {
+}, null, [
+  'export',
+  __8a5d65ef951c3f238541abadd174942061f7405b0f3d498c555b37bd5c7aeeea__[0],
+  __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_7
+], __8a5d65ef951c3f238541abadd174942061f7405b0f3d498c555b37bd5c7aeeea__[0], NaN);
+
+/*
+Copyright 2020 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+const __3f527ae19ff545ae1cf740cfb2aa567f03f183209ecef78ebea26aaa82ec89e6__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/CheckmarkSmall.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/CheckmarkSmall.js,CheckmarkSmallIcon',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js,tag',
+  'S_uNpREdiC4aB1e_width;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/CheckmarkSmall.js,CheckmarkSmallIcon',
+  'S_uNpREdiC4aB1e_height;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/CheckmarkSmall.js,CheckmarkSmallIcon',
+  'S_uNpREdiC4aB1e_hidden;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/CheckmarkSmall.js,CheckmarkSmallIcon',
+  'S_uNpREdiC4aB1e_title;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/CheckmarkSmall.js,CheckmarkSmallIcon'
+]);
+__hook__(() => {
+}, null, [
+  'import',
+  {
+    [__3f527ae19ff545ae1cf740cfb2aa567f03f183209ecef78ebea26aaa82ec89e6__[1]]: [
+      __aac039a38c86b6c8494b13a8f590ea8e5d3546bbfcacde36ca1e8f8b117ce6f8__module_namespace_2,
+      'tag',
+      'setCustomTemplateLiteralTag'
+    ]
+  }
+], __3f527ae19ff545ae1cf740cfb2aa567f03f183209ecef78ebea26aaa82ec89e6__[0], NaN);
+const CheckmarkSmallIcon = (...args) =>
+  (__hook__(({width = 24, height = 24, hidden = false, title = 'Checkmark Small'} = {}) => {
+    return __hook__(__hook__('m', tag, [__3f527ae19ff545ae1cf740cfb2aa567f03f183209ecef78ebea26aaa82ec89e6__[3]], __3f527ae19ff545ae1cf740cfb2aa567f03f183209ecef78ebea26aaa82ec89e6__[2], null), null, [
+      ((s, r) => {
+        s.raw = r;
+        return s;
+      })([
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 10 10"\n  >\n    <path\n      d="M3.788 9A.999.999 0 013 8.615l-2.288-3a1 1 0 111.576-1.23l1.5 1.991 3.924-4.991a1 1 0 111.576 1.23l-4.712 6A.999.999 0 013.788 9z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ], [
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 10 10"\n  >\n    <path\n      d="M3.788 9A.999.999 0 013 8.615l-2.288-3a1 1 0 111.576-1.23l1.5 1.991 3.924-4.991a1 1 0 111.576 1.23l-4.712 6A.999.999 0 013.788 9z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ]),
+      $hook$.global(__hook__, __3f527ae19ff545ae1cf740cfb2aa567f03f183209ecef78ebea26aaa82ec89e6__[2], 'width', '#get')[__3f527ae19ff545ae1cf740cfb2aa567f03f183209ecef78ebea26aaa82ec89e6__[4]],
+      $hook$.global(__hook__, __3f527ae19ff545ae1cf740cfb2aa567f03f183209ecef78ebea26aaa82ec89e6__[2], 'height', '#get')[__3f527ae19ff545ae1cf740cfb2aa567f03f183209ecef78ebea26aaa82ec89e6__[5]],
+      $hook$.global(__hook__, __3f527ae19ff545ae1cf740cfb2aa567f03f183209ecef78ebea26aaa82ec89e6__[2], 'hidden', '#get')[__3f527ae19ff545ae1cf740cfb2aa567f03f183209ecef78ebea26aaa82ec89e6__[6]] ? 'true' : 'false',
+      $hook$.global(__hook__, __3f527ae19ff545ae1cf740cfb2aa567f03f183209ecef78ebea26aaa82ec89e6__[2], 'title', '#get')[__3f527ae19ff545ae1cf740cfb2aa567f03f183209ecef78ebea26aaa82ec89e6__[7]]
+    ], __3f527ae19ff545ae1cf740cfb2aa567f03f183209ecef78ebea26aaa82ec89e6__[2], 0);
+  }, null, args, __3f527ae19ff545ae1cf740cfb2aa567f03f183209ecef78ebea26aaa82ec89e6__[2]));  __hook__(() => {
+}, null, [
+  'export',
+  __3f527ae19ff545ae1cf740cfb2aa567f03f183209ecef78ebea26aaa82ec89e6__[0],
+  __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_8
+], __3f527ae19ff545ae1cf740cfb2aa567f03f183209ecef78ebea26aaa82ec89e6__[0], NaN);
+
+/*
+Copyright 2020 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+const __cf6d85adb6d6725f9c8f5639e1ce4ca9fbd4c9a83c7aa75dbc935ab43e588fe4__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronDownMedium.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronDownMedium.js,ChevronDownMediumIcon',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js,tag',
+  'S_uNpREdiC4aB1e_width;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronDownMedium.js,ChevronDownMediumIcon',
+  'S_uNpREdiC4aB1e_height;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronDownMedium.js,ChevronDownMediumIcon',
+  'S_uNpREdiC4aB1e_hidden;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronDownMedium.js,ChevronDownMediumIcon',
+  'S_uNpREdiC4aB1e_title;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronDownMedium.js,ChevronDownMediumIcon'
+]);
+__hook__(() => {
+}, null, [
+  'import',
+  {
+    [__cf6d85adb6d6725f9c8f5639e1ce4ca9fbd4c9a83c7aa75dbc935ab43e588fe4__[1]]: [
+      __aac039a38c86b6c8494b13a8f590ea8e5d3546bbfcacde36ca1e8f8b117ce6f8__module_namespace_2,
+      'tag',
+      'setCustomTemplateLiteralTag'
+    ]
+  }
+], __cf6d85adb6d6725f9c8f5639e1ce4ca9fbd4c9a83c7aa75dbc935ab43e588fe4__[0], NaN);
+const ChevronDownMediumIcon = (...args) =>
+  (__hook__(({width = 24, height = 24, hidden = false, title = 'Chevron Down Medium'} = {}) => {
+    return __hook__(__hook__('m', tag, [__cf6d85adb6d6725f9c8f5639e1ce4ca9fbd4c9a83c7aa75dbc935ab43e588fe4__[3]], __cf6d85adb6d6725f9c8f5639e1ce4ca9fbd4c9a83c7aa75dbc935ab43e588fe4__[2], null), null, [
+      ((s, r) => {
+        s.raw = r;
+        return s;
+      })([
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 10 6"\n  >\n    <path\n      d="M9.99 1.01A1 1 0 008.283.303L5 3.586 1.717.303A1 1 0 10.303 1.717l3.99 3.98a1 1 0 001.414 0l3.99-3.98a.997.997 0 00.293-.707z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ], [
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 10 6"\n  >\n    <path\n      d="M9.99 1.01A1 1 0 008.283.303L5 3.586 1.717.303A1 1 0 10.303 1.717l3.99 3.98a1 1 0 001.414 0l3.99-3.98a.997.997 0 00.293-.707z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ]),
+      $hook$.global(__hook__, __cf6d85adb6d6725f9c8f5639e1ce4ca9fbd4c9a83c7aa75dbc935ab43e588fe4__[2], 'width', '#get')[__cf6d85adb6d6725f9c8f5639e1ce4ca9fbd4c9a83c7aa75dbc935ab43e588fe4__[4]],
+      $hook$.global(__hook__, __cf6d85adb6d6725f9c8f5639e1ce4ca9fbd4c9a83c7aa75dbc935ab43e588fe4__[2], 'height', '#get')[__cf6d85adb6d6725f9c8f5639e1ce4ca9fbd4c9a83c7aa75dbc935ab43e588fe4__[5]],
+      $hook$.global(__hook__, __cf6d85adb6d6725f9c8f5639e1ce4ca9fbd4c9a83c7aa75dbc935ab43e588fe4__[2], 'hidden', '#get')[__cf6d85adb6d6725f9c8f5639e1ce4ca9fbd4c9a83c7aa75dbc935ab43e588fe4__[6]] ? 'true' : 'false',
+      $hook$.global(__hook__, __cf6d85adb6d6725f9c8f5639e1ce4ca9fbd4c9a83c7aa75dbc935ab43e588fe4__[2], 'title', '#get')[__cf6d85adb6d6725f9c8f5639e1ce4ca9fbd4c9a83c7aa75dbc935ab43e588fe4__[7]]
+    ], __cf6d85adb6d6725f9c8f5639e1ce4ca9fbd4c9a83c7aa75dbc935ab43e588fe4__[2], 0);
+  }, null, args, __cf6d85adb6d6725f9c8f5639e1ce4ca9fbd4c9a83c7aa75dbc935ab43e588fe4__[2]));  __hook__(() => {
+}, null, [
+  'export',
+  __cf6d85adb6d6725f9c8f5639e1ce4ca9fbd4c9a83c7aa75dbc935ab43e588fe4__[0],
+  __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_9
+], __cf6d85adb6d6725f9c8f5639e1ce4ca9fbd4c9a83c7aa75dbc935ab43e588fe4__[0], NaN);
+
+/*
+Copyright 2020 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+const __174bf4452674c4737b929d51e6452d024fc7e0c6fc68edfd0a64289390801c3c__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronDownSmall.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronDownSmall.js,ChevronDownSmallIcon',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js,tag',
+  'S_uNpREdiC4aB1e_width;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronDownSmall.js,ChevronDownSmallIcon',
+  'S_uNpREdiC4aB1e_height;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronDownSmall.js,ChevronDownSmallIcon',
+  'S_uNpREdiC4aB1e_hidden;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronDownSmall.js,ChevronDownSmallIcon',
+  'S_uNpREdiC4aB1e_title;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronDownSmall.js,ChevronDownSmallIcon'
+]);
+__hook__(() => {
+}, null, [
+  'import',
+  {
+    [__174bf4452674c4737b929d51e6452d024fc7e0c6fc68edfd0a64289390801c3c__[1]]: [
+      __aac039a38c86b6c8494b13a8f590ea8e5d3546bbfcacde36ca1e8f8b117ce6f8__module_namespace_2,
+      'tag',
+      'setCustomTemplateLiteralTag'
+    ]
+  }
+], __174bf4452674c4737b929d51e6452d024fc7e0c6fc68edfd0a64289390801c3c__[0], NaN);
+const ChevronDownSmallIcon = (...args) =>
+  (__hook__(({width = 24, height = 24, hidden = false, title = 'Chevron Down Small'} = {}) => {
+    return __hook__(__hook__('m', tag, [__174bf4452674c4737b929d51e6452d024fc7e0c6fc68edfd0a64289390801c3c__[3]], __174bf4452674c4737b929d51e6452d024fc7e0c6fc68edfd0a64289390801c3c__[2], null), null, [
+      ((s, r) => {
+        s.raw = r;
+        return s;
+      })([
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 8 6"\n  >\n    <path\n      d="M4 5.5a.747.747 0 00.53-.22c.607-.577 1.97-2.038 3.24-3.24A.75.75 0 106.71.98L4 3.69 1.29.98A.75.75 0 10.23 2.04l3.24 3.24A.747.747 0 004 5.5z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ], [
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 8 6"\n  >\n    <path\n      d="M4 5.5a.747.747 0 00.53-.22c.607-.577 1.97-2.038 3.24-3.24A.75.75 0 106.71.98L4 3.69 1.29.98A.75.75 0 10.23 2.04l3.24 3.24A.747.747 0 004 5.5z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ]),
+      $hook$.global(__hook__, __174bf4452674c4737b929d51e6452d024fc7e0c6fc68edfd0a64289390801c3c__[2], 'width', '#get')[__174bf4452674c4737b929d51e6452d024fc7e0c6fc68edfd0a64289390801c3c__[4]],
+      $hook$.global(__hook__, __174bf4452674c4737b929d51e6452d024fc7e0c6fc68edfd0a64289390801c3c__[2], 'height', '#get')[__174bf4452674c4737b929d51e6452d024fc7e0c6fc68edfd0a64289390801c3c__[5]],
+      $hook$.global(__hook__, __174bf4452674c4737b929d51e6452d024fc7e0c6fc68edfd0a64289390801c3c__[2], 'hidden', '#get')[__174bf4452674c4737b929d51e6452d024fc7e0c6fc68edfd0a64289390801c3c__[6]] ? 'true' : 'false',
+      $hook$.global(__hook__, __174bf4452674c4737b929d51e6452d024fc7e0c6fc68edfd0a64289390801c3c__[2], 'title', '#get')[__174bf4452674c4737b929d51e6452d024fc7e0c6fc68edfd0a64289390801c3c__[7]]
+    ], __174bf4452674c4737b929d51e6452d024fc7e0c6fc68edfd0a64289390801c3c__[2], 0);
+  }, null, args, __174bf4452674c4737b929d51e6452d024fc7e0c6fc68edfd0a64289390801c3c__[2]));  __hook__(() => {
+}, null, [
+  'export',
+  __174bf4452674c4737b929d51e6452d024fc7e0c6fc68edfd0a64289390801c3c__[0],
+  __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_10
+], __174bf4452674c4737b929d51e6452d024fc7e0c6fc68edfd0a64289390801c3c__[0], NaN);
+
+/*
+Copyright 2020 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+const __743011356d0aef358b281535979e24b8b1e27ea3486387072a1c7d0cd165b56b__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronLeftLarge.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronLeftLarge.js,ChevronLeftLargeIcon',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js,tag',
+  'S_uNpREdiC4aB1e_width;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronLeftLarge.js,ChevronLeftLargeIcon',
+  'S_uNpREdiC4aB1e_height;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronLeftLarge.js,ChevronLeftLargeIcon',
+  'S_uNpREdiC4aB1e_hidden;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronLeftLarge.js,ChevronLeftLargeIcon',
+  'S_uNpREdiC4aB1e_title;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronLeftLarge.js,ChevronLeftLargeIcon'
+]);
+__hook__(() => {
+}, null, [
+  'import',
+  {
+    [__743011356d0aef358b281535979e24b8b1e27ea3486387072a1c7d0cd165b56b__[1]]: [
+      __aac039a38c86b6c8494b13a8f590ea8e5d3546bbfcacde36ca1e8f8b117ce6f8__module_namespace_2,
+      'tag',
+      'setCustomTemplateLiteralTag'
+    ]
+  }
+], __743011356d0aef358b281535979e24b8b1e27ea3486387072a1c7d0cd165b56b__[0], NaN);
+const ChevronLeftLargeIcon = (...args) =>
+  (__hook__(({width = 24, height = 24, hidden = false, title = 'Chevron Left Large'} = {}) => {
+    return __hook__(__hook__('m', tag, [__743011356d0aef358b281535979e24b8b1e27ea3486387072a1c7d0cd165b56b__[3]], __743011356d0aef358b281535979e24b8b1e27ea3486387072a1c7d0cd165b56b__[2], null), null, [
+      ((s, r) => {
+        s.raw = r;
+        return s;
+      })([
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 12 16"\n  >\n    <path\n      d="M9.605 13.843L3.55 8l6.056-5.84A1.248 1.248 0 107.876.363L.882 7.1a1.243 1.243 0 00.003 1.797l6.988 6.742a1.248 1.248 0 101.732-1.796z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ], [
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 12 16"\n  >\n    <path\n      d="M9.605 13.843L3.55 8l6.056-5.84A1.248 1.248 0 107.876.363L.882 7.1a1.243 1.243 0 00.003 1.797l6.988 6.742a1.248 1.248 0 101.732-1.796z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ]),
+      $hook$.global(__hook__, __743011356d0aef358b281535979e24b8b1e27ea3486387072a1c7d0cd165b56b__[2], 'width', '#get')[__743011356d0aef358b281535979e24b8b1e27ea3486387072a1c7d0cd165b56b__[4]],
+      $hook$.global(__hook__, __743011356d0aef358b281535979e24b8b1e27ea3486387072a1c7d0cd165b56b__[2], 'height', '#get')[__743011356d0aef358b281535979e24b8b1e27ea3486387072a1c7d0cd165b56b__[5]],
+      $hook$.global(__hook__, __743011356d0aef358b281535979e24b8b1e27ea3486387072a1c7d0cd165b56b__[2], 'hidden', '#get')[__743011356d0aef358b281535979e24b8b1e27ea3486387072a1c7d0cd165b56b__[6]] ? 'true' : 'false',
+      $hook$.global(__hook__, __743011356d0aef358b281535979e24b8b1e27ea3486387072a1c7d0cd165b56b__[2], 'title', '#get')[__743011356d0aef358b281535979e24b8b1e27ea3486387072a1c7d0cd165b56b__[7]]
+    ], __743011356d0aef358b281535979e24b8b1e27ea3486387072a1c7d0cd165b56b__[2], 0);
+  }, null, args, __743011356d0aef358b281535979e24b8b1e27ea3486387072a1c7d0cd165b56b__[2]));  __hook__(() => {
+}, null, [
+  'export',
+  __743011356d0aef358b281535979e24b8b1e27ea3486387072a1c7d0cd165b56b__[0],
+  __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_11
+], __743011356d0aef358b281535979e24b8b1e27ea3486387072a1c7d0cd165b56b__[0], NaN);
+
+/*
+Copyright 2020 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+const __36a70dd2a73ac032ed2df3698e8bbae8fdd50b9e6f7a601b74e6f45e298c1a67__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronLeftMedium.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronLeftMedium.js,ChevronLeftMediumIcon',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js,tag',
+  'S_uNpREdiC4aB1e_width;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronLeftMedium.js,ChevronLeftMediumIcon',
+  'S_uNpREdiC4aB1e_height;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronLeftMedium.js,ChevronLeftMediumIcon',
+  'S_uNpREdiC4aB1e_hidden;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronLeftMedium.js,ChevronLeftMediumIcon',
+  'S_uNpREdiC4aB1e_title;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronLeftMedium.js,ChevronLeftMediumIcon'
+]);
+__hook__(() => {
+}, null, [
+  'import',
+  {
+    [__36a70dd2a73ac032ed2df3698e8bbae8fdd50b9e6f7a601b74e6f45e298c1a67__[1]]: [
+      __aac039a38c86b6c8494b13a8f590ea8e5d3546bbfcacde36ca1e8f8b117ce6f8__module_namespace_2,
+      'tag',
+      'setCustomTemplateLiteralTag'
+    ]
+  }
+], __36a70dd2a73ac032ed2df3698e8bbae8fdd50b9e6f7a601b74e6f45e298c1a67__[0], NaN);
+const ChevronLeftMediumIcon = (...args) =>
+  (__hook__(({width = 24, height = 24, hidden = false, title = 'Chevron Left Medium'} = {}) => {
+    return __hook__(__hook__('m', tag, [__36a70dd2a73ac032ed2df3698e8bbae8fdd50b9e6f7a601b74e6f45e298c1a67__[3]], __36a70dd2a73ac032ed2df3698e8bbae8fdd50b9e6f7a601b74e6f45e298c1a67__[2], null), null, [
+      ((s, r) => {
+        s.raw = r;
+        return s;
+      })([
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 6 10"\n  >\n    <path\n      d="M5.697 8.283L2.414 5l3.283-3.283A1 1 0 104.283.303l-3.98 3.99a1 1 0 000 1.414l3.98 3.99a1 1 0 101.414-1.414z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ], [
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 6 10"\n  >\n    <path\n      d="M5.697 8.283L2.414 5l3.283-3.283A1 1 0 104.283.303l-3.98 3.99a1 1 0 000 1.414l3.98 3.99a1 1 0 101.414-1.414z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ]),
+      $hook$.global(__hook__, __36a70dd2a73ac032ed2df3698e8bbae8fdd50b9e6f7a601b74e6f45e298c1a67__[2], 'width', '#get')[__36a70dd2a73ac032ed2df3698e8bbae8fdd50b9e6f7a601b74e6f45e298c1a67__[4]],
+      $hook$.global(__hook__, __36a70dd2a73ac032ed2df3698e8bbae8fdd50b9e6f7a601b74e6f45e298c1a67__[2], 'height', '#get')[__36a70dd2a73ac032ed2df3698e8bbae8fdd50b9e6f7a601b74e6f45e298c1a67__[5]],
+      $hook$.global(__hook__, __36a70dd2a73ac032ed2df3698e8bbae8fdd50b9e6f7a601b74e6f45e298c1a67__[2], 'hidden', '#get')[__36a70dd2a73ac032ed2df3698e8bbae8fdd50b9e6f7a601b74e6f45e298c1a67__[6]] ? 'true' : 'false',
+      $hook$.global(__hook__, __36a70dd2a73ac032ed2df3698e8bbae8fdd50b9e6f7a601b74e6f45e298c1a67__[2], 'title', '#get')[__36a70dd2a73ac032ed2df3698e8bbae8fdd50b9e6f7a601b74e6f45e298c1a67__[7]]
+    ], __36a70dd2a73ac032ed2df3698e8bbae8fdd50b9e6f7a601b74e6f45e298c1a67__[2], 0);
+  }, null, args, __36a70dd2a73ac032ed2df3698e8bbae8fdd50b9e6f7a601b74e6f45e298c1a67__[2]));  __hook__(() => {
+}, null, [
+  'export',
+  __36a70dd2a73ac032ed2df3698e8bbae8fdd50b9e6f7a601b74e6f45e298c1a67__[0],
+  __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_12
+], __36a70dd2a73ac032ed2df3698e8bbae8fdd50b9e6f7a601b74e6f45e298c1a67__[0], NaN);
+
+/*
+Copyright 2020 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+const __086ee1b9707170dfcb0fb3c3ce0fda4a450e13672ecd8dae83a60a3fefba08b2__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronRightLarge.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronRightLarge.js,ChevronRightLargeIcon',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js,tag',
+  'S_uNpREdiC4aB1e_width;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronRightLarge.js,ChevronRightLargeIcon',
+  'S_uNpREdiC4aB1e_height;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronRightLarge.js,ChevronRightLargeIcon',
+  'S_uNpREdiC4aB1e_hidden;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronRightLarge.js,ChevronRightLargeIcon',
+  'S_uNpREdiC4aB1e_title;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronRightLarge.js,ChevronRightLargeIcon'
+]);
+__hook__(() => {
+}, null, [
+  'import',
+  {
+    [__086ee1b9707170dfcb0fb3c3ce0fda4a450e13672ecd8dae83a60a3fefba08b2__[1]]: [
+      __aac039a38c86b6c8494b13a8f590ea8e5d3546bbfcacde36ca1e8f8b117ce6f8__module_namespace_2,
+      'tag',
+      'setCustomTemplateLiteralTag'
+    ]
+  }
+], __086ee1b9707170dfcb0fb3c3ce0fda4a450e13672ecd8dae83a60a3fefba08b2__[0], NaN);
+const ChevronRightLargeIcon = (...args) =>
+  (__hook__(({width = 24, height = 24, hidden = false, title = 'Chevron Right Large'} = {}) => {
+    return __hook__(__hook__('m', tag, [__086ee1b9707170dfcb0fb3c3ce0fda4a450e13672ecd8dae83a60a3fefba08b2__[3]], __086ee1b9707170dfcb0fb3c3ce0fda4a450e13672ecd8dae83a60a3fefba08b2__[2], null), null, [
+      ((s, r) => {
+        s.raw = r;
+        return s;
+      })([
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 12 16"\n  >\n    <path\n      d="M11.5 8a1.241 1.241 0 00-.386-.897L4.128.36a1.248 1.248 0 10-1.733 1.797L8.45 8l-6.058 5.84a1.248 1.248 0 101.733 1.797L11.117 8.9A1.245 1.245 0 0011.5 8z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ], [
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 12 16"\n  >\n    <path\n      d="M11.5 8a1.241 1.241 0 00-.386-.897L4.128.36a1.248 1.248 0 10-1.733 1.797L8.45 8l-6.058 5.84a1.248 1.248 0 101.733 1.797L11.117 8.9A1.245 1.245 0 0011.5 8z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ]),
+      $hook$.global(__hook__, __086ee1b9707170dfcb0fb3c3ce0fda4a450e13672ecd8dae83a60a3fefba08b2__[2], 'width', '#get')[__086ee1b9707170dfcb0fb3c3ce0fda4a450e13672ecd8dae83a60a3fefba08b2__[4]],
+      $hook$.global(__hook__, __086ee1b9707170dfcb0fb3c3ce0fda4a450e13672ecd8dae83a60a3fefba08b2__[2], 'height', '#get')[__086ee1b9707170dfcb0fb3c3ce0fda4a450e13672ecd8dae83a60a3fefba08b2__[5]],
+      $hook$.global(__hook__, __086ee1b9707170dfcb0fb3c3ce0fda4a450e13672ecd8dae83a60a3fefba08b2__[2], 'hidden', '#get')[__086ee1b9707170dfcb0fb3c3ce0fda4a450e13672ecd8dae83a60a3fefba08b2__[6]] ? 'true' : 'false',
+      $hook$.global(__hook__, __086ee1b9707170dfcb0fb3c3ce0fda4a450e13672ecd8dae83a60a3fefba08b2__[2], 'title', '#get')[__086ee1b9707170dfcb0fb3c3ce0fda4a450e13672ecd8dae83a60a3fefba08b2__[7]]
+    ], __086ee1b9707170dfcb0fb3c3ce0fda4a450e13672ecd8dae83a60a3fefba08b2__[2], 0);
+  }, null, args, __086ee1b9707170dfcb0fb3c3ce0fda4a450e13672ecd8dae83a60a3fefba08b2__[2]));  __hook__(() => {
+}, null, [
+  'export',
+  __086ee1b9707170dfcb0fb3c3ce0fda4a450e13672ecd8dae83a60a3fefba08b2__[0],
+  __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_13
+], __086ee1b9707170dfcb0fb3c3ce0fda4a450e13672ecd8dae83a60a3fefba08b2__[0], NaN);
+
+/*
+Copyright 2020 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+const __675ac5a994092344a6e623b45d923f5117d7f545984a3318d882e3b466ea2eb1__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronRightMedium.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronRightMedium.js,ChevronRightMediumIcon',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js,tag',
+  'S_uNpREdiC4aB1e_width;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronRightMedium.js,ChevronRightMediumIcon',
+  'S_uNpREdiC4aB1e_height;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronRightMedium.js,ChevronRightMediumIcon',
+  'S_uNpREdiC4aB1e_hidden;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronRightMedium.js,ChevronRightMediumIcon',
+  'S_uNpREdiC4aB1e_title;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronRightMedium.js,ChevronRightMediumIcon'
+]);
+__hook__(() => {
+}, null, [
+  'import',
+  {
+    [__675ac5a994092344a6e623b45d923f5117d7f545984a3318d882e3b466ea2eb1__[1]]: [
+      __aac039a38c86b6c8494b13a8f590ea8e5d3546bbfcacde36ca1e8f8b117ce6f8__module_namespace_2,
+      'tag',
+      'setCustomTemplateLiteralTag'
+    ]
+  }
+], __675ac5a994092344a6e623b45d923f5117d7f545984a3318d882e3b466ea2eb1__[0], NaN);
+const ChevronRightMediumIcon = (...args) =>
+  (__hook__(({width = 24, height = 24, hidden = false, title = 'Chevron Right Medium'} = {}) => {
+    return __hook__(__hook__('m', tag, [__675ac5a994092344a6e623b45d923f5117d7f545984a3318d882e3b466ea2eb1__[3]], __675ac5a994092344a6e623b45d923f5117d7f545984a3318d882e3b466ea2eb1__[2], null), null, [
+      ((s, r) => {
+        s.raw = r;
+        return s;
+      })([
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 6 10"\n  >\n    <path\n      d="M5.99 5a.997.997 0 00-.293-.707L1.717.303A1 1 0 10.303 1.717L3.586 5 .303 8.283a1 1 0 101.414 1.414l3.98-3.99A.997.997 0 005.99 5z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ], [
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 6 10"\n  >\n    <path\n      d="M5.99 5a.997.997 0 00-.293-.707L1.717.303A1 1 0 10.303 1.717L3.586 5 .303 8.283a1 1 0 101.414 1.414l3.98-3.99A.997.997 0 005.99 5z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ]),
+      $hook$.global(__hook__, __675ac5a994092344a6e623b45d923f5117d7f545984a3318d882e3b466ea2eb1__[2], 'width', '#get')[__675ac5a994092344a6e623b45d923f5117d7f545984a3318d882e3b466ea2eb1__[4]],
+      $hook$.global(__hook__, __675ac5a994092344a6e623b45d923f5117d7f545984a3318d882e3b466ea2eb1__[2], 'height', '#get')[__675ac5a994092344a6e623b45d923f5117d7f545984a3318d882e3b466ea2eb1__[5]],
+      $hook$.global(__hook__, __675ac5a994092344a6e623b45d923f5117d7f545984a3318d882e3b466ea2eb1__[2], 'hidden', '#get')[__675ac5a994092344a6e623b45d923f5117d7f545984a3318d882e3b466ea2eb1__[6]] ? 'true' : 'false',
+      $hook$.global(__hook__, __675ac5a994092344a6e623b45d923f5117d7f545984a3318d882e3b466ea2eb1__[2], 'title', '#get')[__675ac5a994092344a6e623b45d923f5117d7f545984a3318d882e3b466ea2eb1__[7]]
+    ], __675ac5a994092344a6e623b45d923f5117d7f545984a3318d882e3b466ea2eb1__[2], 0);
+  }, null, args, __675ac5a994092344a6e623b45d923f5117d7f545984a3318d882e3b466ea2eb1__[2]));  __hook__(() => {
+}, null, [
+  'export',
+  __675ac5a994092344a6e623b45d923f5117d7f545984a3318d882e3b466ea2eb1__[0],
+  __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_14
+], __675ac5a994092344a6e623b45d923f5117d7f545984a3318d882e3b466ea2eb1__[0], NaN);
+
+/*
+Copyright 2020 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+const __7b43a44f555750d4bc5450be89ddb0a22ac38bba08b48d076e3aa2c5e13cf27a__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronRightSmall.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronRightSmall.js,ChevronRightSmallIcon',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js,tag',
+  'S_uNpREdiC4aB1e_width;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronRightSmall.js,ChevronRightSmallIcon',
+  'S_uNpREdiC4aB1e_height;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronRightSmall.js,ChevronRightSmallIcon',
+  'S_uNpREdiC4aB1e_hidden;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronRightSmall.js,ChevronRightSmallIcon',
+  'S_uNpREdiC4aB1e_title;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronRightSmall.js,ChevronRightSmallIcon'
+]);
+__hook__(() => {
+}, null, [
+  'import',
+  {
+    [__7b43a44f555750d4bc5450be89ddb0a22ac38bba08b48d076e3aa2c5e13cf27a__[1]]: [
+      __aac039a38c86b6c8494b13a8f590ea8e5d3546bbfcacde36ca1e8f8b117ce6f8__module_namespace_2,
+      'tag',
+      'setCustomTemplateLiteralTag'
+    ]
+  }
+], __7b43a44f555750d4bc5450be89ddb0a22ac38bba08b48d076e3aa2c5e13cf27a__[0], NaN);
+const ChevronRightSmallIcon = (...args) =>
+  (__hook__(({width = 24, height = 24, hidden = false, title = 'Chevron Right Small'} = {}) => {
+    return __hook__(__hook__('m', tag, [__7b43a44f555750d4bc5450be89ddb0a22ac38bba08b48d076e3aa2c5e13cf27a__[3]], __7b43a44f555750d4bc5450be89ddb0a22ac38bba08b48d076e3aa2c5e13cf27a__[2], null), null, [
+      ((s, r) => {
+        s.raw = r;
+        return s;
+      })([
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 6 8"\n  >\n    <path\n      d="M5.5 4a.747.747 0 00-.22-.53C4.703 2.862 3.242 1.5 2.04.23A.75.75 0 10.98 1.29L3.69 4 .98 6.71a.75.75 0 101.06 1.06l3.24-3.24A.747.747 0 005.5 4z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ], [
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 6 8"\n  >\n    <path\n      d="M5.5 4a.747.747 0 00-.22-.53C4.703 2.862 3.242 1.5 2.04.23A.75.75 0 10.98 1.29L3.69 4 .98 6.71a.75.75 0 101.06 1.06l3.24-3.24A.747.747 0 005.5 4z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ]),
+      $hook$.global(__hook__, __7b43a44f555750d4bc5450be89ddb0a22ac38bba08b48d076e3aa2c5e13cf27a__[2], 'width', '#get')[__7b43a44f555750d4bc5450be89ddb0a22ac38bba08b48d076e3aa2c5e13cf27a__[4]],
+      $hook$.global(__hook__, __7b43a44f555750d4bc5450be89ddb0a22ac38bba08b48d076e3aa2c5e13cf27a__[2], 'height', '#get')[__7b43a44f555750d4bc5450be89ddb0a22ac38bba08b48d076e3aa2c5e13cf27a__[5]],
+      $hook$.global(__hook__, __7b43a44f555750d4bc5450be89ddb0a22ac38bba08b48d076e3aa2c5e13cf27a__[2], 'hidden', '#get')[__7b43a44f555750d4bc5450be89ddb0a22ac38bba08b48d076e3aa2c5e13cf27a__[6]] ? 'true' : 'false',
+      $hook$.global(__hook__, __7b43a44f555750d4bc5450be89ddb0a22ac38bba08b48d076e3aa2c5e13cf27a__[2], 'title', '#get')[__7b43a44f555750d4bc5450be89ddb0a22ac38bba08b48d076e3aa2c5e13cf27a__[7]]
+    ], __7b43a44f555750d4bc5450be89ddb0a22ac38bba08b48d076e3aa2c5e13cf27a__[2], 0);
+  }, null, args, __7b43a44f555750d4bc5450be89ddb0a22ac38bba08b48d076e3aa2c5e13cf27a__[2]));  __hook__(() => {
+}, null, [
+  'export',
+  __7b43a44f555750d4bc5450be89ddb0a22ac38bba08b48d076e3aa2c5e13cf27a__[0],
+  __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_15
+], __7b43a44f555750d4bc5450be89ddb0a22ac38bba08b48d076e3aa2c5e13cf27a__[0], NaN);
+
+/*
+Copyright 2020 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+const __efd423128b730571b57af2b35dd7915b936024d5013e6c289a3a461983804c1f__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronUpSmall.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronUpSmall.js,ChevronUpSmallIcon',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js,tag',
+  'S_uNpREdiC4aB1e_width;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronUpSmall.js,ChevronUpSmallIcon',
+  'S_uNpREdiC4aB1e_height;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronUpSmall.js,ChevronUpSmallIcon',
+  'S_uNpREdiC4aB1e_hidden;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronUpSmall.js,ChevronUpSmallIcon',
+  'S_uNpREdiC4aB1e_title;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronUpSmall.js,ChevronUpSmallIcon'
+]);
+__hook__(() => {
+}, null, [
+  'import',
+  {
+    [__efd423128b730571b57af2b35dd7915b936024d5013e6c289a3a461983804c1f__[1]]: [
+      __aac039a38c86b6c8494b13a8f590ea8e5d3546bbfcacde36ca1e8f8b117ce6f8__module_namespace_2,
+      'tag',
+      'setCustomTemplateLiteralTag'
+    ]
+  }
+], __efd423128b730571b57af2b35dd7915b936024d5013e6c289a3a461983804c1f__[0], NaN);
+const ChevronUpSmallIcon = (...args) =>
+  (__hook__(({width = 24, height = 24, hidden = false, title = 'Chevron Up Small'} = {}) => {
+    return __hook__(__hook__('m', tag, [__efd423128b730571b57af2b35dd7915b936024d5013e6c289a3a461983804c1f__[3]], __efd423128b730571b57af2b35dd7915b936024d5013e6c289a3a461983804c1f__[2], null), null, [
+      ((s, r) => {
+        s.raw = r;
+        return s;
+      })([
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 8 6"\n  >\n    <path\n      d="M4 .5a.747.747 0 00-.53.22C2.862 1.297 1.5 2.758.23 3.96a.75.75 0 101.06 1.06L4 2.31l2.71 2.71a.75.75 0 101.06-1.06L4.53.72A.747.747 0 004 .5z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ], [
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 8 6"\n  >\n    <path\n      d="M4 .5a.747.747 0 00-.53.22C2.862 1.297 1.5 2.758.23 3.96a.75.75 0 101.06 1.06L4 2.31l2.71 2.71a.75.75 0 101.06-1.06L4.53.72A.747.747 0 004 .5z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ]),
+      $hook$.global(__hook__, __efd423128b730571b57af2b35dd7915b936024d5013e6c289a3a461983804c1f__[2], 'width', '#get')[__efd423128b730571b57af2b35dd7915b936024d5013e6c289a3a461983804c1f__[4]],
+      $hook$.global(__hook__, __efd423128b730571b57af2b35dd7915b936024d5013e6c289a3a461983804c1f__[2], 'height', '#get')[__efd423128b730571b57af2b35dd7915b936024d5013e6c289a3a461983804c1f__[5]],
+      $hook$.global(__hook__, __efd423128b730571b57af2b35dd7915b936024d5013e6c289a3a461983804c1f__[2], 'hidden', '#get')[__efd423128b730571b57af2b35dd7915b936024d5013e6c289a3a461983804c1f__[6]] ? 'true' : 'false',
+      $hook$.global(__hook__, __efd423128b730571b57af2b35dd7915b936024d5013e6c289a3a461983804c1f__[2], 'title', '#get')[__efd423128b730571b57af2b35dd7915b936024d5013e6c289a3a461983804c1f__[7]]
+    ], __efd423128b730571b57af2b35dd7915b936024d5013e6c289a3a461983804c1f__[2], 0);
+  }, null, args, __efd423128b730571b57af2b35dd7915b936024d5013e6c289a3a461983804c1f__[2]));  __hook__(() => {
+}, null, [
+  'export',
+  __efd423128b730571b57af2b35dd7915b936024d5013e6c289a3a461983804c1f__[0],
+  __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_16
+], __efd423128b730571b57af2b35dd7915b936024d5013e6c289a3a461983804c1f__[0], NaN);
+
+/*
+Copyright 2020 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+const __8fdb146bebb743d5ea2bc3566e053acd488593bd4b3eb5d409d7373883e92393__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/CornerTriangle.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/CornerTriangle.js,CornerTriangleIcon',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js,tag',
+  'S_uNpREdiC4aB1e_width;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/CornerTriangle.js,CornerTriangleIcon',
+  'S_uNpREdiC4aB1e_height;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/CornerTriangle.js,CornerTriangleIcon',
+  'S_uNpREdiC4aB1e_hidden;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/CornerTriangle.js,CornerTriangleIcon',
+  'S_uNpREdiC4aB1e_title;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/CornerTriangle.js,CornerTriangleIcon'
+]);
+__hook__(() => {
+}, null, [
+  'import',
+  {
+    [__8fdb146bebb743d5ea2bc3566e053acd488593bd4b3eb5d409d7373883e92393__[1]]: [
+      __aac039a38c86b6c8494b13a8f590ea8e5d3546bbfcacde36ca1e8f8b117ce6f8__module_namespace_2,
+      'tag',
+      'setCustomTemplateLiteralTag'
+    ]
+  }
+], __8fdb146bebb743d5ea2bc3566e053acd488593bd4b3eb5d409d7373883e92393__[0], NaN);
+const CornerTriangleIcon = (...args) =>
+  (__hook__(({width = 24, height = 24, hidden = false, title = 'Corner Triangle'} = {}) => {
+    return __hook__(__hook__('m', tag, [__8fdb146bebb743d5ea2bc3566e053acd488593bd4b3eb5d409d7373883e92393__[3]], __8fdb146bebb743d5ea2bc3566e053acd488593bd4b3eb5d409d7373883e92393__[2], null), null, [
+      ((s, r) => {
+        s.raw = r;
+        return s;
+      })([
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 5 5"\n  >\n    <path\n      d="M4.74.01a.25.25 0 00-.177.073l-4.48 4.48a.25.25 0 00.177.427h4.48a.25.25 0 00.25-.25V.26a.25.25 0 00-.25-.25z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ], [
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 5 5"\n  >\n    <path\n      d="M4.74.01a.25.25 0 00-.177.073l-4.48 4.48a.25.25 0 00.177.427h4.48a.25.25 0 00.25-.25V.26a.25.25 0 00-.25-.25z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ]),
+      $hook$.global(__hook__, __8fdb146bebb743d5ea2bc3566e053acd488593bd4b3eb5d409d7373883e92393__[2], 'width', '#get')[__8fdb146bebb743d5ea2bc3566e053acd488593bd4b3eb5d409d7373883e92393__[4]],
+      $hook$.global(__hook__, __8fdb146bebb743d5ea2bc3566e053acd488593bd4b3eb5d409d7373883e92393__[2], 'height', '#get')[__8fdb146bebb743d5ea2bc3566e053acd488593bd4b3eb5d409d7373883e92393__[5]],
+      $hook$.global(__hook__, __8fdb146bebb743d5ea2bc3566e053acd488593bd4b3eb5d409d7373883e92393__[2], 'hidden', '#get')[__8fdb146bebb743d5ea2bc3566e053acd488593bd4b3eb5d409d7373883e92393__[6]] ? 'true' : 'false',
+      $hook$.global(__hook__, __8fdb146bebb743d5ea2bc3566e053acd488593bd4b3eb5d409d7373883e92393__[2], 'title', '#get')[__8fdb146bebb743d5ea2bc3566e053acd488593bd4b3eb5d409d7373883e92393__[7]]
+    ], __8fdb146bebb743d5ea2bc3566e053acd488593bd4b3eb5d409d7373883e92393__[2], 0);
+  }, null, args, __8fdb146bebb743d5ea2bc3566e053acd488593bd4b3eb5d409d7373883e92393__[2]));  __hook__(() => {
+}, null, [
+  'export',
+  __8fdb146bebb743d5ea2bc3566e053acd488593bd4b3eb5d409d7373883e92393__[0],
+  __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_17
+], __8fdb146bebb743d5ea2bc3566e053acd488593bd4b3eb5d409d7373883e92393__[0], NaN);
+
+/*
+Copyright 2020 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+const __6c94ef6316f3de2dcc0d967cb31e8798437df882fb160c354990c61a2dc4344e__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/CrossLarge.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/CrossLarge.js,CrossLargeIcon',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js,tag',
+  'S_uNpREdiC4aB1e_width;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/CrossLarge.js,CrossLargeIcon',
+  'S_uNpREdiC4aB1e_height;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/CrossLarge.js,CrossLargeIcon',
+  'S_uNpREdiC4aB1e_hidden;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/CrossLarge.js,CrossLargeIcon',
+  'S_uNpREdiC4aB1e_title;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/CrossLarge.js,CrossLargeIcon'
+]);
+__hook__(() => {
+}, null, [
+  'import',
+  {
+    [__6c94ef6316f3de2dcc0d967cb31e8798437df882fb160c354990c61a2dc4344e__[1]]: [
+      __aac039a38c86b6c8494b13a8f590ea8e5d3546bbfcacde36ca1e8f8b117ce6f8__module_namespace_2,
+      'tag',
+      'setCustomTemplateLiteralTag'
+    ]
+  }
+], __6c94ef6316f3de2dcc0d967cb31e8798437df882fb160c354990c61a2dc4344e__[0], NaN);
+const CrossLargeIcon = (...args) =>
+  (__hook__(({width = 24, height = 24, hidden = false, title = 'Cross Large'} = {}) => {
+    return __hook__(__hook__('m', tag, [__6c94ef6316f3de2dcc0d967cb31e8798437df882fb160c354990c61a2dc4344e__[3]], __6c94ef6316f3de2dcc0d967cb31e8798437df882fb160c354990c61a2dc4344e__[2], null), null, [
+      ((s, r) => {
+        s.raw = r;
+        return s;
+      })([
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 12 12"\n  >\n    <path\n      d="M11.697 10.283L7.414 6l4.283-4.283A1 1 0 1010.283.303L6 4.586 1.717.303A1 1 0 10.303 1.717L4.586 6 .303 10.283a1 1 0 101.414 1.414L6 7.414l4.283 4.283a1 1 0 101.414-1.414z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ], [
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 12 12"\n  >\n    <path\n      d="M11.697 10.283L7.414 6l4.283-4.283A1 1 0 1010.283.303L6 4.586 1.717.303A1 1 0 10.303 1.717L4.586 6 .303 10.283a1 1 0 101.414 1.414L6 7.414l4.283 4.283a1 1 0 101.414-1.414z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ]),
+      $hook$.global(__hook__, __6c94ef6316f3de2dcc0d967cb31e8798437df882fb160c354990c61a2dc4344e__[2], 'width', '#get')[__6c94ef6316f3de2dcc0d967cb31e8798437df882fb160c354990c61a2dc4344e__[4]],
+      $hook$.global(__hook__, __6c94ef6316f3de2dcc0d967cb31e8798437df882fb160c354990c61a2dc4344e__[2], 'height', '#get')[__6c94ef6316f3de2dcc0d967cb31e8798437df882fb160c354990c61a2dc4344e__[5]],
+      $hook$.global(__hook__, __6c94ef6316f3de2dcc0d967cb31e8798437df882fb160c354990c61a2dc4344e__[2], 'hidden', '#get')[__6c94ef6316f3de2dcc0d967cb31e8798437df882fb160c354990c61a2dc4344e__[6]] ? 'true' : 'false',
+      $hook$.global(__hook__, __6c94ef6316f3de2dcc0d967cb31e8798437df882fb160c354990c61a2dc4344e__[2], 'title', '#get')[__6c94ef6316f3de2dcc0d967cb31e8798437df882fb160c354990c61a2dc4344e__[7]]
+    ], __6c94ef6316f3de2dcc0d967cb31e8798437df882fb160c354990c61a2dc4344e__[2], 0);
+  }, null, args, __6c94ef6316f3de2dcc0d967cb31e8798437df882fb160c354990c61a2dc4344e__[2]));  __hook__(() => {
+}, null, [
+  'export',
+  __6c94ef6316f3de2dcc0d967cb31e8798437df882fb160c354990c61a2dc4344e__[0],
+  __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_18
+], __6c94ef6316f3de2dcc0d967cb31e8798437df882fb160c354990c61a2dc4344e__[0], NaN);
+
+/*
+Copyright 2020 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+const __9b1e2d03ec7718f8923107251985eb19a8b4290684a2a7d4d1be873c57864e28__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/CrossMedium.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/CrossMedium.js,CrossMediumIcon',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js,tag',
+  'S_uNpREdiC4aB1e_width;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/CrossMedium.js,CrossMediumIcon',
+  'S_uNpREdiC4aB1e_height;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/CrossMedium.js,CrossMediumIcon',
+  'S_uNpREdiC4aB1e_hidden;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/CrossMedium.js,CrossMediumIcon',
+  'S_uNpREdiC4aB1e_title;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/CrossMedium.js,CrossMediumIcon'
+]);
+__hook__(() => {
+}, null, [
+  'import',
+  {
+    [__9b1e2d03ec7718f8923107251985eb19a8b4290684a2a7d4d1be873c57864e28__[1]]: [
+      __aac039a38c86b6c8494b13a8f590ea8e5d3546bbfcacde36ca1e8f8b117ce6f8__module_namespace_2,
+      'tag',
+      'setCustomTemplateLiteralTag'
+    ]
+  }
+], __9b1e2d03ec7718f8923107251985eb19a8b4290684a2a7d4d1be873c57864e28__[0], NaN);
+const CrossMediumIcon = (...args) =>
+  (__hook__(({width = 24, height = 24, hidden = false, title = 'Cross Medium'} = {}) => {
+    return __hook__(__hook__('m', tag, [__9b1e2d03ec7718f8923107251985eb19a8b4290684a2a7d4d1be873c57864e28__[3]], __9b1e2d03ec7718f8923107251985eb19a8b4290684a2a7d4d1be873c57864e28__[2], null), null, [
+      ((s, r) => {
+        s.raw = r;
+        return s;
+      })([
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 8 8"\n  >\n    <path\n      d="M7.77 6.71L5.06 4l2.71-2.71A.75.75 0 106.71.23L4 2.94 1.29.23A.75.75 0 10.23 1.29L2.94 4 .23 6.71a.75.75 0 101.06 1.06L4 5.06l2.71 2.71a.75.75 0 101.06-1.06z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ], [
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 8 8"\n  >\n    <path\n      d="M7.77 6.71L5.06 4l2.71-2.71A.75.75 0 106.71.23L4 2.94 1.29.23A.75.75 0 10.23 1.29L2.94 4 .23 6.71a.75.75 0 101.06 1.06L4 5.06l2.71 2.71a.75.75 0 101.06-1.06z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ]),
+      $hook$.global(__hook__, __9b1e2d03ec7718f8923107251985eb19a8b4290684a2a7d4d1be873c57864e28__[2], 'width', '#get')[__9b1e2d03ec7718f8923107251985eb19a8b4290684a2a7d4d1be873c57864e28__[4]],
+      $hook$.global(__hook__, __9b1e2d03ec7718f8923107251985eb19a8b4290684a2a7d4d1be873c57864e28__[2], 'height', '#get')[__9b1e2d03ec7718f8923107251985eb19a8b4290684a2a7d4d1be873c57864e28__[5]],
+      $hook$.global(__hook__, __9b1e2d03ec7718f8923107251985eb19a8b4290684a2a7d4d1be873c57864e28__[2], 'hidden', '#get')[__9b1e2d03ec7718f8923107251985eb19a8b4290684a2a7d4d1be873c57864e28__[6]] ? 'true' : 'false',
+      $hook$.global(__hook__, __9b1e2d03ec7718f8923107251985eb19a8b4290684a2a7d4d1be873c57864e28__[2], 'title', '#get')[__9b1e2d03ec7718f8923107251985eb19a8b4290684a2a7d4d1be873c57864e28__[7]]
+    ], __9b1e2d03ec7718f8923107251985eb19a8b4290684a2a7d4d1be873c57864e28__[2], 0);
+  }, null, args, __9b1e2d03ec7718f8923107251985eb19a8b4290684a2a7d4d1be873c57864e28__[2]));  __hook__(() => {
+}, null, [
+  'export',
+  __9b1e2d03ec7718f8923107251985eb19a8b4290684a2a7d4d1be873c57864e28__[0],
+  __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_19
+], __9b1e2d03ec7718f8923107251985eb19a8b4290684a2a7d4d1be873c57864e28__[0], NaN);
+
+/*
+Copyright 2020 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+const __318eb30e5994eeb2cc8a1f1fc981edd2ead6e38c69bcb07e60252bbfcd01e1bb__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/CrossSmall.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/CrossSmall.js,CrossSmallIcon',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js,tag',
+  'S_uNpREdiC4aB1e_width;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/CrossSmall.js,CrossSmallIcon',
+  'S_uNpREdiC4aB1e_height;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/CrossSmall.js,CrossSmallIcon',
+  'S_uNpREdiC4aB1e_hidden;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/CrossSmall.js,CrossSmallIcon',
+  'S_uNpREdiC4aB1e_title;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/CrossSmall.js,CrossSmallIcon'
+]);
+__hook__(() => {
+}, null, [
+  'import',
+  {
+    [__318eb30e5994eeb2cc8a1f1fc981edd2ead6e38c69bcb07e60252bbfcd01e1bb__[1]]: [
+      __aac039a38c86b6c8494b13a8f590ea8e5d3546bbfcacde36ca1e8f8b117ce6f8__module_namespace_2,
+      'tag',
+      'setCustomTemplateLiteralTag'
+    ]
+  }
+], __318eb30e5994eeb2cc8a1f1fc981edd2ead6e38c69bcb07e60252bbfcd01e1bb__[0], NaN);
+const CrossSmallIcon = (...args) =>
+  (__hook__(({width = 24, height = 24, hidden = false, title = 'Cross Small'} = {}) => {
+    return __hook__(__hook__('m', tag, [__318eb30e5994eeb2cc8a1f1fc981edd2ead6e38c69bcb07e60252bbfcd01e1bb__[3]], __318eb30e5994eeb2cc8a1f1fc981edd2ead6e38c69bcb07e60252bbfcd01e1bb__[2], null), null, [
+      ((s, r) => {
+        s.raw = r;
+        return s;
+      })([
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 8 8"\n  >\n    <path\n      d="M7.317 6.433L4.884 4l2.433-2.433a.625.625 0 10-.884-.884L4 3.116 1.567.683a.625.625 0 10-.884.884L3.116 4 .683 6.433a.625.625 0 10.884.884L4 4.884l2.433 2.433a.625.625 0 00.884-.884z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ], [
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 8 8"\n  >\n    <path\n      d="M7.317 6.433L4.884 4l2.433-2.433a.625.625 0 10-.884-.884L4 3.116 1.567.683a.625.625 0 10-.884.884L3.116 4 .683 6.433a.625.625 0 10.884.884L4 4.884l2.433 2.433a.625.625 0 00.884-.884z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ]),
+      $hook$.global(__hook__, __318eb30e5994eeb2cc8a1f1fc981edd2ead6e38c69bcb07e60252bbfcd01e1bb__[2], 'width', '#get')[__318eb30e5994eeb2cc8a1f1fc981edd2ead6e38c69bcb07e60252bbfcd01e1bb__[4]],
+      $hook$.global(__hook__, __318eb30e5994eeb2cc8a1f1fc981edd2ead6e38c69bcb07e60252bbfcd01e1bb__[2], 'height', '#get')[__318eb30e5994eeb2cc8a1f1fc981edd2ead6e38c69bcb07e60252bbfcd01e1bb__[5]],
+      $hook$.global(__hook__, __318eb30e5994eeb2cc8a1f1fc981edd2ead6e38c69bcb07e60252bbfcd01e1bb__[2], 'hidden', '#get')[__318eb30e5994eeb2cc8a1f1fc981edd2ead6e38c69bcb07e60252bbfcd01e1bb__[6]] ? 'true' : 'false',
+      $hook$.global(__hook__, __318eb30e5994eeb2cc8a1f1fc981edd2ead6e38c69bcb07e60252bbfcd01e1bb__[2], 'title', '#get')[__318eb30e5994eeb2cc8a1f1fc981edd2ead6e38c69bcb07e60252bbfcd01e1bb__[7]]
+    ], __318eb30e5994eeb2cc8a1f1fc981edd2ead6e38c69bcb07e60252bbfcd01e1bb__[2], 0);
+  }, null, args, __318eb30e5994eeb2cc8a1f1fc981edd2ead6e38c69bcb07e60252bbfcd01e1bb__[2]));  __hook__(() => {
+}, null, [
+  'export',
+  __318eb30e5994eeb2cc8a1f1fc981edd2ead6e38c69bcb07e60252bbfcd01e1bb__[0],
+  __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_20
+], __318eb30e5994eeb2cc8a1f1fc981edd2ead6e38c69bcb07e60252bbfcd01e1bb__[0], NaN);
+
+/*
+Copyright 2020 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+const __3d10c5bd3de09b294c1896b22098ef477f3896478c667b5f53212e117d2e9f88__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/DashSmall.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/DashSmall.js,DashSmallIcon',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js,tag',
+  'S_uNpREdiC4aB1e_width;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/DashSmall.js,DashSmallIcon',
+  'S_uNpREdiC4aB1e_height;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/DashSmall.js,DashSmallIcon',
+  'S_uNpREdiC4aB1e_hidden;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/DashSmall.js,DashSmallIcon',
+  'S_uNpREdiC4aB1e_title;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/DashSmall.js,DashSmallIcon'
+]);
+__hook__(() => {
+}, null, [
+  'import',
+  {
+    [__3d10c5bd3de09b294c1896b22098ef477f3896478c667b5f53212e117d2e9f88__[1]]: [
+      __aac039a38c86b6c8494b13a8f590ea8e5d3546bbfcacde36ca1e8f8b117ce6f8__module_namespace_2,
+      'tag',
+      'setCustomTemplateLiteralTag'
+    ]
+  }
+], __3d10c5bd3de09b294c1896b22098ef477f3896478c667b5f53212e117d2e9f88__[0], NaN);
+const DashSmallIcon = (...args) =>
+  (__hook__(({width = 24, height = 24, hidden = false, title = 'Dash Small'} = {}) => {
+    return __hook__(__hook__('m', tag, [__3d10c5bd3de09b294c1896b22098ef477f3896478c667b5f53212e117d2e9f88__[3]], __3d10c5bd3de09b294c1896b22098ef477f3896478c667b5f53212e117d2e9f88__[2], null), null, [
+      ((s, r) => {
+        s.raw = r;
+        return s;
+      })([
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 10 10"\n  >\n    <path d="M8 4H2a1 1 0 000 2h6a1 1 0 000-2z" viewBox="0 0 0 0" />\n  </svg>'
+      ], [
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 10 10"\n  >\n    <path d="M8 4H2a1 1 0 000 2h6a1 1 0 000-2z" viewBox="0 0 0 0" />\n  </svg>'
+      ]),
+      $hook$.global(__hook__, __3d10c5bd3de09b294c1896b22098ef477f3896478c667b5f53212e117d2e9f88__[2], 'width', '#get')[__3d10c5bd3de09b294c1896b22098ef477f3896478c667b5f53212e117d2e9f88__[4]],
+      $hook$.global(__hook__, __3d10c5bd3de09b294c1896b22098ef477f3896478c667b5f53212e117d2e9f88__[2], 'height', '#get')[__3d10c5bd3de09b294c1896b22098ef477f3896478c667b5f53212e117d2e9f88__[5]],
+      $hook$.global(__hook__, __3d10c5bd3de09b294c1896b22098ef477f3896478c667b5f53212e117d2e9f88__[2], 'hidden', '#get')[__3d10c5bd3de09b294c1896b22098ef477f3896478c667b5f53212e117d2e9f88__[6]] ? 'true' : 'false',
+      $hook$.global(__hook__, __3d10c5bd3de09b294c1896b22098ef477f3896478c667b5f53212e117d2e9f88__[2], 'title', '#get')[__3d10c5bd3de09b294c1896b22098ef477f3896478c667b5f53212e117d2e9f88__[7]]
+    ], __3d10c5bd3de09b294c1896b22098ef477f3896478c667b5f53212e117d2e9f88__[2], 0);
+  }, null, args, __3d10c5bd3de09b294c1896b22098ef477f3896478c667b5f53212e117d2e9f88__[2]));  __hook__(() => {
+}, null, [
+  'export',
+  __3d10c5bd3de09b294c1896b22098ef477f3896478c667b5f53212e117d2e9f88__[0],
+  __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_21
+], __3d10c5bd3de09b294c1896b22098ef477f3896478c667b5f53212e117d2e9f88__[0], NaN);
+
+/*
+Copyright 2020 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+const __ce94d066f2bfd2a78527c9a10ea1baf902d90974d8400f30cb8b4449d4750ea6__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/DoubleGripper.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/DoubleGripper.js,DoubleGripperIcon',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js,tag',
+  'S_uNpREdiC4aB1e_width;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/DoubleGripper.js,DoubleGripperIcon',
+  'S_uNpREdiC4aB1e_height;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/DoubleGripper.js,DoubleGripperIcon',
+  'S_uNpREdiC4aB1e_hidden;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/DoubleGripper.js,DoubleGripperIcon',
+  'S_uNpREdiC4aB1e_title;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/DoubleGripper.js,DoubleGripperIcon'
+]);
+__hook__(() => {
+}, null, [
+  'import',
+  {
+    [__ce94d066f2bfd2a78527c9a10ea1baf902d90974d8400f30cb8b4449d4750ea6__[1]]: [
+      __aac039a38c86b6c8494b13a8f590ea8e5d3546bbfcacde36ca1e8f8b117ce6f8__module_namespace_2,
+      'tag',
+      'setCustomTemplateLiteralTag'
+    ]
+  }
+], __ce94d066f2bfd2a78527c9a10ea1baf902d90974d8400f30cb8b4449d4750ea6__[0], NaN);
+const DoubleGripperIcon = (...args) =>
+  (__hook__(({width = 24, height = 24, hidden = false, title = 'Double Gripper'} = {}) => {
+    return __hook__(__hook__('m', tag, [__ce94d066f2bfd2a78527c9a10ea1baf902d90974d8400f30cb8b4449d4750ea6__[3]], __ce94d066f2bfd2a78527c9a10ea1baf902d90974d8400f30cb8b4449d4750ea6__[2], null), null, [
+      ((s, r) => {
+        s.raw = r;
+        return s;
+      })([
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 16 4"\n  >\n    <path\n      d="M15.49 3H.51a.5.5 0 100 1h14.98a.5.5 0 100-1zM.51 1h14.98a.5.5 0 000-1H.51a.5.5 0 000 1z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ], [
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 16 4"\n  >\n    <path\n      d="M15.49 3H.51a.5.5 0 100 1h14.98a.5.5 0 100-1zM.51 1h14.98a.5.5 0 000-1H.51a.5.5 0 000 1z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ]),
+      $hook$.global(__hook__, __ce94d066f2bfd2a78527c9a10ea1baf902d90974d8400f30cb8b4449d4750ea6__[2], 'width', '#get')[__ce94d066f2bfd2a78527c9a10ea1baf902d90974d8400f30cb8b4449d4750ea6__[4]],
+      $hook$.global(__hook__, __ce94d066f2bfd2a78527c9a10ea1baf902d90974d8400f30cb8b4449d4750ea6__[2], 'height', '#get')[__ce94d066f2bfd2a78527c9a10ea1baf902d90974d8400f30cb8b4449d4750ea6__[5]],
+      $hook$.global(__hook__, __ce94d066f2bfd2a78527c9a10ea1baf902d90974d8400f30cb8b4449d4750ea6__[2], 'hidden', '#get')[__ce94d066f2bfd2a78527c9a10ea1baf902d90974d8400f30cb8b4449d4750ea6__[6]] ? 'true' : 'false',
+      $hook$.global(__hook__, __ce94d066f2bfd2a78527c9a10ea1baf902d90974d8400f30cb8b4449d4750ea6__[2], 'title', '#get')[__ce94d066f2bfd2a78527c9a10ea1baf902d90974d8400f30cb8b4449d4750ea6__[7]]
+    ], __ce94d066f2bfd2a78527c9a10ea1baf902d90974d8400f30cb8b4449d4750ea6__[2], 0);
+  }, null, args, __ce94d066f2bfd2a78527c9a10ea1baf902d90974d8400f30cb8b4449d4750ea6__[2]));  __hook__(() => {
+}, null, [
+  'export',
+  __ce94d066f2bfd2a78527c9a10ea1baf902d90974d8400f30cb8b4449d4750ea6__[0],
+  __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_22
+], __ce94d066f2bfd2a78527c9a10ea1baf902d90974d8400f30cb8b4449d4750ea6__[0], NaN);
+
+/*
+Copyright 2020 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+const __b4e295f8ddbbc3e6c1b282e4ce009aa55fe322919410089f58fa7925c3040a69__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/FolderBreadcrumb.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/FolderBreadcrumb.js,FolderBreadcrumbIcon',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js,tag',
+  'S_uNpREdiC4aB1e_width;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/FolderBreadcrumb.js,FolderBreadcrumbIcon',
+  'S_uNpREdiC4aB1e_height;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/FolderBreadcrumb.js,FolderBreadcrumbIcon',
+  'S_uNpREdiC4aB1e_hidden;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/FolderBreadcrumb.js,FolderBreadcrumbIcon',
+  'S_uNpREdiC4aB1e_title;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/FolderBreadcrumb.js,FolderBreadcrumbIcon'
+]);
+__hook__(() => {
+}, null, [
+  'import',
+  {
+    [__b4e295f8ddbbc3e6c1b282e4ce009aa55fe322919410089f58fa7925c3040a69__[1]]: [
+      __aac039a38c86b6c8494b13a8f590ea8e5d3546bbfcacde36ca1e8f8b117ce6f8__module_namespace_2,
+      'tag',
+      'setCustomTemplateLiteralTag'
+    ]
+  }
+], __b4e295f8ddbbc3e6c1b282e4ce009aa55fe322919410089f58fa7925c3040a69__[0], NaN);
+const FolderBreadcrumbIcon = (...args) =>
+  (__hook__(({width = 24, height = 24, hidden = false, title = 'Folder Breadcrumb'} = {}) => {
+    return __hook__(__hook__('m', tag, [__b4e295f8ddbbc3e6c1b282e4ce009aa55fe322919410089f58fa7925c3040a69__[3]], __b4e295f8ddbbc3e6c1b282e4ce009aa55fe322919410089f58fa7925c3040a69__[2], null), null, [
+      ((s, r) => {
+        s.raw = r;
+        return s;
+      })([
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 18 18"\n  >\n    <path\n      d="M16.5 4l-7.166.004-1.652-1.7A1 1 0 006.965 2H2a1 1 0 00-1 1v11.5a.5.5 0 00.5.5h15a.5.5 0 00.5-.5v-10a.5.5 0 00-.5-.5zM2 3h4.965l1.943 2H2zm10.354 5.854l-3 3a.5.5 0 01-.707 0l-3-3a.5.5 0 01.707-.707L9 10.793l2.646-2.646a.5.5 0 01.707.707z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ], [
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 18 18"\n  >\n    <path\n      d="M16.5 4l-7.166.004-1.652-1.7A1 1 0 006.965 2H2a1 1 0 00-1 1v11.5a.5.5 0 00.5.5h15a.5.5 0 00.5-.5v-10a.5.5 0 00-.5-.5zM2 3h4.965l1.943 2H2zm10.354 5.854l-3 3a.5.5 0 01-.707 0l-3-3a.5.5 0 01.707-.707L9 10.793l2.646-2.646a.5.5 0 01.707.707z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ]),
+      $hook$.global(__hook__, __b4e295f8ddbbc3e6c1b282e4ce009aa55fe322919410089f58fa7925c3040a69__[2], 'width', '#get')[__b4e295f8ddbbc3e6c1b282e4ce009aa55fe322919410089f58fa7925c3040a69__[4]],
+      $hook$.global(__hook__, __b4e295f8ddbbc3e6c1b282e4ce009aa55fe322919410089f58fa7925c3040a69__[2], 'height', '#get')[__b4e295f8ddbbc3e6c1b282e4ce009aa55fe322919410089f58fa7925c3040a69__[5]],
+      $hook$.global(__hook__, __b4e295f8ddbbc3e6c1b282e4ce009aa55fe322919410089f58fa7925c3040a69__[2], 'hidden', '#get')[__b4e295f8ddbbc3e6c1b282e4ce009aa55fe322919410089f58fa7925c3040a69__[6]] ? 'true' : 'false',
+      $hook$.global(__hook__, __b4e295f8ddbbc3e6c1b282e4ce009aa55fe322919410089f58fa7925c3040a69__[2], 'title', '#get')[__b4e295f8ddbbc3e6c1b282e4ce009aa55fe322919410089f58fa7925c3040a69__[7]]
+    ], __b4e295f8ddbbc3e6c1b282e4ce009aa55fe322919410089f58fa7925c3040a69__[2], 0);
+  }, null, args, __b4e295f8ddbbc3e6c1b282e4ce009aa55fe322919410089f58fa7925c3040a69__[2]));  __hook__(() => {
+}, null, [
+  'export',
+  __b4e295f8ddbbc3e6c1b282e4ce009aa55fe322919410089f58fa7925c3040a69__[0],
+  __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_23
+], __b4e295f8ddbbc3e6c1b282e4ce009aa55fe322919410089f58fa7925c3040a69__[0], NaN);
+
+/*
+Copyright 2020 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+const __567431c9b0d4ef9b7aa97f24b73d6533601c1ac7df1923a6ea49b98b16598c69__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/HelpMedium.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/HelpMedium.js,HelpMediumIcon',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js,tag',
+  'S_uNpREdiC4aB1e_width;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/HelpMedium.js,HelpMediumIcon',
+  'S_uNpREdiC4aB1e_height;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/HelpMedium.js,HelpMediumIcon',
+  'S_uNpREdiC4aB1e_hidden;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/HelpMedium.js,HelpMediumIcon',
+  'S_uNpREdiC4aB1e_title;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/HelpMedium.js,HelpMediumIcon'
+]);
+__hook__(() => {
+}, null, [
+  'import',
+  {
+    [__567431c9b0d4ef9b7aa97f24b73d6533601c1ac7df1923a6ea49b98b16598c69__[1]]: [
+      __aac039a38c86b6c8494b13a8f590ea8e5d3546bbfcacde36ca1e8f8b117ce6f8__module_namespace_2,
+      'tag',
+      'setCustomTemplateLiteralTag'
+    ]
+  }
+], __567431c9b0d4ef9b7aa97f24b73d6533601c1ac7df1923a6ea49b98b16598c69__[0], NaN);
+const HelpMediumIcon = (...args) =>
+  (__hook__(({width = 24, height = 24, hidden = false, title = 'Help Medium'} = {}) => {
+    return __hook__(__hook__('m', tag, [__567431c9b0d4ef9b7aa97f24b73d6533601c1ac7df1923a6ea49b98b16598c69__[3]], __567431c9b0d4ef9b7aa97f24b73d6533601c1ac7df1923a6ea49b98b16598c69__[2], null), null, [
+      ((s, r) => {
+        s.raw = r;
+        return s;
+      })([
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 18 18"\n  >\n    <path\n      d="M9 1a8 8 0 108 8 8 8 0 00-8-8zm1.3 12.3a1.222 1.222 0 01-.3.9 1.223 1.223 0 01-.9.3 1.2 1.2 0 010-2.4c.8 0 1.3.5 1.2 1.2zm.1-4.5c-.4.4-.8.8-.8 1.2a1.135 1.135 0 00.3.8v.1a.098.098 0 01-.096.1H8.4a.229.229 0 01-.2-.1 1.666 1.666 0 01-.4-1.1 2.772 2.772 0 011-1.7 2.772 2.772 0 001-1.7c0-.5-.4-1.1-1.4-1.1a5.018 5.018 0 00-2 .4h-.2V4.3c0-.1 0-.2.1-.2a6.183 6.183 0 012.4-.5c1.9 0 3.1 1.1 3.1 2.7a3.704 3.704 0 01-1.4 2.5z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ], [
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 18 18"\n  >\n    <path\n      d="M9 1a8 8 0 108 8 8 8 0 00-8-8zm1.3 12.3a1.222 1.222 0 01-.3.9 1.223 1.223 0 01-.9.3 1.2 1.2 0 010-2.4c.8 0 1.3.5 1.2 1.2zm.1-4.5c-.4.4-.8.8-.8 1.2a1.135 1.135 0 00.3.8v.1a.098.098 0 01-.096.1H8.4a.229.229 0 01-.2-.1 1.666 1.666 0 01-.4-1.1 2.772 2.772 0 011-1.7 2.772 2.772 0 001-1.7c0-.5-.4-1.1-1.4-1.1a5.018 5.018 0 00-2 .4h-.2V4.3c0-.1 0-.2.1-.2a6.183 6.183 0 012.4-.5c1.9 0 3.1 1.1 3.1 2.7a3.704 3.704 0 01-1.4 2.5z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ]),
+      $hook$.global(__hook__, __567431c9b0d4ef9b7aa97f24b73d6533601c1ac7df1923a6ea49b98b16598c69__[2], 'width', '#get')[__567431c9b0d4ef9b7aa97f24b73d6533601c1ac7df1923a6ea49b98b16598c69__[4]],
+      $hook$.global(__hook__, __567431c9b0d4ef9b7aa97f24b73d6533601c1ac7df1923a6ea49b98b16598c69__[2], 'height', '#get')[__567431c9b0d4ef9b7aa97f24b73d6533601c1ac7df1923a6ea49b98b16598c69__[5]],
+      $hook$.global(__hook__, __567431c9b0d4ef9b7aa97f24b73d6533601c1ac7df1923a6ea49b98b16598c69__[2], 'hidden', '#get')[__567431c9b0d4ef9b7aa97f24b73d6533601c1ac7df1923a6ea49b98b16598c69__[6]] ? 'true' : 'false',
+      $hook$.global(__hook__, __567431c9b0d4ef9b7aa97f24b73d6533601c1ac7df1923a6ea49b98b16598c69__[2], 'title', '#get')[__567431c9b0d4ef9b7aa97f24b73d6533601c1ac7df1923a6ea49b98b16598c69__[7]]
+    ], __567431c9b0d4ef9b7aa97f24b73d6533601c1ac7df1923a6ea49b98b16598c69__[2], 0);
+  }, null, args, __567431c9b0d4ef9b7aa97f24b73d6533601c1ac7df1923a6ea49b98b16598c69__[2]));  __hook__(() => {
+}, null, [
+  'export',
+  __567431c9b0d4ef9b7aa97f24b73d6533601c1ac7df1923a6ea49b98b16598c69__[0],
+  __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_24
+], __567431c9b0d4ef9b7aa97f24b73d6533601c1ac7df1923a6ea49b98b16598c69__[0], NaN);
+
+/*
+Copyright 2020 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+const __451dd6b0b23d6fe60a6f6b6db2abf4f6bbe5b9dd1144dcfb88e4feddb5e4dad9__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/HelpSmall.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/HelpSmall.js,HelpSmallIcon',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js,tag',
+  'S_uNpREdiC4aB1e_width;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/HelpSmall.js,HelpSmallIcon',
+  'S_uNpREdiC4aB1e_height;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/HelpSmall.js,HelpSmallIcon',
+  'S_uNpREdiC4aB1e_hidden;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/HelpSmall.js,HelpSmallIcon',
+  'S_uNpREdiC4aB1e_title;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/HelpSmall.js,HelpSmallIcon'
+]);
+__hook__(() => {
+}, null, [
+  'import',
+  {
+    [__451dd6b0b23d6fe60a6f6b6db2abf4f6bbe5b9dd1144dcfb88e4feddb5e4dad9__[1]]: [
+      __aac039a38c86b6c8494b13a8f590ea8e5d3546bbfcacde36ca1e8f8b117ce6f8__module_namespace_2,
+      'tag',
+      'setCustomTemplateLiteralTag'
+    ]
+  }
+], __451dd6b0b23d6fe60a6f6b6db2abf4f6bbe5b9dd1144dcfb88e4feddb5e4dad9__[0], NaN);
+const HelpSmallIcon = (...args) =>
+  (__hook__(({width = 24, height = 24, hidden = false, title = 'Help Small'} = {}) => {
+    return __hook__(__hook__('m', tag, [__451dd6b0b23d6fe60a6f6b6db2abf4f6bbe5b9dd1144dcfb88e4feddb5e4dad9__[3]], __451dd6b0b23d6fe60a6f6b6db2abf4f6bbe5b9dd1144dcfb88e4feddb5e4dad9__[2], null), null, [
+      ((s, r) => {
+        s.raw = r;
+        return s;
+      })([
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 14 14"\n  >\n    <path\n      d="M7 .778A6.222 6.222 0 1013.222 7 6.222 6.222 0 007 .778zm.018 10.452a1.046 1.046 0 11-.08-2.091q.04-.002.08 0a1.019 1.019 0 011.087.946q.003.046.002.092a1.004 1.004 0 01-1.09 1.053zm1.387-4.985l-.078.078c-.307.322-.655.687-.655.913a1.078 1.078 0 00.14.525l.056.108-.044.167a.24.24 0 01-.221.147H6.56a.338.338 0 01-.252-.091 1.6 1.6 0 01-.329-.982 2.378 2.378 0 01.864-1.61c.078-.086.156-.164.224-.234.245-.252.395-.416.395-.59 0-.119 0-.483-.695-.483a2.3 2.3 0 00-1.229.357.233.233 0 01-.254-.008l-.092-.066-.022-.175V3.174a.342.342 0 01.156-.319A3.216 3.216 0 017 2.425a1.985 1.985 0 012.14 2.051 2.385 2.385 0 01-.735 1.769z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ], [
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 14 14"\n  >\n    <path\n      d="M7 .778A6.222 6.222 0 1013.222 7 6.222 6.222 0 007 .778zm.018 10.452a1.046 1.046 0 11-.08-2.091q.04-.002.08 0a1.019 1.019 0 011.087.946q.003.046.002.092a1.004 1.004 0 01-1.09 1.053zm1.387-4.985l-.078.078c-.307.322-.655.687-.655.913a1.078 1.078 0 00.14.525l.056.108-.044.167a.24.24 0 01-.221.147H6.56a.338.338 0 01-.252-.091 1.6 1.6 0 01-.329-.982 2.378 2.378 0 01.864-1.61c.078-.086.156-.164.224-.234.245-.252.395-.416.395-.59 0-.119 0-.483-.695-.483a2.3 2.3 0 00-1.229.357.233.233 0 01-.254-.008l-.092-.066-.022-.175V3.174a.342.342 0 01.156-.319A3.216 3.216 0 017 2.425a1.985 1.985 0 012.14 2.051 2.385 2.385 0 01-.735 1.769z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ]),
+      $hook$.global(__hook__, __451dd6b0b23d6fe60a6f6b6db2abf4f6bbe5b9dd1144dcfb88e4feddb5e4dad9__[2], 'width', '#get')[__451dd6b0b23d6fe60a6f6b6db2abf4f6bbe5b9dd1144dcfb88e4feddb5e4dad9__[4]],
+      $hook$.global(__hook__, __451dd6b0b23d6fe60a6f6b6db2abf4f6bbe5b9dd1144dcfb88e4feddb5e4dad9__[2], 'height', '#get')[__451dd6b0b23d6fe60a6f6b6db2abf4f6bbe5b9dd1144dcfb88e4feddb5e4dad9__[5]],
+      $hook$.global(__hook__, __451dd6b0b23d6fe60a6f6b6db2abf4f6bbe5b9dd1144dcfb88e4feddb5e4dad9__[2], 'hidden', '#get')[__451dd6b0b23d6fe60a6f6b6db2abf4f6bbe5b9dd1144dcfb88e4feddb5e4dad9__[6]] ? 'true' : 'false',
+      $hook$.global(__hook__, __451dd6b0b23d6fe60a6f6b6db2abf4f6bbe5b9dd1144dcfb88e4feddb5e4dad9__[2], 'title', '#get')[__451dd6b0b23d6fe60a6f6b6db2abf4f6bbe5b9dd1144dcfb88e4feddb5e4dad9__[7]]
+    ], __451dd6b0b23d6fe60a6f6b6db2abf4f6bbe5b9dd1144dcfb88e4feddb5e4dad9__[2], 0);
+  }, null, args, __451dd6b0b23d6fe60a6f6b6db2abf4f6bbe5b9dd1144dcfb88e4feddb5e4dad9__[2]));  __hook__(() => {
+}, null, [
+  'export',
+  __451dd6b0b23d6fe60a6f6b6db2abf4f6bbe5b9dd1144dcfb88e4feddb5e4dad9__[0],
+  __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_25
+], __451dd6b0b23d6fe60a6f6b6db2abf4f6bbe5b9dd1144dcfb88e4feddb5e4dad9__[0], NaN);
+
+/*
+Copyright 2020 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+const __0b444382993e572e65884b3ed0f2ab3a0090712f252474da32f673a35d1d2e87__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/InfoMedium.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/InfoMedium.js,InfoMediumIcon',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js,tag',
+  'S_uNpREdiC4aB1e_width;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/InfoMedium.js,InfoMediumIcon',
+  'S_uNpREdiC4aB1e_height;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/InfoMedium.js,InfoMediumIcon',
+  'S_uNpREdiC4aB1e_hidden;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/InfoMedium.js,InfoMediumIcon',
+  'S_uNpREdiC4aB1e_title;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/InfoMedium.js,InfoMediumIcon'
+]);
+__hook__(() => {
+}, null, [
+  'import',
+  {
+    [__0b444382993e572e65884b3ed0f2ab3a0090712f252474da32f673a35d1d2e87__[1]]: [
+      __aac039a38c86b6c8494b13a8f590ea8e5d3546bbfcacde36ca1e8f8b117ce6f8__module_namespace_2,
+      'tag',
+      'setCustomTemplateLiteralTag'
+    ]
+  }
+], __0b444382993e572e65884b3ed0f2ab3a0090712f252474da32f673a35d1d2e87__[0], NaN);
+const InfoMediumIcon = (...args) =>
+  (__hook__(({width = 24, height = 24, hidden = false, title = 'Info Medium'} = {}) => {
+    return __hook__(__hook__('m', tag, [__0b444382993e572e65884b3ed0f2ab3a0090712f252474da32f673a35d1d2e87__[3]], __0b444382993e572e65884b3ed0f2ab3a0090712f252474da32f673a35d1d2e87__[2], null), null, [
+      ((s, r) => {
+        s.raw = r;
+        return s;
+      })([
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 18 18"\n  >\n    <path\n      d="M9 1a8 8 0 108 8 8 8 0 00-8-8zm-.15 2.15a1.359 1.359 0 011.431 1.283q.004.064.001.129A1.332 1.332 0 018.85 5.994a1.353 1.353 0 01-1.432-1.433 1.359 1.359 0 011.304-1.412q.064-.002.128.001zM11 13.5a.5.5 0 01-.5.5h-3a.5.5 0 01-.5-.5v-1a.5.5 0 01.5-.5H8V9h-.5a.5.5 0 01-.5-.5v-1a.5.5 0 01.5-.5h2a.5.5 0 01.5.5V12h.5a.5.5 0 01.5.5z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ], [
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 18 18"\n  >\n    <path\n      d="M9 1a8 8 0 108 8 8 8 0 00-8-8zm-.15 2.15a1.359 1.359 0 011.431 1.283q.004.064.001.129A1.332 1.332 0 018.85 5.994a1.353 1.353 0 01-1.432-1.433 1.359 1.359 0 011.304-1.412q.064-.002.128.001zM11 13.5a.5.5 0 01-.5.5h-3a.5.5 0 01-.5-.5v-1a.5.5 0 01.5-.5H8V9h-.5a.5.5 0 01-.5-.5v-1a.5.5 0 01.5-.5h2a.5.5 0 01.5.5V12h.5a.5.5 0 01.5.5z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ]),
+      $hook$.global(__hook__, __0b444382993e572e65884b3ed0f2ab3a0090712f252474da32f673a35d1d2e87__[2], 'width', '#get')[__0b444382993e572e65884b3ed0f2ab3a0090712f252474da32f673a35d1d2e87__[4]],
+      $hook$.global(__hook__, __0b444382993e572e65884b3ed0f2ab3a0090712f252474da32f673a35d1d2e87__[2], 'height', '#get')[__0b444382993e572e65884b3ed0f2ab3a0090712f252474da32f673a35d1d2e87__[5]],
+      $hook$.global(__hook__, __0b444382993e572e65884b3ed0f2ab3a0090712f252474da32f673a35d1d2e87__[2], 'hidden', '#get')[__0b444382993e572e65884b3ed0f2ab3a0090712f252474da32f673a35d1d2e87__[6]] ? 'true' : 'false',
+      $hook$.global(__hook__, __0b444382993e572e65884b3ed0f2ab3a0090712f252474da32f673a35d1d2e87__[2], 'title', '#get')[__0b444382993e572e65884b3ed0f2ab3a0090712f252474da32f673a35d1d2e87__[7]]
+    ], __0b444382993e572e65884b3ed0f2ab3a0090712f252474da32f673a35d1d2e87__[2], 0);
+  }, null, args, __0b444382993e572e65884b3ed0f2ab3a0090712f252474da32f673a35d1d2e87__[2]));  __hook__(() => {
+}, null, [
+  'export',
+  __0b444382993e572e65884b3ed0f2ab3a0090712f252474da32f673a35d1d2e87__[0],
+  __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_26
+], __0b444382993e572e65884b3ed0f2ab3a0090712f252474da32f673a35d1d2e87__[0], NaN);
+
+/*
+Copyright 2020 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+const __010755e0219bd5a53bbd053fc185e8ed46c808f781e5a374f3bfd4d65912c63e__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/InfoSmall.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/InfoSmall.js,InfoSmallIcon',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js,tag',
+  'S_uNpREdiC4aB1e_width;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/InfoSmall.js,InfoSmallIcon',
+  'S_uNpREdiC4aB1e_height;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/InfoSmall.js,InfoSmallIcon',
+  'S_uNpREdiC4aB1e_hidden;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/InfoSmall.js,InfoSmallIcon',
+  'S_uNpREdiC4aB1e_title;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/InfoSmall.js,InfoSmallIcon'
+]);
+__hook__(() => {
+}, null, [
+  'import',
+  {
+    [__010755e0219bd5a53bbd053fc185e8ed46c808f781e5a374f3bfd4d65912c63e__[1]]: [
+      __aac039a38c86b6c8494b13a8f590ea8e5d3546bbfcacde36ca1e8f8b117ce6f8__module_namespace_2,
+      'tag',
+      'setCustomTemplateLiteralTag'
+    ]
+  }
+], __010755e0219bd5a53bbd053fc185e8ed46c808f781e5a374f3bfd4d65912c63e__[0], NaN);
+const InfoSmallIcon = (...args) =>
+  (__hook__(({width = 24, height = 24, hidden = false, title = 'Info Small'} = {}) => {
+    return __hook__(__hook__('m', tag, [__010755e0219bd5a53bbd053fc185e8ed46c808f781e5a374f3bfd4d65912c63e__[3]], __010755e0219bd5a53bbd053fc185e8ed46c808f781e5a374f3bfd4d65912c63e__[2], null), null, [
+      ((s, r) => {
+        s.raw = r;
+        return s;
+      })([
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 14 14"\n  >\n    <path\n      d="M7 .778A6.222 6.222 0 1013.222 7 6.222 6.222 0 007 .778zM6.883 2.45a1.057 1.057 0 011.113.998q.003.05.001.1a1.036 1.036 0 01-1.114 1.114A1.052 1.052 0 015.77 3.547 1.057 1.057 0 016.784 2.45q.05-.002.1.001zm1.673 8.05a.389.389 0 01-.39.389H5.834a.389.389 0 01-.389-.389v-.778a.389.389 0 01.39-.389h.388V7h-.389a.389.389 0 01-.389-.389v-.778a.389.389 0 01.39-.389h1.555a.389.389 0 01.389.39v3.5h.389a.389.389 0 01.389.388z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ], [
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 14 14"\n  >\n    <path\n      d="M7 .778A6.222 6.222 0 1013.222 7 6.222 6.222 0 007 .778zM6.883 2.45a1.057 1.057 0 011.113.998q.003.05.001.1a1.036 1.036 0 01-1.114 1.114A1.052 1.052 0 015.77 3.547 1.057 1.057 0 016.784 2.45q.05-.002.1.001zm1.673 8.05a.389.389 0 01-.39.389H5.834a.389.389 0 01-.389-.389v-.778a.389.389 0 01.39-.389h.388V7h-.389a.389.389 0 01-.389-.389v-.778a.389.389 0 01.39-.389h1.555a.389.389 0 01.389.39v3.5h.389a.389.389 0 01.389.388z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ]),
+      $hook$.global(__hook__, __010755e0219bd5a53bbd053fc185e8ed46c808f781e5a374f3bfd4d65912c63e__[2], 'width', '#get')[__010755e0219bd5a53bbd053fc185e8ed46c808f781e5a374f3bfd4d65912c63e__[4]],
+      $hook$.global(__hook__, __010755e0219bd5a53bbd053fc185e8ed46c808f781e5a374f3bfd4d65912c63e__[2], 'height', '#get')[__010755e0219bd5a53bbd053fc185e8ed46c808f781e5a374f3bfd4d65912c63e__[5]],
+      $hook$.global(__hook__, __010755e0219bd5a53bbd053fc185e8ed46c808f781e5a374f3bfd4d65912c63e__[2], 'hidden', '#get')[__010755e0219bd5a53bbd053fc185e8ed46c808f781e5a374f3bfd4d65912c63e__[6]] ? 'true' : 'false',
+      $hook$.global(__hook__, __010755e0219bd5a53bbd053fc185e8ed46c808f781e5a374f3bfd4d65912c63e__[2], 'title', '#get')[__010755e0219bd5a53bbd053fc185e8ed46c808f781e5a374f3bfd4d65912c63e__[7]]
+    ], __010755e0219bd5a53bbd053fc185e8ed46c808f781e5a374f3bfd4d65912c63e__[2], 0);
+  }, null, args, __010755e0219bd5a53bbd053fc185e8ed46c808f781e5a374f3bfd4d65912c63e__[2]));  __hook__(() => {
+}, null, [
+  'export',
+  __010755e0219bd5a53bbd053fc185e8ed46c808f781e5a374f3bfd4d65912c63e__[0],
+  __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_27
+], __010755e0219bd5a53bbd053fc185e8ed46c808f781e5a374f3bfd4d65912c63e__[0], NaN);
+
+/*
+Copyright 2020 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+const __f91ab270c42a8e9e65c4def40666f0b0343b674f8c55dc91db09b16acd2ce792__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/Magnifier.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/Magnifier.js,MagnifierIcon',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js,tag',
+  'S_uNpREdiC4aB1e_width;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/Magnifier.js,MagnifierIcon',
+  'S_uNpREdiC4aB1e_height;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/Magnifier.js,MagnifierIcon',
+  'S_uNpREdiC4aB1e_hidden;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/Magnifier.js,MagnifierIcon',
+  'S_uNpREdiC4aB1e_title;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/Magnifier.js,MagnifierIcon'
+]);
+__hook__(() => {
+}, null, [
+  'import',
+  {
+    [__f91ab270c42a8e9e65c4def40666f0b0343b674f8c55dc91db09b16acd2ce792__[1]]: [
+      __aac039a38c86b6c8494b13a8f590ea8e5d3546bbfcacde36ca1e8f8b117ce6f8__module_namespace_2,
+      'tag',
+      'setCustomTemplateLiteralTag'
+    ]
+  }
+], __f91ab270c42a8e9e65c4def40666f0b0343b674f8c55dc91db09b16acd2ce792__[0], NaN);
+const MagnifierIcon = (...args) =>
+  (__hook__(({width = 24, height = 24, hidden = false, title = 'Magnifier'} = {}) => {
+    return __hook__(__hook__('m', tag, [__f91ab270c42a8e9e65c4def40666f0b0343b674f8c55dc91db09b16acd2ce792__[3]], __f91ab270c42a8e9e65c4def40666f0b0343b674f8c55dc91db09b16acd2ce792__[2], null), null, [
+      ((s, r) => {
+        s.raw = r;
+        return s;
+      })([
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 16 16"\n  >\n    <path\n      d="M15.77 14.71l-4.534-4.535a6.014 6.014 0 10-1.06 1.06l4.533 4.535a.75.75 0 101.061-1.06zM6.5 11A4.5 4.5 0 1111 6.5 4.505 4.505 0 016.5 11z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ], [
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 16 16"\n  >\n    <path\n      d="M15.77 14.71l-4.534-4.535a6.014 6.014 0 10-1.06 1.06l4.533 4.535a.75.75 0 101.061-1.06zM6.5 11A4.5 4.5 0 1111 6.5 4.505 4.505 0 016.5 11z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ]),
+      $hook$.global(__hook__, __f91ab270c42a8e9e65c4def40666f0b0343b674f8c55dc91db09b16acd2ce792__[2], 'width', '#get')[__f91ab270c42a8e9e65c4def40666f0b0343b674f8c55dc91db09b16acd2ce792__[4]],
+      $hook$.global(__hook__, __f91ab270c42a8e9e65c4def40666f0b0343b674f8c55dc91db09b16acd2ce792__[2], 'height', '#get')[__f91ab270c42a8e9e65c4def40666f0b0343b674f8c55dc91db09b16acd2ce792__[5]],
+      $hook$.global(__hook__, __f91ab270c42a8e9e65c4def40666f0b0343b674f8c55dc91db09b16acd2ce792__[2], 'hidden', '#get')[__f91ab270c42a8e9e65c4def40666f0b0343b674f8c55dc91db09b16acd2ce792__[6]] ? 'true' : 'false',
+      $hook$.global(__hook__, __f91ab270c42a8e9e65c4def40666f0b0343b674f8c55dc91db09b16acd2ce792__[2], 'title', '#get')[__f91ab270c42a8e9e65c4def40666f0b0343b674f8c55dc91db09b16acd2ce792__[7]]
+    ], __f91ab270c42a8e9e65c4def40666f0b0343b674f8c55dc91db09b16acd2ce792__[2], 0);
+  }, null, args, __f91ab270c42a8e9e65c4def40666f0b0343b674f8c55dc91db09b16acd2ce792__[2]));  __hook__(() => {
+}, null, [
+  'export',
+  __f91ab270c42a8e9e65c4def40666f0b0343b674f8c55dc91db09b16acd2ce792__[0],
+  __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_28
+], __f91ab270c42a8e9e65c4def40666f0b0343b674f8c55dc91db09b16acd2ce792__[0], NaN);
+
+/*
+Copyright 2020 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+const __5d159bc9ed4fc30a146872ee9b02fdb0f1119e8cbdcf28ee211c32ea2f719e0c__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/More.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/More.js,MoreIcon',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js,tag',
+  'S_uNpREdiC4aB1e_width;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/More.js,MoreIcon',
+  'S_uNpREdiC4aB1e_height;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/More.js,MoreIcon',
+  'S_uNpREdiC4aB1e_hidden;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/More.js,MoreIcon',
+  'S_uNpREdiC4aB1e_title;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/More.js,MoreIcon'
+]);
+__hook__(() => {
+}, null, [
+  'import',
+  {
+    [__5d159bc9ed4fc30a146872ee9b02fdb0f1119e8cbdcf28ee211c32ea2f719e0c__[1]]: [
+      __aac039a38c86b6c8494b13a8f590ea8e5d3546bbfcacde36ca1e8f8b117ce6f8__module_namespace_2,
+      'tag',
+      'setCustomTemplateLiteralTag'
+    ]
+  }
+], __5d159bc9ed4fc30a146872ee9b02fdb0f1119e8cbdcf28ee211c32ea2f719e0c__[0], NaN);
+const MoreIcon = (...args) =>
+  (__hook__(({width = 24, height = 24, hidden = false, title = 'More'} = {}) => {
+    return __hook__(__hook__('m', tag, [__5d159bc9ed4fc30a146872ee9b02fdb0f1119e8cbdcf28ee211c32ea2f719e0c__[3]], __5d159bc9ed4fc30a146872ee9b02fdb0f1119e8cbdcf28ee211c32ea2f719e0c__[2], null), null, [
+      ((s, r) => {
+        s.raw = r;
+        return s;
+      })([
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 18 18"\n  >\n    <path\n      d="M9 7.1A1.9 1.9 0 117.1 9 1.9 1.9 0 019 7.1zm6 0A1.9 1.9 0 1113.1 9 1.9 1.9 0 0115 7.1zm-12 0A1.9 1.9 0 111.1 9 1.9 1.9 0 013 7.1z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ], [
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 18 18"\n  >\n    <path\n      d="M9 7.1A1.9 1.9 0 117.1 9 1.9 1.9 0 019 7.1zm6 0A1.9 1.9 0 1113.1 9 1.9 1.9 0 0115 7.1zm-12 0A1.9 1.9 0 111.1 9 1.9 1.9 0 013 7.1z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ]),
+      $hook$.global(__hook__, __5d159bc9ed4fc30a146872ee9b02fdb0f1119e8cbdcf28ee211c32ea2f719e0c__[2], 'width', '#get')[__5d159bc9ed4fc30a146872ee9b02fdb0f1119e8cbdcf28ee211c32ea2f719e0c__[4]],
+      $hook$.global(__hook__, __5d159bc9ed4fc30a146872ee9b02fdb0f1119e8cbdcf28ee211c32ea2f719e0c__[2], 'height', '#get')[__5d159bc9ed4fc30a146872ee9b02fdb0f1119e8cbdcf28ee211c32ea2f719e0c__[5]],
+      $hook$.global(__hook__, __5d159bc9ed4fc30a146872ee9b02fdb0f1119e8cbdcf28ee211c32ea2f719e0c__[2], 'hidden', '#get')[__5d159bc9ed4fc30a146872ee9b02fdb0f1119e8cbdcf28ee211c32ea2f719e0c__[6]] ? 'true' : 'false',
+      $hook$.global(__hook__, __5d159bc9ed4fc30a146872ee9b02fdb0f1119e8cbdcf28ee211c32ea2f719e0c__[2], 'title', '#get')[__5d159bc9ed4fc30a146872ee9b02fdb0f1119e8cbdcf28ee211c32ea2f719e0c__[7]]
+    ], __5d159bc9ed4fc30a146872ee9b02fdb0f1119e8cbdcf28ee211c32ea2f719e0c__[2], 0);
+  }, null, args, __5d159bc9ed4fc30a146872ee9b02fdb0f1119e8cbdcf28ee211c32ea2f719e0c__[2]));  __hook__(() => {
+}, null, [
+  'export',
+  __5d159bc9ed4fc30a146872ee9b02fdb0f1119e8cbdcf28ee211c32ea2f719e0c__[0],
+  __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_29
+], __5d159bc9ed4fc30a146872ee9b02fdb0f1119e8cbdcf28ee211c32ea2f719e0c__[0], NaN);
+
+/*
+Copyright 2020 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+const __232e6eda98a7eb2c55fe5c4dc781ef68751a8a7eb745085c3950957ca898258c__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/SkipLeft.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/SkipLeft.js,SkipLeftIcon',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js,tag',
+  'S_uNpREdiC4aB1e_width;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/SkipLeft.js,SkipLeftIcon',
+  'S_uNpREdiC4aB1e_height;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/SkipLeft.js,SkipLeftIcon',
+  'S_uNpREdiC4aB1e_hidden;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/SkipLeft.js,SkipLeftIcon',
+  'S_uNpREdiC4aB1e_title;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/SkipLeft.js,SkipLeftIcon'
+]);
+__hook__(() => {
+}, null, [
+  'import',
+  {
+    [__232e6eda98a7eb2c55fe5c4dc781ef68751a8a7eb745085c3950957ca898258c__[1]]: [
+      __aac039a38c86b6c8494b13a8f590ea8e5d3546bbfcacde36ca1e8f8b117ce6f8__module_namespace_2,
+      'tag',
+      'setCustomTemplateLiteralTag'
+    ]
+  }
+], __232e6eda98a7eb2c55fe5c4dc781ef68751a8a7eb745085c3950957ca898258c__[0], NaN);
+const SkipLeftIcon = (...args) =>
+  (__hook__(({width = 24, height = 24, hidden = false, title = 'Skip Left'} = {}) => {
+    return __hook__(__hook__('m', tag, [__232e6eda98a7eb2c55fe5c4dc781ef68751a8a7eb745085c3950957ca898258c__[3]], __232e6eda98a7eb2c55fe5c4dc781ef68751a8a7eb745085c3950957ca898258c__[2], null), null, [
+      ((s, r) => {
+        s.raw = r;
+        return s;
+      })([
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 9 10"\n  >\n    <path\n      d="M8.697 8.283L5.414 5l3.283-3.283A1 1 0 107.283.303l-3.99 3.99a1 1 0 000 1.414l3.99 3.99a1 1 0 101.414-1.414zM1 .01a1 1 0 00-1 1v7.98a1 1 0 002 0V1.01a1 1 0 00-1-1z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ], [
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 9 10"\n  >\n    <path\n      d="M8.697 8.283L5.414 5l3.283-3.283A1 1 0 107.283.303l-3.99 3.99a1 1 0 000 1.414l3.99 3.99a1 1 0 101.414-1.414zM1 .01a1 1 0 00-1 1v7.98a1 1 0 002 0V1.01a1 1 0 00-1-1z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ]),
+      $hook$.global(__hook__, __232e6eda98a7eb2c55fe5c4dc781ef68751a8a7eb745085c3950957ca898258c__[2], 'width', '#get')[__232e6eda98a7eb2c55fe5c4dc781ef68751a8a7eb745085c3950957ca898258c__[4]],
+      $hook$.global(__hook__, __232e6eda98a7eb2c55fe5c4dc781ef68751a8a7eb745085c3950957ca898258c__[2], 'height', '#get')[__232e6eda98a7eb2c55fe5c4dc781ef68751a8a7eb745085c3950957ca898258c__[5]],
+      $hook$.global(__hook__, __232e6eda98a7eb2c55fe5c4dc781ef68751a8a7eb745085c3950957ca898258c__[2], 'hidden', '#get')[__232e6eda98a7eb2c55fe5c4dc781ef68751a8a7eb745085c3950957ca898258c__[6]] ? 'true' : 'false',
+      $hook$.global(__hook__, __232e6eda98a7eb2c55fe5c4dc781ef68751a8a7eb745085c3950957ca898258c__[2], 'title', '#get')[__232e6eda98a7eb2c55fe5c4dc781ef68751a8a7eb745085c3950957ca898258c__[7]]
+    ], __232e6eda98a7eb2c55fe5c4dc781ef68751a8a7eb745085c3950957ca898258c__[2], 0);
+  }, null, args, __232e6eda98a7eb2c55fe5c4dc781ef68751a8a7eb745085c3950957ca898258c__[2]));  __hook__(() => {
+}, null, [
+  'export',
+  __232e6eda98a7eb2c55fe5c4dc781ef68751a8a7eb745085c3950957ca898258c__[0],
+  __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_30
+], __232e6eda98a7eb2c55fe5c4dc781ef68751a8a7eb745085c3950957ca898258c__[0], NaN);
+
+/*
+Copyright 2020 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+const __8966c445680b929eda74e5a910260dc8f5221856caaf7c55c846f5bacff5749c__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/SkipRight.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/SkipRight.js,SkipRightIcon',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js,tag',
+  'S_uNpREdiC4aB1e_width;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/SkipRight.js,SkipRightIcon',
+  'S_uNpREdiC4aB1e_height;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/SkipRight.js,SkipRightIcon',
+  'S_uNpREdiC4aB1e_hidden;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/SkipRight.js,SkipRightIcon',
+  'S_uNpREdiC4aB1e_title;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/SkipRight.js,SkipRightIcon'
+]);
+__hook__(() => {
+}, null, [
+  'import',
+  {
+    [__8966c445680b929eda74e5a910260dc8f5221856caaf7c55c846f5bacff5749c__[1]]: [
+      __aac039a38c86b6c8494b13a8f590ea8e5d3546bbfcacde36ca1e8f8b117ce6f8__module_namespace_2,
+      'tag',
+      'setCustomTemplateLiteralTag'
+    ]
+  }
+], __8966c445680b929eda74e5a910260dc8f5221856caaf7c55c846f5bacff5749c__[0], NaN);
+const SkipRightIcon = (...args) =>
+  (__hook__(({width = 24, height = 24, hidden = false, title = 'Skip Right'} = {}) => {
+    return __hook__(__hook__('m', tag, [__8966c445680b929eda74e5a910260dc8f5221856caaf7c55c846f5bacff5749c__[3]], __8966c445680b929eda74e5a910260dc8f5221856caaf7c55c846f5bacff5749c__[2], null), null, [
+      ((s, r) => {
+        s.raw = r;
+        return s;
+      })([
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 9 10"\n  >\n    <path\n      d="M8 .01a1 1 0 00-1 1v7.98a1 1 0 102 0V1.01a1 1 0 00-1-1zM6 5a.997.997 0 00-.293-.707L1.717.303A1 1 0 10.303 1.717L3.586 5 .303 8.283a1 1 0 101.414 1.414l3.99-3.99A.997.997 0 006 5z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ], [
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 9 10"\n  >\n    <path\n      d="M8 .01a1 1 0 00-1 1v7.98a1 1 0 102 0V1.01a1 1 0 00-1-1zM6 5a.997.997 0 00-.293-.707L1.717.303A1 1 0 10.303 1.717L3.586 5 .303 8.283a1 1 0 101.414 1.414l3.99-3.99A.997.997 0 006 5z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ]),
+      $hook$.global(__hook__, __8966c445680b929eda74e5a910260dc8f5221856caaf7c55c846f5bacff5749c__[2], 'width', '#get')[__8966c445680b929eda74e5a910260dc8f5221856caaf7c55c846f5bacff5749c__[4]],
+      $hook$.global(__hook__, __8966c445680b929eda74e5a910260dc8f5221856caaf7c55c846f5bacff5749c__[2], 'height', '#get')[__8966c445680b929eda74e5a910260dc8f5221856caaf7c55c846f5bacff5749c__[5]],
+      $hook$.global(__hook__, __8966c445680b929eda74e5a910260dc8f5221856caaf7c55c846f5bacff5749c__[2], 'hidden', '#get')[__8966c445680b929eda74e5a910260dc8f5221856caaf7c55c846f5bacff5749c__[6]] ? 'true' : 'false',
+      $hook$.global(__hook__, __8966c445680b929eda74e5a910260dc8f5221856caaf7c55c846f5bacff5749c__[2], 'title', '#get')[__8966c445680b929eda74e5a910260dc8f5221856caaf7c55c846f5bacff5749c__[7]]
+    ], __8966c445680b929eda74e5a910260dc8f5221856caaf7c55c846f5bacff5749c__[2], 0);
+  }, null, args, __8966c445680b929eda74e5a910260dc8f5221856caaf7c55c846f5bacff5749c__[2]));  __hook__(() => {
+}, null, [
+  'export',
+  __8966c445680b929eda74e5a910260dc8f5221856caaf7c55c846f5bacff5749c__[0],
+  __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_31
+], __8966c445680b929eda74e5a910260dc8f5221856caaf7c55c846f5bacff5749c__[0], NaN);
+
+/*
+Copyright 2020 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+const __8486b6cef54f7066feb1357270c88104d8338f7cb1f3af4d4ca9adcd57264746__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/Star.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/Star.js,StarIcon',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js,tag',
+  'S_uNpREdiC4aB1e_width;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/Star.js,StarIcon',
+  'S_uNpREdiC4aB1e_height;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/Star.js,StarIcon',
+  'S_uNpREdiC4aB1e_hidden;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/Star.js,StarIcon',
+  'S_uNpREdiC4aB1e_title;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/Star.js,StarIcon'
+]);
+__hook__(() => {
+}, null, [
+  'import',
+  {
+    [__8486b6cef54f7066feb1357270c88104d8338f7cb1f3af4d4ca9adcd57264746__[1]]: [
+      __aac039a38c86b6c8494b13a8f590ea8e5d3546bbfcacde36ca1e8f8b117ce6f8__module_namespace_2,
+      'tag',
+      'setCustomTemplateLiteralTag'
+    ]
+  }
+], __8486b6cef54f7066feb1357270c88104d8338f7cb1f3af4d4ca9adcd57264746__[0], NaN);
+const StarIcon = (...args) =>
+  (__hook__(({width = 24, height = 24, hidden = false, title = 'Star'} = {}) => {
+    return __hook__(__hook__('m', tag, [__8486b6cef54f7066feb1357270c88104d8338f7cb1f3af4d4ca9adcd57264746__[3]], __8486b6cef54f7066feb1357270c88104d8338f7cb1f3af4d4ca9adcd57264746__[2], null), null, [
+      ((s, r) => {
+        s.raw = r;
+        return s;
+      })([
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 18 18"\n  >\n    <path\n      d="M9.241.3l2.161 5.715 6.106.289a.255.255 0 01.147.454l-4.77 3.823 1.612 5.9a.255.255 0 01-.386.28L9.002 13.4l-5.11 3.358a.255.255 0 01-.386-.28l1.612-5.9-4.77-3.821A.255.255 0 01.495 6.3l6.107-.285L8.763.3a.255.255 0 01.478 0z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ], [
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 18 18"\n  >\n    <path\n      d="M9.241.3l2.161 5.715 6.106.289a.255.255 0 01.147.454l-4.77 3.823 1.612 5.9a.255.255 0 01-.386.28L9.002 13.4l-5.11 3.358a.255.255 0 01-.386-.28l1.612-5.9-4.77-3.821A.255.255 0 01.495 6.3l6.107-.285L8.763.3a.255.255 0 01.478 0z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ]),
+      $hook$.global(__hook__, __8486b6cef54f7066feb1357270c88104d8338f7cb1f3af4d4ca9adcd57264746__[2], 'width', '#get')[__8486b6cef54f7066feb1357270c88104d8338f7cb1f3af4d4ca9adcd57264746__[4]],
+      $hook$.global(__hook__, __8486b6cef54f7066feb1357270c88104d8338f7cb1f3af4d4ca9adcd57264746__[2], 'height', '#get')[__8486b6cef54f7066feb1357270c88104d8338f7cb1f3af4d4ca9adcd57264746__[5]],
+      $hook$.global(__hook__, __8486b6cef54f7066feb1357270c88104d8338f7cb1f3af4d4ca9adcd57264746__[2], 'hidden', '#get')[__8486b6cef54f7066feb1357270c88104d8338f7cb1f3af4d4ca9adcd57264746__[6]] ? 'true' : 'false',
+      $hook$.global(__hook__, __8486b6cef54f7066feb1357270c88104d8338f7cb1f3af4d4ca9adcd57264746__[2], 'title', '#get')[__8486b6cef54f7066feb1357270c88104d8338f7cb1f3af4d4ca9adcd57264746__[7]]
+    ], __8486b6cef54f7066feb1357270c88104d8338f7cb1f3af4d4ca9adcd57264746__[2], 0);
+  }, null, args, __8486b6cef54f7066feb1357270c88104d8338f7cb1f3af4d4ca9adcd57264746__[2]));  __hook__(() => {
+}, null, [
+  'export',
+  __8486b6cef54f7066feb1357270c88104d8338f7cb1f3af4d4ca9adcd57264746__[0],
+  __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_32
+], __8486b6cef54f7066feb1357270c88104d8338f7cb1f3af4d4ca9adcd57264746__[0], NaN);
+
+/*
+Copyright 2020 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+const __362b73db1a3342fec6b6bcc155d3afedc814e4870e731853e37549964f7df9a8__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/StarOutline.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/StarOutline.js,StarOutlineIcon',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js,tag',
+  'S_uNpREdiC4aB1e_width;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/StarOutline.js,StarOutlineIcon',
+  'S_uNpREdiC4aB1e_height;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/StarOutline.js,StarOutlineIcon',
+  'S_uNpREdiC4aB1e_hidden;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/StarOutline.js,StarOutlineIcon',
+  'S_uNpREdiC4aB1e_title;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/StarOutline.js,StarOutlineIcon'
+]);
+__hook__(() => {
+}, null, [
+  'import',
+  {
+    [__362b73db1a3342fec6b6bcc155d3afedc814e4870e731853e37549964f7df9a8__[1]]: [
+      __aac039a38c86b6c8494b13a8f590ea8e5d3546bbfcacde36ca1e8f8b117ce6f8__module_namespace_2,
+      'tag',
+      'setCustomTemplateLiteralTag'
+    ]
+  }
+], __362b73db1a3342fec6b6bcc155d3afedc814e4870e731853e37549964f7df9a8__[0], NaN);
+const StarOutlineIcon = (...args) =>
+  (__hook__(({width = 24, height = 24, hidden = false, title = 'Star Outline'} = {}) => {
+    return __hook__(__hook__('m', tag, [__362b73db1a3342fec6b6bcc155d3afedc814e4870e731853e37549964f7df9a8__[3]], __362b73db1a3342fec6b6bcc155d3afedc814e4870e731853e37549964f7df9a8__[2], null), null, [
+      ((s, r) => {
+        s.raw = r;
+        return s;
+      })([
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 18 18"\n  >\n    <path\n      d="M9.031 2.541l1.777 4.753 5.11.241-3.987 3.2 1.336 4.913-4.266-2.782-4.282 2.808 1.352-4.937-3.987-3.2 5.1-.245zM9.042.412a.369.369 0 00-.349.239L6.486 6.326l-6.1.293a.375.375 0 00-.217.667l4.762 3.821L3.318 17a.376.376 0 00.362.475.371.371 0 00.2-.063l5.121-3.351 5.095 3.324a.371.371 0 00.2.062.376.376 0 00.363-.475l-1.595-5.866 4.767-3.826a.375.375 0 00-.217-.667l-6.1-.287L9.393.655a.369.369 0 00-.351-.243z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ], [
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 18 18"\n  >\n    <path\n      d="M9.031 2.541l1.777 4.753 5.11.241-3.987 3.2 1.336 4.913-4.266-2.782-4.282 2.808 1.352-4.937-3.987-3.2 5.1-.245zM9.042.412a.369.369 0 00-.349.239L6.486 6.326l-6.1.293a.375.375 0 00-.217.667l4.762 3.821L3.318 17a.376.376 0 00.362.475.371.371 0 00.2-.063l5.121-3.351 5.095 3.324a.371.371 0 00.2.062.376.376 0 00.363-.475l-1.595-5.866 4.767-3.826a.375.375 0 00-.217-.667l-6.1-.287L9.393.655a.369.369 0 00-.351-.243z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ]),
+      $hook$.global(__hook__, __362b73db1a3342fec6b6bcc155d3afedc814e4870e731853e37549964f7df9a8__[2], 'width', '#get')[__362b73db1a3342fec6b6bcc155d3afedc814e4870e731853e37549964f7df9a8__[4]],
+      $hook$.global(__hook__, __362b73db1a3342fec6b6bcc155d3afedc814e4870e731853e37549964f7df9a8__[2], 'height', '#get')[__362b73db1a3342fec6b6bcc155d3afedc814e4870e731853e37549964f7df9a8__[5]],
+      $hook$.global(__hook__, __362b73db1a3342fec6b6bcc155d3afedc814e4870e731853e37549964f7df9a8__[2], 'hidden', '#get')[__362b73db1a3342fec6b6bcc155d3afedc814e4870e731853e37549964f7df9a8__[6]] ? 'true' : 'false',
+      $hook$.global(__hook__, __362b73db1a3342fec6b6bcc155d3afedc814e4870e731853e37549964f7df9a8__[2], 'title', '#get')[__362b73db1a3342fec6b6bcc155d3afedc814e4870e731853e37549964f7df9a8__[7]]
+    ], __362b73db1a3342fec6b6bcc155d3afedc814e4870e731853e37549964f7df9a8__[2], 0);
+  }, null, args, __362b73db1a3342fec6b6bcc155d3afedc814e4870e731853e37549964f7df9a8__[2]));  __hook__(() => {
+}, null, [
+  'export',
+  __362b73db1a3342fec6b6bcc155d3afedc814e4870e731853e37549964f7df9a8__[0],
+  __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_33
+], __362b73db1a3342fec6b6bcc155d3afedc814e4870e731853e37549964f7df9a8__[0], NaN);
+
+/*
+Copyright 2020 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+const __fbb4cfc07d359e0029e25d75a41fdad4727d44322177c7f6d067aaf57615b3c1__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/SuccessMedium.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/SuccessMedium.js,SuccessMediumIcon',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js,tag',
+  'S_uNpREdiC4aB1e_width;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/SuccessMedium.js,SuccessMediumIcon',
+  'S_uNpREdiC4aB1e_height;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/SuccessMedium.js,SuccessMediumIcon',
+  'S_uNpREdiC4aB1e_hidden;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/SuccessMedium.js,SuccessMediumIcon',
+  'S_uNpREdiC4aB1e_title;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/SuccessMedium.js,SuccessMediumIcon'
+]);
+__hook__(() => {
+}, null, [
+  'import',
+  {
+    [__fbb4cfc07d359e0029e25d75a41fdad4727d44322177c7f6d067aaf57615b3c1__[1]]: [
+      __aac039a38c86b6c8494b13a8f590ea8e5d3546bbfcacde36ca1e8f8b117ce6f8__module_namespace_2,
+      'tag',
+      'setCustomTemplateLiteralTag'
+    ]
+  }
+], __fbb4cfc07d359e0029e25d75a41fdad4727d44322177c7f6d067aaf57615b3c1__[0], NaN);
+const SuccessMediumIcon = (...args) =>
+  (__hook__(({width = 24, height = 24, hidden = false, title = 'Success Medium'} = {}) => {
+    return __hook__(__hook__('m', tag, [__fbb4cfc07d359e0029e25d75a41fdad4727d44322177c7f6d067aaf57615b3c1__[3]], __fbb4cfc07d359e0029e25d75a41fdad4727d44322177c7f6d067aaf57615b3c1__[2], null), null, [
+      ((s, r) => {
+        s.raw = r;
+        return s;
+      })([
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 18 18"\n  >\n    <path\n      d="M9 1a8 8 0 108 8 8 8 0 00-8-8zm5.333 4.54l-6.324 8.13a.6.6 0 01-.437.23h-.037a.6.6 0 01-.425-.176l-3.893-3.9a.6.6 0 010-.849l.663-.663a.6.6 0 01.848 0L7.4 10.991l5.256-6.754a.6.6 0 01.843-.1l.728.566a.6.6 0 01.106.837z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ], [
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 18 18"\n  >\n    <path\n      d="M9 1a8 8 0 108 8 8 8 0 00-8-8zm5.333 4.54l-6.324 8.13a.6.6 0 01-.437.23h-.037a.6.6 0 01-.425-.176l-3.893-3.9a.6.6 0 010-.849l.663-.663a.6.6 0 01.848 0L7.4 10.991l5.256-6.754a.6.6 0 01.843-.1l.728.566a.6.6 0 01.106.837z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ]),
+      $hook$.global(__hook__, __fbb4cfc07d359e0029e25d75a41fdad4727d44322177c7f6d067aaf57615b3c1__[2], 'width', '#get')[__fbb4cfc07d359e0029e25d75a41fdad4727d44322177c7f6d067aaf57615b3c1__[4]],
+      $hook$.global(__hook__, __fbb4cfc07d359e0029e25d75a41fdad4727d44322177c7f6d067aaf57615b3c1__[2], 'height', '#get')[__fbb4cfc07d359e0029e25d75a41fdad4727d44322177c7f6d067aaf57615b3c1__[5]],
+      $hook$.global(__hook__, __fbb4cfc07d359e0029e25d75a41fdad4727d44322177c7f6d067aaf57615b3c1__[2], 'hidden', '#get')[__fbb4cfc07d359e0029e25d75a41fdad4727d44322177c7f6d067aaf57615b3c1__[6]] ? 'true' : 'false',
+      $hook$.global(__hook__, __fbb4cfc07d359e0029e25d75a41fdad4727d44322177c7f6d067aaf57615b3c1__[2], 'title', '#get')[__fbb4cfc07d359e0029e25d75a41fdad4727d44322177c7f6d067aaf57615b3c1__[7]]
+    ], __fbb4cfc07d359e0029e25d75a41fdad4727d44322177c7f6d067aaf57615b3c1__[2], 0);
+  }, null, args, __fbb4cfc07d359e0029e25d75a41fdad4727d44322177c7f6d067aaf57615b3c1__[2]));  __hook__(() => {
+}, null, [
+  'export',
+  __fbb4cfc07d359e0029e25d75a41fdad4727d44322177c7f6d067aaf57615b3c1__[0],
+  __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_34
+], __fbb4cfc07d359e0029e25d75a41fdad4727d44322177c7f6d067aaf57615b3c1__[0], NaN);
+
+/*
+Copyright 2020 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+const __eafb8a61567fb078e37cda99e549b33482ea79ce6dab115be0eb1cdb1fa17965__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/SuccessSmall.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/SuccessSmall.js,SuccessSmallIcon',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js,tag',
+  'S_uNpREdiC4aB1e_width;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/SuccessSmall.js,SuccessSmallIcon',
+  'S_uNpREdiC4aB1e_height;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/SuccessSmall.js,SuccessSmallIcon',
+  'S_uNpREdiC4aB1e_hidden;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/SuccessSmall.js,SuccessSmallIcon',
+  'S_uNpREdiC4aB1e_title;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/SuccessSmall.js,SuccessSmallIcon'
+]);
+__hook__(() => {
+}, null, [
+  'import',
+  {
+    [__eafb8a61567fb078e37cda99e549b33482ea79ce6dab115be0eb1cdb1fa17965__[1]]: [
+      __aac039a38c86b6c8494b13a8f590ea8e5d3546bbfcacde36ca1e8f8b117ce6f8__module_namespace_2,
+      'tag',
+      'setCustomTemplateLiteralTag'
+    ]
+  }
+], __eafb8a61567fb078e37cda99e549b33482ea79ce6dab115be0eb1cdb1fa17965__[0], NaN);
+const SuccessSmallIcon = (...args) =>
+  (__hook__(({width = 24, height = 24, hidden = false, title = 'Success Small'} = {}) => {
+    return __hook__(__hook__('m', tag, [__eafb8a61567fb078e37cda99e549b33482ea79ce6dab115be0eb1cdb1fa17965__[3]], __eafb8a61567fb078e37cda99e549b33482ea79ce6dab115be0eb1cdb1fa17965__[2], null), null, [
+      ((s, r) => {
+        s.raw = r;
+        return s;
+      })([
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 14 14"\n  >\n    <path\n      d="M7 .778A6.222 6.222 0 1013.222 7 6.222 6.222 0 007 .778zm4.148 3.53l-4.919 6.324a.467.467 0 01-.34.18h-.028a.467.467 0 01-.331-.138L2.502 7.641a.467.467 0 010-.66l.516-.516a.467.467 0 01.66 0l2.078 2.084 4.088-5.254a.467.467 0 01.655-.078l.566.44a.467.467 0 01.083.652z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ], [
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 14 14"\n  >\n    <path\n      d="M7 .778A6.222 6.222 0 1013.222 7 6.222 6.222 0 007 .778zm4.148 3.53l-4.919 6.324a.467.467 0 01-.34.18h-.028a.467.467 0 01-.331-.138L2.502 7.641a.467.467 0 010-.66l.516-.516a.467.467 0 01.66 0l2.078 2.084 4.088-5.254a.467.467 0 01.655-.078l.566.44a.467.467 0 01.083.652z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ]),
+      $hook$.global(__hook__, __eafb8a61567fb078e37cda99e549b33482ea79ce6dab115be0eb1cdb1fa17965__[2], 'width', '#get')[__eafb8a61567fb078e37cda99e549b33482ea79ce6dab115be0eb1cdb1fa17965__[4]],
+      $hook$.global(__hook__, __eafb8a61567fb078e37cda99e549b33482ea79ce6dab115be0eb1cdb1fa17965__[2], 'height', '#get')[__eafb8a61567fb078e37cda99e549b33482ea79ce6dab115be0eb1cdb1fa17965__[5]],
+      $hook$.global(__hook__, __eafb8a61567fb078e37cda99e549b33482ea79ce6dab115be0eb1cdb1fa17965__[2], 'hidden', '#get')[__eafb8a61567fb078e37cda99e549b33482ea79ce6dab115be0eb1cdb1fa17965__[6]] ? 'true' : 'false',
+      $hook$.global(__hook__, __eafb8a61567fb078e37cda99e549b33482ea79ce6dab115be0eb1cdb1fa17965__[2], 'title', '#get')[__eafb8a61567fb078e37cda99e549b33482ea79ce6dab115be0eb1cdb1fa17965__[7]]
+    ], __eafb8a61567fb078e37cda99e549b33482ea79ce6dab115be0eb1cdb1fa17965__[2], 0);
+  }, null, args, __eafb8a61567fb078e37cda99e549b33482ea79ce6dab115be0eb1cdb1fa17965__[2]));  __hook__(() => {
+}, null, [
+  'export',
+  __eafb8a61567fb078e37cda99e549b33482ea79ce6dab115be0eb1cdb1fa17965__[0],
+  __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_35
+], __eafb8a61567fb078e37cda99e549b33482ea79ce6dab115be0eb1cdb1fa17965__[0], NaN);
+
+/*
+Copyright 2020 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+const __83b97bbcc1d2f83167d2c2f73beb907f5a703c753a63f399c00ee69ee58c722d__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/TripleGripper.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/TripleGripper.js,TripleGripperIcon',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js,tag',
+  'S_uNpREdiC4aB1e_width;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/TripleGripper.js,TripleGripperIcon',
+  'S_uNpREdiC4aB1e_height;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/TripleGripper.js,TripleGripperIcon',
+  'S_uNpREdiC4aB1e_hidden;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/TripleGripper.js,TripleGripperIcon',
+  'S_uNpREdiC4aB1e_title;/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/TripleGripper.js,TripleGripperIcon'
+]);
+__hook__(() => {
+}, null, [
+  'import',
+  {
+    [__83b97bbcc1d2f83167d2c2f73beb907f5a703c753a63f399c00ee69ee58c722d__[1]]: [
+      __aac039a38c86b6c8494b13a8f590ea8e5d3546bbfcacde36ca1e8f8b117ce6f8__module_namespace_2,
+      'tag',
+      'setCustomTemplateLiteralTag'
+    ]
+  }
+], __83b97bbcc1d2f83167d2c2f73beb907f5a703c753a63f399c00ee69ee58c722d__[0], NaN);
+const TripleGripperIcon = (...args) =>
+  (__hook__(({width = 24, height = 24, hidden = false, title = 'Triple Gripper'} = {}) => {
+    return __hook__(__hook__('m', tag, [__83b97bbcc1d2f83167d2c2f73beb907f5a703c753a63f399c00ee69ee58c722d__[3]], __83b97bbcc1d2f83167d2c2f73beb907f5a703c753a63f399c00ee69ee58c722d__[2], null), null, [
+      ((s, r) => {
+        s.raw = r;
+        return s;
+      })([
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 10 7"\n  >\n    <path\n      d="M9.49 6H.51a.5.5 0 100 1h8.98a.5.5 0 000-1zM9.49 3H.51a.5.5 0 100 1h8.98a.5.5 0 000-1zM.51 1h8.98a.5.5 0 000-1H.51a.5.5 0 000 1z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ], [
+        '<svg\n    xmlns="http://www.w3.org/2000/svg"\n    width="',
+        '"\n    height="',
+        '"\n    aria-hidden="',
+        '"\n    role="img"\n    fill="currentColor"\n    aria-label="',
+        '"\n    viewBox="0 0 10 7"\n  >\n    <path\n      d="M9.49 6H.51a.5.5 0 100 1h8.98a.5.5 0 000-1zM9.49 3H.51a.5.5 0 100 1h8.98a.5.5 0 000-1zM.51 1h8.98a.5.5 0 000-1H.51a.5.5 0 000 1z"\n      viewBox="0 0 0 0"\n    />\n  </svg>'
+      ]),
+      $hook$.global(__hook__, __83b97bbcc1d2f83167d2c2f73beb907f5a703c753a63f399c00ee69ee58c722d__[2], 'width', '#get')[__83b97bbcc1d2f83167d2c2f73beb907f5a703c753a63f399c00ee69ee58c722d__[4]],
+      $hook$.global(__hook__, __83b97bbcc1d2f83167d2c2f73beb907f5a703c753a63f399c00ee69ee58c722d__[2], 'height', '#get')[__83b97bbcc1d2f83167d2c2f73beb907f5a703c753a63f399c00ee69ee58c722d__[5]],
+      $hook$.global(__hook__, __83b97bbcc1d2f83167d2c2f73beb907f5a703c753a63f399c00ee69ee58c722d__[2], 'hidden', '#get')[__83b97bbcc1d2f83167d2c2f73beb907f5a703c753a63f399c00ee69ee58c722d__[6]] ? 'true' : 'false',
+      $hook$.global(__hook__, __83b97bbcc1d2f83167d2c2f73beb907f5a703c753a63f399c00ee69ee58c722d__[2], 'title', '#get')[__83b97bbcc1d2f83167d2c2f73beb907f5a703c753a63f399c00ee69ee58c722d__[7]]
+    ], __83b97bbcc1d2f83167d2c2f73beb907f5a703c753a63f399c00ee69ee58c722d__[2], 0);
+  }, null, args, __83b97bbcc1d2f83167d2c2f73beb907f5a703c753a63f399c00ee69ee58c722d__[2]));  __hook__(() => {
+}, null, [
+  'export',
+  __83b97bbcc1d2f83167d2c2f73beb907f5a703c753a63f399c00ee69ee58c722d__[0],
+  __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_36
+], __83b97bbcc1d2f83167d2c2f73beb907f5a703c753a63f399c00ee69ee58c722d__[0], NaN);
+
+/*
+Copyright 2020 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+const __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/AlertMedium.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/AlertSmall.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ArrowDownSmall.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ArrowLeftMedium.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ArrowUpSmall.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/Asterisk.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/CheckmarkMedium.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/CheckmarkSmall.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronDownMedium.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronDownSmall.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronLeftLarge.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronLeftMedium.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronRightLarge.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronRightMedium.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronRightSmall.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronUpSmall.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/CornerTriangle.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/CrossLarge.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/CrossMedium.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/CrossSmall.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/DashSmall.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/DoubleGripper.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/FolderBreadcrumb.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/HelpMedium.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/HelpSmall.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/InfoMedium.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/InfoSmall.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/Magnifier.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/More.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/SkipLeft.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/SkipRight.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/Star.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/StarOutline.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/SuccessMedium.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/SuccessSmall.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/TripleGripper.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js'
+]);
+__hook__(() => {
+}, null, [
+  'import',
+  {
+    [__ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__[1]]: [
+      __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_1,
+      'AlertMediumIcon'
+    ],
+    [__ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__[2]]: [
+      __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_2,
+      'AlertSmallIcon'
+    ],
+    [__ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__[3]]: [
+      __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_3,
+      'ArrowDownSmallIcon'
+    ],
+    [__ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__[4]]: [
+      __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_4,
+      'ArrowLeftMediumIcon'
+    ],
+    [__ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__[5]]: [
+      __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_5,
+      'ArrowUpSmallIcon'
+    ],
+    [__ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__[6]]: [
+      __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_6,
+      'AsteriskIcon'
+    ],
+    [__ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__[7]]: [
+      __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_7,
+      'CheckmarkMediumIcon'
+    ],
+    [__ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__[8]]: [
+      __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_8,
+      'CheckmarkSmallIcon'
+    ],
+    [__ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__[9]]: [
+      __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_9,
+      'ChevronDownMediumIcon'
+    ],
+    [__ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__[10]]: [
+      __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_10,
+      'ChevronDownSmallIcon'
+    ],
+    [__ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__[11]]: [
+      __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_11,
+      'ChevronLeftLargeIcon'
+    ],
+    [__ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__[12]]: [
+      __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_12,
+      'ChevronLeftMediumIcon'
+    ],
+    [__ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__[13]]: [
+      __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_13,
+      'ChevronRightLargeIcon'
+    ],
+    [__ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__[14]]: [
+      __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_14,
+      'ChevronRightMediumIcon'
+    ],
+    [__ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__[15]]: [
+      __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_15,
+      'ChevronRightSmallIcon'
+    ],
+    [__ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__[16]]: [
+      __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_16,
+      'ChevronUpSmallIcon'
+    ],
+    [__ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__[17]]: [
+      __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_17,
+      'CornerTriangleIcon'
+    ],
+    [__ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__[18]]: [
+      __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_18,
+      'CrossLargeIcon'
+    ],
+    [__ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__[19]]: [
+      __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_19,
+      'CrossMediumIcon'
+    ],
+    [__ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__[20]]: [
+      __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_20,
+      'CrossSmallIcon'
+    ],
+    [__ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__[21]]: [
+      __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_21,
+      'DashSmallIcon'
+    ],
+    [__ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__[22]]: [
+      __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_22,
+      'DoubleGripperIcon'
+    ],
+    [__ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__[23]]: [
+      __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_23,
+      'FolderBreadcrumbIcon'
+    ],
+    [__ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__[24]]: [
+      __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_24,
+      'HelpMediumIcon'
+    ],
+    [__ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__[25]]: [
+      __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_25,
+      'HelpSmallIcon'
+    ],
+    [__ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__[26]]: [
+      __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_26,
+      'InfoMediumIcon'
+    ],
+    [__ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__[27]]: [
+      __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_27,
+      'InfoSmallIcon'
+    ],
+    [__ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__[28]]: [
+      __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_28,
+      'MagnifierIcon'
+    ],
+    [__ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__[29]]: [
+      __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_29,
+      'MoreIcon'
+    ],
+    [__ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__[30]]: [
+      __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_30,
+      'SkipLeftIcon'
+    ],
+    [__ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__[31]]: [
+      __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_31,
+      'SkipRightIcon'
+    ],
+    [__ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__[32]]: [
+      __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_32,
+      'StarIcon'
+    ],
+    [__ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__[33]]: [
+      __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_33,
+      'StarOutlineIcon'
+    ],
+    [__ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__[34]]: [
+      __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_34,
+      'SuccessMediumIcon'
+    ],
+    [__ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__[35]]: [
+      __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_35,
+      'SuccessSmallIcon'
+    ],
+    [__ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__[36]]: [
+      __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__module_namespace_36,
+      'TripleGripperIcon'
+    ],
+    [__ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__[37]]: [
+      __aac039a38c86b6c8494b13a8f590ea8e5d3546bbfcacde36ca1e8f8b117ce6f8__module_namespace_2,
+      'setCustomTemplateLiteralTag'
+    ]
+  }
+], __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__[0], NaN);
+  __hook__(() => {
+}, null, [
+  'export',
+  __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__[0],
+  __aac039a38c86b6c8494b13a8f590ea8e5d3546bbfcacde36ca1e8f8b117ce6f8__module_namespace_3
+], __ca368012e19d1734b059c226f3a5d5577a44e30e4a3b018b9a35f51aa04f0d74__[0], NaN);
+
+/*
+Copyright 2020 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+const __aac039a38c86b6c8494b13a8f590ea8e5d3546bbfcacde36ca1e8f8b117ce6f8__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/index.js',
+  '/components/thin-hook/demo/node_modules/lit-html/lit-html.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js,setCustomTemplateLiteralTag',
+  '/components/thin-hook/demo/node_modules/lit-html/lit-html.js,html'
+]);
+__hook__(() => {
+}, null, [
+  'import',
+  {
+    [__aac039a38c86b6c8494b13a8f590ea8e5d3546bbfcacde36ca1e8f8b117ce6f8__[1]]: [
+      litHtmlNamespace,
+      'html'
+    ],
+    [__aac039a38c86b6c8494b13a8f590ea8e5d3546bbfcacde36ca1e8f8b117ce6f8__[2]]: [
+      __aac039a38c86b6c8494b13a8f590ea8e5d3546bbfcacde36ca1e8f8b117ce6f8__module_namespace_2,
+      'setCustomTemplateLiteralTag'
+    ],
+    [__aac039a38c86b6c8494b13a8f590ea8e5d3546bbfcacde36ca1e8f8b117ce6f8__[3]]: [__aac039a38c86b6c8494b13a8f590ea8e5d3546bbfcacde36ca1e8f8b117ce6f8__module_namespace_3]
+  }
+], __aac039a38c86b6c8494b13a8f590ea8e5d3546bbfcacde36ca1e8f8b117ce6f8__[0], NaN);
+__hook__('m()', setCustomTemplateLiteralTag, [
+  __aac039a38c86b6c8494b13a8f590ea8e5d3546bbfcacde36ca1e8f8b117ce6f8__[4],
+  [__hook__('m', html, [__aac039a38c86b6c8494b13a8f590ea8e5d3546bbfcacde36ca1e8f8b117ce6f8__[5]], __aac039a38c86b6c8494b13a8f590ea8e5d3546bbfcacde36ca1e8f8b117ce6f8__[0], null)],
+  (...args) => setCustomTemplateLiteralTag(...args)
+], __aac039a38c86b6c8494b13a8f590ea8e5d3546bbfcacde36ca1e8f8b117ce6f8__[0], null);
+  __hook__(() => {
+}, null, [
+  'export',
+  __aac039a38c86b6c8494b13a8f590ea8e5d3546bbfcacde36ca1e8f8b117ce6f8__[0],
+  __6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__module_namespace_5
+], __aac039a38c86b6c8494b13a8f590ea8e5d3546bbfcacde36ca1e8f8b117ce6f8__[0], NaN);
+
+/*
+Copyright 2020 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+const __fbd8b8b5e9a3c02d321127ae88f53fb55a93301536e76127691c4570dfce5be8__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icon/src/spectrum-icon-cross-medium.css.js',
+  '/components/thin-hook/demo/node_modules/lit-element/lit-element.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icon/src/spectrum-icon-cross-medium.css.js,styles',
+  '/components/thin-hook/demo/node_modules/lit-element/lit-element.js,css'
+]);
+__hook__(() => {
+}, null, [
+  'import',
+  {
+    [__fbd8b8b5e9a3c02d321127ae88f53fb55a93301536e76127691c4570dfce5be8__[1]]: [
+      __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__module_namespace_1,
+      'css'
+    ]
+  }
+], __fbd8b8b5e9a3c02d321127ae88f53fb55a93301536e76127691c4570dfce5be8__[0], NaN);
+const styles$5 = __hook__(__hook__('m', css, [__fbd8b8b5e9a3c02d321127ae88f53fb55a93301536e76127691c4570dfce5be8__[3]], __fbd8b8b5e9a3c02d321127ae88f53fb55a93301536e76127691c4570dfce5be8__[2], null), null, [((s, r) => {
+    s.raw = r;
+    return s;
+  })(['\n.cross-medium{width:var(--spectrum-icon-cross-medium-width,var(--spectrum-global-dimension-size-100));height:var(--spectrum-icon-cross-medium-height,var(--spectrum-global-dimension-size-100))}\n'], ['\n.cross-medium{width:var(--spectrum-icon-cross-medium-width,var(--spectrum-global-dimension-size-100));height:var(--spectrum-icon-cross-medium-height,var(--spectrum-global-dimension-size-100))}\n'])], __fbd8b8b5e9a3c02d321127ae88f53fb55a93301536e76127691c4570dfce5be8__[2], 0);
+  __hook__(() => {
+}, null, [
+  'export',
+  __fbd8b8b5e9a3c02d321127ae88f53fb55a93301536e76127691c4570dfce5be8__[0],
+  __6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__module_namespace_6
+], __fbd8b8b5e9a3c02d321127ae88f53fb55a93301536e76127691c4570dfce5be8__[0], NaN);
+
+/*
+Copyright 2020 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+const __6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/ClearButton.js',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js',
+  '/components/thin-hook/demo/node_modules/lit-element/lit-element.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/ButtonBase.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/clear-button.css.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/index.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icon/src/spectrum-icon-cross-medium.css.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/ClearButton.js,ClearButton',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/ButtonBase.js,ButtonBase',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/ClearButton.js,ClearButton,constructor',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/ClearButton.js,ClearButton,get styles',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/clear-button.css.js,default',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icon/src/spectrum-icon-cross-medium.css.js,default',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/ClearButton.js,ClearButton,get buttonContent',
+  '/components/thin-hook/demo/node_modules/lit-element/lit-element.js,html',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/index.js,CrossLargeIcon',
+  '/components/thin-hook/demo/node_modules/tslib/tslib.es6.js,__decorate',
+  '/components/thin-hook/demo/node_modules/lit-element/lit-element.js,property'
+]);
+__hook__(() => {
+}, null, [
+  'import',
+  {
+    [__6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__[1]]: [
+      __6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__module_namespace_1,
+      '__decorate'
+    ],
+    [__6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__[2]]: [
+      __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__module_namespace_1,
+      'html',
+      'property'
+    ],
+    [__6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__[3]]: [
+      __6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__module_namespace_3,
+      'ButtonBase'
+    ],
+    [__6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__[4]]: [
+      __6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__module_namespace_4,
+      'default'
+    ],
+    [__6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__[5]]: [
+      __6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__module_namespace_5,
+      'CrossLargeIcon'
+    ],
+    [__6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__[6]]: [
+      __6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__module_namespace_6,
+      'default'
+    ]
+  }
+], __6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__[0], NaN);
+class ClearButton extends __hook__('m', ButtonBase, [__6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__[8]], __6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__[7], null) {
+  constructor() {
+    return __hook__(() => {
+      __hook__((newTarget, ...args) => super(...args), null, [
+        new.target,
+        ...arguments
+      ], __6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__[9], '');
+      /**
+         * The visual variant to apply to this button.
+         */
+      __hook__('#=', this, [
+        'variant',
+        ''
+      ], __6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__[9]);
+    }, null, arguments, __6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__[9]);
+  }
+  static get styles() {
+    return __hook__(() => {
+      return [
+        ...__hook__('s.', this, [
+          'styles',
+          p => super[p]
+        ], __6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__[10]),
+        __hook__('m', styles$4, [__6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__[11]], __6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__[10], null),
+        __hook__('m', styles$5, [__6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__[12]], __6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__[10], null)
+      ];
+    }, null, arguments, __6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__[10]);
+  }
+  get buttonContent() {
+    return __hook__(() => {
+      return [__hook__(__hook__('m', html, [__6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__[14]], __6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__[13], null), null, [
+          ((s, r) => {
+            s.raw = r;
+            return s;
+          })([
+            '\n                <sp-icon slot="icon" class="icon cross-medium" size="s">\n                    ',
+            '\n                </sp-icon>\n            '
+          ], [
+            '\n                <sp-icon slot="icon" class="icon cross-medium" size="s">\n                    ',
+            '\n                </sp-icon>\n            '
+          ]),
+          __hook__('m()', CrossLargeIcon, [
+            __6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__[15],
+            [{ hidden: true }],
+            (...args) => CrossLargeIcon(...args)
+          ], __6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__[13], null)
+        ], __6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__[13], 0)];
+    }, null, arguments, __6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__[13]);
+  }
+}
+__hook__('m()', __decorate, [
+  __6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__[16],
+  [
+    [__hook__('m()', property, [
+        __6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__[17],
+        [{ reflect: true }],
+        (...args) => property(...args)
+      ], __6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__[0], null)],
+    __hook__('#.', __hook__('m', ClearButton, [__6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__[7]], __6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__[0], null), ['prototype'], __6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__[0]),
+    'variant',
+    void 0
+  ],
+  (...args) => __decorate(...args)
+], __6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__[0], null);  __hook__(() => {
+}, null, [
+  'export',
+  __6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__[0],
+  __57a4ba8749659179686903efd686c13024f3a9b0bde1749d740b048da3d5bd07__module_namespace_3
+], __6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__[0], NaN);
+
+/*
+Copyright 2020 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+const __57a4ba8749659179686903efd686c13024f3a9b0bde1749d740b048da3d5bd07__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/index.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/Button.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/ActionButton.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/ClearButton.js'
+]);
+__hook__(() => {
+}, null, [
+  'import',
+  {
+    [__57a4ba8749659179686903efd686c13024f3a9b0bde1749d740b048da3d5bd07__[1]]: [__1e8df5e471cb411f030f7d2f67a33fc489222df99ec4e45f6ff138345a47f550__module_namespace_1],
+    [__57a4ba8749659179686903efd686c13024f3a9b0bde1749d740b048da3d5bd07__[2]]: [__57a4ba8749659179686903efd686c13024f3a9b0bde1749d740b048da3d5bd07__module_namespace_2],
+    [__57a4ba8749659179686903efd686c13024f3a9b0bde1749d740b048da3d5bd07__[3]]: [__57a4ba8749659179686903efd686c13024f3a9b0bde1749d740b048da3d5bd07__module_namespace_3]
+  }
+], __57a4ba8749659179686903efd686c13024f3a9b0bde1749d740b048da3d5bd07__[0], NaN);
+  __hook__(() => {
+}, null, [
+  'export',
+  __57a4ba8749659179686903efd686c13024f3a9b0bde1749d740b048da3d5bd07__[0],
+  __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__module_namespace_4
+], __57a4ba8749659179686903efd686c13024f3a9b0bde1749d740b048da3d5bd07__[0], NaN);
+
+/*
+Copyright 2020 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+const __1e8df5e471cb411f030f7d2f67a33fc489222df99ec4e45f6ff138345a47f550__ = $hook$.$(__hook__, [
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/sp-button.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/Button.js',
+  'S_uNpREdiC4aB1e_customElements;/components/thin-hook/demo/node_modules/@spectrum-web-components/button/sp-button.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/Button.js,Button'
+]);
+__hook__(() => {
+}, null, [
+  'import',
+  {
+    [__1e8df5e471cb411f030f7d2f67a33fc489222df99ec4e45f6ff138345a47f550__[1]]: [
+      __1e8df5e471cb411f030f7d2f67a33fc489222df99ec4e45f6ff138345a47f550__module_namespace_1,
+      'Button'
+    ]
+  }
+], __1e8df5e471cb411f030f7d2f67a33fc489222df99ec4e45f6ff138345a47f550__[0], NaN);
+__hook__('#()', $hook$.global(__hook__, __1e8df5e471cb411f030f7d2f67a33fc489222df99ec4e45f6ff138345a47f550__[0], 'customElements', '#get')[__1e8df5e471cb411f030f7d2f67a33fc489222df99ec4e45f6ff138345a47f550__[2]], [
+  'define',
+  [
+    'sp-button',
+    __hook__('m', Button, [__1e8df5e471cb411f030f7d2f67a33fc489222df99ec4e45f6ff138345a47f550__[3]], __1e8df5e471cb411f030f7d2f67a33fc489222df99ec4e45f6ff138345a47f550__[0], null)
+  ]
+], __1e8df5e471cb411f030f7d2f67a33fc489222df99ec4e45f6ff138345a47f550__[0]);  __hook__(() => {
+}, null, [
+  'export',
+  __1e8df5e471cb411f030f7d2f67a33fc489222df99ec4e45f6ff138345a47f550__[0],
+  __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__module_namespace_5
+], __1e8df5e471cb411f030f7d2f67a33fc489222df99ec4e45f6ff138345a47f550__[0], NaN);
 
 const __491e31de2616ac0145a809589586fc0160c0b689ee16153a78fbeda89cc694ae__ = $hook$.$(__hook__, [
   '/components/thin-hook/demo/modules/module2.js',
@@ -7216,7 +13864,7 @@ __hook__(() => {
 }, null, [
   'export',
   __491e31de2616ac0145a809589586fc0160c0b689ee16153a78fbeda89cc694ae__[0],
-  __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__module_namespace_4
+  __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__module_namespace_6
 ], __491e31de2616ac0145a809589586fc0160c0b689ee16153a78fbeda89cc694ae__[0], NaN);
 
 const __18162bfcb1bfb2b35a54939b0389bcbd177ab61c4857d39d01603dd868b249c2__ = $hook$.$(__hook__, [
@@ -7234,14 +13882,16 @@ __hook__(() => {
 }, null, [
   'export',
   __18162bfcb1bfb2b35a54939b0389bcbd177ab61c4857d39d01603dd868b249c2__[0],
-  __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__module_namespace_5
+  __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__module_namespace_7
 ], __18162bfcb1bfb2b35a54939b0389bcbd177ab61c4857d39d01603dd868b249c2__[0], NaN);
 
-const __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__ = $hook$.$(__hook__, [
+const __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__ = $hook$.$(__hook__, [
   '/components/thin-hook/demo/modules/module1.js',
   '/components/thin-hook/demo/node_modules/lit-element/lit-element.js',
   '/components/thin-hook/demo/node_modules/lit-html/directives/repeat.js',
   '/components/thin-hook/demo/node_modules/lit-html/lit-html.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/index.js',
+  '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/sp-button.js',
   '/components/thin-hook/demo/modules/module2.js',
   '/components/thin-hook/demo/modules/module3.js',
   'S_uNpREdiC4aB1e_console;/components/thin-hook/demo/modules/module1.js',
@@ -7271,21 +13921,27 @@ __hook__(() => {
 }, null, [
   'import',
   {
-    [__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[1]]: [
-      __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__module_namespace_1,
+    [__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[1]]: [
+      __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__module_namespace_1,
       'LitElement',
       'html'
     ],
-    [__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[2]]: [
-      __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__module_namespace_2,
+    [__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[2]]: [
+      __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__module_namespace_2,
       'repeat'
     ],
-    [__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[3]]: [
+    [__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[3]]: [
       litHtmlNamespace,
       '*'
     ],
-    [__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[4]]: [
-      __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__module_namespace_4,
+    [__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[4]]: [
+      __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__module_namespace_4,
+      'Button',
+      'ClearButton'
+    ],
+    [__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[5]]: [__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__module_namespace_5],
+    [__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[6]]: [
+      __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__module_namespace_6,
       'exportedName',
       'exportedName2',
       'ExportedClass',
@@ -7299,43 +13955,43 @@ __hook__(() => {
       'inaccessibleFunction',
       'inaccessibleObject'
     ],
-    [__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[5]]: [
-      __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__module_namespace_5,
+    [__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[7]]: [
+      __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__module_namespace_7,
       'UnspecifiedExport'
     ]
   }
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], NaN);
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], NaN);
 __hook__('#()', __hook__((Import, ImportSpecifier) => import(ImportSpecifier), null, [
   'import()',
   'lit-html',
   { url: '/components/thin-hook/demo/modules/module1.js' }
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], NaN), [
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], NaN), [
   'then',
   [(...args) =>
       (__hook__(dynamicModule => {
-        if (__hook__('#()', __hook__('#.', __hook__(() => import.meta, null, ['import.meta'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], NaN), ['url'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]), [
+        if (__hook__('#()', __hook__('#.', __hook__(() => import.meta, null, ['import.meta'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], NaN), ['url'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]), [
             'indexOf',
             ['rollup']
-          ], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]) >= 0) {
-          __hook__('#()', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], 'console', '#get')[__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[6]], [
+          ], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]) >= 0) {
+          __hook__('#()', $hook$.global(__hook__, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], 'console', '#get')[__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[8]], [
             'warn',
             [
               'dynamically imported "lit-html" module may conflict with that in this bundle ',
-              __hook__('#.', __hook__(() => import.meta, null, ['import.meta'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], NaN), ['url'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0])
+              __hook__('#.', __hook__(() => import.meta, null, ['import.meta'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], NaN), ['url'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0])
             ]
-          ], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
+          ], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
         } else {
-          __hook__('#()', __hook__('#.', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], 'chai', '#get')[__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[7]], ['assert'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]), [
+          __hook__('#()', __hook__('#.', $hook$.global(__hook__, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], 'chai', '#get')[__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[9]], ['assert'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]), [
             'equal',
             [
               dynamicModule,
-              __hook__('m', litHtmlNamespace, [__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[3]], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], null),
+              __hook__('m', litHtmlNamespace, [__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[3]], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], null),
               'dynamically imported module matches with that from static import'
             ]
-          ], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
+          ], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
         }
-      }, null, args, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]))]
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
+      }, null, args, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]))]
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
 /*
 import defaultImportLocalName from "./module2.js";
 export { ExportedClass_local1 as ExportedClass_local1_renamedExport1 }; // export comes before import
@@ -7360,140 +14016,140 @@ class PreExportedClass {}
 class MultiplyExportedClass {}
 export { MultiplyExportedClass as MultiplyExportedClass_renamed1, MultiplyExportedClass as MultiplyExportedClass_renamed2 };
 */
-class HelloWorld extends __hook__('m', LitElement, [__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[9]], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[8], null) {
+class HelloWorld extends __hook__('m', LitElement, [__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[11]], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[10], null) {
   render() {
     return __hook__(() => {
-      return __hook__(__hook__('m', html, [__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[11]], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[10], null), null, [((s, r) => {
+      return __hook__(__hook__('m', html, [__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[13]], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[12], null), null, [((s, r) => {
           s.raw = r;
           return s;
-        })(['<div>Hello, World!</div>'], ['<div>Hello, World!</div>'])], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[10], 0);
-    }, null, arguments, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[10]);
+        })(['<div>Hello, World!</div>'], ['<div>Hello, World!</div>'])], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[12], 0);
+    }, null, arguments, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[12]);
   }
 }
-if (!__hook__('#()', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], 'customElements', '#get')[__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[12]], [
+if (!__hook__('#()', $hook$.global(__hook__, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], 'customElements', '#get')[__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[14]], [
     'get',
     ['hello-world']
-  ], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0])) {
-  __hook__('#()', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], 'customElements', '#get')[__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[12]], [
+  ], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0])) {
+  __hook__('#()', $hook$.global(__hook__, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], 'customElements', '#get')[__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[14]], [
     'define',
     [
       'hello-world',
-      __hook__('m', HelloWorld, [__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[8]], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], null)
+      __hook__('m', HelloWorld, [__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[10]], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], null)
     ]
-  ], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
+  ], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
 } else {
-  __hook__('#()', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], 'console', '#get')[__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[6]], [
+  __hook__('#()', $hook$.global(__hook__, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], 'console', '#get')[__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[8]], [
     'warn',
     [
       'skipping registration of "hello-world" custom element as it has already been defined',
-      __hook__('#.', __hook__(() => import.meta, null, ['import.meta'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], NaN), ['url'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0])
+      __hook__('#.', __hook__(() => import.meta, null, ['import.meta'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], NaN), ['url'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0])
     ]
-  ], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
+  ], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
 }
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], 'chai', '#get')[__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[7]], ['assert'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], 'chai', '#get')[__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[9]], ['assert'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]), [
   'equal',
   [
     __hook__('mtypeof', UnspecifiedExport, [
-      __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[13],
+      __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[15],
       () => typeof UnspecifiedExport
-    ], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], null),
+    ], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], null),
     'function',
     'typeof UnspecifiedExport'
   ]
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
 // readable
 let unspecifiedExportObject = __hook__('mnew', UnspecifiedExport, [
-  __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[13],
+  __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[15],
   [],
   (...args) => new UnspecifiedExport(...args)
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[14], null);
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[16], null);
 // callable
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], 'chai', '#get')[__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[7]], ['assert'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], 'chai', '#get')[__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[9]], ['assert'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]), [
   'equal',
   [
-    __hook__('#.', unspecifiedExportObject, ['property'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]),
+    __hook__('#.', unspecifiedExportObject, ['property'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]),
     'property value',
     'UnspecifiedExport.property'
   ]
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
 // readable
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], 'chai', '#get')[__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[7]], ['assert'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], 'chai', '#get')[__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[9]], ['assert'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
-        __hook__('#=', __hook__('m', UnspecifiedExport, [__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[13]], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], null), [
+        __hook__('#=', __hook__('m', UnspecifiedExport, [__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[15]], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], null), [
           'nonwritable',
           true
-        ], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
-      }, null, args, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0])),
+        ], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
+      }, null, args, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0])),
     /^Permission Denied:/
   ]
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
 // not writable via Policy.globalAcl()
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], 'chai', '#get')[__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[7]], ['assert'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], 'chai', '#get')[__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[9]], ['assert'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]), [
   'equal',
   [
-    __hook__('m', exportedName, [__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[15]], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], null) + 'concatenated',
+    __hook__('m', exportedName, [__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[17]], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], null) + 'concatenated',
     'exportedNameValueconcatenated',
     'exported readable string value'
   ]
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
 // readable
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], 'chai', '#get')[__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[7]], ['assert'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], 'chai', '#get')[__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[9]], ['assert'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]), [
   'equal',
   [
     __hook__('mtypeof', exportedName, [
-      __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[15],
+      __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[17],
       () => typeof exportedName
-    ], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], null),
+    ], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], null),
     'string',
     'typeof exported string value'
   ]
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
 // readable
 //chai.assert.throws(() => { exportedName = 'new value'; }, /^Permission Denied:/); // not writable
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], 'chai', '#get')[__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[7]], ['assert'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], 'chai', '#get')[__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[9]], ['assert'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('m()', exportedName, [
-          __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[15],
+          __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[17],
           [],
           (...args) => exportedName(...args)
-        ], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], null);
-      }, null, args, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0])),
+        ], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], null);
+      }, null, args, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0])),
     /^Permission Denied:/
   ]
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
 // not callable
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], 'chai', '#get')[__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[7]], ['assert'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], 'chai', '#get')[__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[9]], ['assert'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
-        __hook__('m', exportedName2, [__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[16]], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], null);
-      }, null, args, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0])),
+        __hook__('m', exportedName2, [__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[18]], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], null);
+      }, null, args, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0])),
     /^Permission Denied:/
   ]
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
 // not readable
 // call
 let exportedClassObject = __hook__('mnew', ExportedClass, [
-  __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[18],
+  __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[20],
   [],
   (...args) => new ExportedClass(...args)
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[17], null);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], 'chai', '#get')[__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[7]], ['assert'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]), [
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[19], null);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], 'chai', '#get')[__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[9]], ['assert'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]), [
   'equal',
   [
-    __hook__('#.', exportedClassObject, ['readableProperty'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]),
+    __hook__('#.', exportedClassObject, ['readableProperty'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]),
     'readable',
     'readable object property'
   ]
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], 'chai', '#get')[__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[7]], ['assert'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]), [
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], 'chai', '#get')[__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[9]], ['assert'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]), [
   'throws',
   [
     (...args) =>
@@ -7501,273 +14157,273 @@ __hook__('#()', __hook__('#.', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace
         __hook__('#()', exportedClassObject, [
           'readableProperty',
           []
-        ], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
-      }, null, args, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0])),
+        ], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
+      }, null, args, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0])),
     /^Permission Denied:/
   ]
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
 // not callable
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], 'chai', '#get')[__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[7]], ['assert'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], 'chai', '#get')[__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[9]], ['assert'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
-        __hook__('#.', exportedClassObject, ['unreadableProperty'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
-      }, null, args, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0])),
+        __hook__('#.', exportedClassObject, ['unreadableProperty'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
+      }, null, args, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0])),
     /^Permission Denied:/
   ]
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], 'chai', '#get')[__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[7]], ['assert'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]), [
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], 'chai', '#get')[__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[9]], ['assert'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]), [
   'equal',
   [
-    __hook__('#()', __hook__('m', ExportedClass, [__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[18]], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], null), [
+    __hook__('#()', __hook__('m', ExportedClass, [__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[20]], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], null), [
       'callableStaticMethod',
       []
-    ], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]),
+    ], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]),
     'called',
     'callable static method'
   ]
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], 'chai', '#get')[__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[7]], ['assert'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]), [
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], 'chai', '#get')[__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[9]], ['assert'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
-        __hook__('#.', __hook__('m', ExportedClass, [__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[18]], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], null), ['callableStaticMethod'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
-      }, null, args, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0])),
+        __hook__('#.', __hook__('m', ExportedClass, [__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[20]], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], null), ['callableStaticMethod'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
+      }, null, args, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0])),
     /^Permission Denied:/
   ]
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], 'chai', '#get')[__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[7]], ['assert'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]), [
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], 'chai', '#get')[__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[9]], ['assert'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]), [
   'equal',
   [
     __hook__('#()', exportedClassObject, [
       'callableMethod',
       ['abc']
-    ], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]),
+    ], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]),
     'string',
     'callable method'
   ]
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], 'chai', '#get')[__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[7]], ['assert'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]), [
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], 'chai', '#get')[__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[9]], ['assert'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
-        __hook__('#.', exportedClassObject, ['callableMethod'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
-      }, null, args, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0])),
+        __hook__('#.', exportedClassObject, ['callableMethod'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
+      }, null, args, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0])),
     /^Permission Denied:/
   ]
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
 // read
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], 'chai', '#get')[__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[7]], ['assert'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], 'chai', '#get')[__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[9]], ['assert'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
-        __hook__('m', inaccessibleString, [__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[19]], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], null);
-      }, null, args, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0])),
+        __hook__('m', inaccessibleString, [__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[21]], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], null);
+      }, null, args, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0])),
     /^Permission Denied:/
   ]
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], 'chai', '#get')[__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[7]], ['assert'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]), [
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], 'chai', '#get')[__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[9]], ['assert'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
-        __hook__('m', inaccessibleNumber, [__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[20]], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], null);
-      }, null, args, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0])),
+        __hook__('m', inaccessibleNumber, [__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[22]], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], null);
+      }, null, args, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0])),
     /^Permission Denied:/
   ]
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], 'chai', '#get')[__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[7]], ['assert'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]), [
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], 'chai', '#get')[__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[9]], ['assert'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
-        __hook__('m', inaccessibleBoolean, [__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[21]], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], null);
-      }, null, args, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0])),
+        __hook__('m', inaccessibleBoolean, [__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[23]], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], null);
+      }, null, args, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0])),
     /^Permission Denied:/
   ]
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], 'chai', '#get')[__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[7]], ['assert'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]), [
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], 'chai', '#get')[__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[9]], ['assert'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
-        __hook__('m', inaccessibleSymbol, [__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[22]], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], null);
-      }, null, args, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0])),
+        __hook__('m', inaccessibleSymbol, [__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[24]], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], null);
+      }, null, args, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0])),
     /^Permission Denied:/
   ]
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], 'chai', '#get')[__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[7]], ['assert'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]), [
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], 'chai', '#get')[__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[9]], ['assert'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
-        __hook__('m', inaccessibleNull, [__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[23]], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], null);
-      }, null, args, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0])),
+        __hook__('m', inaccessibleNull, [__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[25]], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], null);
+      }, null, args, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0])),
     /^Permission Denied:/
   ]
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], 'chai', '#get')[__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[7]], ['assert'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]), [
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], 'chai', '#get')[__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[9]], ['assert'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
-        __hook__('m', inaccessibleUndefined, [__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[24]], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], null);
-      }, null, args, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0])),
+        __hook__('m', inaccessibleUndefined, [__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[26]], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], null);
+      }, null, args, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0])),
     /^Permission Denied:/
   ]
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], 'chai', '#get')[__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[7]], ['assert'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]), [
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], 'chai', '#get')[__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[9]], ['assert'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
-        __hook__('m', inaccessibleBigInt, [__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[25]], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], null);
-      }, null, args, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0])),
+        __hook__('m', inaccessibleBigInt, [__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[27]], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], null);
+      }, null, args, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0])),
     /^Permission Denied:/
   ]
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], 'chai', '#get')[__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[7]], ['assert'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]), [
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], 'chai', '#get')[__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[9]], ['assert'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
-        __hook__('m', inaccessibleFunction, [__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[26]], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], null);
-      }, null, args, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0])),
+        __hook__('m', inaccessibleFunction, [__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[28]], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], null);
+      }, null, args, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0])),
     /^Permission Denied:/
   ]
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], 'chai', '#get')[__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[7]], ['assert'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]), [
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], 'chai', '#get')[__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[9]], ['assert'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
-        __hook__('m', inaccessibleObject, [__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[27]], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], null);
-      }, null, args, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0])),
+        __hook__('m', inaccessibleObject, [__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[29]], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], null);
+      }, null, args, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0])),
     /^Permission Denied:/
   ]
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
 // read via unary operator
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], 'chai', '#get')[__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[7]], ['assert'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], 'chai', '#get')[__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[9]], ['assert'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('mtypeof', inaccessibleString, [
-          __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[19],
+          __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[21],
           () => typeof inaccessibleString
-        ], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], null);
-      }, null, args, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0])),
+        ], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], null);
+      }, null, args, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0])),
     /^Permission Denied:/
   ]
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], 'chai', '#get')[__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[7]], ['assert'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]), [
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], 'chai', '#get')[__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[9]], ['assert'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('mtypeof', inaccessibleNumber, [
-          __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[20],
+          __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[22],
           () => typeof inaccessibleNumber
-        ], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], null);
-      }, null, args, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0])),
+        ], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], null);
+      }, null, args, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0])),
     /^Permission Denied:/
   ]
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], 'chai', '#get')[__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[7]], ['assert'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]), [
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], 'chai', '#get')[__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[9]], ['assert'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('mtypeof', inaccessibleBoolean, [
-          __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[21],
+          __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[23],
           () => typeof inaccessibleBoolean
-        ], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], null);
-      }, null, args, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0])),
+        ], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], null);
+      }, null, args, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0])),
     /^Permission Denied:/
   ]
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], 'chai', '#get')[__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[7]], ['assert'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]), [
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], 'chai', '#get')[__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[9]], ['assert'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('mtypeof', inaccessibleSymbol, [
-          __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[22],
+          __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[24],
           () => typeof inaccessibleSymbol
-        ], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], null);
-      }, null, args, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0])),
+        ], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], null);
+      }, null, args, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0])),
     /^Permission Denied:/
   ]
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], 'chai', '#get')[__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[7]], ['assert'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]), [
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], 'chai', '#get')[__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[9]], ['assert'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('mtypeof', inaccessibleNull, [
-          __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[23],
+          __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[25],
           () => typeof inaccessibleNull
-        ], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], null);
-      }, null, args, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0])),
+        ], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], null);
+      }, null, args, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0])),
     /^Permission Denied:/
   ]
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], 'chai', '#get')[__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[7]], ['assert'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]), [
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], 'chai', '#get')[__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[9]], ['assert'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('mtypeof', inaccessibleUndefined, [
-          __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[24],
+          __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[26],
           () => typeof inaccessibleUndefined
-        ], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], null);
-      }, null, args, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0])),
+        ], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], null);
+      }, null, args, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0])),
     /^Permission Denied:/
   ]
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], 'chai', '#get')[__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[7]], ['assert'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]), [
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], 'chai', '#get')[__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[9]], ['assert'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('mtypeof', inaccessibleBigInt, [
-          __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[25],
+          __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[27],
           () => typeof inaccessibleBigInt
-        ], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], null);
-      }, null, args, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0])),
+        ], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], null);
+      }, null, args, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0])),
     /^Permission Denied:/
   ]
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], 'chai', '#get')[__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[7]], ['assert'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]), [
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], 'chai', '#get')[__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[9]], ['assert'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('mtypeof', inaccessibleFunction, [
-          __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[26],
+          __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[28],
           () => typeof inaccessibleFunction
-        ], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], null);
-      }, null, args, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0])),
+        ], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], null);
+      }, null, args, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0])),
     /^Permission Denied:/
   ]
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], 'chai', '#get')[__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[7]], ['assert'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]), [
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], 'chai', '#get')[__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[9]], ['assert'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('mtypeof', inaccessibleObject, [
-          __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[27],
+          __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[29],
           () => typeof inaccessibleObject
-        ], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], null);
-      }, null, args, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0])),
+        ], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], null);
+      }, null, args, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0])),
     /^Permission Denied:/
   ]
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
 /*
 // update operator (throws before operations)
 chai.assert.throws(() => { inaccessibleString++; }, /^Permission Denied:/);
@@ -7781,259 +14437,259 @@ chai.assert.throws(() => { inaccessibleFunction++; }, /^Permission Denied:/);
 chai.assert.throws(() => { inaccessibleObject++; }, /^Permission Denied:/);
 */
 // call operator (throws before operations)
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], 'chai', '#get')[__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[7]], ['assert'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], 'chai', '#get')[__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[9]], ['assert'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('m()', inaccessibleString, [
-          __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[19],
+          __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[21],
           [],
           (...args) => inaccessibleString(...args)
-        ], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], null);
-      }, null, args, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0])),
+        ], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], null);
+      }, null, args, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0])),
     /^Permission Denied:/
   ]
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], 'chai', '#get')[__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[7]], ['assert'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]), [
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], 'chai', '#get')[__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[9]], ['assert'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('m()', inaccessibleNumber, [
-          __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[20],
+          __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[22],
           [],
           (...args) => inaccessibleNumber(...args)
-        ], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], null);
-      }, null, args, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0])),
+        ], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], null);
+      }, null, args, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0])),
     /^Permission Denied:/
   ]
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], 'chai', '#get')[__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[7]], ['assert'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]), [
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], 'chai', '#get')[__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[9]], ['assert'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('m()', inaccessibleBoolean, [
-          __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[21],
+          __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[23],
           [],
           (...args) => inaccessibleBoolean(...args)
-        ], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], null);
-      }, null, args, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0])),
+        ], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], null);
+      }, null, args, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0])),
     /^Permission Denied:/
   ]
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], 'chai', '#get')[__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[7]], ['assert'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]), [
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], 'chai', '#get')[__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[9]], ['assert'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('m()', inaccessibleSymbol, [
-          __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[22],
+          __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[24],
           [],
           (...args) => inaccessibleSymbol(...args)
-        ], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], null);
-      }, null, args, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0])),
+        ], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], null);
+      }, null, args, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0])),
     /^Permission Denied:/
   ]
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], 'chai', '#get')[__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[7]], ['assert'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]), [
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], 'chai', '#get')[__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[9]], ['assert'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('m()', inaccessibleNull, [
-          __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[23],
+          __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[25],
           [],
           (...args) => inaccessibleNull(...args)
-        ], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], null);
-      }, null, args, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0])),
+        ], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], null);
+      }, null, args, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0])),
     /^Permission Denied:/
   ]
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], 'chai', '#get')[__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[7]], ['assert'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]), [
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], 'chai', '#get')[__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[9]], ['assert'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('m()', inaccessibleUndefined, [
-          __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[24],
+          __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[26],
           [],
           (...args) => inaccessibleUndefined(...args)
-        ], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], null);
-      }, null, args, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0])),
+        ], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], null);
+      }, null, args, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0])),
     /^Permission Denied:/
   ]
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], 'chai', '#get')[__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[7]], ['assert'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]), [
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], 'chai', '#get')[__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[9]], ['assert'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('m()', inaccessibleBigInt, [
-          __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[25],
+          __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[27],
           [],
           (...args) => inaccessibleBigInt(...args)
-        ], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], null);
-      }, null, args, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0])),
+        ], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], null);
+      }, null, args, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0])),
     /^Permission Denied:/
   ]
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], 'chai', '#get')[__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[7]], ['assert'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]), [
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], 'chai', '#get')[__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[9]], ['assert'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('m()', inaccessibleFunction, [
-          __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[26],
+          __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[28],
           [],
           (...args) => inaccessibleFunction(...args)
-        ], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], null);
-      }, null, args, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0])),
+        ], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], null);
+      }, null, args, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0])),
     /^Permission Denied:/
   ]
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], 'chai', '#get')[__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[7]], ['assert'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]), [
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], 'chai', '#get')[__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[9]], ['assert'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('m()', inaccessibleObject, [
-          __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[27],
+          __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[29],
           [],
           (...args) => inaccessibleObject(...args)
-        ], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], null);
-      }, null, args, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0])),
+        ], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], null);
+      }, null, args, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0])),
     /^Permission Denied:/
   ]
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
 // new operator (throws before operations)
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], 'chai', '#get')[__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[7]], ['assert'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], 'chai', '#get')[__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[9]], ['assert'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('mnew', inaccessibleString, [
-          __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[19],
+          __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[21],
           [],
           (...args) => new inaccessibleString(...args)
-        ], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], null);
-      }, null, args, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0])),
+        ], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], null);
+      }, null, args, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0])),
     /^Permission Denied:/
   ]
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], 'chai', '#get')[__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[7]], ['assert'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]), [
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], 'chai', '#get')[__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[9]], ['assert'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('mnew', inaccessibleNumber, [
-          __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[20],
+          __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[22],
           [],
           (...args) => new inaccessibleNumber(...args)
-        ], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], null);
-      }, null, args, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0])),
+        ], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], null);
+      }, null, args, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0])),
     /^Permission Denied:/
   ]
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], 'chai', '#get')[__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[7]], ['assert'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]), [
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], 'chai', '#get')[__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[9]], ['assert'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('mnew', inaccessibleBoolean, [
-          __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[21],
+          __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[23],
           [],
           (...args) => new inaccessibleBoolean(...args)
-        ], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], null);
-      }, null, args, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0])),
+        ], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], null);
+      }, null, args, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0])),
     /^Permission Denied:/
   ]
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], 'chai', '#get')[__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[7]], ['assert'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]), [
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], 'chai', '#get')[__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[9]], ['assert'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('mnew', inaccessibleSymbol, [
-          __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[22],
+          __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[24],
           [],
           (...args) => new inaccessibleSymbol(...args)
-        ], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], null);
-      }, null, args, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0])),
+        ], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], null);
+      }, null, args, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0])),
     /^Permission Denied:/
   ]
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], 'chai', '#get')[__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[7]], ['assert'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]), [
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], 'chai', '#get')[__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[9]], ['assert'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('mnew', inaccessibleNull, [
-          __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[23],
+          __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[25],
           [],
           (...args) => new inaccessibleNull(...args)
-        ], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], null);
-      }, null, args, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0])),
+        ], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], null);
+      }, null, args, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0])),
     /^Permission Denied:/
   ]
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], 'chai', '#get')[__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[7]], ['assert'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]), [
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], 'chai', '#get')[__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[9]], ['assert'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('mnew', inaccessibleUndefined, [
-          __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[24],
+          __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[26],
           [],
           (...args) => new inaccessibleUndefined(...args)
-        ], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], null);
-      }, null, args, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0])),
+        ], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], null);
+      }, null, args, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0])),
     /^Permission Denied:/
   ]
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], 'chai', '#get')[__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[7]], ['assert'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]), [
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], 'chai', '#get')[__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[9]], ['assert'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('mnew', inaccessibleBigInt, [
-          __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[25],
+          __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[27],
           [],
           (...args) => new inaccessibleBigInt(...args)
-        ], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], null);
-      }, null, args, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0])),
+        ], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], null);
+      }, null, args, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0])),
     /^Permission Denied:/
   ]
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], 'chai', '#get')[__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[7]], ['assert'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]), [
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], 'chai', '#get')[__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[9]], ['assert'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('mnew', inaccessibleFunction, [
-          __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[26],
+          __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[28],
           [],
           (...args) => new inaccessibleFunction(...args)
-        ], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], null);
-      }, null, args, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0])),
+        ], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], null);
+      }, null, args, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0])),
     /^Permission Denied:/
   ]
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], 'chai', '#get')[__cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[7]], ['assert'], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]), [
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], 'chai', '#get')[__9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[9]], ['assert'], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('mnew', inaccessibleObject, [
-          __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[27],
+          __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[29],
           [],
           (...args) => new inaccessibleObject(...args)
-        ], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], null);
-      }, null, args, __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0])),
+        ], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], null);
+      }, null, args, __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0])),
     /^Permission Denied:/
   ]
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0]);  /*
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0]);  /*
 // assignment operators
 chai.assert.throws(() => { inaccessibleString = 'abc'; }, /^Permission Denied:/);
 chai.assert.throws(() => { inaccessibleNumber = 1; }, /^Permission Denied:/);
@@ -8058,8 +14714,8 @@ chai.assert.throws(() => { [ inaccessibleObject ] = [ {} ]; }, /^Permission Deni
 __hook__(() => {
 }, null, [
   'export',
-  __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0],
-  __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__module_namespace_0
-], __cfcfda9327d73ae8cd35ace82f8631af3d385194a6912cc32c7db6005f5d05d3__[0], NaN);
+  __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0],
+  __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__module_namespace_0
+], __9094b9b983925b77cc71b5df649cc6169340bf87ddfa2741ab9bee12c5e27105__[0], NaN);
 
 export { HelloWorld };

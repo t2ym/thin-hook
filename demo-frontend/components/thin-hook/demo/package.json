@@ -3,8 +3,15 @@
   "version": "0.0.0",
   "description": "Frontend NodeJS packages for thin-hook demo",
   "dependencies": {
+    "@spectrum-web-components/button": "^0.8.3",
+    "@spectrum-web-components/icon": "^0.5.1",
+    "@spectrum-web-components/icons-ui": "^0.2.1",
+    "@spectrum-web-components/iconset": "^0.2.0",
+    "@spectrum-web-components/shared": "^0.6.0",
+    "focus-visible": "^5.1.0",
     "lit-element": "^2.3.1",
-    "lit-html": "^1.2.1"
+    "lit-html": "^1.2.1",
+    "tslib": "^2.0.1"
   },
   "devDependencies": {},
   "scripts": {},

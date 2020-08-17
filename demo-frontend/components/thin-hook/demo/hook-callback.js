@@ -1036,6 +1036,12 @@ else {
     "lit-element/,*": "@lit-element",
     "lit-element/lib/*": "@lit-element",
     "lit-element/*": "@lit-element",
+    "focus-visible": "@focus-visible",
+    "focus-visible,*": "@focus-visible",
+    "@spectrum-web-components/shared/*": "@spectrum-web-components/shared",
+    "@spectrum-web-components/button/*": "@spectrum-web-components/button",
+    "tslib": "@tslib",
+    "tslib,*": "@tslib",
     "./modules/module1.js": "@module1",
     "./modules/module1.js,*": "@module1",
     "./modules/module2.js": "@module2",
@@ -2106,6 +2112,7 @@ else {
       [S_DEFAULT]: '--x',
       '@normalization_checker': 'r-x',
       '@bind_normalization_checker': 'r-x',
+      '@tslib': 'r-x',
     },
     Object: {
       [S_OBJECT]: 'r-x',
@@ -3983,6 +3990,7 @@ else {
         '@Object_assign_reader': 'rwxRW', // webcomponents-lite.js
         "@lit-html": 'r--',
         "@module1": 'r--',
+        "@spectrum-web-components/button": 'r--',
       },
       [S_DEFAULT]: '---',
       define: {
@@ -3990,6 +3998,7 @@ else {
         '@Object_assign_reader': 'rwx',
         '@customElements_reader': 'rwx',
         '@module1': 'r-x', // TODO: integrate with customElementsDefineAcl()
+        "@spectrum-web-components/button": 'r-x',
         '@Polymer_lib': function customElementsDefineAcl(normalizedThisArg,
                                                          normalizedArgs /* ['property', args], ['property', value], etc. */,
                                                          aclArgs /* [name, isStatic, isObject, property, opType, context] */,
@@ -5255,6 +5264,120 @@ else {
         "@lit-element": 'rw-',
       },
       [S_CHAIN]: () => acl.Array[S_PROTOTYPE][S_INSTANCE],
+    },
+    applyFocusVisiblePolyfill: {
+      [S_OBJECT]: {
+        [S_DEFAULT]: '---',
+        "@focus-visible": 'rwx',
+        "@spectrum-web-components/shared": 'r-x',
+      },
+    },
+    "@spectrum-web-components/shared/src/focusable.js": {
+      [S_TYPE]: S_NAMESPACE,
+      [S_OBJECT]: {
+        [S_DEFAULT]: 'r--RW',
+      },
+      [S_DEFAULT]: 'rwxRW', // TODO: too loose
+      Focusable: {
+        [S_DEFAULT]: 'r-xRW',
+        "@lit-element": 'rwxRW',
+      },
+    },
+    "@spectrum-web-components/button/src/ButtonBase.js": {
+      [S_TYPE]: S_NAMESPACE,
+      [S_OBJECT]: {
+        [S_DEFAULT]: 'r--RW',
+      },
+      [S_DEFAULT]: 'rwxRW', // TODO: too loose
+      ButtonBase: {
+        [S_DEFAULT]: 'r-xRW',
+        "@lit-element": 'rwxRW',
+      },
+    },
+    "@spectrum-web-components/button/src/Button.js": {
+      [S_TYPE]: S_NAMESPACE,
+      [S_OBJECT]: {
+        [S_DEFAULT]: 'r--RW',
+      },
+      [S_DEFAULT]: 'rwxRW', // TODO: too loose
+      Button: {
+        [S_DEFAULT]: 'r-xRW',
+        "@lit-element": 'rwxRW',
+        [S_PROTOTYPE]: {
+          [S_DEFAULT]: 'r--',
+          "@lit-element": 'rwxRW',
+          [S_INSTANCE]: {
+            [S_DEFAULT]: 'rwx',
+            "@spectrum-web-components/shared": 'rwx',
+            "@lit-element": 'rwx',
+          },
+        },
+      },
+    },
+    "@spectrum-web-components/button/src/ActionButton.js": {
+      [S_TYPE]: S_NAMESPACE,
+      [S_OBJECT]: {
+        [S_DEFAULT]: 'r--RW',
+      },
+      [S_DEFAULT]: 'rwxRW', // TODO: too loose
+      ActionButton: {
+        [S_DEFAULT]: 'r-xRW',
+        "@lit-element": 'rwxRW',
+      },
+    },
+    "@spectrum-web-components/button/src/ClearButton.js": {
+      [S_TYPE]: S_NAMESPACE,
+      [S_OBJECT]: {
+        [S_DEFAULT]: 'r--RW',
+      },
+      [S_DEFAULT]: 'rwxRW', // TODO: too loose
+      ClearButton: {
+        [S_DEFAULT]: 'r-xRW',
+        "@lit-element": 'rwxRW',
+      },
+    },
+    "@spectrum-web-components/button": {
+      [S_TYPE]: S_NAMESPACE,
+      [S_OBJECT]: {
+        [S_DEFAULT]: 'r--RW',
+      },
+      [S_DEFAULT]: 'rwxRW', // TODO: too loose
+      Button: {
+        [S_PROXY]: () => acl["@spectrum-web-components/button/src/Button.js"].Button,
+      },
+    },
+    "@spectrum-web-components/shared/src/focusable.css.js": {
+      [S_TYPE]: S_NAMESPACE,
+      [S_OBJECT]: {
+        [S_DEFAULT]: 'r--RW',
+      },
+      [S_DEFAULT]: 'rwxRW', // TODO: too loose
+      default: {
+        [S_DEFAULT]: 'r-xRW',
+        "@lit-element": 'rwxRW',
+      },
+    },
+    "@spectrum-web-components/button/src/button-base.css.js": {
+      [S_TYPE]: S_NAMESPACE,
+      [S_OBJECT]: {
+        [S_DEFAULT]: 'r--RW',
+      },
+      [S_DEFAULT]: 'rwxRW', // TODO: too loose
+      default: {
+        [S_DEFAULT]: 'r-xRW',
+        "@lit-element": 'rwxRW',
+      },
+    },
+    "@spectrum-web-components/button/src/button.css.js": {
+      [S_TYPE]: S_NAMESPACE,
+      [S_OBJECT]: {
+        [S_DEFAULT]: 'r--RW',
+      },
+      [S_DEFAULT]: 'rwxRW', // TODO: too loose
+      default: {
+        [S_DEFAULT]: 'r-xRW',
+        "@lit-element": 'rwxRW',
+      },
     },
     "lit-element/": {
       [S_TYPE]: S_NAMESPACE,
