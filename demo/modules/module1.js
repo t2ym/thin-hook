@@ -1,6 +1,8 @@
 import { LitElement, html } from "lit-element";
 import { repeat } from "lit-html/directives/repeat.js";
 import * as litHtmlNamespace from "lit-html";
+import { Button, ClearButton } from "@spectrum-web-components/button";
+import '@spectrum-web-components/button/sp-button.js';
 import {
   exportedName,
   exportedName2,

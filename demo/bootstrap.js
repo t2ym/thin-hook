@@ -152,24 +152,82 @@ else {
   hook.parameters.noHookAuthorizationPassed = {};
   hook.parameters.importMapsJson = `{
     "imports": {
+      "@spectrum-web-components/icons-ui/custom-elements.json": "/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/custom-elements.json",
+      "@spectrum-web-components/iconset/custom-elements.json": "/components/thin-hook/demo/node_modules/@spectrum-web-components/iconset/custom-elements.json",
+      "@spectrum-web-components/button/custom-elements.json": "/components/thin-hook/demo/node_modules/@spectrum-web-components/button/custom-elements.json",
+      "@spectrum-web-components/shared/custom-elements.json": "/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/custom-elements.json",
+      "@spectrum-web-components/button/sp-action-button.js": "/components/thin-hook/demo/node_modules/@spectrum-web-components/button/sp-action-button.js",
+      "@spectrum-web-components/button/sp-clear-button.js": "/components/thin-hook/demo/node_modules/@spectrum-web-components/button/sp-clear-button.js",
+      "@spectrum-web-components/icon/custom-elements.json": "/components/thin-hook/demo/node_modules/@spectrum-web-components/icon/custom-elements.json",
+      "@spectrum-web-components/button/sp-action-button": "/components/thin-hook/demo/node_modules/@spectrum-web-components/button/sp-action-button.js",
+      "@spectrum-web-components/button/sp-clear-button": "/components/thin-hook/demo/node_modules/@spectrum-web-components/button/sp-clear-button.js",
+      "@spectrum-web-components/icons-ui/package.json": "/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/package.json",
+      "@spectrum-web-components/iconset/package.json": "/components/thin-hook/demo/node_modules/@spectrum-web-components/iconset/package.json",
+      "@spectrum-web-components/button/package.json": "/components/thin-hook/demo/node_modules/@spectrum-web-components/button/package.json",
+      "@spectrum-web-components/button/sp-button.js": "/components/thin-hook/demo/node_modules/@spectrum-web-components/button/sp-button.js",
+      "@spectrum-web-components/shared/package.json": "/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/package.json",
+      "@spectrum-web-components/icon/package.json": "/components/thin-hook/demo/node_modules/@spectrum-web-components/icon/package.json",
+      "@spectrum-web-components/button/sp-button": "/components/thin-hook/demo/node_modules/@spectrum-web-components/button/sp-button.js",
+      "@spectrum-web-components/icon/sp-icon.js": "/components/thin-hook/demo/node_modules/@spectrum-web-components/icon/sp-icon.js",
+      "@spectrum-web-components/icons-ui/lib/": "/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/",
+      "@spectrum-web-components/icon/sp-icon": "/components/thin-hook/demo/node_modules/@spectrum-web-components/icon/sp-icon.js",
+      "@spectrum-web-components/iconset/src/": "/components/thin-hook/demo/node_modules/@spectrum-web-components/iconset/src/",
+      "@spectrum-web-components/button/src/": "/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/",
+      "@spectrum-web-components/shared/src/": "/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/",
+      "@spectrum-web-components/icon/src/": "/components/thin-hook/demo/node_modules/@spectrum-web-components/icon/src/",
+      "@spectrum-web-components/icons-ui": "/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/index.js",
+      "@spectrum-web-components/iconset": "/components/thin-hook/demo/node_modules/@spectrum-web-components/iconset/src/index.js",
+      "@spectrum-web-components/button": "/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/index.js",
+      "@spectrum-web-components/shared": "/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/index.js",
+      "@spectrum-web-components/icon": "/components/thin-hook/demo/node_modules/@spectrum-web-components/icon/src/index.js",
       "thin-hook-demo/": "/components/thin-hook/demo/",
       "thin-hook-demo": "/components/thin-hook/demo/index",
+      "focus-visible": "/components/thin-hook/demo/node_modules/focus-visible/dist/focus-visible.js",
       "lit-element": "/components/thin-hook/demo/node_modules/lit-element/lit-element.js",
       "lit-html": "/components/thin-hook/demo/node_modules/lit-html/lit-html.js",
+      "tslib": "/components/thin-hook/demo/node_modules/tslib/tslib.es6.js",
       "module-name": "/components/thin-hook/demo/modules/module-name/index.js",
       "module-name/": "/components/thin-hook/demo/modules/module-name/",
       "module-name2": "/components/thin-hook/demo/modules/module-name2/index.js",
       "foo": "/components/thin-hook/demo/bar.js",
       "module-on-cdn": "https://cdn.domain.com/path/cdn-module/index.js",
+      "@spectrum-web-components/icons-ui/": "/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/",
+      "@spectrum-web-components/iconset/": "/components/thin-hook/demo/node_modules/@spectrum-web-components/iconset/",
+      "@spectrum-web-components/button/": "/components/thin-hook/demo/node_modules/@spectrum-web-components/button/",
+      "@spectrum-web-components/shared/": "/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/",
+      "@spectrum-web-components/icon/": "/components/thin-hook/demo/node_modules/@spectrum-web-components/icon/",
+      "focus-visible/": "/components/thin-hook/demo/node_modules/focus-visible/",
       "lit-element/": "/components/thin-hook/demo/node_modules/lit-element/",
-      "lit-html/": "/components/thin-hook/demo/node_modules/lit-html/"
+      "lit-html/": "/components/thin-hook/demo/node_modules/lit-html/",
+      "tslib/": "/components/thin-hook/demo/node_modules/tslib/"
     },
     "scopes": {
+      "/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/": {
+        "@spectrum-web-components/icons-ui/": "/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/"
+      },
+      "/components/thin-hook/demo/node_modules/@spectrum-web-components/iconset/": {
+        "@spectrum-web-components/iconset/": "/components/thin-hook/demo/node_modules/@spectrum-web-components/iconset/"
+      },
+      "/components/thin-hook/demo/node_modules/@spectrum-web-components/button/": {
+        "@spectrum-web-components/button/": "/components/thin-hook/demo/node_modules/@spectrum-web-components/button/"
+      },
+      "/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/": {
+        "@spectrum-web-components/shared/": "/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/"
+      },
+      "/components/thin-hook/demo/node_modules/@spectrum-web-components/icon/": {
+        "@spectrum-web-components/icon/": "/components/thin-hook/demo/node_modules/@spectrum-web-components/icon/"
+      },
+      "/components/thin-hook/demo/node_modules/focus-visible/": {
+        "focus-visible/": "/components/thin-hook/demo/node_modules/focus-visible/"
+      },
       "/components/thin-hook/demo/node_modules/lit-element/": {
         "lit-element/": "/components/thin-hook/demo/node_modules/lit-element/"
       },
       "/components/thin-hook/demo/node_modules/lit-html/": {
         "lit-html/": "/components/thin-hook/demo/node_modules/lit-html/"
+      },
+      "/components/thin-hook/demo/node_modules/tslib/": {
+        "tslib/": "/components/thin-hook/demo/node_modules/tslib/"
       }
     }
   }`;
