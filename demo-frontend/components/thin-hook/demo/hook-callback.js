@@ -1040,6 +1040,7 @@ else {
     "focus-visible,*": "@focus-visible",
     "@spectrum-web-components/shared/*": "@spectrum-web-components/shared",
     "@spectrum-web-components/button/*": "@spectrum-web-components/button",
+    "@spectrum-web-components/theme/*": "@spectrum-web-components/theme",
     "tslib": "@tslib",
     "tslib,*": "@tslib",
     "./modules/module1.js": "@module1",
@@ -3991,6 +3992,7 @@ else {
         "@lit-html": 'r--',
         "@module1": 'r--',
         "@spectrum-web-components/button": 'r--',
+        "@spectrum-web-components/theme": 'r--',
       },
       [S_DEFAULT]: '---',
       define: {
@@ -3999,6 +4001,7 @@ else {
         '@customElements_reader': 'rwx',
         '@module1': 'r-x', // TODO: integrate with customElementsDefineAcl()
         "@spectrum-web-components/button": 'r-x',
+        "@spectrum-web-components/theme": 'r-x',
         '@Polymer_lib': function customElementsDefineAcl(normalizedThisArg,
                                                          normalizedArgs /* ['property', args], ['property', value], etc. */,
                                                          aclArgs /* [name, isStatic, isObject, property, opType, context] */,
@@ -5281,6 +5284,54 @@ else {
       Focusable: {
         [S_DEFAULT]: 'r-xRW',
         "@lit-element": 'rwxRW',
+      },
+    },
+    "@spectrum-web-components/theme/src/Theme.js": {
+      [S_TYPE]: S_NAMESPACE,
+      [S_OBJECT]: {
+        [S_DEFAULT]: 'r--RW',
+      },
+      [S_DEFAULT]: 'rwxRW', // TODO: too loose
+      Theme: {
+        [S_DEFAULT]: 'r-xRW',
+        "@spectrum-web-components/theme": 'rwxRW',
+        '@Object_assign_reader': 'rwx',
+      },
+    },
+    "@spectrum-web-components/theme/src/theme.css.js": {
+      [S_TYPE]: S_NAMESPACE,
+      [S_OBJECT]: {
+        [S_DEFAULT]: 'r--RW',
+      },
+      [S_DEFAULT]: 'rwxRW', // TODO: too loose
+      default: {
+        [S_DEFAULT]: 'r-xRW',
+        "@lit-element": 'rwxRW',
+        "@spectrum-web-components/theme": 'rwxRW',
+      },
+    },
+    "@spectrum-web-components/theme/src/theme-light.css.js": {
+      [S_TYPE]: S_NAMESPACE,
+      [S_OBJECT]: {
+        [S_DEFAULT]: 'r--RW',
+      },
+      [S_DEFAULT]: 'rwxRW', // TODO: too loose
+      default: {
+        [S_DEFAULT]: 'r-xRW',
+        "@lit-element": 'rwxRW',
+        "@spectrum-web-components/theme": 'rwxRW',
+      },
+    },
+    "@spectrum-web-components/theme/src/scale-medium.css.js": {
+      [S_TYPE]: S_NAMESPACE,
+      [S_OBJECT]: {
+        [S_DEFAULT]: 'r--RW',
+      },
+      [S_DEFAULT]: 'rwxRW', // TODO: too loose
+      default: {
+        [S_DEFAULT]: 'r-xRW',
+        "@lit-element": 'rwxRW',
+        "@spectrum-web-components/theme": 'rwxRW',
       },
     },
     "@spectrum-web-components/button/src/ButtonBase.js": {

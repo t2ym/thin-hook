@@ -115,6 +115,8 @@
           "litHtmlNamespace"
         ]
       },
+      "/components/thin-hook/demo/node_modules/@spectrum-web-components/theme/sp-theme.js": {},
+      "/components/thin-hook/demo/node_modules/@spectrum-web-components/theme/src/themes.js": {},
       "/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/index.js": {
         "Button": [
           "Button"
@@ -224,6 +226,30 @@
       "SVGTemplateResult": "/components/thin-hook/demo/node_modules/lit-html/lit-html.js,SVGTemplateResult",
       "/components/thin-hook/demo/node_modules/lit-element/lib/css-tag.js,*": "/components/thin-hook/demo/node_modules/lit-element/lib/css-tag.js",
       "LitElement": "LitElement"
+    }
+  },
+  "/components/thin-hook/demo/node_modules/lit-html/directives/repeat.js": {
+    "imports": {
+      "/components/thin-hook/demo/node_modules/lit-html/lit-html.js": {
+        "createMarker": [
+          "createMarker"
+        ],
+        "directive": [
+          "directive"
+        ],
+        "NodePart": [
+          "NodePart"
+        ],
+        "removeNodes": [
+          "removeNodes"
+        ],
+        "reparentNodes": [
+          "reparentNodes"
+        ]
+      }
+    },
+    "exports": {
+      "repeat": "repeat"
     }
   },
   "/components/thin-hook/demo/node_modules/lit-html/lit-html.js": {
@@ -365,37 +391,24 @@
       "svg": "svg"
     }
   },
-  "/components/thin-hook/demo/node_modules/lit-html/directives/repeat.js": {
+  "/components/thin-hook/demo/node_modules/@spectrum-web-components/theme/sp-theme.js": {
     "imports": {
-      "/components/thin-hook/demo/node_modules/lit-html/lit-html.js": {
-        "createMarker": [
-          "createMarker"
-        ],
-        "directive": [
-          "directive"
-        ],
-        "NodePart": [
-          "NodePart"
-        ],
-        "removeNodes": [
-          "removeNodes"
-        ],
-        "reparentNodes": [
-          "reparentNodes"
+      "/components/thin-hook/demo/node_modules/@spectrum-web-components/theme/src/Theme.js": {
+        "Theme": [
+          "Theme"
         ]
       }
     },
-    "exports": {
-      "repeat": "repeat"
-    }
+    "exports": {}
   },
-  "/components/thin-hook/demo/node_modules/@spectrum-web-components/button/sp-button.js": {
+  "/components/thin-hook/demo/node_modules/@spectrum-web-components/theme/src/themes.js": {
     "imports": {
-      "/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/Button.js": {
-        "Button": [
-          "Button"
-        ]
-      }
+      "/components/thin-hook/demo/node_modules/@spectrum-web-components/theme/theme-light.js": {},
+      "/components/thin-hook/demo/node_modules/@spectrum-web-components/theme/theme-lightest.js": {},
+      "/components/thin-hook/demo/node_modules/@spectrum-web-components/theme/theme-dark.js": {},
+      "/components/thin-hook/demo/node_modules/@spectrum-web-components/theme/theme-darkest.js": {},
+      "/components/thin-hook/demo/node_modules/@spectrum-web-components/theme/scale-medium.js": {},
+      "/components/thin-hook/demo/node_modules/@spectrum-web-components/theme/scale-large.js": {}
     },
     "exports": {}
   },
@@ -422,6 +435,16 @@
       "/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/ActionButton.js,*": "/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/ActionButton.js",
       "/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/ClearButton.js,*": "/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/ClearButton.js"
     }
+  },
+  "/components/thin-hook/demo/node_modules/@spectrum-web-components/button/sp-button.js": {
+    "imports": {
+      "/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/Button.js": {
+        "Button": [
+          "Button"
+        ]
+      }
+    },
+    "exports": {}
   },
   "/components/thin-hook/demo/modules/module2.js": {
     "imports": {},
@@ -506,14 +529,6 @@
       "render": "render"
     }
   },
-  "/components/thin-hook/demo/node_modules/lit-element/lib/updating-element.js": {
-    "imports": {},
-    "exports": {
-      "defaultConverter": "defaultConverter",
-      "notEqual": "notEqual",
-      "UpdatingElement": "UpdatingElement"
-    }
-  },
   "/components/thin-hook/demo/node_modules/lit-element/lib/decorators.js": {
     "imports": {},
     "exports": {
@@ -525,6 +540,14 @@
       "queryAll": "queryAll",
       "eventOptions": "eventOptions",
       "queryAssignedNodes": "queryAssignedNodes"
+    }
+  },
+  "/components/thin-hook/demo/node_modules/lit-element/lib/updating-element.js": {
+    "imports": {},
+    "exports": {
+      "defaultConverter": "defaultConverter",
+      "notEqual": "notEqual",
+      "UpdatingElement": "UpdatingElement"
     }
   },
   "/components/thin-hook/demo/node_modules/lit-element/lib/css-tag.js": {
@@ -561,21 +584,6 @@
       "defaultTemplateProcessor": "defaultTemplateProcessor"
     }
   },
-  "/components/thin-hook/demo/node_modules/lit-html/lib/dom.js": {
-    "imports": {},
-    "exports": {
-      "isCEPolyfill": "isCEPolyfill",
-      "reparentNodes": "reparentNodes",
-      "removeNodes": "removeNodes"
-    }
-  },
-  "/components/thin-hook/demo/node_modules/lit-html/lib/directive.js": {
-    "imports": {},
-    "exports": {
-      "directive": "directive",
-      "isDirective": "isDirective"
-    }
-  },
   "/components/thin-hook/demo/node_modules/lit-html/lib/template-result.js": {
     "imports": {
       "/components/thin-hook/demo/node_modules/lit-html/lib/dom.js": {
@@ -603,34 +611,26 @@
       "SVGTemplateResult": "SVGTemplateResult"
     }
   },
+  "/components/thin-hook/demo/node_modules/lit-html/lib/directive.js": {
+    "imports": {},
+    "exports": {
+      "directive": "directive",
+      "isDirective": "isDirective"
+    }
+  },
+  "/components/thin-hook/demo/node_modules/lit-html/lib/dom.js": {
+    "imports": {},
+    "exports": {
+      "isCEPolyfill": "isCEPolyfill",
+      "reparentNodes": "reparentNodes",
+      "removeNodes": "removeNodes"
+    }
+  },
   "/components/thin-hook/demo/node_modules/lit-html/lib/part.js": {
     "imports": {},
     "exports": {
       "noChange": "noChange",
       "nothing": "nothing"
-    }
-  },
-  "/components/thin-hook/demo/node_modules/lit-html/lib/render.js": {
-    "imports": {
-      "/components/thin-hook/demo/node_modules/lit-html/lib/dom.js": {
-        "removeNodes": [
-          "removeNodes"
-        ]
-      },
-      "/components/thin-hook/demo/node_modules/lit-html/lib/parts.js": {
-        "NodePart": [
-          "NodePart"
-        ]
-      },
-      "/components/thin-hook/demo/node_modules/lit-html/lib/template-factory.js": {
-        "templateFactory": [
-          "templateFactory"
-        ]
-      }
-    },
-    "exports": {
-      "parts": "parts",
-      "render": "render"
     }
   },
   "/components/thin-hook/demo/node_modules/lit-html/lib/parts.js": {
@@ -681,20 +681,27 @@
       "EventPart": "EventPart"
     }
   },
-  "/components/thin-hook/demo/node_modules/lit-html/lib/template-factory.js": {
+  "/components/thin-hook/demo/node_modules/lit-html/lib/render.js": {
     "imports": {
-      "/components/thin-hook/demo/node_modules/lit-html/lib/template.js": {
-        "marker": [
-          "marker"
-        ],
-        "Template": [
-          "Template"
+      "/components/thin-hook/demo/node_modules/lit-html/lib/dom.js": {
+        "removeNodes": [
+          "removeNodes"
+        ]
+      },
+      "/components/thin-hook/demo/node_modules/lit-html/lib/parts.js": {
+        "NodePart": [
+          "NodePart"
+        ]
+      },
+      "/components/thin-hook/demo/node_modules/lit-html/lib/template-factory.js": {
+        "templateFactory": [
+          "templateFactory"
         ]
       }
     },
     "exports": {
-      "templateFactory": "templateFactory",
-      "templateCaches": "templateCaches"
+      "parts": "parts",
+      "render": "render"
     }
   },
   "/components/thin-hook/demo/node_modules/lit-html/lib/template-instance.js": {
@@ -714,6 +721,22 @@
       "TemplateInstance": "TemplateInstance"
     }
   },
+  "/components/thin-hook/demo/node_modules/lit-html/lib/template-factory.js": {
+    "imports": {
+      "/components/thin-hook/demo/node_modules/lit-html/lib/template.js": {
+        "marker": [
+          "marker"
+        ],
+        "Template": [
+          "Template"
+        ]
+      }
+    },
+    "exports": {
+      "templateFactory": "templateFactory",
+      "templateCaches": "templateCaches"
+    }
+  },
   "/components/thin-hook/demo/node_modules/lit-html/lib/template.js": {
     "imports": {},
     "exports": {
@@ -726,6 +749,113 @@
       "createMarker": "createMarker",
       "lastAttributeNameRegex": "lastAttributeNameRegex"
     }
+  },
+  "/components/thin-hook/demo/node_modules/@spectrum-web-components/theme/src/Theme.js": {
+    "imports": {
+      "/components/thin-hook/demo/node_modules/lit-element/lit-element.js": {
+        "supportsAdoptingStyleSheets": [
+          "supportsAdoptingStyleSheets"
+        ]
+      },
+      "/components/thin-hook/demo/node_modules/@spectrum-web-components/theme/src/theme.css.js": {
+        "default": [
+          "coreStyles"
+        ]
+      }
+    },
+    "exports": {
+      "Theme": "Theme"
+    }
+  },
+  "/components/thin-hook/demo/node_modules/@spectrum-web-components/theme/theme-light.js": {
+    "imports": {
+      "/components/thin-hook/demo/node_modules/@spectrum-web-components/theme/src/theme-light.css.js": {
+        "default": [
+          "lightStyles"
+        ]
+      },
+      "/components/thin-hook/demo/node_modules/@spectrum-web-components/theme/src/Theme.js": {
+        "Theme": [
+          "Theme"
+        ]
+      }
+    },
+    "exports": {}
+  },
+  "/components/thin-hook/demo/node_modules/@spectrum-web-components/theme/theme-lightest.js": {
+    "imports": {
+      "/components/thin-hook/demo/node_modules/@spectrum-web-components/theme/src/theme-lightest.css.js": {
+        "default": [
+          "lightestStyles"
+        ]
+      },
+      "/components/thin-hook/demo/node_modules/@spectrum-web-components/theme/src/Theme.js": {
+        "Theme": [
+          "Theme"
+        ]
+      }
+    },
+    "exports": {}
+  },
+  "/components/thin-hook/demo/node_modules/@spectrum-web-components/theme/theme-dark.js": {
+    "imports": {
+      "/components/thin-hook/demo/node_modules/@spectrum-web-components/theme/src/theme-dark.css.js": {
+        "default": [
+          "darkStyles"
+        ]
+      },
+      "/components/thin-hook/demo/node_modules/@spectrum-web-components/theme/src/Theme.js": {
+        "Theme": [
+          "Theme"
+        ]
+      }
+    },
+    "exports": {}
+  },
+  "/components/thin-hook/demo/node_modules/@spectrum-web-components/theme/theme-darkest.js": {
+    "imports": {
+      "/components/thin-hook/demo/node_modules/@spectrum-web-components/theme/src/theme-darkest.css.js": {
+        "default": [
+          "darkStyles"
+        ]
+      },
+      "/components/thin-hook/demo/node_modules/@spectrum-web-components/theme/src/Theme.js": {
+        "Theme": [
+          "Theme"
+        ]
+      }
+    },
+    "exports": {}
+  },
+  "/components/thin-hook/demo/node_modules/@spectrum-web-components/theme/scale-medium.js": {
+    "imports": {
+      "/components/thin-hook/demo/node_modules/@spectrum-web-components/theme/src/scale-medium.css.js": {
+        "default": [
+          "mediumStyles"
+        ]
+      },
+      "/components/thin-hook/demo/node_modules/@spectrum-web-components/theme/src/Theme.js": {
+        "Theme": [
+          "Theme"
+        ]
+      }
+    },
+    "exports": {}
+  },
+  "/components/thin-hook/demo/node_modules/@spectrum-web-components/theme/scale-large.js": {
+    "imports": {
+      "/components/thin-hook/demo/node_modules/@spectrum-web-components/theme/src/scale-large.css.js": {
+        "default": [
+          "largeStyles"
+        ]
+      },
+      "/components/thin-hook/demo/node_modules/@spectrum-web-components/theme/src/Theme.js": {
+        "Theme": [
+          "Theme"
+        ]
+      }
+    },
+    "exports": {}
   },
   "/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/Button.js": {
     "imports": {
@@ -821,6 +951,18 @@
       "ClearButton": "ClearButton"
     }
   },
+  "/components/thin-hook/demo/node_modules/@spectrum-web-components/theme/src/theme.css.js": {
+    "imports": {
+      "/components/thin-hook/demo/node_modules/lit-element/lit-element.js": {
+        "css": [
+          "css"
+        ]
+      }
+    },
+    "exports": {
+      "default": true
+    }
+  },
   "/components/thin-hook/demo/node_modules/lit-html/lib/modify-template.js": {
     "imports": {
       "/components/thin-hook/demo/node_modules/lit-html/lib/template.js": {
@@ -832,6 +974,78 @@
     "exports": {
       "removeNodesFromTemplate": "removeNodesFromTemplate",
       "insertNodeIntoTemplate": "insertNodeIntoTemplate"
+    }
+  },
+  "/components/thin-hook/demo/node_modules/@spectrum-web-components/theme/src/theme-light.css.js": {
+    "imports": {
+      "/components/thin-hook/demo/node_modules/lit-element/lit-element.js": {
+        "css": [
+          "css"
+        ]
+      }
+    },
+    "exports": {
+      "default": true
+    }
+  },
+  "/components/thin-hook/demo/node_modules/@spectrum-web-components/theme/src/theme-lightest.css.js": {
+    "imports": {
+      "/components/thin-hook/demo/node_modules/lit-element/lit-element.js": {
+        "css": [
+          "css"
+        ]
+      }
+    },
+    "exports": {
+      "default": true
+    }
+  },
+  "/components/thin-hook/demo/node_modules/@spectrum-web-components/theme/src/theme-dark.css.js": {
+    "imports": {
+      "/components/thin-hook/demo/node_modules/lit-element/lit-element.js": {
+        "css": [
+          "css"
+        ]
+      }
+    },
+    "exports": {
+      "default": true
+    }
+  },
+  "/components/thin-hook/demo/node_modules/@spectrum-web-components/theme/src/theme-darkest.css.js": {
+    "imports": {
+      "/components/thin-hook/demo/node_modules/lit-element/lit-element.js": {
+        "css": [
+          "css"
+        ]
+      }
+    },
+    "exports": {
+      "default": true
+    }
+  },
+  "/components/thin-hook/demo/node_modules/@spectrum-web-components/theme/src/scale-medium.css.js": {
+    "imports": {
+      "/components/thin-hook/demo/node_modules/lit-element/lit-element.js": {
+        "css": [
+          "css"
+        ]
+      }
+    },
+    "exports": {
+      "default": true
+    }
+  },
+  "/components/thin-hook/demo/node_modules/@spectrum-web-components/theme/src/scale-large.css.js": {
+    "imports": {
+      "/components/thin-hook/demo/node_modules/lit-element/lit-element.js": {
+        "css": [
+          "css"
+        ]
+      }
+    },
+    "exports": {
+      "default": true
     }
   },
   "/components/thin-hook/demo/node_modules/tslib/tslib.es6.js": {
@@ -860,18 +1074,6 @@
       "__importDefault": "__importDefault",
       "__classPrivateFieldGet": "__classPrivateFieldGet",
       "__classPrivateFieldSet": "__classPrivateFieldSet"
-    }
-  },
-  "/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/action-button.css.js": {
-    "imports": {
-      "/components/thin-hook/demo/node_modules/lit-element/lit-element.js": {
-        "css": [
-          "css"
-        ]
-      }
-    },
-    "exports": {
-      "default": true
     }
   },
   "/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/ButtonBase.js": {
@@ -931,6 +1133,18 @@
       "default": true
     }
   },
+  "/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/action-button.css.js": {
+    "imports": {
+      "/components/thin-hook/demo/node_modules/lit-element/lit-element.js": {
+        "css": [
+          "css"
+        ]
+      }
+    },
+    "exports": {
+      "default": true
+    }
+  },
   "/components/thin-hook/demo/node_modules/@spectrum-web-components/button/src/clear-button.css.js": {
     "imports": {
       "/components/thin-hook/demo/node_modules/lit-element/lit-element.js": {
@@ -978,6 +1192,31 @@
       "default": true
     }
   },
+  "/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/like-anchor.js": {
+    "imports": {
+      "/components/thin-hook/demo/node_modules/tslib/tslib.es6.js": {
+        "__decorate": [
+          "__decorate"
+        ]
+      },
+      "/components/thin-hook/demo/node_modules/lit-element/lit-element.js": {
+        "property": [
+          "property"
+        ],
+        "html": [
+          "html"
+        ]
+      },
+      "/components/thin-hook/demo/node_modules/lit-html/directives/if-defined.js": {
+        "ifDefined": [
+          "ifDefined"
+        ]
+      }
+    },
+    "exports": {
+      "LikeAnchor": "LikeAnchor"
+    }
+  },
   "/components/thin-hook/demo/node_modules/lit-html/directives/if-defined.js": {
     "imports": {
       "/components/thin-hook/demo/node_modules/lit-html/lit-html.js": {
@@ -1021,31 +1260,6 @@
     },
     "exports": {
       "Focusable": "Focusable"
-    }
-  },
-  "/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/like-anchor.js": {
-    "imports": {
-      "/components/thin-hook/demo/node_modules/tslib/tslib.es6.js": {
-        "__decorate": [
-          "__decorate"
-        ]
-      },
-      "/components/thin-hook/demo/node_modules/lit-element/lit-element.js": {
-        "property": [
-          "property"
-        ],
-        "html": [
-          "html"
-        ]
-      },
-      "/components/thin-hook/demo/node_modules/lit-html/directives/if-defined.js": {
-        "ifDefined": [
-          "ifDefined"
-        ]
-      }
-    },
-    "exports": {
-      "LikeAnchor": "LikeAnchor"
     }
   },
   "/components/thin-hook/demo/node_modules/@spectrum-web-components/shared/src/observe-slot-text.js": {
@@ -1376,22 +1590,6 @@
       "ArrowDownSmallIcon": "ArrowDownSmallIcon"
     }
   },
-  "/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ArrowUpSmall.js": {
-    "imports": {
-      "/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js": {
-        "tag": [
-          "html"
-        ],
-        "setCustomTemplateLiteralTag": [
-          true
-        ]
-      }
-    },
-    "exports": {
-      "setCustomTemplateLiteralTag": "/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js,setCustomTemplateLiteralTag",
-      "ArrowUpSmallIcon": "ArrowUpSmallIcon"
-    }
-  },
   "/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ArrowLeftMedium.js": {
     "imports": {
       "/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js": {
@@ -1406,6 +1604,22 @@
     "exports": {
       "setCustomTemplateLiteralTag": "/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js,setCustomTemplateLiteralTag",
       "ArrowLeftMediumIcon": "ArrowLeftMediumIcon"
+    }
+  },
+  "/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ArrowUpSmall.js": {
+    "imports": {
+      "/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js": {
+        "tag": [
+          "html"
+        ],
+        "setCustomTemplateLiteralTag": [
+          true
+        ]
+      }
+    },
+    "exports": {
+      "setCustomTemplateLiteralTag": "/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js,setCustomTemplateLiteralTag",
+      "ArrowUpSmallIcon": "ArrowUpSmallIcon"
     }
   },
   "/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/Asterisk.js": {
@@ -1424,22 +1638,6 @@
       "AsteriskIcon": "AsteriskIcon"
     }
   },
-  "/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/CheckmarkMedium.js": {
-    "imports": {
-      "/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js": {
-        "tag": [
-          "html"
-        ],
-        "setCustomTemplateLiteralTag": [
-          true
-        ]
-      }
-    },
-    "exports": {
-      "setCustomTemplateLiteralTag": "/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js,setCustomTemplateLiteralTag",
-      "CheckmarkMediumIcon": "CheckmarkMediumIcon"
-    }
-  },
   "/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/CheckmarkSmall.js": {
     "imports": {
       "/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js": {
@@ -1454,6 +1652,22 @@
     "exports": {
       "setCustomTemplateLiteralTag": "/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js,setCustomTemplateLiteralTag",
       "CheckmarkSmallIcon": "CheckmarkSmallIcon"
+    }
+  },
+  "/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/CheckmarkMedium.js": {
+    "imports": {
+      "/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js": {
+        "tag": [
+          "html"
+        ],
+        "setCustomTemplateLiteralTag": [
+          true
+        ]
+      }
+    },
+    "exports": {
+      "setCustomTemplateLiteralTag": "/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/custom-tag.js,setCustomTemplateLiteralTag",
+      "CheckmarkMediumIcon": "CheckmarkMediumIcon"
     }
   },
   "/components/thin-hook/demo/node_modules/@spectrum-web-components/icons-ui/lib/icons/ChevronDownMedium.js": {

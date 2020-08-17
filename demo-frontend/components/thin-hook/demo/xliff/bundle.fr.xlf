@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file xml:space="default" source-language="en" target-language="fr" datatype="plaintext" original="messages" date="2020-08-17T11:49:21Z" product-name="messages">
+  <file xml:space="default" source-language="en" target-language="fr" datatype="plaintext" original="messages" date="2020-08-17T14:51:45Z" product-name="messages">
     <header>
       <tool tool-id="xliff-conv" tool-name="xliff-conv" tool-version="1.0.10"/>
     </header>
@@ -42,7 +42,7 @@
         <source>Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Cu mei vide viris gloriatur, at populo eripuit sit.</source>
         <target state="new">fr Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Cu mei vide viris gloriatur, at populo eripuit sit.</target>
       </trans-unit>
-      <trans-unit id="my-view1.div_1:sp-button_6:span">
+      <trans-unit id="my-view1.div_1:sp-theme_6:sp-button:span">
         <source>sp-button</source>
         <target state="new">sp-button</target>
       </trans-unit>

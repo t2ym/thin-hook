@@ -96,7 +96,7 @@
         },
         {
           "op": "add",
-          "path": "/div_1:sp-button_6:span",
+          "path": "/div_1:sp-theme_6:sp-button:span",
           "value": "sp-button"
         },
         {
@@ -111,7 +111,7 @@
     "div_1:h1_1": "zh-Hans View One",
     "div_1:p_2": "Ut labores minimum atomorum pro. Laudem tibique ut has.",
     "div_1:p_3": "zh-Hans Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Cu mei vide viris gloriatur, at populo eripuit sit.",
-    "div_1:sp-button_6:span": "sp-button",
+    "div_1:sp-theme_6:sp-button:span": "sp-button",
     "post-button": "POST",
     "chartData": {
       "titleLabel": "zh-Hans # of Votes",

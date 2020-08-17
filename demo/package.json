@@ -8,6 +8,7 @@
     "@spectrum-web-components/icons-ui": "^0.2.1",
     "@spectrum-web-components/iconset": "^0.2.0",
     "@spectrum-web-components/shared": "^0.6.0",
+    "@spectrum-web-components/theme": "^0.5.2",
     "focus-visible": "^5.1.0",
     "lit-element": "^2.3.1",
     "lit-html": "^1.2.1",
