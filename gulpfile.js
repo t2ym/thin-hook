@@ -1240,6 +1240,7 @@ gulp.task('rollup-es-modules', async () => {
     [ './demo/es6-module3.js', './demo/rollup-es6-module.js' ],
     [ './demo/modules/module1.js', './demo/rollup-module1.js' ],
   ];
+  hook.parameters.moduleDependencies = Object.create(null);
   for (let [input, output] of targets) {
     const bundle = await rollup.rollup({
       input: input,
@@ -1254,6 +1255,13 @@ gulp.task('rollup-es-modules', async () => {
       format: 'esm',
     });
   }
+  const moduleDependenciesFileName = 'moduleDependencies.json';
+  fs.writeFileSync(
+    path.resolve(__dirname, demoProjectDirectoryRelativePathFromCurrentDir, moduleDependenciesFileName),
+    JSON.stringify(hook.parameters.moduleDependencies, null, 2),
+    'utf8'
+  );
+  hook.parameters.moduleDependencies = null;
 });
 
 // Hook CommonJs modules in browserify
