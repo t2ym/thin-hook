@@ -1256,6 +1256,14 @@ gulp.task('rollup-es-modules', async () => {
     });
   }
   const moduleDependenciesFileName = 'moduleDependencies.json';
+
+  // sort names in moduleDependencies
+  const moduleDependencies = hook.parameters.moduleDependencies; // store the original
+  hook.parameters.moduleDependencies = Object.create(null);
+  for (let name of Object.getOwnPropertyNames(moduleDependencies).sort()) {
+    hook.parameters.moduleDependencies[name] = moduleDependencies[name];    
+  }
+
   fs.writeFileSync(
     path.resolve(__dirname, demoProjectDirectoryRelativePathFromCurrentDir, moduleDependenciesFileName),
     JSON.stringify(hook.parameters.moduleDependencies, null, 2),
