@@ -5568,7 +5568,6 @@ else {
     },
     // default for global objects
     [S_GLOBAL]: {
-      [S_OBJECT]: 'r-x',
       [S_DEFAULT]: Policy.globalAcl(),
       [S_ALL]: 'r--',
       $__proto__$: 'r--',
@@ -6174,7 +6173,7 @@ else {
                       : modulePolicy[S_DEFAULT]
                   : modulePolicy[S_DEFAULT]
                 : modulePolicy[S_DEFAULT]
-              : acl[S_DEFAULT]
+              : globalPolicy
       : acl[S_DEFAULT];
     if (typeof _acl === 'object') {
       if (typeof property === 'undefined') {
