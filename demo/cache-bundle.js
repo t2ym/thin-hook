@@ -54,8 +54,15 @@ else if (enableCacheBundle) {
     let cacheStatus;
     try {
       let cacheStatusResponse = await cache.match(CACHE_STATUS_PSEUDO_URL);
-      if (cacheStatusResponse) {
+      if (cacheStatusResponse && cacheStatusResponse.headers.get('User-Agent') === navigator.userAgent) {
         cacheStatus = JSON.parse(await cacheStatusResponse.text());
+      }
+      else {
+        let promises = []
+        for (let request of await cache.keys()) {
+          promises.push(cache.delete(request));
+        }
+        await Promise.all(promises);
       }
     }
     catch (e) {
@@ -405,14 +412,18 @@ else if (enableCacheBundle) {
     try {
       let cache = await caches.open(version);
       let cacheStatusResponse = await cache.match(CACHE_STATUS_PSEUDO_URL);
-      if (cacheStatusResponse) {
+      if (cacheStatusResponse && cacheStatusResponse.headers.get('User-Agent') === navigator.userAgent) {
         cacheStatus = JSON.parse(await cacheStatusResponse.text());
+      }
+      else {
+        await caches.delete(version);
+        cache = await caches.open(version);
       }
       switch (cacheStatus.status) {
       default:
       case 'load': // transition to loading state
         cacheStatus.status = 'loading';
-        await cache.put(new Request(CACHE_STATUS_PSEUDO_URL), new Response(JSON.stringify(cacheStatus), { headers: { 'Content-Type': 'application/json' }}));
+        await cache.put(new Request(CACHE_STATUS_PSEUDO_URL), new Response(JSON.stringify(cacheStatus), { headers: { 'Content-Type': 'application/json', 'User-Agent': navigator.userAgent }}));
         break;
       case 'loading': // cache-bundle.json -> Cache
         if (await loadCache(cache, version, initialStatus)) {
@@ -421,7 +432,7 @@ else if (enableCacheBundle) {
         else {
           cacheStatus.status = 'error';
         }
-        await cache.put(new Request(CACHE_STATUS_PSEUDO_URL), new Response(JSON.stringify(cacheStatus), { headers: { 'Content-Type': 'application/json' }}));
+        await cache.put(new Request(CACHE_STATUS_PSEUDO_URL), new Response(JSON.stringify(cacheStatus), { headers: { 'Content-Type': 'application/json', 'User-Agent': navigator.userAgent }}));
         break;
       case 'loaded': // loadCache() done; additional hook.min.js -> Cache if necessary
         break;
@@ -438,7 +449,7 @@ else if (enableCacheBundle) {
         await saveCache(cache, version);
         // transition to 'loaded' status
         cacheStatus.status = 'loaded';
-        await cache.put(new Request(CACHE_STATUS_PSEUDO_URL), new Response(JSON.stringify(cacheStatus), { headers: { 'Content-Type': 'application/json' }}));
+        await cache.put(new Request(CACHE_STATUS_PSEUDO_URL), new Response(JSON.stringify(cacheStatus), { headers: { 'Content-Type': 'application/json', 'User-Agent': navigator.userAgent }}));
         break;
       }
       if (typeof hook.parameters.cacheBundleResolve === 'function' && cacheStatus.status === 'loaded') {
@@ -536,7 +547,7 @@ else if (enableCacheBundle) {
               }
               automationStatus.state = 'cleaned';
               console.log('cache-bundle.js: cleaned caches');
-              await (await caches.open(version)).put(new Request(AUTOMATION_PSEUDO_URL), new Response(JSON.stringify(automationStatus), { headers: { 'Content-Type': 'application/json' }}));
+              await (await caches.open(version)).put(new Request(AUTOMATION_PSEUDO_URL), new Response(JSON.stringify(automationStatus), { headers: { 'Content-Type': 'application/json', 'User-Agent': navigator.userAgent }}));
               await new Promise(resolve => setTimeout(resolve, 5000));
               location.reload();
             }
@@ -570,7 +581,7 @@ else if (enableCacheBundle) {
             //console.log('cache-bundle.js: collected raw cache bundle');
 
             automationStatus.state = 'done';
-            await (await caches.open(version)).put(new Request(AUTOMATION_PSEUDO_URL), new Response(JSON.stringify(automationStatus), { headers: { 'Content-Type': 'application/json' }}));
+            await (await caches.open(version)).put(new Request(AUTOMATION_PSEUDO_URL), new Response(JSON.stringify(automationStatus), { headers: { 'Content-Type': 'application/json', 'User-Agent': navigator.userAgent }}));
             //console.log('cache-bundle.js: done');
             return result;
           }
@@ -607,8 +618,12 @@ else if (enableCacheBundle) {
         let cache = await caches.open(version);
         let cacheStatus;
         let cacheStatusResponse = await cache.match(CACHE_STATUS_PSEUDO_URL);
-        if (cacheStatusResponse) {
+        if (cacheStatusResponse && cacheStatusResponse.headers.get('User-Agent') === navigator.userAgent) {
           cacheStatus = JSON.parse(await cacheStatusResponse.text());
+        }
+        else {
+          await caches.delete(version);
+          cache = await caches.open(version);
         }
         if (!cacheStatus || cacheStatus.status !== 'loaded') {
           inProcessing = false;
@@ -669,7 +684,7 @@ else if (enableCacheBundle) {
           }
         })
         .then(() => caches.open(version))
-        .then(cache => initialStatus === 'load' ? cache.put(new Request(CACHE_STATUS_PSEUDO_URL), new Response(JSON.stringify(cacheStatus), { headers: { 'Content-Type': 'application/json' }})) : true)
+        .then(cache => initialStatus === 'load' ? cache.put(new Request(CACHE_STATUS_PSEUDO_URL), new Response(JSON.stringify(cacheStatus), { headers: { 'Content-Type': 'application/json', 'User-Agent': navigator.userAgent }})) : true)
         .then(() => cacheBundle(version, halt, initialStatus))
         .then(() => cacheBundle(version, halt, initialStatus))
         .then(() => cacheBundle(version, halt, initialStatus)));

@@ -1090,7 +1090,12 @@
             if (!(isBodyDigestMatching && isIntegrityHeaderMatching)) {
               let url = typeof request === 'string' ? request : request.url;
               if (url !== CACHE_STATUS_PSEUDO_URL) {
-                console.error('Cache.match: integrity check failed for ' + url);
+                if (InitialSession && InitialSession.initialSaltKey) {
+                  console.error('Cache.match: integrity check failed for ' + url);
+                }
+                else {
+                  console.warn('Cache.match: salt key is not ready in integrity check for ' + url);
+                }
                 response = undefined;
               }
               else {
