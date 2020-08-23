@@ -13,14 +13,14 @@ else {
     //   hook.parameters.noHookAuthorizationFailed
     // JSONs are output to console in the learning mode
     //'*': true,
-    "0f3d54f7c1bd2f4e5435a1071c30e3c29979f3302c96e378f15a21e0319ed470": true, // hook.min.js
+    "8476e11dbcc09d2bc07d6414a01c11d16c3db2f4a5063fa4f2c0a7cb717b6c68": true, // hook.min.js
     "a81209228209941097ac41c5bda3bc1cd64375e69b7c8113aff68c2fe6729ff2": true, // demo/disable-devtools.js
     "4374ae1f28cec2b969ab488895a4266244d65e28e1f82728fd2cd39130fe0d9e": true, // demo/context-generator.js
     "6282ed809090895f8477143bc3ab8d8af4dbcd2960c724943f499c0f2913a159": true, // demo/bootstrap.js
     "972dceaac11066fccb835d68b13464878428fc0593b505780bbd28592ede25b7": true, // demo/hook-callback.js
     "0979646683bec9b9682d974d549effb61b1fc981ad87dac76d44d0440d87b396": true, // demo/hook-native-api.js
     "5b615aa885a0518466153be6ecb2cfeef1300f181ff60ca91cad964659c92052": true, // demo/hook-worker.js
-    "c59d446ea931df28736d586dc2687731dadb733c3cfd644c7df3afb36a6ae39a": true, // demo/cache-bundle.js
+    "478aa0846542d93ec7ba38ae2cf1794849220539393895c9d36aba2c8e2d8386": true, // demo/cache-bundle.js
     "13517425e13d008da30e5638a6f91b3bcb913210191ada9e5b1be85df73ebaa9": true, // demo/browserify-commonjs.js
     "e992640bf3759389183b8cb9f06e289f97d6390ebd10515eef7f670366db9291": true, // demo/webpack-es6-module.js
     "97f2022963c310fadb096c328d849fdb6658c1cd509cad030f71cb426c7841a4": true, // demo/webpack-commonjs.js
@@ -35,7 +35,7 @@ else {
     "c135fd6ba3cad41e63985ecca191995bf311abc756c5f574ef5b641e7db56914": true, // (function writeln2() { console.log("no-hook script tag via document.writeln"); })()
     "e233738578fd7e8f2e961fb11885e2c187146314a8e3fc65692633ff89c5d34a": true, // (function writeln4() { console.log("no-hook script tag in div tag via document.writeln"); })()
     "4f0395d52a8c1c7edaacacade9c31fe18555b79ce963dfb1abaaa34990993374": true, // location = "about:blank";
-    "85b4c57c761455dd44807a0c1a8eff72198992e39c5c2ccb4e3c8d382cd5eec2": true, // demo/integrity.js
+    "3f81db668e30212e8510d05f472c62198a3af0eaae76b3f15d624e3d0171f14d": true, // demo/integrity.js
     "ba07654d1c24a271ba0fa7ee5c55cd60c02133b0e53cb6bb6e634da473b1e540": true, // demo/script-hashes.js
     "0242016e2887b322ab28b887f03779c63899db232bb036d794a0278db9e54339": true, // demo/content-loader.js
     "6249373b8a4e3bb915788ea4f77e8b892f5bb77407e4fe5d981ebd118876be20": true, // demo/mark-parsed.js
