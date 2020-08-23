@@ -619,7 +619,7 @@
           // entry page
           console.log('integrity.js: omitting x-session-id for reloading the entry page ' + request.url);
         }
-        else {
+        else if (!hook.parameters.unregisteringServiceWorker) {
           throw new Error('encryptRequest: keys are missing in CurrentSession');
         }
       }
@@ -2312,6 +2312,9 @@
     if (typeof version === 'string') {
       // Invoked as a context-generator script
       const halt = async function halt() {
+        if (hook.parameters.unregisteringServiceWorker) {
+          return;
+        }
         let allWindowClients = await self.clients.matchAll({ type: 'window', includeUncontrolled: true });
         for (let client of allWindowClients) {
           client.navigate(aboutBlankRedirectorUrl);
@@ -3070,7 +3073,12 @@
       }
 
       const entryPageRefresherHtml = function entryPageRefresherHtml(request) {
-        throw new Error('decodeEntryHtml: refreshing entry page ' + request.url);
+        hook.parameters.unregisteringServiceWorker = true;
+        let error = new Error('decodeEntryHtml: refreshing entry page ' + request.url);
+        error.result = new Response(
+          `<script>location = URL.createObjectURL(new Blob(["<script>location = '${request.url}'</s" + "cript>"], { type: 'text/html' }));</script>`,
+          { headers: { 'Content-Type': 'text/html' } });
+        throw error;
       }
       hook.parameters.decodeEntryHtml = async function (event, request, response, cache, original, decoded) {
         await getIntegrityJSON(cache);
