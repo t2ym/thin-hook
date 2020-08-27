@@ -1893,10 +1893,6 @@
     return eval('2');
   }(), 2, 'local $hook$ variable does not affect hooked eval');
 
-  // global variables in hook-callback.js is in the blacklist
-  chai.assert.throws(() => { contexts; }, /^Permission Denied:/);
-  chai.assert.throws(() => { window.contexts; }, /^Permission Denied:/);
-
   // Object.getOwnPropertyDescriptor is not readable
 
   chai.assert.throws(() => {

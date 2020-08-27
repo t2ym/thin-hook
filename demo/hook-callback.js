@@ -298,7 +298,7 @@ else {
   const data2 = { nodes: [ { id: 'undefined', label: 'undefined', group: 'undefined' } ], edges: [] };
   let counter = 0;
   let log = [];
-  var contexts = {}; // still global for normalize.js, etc.; __hook__acl does not use it
+  let contexts = {};
   let globalPropertyContexts = {};
   let contextTransitions = {};
   let contextReverseTransitions = {};
@@ -343,6 +343,7 @@ else {
     }
     delete _globalPropertyDescriptors.constructor; // exclude constructor === Window
   }
+  const contextNormalizer = Object.create(null);
   const acl = Object.create(null); // declared here for early reference
   const _globalObjects = new SetMap(acl);
   const _globalMethods = new GlobalMethodsWrapper(_globalObjects);
@@ -449,13 +450,6 @@ else {
   const _functionStaticPropertyDescriptors = Object.getOwnPropertyDescriptors(Function);
   const _functionPropertyDescriptors = Object.getOwnPropertyDescriptors(Function.prototype);
   var globalObjectAccess = Object.create(null); // still global for normalize.js, etc.; __hook__acl does not use it
-  /*
-  if (!_global._globalObjects) {
-    // in a ES module for hook-native-api.js
-    _global._globalObjects = _globalObjects;
-    _global._globalMethods = _globalMethods;
-  }
-  */
   const _boundFunctions = new WeakMap();
   const _escapePlatformProperties = new Map();
   const _unescapePlatformProperties = new Map();
@@ -479,729 +473,6 @@ else {
   const S_UNSPECIFIED = Symbol('unspecified'); // no property is specified
   const S_ALL = Symbol('all properties'); // all properties are specified
   const S_TARGETED = Symbol('targeted properties'); // properties are targeted
-  const operatorNormalizer = {
-    '.': '.',
-    '[]': '.',
-    'in': '.',
-    '*': '*',
-    '()': '()',
-    'p++': '=',
-    '++p': '=',
-    'p--': '=',
-    '--p': '=',
-    'delete': 'd',
-    '=': '=',
-    '+=': '=',
-    '-=': '=',
-    '*=': '=',
-    '/=': '=',
-    '%=': '=',
-    '**=': '=',
-    '<<=': '=',
-    '>>=': '=',
-    '>>>=': '=',
-    '&=': '=',
-    '^=': '=',
-    '|=': '=',
-    '.=': '=',
-    '#.': '.',
-    '#[]': '.',
-    '#in': '.',
-    '#*': '*',
-    '#()': '()',
-    '#p++': '=',
-    '#++p': '=',
-    '#p--': '=',
-    '#--p': '=',
-    '#delete': 'd',
-    '#=': '=',
-    '#+=': '=',
-    '#-=': '=',
-    '#*=': '=',
-    '#/=': '=',
-    '#%=': '=',
-    '#**=': '=',
-    '#<<=': '=',
-    '#>>=': '=',
-    '#>>>=': '=',
-    '#&=': '=',
-    '#^=': '=',
-    '#|=': '=',
-    '#.=': '=',
-    's.': '.',
-    's[]': '.',
-    's()': '()',
-    's++': '=',
-    '++s': '=',
-    's--': '=',
-    '--s': '=',
-    's=': '=',
-    's+=': '=',
-    's-=': '=',
-    's*=': '=',
-    's/=': '=',
-    's%=': '=',
-    's**=': '=',
-    's<<=': '=',
-    's>>=': '=',
-    's>>>=': '=',
-    's&=': '=',
-    's^=': '=',
-    's|=': '=',
-    'w.': '.',
-    'w[]': '.',
-    'w()': '()',
-    'wnew': '()',
-    'w++': '=',
-    '++w': '=',
-    'w--': '=',
-    '--w': '=',
-    'wtypeof': '.',
-    'wdelete': 'd',
-    'w.=': '=',
-    'w=': '=',
-    'w+=': '=',
-    'w-=': '=',
-    'w*=': '=',
-    'w/=': '=',
-    'w%=': '=',
-    'w**=': '=',
-    'w<<=': '=',
-    'w>>=': '=',
-    'w>>>=': '=',
-    'w&=': '=',
-    'w^=': '=',
-    'w|=': '=',
-    'm': 'm',
-    'm()': 'm()',
-    'mnew': 'm()',
-    'm++': 'm=',
-    '++m': 'm=',
-    'm--': 'm=',
-    '--m': 'm=',
-    'mtypeof': 'm',
-    'm.=': 'm.=',
-    'm=': 'm=v',
-    'm+=': 'm=',
-    'm-=': 'm=',
-    'm*=': 'm=',
-    'm/=': 'm=',
-    'm%=': 'm=',
-    'm**=': 'm=',
-    'm<<=': 'm=',
-    'm>>=': 'm=',
-    'm>>>=': 'm=',
-    'm&=': 'm=',
-    'm^=': 'm=',
-    'm|=': 'm=',
-  };
-  const targetNormalizer = {
-    'f': 'xtf', // thisArg may not be this object for f
-    'n': 'xfN',
-    '.': 'rtp',
-    '*': 'rt*',
-    '=': 'wtpv',
-    'd': 'Wtp',
-    'm': 'rt-',
-    'm()': 'xt-',
-    'm=': 'wt-',
-    'm.=': 'wt-c',
-    'm=v': 'wt-v',
-    '()': {
-      Object: {
-        [S_DEFAULT]: 'xtp',
-        create: 'r0-',
-        getOwnPropertyDescriptor: 'R01',
-        getOwnPropertyDescriptors: 'R0*',
-        getOwnPropertyNames: 'r0*',
-        getOwnPropertySymbols: 'r0*',
-        getPrototypeOf: 'r0P',
-        keys: 'r0*',
-        entries: 'r0*',
-        values: 'r0*',
-        defineProperty: 'W01v',
-        defineProperties: 'W0.v',
-        setPrototypeOf: 'w0P',
-        freeze: 'w0*',
-        seal: 'w0*',
-        assign: 'w0.v',
-        [S_PROTOTYPE]: {
-          [S_DEFAULT]: 'xtp',
-          $hasOwnProperty$: 'rt0',
-          $__lookupGetter__$: 'Rt0',
-          $__lookupSetter__$: 'Rt0',
-          $__defineGetter__$: 'Wt0',
-          $__defineSetter__$: 'Wt0',
-          $propertyIsEnumerable$: 'rt0',
-        }
-      },
-      Reflect: {
-        [S_DEFAULT]: 'xtp',
-        get: 'r01v',
-        getPrototypeOf: 'r0P',
-        has: 'r01',
-        getOwnPropertyDescriptor: 'R01',
-        isExtensible: 'r0-',
-        ownKeys: 'r0*',
-        defineProperty: 'W01v',
-        deleteProperty: 'W01',
-        set: 'w01v',
-        setPrototypeOf: 'w0P',
-        preventExtensions: 'w0*',
-        construct: 'x0N',
-        apply: 'x10R',
-        [S_PROTOTYPE]: 'xtp'
-      },
-      Function: {
-        [S_DEFAULT]: 'xtp',
-        [S_PROTOTYPE]: {
-          [S_DEFAULT]: 'xtp',
-          apply: 'x0tR',
-          call: 'x0tR',
-          bind: 'r0tb',
-        }
-      },
-      [S_DEFAULT]: 'xtp'
-    }
-  };
-  const targetNormalizerMap = new Map();
-  for (let t of Object.getOwnPropertyNames(targetNormalizer['()']).concat(Object.getOwnPropertySymbols(targetNormalizer['()']))) {
-    let target;
-    let f;
-    if (typeof t === 'string') {
-      if (typeof targetNormalizer['()'][t] === 'object') {
-        for (let sp of Object.getOwnPropertyNames(targetNormalizer['()'][t]).concat(Object.getOwnPropertySymbols(targetNormalizer['()'][t]))) {
-          if (typeof sp === 'string') {
-            target = targetNormalizer['()'][t][sp];
-            f = _global[t][_unescapePlatformProperties.get(sp) || sp];
-            targetNormalizerMap.set(f, target);
-          }
-          else if (sp === S_PROTOTYPE) {
-            if (typeof targetNormalizer['()'][t][sp] === 'object') {
-              for (let p of Object.getOwnPropertyNames(targetNormalizer['()'][t][sp]).concat(Object.getOwnPropertySymbols(targetNormalizer['()'][t][sp]))) {
-                if (typeof p === 'string') {
-                  target = targetNormalizer['()'][t][sp][p];
-                  f = _global[t].prototype[_unescapePlatformProperties.get(p) || p];
-                  targetNormalizerMap.set(f, target);
-                }
-                else if (p === S_DEFAULT) {
-                  target = targetNormalizer['()'][t][sp][p];
-                  f = _global[t].prototype;
-                  targetNormalizerMap.set(f, target);
-                }
-              }
-            }
-            else {
-              target = targetNormalizer['()'][t][sp];
-              f = _global[t].prototype;
-              targetNormalizerMap.set(f, target);
-            }
-          }
-          else if (sp === S_DEFAULT) {
-            if (typeof targetNormalizer['()'][t][sp] === 'object') {
-              for (let p of Object.getOwnPropertyNames(targetNormalizer['()'][t][sp]).concat(Object.getOwnPropertySymbols(targetNormalizer['()'][t][sp]))) {
-                if (typeof p === 'string') {
-                  target = targetNormalizer['()'][t][sp][p];
-                  f = _global[t][_unescapePlatformProperties.get(p) || p];
-                  targetNormalizerMap.set(f, target);
-                }
-                else if (p === S_DEFAULT) {
-                  target = targetNormalizer['()'][t][sp][p];
-                  f = _global[t];
-                  targetNormalizerMap.set(f, target);
-                }
-              }
-            }
-            else {
-              target = targetNormalizer['()'][t][sp];
-              f = _global[t];
-              targetNormalizerMap.set(f, target);
-            }
-          }
-        }
-      }
-      else {
-        target = targetNormalizer['()'][t];
-        f = _global[t];
-        targetNormalizerMap.set(f, target);
-      }
-    }
-    else if (t === S_DEFAULT) {
-      if (typeof targetNormalizer['()'][t] === 'object') {
-        // TODO
-      }
-      else {
-        target = targetNormalizer['()'][t];
-        f = _global;
-        targetNormalizerMap.set(f, target);
-      }        
-    }
-  }
-  const targetNormalizerMapObject = new Map();
-  const isSuperOperator = new Map();
-  for (let op in operatorNormalizer) {
-    targetNormalizerMapObject.set(op, targetNormalizer[operatorNormalizer[op]]);
-    isSuperOperator.set(op, op.indexOf('s') >= 0);
-  }
-  // TODO: Access control list is too hard to maintain. An easier, automated, and modular approach is preferable. 
-  const contextNormalizer = {
-    '/components/iron-location/iron-location.html,script@1800,_updateUrl': '@route_manipulator',
-    '/components/iron-location/iron-location.html,script@1800,_globalOnClick': '@route_manipulator',
-    '/components/thin-hook/demo/web-worker-client.js,worker': '@worker_manipulator',
-    '/components/thin-hook/demo/web-worker-client.js': '@worker_manipulator',
-    '/components/thin-hook/demo/web-worker-module-client.js,worker': '@worker_manipulator',
-    '/components/thin-hook/demo/web-worker-module-client.js': '@worker_manipulator',
-    '/components/thin-hook/demo/shared-worker-client.js,worker': '@shared_worker_manipulator',
-    '/components/thin-hook/demo/shared-worker-client.js': '@shared_worker_manipulator',
-    '/components/thin-hook/demo/normalize.js': '@normalization_checker',
-    '/components/thin-hook/demo/normalize.js,f': '@normalization_checker',
-    '/components/thin-hook/demo/normalize.js,get': '@normalization_checker',
-    '/components/thin-hook/demo/normalize.js,caches': '@normalization_checker',
-    '/components/thin-hook/demo/normalize.js,F,Function': '@normalization_checker',
-    '/components/thin-hook/demo/normalize.js,dummyClass3Instance': '@normalization_checker',
-    '/components/thin-hook/demo/normalize.js,SubClass1': '@normalization_checker',
-    '/components/thin-hook/demo/normalize.js,SubClass2': '@normalization_checker',
-    '/components/thin-hook/demo/normalize.js,SubClass3': '@normalization_checker',
-    '/components/thin-hook/demo/normalize.js,SubClass4,SubClass4': '@normalization_checker',
-    '/components/thin-hook/demo/normalize.js,BaseClass1,constructor': '@XClass1_constructor',
-    '/components/thin-hook/demo/normalize.js,SubClass1,constructor': '@XClass1_constructor',
-    '/components/thin-hook/demo/normalize.js,SubClass2,constructor': '@XClass1_constructor',
-    '/components/thin-hook/demo/normalize.js,SubClass3,constructor': '@XClass1_constructor',
-    '/components/thin-hook/demo/normalize.js,SubClass4,SubClass4,constructor': '@XClass1_constructor',
-    '/components/thin-hook/demo/normalize.js,SubClass5': '@normalization_checker',
-    '/components/thin-hook/demo/Function.js': '@Function_js',
-    '/components/thin-hook/demo/Function.js,strictMode': '@Function_js',
-    '/components/thin-hook/demo/Function.js,F': '@Function_reader',
-    '/components/thin-hook/demo/Function.js,strictMode,F': '@Function_reader',
-    '/components/thin-hook/demo/Function.js,strictMode': '@normalization_checker',
-    '/components/thin-hook/demo/Function.js,f3': '@Function_reader',
-    '/components/thin-hook/demo/Function.js,strictMode,f3': '@Function_reader',
-    '/components/thin-hook/demo/Function.js,f4': '@Function_reader',
-    '/components/thin-hook/demo/Function.js,strictMode,f4': '@Function_reader',
-    '/components/thin-hook/demo/Function.js,SubclassFunction': '@Function_reader',
-    '/components/thin-hook/demo/Function.js,strictMode,SubclassFunction': '@Function_reader',
-    '/components/thin-hook/demo/Function.js,CustomConstructorSubclassFunction': '@Function_reader',
-    '/components/thin-hook/demo/Function.js,strictMode,CustomConstructorSubclassFunction': '@Function_reader',
-    '/components/thin-hook/demo/Function.js,cannotBindFunction': '@Function_cannotBindFunction',
-    '/components/thin-hook/demo/normalize.js,ArraySubclass2,constructor': '@super_normalization_checker',
-    '/components/thin-hook/demo/normalize.js,ArraySubclass4,constructor': '@super_normalization_checker',
-    '/components/thin-hook/demo/normalize.js,bindCheck': '@bind_normalization_checker',
-    '/components/thin-hook/demo/normalize.js,bindCheck,boundF': '@bind_normalization_checker',
-    '/components/thin-hook/demo/normalize.js,bindCheck,b': '@bind_normalization_checker',
-    '/components/thin-hook/demo/normalize.js,bindCheck,B,static now': '@bind_normalization_checker',
-    '/components/thin-hook/demo/normalize.js,cannotAccessNavigator': '@normalization_checker_cannot_access_navigator',
-    '/components/dexie/dist/dexie.min.js,r': '@custom_error_constructor_creator',
-    '/components/firebase/firebase-app.js': '@firebase_app',
-    '/components/firebase/firebase-auth.js,t': '@custom_error_constructor_creator',
-    '/components/polymer/lib/utils/templatize.html,script@695,upgradeTemplate': '@template_element_prototype_setter',
-    '/components/thin-hook/demo/my-view2.html,script@2946,getData': '@hook_visualizer',
-    '/components/thin-hook/demo/my-view2.html,script@2946,attached,_lastEdges': '@hook_visualizer',
-    '/components/thin-hook/demo/my-view2.html,script@2946,drawGraph': '@hook_visualizer',
-    '/components/thin-hook/demo/my-view2.html,script@2946,descriptors': '@window_enumerator',
-    '/components/thin-hook/demo/my-view2.html,script@2946': '@Object_prototype_reader',
-    '/components/web-animations-js/web-animations-next-lite.min.js': '@web_animations_next_lite',
-    '/components/web-animations-js/web-animations-next-lite.min.js,*': '@web_animations_next_lite',
-    '/components/live-localizer/live-localizer-browser-storage.html,script@3348,modelReady': '@Dexie_instantiator',
-    '/components/deepcopy/build/deepcopy.min.js': '@deepcopy',
-    '/components/deepcopy/build/deepcopy.min.js,*': '@deepcopy',
-    '/components/deepcopy/build/deepcopy.min.js,u': '@Object_keys_reader',
-    '/components/dexie/dist/dexie.min.js,jn': '@Object_keys_reader',
-    '/components/dexie/dist/dexie.min.js,Pn': '@Object_getPrototypeOf_reader',
-    '/components/firebase/firebase-app.js,*': '@firebase_app',
-    '/components/firebase/firebase-app.js,p': '@Object_getPrototypeOf_reader',
-    '/components/dexie/dist/dexie.min.js,In': '@Object_getOwnPropertyDescriptor_reader',
-    '/components/firebase/firebase-auth.js': '@firebase_auth',
-    '/components/firebase/firebase-auth.js,*': '@firebase_auth',
-    '/components/firebase/firebase-auth.js,Xb': '@Object_defineProperty_reader',
-    '/components/firebase/firebase-auth.js,mc': '@firebase_auth_closure_global_variable_writer',
-    '/components/firebase/firebase-auth.js,Lh': '@firebase_auth_iframecb_writer',
-    '/components/firebase/firebase-database.js': '@firebase_database',
-    '/components/firebase/firebase-database.js,*': '@firebase_database',
-    '/components/firebase/firebase-database.js,u,t': '@Object_setPrototypeOf_reader',
-    '/components/firebase/firebase-database.js,lt,t': '@Object_setPrototypeOf_reader',
-    '/components/firebase/firebase-database.js,St,t': '@Object_setPrototypeOf_reader',
-    '/components/firebase/firebase-database.js,Ut,t': '@Object_setPrototypeOf_reader',
-    '/components/firebase/firebase-database.js,Zt,t': '@Object_setPrototypeOf_reader',
-    '/components/firebase/firebase-database.js,ie,t': '@Object_setPrototypeOf_reader',
-    '/components/firebase/firebase-database.js,Ln,t': '@Object_setPrototypeOf_reader',
-    '/components/firebase/firebase-database.js,Qn,t': '@Object_setPrototypeOf_reader',
-    '/components/firebase/firebase-database.js,Er,t': '@Object_setPrototypeOf_reader',
-    '/components/firebase/firebase-database.js,jr,t': '@Object_setPrototypeOf_reader',
-    '/components/firebase/firebase-database.js,Gr,t': '@Object_setPrototypeOf_reader',
-    '/components/firebase/firebase-database.js,ir': '@document_createElement_reader',
-    '/components/firebase/firebase-database.js,or': '@iframe_contentWindow_accessor',
-    '/components/firebase/firebase-database.js,or,t': '@firebase_database_callback_global_variable_writer',
-    '/components/firebase/firebase-messaging.js': '@firebase_messaging',
-    '/components/firebase/firebase-messaging.js,*': '@firebase_messaging',
-    '/components/firebase/firebase-messaging.js,24,k,e': '@Object_setPrototypeOf_reader',
-    '/components/firebase/firebase-messaging.js,24,P,e': '@Object_setPrototypeOf_reader',
-    '/components/firebase/firebase-storage.js': '@firebase_storage',
-    '/components/firebase/firebase-storage.js,*': '@firebase_storage',
-    '/components/polymerfire/firebase-common-behavior.html,script@437,__appNameChanged': '@polymerfire', // TODO: More contexts should be mapped to @polymerfire
-    '/components/polymerfire/firebase-app.html,script@802,__computeApp': '@polymerfire',
-    '/components/polymerfire/firebase-auth.html,script@2320,_providerFromName': '@polymerfire',
-    '/components/polymer/lib/mixins/element-mixin.html,script@926,*': '@Polymer_element_mixin',
-    '/components/polymer/lib/legacy/legacy-element-mixin.html,script@1013,LegacyElement,*': '@Polymer_legacy_element_mixin',
-    '/components/polymer/lib/legacy/legacy-element-mixin.html,script@1013,LegacyElement,fire': '@Event_detail_writer',
-    '/components/polymer/lib/mixins/property-effects.html,script@914,setupBindings': '@HTMLElement___dataHost_writer',
-    '/components/polymer/lib/mixins/property-accessors.html,script@741': '@HTMLElement_prototype_reader',
-    '/components/polymer/lib/mixins/property-accessors.html,script@741,*': '@Polymer_property_accessors',
-    '/components/polymer/lib/mixins/property-accessors.html,script@741,props': '@HTMLElement_prototype_reader',
-    '/components/polymer/lib/mixins/property-accessors.html,script@741,proto': '@HTMLElement_prototype_reader',
-    '/components/polymer/lib/mixins/property-effects.html,script@914,*': '@Polymer_property_effects',
-    '/components/polymer/lib/mixins/template-stamp.html,script@630,*': '@Polymer_template-stamp',
-    '/components/polymer/lib/legacy/polymer.dom.html,script@701': '@Event___domApi_writer',
-    '/components/polymer/lib/legacy/polymer.dom.html,script@701,forwardMethods': '@DocumentFragment_querySelector_reader',
-    '/components/polymer/lib/elements/dom-module.html,script@634': '@Polymer_lib',
-    '/components/polymer/lib/elements/dom-bind.html,script@777': '@Polymer_lib',
-    '/components/polymer/lib/elements/dom-repeat.html,script@816': '@Polymer_lib',
-    '/components/polymer/lib/elements/dom-repeat.html,script@816,*': '@Polymer_lib',
-    '/components/polymer/lib/elements/dom-if.html,script@754': '@Polymer_lib',
-    '/components/polymer/lib/elements/array-selector.html,script@699': '@Polymer_lib',
-    '/components/polymer/lib/elements/custom-style.html,script@662': '@Polymer_lib',
-    '/components/polymer/lib/legacy/class.html,script@581,*': '@Polymer_legacy_class',
-    '/components/polymer/lib/legacy/polymer-fn.html,script@568': '@Polymer_lib',
-    '/components/polymer/lib/utils/import-href.html,script@567,*': '@Polymer_lib',
-    '/components/polymer/lib/utils/mixin.html,*': '@Polymer_lib',
-    '/components/polymer/lib/utils/boot.html,*': '@Polymer_lib',
-    '/components/polymer/lib/utils/case-map.html,*': '@Polymer_lib',
-    '/components/polymer/lib/utils/resolve-url.html,*': '@Polymer_lib',
-    '/components/polymer/lib/utils/style-gather.html,*': '@Polymer_lib',
-    '/components/polymer/lib/utils/path.html,*': '@Polymer_lib',
-    '/components/polymer/lib/utils/async.html,*': '@Polymer_lib',
-    '/components/polymer/lib/mixins/property-accessors.html,*': '@Polymer_lib',
-    '/components/chai/chai.js,30': '@custom_error_constructor_creator',
-    '/components/chai/chai.js,9,hasProtoSupport': '@Object__proto__reader',
-    '/components/chai/chai.js,36,getType,type': '@Object_prototype_reader',
-    '/components/chai/chai.js,24,type': '@Object_prototype_reader',
-    '/components/chai/chai.js': '@chai_js',
-    '/components/chai/chai.js,*': '@chai_js',
-    '/components/dexie/dist/dexie.min.js,p': '@Object_static_method_user',
-    '/components/dexie/dist/dexie.min.js,Cn': '@dexie_Object_hasOwnProperty_reader',
-    '/components/dexie/dist/dexie.min.js,*': '@dexie_js',
-    '/components/dexie/dist/dexie.min.js': '@dexie_js',
-    '/components/webcomponentsjs/webcomponents-lite.js': '@Object_assign_reader',
-    '/components/webcomponentsjs/webcomponents-lite.js,Xa,b': '@Event_ja_writer',
-    '/components/webcomponentsjs/webcomponents-lite.js,rc,get composed': '@Event_ja_writer',
-    '/components/webcomponentsjs/webcomponents-lite.js,lc': '@Event__target_writer',
-    '/components/webcomponentsjs/webcomponents-lite.js,Ja': '@Event_composed_writer',
-    '/components/webcomponentsjs/webcomponents-lite.js,kc': '@Event_composedPath_executor',
-    '/components/webcomponentsjs/webcomponents-lite.js,rc,get target': '@Event_composedPath_executor',
-    '/components/webcomponentsjs/webcomponents-lite.js,rc,composedPath': '@Event_ya_writer',
-    '/components/webcomponentsjs/webcomponents-lite.js,rc,stopPropagation': '@Event_ka_writer',
-    '/components/webcomponentsjs/webcomponents-lite.js,rc,get relatedTarget': '@Event_za_reader',
-    '/components/webcomponentsjs/webcomponents-lite.js,nd': '@HTMLElement_writer',
-    '/components/webcomponentsjs/webcomponents-lite.js,nd,b': '@HTMLElement_proto_writer',
-    '/components/webcomponentsjs/webcomponents-lite.js,nd,b,e': '@customElements_reader',
-    '/components/webcomponentsjs/webcomponents-lite.js,rd': '@CustomEvent_reader',
-    '/components/webcomponentsjs/webcomponents-lite.js,I': '@Node_prototype_writer',
-    '/components/webcomponentsjs/webcomponents-lite.js,bc': '@HTMLElement___shady_writer',
-    '/components/webcomponentsjs/webcomponents-lite.js,u': '@HTMLElement_insertAdjacentElement_writer',
-    '/components/webcomponentsjs/webcomponents-lite.js,l': '@DocumentFragment_$__proto__$_writer',
-    '/components/webcomponentsjs/webcomponents-lite.js,Ra': '@DocumentFragment_querySelectorAll_reader',
-    '/components/webcomponentsjs/webcomponents-lite.js,la': '@HTMLElement___shady_writer',
-    '/components/webcomponentsjs/webcomponents-lite.js,Wb': '@HTMLElement___shady_writer',
-    '/components/webcomponentsjs/webcomponents-lite.js,Wd': '@HTMLElement_prototype_reader',
-    '/components/webcomponentsjs/webcomponents-lite.js,Ba': '@HTMLElement_prototype_reader',
-    '/components/webcomponentsjs/webcomponents-lite.js,wb': '@HTMLElement_prototype_reader',
-    '/components/webcomponentsjs/webcomponents-lite.js,lc,d': '@Event_prototype_reader',
-    '/components/webcomponentsjs/webcomponents-lite.js,c': '@Node_prototype_reader',
-    '/components/webcomponentsjs/webcomponents-lite.js,eb': '@Node_prototype_reader',
-    '/components/webcomponentsjs/webcomponents-lite.js,Mc': '@Element_matches_reader',
-    '/components/webcomponentsjs/webcomponents-lite.js,M': '@Node_prototype_writer',
-    '/components/webcomponentsjs/webcomponents-lite.js,M,e': '@Node_prototype_writer',
-    '/components/webcomponentsjs/webcomponents-lite.js,yb': '@HTMLElement_insertAdjacentElement_writer',
-    '/components/webcomponentsjs/webcomponents-lite.js,hd,b': '@HTMLElement_insertAdjacentElement_writer',
-    '/components/webcomponentsjs/webcomponents-lite.js,$c,b': '@HTMLElement_insertAdjacentElement_writer',
-    '/components/webcomponentsjs/webcomponents-lite.js,cd': '@HTMLElement_insertAdjacentElement_writer',
-    '/components/webcomponentsjs/webcomponents-lite.js,hb': '@Node_prototype_writer',
-    '/components/webcomponentsjs/webcomponents-lite.js,ib': '@Node_prototype_writer',
-    '/components/webcomponentsjs/webcomponents-lite.js,Fa': '@Node_prototype_writer',
-    '/components/webcomponentsjs/webcomponents-lite.js,Aa': '@Node_prototype_writer',
-    '/components/webcomponentsjs/webcomponents-lite.js,ua': '@customElements_reader',
-    '/components/webcomponentsjs/webcomponents-lite.js,xa': '@customElements_reader',
-    '/components/webcomponentsjs/webcomponents-lite.js,a': '@customElements_reader',
-    '/components/webcomponentsjs/webcomponents-lite.js,ke': '@customElements_reader',
-    '/components/webcomponentsjs/webcomponents-lite.js,Q,b': '@customElement_localName_reader',
-    '/components/webcomponentsjs/webcomponents-lite.js,h': '@customElement_localName_reader',
-    '/components/webcomponentsjs/webcomponents-lite.js,Bd,a': '@customElements_reader',
-    '/components/webcomponentsjs/webcomponents-lite.js,mc': '@Node_prototype_writer',
-    '/components/webcomponentsjs/webcomponents-lite.js,U': '@TreeWalker_writer',
-    '/components/webcomponentsjs/webcomponents-lite.js,S': '@TreeWalker_writer',
-    '/components/webcomponentsjs/webcomponents-lite.js,Ha': '@TreeWalker_writer',
-    '/components/webcomponentsjs/webcomponents-lite.js,Sb': '@TreeWalker_writer',
-    '/components/webcomponentsjs/webcomponents-lite.js,Mb': '@TreeWalker_writer',
-    '/components/webcomponentsjs/webcomponents-lite.js,Ia': '@TreeWalker_writer',
-    '/components/webcomponentsjs/webcomponents-lite.js,b': '@customElements_reader',
-    '/components/webcomponentsjs/webcomponents-lite.js,d,b': '@customElements_reader',
-    '/components/webcomponentsjs/webcomponents-lite.js,id': '@customElements_reader',
-    '/components/webcomponentsjs/webcomponents-lite.js,xd': '@FocusEvent_currentTarget_writer',
-    '/components/webcomponentsjs/webcomponents-lite.js,oa': '@customElements_reader',
-    '/components/webcomponentsjs/webcomponents-lite.js,cc': '@customElements_reader',
-    '/components/webcomponentsjs/webcomponents-lite.js,T': '@customElements_reader',
-    '/components/webcomponentsjs/webcomponents-lite.js,*': '@webcomponents-lite',
-    '/components/thin-hook/demo/es6-module.js': '@es6-module',
-    '/components/thin-hook/demo/es6-module.js,*': '@es6-module',
-    '/components/thin-hook/demo/es6-module2.js,f2,module': '@Module_importer',
-    '/components/thin-hook/demo/es6-module2.js': '@Module_importer',
-    '/components/thin-hook/demo/es6-module2.js,*': '@es6-module2',
-    '/components/thin-hook/demo/es6-module3.js': '@es6-module3',
-    '/components/thin-hook/demo/es6-module3.js,*': '@es6-module3',
-    '/components/thin-hook/demo/es6-module4.js': '@es6-module4',
-    '/components/thin-hook/demo/es6-module4.js,baseUrl': '@es6-module4',
-    '/components/thin-hook/demo/es6-module4.js,f': '@es6-module4,f',
-    '/components/thin-hook/demo/es6-module4.js,f,*': '@es6-module4,f',
-    '/components/polymer/lib/utils/async.html,script@566,timeOut,run': '@setTimeout_reader',
-    '/components/thin-hook/demo/,script@4964': '@document_writer',
-    '/components/thin-hook/demo/,script@5028': '@document_writer',
-    '/components/thin-hook/demo/,script@5911': '@document_writer',
-    '/components/thin-hook/demo/,script@5963': '@document_writer',
-    '/components/thin-hook/demo/,script@5964': '@document_writer',
-    '/components/thin-hook/demo/sub-document.html,*': '@document_writer',
-    '/components/thin-hook/demo/commonjs2.js': '@path_join_prohibited',
-    '/components/thin-hook/demo/commonjs2.js,tty': '@tty_prohibited',
-    '/components/live-localizer/live-localizer-lazy.html,*': '@live-localizer-lazy',
-    '/components/live-localizer/draggable-behavior.html,*': '@draggable-behavior',
-    '/components/iron-location/iron-location.html,*': '@iron-location',
-    '/components/live-localizer/live-localizer-model.html,script@1001,reload': '@route_manipulator',
-    '/components/xliff-conv/xliff-conv.js': '@xliff-conv',
-    '/components/xliff-conv/xliff-conv.js,*': '@xliff-conv',
-    '/components/iron-a11y-announcer/iron-a11y-announcer.html,*': '@iron-a11y-announcer',
-    '/components/iron-a11y-keys-behavior/iron-a11y-keys-behavior.html,*': '@iron-a11y-keys-behavior',
-    '/components/thin-hook/demo/spread.js': '@spread_js',
-    '/components/thin-hook/demo/spread.js,*': '@spread_js',
-    '/components/thin-hook/demo/lhs.js': '@lhs_js',
-    '/components/thin-hook/demo/lhs.js,*': '@lhs_js',
-    '/components/thin-hook/demo/,*': '@demo_entry_page_scripts',
-    '/components/i18n-behavior/i18n-behavior.html,script@754,isStandardPropertyConfigurable,langPropertyDescriptor': '@lang_descriptor_reader',
-    '/components/i18n-behavior/i18n-behavior.html,*': '@i18n-behavior',
-    '/components/i18n-behavior/i18n-attr-repo.html,*': '@i18n-behavior',
-    '/components/i18n-number/i18n-number.html,*': '@i18n-number',
-    '/components/thin-hook/node_modules/process/browser.js': '@process_browser_js',
-    '/components/thin-hook/demo/normalize.js,GetterSetterClass': '@GetterSetterClass',
-    '/components/thin-hook/demo/normalize.js,GetterSetterClass,*': '@GetterSetterClass',
-    '/components/thin-hook/demo/normalize.js,createProperty': '@GetterSetterClass_creator',
-    '/components/thin-hook/demo/normalize.js,createProperty,get': '@GetterSetterClass_creator',
-    '/components/thin-hook/demo/normalize.js,createProperty,set': '@GetterSetterClass_creator',
-    '/components/thin-hook/demo/normalize.js,writeProperty': '@GetterSetterClass_writer',
-    '/components/thin-hook/demo/normalize.js,readProperty': '@GetterSetterClass_reader',
-    '/components/thin-hook/demo/my-view3.html,*': '@iframe_contentWindow_accessor',
-    '/components/thin-hook/demo/view3,*': '@iframe_contentWindow_accessor',
-    '/components/thin-hook/demo/sub-document.html,script@8036,onLoad': '@iframe_contentWindow_accessor',
-    '/components/thin-hook/demo/sub-document.html,script@8036,onLoad,*': '@iframe_contentWindow_accessor',
-    'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js,41,o': '@iframe_contentWindow_accessor',
-    'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js,26': '@iframe_contentWindow_accessor',
-    'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js': '@Chart.min.js',
-    'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js,*': '@Chart.min.js',
-    'https://cdnjs.cloudflare.com/ajax/libs/jsSHA/2.2.0/sha.js': '@sha.js',
-    'https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js': '@crypto-js',
-    'https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js,*': '@crypto-js',
-    'https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js': '@crypto-js',
-    'https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js,*': '@crypto-js',
-    '/components/thin-hook/demo/my-view1.html,script@4544,attached': '@svg_contentWindow_accessor',
-    '/components/iron-behaviors/iron-control-state.html,script@581,properties,_boundFocusBlurHandler,type': '@Function_reader',
-    '/components/paper-ripple/paper-ripple.html,script@4438,properties,_boundAnimate,type': '@Function_reader',
-    '/components/iron-ajax/iron-ajax.html,script@1410,properties,_boundHandleResponse,type': '@Function_reader',
-    '/components/vaadin-grid/vaadin-grid-table.html,script@8651,properties,bindData': '@Function_reader',
-    '/components/vaadin-grid/vaadin-grid-active-item-behavior.html,script@320': '@vaadin-grid',
-    '/components/vaadin-grid/vaadin-grid-table-scroll-behavior.html,script@1638': '@vaadin-grid',
-    '/components/vaadin-grid/vaadin-grid-cell-click-behavior.html,script@8': '@vaadin-grid',
-    '/components/vaadin-grid/vaadin-grid-focusable-cell-container-behavior.html,script@8': '@vaadin-grid',
-    '/components/vaadin-grid/vaadin-grid-templatizer.html,script@67': '@vaadin-grid',
-    '/components/vaadin-grid/vaadin-grid-row-details-behavior.html,script@593': '@vaadin-grid',
-    '/components/vaadin-grid/vaadin-grid-data-provider-behavior.html,script@1161': '@vaadin-grid',
-    '/components/vaadin-grid/vaadin-grid-selection-behavior.html,script@8': '@vaadin-grid',
-    '/components/vaadin-grid/vaadin-grid-keyboard-navigation-behavior.html,script@623': '@vaadin-grid',
-    '/components/vaadin-grid/vaadin-grid-column-reordering-behavior.html,script@951': '@vaadin-grid',
-    '/components/vaadin-grid/vaadin-grid-column.html,script@281': '@vaadin-grid',
-    '/components/vaadin-grid/vaadin-grid-array-data-provider-behavior.html,script@8': '@vaadin-grid',
-    '/components/vaadin-grid/vaadin-grid-dynamic-columns-behavior.html,script@8': '@vaadin-grid',
-    '/components/vaadin-grid/vaadin-grid-sort-behavior.html,script@8': '@vaadin-grid',
-    '/components/vaadin-grid/vaadin-grid-filter-behavior.html,script@8': '@vaadin-grid',
-    '/components/vaadin-grid/iron-list-behavior.html,script@165': '@vaadin-grid',
-    '/components/app-storage/app-storage-behavior.html,script@579,valueIsEmpty': '@Object_prototype_reader',
-    '/components/thin-hook/demo/global.js': '@global_js',
-    '/components/thin-hook/demo/global.js,inaccessible': '@global_js_inaccessible',
-    '/components/thin-hook/demo/global.js,inaccessible,accessible': '@global_js_accessible',
-    '/components/shadycss/apply-shim.min.js': '@apply-shim',
-    '/components/shadycss/apply-shim.min.js,*': '@apply-shim',
-    '/components/shadycss/custom-style-interface.min.js': '@custom-style-interface',
-    '/components/shadycss/custom-style-interface.min.js,*': '@custom-style-interface',
-    '/components/make-plural/plurals.js': '@plurals.js',
-    '/components/make-plural/plurals.js,*': '@plurals.js',
-    "lit-html": "@lit-html",
-    "lit-html,*": "@lit-html",
-    "lit-html/*": "@lit-html",
-    "lit-element/": "@lit-element",
-    "lit-element/,*": "@lit-element",
-    "lit-element/lib/*": "@lit-element",
-    "lit-element/*": "@lit-element",
-    "focus-visible": "@focus-visible",
-    "focus-visible,*": "@focus-visible",
-    "@spectrum-web-components/shared/*": "@spectrum-web-components/shared",
-    "@spectrum-web-components/button/*": "@spectrum-web-components/button",
-    "@spectrum-web-components/theme/*": "@spectrum-web-components/theme",
-    "tslib": "@tslib",
-    "tslib,*": "@tslib",
-    "./modules/module1.js": "@module1",
-    "./modules/module1.js,*": "@module1",
-    "./modules/module2.js": "@module2",
-    "./modules/module2.js,*": "@module2",
-    'https://thin-hook.localhost.localdomain/automation.json,*': '@cache_automation',
-  };
-  /*
-    resolve module paths via hook.parameters.importMapper(specifier, baseURI)
-    
-    Notes:
-     - No resolution if hook.parameters.importMapper is not configured
-       - hook.parameters.importMapper is a wrapper function of the Import Maps reference implementation
-     - baseURI is hook.parameters.baseURI
-     - Import Maps JSON is set in hook.parameters.importMapsJson as a string
-       - Picking up from the native import maps script tag has not been implemented yet
-     - A trivial fork of the Import Maps reference implementation is used for resolution
-       - GitHub repository: https://github.com/t2ym/import-maps/tree/browserify/reference-implementation/lib
-       - package.json at the top of the repository is added so that NPM can fetch the package from GitHub
-
-    Resolutions:
-    
-     - Type: bare specifiers
-
-        "lit-html": "@lit-html" -> "/components/thin-hook/demo/node_modules/lit-html/lit-html.js": "@lit-html"
-        "lit-html/": "@lit-html" -> "/components/thin-hook/demo/node_modules/lit-html/lit-html.js": "@lit-html"
-        "lit-html/*": "@lit-html" -> "/components/thin-hook/demo/node_modules/lit-html/*": "@lit-html"
-        "lit-html,*": "@lit-html" -> "/components/thin-hook/demo/node_modules/lit-html/lit-html.js,*": "@lit-html"
-        "lit-html/,*": "@lit-html" -> "/components/thin-hook/demo/node_modules/lit-html/lit-html.js,*": "@lit-html"
-
-     - Type: relative paths from hook.parameters.baseURI
-
-        "./modules/module1.js": "@module1" -> "/components/thin-hook/demo/modules/module1.js": "@module1"
-        "./modules/module1.js,*": "@module1" -> "/components/thin-hook/demo/modules/module1.js,*": "@module1"
-
-  */
-  if (hook.parameters.importMapper) {
-    // resolve bare specifiers in context normalizer
-    let paths;
-    let resolved;
-    for (let c in contextNormalizer) {
-      if (c.startsWith('https://') || c.startsWith('/')) {
-        continue; // skip already resolved specifiers
-      }
-      paths = c.split(',');
-      if (paths.length === 1) {
-        if (c.endsWith('/*')) {
-          // bare-specifier/*
-          resolved = hook.parameters.importMapper(c + '.js', hook.parameters.baseURI).replace(/\*\.js$/, '*');
-        }
-        else if (c.endsWith('/')) {
-          // bare-specifier/
-          resolved = hook.parameters.importMapper(c.substring(0, c.length - 1), hook.parameters.baseURI);
-        }
-        else {
-          // bare-specifier
-          resolved = hook.parameters.importMapper(c, hook.parameters.baseURI);
-        }
-      }
-      else {
-        // bare-specifier,anything,*
-        if (paths[0].endsWith('/')) {
-          paths[0] = hook.parameters.importMapper(paths[0].substring(0, paths[0].length - 1), hook.parameters.baseURI);
-        }
-        else {
-          paths[0] = hook.parameters.importMapper(paths[0], hook.parameters.baseURI);
-        }
-        resolved = paths.join(',');
-      }
-      contextNormalizer[resolved] = contextNormalizer[c];
-      delete contextNormalizer[c];
-    }
-  }
-  /*
-    Prefixed Module Contexts object:
-      {
-        "": { // root
-          "components": {
-            "thin-hook": {
-              "demo": {
-                "node_modules": {
-                  "lit-html": {
-                    "*": "@lit-html",
-                  },
-                  "lit-element": {
-                    "*": "@lit-element",
-                  },
-                },
-              },
-            },
-          },
-        },
-      };
-
-    Notes:
-    - Prefixed module context must end with '/*' like this:
-      '/some/module-name/*'
-  */
-  const prefixedModuleContexts = Object.create(null);
-  for (let c in contextNormalizer) {
-    let paths = c.split('/');
-    let cursor = prefixedModuleContexts;
-    if (paths.length > 1 && paths[0] === '' && paths[paths.length - 1] === '*') {
-      for (let path of paths) {
-        if (path === '*') {
-          cursor[path] = contextNormalizer[c];
-          break;
-        }
-        else {
-          if (!Reflect.has(cursor, path)) {
-            cursor[path] = {};
-          }
-          cursor = cursor[path];
-        }
-      }
-    }
-  }
-  /*
-    Prefixed Contexts object:
-      {
-        '/components/thin-hook/demo/es6-module2.js': {
-          '*': '@Module_importer2', // fallback for '/components/thin-hook/demo/es6-module2.js,f2,A'
-          'f2': {
-            'module': {
-              '*': '@Module_importer', // fallback for '/components/thin-hook/demo/es6-module2.js,f2,module,X'
-            },
-          },
-        },
-      };
-
-    Notes:
-    - Prefixed context must end with ',*' like this:
-      '/some/filepath.js,something,*'
-  */
-  const prefixedContexts = Object.create(null);
-  for (let c in contextNormalizer) {
-    let paths = c.split(',');
-    let cursor = prefixedContexts;
-    if (paths.length > 1 && paths[paths.length - 1] === '*') {
-      for (let path of paths) {
-        if (path === '*') {
-          cursor[path] = contextNormalizer[c];
-          break;
-        }
-        else {
-          if (!Reflect.has(cursor, path)) {
-            cursor[path] = {};
-          }
-          cursor = cursor[path];
-        }
-      }
-    }
-  }
-  const opTypeMap = {
-    r: 0, w: 1, x: 2, R: 3, W: 4,
-  };
-  const isGlobalScopeObject = new Map();
-  [ 'window', 'self', '_global', 'frames', 'parent', 'top' ].forEach(g => {
-    isGlobalScopeObject.set(g, true);
-  });
   // An example ABAC policy wrapper class
   const Policy = class Policy {
     // plain ACL
@@ -2962,8 +2233,758 @@ else {
       }
       return detectName;
     }
+    static get operatorNormalizer() {
+      return {
+        '.': '.',
+        '[]': '.',
+        'in': '.',
+        '*': '*',
+        '()': '()',
+        'p++': '=',
+        '++p': '=',
+        'p--': '=',
+        '--p': '=',
+        'delete': 'd',
+        '=': '=',
+        '+=': '=',
+        '-=': '=',
+        '*=': '=',
+        '/=': '=',
+        '%=': '=',
+        '**=': '=',
+        '<<=': '=',
+        '>>=': '=',
+        '>>>=': '=',
+        '&=': '=',
+        '^=': '=',
+        '|=': '=',
+        '.=': '=',
+        '#.': '.',
+        '#[]': '.',
+        '#in': '.',
+        '#*': '*',
+        '#()': '()',
+        '#p++': '=',
+        '#++p': '=',
+        '#p--': '=',
+        '#--p': '=',
+        '#delete': 'd',
+        '#=': '=',
+        '#+=': '=',
+        '#-=': '=',
+        '#*=': '=',
+        '#/=': '=',
+        '#%=': '=',
+        '#**=': '=',
+        '#<<=': '=',
+        '#>>=': '=',
+        '#>>>=': '=',
+        '#&=': '=',
+        '#^=': '=',
+        '#|=': '=',
+        '#.=': '=',
+        's.': '.',
+        's[]': '.',
+        's()': '()',
+        's++': '=',
+        '++s': '=',
+        's--': '=',
+        '--s': '=',
+        's=': '=',
+        's+=': '=',
+        's-=': '=',
+        's*=': '=',
+        's/=': '=',
+        's%=': '=',
+        's**=': '=',
+        's<<=': '=',
+        's>>=': '=',
+        's>>>=': '=',
+        's&=': '=',
+        's^=': '=',
+        's|=': '=',
+        'w.': '.',
+        'w[]': '.',
+        'w()': '()',
+        'wnew': '()',
+        'w++': '=',
+        '++w': '=',
+        'w--': '=',
+        '--w': '=',
+        'wtypeof': '.',
+        'wdelete': 'd',
+        'w.=': '=',
+        'w=': '=',
+        'w+=': '=',
+        'w-=': '=',
+        'w*=': '=',
+        'w/=': '=',
+        'w%=': '=',
+        'w**=': '=',
+        'w<<=': '=',
+        'w>>=': '=',
+        'w>>>=': '=',
+        'w&=': '=',
+        'w^=': '=',
+        'w|=': '=',
+        'm': 'm',
+        'm()': 'm()',
+        'mnew': 'm()',
+        'm++': 'm=',
+        '++m': 'm=',
+        'm--': 'm=',
+        '--m': 'm=',
+        'mtypeof': 'm',
+        'm.=': 'm.=',
+        'm=': 'm=v',
+        'm+=': 'm=',
+        'm-=': 'm=',
+        'm*=': 'm=',
+        'm/=': 'm=',
+        'm%=': 'm=',
+        'm**=': 'm=',
+        'm<<=': 'm=',
+        'm>>=': 'm=',
+        'm>>>=': 'm=',
+        'm&=': 'm=',
+        'm^=': 'm=',
+        'm|=': 'm=',
+      };
+    }
+    static get targetNormalizer() {
+      return {
+        'f': 'xtf', // thisArg may not be this object for f
+        'n': 'xfN',
+        '.': 'rtp',
+        '*': 'rt*',
+        '=': 'wtpv',
+        'd': 'Wtp',
+        'm': 'rt-',
+        'm()': 'xt-',
+        'm=': 'wt-',
+        'm.=': 'wt-c',
+        'm=v': 'wt-v',
+        '()': {
+          Object: {
+            [S_DEFAULT]: 'xtp',
+            create: 'r0-',
+            getOwnPropertyDescriptor: 'R01',
+            getOwnPropertyDescriptors: 'R0*',
+            getOwnPropertyNames: 'r0*',
+            getOwnPropertySymbols: 'r0*',
+            getPrototypeOf: 'r0P',
+            keys: 'r0*',
+            entries: 'r0*',
+            values: 'r0*',
+            defineProperty: 'W01v',
+            defineProperties: 'W0.v',
+            setPrototypeOf: 'w0P',
+            freeze: 'w0*',
+            seal: 'w0*',
+            assign: 'w0.v',
+            [S_PROTOTYPE]: {
+              [S_DEFAULT]: 'xtp',
+              $hasOwnProperty$: 'rt0',
+              $__lookupGetter__$: 'Rt0',
+              $__lookupSetter__$: 'Rt0',
+              $__defineGetter__$: 'Wt0',
+              $__defineSetter__$: 'Wt0',
+              $propertyIsEnumerable$: 'rt0',
+            }
+          },
+          Reflect: {
+            [S_DEFAULT]: 'xtp',
+            get: 'r01v',
+            getPrototypeOf: 'r0P',
+            has: 'r01',
+            getOwnPropertyDescriptor: 'R01',
+            isExtensible: 'r0-',
+            ownKeys: 'r0*',
+            defineProperty: 'W01v',
+            deleteProperty: 'W01',
+            set: 'w01v',
+            setPrototypeOf: 'w0P',
+            preventExtensions: 'w0*',
+            construct: 'x0N',
+            apply: 'x10R',
+            [S_PROTOTYPE]: 'xtp'
+          },
+          Function: {
+            [S_DEFAULT]: 'xtp',
+            [S_PROTOTYPE]: {
+              [S_DEFAULT]: 'xtp',
+              apply: 'x0tR',
+              call: 'x0tR',
+              bind: 'r0tb',
+            }
+          },
+          [S_DEFAULT]: 'xtp'
+        }
+      };
+    }
+    static getTargetNormalizerMap(targetNormalizer) {
+      const targetNormalizerMap = new Map();
+      for (let t of Object.getOwnPropertyNames(targetNormalizer['()']).concat(Object.getOwnPropertySymbols(targetNormalizer['()']))) {
+        let target;
+        let f;
+        if (typeof t === 'string') {
+          if (typeof targetNormalizer['()'][t] === 'object') {
+            for (let sp of Object.getOwnPropertyNames(targetNormalizer['()'][t]).concat(Object.getOwnPropertySymbols(targetNormalizer['()'][t]))) {
+              if (typeof sp === 'string') {
+                target = targetNormalizer['()'][t][sp];
+                f = _global[t][_unescapePlatformProperties.get(sp) || sp];
+                targetNormalizerMap.set(f, target);
+              }
+              else if (sp === S_PROTOTYPE) {
+                if (typeof targetNormalizer['()'][t][sp] === 'object') {
+                  for (let p of Object.getOwnPropertyNames(targetNormalizer['()'][t][sp]).concat(Object.getOwnPropertySymbols(targetNormalizer['()'][t][sp]))) {
+                    if (typeof p === 'string') {
+                      target = targetNormalizer['()'][t][sp][p];
+                      f = _global[t].prototype[_unescapePlatformProperties.get(p) || p];
+                      targetNormalizerMap.set(f, target);
+                    }
+                    else if (p === S_DEFAULT) {
+                      target = targetNormalizer['()'][t][sp][p];
+                      f = _global[t].prototype;
+                      targetNormalizerMap.set(f, target);
+                    }
+                  }
+                }
+                else {
+                  target = targetNormalizer['()'][t][sp];
+                  f = _global[t].prototype;
+                  targetNormalizerMap.set(f, target);
+                }
+              }
+              else if (sp === S_DEFAULT) {
+                if (typeof targetNormalizer['()'][t][sp] === 'object') {
+                  for (let p of Object.getOwnPropertyNames(targetNormalizer['()'][t][sp]).concat(Object.getOwnPropertySymbols(targetNormalizer['()'][t][sp]))) {
+                    if (typeof p === 'string') {
+                      target = targetNormalizer['()'][t][sp][p];
+                      f = _global[t][_unescapePlatformProperties.get(p) || p];
+                      targetNormalizerMap.set(f, target);
+                    }
+                    else if (p === S_DEFAULT) {
+                      target = targetNormalizer['()'][t][sp][p];
+                      f = _global[t];
+                      targetNormalizerMap.set(f, target);
+                    }
+                  }
+                }
+                else {
+                  target = targetNormalizer['()'][t][sp];
+                  f = _global[t];
+                  targetNormalizerMap.set(f, target);
+                }
+              }
+            }
+          }
+          else {
+            target = targetNormalizer['()'][t];
+            f = _global[t];
+            targetNormalizerMap.set(f, target);
+          }
+        }
+        else if (t === S_DEFAULT) {
+          if (typeof targetNormalizer['()'][t] === 'object') {
+            // TODO
+          }
+          else {
+            target = targetNormalizer['()'][t];
+            f = _global;
+            targetNormalizerMap.set(f, target);
+          }        
+        }
+      }
+      return targetNormalizerMap;
+    }
+    static getTargetNormalizerMapObject(operatorNormalizer, targetNormalizer) {
+      const targetNormalizerMapObject = new Map();
+      for (let op in operatorNormalizer) {
+        targetNormalizerMapObject.set(op, targetNormalizer[operatorNormalizer[op]]);
+      }
+      return targetNormalizerMapObject;
+    }
+    static getIsSuperOperator(operatorNormalizer) {
+      const isSuperOperator = new Map();
+      for (let op in operatorNormalizer) {
+        isSuperOperator.set(op, op.indexOf('s') >= 0);
+      }
+      return isSuperOperator;
+    }
+    /*
+      resolve module paths via hook.parameters.importMapper(specifier, baseURI)
+      
+      Notes:
+       - No resolution if hook.parameters.importMapper is not configured
+         - hook.parameters.importMapper is a wrapper function of the Import Maps reference implementation
+       - baseURI is hook.parameters.baseURI
+       - Import Maps JSON is set in hook.parameters.importMapsJson as a string
+         - Picking up from the native import maps script tag has not been implemented yet
+       - A trivial fork of the Import Maps reference implementation is used for resolution
+         - GitHub repository: https://github.com/t2ym/import-maps/tree/browserify/reference-implementation/lib
+         - package.json at the top of the repository is added so that NPM can fetch the package from GitHub
+  
+      Resolutions:
+      
+       - Type: bare specifiers
+  
+          "lit-html": "@lit-html" -> "/components/thin-hook/demo/node_modules/lit-html/lit-html.js": "@lit-html"
+          "lit-html/": "@lit-html" -> "/components/thin-hook/demo/node_modules/lit-html/lit-html.js": "@lit-html"
+          "lit-html/*": "@lit-html" -> "/components/thin-hook/demo/node_modules/lit-html/*": "@lit-html"
+          "lit-html,*": "@lit-html" -> "/components/thin-hook/demo/node_modules/lit-html/lit-html.js,*": "@lit-html"
+          "lit-html/,*": "@lit-html" -> "/components/thin-hook/demo/node_modules/lit-html/lit-html.js,*": "@lit-html"
+  
+       - Type: relative paths from hook.parameters.baseURI
+  
+          "./modules/module1.js": "@module1" -> "/components/thin-hook/demo/modules/module1.js": "@module1"
+          "./modules/module1.js,*": "@module1" -> "/components/thin-hook/demo/modules/module1.js,*": "@module1"
+  
+    */
+    static resolveBareSpecifierContextNormalizer(contextNormalizer) {
+      if (hook.parameters.importMapper) {
+        // resolve bare specifiers in context normalizer
+        let paths;
+        let resolved;
+        for (let c in contextNormalizer) {
+          if (c.startsWith('https://') || c.startsWith('/')) {
+            continue; // skip already resolved specifiers
+          }
+          paths = c.split(',');
+          if (paths.length === 1) {
+            if (c.endsWith('/*')) {
+              // bare-specifier/*
+              resolved = hook.parameters.importMapper(c + '.js', hook.parameters.baseURI).replace(/\*\.js$/, '*');
+            }
+            else if (c.endsWith('/')) {
+              // bare-specifier/
+              resolved = hook.parameters.importMapper(c.substring(0, c.length - 1), hook.parameters.baseURI);
+            }
+            else {
+              // bare-specifier
+              resolved = hook.parameters.importMapper(c, hook.parameters.baseURI);
+            }
+          }
+          else {
+            // bare-specifier,anything,*
+            if (paths[0].endsWith('/')) {
+              paths[0] = hook.parameters.importMapper(paths[0].substring(0, paths[0].length - 1), hook.parameters.baseURI);
+            }
+            else {
+              paths[0] = hook.parameters.importMapper(paths[0], hook.parameters.baseURI);
+            }
+            resolved = paths.join(',');
+          }
+          contextNormalizer[resolved] = contextNormalizer[c];
+          delete contextNormalizer[c];
+        }
+      }
+    }
+    /*
+      Prefixed Module Contexts object:
+        {
+          "": { // root
+            "components": {
+              "thin-hook": {
+                "demo": {
+                  "node_modules": {
+                    "lit-html": {
+                      "*": "@lit-html",
+                    },
+                    "lit-element": {
+                      "*": "@lit-element",
+                    },
+                  },
+                },
+              },
+            },
+          },
+        };
+
+      Notes:
+      - Prefixed module context must end with '/*' like this:
+        '/some/module-name/*'
+    */
+    static getPrefixedModuleContexts(contextNormalizer) {
+      const prefixedModuleContexts = Object.create(null);
+      for (let c in contextNormalizer) {
+        let paths = c.split('/');
+        let cursor = prefixedModuleContexts;
+        if (paths.length > 1 && paths[0] === '' && paths[paths.length - 1] === '*') {
+          for (let path of paths) {
+            if (path === '*') {
+              cursor[path] = contextNormalizer[c];
+              break;
+            }
+            else {
+              if (!Reflect.has(cursor, path)) {
+                cursor[path] = {};
+              }
+              cursor = cursor[path];
+            }
+          }
+        }
+      }
+      return prefixedModuleContexts;
+    }
+    /*
+      Prefixed Contexts object:
+        {
+          '/components/thin-hook/demo/es6-module2.js': {
+            '*': '@Module_importer2', // fallback for '/components/thin-hook/demo/es6-module2.js,f2,A'
+            'f2': {
+              'module': {
+                '*': '@Module_importer', // fallback for '/components/thin-hook/demo/es6-module2.js,f2,module,X'
+              },
+            },
+          },
+        };
+
+      Notes:
+      - Prefixed context must end with ',*' like this:
+        '/some/filepath.js,something,*'
+    */
+    static getPrefixedContexts(contextNormalizer) {
+      const prefixedContexts = Object.create(null);
+      for (let c in contextNormalizer) {
+        let paths = c.split(',');
+        let cursor = prefixedContexts;
+        if (paths.length > 1 && paths[paths.length - 1] === '*') {
+          for (let path of paths) {
+            if (path === '*') {
+              cursor[path] = contextNormalizer[c];
+              break;
+            }
+            else {
+              if (!Reflect.has(cursor, path)) {
+                cursor[path] = {};
+              }
+              cursor = cursor[path];
+            }
+          }
+        }
+      }
+      return prefixedContexts;
+    }
+    static get opTypeMap() {
+      return {
+        r: 0, w: 1, x: 2, R: 3, W: 4,
+      };
+    }
+    static get isGlobalScopeObject() {
+      const isGlobalScopeObject = new Map;
+      [ 'window', 'self', '_global', 'frames', 'parent', 'top' ].forEach(g => {
+        isGlobalScopeObject.set(g, true);
+      });
+      return isGlobalScopeObject;
+    }
   };
-  const tagToElementClass = Policy.tagToElementClass;
+  // TODO: Access control list is too hard to maintain. An easier, automated, and modular approach is preferable. 
+  Object.assign(contextNormalizer, {
+    '/components/iron-location/iron-location.html,script@1800,_updateUrl': '@route_manipulator',
+    '/components/iron-location/iron-location.html,script@1800,_globalOnClick': '@route_manipulator',
+    '/components/thin-hook/demo/web-worker-client.js,worker': '@worker_manipulator',
+    '/components/thin-hook/demo/web-worker-client.js': '@worker_manipulator',
+    '/components/thin-hook/demo/web-worker-module-client.js,worker': '@worker_manipulator',
+    '/components/thin-hook/demo/web-worker-module-client.js': '@worker_manipulator',
+    '/components/thin-hook/demo/shared-worker-client.js,worker': '@shared_worker_manipulator',
+    '/components/thin-hook/demo/shared-worker-client.js': '@shared_worker_manipulator',
+    '/components/thin-hook/demo/normalize.js': '@normalization_checker',
+    '/components/thin-hook/demo/normalize.js,f': '@normalization_checker',
+    '/components/thin-hook/demo/normalize.js,get': '@normalization_checker',
+    '/components/thin-hook/demo/normalize.js,caches': '@normalization_checker',
+    '/components/thin-hook/demo/normalize.js,F,Function': '@normalization_checker',
+    '/components/thin-hook/demo/normalize.js,dummyClass3Instance': '@normalization_checker',
+    '/components/thin-hook/demo/normalize.js,SubClass1': '@normalization_checker',
+    '/components/thin-hook/demo/normalize.js,SubClass2': '@normalization_checker',
+    '/components/thin-hook/demo/normalize.js,SubClass3': '@normalization_checker',
+    '/components/thin-hook/demo/normalize.js,SubClass4,SubClass4': '@normalization_checker',
+    '/components/thin-hook/demo/normalize.js,BaseClass1,constructor': '@XClass1_constructor',
+    '/components/thin-hook/demo/normalize.js,SubClass1,constructor': '@XClass1_constructor',
+    '/components/thin-hook/demo/normalize.js,SubClass2,constructor': '@XClass1_constructor',
+    '/components/thin-hook/demo/normalize.js,SubClass3,constructor': '@XClass1_constructor',
+    '/components/thin-hook/demo/normalize.js,SubClass4,SubClass4,constructor': '@XClass1_constructor',
+    '/components/thin-hook/demo/normalize.js,SubClass5': '@normalization_checker',
+    '/components/thin-hook/demo/Function.js': '@Function_js',
+    '/components/thin-hook/demo/Function.js,strictMode': '@Function_js',
+    '/components/thin-hook/demo/Function.js,F': '@Function_reader',
+    '/components/thin-hook/demo/Function.js,strictMode,F': '@Function_reader',
+    '/components/thin-hook/demo/Function.js,strictMode': '@normalization_checker',
+    '/components/thin-hook/demo/Function.js,f3': '@Function_reader',
+    '/components/thin-hook/demo/Function.js,strictMode,f3': '@Function_reader',
+    '/components/thin-hook/demo/Function.js,f4': '@Function_reader',
+    '/components/thin-hook/demo/Function.js,strictMode,f4': '@Function_reader',
+    '/components/thin-hook/demo/Function.js,SubclassFunction': '@Function_reader',
+    '/components/thin-hook/demo/Function.js,strictMode,SubclassFunction': '@Function_reader',
+    '/components/thin-hook/demo/Function.js,CustomConstructorSubclassFunction': '@Function_reader',
+    '/components/thin-hook/demo/Function.js,strictMode,CustomConstructorSubclassFunction': '@Function_reader',
+    '/components/thin-hook/demo/Function.js,cannotBindFunction': '@Function_cannotBindFunction',
+    '/components/thin-hook/demo/normalize.js,ArraySubclass2,constructor': '@super_normalization_checker',
+    '/components/thin-hook/demo/normalize.js,ArraySubclass4,constructor': '@super_normalization_checker',
+    '/components/thin-hook/demo/normalize.js,bindCheck': '@bind_normalization_checker',
+    '/components/thin-hook/demo/normalize.js,bindCheck,boundF': '@bind_normalization_checker',
+    '/components/thin-hook/demo/normalize.js,bindCheck,b': '@bind_normalization_checker',
+    '/components/thin-hook/demo/normalize.js,bindCheck,B,static now': '@bind_normalization_checker',
+    '/components/thin-hook/demo/normalize.js,cannotAccessNavigator': '@normalization_checker_cannot_access_navigator',
+    '/components/dexie/dist/dexie.min.js,r': '@custom_error_constructor_creator',
+    '/components/firebase/firebase-app.js': '@firebase_app',
+    '/components/firebase/firebase-auth.js,t': '@custom_error_constructor_creator',
+    '/components/polymer/lib/utils/templatize.html,script@695,upgradeTemplate': '@template_element_prototype_setter',
+    '/components/thin-hook/demo/my-view2.html,script@2946,getData': '@hook_visualizer',
+    '/components/thin-hook/demo/my-view2.html,script@2946,attached,_lastEdges': '@hook_visualizer',
+    '/components/thin-hook/demo/my-view2.html,script@2946,drawGraph': '@hook_visualizer',
+    '/components/thin-hook/demo/my-view2.html,script@2946,descriptors': '@window_enumerator',
+    '/components/thin-hook/demo/my-view2.html,script@2946': '@Object_prototype_reader',
+    '/components/web-animations-js/web-animations-next-lite.min.js': '@web_animations_next_lite',
+    '/components/web-animations-js/web-animations-next-lite.min.js,*': '@web_animations_next_lite',
+    '/components/live-localizer/live-localizer-browser-storage.html,script@3348,modelReady': '@Dexie_instantiator',
+    '/components/deepcopy/build/deepcopy.min.js': '@deepcopy',
+    '/components/deepcopy/build/deepcopy.min.js,*': '@deepcopy',
+    '/components/deepcopy/build/deepcopy.min.js,u': '@Object_keys_reader',
+    '/components/dexie/dist/dexie.min.js,jn': '@Object_keys_reader',
+    '/components/dexie/dist/dexie.min.js,Pn': '@Object_getPrototypeOf_reader',
+    '/components/firebase/firebase-app.js,*': '@firebase_app',
+    '/components/firebase/firebase-app.js,p': '@Object_getPrototypeOf_reader',
+    '/components/dexie/dist/dexie.min.js,In': '@Object_getOwnPropertyDescriptor_reader',
+    '/components/firebase/firebase-auth.js': '@firebase_auth',
+    '/components/firebase/firebase-auth.js,*': '@firebase_auth',
+    '/components/firebase/firebase-auth.js,Xb': '@Object_defineProperty_reader',
+    '/components/firebase/firebase-auth.js,mc': '@firebase_auth_closure_global_variable_writer',
+    '/components/firebase/firebase-auth.js,Lh': '@firebase_auth_iframecb_writer',
+    '/components/firebase/firebase-database.js': '@firebase_database',
+    '/components/firebase/firebase-database.js,*': '@firebase_database',
+    '/components/firebase/firebase-database.js,u,t': '@Object_setPrototypeOf_reader',
+    '/components/firebase/firebase-database.js,lt,t': '@Object_setPrototypeOf_reader',
+    '/components/firebase/firebase-database.js,St,t': '@Object_setPrototypeOf_reader',
+    '/components/firebase/firebase-database.js,Ut,t': '@Object_setPrototypeOf_reader',
+    '/components/firebase/firebase-database.js,Zt,t': '@Object_setPrototypeOf_reader',
+    '/components/firebase/firebase-database.js,ie,t': '@Object_setPrototypeOf_reader',
+    '/components/firebase/firebase-database.js,Ln,t': '@Object_setPrototypeOf_reader',
+    '/components/firebase/firebase-database.js,Qn,t': '@Object_setPrototypeOf_reader',
+    '/components/firebase/firebase-database.js,Er,t': '@Object_setPrototypeOf_reader',
+    '/components/firebase/firebase-database.js,jr,t': '@Object_setPrototypeOf_reader',
+    '/components/firebase/firebase-database.js,Gr,t': '@Object_setPrototypeOf_reader',
+    '/components/firebase/firebase-database.js,ir': '@document_createElement_reader',
+    '/components/firebase/firebase-database.js,or': '@iframe_contentWindow_accessor',
+    '/components/firebase/firebase-database.js,or,t': '@firebase_database_callback_global_variable_writer',
+    '/components/firebase/firebase-messaging.js': '@firebase_messaging',
+    '/components/firebase/firebase-messaging.js,*': '@firebase_messaging',
+    '/components/firebase/firebase-messaging.js,24,k,e': '@Object_setPrototypeOf_reader',
+    '/components/firebase/firebase-messaging.js,24,P,e': '@Object_setPrototypeOf_reader',
+    '/components/firebase/firebase-storage.js': '@firebase_storage',
+    '/components/firebase/firebase-storage.js,*': '@firebase_storage',
+    '/components/polymerfire/firebase-common-behavior.html,script@437,__appNameChanged': '@polymerfire', // TODO: More contexts should be mapped to @polymerfire
+    '/components/polymerfire/firebase-app.html,script@802,__computeApp': '@polymerfire',
+    '/components/polymerfire/firebase-auth.html,script@2320,_providerFromName': '@polymerfire',
+    '/components/polymer/lib/mixins/element-mixin.html,script@926,*': '@Polymer_element_mixin',
+    '/components/polymer/lib/legacy/legacy-element-mixin.html,script@1013,LegacyElement,*': '@Polymer_legacy_element_mixin',
+    '/components/polymer/lib/legacy/legacy-element-mixin.html,script@1013,LegacyElement,fire': '@Event_detail_writer',
+    '/components/polymer/lib/mixins/property-effects.html,script@914,setupBindings': '@HTMLElement___dataHost_writer',
+    '/components/polymer/lib/mixins/property-accessors.html,script@741': '@HTMLElement_prototype_reader',
+    '/components/polymer/lib/mixins/property-accessors.html,script@741,*': '@Polymer_property_accessors',
+    '/components/polymer/lib/mixins/property-accessors.html,script@741,props': '@HTMLElement_prototype_reader',
+    '/components/polymer/lib/mixins/property-accessors.html,script@741,proto': '@HTMLElement_prototype_reader',
+    '/components/polymer/lib/mixins/property-effects.html,script@914,*': '@Polymer_property_effects',
+    '/components/polymer/lib/mixins/template-stamp.html,script@630,*': '@Polymer_template-stamp',
+    '/components/polymer/lib/legacy/polymer.dom.html,script@701': '@Event___domApi_writer',
+    '/components/polymer/lib/legacy/polymer.dom.html,script@701,forwardMethods': '@DocumentFragment_querySelector_reader',
+    '/components/polymer/lib/elements/dom-module.html,script@634': '@Polymer_lib',
+    '/components/polymer/lib/elements/dom-bind.html,script@777': '@Polymer_lib',
+    '/components/polymer/lib/elements/dom-repeat.html,script@816': '@Polymer_lib',
+    '/components/polymer/lib/elements/dom-repeat.html,script@816,*': '@Polymer_lib',
+    '/components/polymer/lib/elements/dom-if.html,script@754': '@Polymer_lib',
+    '/components/polymer/lib/elements/array-selector.html,script@699': '@Polymer_lib',
+    '/components/polymer/lib/elements/custom-style.html,script@662': '@Polymer_lib',
+    '/components/polymer/lib/legacy/class.html,script@581,*': '@Polymer_legacy_class',
+    '/components/polymer/lib/legacy/polymer-fn.html,script@568': '@Polymer_lib',
+    '/components/polymer/lib/utils/import-href.html,script@567,*': '@Polymer_lib',
+    '/components/polymer/lib/utils/mixin.html,*': '@Polymer_lib',
+    '/components/polymer/lib/utils/boot.html,*': '@Polymer_lib',
+    '/components/polymer/lib/utils/case-map.html,*': '@Polymer_lib',
+    '/components/polymer/lib/utils/resolve-url.html,*': '@Polymer_lib',
+    '/components/polymer/lib/utils/style-gather.html,*': '@Polymer_lib',
+    '/components/polymer/lib/utils/path.html,*': '@Polymer_lib',
+    '/components/polymer/lib/utils/async.html,*': '@Polymer_lib',
+    '/components/polymer/lib/mixins/property-accessors.html,*': '@Polymer_lib',
+    '/components/chai/chai.js,30': '@custom_error_constructor_creator',
+    '/components/chai/chai.js,9,hasProtoSupport': '@Object__proto__reader',
+    '/components/chai/chai.js,36,getType,type': '@Object_prototype_reader',
+    '/components/chai/chai.js,24,type': '@Object_prototype_reader',
+    '/components/chai/chai.js': '@chai_js',
+    '/components/chai/chai.js,*': '@chai_js',
+    '/components/dexie/dist/dexie.min.js,p': '@Object_static_method_user',
+    '/components/dexie/dist/dexie.min.js,Cn': '@dexie_Object_hasOwnProperty_reader',
+    '/components/dexie/dist/dexie.min.js,*': '@dexie_js',
+    '/components/dexie/dist/dexie.min.js': '@dexie_js',
+    '/components/webcomponentsjs/webcomponents-lite.js': '@Object_assign_reader',
+    '/components/webcomponentsjs/webcomponents-lite.js,Xa,b': '@Event_ja_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,rc,get composed': '@Event_ja_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,lc': '@Event__target_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,Ja': '@Event_composed_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,kc': '@Event_composedPath_executor',
+    '/components/webcomponentsjs/webcomponents-lite.js,rc,get target': '@Event_composedPath_executor',
+    '/components/webcomponentsjs/webcomponents-lite.js,rc,composedPath': '@Event_ya_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,rc,stopPropagation': '@Event_ka_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,rc,get relatedTarget': '@Event_za_reader',
+    '/components/webcomponentsjs/webcomponents-lite.js,nd': '@HTMLElement_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,nd,b': '@HTMLElement_proto_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,nd,b,e': '@customElements_reader',
+    '/components/webcomponentsjs/webcomponents-lite.js,rd': '@CustomEvent_reader',
+    '/components/webcomponentsjs/webcomponents-lite.js,I': '@Node_prototype_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,bc': '@HTMLElement___shady_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,u': '@HTMLElement_insertAdjacentElement_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,l': '@DocumentFragment_$__proto__$_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,Ra': '@DocumentFragment_querySelectorAll_reader',
+    '/components/webcomponentsjs/webcomponents-lite.js,la': '@HTMLElement___shady_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,Wb': '@HTMLElement___shady_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,Wd': '@HTMLElement_prototype_reader',
+    '/components/webcomponentsjs/webcomponents-lite.js,Ba': '@HTMLElement_prototype_reader',
+    '/components/webcomponentsjs/webcomponents-lite.js,wb': '@HTMLElement_prototype_reader',
+    '/components/webcomponentsjs/webcomponents-lite.js,lc,d': '@Event_prototype_reader',
+    '/components/webcomponentsjs/webcomponents-lite.js,c': '@Node_prototype_reader',
+    '/components/webcomponentsjs/webcomponents-lite.js,eb': '@Node_prototype_reader',
+    '/components/webcomponentsjs/webcomponents-lite.js,Mc': '@Element_matches_reader',
+    '/components/webcomponentsjs/webcomponents-lite.js,M': '@Node_prototype_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,M,e': '@Node_prototype_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,yb': '@HTMLElement_insertAdjacentElement_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,hd,b': '@HTMLElement_insertAdjacentElement_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,$c,b': '@HTMLElement_insertAdjacentElement_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,cd': '@HTMLElement_insertAdjacentElement_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,hb': '@Node_prototype_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,ib': '@Node_prototype_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,Fa': '@Node_prototype_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,Aa': '@Node_prototype_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,ua': '@customElements_reader',
+    '/components/webcomponentsjs/webcomponents-lite.js,xa': '@customElements_reader',
+    '/components/webcomponentsjs/webcomponents-lite.js,a': '@customElements_reader',
+    '/components/webcomponentsjs/webcomponents-lite.js,ke': '@customElements_reader',
+    '/components/webcomponentsjs/webcomponents-lite.js,Q,b': '@customElement_localName_reader',
+    '/components/webcomponentsjs/webcomponents-lite.js,h': '@customElement_localName_reader',
+    '/components/webcomponentsjs/webcomponents-lite.js,Bd,a': '@customElements_reader',
+    '/components/webcomponentsjs/webcomponents-lite.js,mc': '@Node_prototype_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,U': '@TreeWalker_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,S': '@TreeWalker_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,Ha': '@TreeWalker_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,Sb': '@TreeWalker_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,Mb': '@TreeWalker_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,Ia': '@TreeWalker_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,b': '@customElements_reader',
+    '/components/webcomponentsjs/webcomponents-lite.js,d,b': '@customElements_reader',
+    '/components/webcomponentsjs/webcomponents-lite.js,id': '@customElements_reader',
+    '/components/webcomponentsjs/webcomponents-lite.js,xd': '@FocusEvent_currentTarget_writer',
+    '/components/webcomponentsjs/webcomponents-lite.js,oa': '@customElements_reader',
+    '/components/webcomponentsjs/webcomponents-lite.js,cc': '@customElements_reader',
+    '/components/webcomponentsjs/webcomponents-lite.js,T': '@customElements_reader',
+    '/components/webcomponentsjs/webcomponents-lite.js,*': '@webcomponents-lite',
+    '/components/thin-hook/demo/es6-module.js': '@es6-module',
+    '/components/thin-hook/demo/es6-module.js,*': '@es6-module',
+    '/components/thin-hook/demo/es6-module2.js,f2,module': '@Module_importer',
+    '/components/thin-hook/demo/es6-module2.js': '@Module_importer',
+    '/components/thin-hook/demo/es6-module2.js,*': '@es6-module2',
+    '/components/thin-hook/demo/es6-module3.js': '@es6-module3',
+    '/components/thin-hook/demo/es6-module3.js,*': '@es6-module3',
+    '/components/thin-hook/demo/es6-module4.js': '@es6-module4',
+    '/components/thin-hook/demo/es6-module4.js,baseUrl': '@es6-module4',
+    '/components/thin-hook/demo/es6-module4.js,f': '@es6-module4,f',
+    '/components/thin-hook/demo/es6-module4.js,f,*': '@es6-module4,f',
+    '/components/polymer/lib/utils/async.html,script@566,timeOut,run': '@setTimeout_reader',
+    '/components/thin-hook/demo/,script@4964': '@document_writer',
+    '/components/thin-hook/demo/,script@5028': '@document_writer',
+    '/components/thin-hook/demo/,script@5911': '@document_writer',
+    '/components/thin-hook/demo/,script@5963': '@document_writer',
+    '/components/thin-hook/demo/,script@5964': '@document_writer',
+    '/components/thin-hook/demo/sub-document.html,*': '@document_writer',
+    '/components/thin-hook/demo/commonjs2.js': '@path_join_prohibited',
+    '/components/thin-hook/demo/commonjs2.js,tty': '@tty_prohibited',
+    '/components/live-localizer/live-localizer-lazy.html,*': '@live-localizer-lazy',
+    '/components/live-localizer/draggable-behavior.html,*': '@draggable-behavior',
+    '/components/iron-location/iron-location.html,*': '@iron-location',
+    '/components/live-localizer/live-localizer-model.html,script@1001,reload': '@route_manipulator',
+    '/components/xliff-conv/xliff-conv.js': '@xliff-conv',
+    '/components/xliff-conv/xliff-conv.js,*': '@xliff-conv',
+    '/components/iron-a11y-announcer/iron-a11y-announcer.html,*': '@iron-a11y-announcer',
+    '/components/iron-a11y-keys-behavior/iron-a11y-keys-behavior.html,*': '@iron-a11y-keys-behavior',
+    '/components/thin-hook/demo/spread.js': '@spread_js',
+    '/components/thin-hook/demo/spread.js,*': '@spread_js',
+    '/components/thin-hook/demo/lhs.js': '@lhs_js',
+    '/components/thin-hook/demo/lhs.js,*': '@lhs_js',
+    '/components/thin-hook/demo/,*': '@demo_entry_page_scripts',
+    '/components/i18n-behavior/i18n-behavior.html,script@754,isStandardPropertyConfigurable,langPropertyDescriptor': '@lang_descriptor_reader',
+    '/components/i18n-behavior/i18n-behavior.html,*': '@i18n-behavior',
+    '/components/i18n-behavior/i18n-attr-repo.html,*': '@i18n-behavior',
+    '/components/i18n-number/i18n-number.html,*': '@i18n-number',
+    '/components/thin-hook/node_modules/process/browser.js': '@process_browser_js',
+    '/components/thin-hook/demo/normalize.js,GetterSetterClass': '@GetterSetterClass',
+    '/components/thin-hook/demo/normalize.js,GetterSetterClass,*': '@GetterSetterClass',
+    '/components/thin-hook/demo/normalize.js,createProperty': '@GetterSetterClass_creator',
+    '/components/thin-hook/demo/normalize.js,createProperty,get': '@GetterSetterClass_creator',
+    '/components/thin-hook/demo/normalize.js,createProperty,set': '@GetterSetterClass_creator',
+    '/components/thin-hook/demo/normalize.js,writeProperty': '@GetterSetterClass_writer',
+    '/components/thin-hook/demo/normalize.js,readProperty': '@GetterSetterClass_reader',
+    '/components/thin-hook/demo/my-view3.html,*': '@iframe_contentWindow_accessor',
+    '/components/thin-hook/demo/view3,*': '@iframe_contentWindow_accessor',
+    '/components/thin-hook/demo/sub-document.html,script@8036,onLoad': '@iframe_contentWindow_accessor',
+    '/components/thin-hook/demo/sub-document.html,script@8036,onLoad,*': '@iframe_contentWindow_accessor',
+    'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js,41,o': '@iframe_contentWindow_accessor',
+    'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js,26': '@iframe_contentWindow_accessor',
+    'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js': '@Chart.min.js',
+    'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js,*': '@Chart.min.js',
+    'https://cdnjs.cloudflare.com/ajax/libs/jsSHA/2.2.0/sha.js': '@sha.js',
+    'https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js': '@crypto-js',
+    'https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js,*': '@crypto-js',
+    'https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js': '@crypto-js',
+    'https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js,*': '@crypto-js',
+    '/components/thin-hook/demo/my-view1.html,script@4544,attached': '@svg_contentWindow_accessor',
+    '/components/iron-behaviors/iron-control-state.html,script@581,properties,_boundFocusBlurHandler,type': '@Function_reader',
+    '/components/paper-ripple/paper-ripple.html,script@4438,properties,_boundAnimate,type': '@Function_reader',
+    '/components/iron-ajax/iron-ajax.html,script@1410,properties,_boundHandleResponse,type': '@Function_reader',
+    '/components/vaadin-grid/vaadin-grid-table.html,script@8651,properties,bindData': '@Function_reader',
+    '/components/vaadin-grid/vaadin-grid-active-item-behavior.html,script@320': '@vaadin-grid',
+    '/components/vaadin-grid/vaadin-grid-table-scroll-behavior.html,script@1638': '@vaadin-grid',
+    '/components/vaadin-grid/vaadin-grid-cell-click-behavior.html,script@8': '@vaadin-grid',
+    '/components/vaadin-grid/vaadin-grid-focusable-cell-container-behavior.html,script@8': '@vaadin-grid',
+    '/components/vaadin-grid/vaadin-grid-templatizer.html,script@67': '@vaadin-grid',
+    '/components/vaadin-grid/vaadin-grid-row-details-behavior.html,script@593': '@vaadin-grid',
+    '/components/vaadin-grid/vaadin-grid-data-provider-behavior.html,script@1161': '@vaadin-grid',
+    '/components/vaadin-grid/vaadin-grid-selection-behavior.html,script@8': '@vaadin-grid',
+    '/components/vaadin-grid/vaadin-grid-keyboard-navigation-behavior.html,script@623': '@vaadin-grid',
+    '/components/vaadin-grid/vaadin-grid-column-reordering-behavior.html,script@951': '@vaadin-grid',
+    '/components/vaadin-grid/vaadin-grid-column.html,script@281': '@vaadin-grid',
+    '/components/vaadin-grid/vaadin-grid-array-data-provider-behavior.html,script@8': '@vaadin-grid',
+    '/components/vaadin-grid/vaadin-grid-dynamic-columns-behavior.html,script@8': '@vaadin-grid',
+    '/components/vaadin-grid/vaadin-grid-sort-behavior.html,script@8': '@vaadin-grid',
+    '/components/vaadin-grid/vaadin-grid-filter-behavior.html,script@8': '@vaadin-grid',
+    '/components/vaadin-grid/iron-list-behavior.html,script@165': '@vaadin-grid',
+    '/components/app-storage/app-storage-behavior.html,script@579,valueIsEmpty': '@Object_prototype_reader',
+    '/components/thin-hook/demo/global.js': '@global_js',
+    '/components/thin-hook/demo/global.js,inaccessible': '@global_js_inaccessible',
+    '/components/thin-hook/demo/global.js,inaccessible,accessible': '@global_js_accessible',
+    '/components/shadycss/apply-shim.min.js': '@apply-shim',
+    '/components/shadycss/apply-shim.min.js,*': '@apply-shim',
+    '/components/shadycss/custom-style-interface.min.js': '@custom-style-interface',
+    '/components/shadycss/custom-style-interface.min.js,*': '@custom-style-interface',
+    '/components/make-plural/plurals.js': '@plurals.js',
+    '/components/make-plural/plurals.js,*': '@plurals.js',
+    "lit-html": "@lit-html",
+    "lit-html,*": "@lit-html",
+    "lit-html/*": "@lit-html",
+    "lit-element/": "@lit-element",
+    "lit-element/,*": "@lit-element",
+    "lit-element/lib/*": "@lit-element",
+    "lit-element/*": "@lit-element",
+    "focus-visible": "@focus-visible",
+    "focus-visible,*": "@focus-visible",
+    "@spectrum-web-components/shared/*": "@spectrum-web-components/shared",
+    "@spectrum-web-components/button/*": "@spectrum-web-components/button",
+    "@spectrum-web-components/theme/*": "@spectrum-web-components/theme",
+    "tslib": "@tslib",
+    "tslib,*": "@tslib",
+    "./modules/module1.js": "@module1",
+    "./modules/module1.js,*": "@module1",
+    "./modules/module2.js": "@module2",
+    "./modules/module2.js,*": "@module2",
+    'https://thin-hook.localhost.localdomain/automation.json,*': '@cache_automation',
+  });
   Object.assign(acl, {
     // blacklist objects/classes
     caches: '---',
@@ -6521,6 +6542,17 @@ else {
       },
     }
   });
+  const operatorNormalizer = Policy.operatorNormalizer;
+  const targetNormalizer = Policy.targetNormalizer;
+  const targetNormalizerMap = Policy.getTargetNormalizerMap(targetNormalizer);
+  const targetNormalizerMapObject = Policy.getTargetNormalizerMapObject(operatorNormalizer, targetNormalizer);
+  const isSuperOperator = Policy.getIsSuperOperator(operatorNormalizer);
+  const tagToElementClass = Policy.tagToElementClass;
+  Policy.resolveBareSpecifierContextNormalizer(contextNormalizer);
+  const prefixedModuleContexts = Policy.getPrefixedModuleContexts(contextNormalizer);
+  const prefixedContexts = Policy.getPrefixedContexts(contextNormalizer);
+  const opTypeMap = Policy.opTypeMap;
+  const isGlobalScopeObject = Policy.isGlobalScopeObject;
   { // Preprocess acl entries
     // protect hook-callback.js variables
     Policy.protectGlobalVariableAcl(acl, [
