@@ -1924,133 +1924,1046 @@ else {
         return true; // equivalent to 'rwxRW' acl
       };
     }
+    static chainAcl(acl) {
+      const chainAcl = function chainAcl(_acl, path = [ [_acl, 'acl'] ]) {
+        let properties = Object.getOwnPropertySymbols(_acl).concat(Object.getOwnPropertyNames(_acl));
+        for (let property of properties) {
+          if (property === S_CHAIN) {
+            let chain = _acl[S_CHAIN];
+            let __acl;
+            switch (typeof chain) {
+            case 'object':
+              if (chain) {
+                Object.setPrototypeOf(_acl, chain);
+              }
+              else {
+                console.error('chainAcl: cannot chain to a null object', _acl);
+              }
+              break;
+            case 'function':
+              __acl = chain(path);
+              if (__acl) {
+                Object.setPrototypeOf(_acl, __acl);
+              }
+              else {
+                console.error('chainAcl: cannot chain to ' + chain.toString(), _acl);
+              }
+              break;
+            case 'symbol':
+              switch (chain) {
+              case S_CHAIN:
+                __acl = path[path.length - 2][0].__proto__[path[path.length - 1][1]];
+                if (__acl) {
+                  Object.setPrototypeOf(_acl, __acl);
+                }
+                else {
+                  console.error('chainAcl: cannot chain to ' + chain.toString(), _acl);
+                }
+                break;
+              case S_OBJECT:
+                try {
+                  __acl = path[0][0].Object[S_PROTOTYPE][S_INSTANCE];
+                  if (__acl) {
+                    Object.setPrototypeOf(_acl, __acl);
+                  }
+                  else {
+                    console.error('chainAcl: cannot chain to ' + chain.toString(), _acl);
+                  }
+                }
+                catch (e) {
+                  console.error('chainAcl: cannot chain to ' + chain.toString(), _acl);
+                }
+                break;
+              case S_FUNCTION:
+                try {
+                  __acl = path[0][0].Function[S_PROTOTYPE][S_INSTANCE];
+                  if (__acl) {
+                    Object.setPrototypeOf(_acl, __acl);
+                  }
+                  else {
+                    console.error('chainAcl: cannot chain to ' + chain.toString(), _acl);
+                  }
+                }
+                catch (e) {
+                  console.error('chainAcl: cannot chain to ' + chain.toString(), _acl);
+                }
+                break;
+              default:
+                console.error('chainAcl: cannot recongnize chain ' + chain.toString(), _acl);
+                break;
+              }
+              break;
+            default:
+              break;
+            }
+          }
+          else {
+            let __acl = _acl[property];
+            switch (typeof __acl) {
+            case 'object':
+              if (__acl) {
+                path.push([__acl, property]);
+                chainAcl(__acl, path);
+                path.pop();
+              }
+              break;
+            default:
+              break;
+            }
+          }
+        }
+      }
+      chainAcl(acl);
+    }
+    static mergeAcl(target, ...sources) {
+      const mergeAcl = function mergeAcl(target, source) {
+        if (!source) {
+          return target;
+        }
+        let properties = Object.getOwnPropertySymbols(source).concat(Object.getOwnPropertyNames(source));
+        PROPERTY_LOOP:
+        for (let property of properties) {
+          switch (property) {
+          case S_PROXY:
+          case S_CHAIN:
+            continue PROPERTY_LOOP; // skip S_PROXY and S_CHAIN properties
+          }
+          if (_hasOwnProperty.call(target, property)) {
+            let _target = target[property];
+            let _source = source[property];
+            switch (typeof _target) {
+            case 'string':
+            case 'function':
+              if (typeof property === 'string' && property.startsWith('@')) {
+                // override the target property
+                _target = target[property] = _source;
+                break;
+              }
+              // convert property: 'string' to property: { [S_DEFAULT]: 'string' }
+              // convert property: func to property: { [S_DEFAULT]: func }
+              _target = target[property] = { [S_DEFAULT]: _target };
+            case 'object':
+              switch (typeof _source) {
+              case 'string':
+              case 'function':
+                // convert property: 'string' to property: { [S_DEFAULT]: 'string' }
+                // convert property: func to property: { [S_DEFAULT]: func }
+                _source = source[property] = { [S_DEFAULT]: _source };
+              case 'object':
+                mergeAcl(_target, _source); // recursively merge the object property
+                break;
+              default:
+                console.error('mergeAcl: unexpected source property type', typeof _source, _source);
+                break;
+              }
+              break;
+            default:
+              console.error('mergeAcl: unexpected target property type', typeof _target, _target);
+              break;
+            }
+          }
+          else if (Reflect.has(target, property)) {
+            // inherited target[property]
+            let _target = target[property];
+            let _source = source[property];
+            switch (typeof _target) {
+            case 'string':
+            case 'function':
+              if (typeof property === 'string' && property.startsWith('@')) {
+                // override the target property
+                _target = target[property] = _source;
+                break;
+              }
+              // convert property: 'string' to property: { [S_DEFAULT]: 'string' }
+              // convert property: func to property: { [S_DEFAULT]: func }
+              _target = target[property] = { [S_DEFAULT]: target[property] };
+              switch (typeof _source) {
+              case 'string':
+              case 'function':
+                // convert property: 'string' to property: { [S_DEFAULT]: 'string' }
+                // convert property: func to property: { [S_DEFAULT]: func }
+                _source = source[property] = { [S_DEFAULT]: _source };
+              case 'object':
+                mergeAcl(_target, _source); // recursively merge the object property
+                break;
+              default:
+                console.error('mergeAcl: unexpected source property type', typeof _source, _source);
+                break;
+              }
+              break;
+            case 'object':
+              // create a new own property inherited from target[property]
+              _target = target[property] = Object.create(_target);
+              switch (typeof _source) {
+              case 'string':
+              case 'function':
+                // convert property: 'string' to property: { [S_DEFAULT]: 'string' }
+                // convert property: func to property: { [S_DEFAULT]: func }
+                _source = source[property] = { [S_DEFAULT]: _source };
+              case 'object':
+                mergeAcl(_target, _source); // recursively merge the object property
+                break;
+              default:
+                console.error('mergeAcl: unexpected source property type', typeof _source, _source);
+                break;
+              }
+            default:
+              console.error('mergeAcl: unexpected target property type', typeof _target, _target);
+              break;
+            }
+          }
+          else {
+            // no target[property]
+            target[property] = source[property]; // copy the source property
+          }
+        }
+        return target;
+      };
+      for (let source of sources) {
+        mergeAcl(target, source);
+      }
+      return target;
+    }
+    static proxyAcl(acl) {
+      const proxyAcl = function proxyAcl(_acl, path = [ [_acl, 'acl'] ]) {
+        let properties = Object.getOwnPropertySymbols(_acl).concat(Object.getOwnPropertyNames(_acl));
+        for (let property of properties) {
+          if (property === S_PROXY) {
+            let proxy = _acl[S_PROXY];
+            switch (typeof proxy) {
+            case 'object':
+              if (proxy && path && path.length >= 2) {
+                Policy.mergeAcl(proxy, _acl);
+                path[path.length - 2][0][path[path.length - 1][1]] = proxy;
+              }
+              else {
+                console.error('proxyAcl: cannot proxy from', path, 'to', proxy, _acl);
+              }
+              break;
+            case 'function':
+              let __acl = proxy(path);
+              if (__acl && path && path.length >= 2) {
+                Policy.mergeAcl(__acl, _acl);
+                path[path.length - 2][0][path[path.length - 1][1]] = __acl;
+              }
+              else {
+                console.error('proxyAcl: cannot proxy from', path, 'to ' + proxy.toString(), _acl);
+              }
+              break;
+            case 'symbol':
+              /*
+              switch (proxy) {
+              case S_PROXY:
+                let __acl = path[path.length - 2][0].__proto__[path[path.length - 1][1]];
+                if (__acl) {
+                  Object.setPrototypeOf(_acl, __acl);
+                }
+                else {
+                  console.error('proxyAcl: cannot proxy to ' + proxy.toString(), _acl);
+                }
+                break;
+              default:
+                console.error('proxyAcl: cannot recongnize proxy ' + proxy.toString(), _acl);
+                break;
+              }
+              */
+              break;
+            default:
+              break;
+            }
+          }
+          else {
+            let __acl = _acl[property];
+            switch (typeof __acl) {
+            case 'object':
+              if (__acl) {
+                path.push([__acl, property]);
+                proxyAcl(__acl, path);
+                path.pop();
+              }
+              break;
+            default:
+              break;
+            }
+          }
+        }
+      }
+      proxyAcl(acl);
+    }
+    /*
+      resolve module paths via hook.parameters.importMapper(specifier, baseURI)
+      
+      Notes:
+      - No resolution if hook.parameters.importMapper is not configured
+        - hook.parameters.importMapper is a wrapper function of the Import Maps reference implementation
+      - baseURI is hook.parameters.baseURI
+      - Import Maps JSON is set in hook.parameters.importMapsJson as a string
+        - Picking up from the native import maps script tag has not been implemented yet
+      - A trivial fork of the Import Maps reference implementation is used for resolution
+        - GitHub repository: https://github.com/t2ym/import-maps/tree/browserify/reference-implementation/lib
+        - package.json at the top of the repository is added so that NPM can fetch the package from GitHub
+
+      Resolutions:
+      
+      - Type: bare specifiers
+
+          "lit-html" -> "/components/thin-hook/demo/node_modules/lit-html/lit-html.js"
+          "lit-html/" -> "/components/thin-hook/demo/node_modules/lit-html/lit-html.js" - never conflicts with global property names
+          "lit-html/*" -> "/components/thin-hook/demo/node_modules/lit-html/*"
+          "lit-html/directives/repeat.js" -> "/components/thin-hook/demo/node_modules/lit-html/directives/repeat.js"
+          "lit-html/,*" -> "/components/thin-hook/demo/node_modules/lit-html/lit-html.js,*"
+
+      - Type: relative paths from hook.parameters.baseURI
+
+          "./modules/module1.js" -> "/components/thin-hook/demo/modules/module1.js"
+          "./modules/module1.js,*" -> "/components/thin-hook/demo/modules/module1.js,*"
+
+    */
+    static resolveBareSpecifierAcl(_acl) {
+      if (!hook.parameters.importMapper) {
+        return; // no operation if importMapper is missing
+      }
+      // resolve bare specifiers in acl
+      let paths;
+      let resolved;
+      for (let name in _acl) {
+        if (name.startsWith('https://') || name.startsWith('/')) {
+          continue; // skip already resolved specifiers
+        }
+        if (_acl[name][S_TYPE] !== S_NAMESPACE) {
+          continue; // skip non-module ACLs
+        }
+        paths = name.split(',');
+        if (paths.length === 1) {
+          if (name.endsWith('/*')) {
+            // bare-specifier/*
+            resolved = hook.parameters.importMapper(name + '.js', hook.parameters.baseURI).replace(/\*\.js$/, '*');
+          }
+          else if (name.endsWith('/')) {
+            // bare-specifier/
+            resolved = hook.parameters.importMapper(name.substring(0, name.length - 1), hook.parameters.baseURI);
+          }
+          else {
+            // bare-specifier
+            resolved = hook.parameters.importMapper(name, hook.parameters.baseURI);
+          }
+        }
+        else {
+          // bare-specifier,anything,*
+          if (paths[0].endsWith('/')) {
+            paths[0] = hook.parameters.importMapper(paths[0].substring(0, paths[0].length - 1), hook.parameters.baseURI);
+          }
+          else {
+            paths[0] = hook.parameters.importMapper(paths[0], hook.parameters.baseURI);
+          }
+          resolved = paths.join(',');
+        }
+        _acl[resolved] = _acl[name];
+        delete _acl[name];
+      }
+    }
+    /*
+      Prefixed Module Name object:
+        {
+          "": { // root
+            "components": {
+              "thin-hook": {
+                "demo": {
+                  "node_modules": {
+                    "lit-html": {
+                      "*": "@lit-html",
+                    },
+                    "lit-element": {
+                      "*": "@lit-element",
+                    },
+                  },
+                },
+              },
+            },
+          },
+        };
+
+      Notes:
+      - Prefixed module names must end with '/*' like this:
+        '/some/module-name/*'
+    */
+    static generatePrefixedModuleNames(_acl) {
+      const prefixedModuleNames = Object.create(null);
+      for (let name in _acl) {
+        let paths = name.split('/');
+        let cursor = prefixedModuleNames;
+        if (paths.length > 1 && paths[0] === '' && paths[paths.length - 1] === '*') {
+          for (let path of paths) {
+            if (path === '*') {
+              cursor[path] = contextNormalizer[c];
+              break;
+            }
+            else {
+              if (!Reflect.has(cursor, path)) {
+                cursor[path] = {};
+              }
+              cursor = cursor[path];
+            }
+          }
+        }
+      }
+      this.prefixedModuleNames = prefixedModuleNames;
+      return this.prefixedModuleNames;
+    }
+    /*
+      flatternAcl(_acl):
+      acl = {
+        'module-name': {
+          [S_TYPE]: S_NAMESPACE,
+          exported: { // flattened as 'module-name,exported'
+
+          },
+        },
+        className: {
+          classProperty: { // flattened as 'className,classProperty'
+            [S_TYPE]: S_CLASS,
+          }
+        },
+      };
+    */
+    static flattenAcl(_acl) { // only 1 level for now
+      for (let name in _acl) {
+        if (typeof name === 'string' && typeof _acl[name] === 'object' && _acl[name]) {
+          if (_acl[name][S_TYPE] === S_NAMESPACE) {
+            // module namespace object
+            for (let _export in _acl[name]) {
+              if (_export[0] === '@') {
+                continue;
+              }
+              let flattenName = name + ',' + _export;
+              if (!_acl[flattenName]) {
+                _acl[flattenName] = _acl[name][_export];
+              }
+            }
+          }
+          else {
+            // class object
+            for (let _property in _acl[name]) {
+              if (_property[0] === '@') {
+                continue;
+              }
+              if (!(_acl[name][_property] && typeof _acl[name][_property] === 'object' && _acl[name][_property][S_TYPE] === S_CLASS)) {
+                continue;
+              }
+              // class property
+              let flattenName = name + ',' + _property;
+              if (!_acl[flattenName]) {
+                _acl[flattenName] = _acl[name][_property];
+              }
+            }
+          }
+        }
+      }
+    }
+    static getGlobalPolicy(acl) {
+      return Reflect.has(acl, S_GLOBAL) ? acl[S_GLOBAL] : acl[S_DEFAULT];
+    }
+    static getModulePolicy(acl) {
+      return Reflect.has(acl, S_MODULE) ? acl[S_MODULE] : acl[S_DEFAULT];
+    }
+    static getApplyAcl(acl) {
+      const globalPolicy = this.getGlobalPolicy(acl);
+      const modulePolicy = this.getModulePolicy(acl);
+      function applyAcl(name, isStatic, isObject, property, opType, context, normalizedThisArg, normalizedArgs, hookArgs) {
+        const names = name;
+        if (names instanceof Set) {
+          let result = true;
+          for (name of names.values()) {
+            if (!(result = applyAcl(name, isStatic, isObject, property, opType, context, normalizedThisArg, normalizedArgs, hookArgs))) {
+              break;
+            }
+          }
+          return result;
+        }
+        let _context, _acl, __acl, _property, isGlobal, tmp;
+        while (_context = contextNormalizer[context]) {
+          context = _context;
+          if (context === S_DEFAULT) {
+            break;
+          }
+          if (context[0] === '@') {
+            break;
+          }
+        }
+        if (!_context) {
+          // prefixedSearch for context
+          let cursor;
+          let index;
+          let prevIndex;
+          let path;
+          let length = context.length;
+          let result;
+    
+          if (context[0] === '/' && (cursor = prefixedModuleContexts[''])) {
+            index = prevIndex = 1;
+            while (index < length) {
+              index = context.indexOf('/', prevIndex); // next slash
+              if (index === -1) {
+                index = length;
+              }
+              path = context.substring(prevIndex, index);
+              index++;
+              if (Reflect.has(cursor, '*')) {
+                result = cursor['*'];
+              }
+              if (Reflect.has(cursor, path)) {
+                cursor = cursor[path];
+                prevIndex = index;
+              }
+              else {
+                break;
+              }
+            }
+            if (result) {
+              context = contextNormalizer[context] = result; // cache the result
+            }
+          }
+    
+          if (!result) {
+            result = S_DEFAULT;
+            index = prevIndex = 0;
+            cursor = prefixedContexts;
+            while (index < length) {
+              index = context.indexOf(',', prevIndex); // next comma
+              if (index === -1) {
+                index = length;
+              }
+              path = context.substring(prevIndex, index);
+              index++;
+              if (Reflect.has(cursor, '*')) {
+                result = cursor['*'];
+              }
+              if (Reflect.has(cursor, path)) {
+                cursor = cursor[path];
+                prevIndex = index;
+              }
+              else {
+                break;
+              }
+            }
+            context = contextNormalizer[context] = result; // cache the result
+          }
+        }
+        arguments[5] = context; // Note: In strict mode, function parameters are not bound to their corresponding elements of arguments
+        //context = _context ? context : S_DEFAULT;
+        isGlobal = isGlobalScopeObject.has(name);
+        _acl = name
+          ? name === 'Object' && isObject
+            ? acl[S_DEFAULT]
+            : Reflect.has(acl, name)
+              ? acl[name]
+              : (tmp = _globalMethods.split(name)).length === 1
+                ? property === S_MODULE
+                  ? modulePolicy
+                  : globalPolicy // acl[S_GLOBAL] for a real global property
+                : tmp.length === 2
+                  ? Reflect.has(acl, tmp[0])
+                    ? acl[tmp[0]][S_TYPE] === S_NAMESPACE
+                      ? Reflect.has(acl[tmp[0]], tmp[1])
+                        ? (acl[name] = acl[tmp[0]][tmp[1]])
+                        : Reflect.has(acl[tmp[0]], S_DEFAULT)
+                          ? acl[tmp[0]][S_DEFAULT]
+                          : modulePolicy[S_DEFAULT]
+                      : modulePolicy[S_DEFAULT]
+                    : modulePolicy[S_DEFAULT]
+                  : globalPolicy
+          : acl[S_DEFAULT];
+        if (typeof _acl === 'object') {
+          if (typeof property === 'undefined') {
+            _acl = context === S_DEFAULT
+              ? Reflect.has(_acl, S_OBJECT)
+                ? _acl[S_OBJECT]
+                : _acl[S_DEFAULT]
+              : Reflect.has(_acl, context)
+                ? _acl[context]
+                : Reflect.has(_acl, S_OBJECT)
+                  ? _acl[S_OBJECT]
+                  : _acl[S_DEFAULT];
+          }
+          else {
+            if (!isStatic) {
+              if (Reflect.has(_acl, S_PROTOTYPE)) {
+                _acl = _acl[S_PROTOTYPE];
+                if (Reflect.has(_acl, S_INSTANCE)) {
+                  if (isObject) {
+                    _acl = _acl[S_INSTANCE];
+                  }
+                }
+              }
+            }
+            if (typeof _acl === 'object') {
+              switch (property) {
+              case S_ALL:
+                _acl = context === S_DEFAULT
+                  ? Reflect.has(_acl, S_ALL)
+                    ? _acl[S_ALL]
+                    : _acl[S_DEFAULT]
+                  : Reflect.has(_acl, context)
+                    ? _acl[context] 
+                    : Reflect.has(_acl, S_ALL)
+                      ? _acl[S_ALL] 
+                      : _acl[S_DEFAULT];
+                if (typeof _acl === 'object') {
+                  _acl = Reflect.has(_acl, S_ALL)
+                    ? _acl[S_ALL]
+                    : _acl[S_DEFAULT];
+                }
+                break;
+              case S_UNSPECIFIED:
+              case S_MODULE:
+                if (Reflect.has(_acl, S_OBJECT)) {
+                  _acl = _acl[S_OBJECT];
+                }
+                if (typeof _acl === 'object') {
+                  _acl = Reflect.has(_acl, context)
+                    ? _acl[context]
+                    : _acl[S_DEFAULT];
+                }
+                if (typeof _acl === 'object') {
+                  _acl = _acl[S_DEFAULT];
+                }
+                break;
+              case S_FUNCTION:
+                _acl = Reflect.has(_acl, context)
+                  ? _acl[context]
+                  : _acl[S_DEFAULT];
+                if (typeof _acl === 'object') {
+                  _acl = _acl[S_DEFAULT];
+                }
+                break;
+              default:
+                switch (typeof property) {
+                case 'string':
+                case 'number':
+                case 'symbol':
+                case 'function':
+                case 'boolean':
+                case 'undefined':
+                  _acl = Reflect.has(_acl, property)
+                    ? isGlobal
+                      ? _acl[property] instanceof Object && Reflect.has(_acl[property], S_OBJECT)
+                        ? _acl[property][S_OBJECT]
+                        : _acl[property]
+                      : _acl[property]
+                    : Reflect.has(_acl, context)
+                      ? context === S_DEFAULT
+                        ? isGlobal
+                          ? Reflect.has(acl, property)
+                            ? acl[property] instanceof Object && Reflect.has(acl[property], S_OBJECT)
+                              ? acl[property][S_OBJECT]
+                              : acl[property]
+                            : acl[S_GLOBAL]
+                          : _acl[context]
+                        : _acl[context]
+                      : isGlobal
+                        ? Reflect.has(acl, property)
+                          ? acl[property] instanceof Object && Reflect.has(acl[property], S_OBJECT)
+                            ? acl[property][S_OBJECT]
+                            : acl[property]
+                          : acl[S_GLOBAL]
+                        : _acl[S_DEFAULT];
+                  if (typeof _acl === 'object') {
+                    _acl = Reflect.has(_acl, S_OBJECT)
+                      ? typeof _acl[S_OBJECT] === 'object'
+                        ? Reflect.has(_acl[S_OBJECT], context)
+                          ? _acl[S_OBJECT][context]
+                          : _acl[S_OBJECT][S_DEFAULT]
+                        : _acl[S_OBJECT]
+                      : Reflect.has(_acl, context)
+                        ? _acl[context]
+                        : typeof _acl[S_DEFAULT] === 'object'
+                          ? Reflect.has(_acl[S_DEFAULT], context)
+                            ? _acl[S_DEFAULT][context]
+                            : _acl[S_DEFAULT][S_DEFAULT]
+                          : _acl[S_DEFAULT];
+                  }
+                  break;
+                case 'object':
+                  if (Array.isArray(property)) {
+                    tmp = [];
+                    for (_property of property) {
+                      __acl = Reflect.has(_acl, property)
+                        ? isGlobal
+                          ? _acl[property] instanceof Object && Reflect.has(_acl[property], S_OBJECT)
+                            ? _acl[property][S_OBJECT]
+                            : _acl[property]
+                          : _acl[property]
+                        : Reflect.has(_acl, context)
+                          ? context === S_DEFAULT
+                            ? isGlobal
+                              ? Reflect.has(acl, property)
+                                ? acl[property] instanceof Object && Reflect.has(acl[property], S_OBJECT)
+                                  ? acl[property][S_OBJECT]
+                                  : acl[property]
+                                : acl[S_GLOBAL]
+                              : _acl[context]
+                            : _acl[context]
+                          : isGlobal
+                            ? Reflect.has(acl, property)
+                              ? acl[property] instanceof Object && Reflect.has(acl[property], S_OBJECT)
+                                ? acl[property][S_OBJECT]
+                                : acl[property]
+                              : acl[S_GLOBAL]
+                            : _acl[S_DEFAULT];
+                      if (typeof __acl === 'object') {
+                        __acl = Reflect.has(__acl, context)
+                          ? __acl[context]
+                          : __acl[S_DEFAULT];
+                      }
+                      tmp.push(__acl);
+                    }
+                    _acl = tmp;
+                  }
+                  else {
+                    _acl = Reflect.has(_acl, property)
+                      ? _acl[property]
+                      : Reflect.has(_acl, context)
+                        ? _acl[context]
+                        : _acl[S_DEFAULT];
+                    if (typeof _acl === 'object') {
+                      _acl = Reflect.has(_acl, context)
+                        ? _acl[context]
+                        : _acl[S_DEFAULT];
+                    }
+                  }
+                  break;
+                default:
+                  _acl = '---';
+                  break;
+                }
+                break;
+              }
+            }
+          }
+        }
+        SWITCH_ACL:
+        switch (typeof _acl) {
+        case 'string':
+          if (_acl[opTypeMap[opType]] === opType) {
+            return true;
+          }
+          break;
+        case 'object':
+          tmp = opTypeMap[opType];
+          for (__acl of _acl) {
+            switch (typeof __acl) {
+            case 'string':
+              if (__acl[tmp] !== opType) {
+                break SWITCH_ACL;
+              }
+              break;
+            case 'function':
+              if (!__acl(normalizedThisArg, normalizedArgs, arguments, hookArgs, applyAcl)) {
+                break SWITCH_ACL;
+              }
+              break;
+            }
+          }
+          return true;
+        case 'function':
+          if (_acl(normalizedThisArg, normalizedArgs, arguments, hookArgs, applyAcl)) {
+            return true;
+          }
+          break;
+        case 'undefined':
+        default:
+          break;
+        }
+        // Permission Denied
+        if (!normalizedArgs.result) {
+          normalizedArgs.result = [...arguments];
+        }
+        return false;
+      }
+      return applyAcl;
+    }
+    static get tagToElementClass() {
+      return { // from w3schools.com - may be incomplete
+        a: 'HTMLAnchorElement',
+        abbr: 'HTMLElement',
+        acronym: 'HTMLElement',
+        address: 'HTMLElement',
+        applet: 'HTMLUnknownElement',
+        area: 'HTMLAreaElement',
+        article: 'HTMLElement',
+        aside: 'HTMLElement',
+        audio: 'HTMLAudioElement',
+        b: 'HTMLElement',
+        base: 'HTMLBaseElement',
+        basefont: 'HTMLElement',
+        bdi: 'HTMLElement',
+        bdo: 'HTMLElement',
+        big: 'HTMLElement',
+        blockquote: 'HTMLQuoteElement',
+        body: 'HTMLBodyElement',
+        br: 'HTMLBRElement',
+        button: 'HTMLButtonElement',
+        canvas: 'HTMLCanvasElement',
+        caption: 'HTMLTableCaptionElement',
+        center: 'HTMLElement',
+        cite: 'HTMLElement',
+        code: 'HTMLElement',
+        col: 'HTMLTableColElement',
+        colgroup: 'HTMLTableColElement',
+        data: 'HTMLDataElement',
+        datalist: 'HTMLDataListElement',
+        dd: 'HTMLElement',
+        del: 'HTMLModElement',
+        details: 'HTMLDetailsElement',
+        dfn: 'HTMLElement',
+        dialog: 'HTMLDialogElement',
+        dir: 'HTMLDirectoryElement',
+        div: 'HTMLDivElement',
+        dl: 'HTMLDListElement',
+        dt: 'HTMLElement',
+        em: 'HTMLElement',
+        embed: 'HTMLEmbedElement',
+        fieldset: 'HTMLFieldSetElement',
+        figcaption: 'HTMLElement',
+        figure: 'HTMLElement',
+        font: 'HTMLFontElement',
+        footer: 'HTMLElement',
+        form: 'HTMLFormElement',
+        frame: 'HTMLFrameElement',
+        frameset: 'HTMLFrameSetElement',
+        h1: 'HTMLHeadingElement',
+        h2: 'HTMLHeadingElement',
+        h3: 'HTMLHeadingElement',
+        h4: 'HTMLHeadingElement',
+        h5: 'HTMLHeadingElement',
+        h6: 'HTMLHeadingElement',
+        head: 'HTMLHeadElement',
+        header: 'HTMLElement',
+        hr: 'HTMLHRElement',
+        html: 'HTMLHtmlElement',
+        i: 'HTMLElement',
+        iframe: 'HTMLIFrameElement',
+        img: 'HTMLImageElement',
+        input: 'HTMLInputElement',
+        ins: 'HTMLModElement',
+        kbd: 'HTMLElement',
+        label: 'HTMLLabelElement',
+        legend: 'HTMLLegendElement',
+        li: 'HTMLLIElement',
+        link: 'HTMLLinkElement',
+        main: 'HTMLElement',
+        map: 'HTMLMapElement',
+        mark: 'HTMLElement',
+        menu: 'HTMLMenuElement',
+        menuitem: 'HTMLUnknownElement',
+        meta: 'HTMLMetaElement',
+        meter: 'HTMLMeterElement',
+        nav: 'HTMLElement',
+        noframes: 'HTMLElement',
+        noscript: 'HTMLElement',
+        object: 'HTMLObjectElement',
+        ol: 'HTMLOListElement',
+        optgroup: 'HTMLOptGroupElement',
+        option: 'HTMLOptionElement',
+        output: 'HTMLOutputElement',
+        p: 'HTMLParagraphElement',
+        param: 'HTMLParamElement',
+        picture: 'HTMLPictureElement',
+        pre: 'HTMLPreElement',
+        progress: 'HTMLProgressElement',
+        q: 'HTMLQuoteElement',
+        rp: 'HTMLElement',
+        rt: 'HTMLElement',
+        ruby: 'HTMLElement',
+        s: 'HTMLElement',
+        samp: 'HTMLElement',
+        script: 'HTMLScriptElement',
+        section: 'HTMLElement',
+        select: 'HTMLSelectElement',
+        slot: 'HTMLSlotElement',
+        small: 'HTMLElement',
+        source: 'HTMLSourceElement',
+        span: 'HTMLSpanElement',
+        strike: 'HTMLElement',
+        strong: 'HTMLElement',
+        style: 'HTMLStyleElement',
+        sub: 'HTMLElement',
+        summary: 'HTMLElement',
+        sup: 'HTMLElement',
+        table: 'HTMLTableElement',
+        tbody: 'HTMLTableSectionElement',
+        td: 'HTMLTableCellElement',
+        template: 'HTMLTemplateElement',
+        textarea: 'HTMLTextAreaElement',
+        tfoot: 'HTMLTableSectionElement',
+        th: 'HTMLTableCellElement',
+        thead: 'HTMLTableSectionElement',
+        time: 'HTMLTimeElement',
+        title: 'HTMLTitleElement',
+        tr: 'HTMLTableRowElement',
+        track: 'HTMLTrackElement',
+        tt: 'HTMLElement',
+        u: 'HTMLElement',
+        ul: 'HTMLUListElement',
+        var: 'HTMLElement',
+        video: 'HTMLVideoElement',
+        wbr: 'HTMLElement',
+      };
+    }
+    static protectGlobalVariableAcl(acl, list) {
+      list.forEach(n => {
+        Object.assign(acl, { [n]: '---' });
+        Object.assign(acl[mainGlobalObjectName], { [n]: '---' });
+      });
+    }
+    static get detectName() {
+      const detectName = function detectName(target, boundParameters) {
+        let prototype = target;
+        let ctor = null;
+        let isStatic = false;
+        let isObject = true;
+        let name;
+        let bound = false;
+        if (boundParameters && target === boundParameters._normalizedThisArg) {
+          ctor = target ? target.constructor : null;
+          bound = true;
+        }
+        else {
+          try {
+            switch (typeof target) {
+            case 'object':
+              if (target === null) {
+                break;
+              }
+              name = _globalObjects.get(target);
+              if (name) {
+                isStatic = true;
+                break;
+              }
+              ctor = target.constructor;
+              if (typeof ctor === 'function' && Object.getPrototypeOf(target) === ctor.prototype) {
+                break;
+              }
+              else if (typeof ctor === 'function' && target === ctor.prototype) {
+                isObject = false;
+                break;
+              }
+              else if (ctor && ctor !== Object) {
+                ctor = null;
+                try {
+                  CTOR_LOOP:
+                  while (!ctor) {
+                    while (!_hasOwnProperty.call(prototype, 'constructor')) {
+                      prototype = Object.getPrototypeOf(prototype);
+                      name = _globalObjects.get(prototype);
+                      if (name) {
+                        isStatic = true;
+                        isObject = false;
+                        break CTOR_LOOP;
+                      }
+                    }
+                    ctor = prototype.constructor;
+                    if (ctor && ctor.prototype === prototype) {
+                      break;
+                    }
+                    else {
+                      ctor = null;
+                      prototype = Object.getPrototypeOf(prototype);
+                      name = _globalObjects.get(prototype);
+                      if (name) {
+                        isStatic = true;
+                        isObject = false;
+                        break;
+                      }
+                    }
+                  }
+                }
+                catch (error) {
+                }
+              }
+              break;
+            case 'function':
+              name = _globalObjects.get(target); // detect the global class/function name first
+              if (name) {
+                isStatic = true;
+                break;
+              }
+              // detect its constructor
+              // Note: super classes are not tracked since they are tracked in Policy.defaultAcl(), etc.
+              ctor = target.constructor; // Most likely ctor === Function
+              if (typeof ctor === 'function' && Object.getPrototypeOf(target) === ctor.prototype) {
+                break;
+              }
+              else {
+                // rare case
+                ctor = null;
+                try {
+                  while (!ctor) {
+                    while (!_hasOwnProperty.call(prototype, 'constructor')) {
+                      prototype = Object.getPrototypeOf(prototype);
+                    }
+                    ctor = prototype.constructor;
+                    if (ctor && ctor.prototype === prototype) {
+                      break;
+                    }
+                    else {
+                      ctor = null; // fake constructor
+                      prototype = Object.getPrototypeOf(prototype);
+                    }
+                  }
+                }
+                catch (error) {
+                }
+              }
+              break;
+            case 'boolean':
+            case 'number':
+            case 'string':
+            case 'symbol':
+            case 'bigint':
+              ctor = target.constructor;
+              isObject = true; // target instanceof ctor
+              break;
+            case 'undefined':
+            default:
+              ctor = null;
+              break;
+            }
+          }
+          catch (e) {
+            ctor = null;
+          }
+        }
+        if (name) {
+          return [name, isStatic, isObject];
+        }
+        if (ctor) {
+          name = _globalObjects.get(ctor);
+          if (name) {
+            if (bound) {
+              if (target.hasOwnProperty('constructor')) {
+                isObject = false;
+              }
+            }
+            else {
+              if (ctor.prototype === target) {
+                isObject = false;
+              }
+            }
+          }
+          else {
+            if (ctor.prototype === target) {
+              // TODO: function prototype object of a non-global function is mistreated as an instance object for ctor, which allows writing of prototype object properties
+              //isObject = false;
+            }
+          }
+        }
+        return [name, isStatic, isObject];
+      }
+      return detectName;
+    }
   };
-  const tagToElementClass = { // from w3schools.com - may be incomplete
-    a: 'HTMLAnchorElement',
-    abbr: 'HTMLElement',
-    acronym: 'HTMLElement',
-    address: 'HTMLElement',
-    applet: 'HTMLUnknownElement',
-    area: 'HTMLAreaElement',
-    article: 'HTMLElement',
-    aside: 'HTMLElement',
-    audio: 'HTMLAudioElement',
-    b: 'HTMLElement',
-    base: 'HTMLBaseElement',
-    basefont: 'HTMLElement',
-    bdi: 'HTMLElement',
-    bdo: 'HTMLElement',
-    big: 'HTMLElement',
-    blockquote: 'HTMLQuoteElement',
-    body: 'HTMLBodyElement',
-    br: 'HTMLBRElement',
-    button: 'HTMLButtonElement',
-    canvas: 'HTMLCanvasElement',
-    caption: 'HTMLTableCaptionElement',
-    center: 'HTMLElement',
-    cite: 'HTMLElement',
-    code: 'HTMLElement',
-    col: 'HTMLTableColElement',
-    colgroup: 'HTMLTableColElement',
-    data: 'HTMLDataElement',
-    datalist: 'HTMLDataListElement',
-    dd: 'HTMLElement',
-    del: 'HTMLModElement',
-    details: 'HTMLDetailsElement',
-    dfn: 'HTMLElement',
-    dialog: 'HTMLDialogElement',
-    dir: 'HTMLDirectoryElement',
-    div: 'HTMLDivElement',
-    dl: 'HTMLDListElement',
-    dt: 'HTMLElement',
-    em: 'HTMLElement',
-    embed: 'HTMLEmbedElement',
-    fieldset: 'HTMLFieldSetElement',
-    figcaption: 'HTMLElement',
-    figure: 'HTMLElement',
-    font: 'HTMLFontElement',
-    footer: 'HTMLElement',
-    form: 'HTMLFormElement',
-    frame: 'HTMLFrameElement',
-    frameset: 'HTMLFrameSetElement',
-    h1: 'HTMLHeadingElement',
-    h2: 'HTMLHeadingElement',
-    h3: 'HTMLHeadingElement',
-    h4: 'HTMLHeadingElement',
-    h5: 'HTMLHeadingElement',
-    h6: 'HTMLHeadingElement',
-    head: 'HTMLHeadElement',
-    header: 'HTMLElement',
-    hr: 'HTMLHRElement',
-    html: 'HTMLHtmlElement',
-    i: 'HTMLElement',
-    iframe: 'HTMLIFrameElement',
-    img: 'HTMLImageElement',
-    input: 'HTMLInputElement',
-    ins: 'HTMLModElement',
-    kbd: 'HTMLElement',
-    label: 'HTMLLabelElement',
-    legend: 'HTMLLegendElement',
-    li: 'HTMLLIElement',
-    link: 'HTMLLinkElement',
-    main: 'HTMLElement',
-    map: 'HTMLMapElement',
-    mark: 'HTMLElement',
-    menu: 'HTMLMenuElement',
-    menuitem: 'HTMLUnknownElement',
-    meta: 'HTMLMetaElement',
-    meter: 'HTMLMeterElement',
-    nav: 'HTMLElement',
-    noframes: 'HTMLElement',
-    noscript: 'HTMLElement',
-    object: 'HTMLObjectElement',
-    ol: 'HTMLOListElement',
-    optgroup: 'HTMLOptGroupElement',
-    option: 'HTMLOptionElement',
-    output: 'HTMLOutputElement',
-    p: 'HTMLParagraphElement',
-    param: 'HTMLParamElement',
-    picture: 'HTMLPictureElement',
-    pre: 'HTMLPreElement',
-    progress: 'HTMLProgressElement',
-    q: 'HTMLQuoteElement',
-    rp: 'HTMLElement',
-    rt: 'HTMLElement',
-    ruby: 'HTMLElement',
-    s: 'HTMLElement',
-    samp: 'HTMLElement',
-    script: 'HTMLScriptElement',
-    section: 'HTMLElement',
-    select: 'HTMLSelectElement',
-    slot: 'HTMLSlotElement',
-    small: 'HTMLElement',
-    source: 'HTMLSourceElement',
-    span: 'HTMLSpanElement',
-    strike: 'HTMLElement',
-    strong: 'HTMLElement',
-    style: 'HTMLStyleElement',
-    sub: 'HTMLElement',
-    summary: 'HTMLElement',
-    sup: 'HTMLElement',
-    table: 'HTMLTableElement',
-    tbody: 'HTMLTableSectionElement',
-    td: 'HTMLTableCellElement',
-    template: 'HTMLTemplateElement',
-    textarea: 'HTMLTextAreaElement',
-    tfoot: 'HTMLTableSectionElement',
-    th: 'HTMLTableCellElement',
-    thead: 'HTMLTableSectionElement',
-    time: 'HTMLTimeElement',
-    title: 'HTMLTitleElement',
-    tr: 'HTMLTableRowElement',
-    track: 'HTMLTrackElement',
-    tt: 'HTMLElement',
-    u: 'HTMLElement',
-    ul: 'HTMLUListElement',
-    var: 'HTMLElement',
-    video: 'HTMLVideoElement',
-    wbr: 'HTMLElement',
-  };
+  const tagToElementClass = Policy.tagToElementClass;
   Object.assign(acl, {
     // blacklist objects/classes
     caches: '---',
@@ -5608,780 +6521,47 @@ else {
       },
     }
   });
-  // protect hook-callback.js variables
-  [
-    'emptyDocumentURL',
-    'otherWindowObjects',
-    'otherWindowObjectsStatus',
-    'counter',
-    'log',
-    'contexts',
-    'globalPropertyContexts',
-    'contextTransitions',
-    'contextReverseTransitions',
-    'lastContext;',
-    'contextStack',
-    'contextStackLog',
-    'callbacks',
-    'reverseCallbacks',
-    'pseudoContextArgument',
-    'callbackFunctions',
-    '_globalPropertyDescriptors',
-    '_globalMethods',
-    '_globalObjects',
-    '_objectStaticPropertyDescriptors',
-    '_objectPropertyDescriptors',
-    '_arrayStaticPropertyDescriptors',
-    '_arrayPropertyDescriptors',
-    '_stringStaticPropertyDescriptors',
-    '_stringPropertyDescriptors',
-    '_functionStaticPropertyDescriptors',
-    '_functionPropertyDescriptors',
-    '_blacklistObjects',
-    'showContextStackLog',
-    'hookBenchmark',
-  ].forEach(n => {
-    Object.assign(acl, { [n]: '---' });
-    Object.assign(acl[mainGlobalObjectName], { [n]: '---' });
-  });
-  const chainAcl = function chainAcl(_acl, path = [ [_acl, 'acl'] ]) {
-    let properties = Object.getOwnPropertySymbols(_acl).concat(Object.getOwnPropertyNames(_acl));
-    for (let property of properties) {
-      if (property === S_CHAIN) {
-        let chain = _acl[S_CHAIN];
-        let __acl;
-        switch (typeof chain) {
-        case 'object':
-          if (chain) {
-            Object.setPrototypeOf(_acl, chain);
-          }
-          else {
-            console.error('chainAcl: cannot chain to a null object', _acl);
-          }
-          break;
-        case 'function':
-          __acl = chain(path);
-          if (__acl) {
-            Object.setPrototypeOf(_acl, __acl);
-          }
-          else {
-            console.error('chainAcl: cannot chain to ' + chain.toString(), _acl);
-          }
-          break;
-        case 'symbol':
-          switch (chain) {
-          case S_CHAIN:
-            __acl = path[path.length - 2][0].__proto__[path[path.length - 1][1]];
-            if (__acl) {
-              Object.setPrototypeOf(_acl, __acl);
-            }
-            else {
-              console.error('chainAcl: cannot chain to ' + chain.toString(), _acl);
-            }
-            break;
-          case S_OBJECT:
-            try {
-              __acl = path[0][0].Object[S_PROTOTYPE][S_INSTANCE];
-              if (__acl) {
-                Object.setPrototypeOf(_acl, __acl);
-              }
-              else {
-                console.error('chainAcl: cannot chain to ' + chain.toString(), _acl);
-              }
-            }
-            catch (e) {
-              console.error('chainAcl: cannot chain to ' + chain.toString(), _acl);
-            }
-            break;
-          case S_FUNCTION:
-            try {
-              __acl = path[0][0].Function[S_PROTOTYPE][S_INSTANCE];
-              if (__acl) {
-                Object.setPrototypeOf(_acl, __acl);
-              }
-              else {
-                console.error('chainAcl: cannot chain to ' + chain.toString(), _acl);
-              }
-            }
-            catch (e) {
-              console.error('chainAcl: cannot chain to ' + chain.toString(), _acl);
-            }
-            break;
-          default:
-            console.error('chainAcl: cannot recongnize chain ' + chain.toString(), _acl);
-            break;
-          }
-          break;
-        default:
-          break;
-        }
-      }
-      else {
-        let __acl = _acl[property];
-        switch (typeof __acl) {
-        case 'object':
-          if (__acl) {
-            path.push([__acl, property]);
-            chainAcl(__acl, path);
-            path.pop();
-          }
-          break;
-        default:
-          break;
-        }
-      }
-    }
+  { // Preprocess acl entries
+    // protect hook-callback.js variables
+    Policy.protectGlobalVariableAcl(acl, [
+      'emptyDocumentURL',
+      'otherWindowObjects',
+      'otherWindowObjectsStatus',
+      'counter',
+      'log',
+      'contexts',
+      'globalPropertyContexts',
+      'contextTransitions',
+      'contextReverseTransitions',
+      'lastContext;',
+      'contextStack',
+      'contextStackLog',
+      'callbacks',
+      'reverseCallbacks',
+      'pseudoContextArgument',
+      'callbackFunctions',
+      '_globalPropertyDescriptors',
+      '_globalMethods',
+      '_globalObjects',
+      '_objectStaticPropertyDescriptors',
+      '_objectPropertyDescriptors',
+      '_arrayStaticPropertyDescriptors',
+      '_arrayPropertyDescriptors',
+      '_stringStaticPropertyDescriptors',
+      '_stringPropertyDescriptors',
+      '_functionStaticPropertyDescriptors',
+      '_functionPropertyDescriptors',
+      '_blacklistObjects',
+      'showContextStackLog',
+      'hookBenchmark',
+    ]);
+    Policy.chainAcl(acl);
+    Policy.proxyAcl(acl);
+    Policy.resolveBareSpecifierAcl(acl);
+    Policy.generatePrefixedModuleNames(acl);
+    Policy.flattenAcl(acl);
   }
-  chainAcl(acl);
-  const mergeAcl = function mergeAcl(target, source) {
-    if (!source) {
-      return target;
-    }
-    let properties = Object.getOwnPropertySymbols(source).concat(Object.getOwnPropertyNames(source));
-    PROPERTY_LOOP:
-    for (let property of properties) {
-      switch (property) {
-      case S_PROXY:
-      case S_CHAIN:
-        continue PROPERTY_LOOP; // skip S_PROXY and S_CHAIN properties
-      }
-      if (_hasOwnProperty.call(target, property)) {
-        let _target = target[property];
-        let _source = source[property];
-        switch (typeof _target) {
-        case 'string':
-        case 'function':
-          if (typeof property === 'string' && property.startsWith('@')) {
-            // override the target property
-            _target = target[property] = _source;
-            break;
-          }
-          // convert property: 'string' to property: { [S_DEFAULT]: 'string' }
-          // convert property: func to property: { [S_DEFAULT]: func }
-          _target = target[property] = { [S_DEFAULT]: _target };
-        case 'object':
-          switch (typeof _source) {
-          case 'string':
-          case 'function':
-            // convert property: 'string' to property: { [S_DEFAULT]: 'string' }
-            // convert property: func to property: { [S_DEFAULT]: func }
-            _source = source[property] = { [S_DEFAULT]: _source };
-          case 'object':
-            mergeAcl(_target, _source); // recursively merge the object property
-            break;
-          default:
-            console.error('mergeAcl: unexpected source property type', typeof _source, _source);
-            break;
-          }
-          break;
-        default:
-          console.error('mergeAcl: unexpected target property type', typeof _target, _target);
-          break;
-        }
-      }
-      else if (Reflect.has(target, property)) {
-        // inherited target[property]
-        let _target = target[property];
-        let _source = source[property];
-        switch (typeof _target) {
-        case 'string':
-        case 'function':
-          if (typeof property === 'string' && property.startsWith('@')) {
-            // override the target property
-            _target = target[property] = _source;
-            break;
-          }
-          // convert property: 'string' to property: { [S_DEFAULT]: 'string' }
-          // convert property: func to property: { [S_DEFAULT]: func }
-          _target = target[property] = { [S_DEFAULT]: target[property] };
-          switch (typeof _source) {
-          case 'string':
-          case 'function':
-            // convert property: 'string' to property: { [S_DEFAULT]: 'string' }
-            // convert property: func to property: { [S_DEFAULT]: func }
-            _source = source[property] = { [S_DEFAULT]: _source };
-          case 'object':
-            mergeAcl(_target, _source); // recursively merge the object property
-            break;
-          default:
-            console.error('mergeAcl: unexpected source property type', typeof _source, _source);
-            break;
-          }
-          break;
-        case 'object':
-          // create a new own property inherited from target[property]
-          _target = target[property] = Object.create(_target);
-          switch (typeof _source) {
-          case 'string':
-          case 'function':
-            // convert property: 'string' to property: { [S_DEFAULT]: 'string' }
-            // convert property: func to property: { [S_DEFAULT]: func }
-            _source = source[property] = { [S_DEFAULT]: _source };
-          case 'object':
-            mergeAcl(_target, _source); // recursively merge the object property
-            break;
-          default:
-            console.error('mergeAcl: unexpected source property type', typeof _source, _source);
-            break;
-          }
-        default:
-          console.error('mergeAcl: unexpected target property type', typeof _target, _target);
-          break;
-        }
-      }
-      else {
-        // no target[property]
-        target[property] = source[property]; // copy the source property
-      }
-    }
-    return target;
-  };
-  const proxyAcl = function proxyAcl(_acl, path = [ [_acl, 'acl'] ]) {
-    let properties = Object.getOwnPropertySymbols(_acl).concat(Object.getOwnPropertyNames(_acl));
-    for (let property of properties) {
-      if (property === S_PROXY) {
-        let proxy = _acl[S_PROXY];
-        switch (typeof proxy) {
-        case 'object':
-          if (proxy && path && path.length >= 2) {
-            mergeAcl(proxy, _acl);
-            path[path.length - 2][0][path[path.length - 1][1]] = proxy;
-          }
-          else {
-            console.error('proxyAcl: cannot proxy from', path, 'to', proxy, _acl);
-          }
-          break;
-        case 'function':
-          let __acl = proxy(path);
-          if (__acl && path && path.length >= 2) {
-            mergeAcl(__acl, _acl);
-            path[path.length - 2][0][path[path.length - 1][1]] = __acl;
-          }
-          else {
-            console.error('proxyAcl: cannot proxy from', path, 'to ' + proxy.toString(), _acl);
-          }
-          break;
-        case 'symbol':
-          /*
-          switch (proxy) {
-          case S_PROXY:
-            let __acl = path[path.length - 2][0].__proto__[path[path.length - 1][1]];
-            if (__acl) {
-              Object.setPrototypeOf(_acl, __acl);
-            }
-            else {
-              console.error('proxyAcl: cannot proxy to ' + proxy.toString(), _acl);
-            }
-            break;
-          default:
-            console.error('proxyAcl: cannot recongnize proxy ' + proxy.toString(), _acl);
-            break;
-          }
-          */
-          break;
-        default:
-          break;
-        }
-      }
-      else {
-        let __acl = _acl[property];
-        switch (typeof __acl) {
-        case 'object':
-          if (__acl) {
-            path.push([__acl, property]);
-            proxyAcl(__acl, path);
-            path.pop();
-          }
-          break;
-        default:
-          break;
-        }
-      }
-    }
-  }
-  proxyAcl(acl);
-  /*
-    resolve module paths via hook.parameters.importMapper(specifier, baseURI)
-    
-    Notes:
-     - No resolution if hook.parameters.importMapper is not configured
-       - hook.parameters.importMapper is a wrapper function of the Import Maps reference implementation
-     - baseURI is hook.parameters.baseURI
-     - Import Maps JSON is set in hook.parameters.importMapsJson as a string
-       - Picking up from the native import maps script tag has not been implemented yet
-     - A trivial fork of the Import Maps reference implementation is used for resolution
-       - GitHub repository: https://github.com/t2ym/import-maps/tree/browserify/reference-implementation/lib
-       - package.json at the top of the repository is added so that NPM can fetch the package from GitHub
-
-    Resolutions:
-    
-     - Type: bare specifiers
-
-        "lit-html" -> "/components/thin-hook/demo/node_modules/lit-html/lit-html.js"
-        "lit-html/" -> "/components/thin-hook/demo/node_modules/lit-html/lit-html.js" - never conflicts with global property names
-        "lit-html/*" -> "/components/thin-hook/demo/node_modules/lit-html/*"
-        "lit-html/directives/repeat.js" -> "/components/thin-hook/demo/node_modules/lit-html/directives/repeat.js"
-        "lit-html/,*" -> "/components/thin-hook/demo/node_modules/lit-html/lit-html.js,*"
-
-     - Type: relative paths from hook.parameters.baseURI
-
-        "./modules/module1.js" -> "/components/thin-hook/demo/modules/module1.js"
-        "./modules/module1.js,*" -> "/components/thin-hook/demo/modules/module1.js,*"
-
-  */
-  const resolveBareSpecifierAcl = function resolveBareSpecifierAcl(_acl) {
-    // resolve bare specifiers in acl
-    let paths;
-    let resolved;
-    for (let name in _acl) {
-      if (name.startsWith('https://') || name.startsWith('/')) {
-        continue; // skip already resolved specifiers
-      }
-      if (_acl[name][S_TYPE] !== S_NAMESPACE) {
-        continue; // skip non-module ACLs
-      }
-      paths = name.split(',');
-      if (paths.length === 1) {
-        if (name.endsWith('/*')) {
-          // bare-specifier/*
-          resolved = hook.parameters.importMapper(name + '.js', hook.parameters.baseURI).replace(/\*\.js$/, '*');
-        }
-        else if (name.endsWith('/')) {
-          // bare-specifier/
-          resolved = hook.parameters.importMapper(name.substring(0, name.length - 1), hook.parameters.baseURI);
-        }
-        else {
-          // bare-specifier
-          resolved = hook.parameters.importMapper(name, hook.parameters.baseURI);
-        }
-      }
-      else {
-        // bare-specifier,anything,*
-        if (paths[0].endsWith('/')) {
-          paths[0] = hook.parameters.importMapper(paths[0].substring(0, paths[0].length - 1), hook.parameters.baseURI);
-        }
-        else {
-          paths[0] = hook.parameters.importMapper(paths[0], hook.parameters.baseURI);
-        }
-        resolved = paths.join(',');
-      }
-      _acl[resolved] = _acl[name];
-      delete _acl[name];
-    }
-  }
-  if (hook.parameters.importMapper) {
-    resolveBareSpecifierAcl(acl);
-  }
-  /*
-    Prefixed Module Name object:
-      {
-        "": { // root
-          "components": {
-            "thin-hook": {
-              "demo": {
-                "node_modules": {
-                  "lit-html": {
-                    "*": "@lit-html",
-                  },
-                  "lit-element": {
-                    "*": "@lit-element",
-                  },
-                },
-              },
-            },
-          },
-        },
-      };
-
-    Notes:
-    - Prefixed module names must end with '/*' like this:
-      '/some/module-name/*'
-  */
-  const prefixedModuleNames = Object.create(null);
-  const generatePrefixedModuleNames = function generatePrefixedModuleNames(_acl) {
-    for (let name in _acl) {
-      let paths = name.split('/');
-      let cursor = prefixedModuleNames;
-      if (paths.length > 1 && paths[0] === '' && paths[paths.length - 1] === '*') {
-        for (let path of paths) {
-          if (path === '*') {
-            cursor[path] = contextNormalizer[c];
-            break;
-          }
-          else {
-            if (!Reflect.has(cursor, path)) {
-              cursor[path] = {};
-            }
-            cursor = cursor[path];
-          }
-        }
-      }
-    }
-  }
-  generatePrefixedModuleNames(acl);
-  /*
-    flatternAcl(_acl):
-    acl = {
-      'module-name': {
-        [S_TYPE]: S_NAMESPACE,
-        exported: { // flattened as 'module-name,exported'
-
-        },
-      },
-      className: {
-        classProperty: { // flattened as 'className,classProperty'
-          [S_TYPE]: S_CLASS,
-        }
-      },
-    };
-   */
-  const flattenAcl = function flattenAcl(_acl) { // only 1 level for now
-    for (let name in _acl) {
-      if (typeof name === 'string' && typeof _acl[name] === 'object' && _acl[name]) {
-        if (_acl[name][S_TYPE] === S_NAMESPACE) {
-          // module namespace object
-          for (let _export in _acl[name]) {
-            if (_export[0] === '@') {
-              continue;
-            }
-            let flattenName = name + ',' + _export;
-            if (!_acl[flattenName]) {
-              _acl[flattenName] = _acl[name][_export];
-            }
-          }
-        }
-        else {
-          // class object
-          for (let _property in _acl[name]) {
-            if (_property[0] === '@') {
-              continue;
-            }
-            if (!(_acl[name][_property] && typeof _acl[name][_property] === 'object' && _acl[name][_property][S_TYPE] === S_CLASS)) {
-              continue;
-            }
-            // class property
-            let flattenName = name + ',' + _property;
-            if (!_acl[flattenName]) {
-              _acl[flattenName] = _acl[name][_property];
-            }
-          }
-        }
-      }
-    }
-  }
-  flattenAcl(acl);
-  const globalPolicy = Reflect.has(acl, S_GLOBAL) ? acl[S_GLOBAL] : acl[S_DEFAULT];
-  const modulePolicy = Reflect.has(acl, S_MODULE) ? acl[S_MODULE] : acl[S_DEFAULT];
-  const applyAcl = function applyAcl(name, isStatic, isObject, property, opType, context, normalizedThisArg, normalizedArgs, hookArgs) {
-    const names = name;
-    if (names instanceof Set) {
-      let result = true;
-      for (name of names.values()) {
-        if (!(result = applyAcl(name, isStatic, isObject, property, opType, context, normalizedThisArg, normalizedArgs, hookArgs))) {
-          break;
-        }
-      }
-      return result;
-    }
-    let _context, _acl, __acl, _property, isGlobal, tmp;
-    while (_context = contextNormalizer[context]) {
-      context = _context;
-      if (context === S_DEFAULT) {
-        break;
-      }
-      if (context[0] === '@') {
-        break;
-      }
-    }
-    if (!_context) {
-      // prefixedSearch for context
-      let cursor;
-      let index;
-      let prevIndex;
-      let path;
-      let length = context.length;
-      let result;
-
-      if (context[0] === '/' && (cursor = prefixedModuleContexts[''])) {
-        index = prevIndex = 1;
-        while (index < length) {
-          index = context.indexOf('/', prevIndex); // next slash
-          if (index === -1) {
-            index = length;
-          }
-          path = context.substring(prevIndex, index);
-          index++;
-          if (Reflect.has(cursor, '*')) {
-            result = cursor['*'];
-          }
-          if (Reflect.has(cursor, path)) {
-            cursor = cursor[path];
-            prevIndex = index;
-          }
-          else {
-            break;
-          }
-        }
-        if (result) {
-          context = contextNormalizer[context] = result; // cache the result
-        }
-      }
-
-      if (!result) {
-        result = S_DEFAULT;
-        index = prevIndex = 0;
-        cursor = prefixedContexts;
-        while (index < length) {
-          index = context.indexOf(',', prevIndex); // next comma
-          if (index === -1) {
-            index = length;
-          }
-          path = context.substring(prevIndex, index);
-          index++;
-          if (Reflect.has(cursor, '*')) {
-            result = cursor['*'];
-          }
-          if (Reflect.has(cursor, path)) {
-            cursor = cursor[path];
-            prevIndex = index;
-          }
-          else {
-            break;
-          }
-        }
-        context = contextNormalizer[context] = result; // cache the result
-      }
-    }
-    //context = _context ? context : S_DEFAULT;
-    isGlobal = isGlobalScopeObject.has(name);
-    _acl = name
-      ? name === 'Object' && isObject
-        ? acl[S_DEFAULT]
-        : Reflect.has(acl, name)
-          ? acl[name]
-          : (tmp = _globalMethods.split(name)).length === 1
-            ? property === S_MODULE
-              ? modulePolicy
-              : globalPolicy // acl[S_GLOBAL] for a real global property
-            : tmp.length === 2
-              ? Reflect.has(acl, tmp[0])
-                ? acl[tmp[0]][S_TYPE] === S_NAMESPACE
-                  ? Reflect.has(acl[tmp[0]], tmp[1])
-                    ? (acl[name] = acl[tmp[0]][tmp[1]])
-                    : Reflect.has(acl[tmp[0]], S_DEFAULT)
-                      ? acl[tmp[0]][S_DEFAULT]
-                      : modulePolicy[S_DEFAULT]
-                  : modulePolicy[S_DEFAULT]
-                : modulePolicy[S_DEFAULT]
-              : globalPolicy
-      : acl[S_DEFAULT];
-    if (typeof _acl === 'object') {
-      if (typeof property === 'undefined') {
-        _acl = context === S_DEFAULT
-          ? Reflect.has(_acl, S_OBJECT)
-            ? _acl[S_OBJECT]
-            : _acl[S_DEFAULT]
-          : Reflect.has(_acl, context)
-            ? _acl[context]
-            : Reflect.has(_acl, S_OBJECT)
-              ? _acl[S_OBJECT]
-              : _acl[S_DEFAULT];
-      }
-      else {
-        if (!isStatic) {
-          if (Reflect.has(_acl, S_PROTOTYPE)) {
-            _acl = _acl[S_PROTOTYPE];
-            if (Reflect.has(_acl, S_INSTANCE)) {
-              if (isObject) {
-                _acl = _acl[S_INSTANCE];
-              }
-            }
-          }
-        }
-        if (typeof _acl === 'object') {
-          switch (property) {
-          case S_ALL:
-            _acl = context === S_DEFAULT
-              ? Reflect.has(_acl, S_ALL)
-                ? _acl[S_ALL]
-                : _acl[S_DEFAULT]
-              : Reflect.has(_acl, context)
-                ? _acl[context] 
-                : Reflect.has(_acl, S_ALL)
-                  ? _acl[S_ALL] 
-                  : _acl[S_DEFAULT];
-            if (typeof _acl === 'object') {
-              _acl = Reflect.has(_acl, S_ALL)
-                ? _acl[S_ALL]
-                : _acl[S_DEFAULT];
-            }
-            break;
-          case S_UNSPECIFIED:
-          case S_MODULE:
-            if (Reflect.has(_acl, S_OBJECT)) {
-              _acl = _acl[S_OBJECT];
-            }
-            if (typeof _acl === 'object') {
-              _acl = Reflect.has(_acl, context)
-                ? _acl[context]
-                : _acl[S_DEFAULT];
-            }
-            if (typeof _acl === 'object') {
-              _acl = _acl[S_DEFAULT];
-            }
-            break;
-          case S_FUNCTION:
-            _acl = Reflect.has(_acl, context)
-              ? _acl[context]
-              : _acl[S_DEFAULT];
-            if (typeof _acl === 'object') {
-              _acl = _acl[S_DEFAULT];
-            }
-            break;
-          default:
-            switch (typeof property) {
-            case 'string':
-            case 'number':
-            case 'symbol':
-            case 'function':
-            case 'boolean':
-            case 'undefined':
-              _acl = Reflect.has(_acl, property)
-                ? isGlobal
-                  ? _acl[property] instanceof Object && Reflect.has(_acl[property], S_OBJECT)
-                    ? _acl[property][S_OBJECT]
-                    : _acl[property]
-                  : _acl[property]
-                : Reflect.has(_acl, context)
-                  ? context === S_DEFAULT
-                    ? isGlobal
-                      ? Reflect.has(acl, property)
-                        ? acl[property] instanceof Object && Reflect.has(acl[property], S_OBJECT)
-                          ? acl[property][S_OBJECT]
-                          : acl[property]
-                        : acl[S_GLOBAL]
-                      : _acl[context]
-                    : _acl[context]
-                  : isGlobal
-                    ? Reflect.has(acl, property)
-                      ? acl[property] instanceof Object && Reflect.has(acl[property], S_OBJECT)
-                        ? acl[property][S_OBJECT]
-                        : acl[property]
-                      : acl[S_GLOBAL]
-                    : _acl[S_DEFAULT];
-              if (typeof _acl === 'object') {
-                _acl = Reflect.has(_acl, S_OBJECT)
-                  ? typeof _acl[S_OBJECT] === 'object'
-                    ? Reflect.has(_acl[S_OBJECT], context)
-                      ? _acl[S_OBJECT][context]
-                      : _acl[S_OBJECT][S_DEFAULT]
-                    : _acl[S_OBJECT]
-                  : Reflect.has(_acl, context)
-                    ? _acl[context]
-                    : typeof _acl[S_DEFAULT] === 'object'
-                      ? Reflect.has(_acl[S_DEFAULT], context)
-                        ? _acl[S_DEFAULT][context]
-                        : _acl[S_DEFAULT][S_DEFAULT]
-                      : _acl[S_DEFAULT];
-              }
-              break;
-            case 'object':
-              if (Array.isArray(property)) {
-                tmp = [];
-                for (_property of property) {
-                  __acl = Reflect.has(_acl, property)
-                    ? isGlobal
-                      ? _acl[property] instanceof Object && Reflect.has(_acl[property], S_OBJECT)
-                        ? _acl[property][S_OBJECT]
-                        : _acl[property]
-                      : _acl[property]
-                    : Reflect.has(_acl, context)
-                      ? context === S_DEFAULT
-                        ? isGlobal
-                          ? Reflect.has(acl, property)
-                            ? acl[property] instanceof Object && Reflect.has(acl[property], S_OBJECT)
-                              ? acl[property][S_OBJECT]
-                              : acl[property]
-                            : acl[S_GLOBAL]
-                          : _acl[context]
-                        : _acl[context]
-                      : isGlobal
-                        ? Reflect.has(acl, property)
-                          ? acl[property] instanceof Object && Reflect.has(acl[property], S_OBJECT)
-                            ? acl[property][S_OBJECT]
-                            : acl[property]
-                          : acl[S_GLOBAL]
-                        : _acl[S_DEFAULT];
-                  if (typeof __acl === 'object') {
-                    __acl = Reflect.has(__acl, context)
-                      ? __acl[context]
-                      : __acl[S_DEFAULT];
-                  }
-                  tmp.push(__acl);
-                }
-                _acl = tmp;
-              }
-              else {
-                _acl = Reflect.has(_acl, property)
-                  ? _acl[property]
-                  : Reflect.has(_acl, context)
-                    ? _acl[context]
-                    : _acl[S_DEFAULT];
-                if (typeof _acl === 'object') {
-                  _acl = Reflect.has(_acl, context)
-                    ? _acl[context]
-                    : _acl[S_DEFAULT];
-                }
-              }
-              break;
-            default:
-              _acl = '---';
-              break;
-            }
-            break;
-          }
-        }
-      }
-    }
-    SWITCH_ACL:
-    switch (typeof _acl) {
-    case 'string':
-      if (_acl[opTypeMap[opType]] === opType) {
-        return true;
-      }
-      break;
-    case 'object':
-      tmp = opTypeMap[opType];
-      for (__acl of _acl) {
-        switch (typeof __acl) {
-        case 'string':
-          if (__acl[tmp] !== opType) {
-            break SWITCH_ACL;
-          }
-          break;
-        case 'function':
-          if (!__acl(normalizedThisArg, normalizedArgs, arguments, hookArgs, applyAcl)) {
-            break SWITCH_ACL;
-          }
-          break;
-        }
-      }
-      return true;
-    case 'function':
-      if (_acl(normalizedThisArg, normalizedArgs, arguments, hookArgs, applyAcl)) {
-        return true;
-      }
-      break;
-    case 'undefined':
-    default:
-      break;
-    }
-    // Permission Denied
-    if (!normalizedArgs.result) {
-      normalizedArgs.result = [...arguments];
-    }
-    return false;
-  }
+  const applyAcl = Policy.getApplyAcl(acl);
   // Handle exceptions
   const errorReportBaseUrl = (new URL('errorReport.json', typeof window === 'object' ? top.location : location)).pathname;
   const criticalErrorPageUrl = 'about:blank';
@@ -6504,149 +6684,7 @@ else {
     static ['#|='](o, p, v) { return o[p] |= v; }
     static ['#.='](o, p) { return { set ['='](v) { o[p] = v; }, get ['=']() { return o[p]; } }; }
   }
-  const detectName = function detectName(target, boundParameters) {
-    let prototype = target;
-    let ctor = null;
-    let isStatic = false;
-    let isObject = true;
-    let name;
-    let bound = false;
-    if (boundParameters && target === boundParameters._normalizedThisArg) {
-      ctor = target ? target.constructor : null;
-      bound = true;
-    }
-    else {
-      try {
-        switch (typeof target) {
-        case 'object':
-          if (target === null) {
-            break;
-          }
-          name = _globalObjects.get(target);
-          if (name) {
-            isStatic = true;
-            break;
-          }
-          ctor = target.constructor;
-          if (typeof ctor === 'function' && Object.getPrototypeOf(target) === ctor.prototype) {
-            break;
-          }
-          else if (typeof ctor === 'function' && target === ctor.prototype) {
-            isObject = false;
-            break;
-          }
-          else if (ctor && ctor !== Object) {
-            ctor = null;
-            try {
-              CTOR_LOOP:
-              while (!ctor) {
-                while (!_hasOwnProperty.call(prototype, 'constructor')) {
-                  prototype = Object.getPrototypeOf(prototype);
-                  name = _globalObjects.get(prototype);
-                  if (name) {
-                    isStatic = true;
-                    isObject = false;
-                    break CTOR_LOOP;
-                  }
-                }
-                ctor = prototype.constructor;
-                if (ctor && ctor.prototype === prototype) {
-                  break;
-                }
-                else {
-                  ctor = null;
-                  prototype = Object.getPrototypeOf(prototype);
-                  name = _globalObjects.get(prototype);
-                  if (name) {
-                    isStatic = true;
-                    isObject = false;
-                    break;
-                  }
-                }
-              }
-            }
-            catch (error) {
-            }
-          }
-          break;
-        case 'function':
-          name = _globalObjects.get(target); // detect the global class/function name first
-          if (name) {
-            isStatic = true;
-            break;
-          }
-          // detect its constructor
-          // Note: super classes are not tracked since they are tracked in Policy.defaultAcl(), etc.
-          ctor = target.constructor; // Most likely ctor === Function
-          if (typeof ctor === 'function' && Object.getPrototypeOf(target) === ctor.prototype) {
-            break;
-          }
-          else {
-            // rare case
-            ctor = null;
-            try {
-              while (!ctor) {
-                while (!_hasOwnProperty.call(prototype, 'constructor')) {
-                  prototype = Object.getPrototypeOf(prototype);
-                }
-                ctor = prototype.constructor;
-                if (ctor && ctor.prototype === prototype) {
-                  break;
-                }
-                else {
-                  ctor = null; // fake constructor
-                  prototype = Object.getPrototypeOf(prototype);
-                }
-              }
-            }
-            catch (error) {
-            }
-          }
-          break;
-        case 'boolean':
-        case 'number':
-        case 'string':
-        case 'symbol':
-        case 'bigint':
-          ctor = target.constructor;
-          isObject = true; // target instanceof ctor
-          break;
-        case 'undefined':
-        default:
-          ctor = null;
-          break;
-        }
-      }
-      catch (e) {
-        ctor = null;
-      }
-    }
-    if (name) {
-      return [name, isStatic, isObject];
-    }
-    if (ctor) {
-      name = _globalObjects.get(ctor);
-      if (name) {
-        if (bound) {
-          if (target.hasOwnProperty('constructor')) {
-            isObject = false;
-          }
-        }
-        else {
-          if (ctor.prototype === target) {
-            isObject = false;
-          }
-        }
-      }
-      else {
-        if (ctor.prototype === target) {
-          // TODO: function prototype object of a non-global function is mistreated as an instance object for ctor, which allows writing of prototype object properties
-          //isObject = false;
-        }
-      }
-    }
-    return [name, isStatic, isObject];
-  }
+  const detectName = Policy.detectName;
   const GeneratorFunction = (function * () {}).constructor;
   const AsyncFunction = (async function () {}).constructor;
   const FunctionPrototype = Function.prototype;
