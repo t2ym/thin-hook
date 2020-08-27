@@ -1287,6 +1287,7 @@ else {
       chainAcl(acl);
     }
     static mergeAcl(target, ...sources) {
+      const originalTarget = target;
       const mergeAcl = function mergeAcl(target, source) {
         if (!source) {
           return target;
@@ -1297,7 +1298,10 @@ else {
           switch (property) {
           case S_PROXY:
           case S_CHAIN:
-            continue PROPERTY_LOOP; // skip S_PROXY and S_CHAIN properties
+            if (originalTarget !== acl) {
+              continue PROPERTY_LOOP; // skip S_PROXY and S_CHAIN properties
+            }
+            break;
           }
           if (_hasOwnProperty.call(target, property)) {
             let _target = target[property];
@@ -2678,9 +2682,22 @@ else {
       });
       return isGlobalScopeObject;
     }
+    static _mergePolicyModule({ contextNormalizer, acl }, source /* { contextNormalizer: {...}, acl: {...} } */) {
+      // merge contextNormalizer by just copying and overwriting properties
+      Object.assign(contextNormalizer, source.contextNormalizer);
+      // merge acl by Policy.mergeAcl()
+      Policy.mergeAcl(acl, source.acl);
+    }
+    static mergePolicyModules(target /* { contextNormalizer, acl } */, ...sources) {
+      for (let source of sources) {
+        Policy._mergePolicyModule(target, source);
+      }
+    }
   };
   // TODO: Access control list is too hard to maintain. An easier, automated, and modular approach is preferable. 
-  Object.assign(contextNormalizer, {
+  const basePolicyModule = { // initial monolithic policy implementation for now
+  // irregular indentation to keep the original contextNormalizer and acl contents unchanged but they will be reformatted later
+  contextNormalizer: {
     '/components/iron-location/iron-location.html,script@1800,_updateUrl': '@route_manipulator',
     '/components/iron-location/iron-location.html,script@1800,_globalOnClick': '@route_manipulator',
     '/components/thin-hook/demo/web-worker-client.js,worker': '@worker_manipulator',
@@ -2984,8 +3001,8 @@ else {
     "./modules/module2.js": "@module2",
     "./modules/module2.js,*": "@module2",
     'https://thin-hook.localhost.localdomain/automation.json,*': '@cache_automation',
-  });
-  Object.assign(acl, {
+  },
+  acl: {
     // blacklist objects/classes
     caches: '---',
     __hook__: '---', // TODO: ineffective
@@ -6541,7 +6558,12 @@ else {
         },
       },
     }
-  });
+  }
+  };
+  Policy.mergePolicyModules(
+    { contextNormalizer, acl },
+    basePolicyModule,
+  );
   const operatorNormalizer = Policy.operatorNormalizer;
   const targetNormalizer = Policy.targetNormalizer;
   const targetNormalizerMap = Policy.getTargetNormalizerMap(targetNormalizer);
