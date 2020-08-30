@@ -1157,6 +1157,7 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
   - Force redirection to `about:blank` when the user tries to inspect a source code of the pages
 - Configurations
   - `const devtoolsDisabled = true`: Use `false` and rebuild with `gulp demo` to enable Dev Tools
+    - Configurable at `targetConfig.mode.devtoolsDisabled` in `demo-config/config.js`
 
 ### `<script context-generator src="context-generator.js?no-hook=true"></script>`
 
@@ -1280,9 +1281,10 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
     - `__hook__`: hook callback function
       - `Object.defineProperty(_global, '__hook__', { configurable: false, enumerable: false, writable: false, value: hookCallbacks.__hook__ });`
         - `hookCallbacks.__hook__`: full features (acl + contextStack + object access graph)
-        - `hookCallbacks.__hook__acl`: acl only (acl + contextStack)
+        - `hookCallbacks.__hook__acl`: acl only (acl + contextStack) - default
         - `hookCallbacks.__hook__min`: minimal (no acl)
-    - `const acl`: ACL
+    - `contextNormalizer` and `acl`
+      - Configurable at `demo-config/policy/policy.js` and included policy modules
   - For MutationObserver
     - `hook.parameters.mutationObserver = new MutationObserver(observerCallback);` - `MutationObserver` object set in `demo/hook-callback.js`
     - `hook.parameters.mutationObserverConfig = { childList: true, subtree: true, attributes: true, attributeOldValue: true, characterData: true, characterDataOldValue: true, };` - Configuration options for `hook.parameters.mutationObserver.observe(options)` set in `demo/hook-callback.js`
@@ -1291,7 +1293,9 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
     - `const messagesOnUnauthorizedMutation = { en: 'Blocked on Browser Extensions' };` - Alert messages on DOM intrusion detection, indexed for `navigator.language`
   - For global object access
     - `const enableDebugging = false`: Use `true` to enable debugging by disabling forced redirection to `about:blank` on prohibited global object access
+      - Configurable at `targetConfig.mode.enableDebugging` in `demo-config/config.js`
     - `const wildcardWhitelist`: `Array` of `RegExp` for Chrome browser's `new Error().stack` format
+      - Configurable at `demo-config/policy/wildcardWhitelist.js`
       - Example configurations for demo
         - `new RegExp('^at (.* [(])?' + origin + '/components/'), // trust the site contents including other components`
         - `new RegExp('^at ([^(]* [(])?' + 'https://cdnjs.cloudflare.com/ajax/libs/vis/4[.]18[.]1/vis[.]min[.]js'),`
@@ -1591,6 +1595,8 @@ gulp.task('demo',
     'webpack-es6-module',                   // build demo/webpack-es6-module.js
     'webpack-commonjs',                     // build demo/webpack-commonjs.js
     'rollup-es-modules',                    // build demo/rollup-module1.js and demo/rollup-es6-module.js
+    'policy',                               // configure demo/hook-callback.js
+    'disable-devtools',                     // configure demo/disable-devtools.js
     'update-integrity-js',                  // update demo/integrity.js for the generated public keys in base64
     'update-no-hook-authorization',         // update demo/no-hook-authorization.js
     'update-no-hook-authorization-in-html', // update hook.min.js?no-hook-authorization=* in HTMLs

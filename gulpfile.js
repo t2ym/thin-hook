@@ -39,6 +39,8 @@ if (!gulp.series) {
   gulp.series = (...tasks) => (done) => runSequence(...tasks, done);
 }
 
+const targetConfig = require('./demo-config/config.js');
+
 const hook = require('./hook.js');
 
 const moduleExampleDependencies = {};
@@ -395,6 +397,28 @@ gulp.task('integrity-json', () => {
     ))
     .pipe(gulp.dest('.'));
 });
+
+gulp.task('policy',
+  require('./plugins/policy/configurator.js')
+  .configurator(
+    path.resolve(__dirname, targetConfig.path.config, 'policy'), // configPath
+    path.resolve(__dirname, targetConfig.path.root), // destPath
+    {
+      enableDebugging: targetConfig.mode.enableDebugging ? true : false,
+    },
+  )
+);
+
+gulp.task('disable-devtools',
+  require('./plugins/disable-devtools/configurator.js')
+  .configurator(
+    null, // configPath
+    path.resolve(__dirname, targetConfig.path.root), // destPath
+    {
+      devtoolsDisabled: targetConfig.mode.devtoolsDisabled ? true : false,
+    },
+  )
+);
 
 // server secret for cache-automation.js
 const serverSecret = crypto.randomFillSync(Buffer.alloc(32)).toString('hex');
@@ -1557,6 +1581,8 @@ gulp.task('demo',
     'webpack-es6-module',
     'webpack-commonjs',
     'rollup-es-modules',
+    'policy',
+    'disable-devtools',
     'update-integrity-js',
     'update-no-hook-authorization',
     'update-no-hook-authorization-in-html',
