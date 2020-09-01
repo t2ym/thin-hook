@@ -40,6 +40,7 @@ if (!gulp.series) {
 }
 
 const targetConfig = require('./demo-config/config.js');
+console.log('targetConfig', targetConfig);
 
 const hook = require('./hook.js');
 
@@ -398,27 +399,9 @@ gulp.task('integrity-json', () => {
     .pipe(gulp.dest('.'));
 });
 
-gulp.task('policy',
-  require('./plugins/policy/configurator.js')
-  .configurator(
-    path.resolve(__dirname, targetConfig.path.config, 'policy'), // configPath
-    path.resolve(__dirname, targetConfig.path.root), // destPath
-    {
-      enableDebugging: targetConfig.mode.enableDebugging ? true : false,
-    },
-  )
-);
+targetConfig.task('policy');
 
-gulp.task('disable-devtools',
-  require('./plugins/disable-devtools/configurator.js')
-  .configurator(
-    null, // configPath
-    path.resolve(__dirname, targetConfig.path.root), // destPath
-    {
-      devtoolsDisabled: targetConfig.mode.devtoolsDisabled ? true : false,
-    },
-  )
-);
+targetConfig.task('disable-devtools');
 
 // server secret for cache-automation.js
 const serverSecret = crypto.randomFillSync(Buffer.alloc(32)).toString('hex');

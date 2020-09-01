@@ -7,11 +7,17 @@ const { preprocess } = require('preprocess');
 const through = require('through2');
 const gulp = require('gulp');
 
-const configurator = (configPath, destPath, {
-    sourceFile = 'hook-callback.js',
-    enableDebugging = 'false',
-  } = {}) =>
-  () => gulp.src([ path.resolve(__dirname, sourceFile) ])
+const pluginName = 'policy';
+
+const configurator = (targetConfig) => {
+  const configPath = path.resolve(targetConfig.path.base, targetConfig.path.config, pluginName);
+  const destPath = path.resolve(targetConfig.path.base, targetConfig.path.root);
+  const enableDebugging = targetConfig.mode.enableDebugging;
+  const pluginDirname = __dirname;
+  const sourceFile = targetConfig[pluginName] && targetConfig[pluginName].sourceFile
+    ? targetConfig[pluginName].sourceFile
+    : 'hook-callback.js';
+  return () => gulp.src([ path.resolve(pluginDirname, sourceFile) ])
     // 1st pass
     .pipe(through.obj((file, enc, callback) => {
       let script = String(file.contents);
@@ -24,7 +30,7 @@ const configurator = (configPath, destPath, {
         },
         {
           type: 'js',
-          srcDir: __dirname, // in plugin/policy/
+          srcDir: pluginDirname, // in plugins/policy/
         }
       );
       script = script.replace(/\/\* #include /g, '/* @include ');
@@ -49,7 +55,9 @@ const configurator = (configPath, destPath, {
       callback(null, file);
     }))
     .pipe(gulp.dest(destPath));
+}
 
 module.exports = {
   configurator,
+  name: pluginName,
 };
