@@ -60,4 +60,5 @@ const configurator = (targetConfig) => {
 module.exports = {
   configurator,
   name: pluginName,
+  dependencies: [],
 };

@@ -195,20 +195,7 @@ gulp.task('clean-gzip', () => {
   return del(['demo/cache-bundle.json.gz', 'demo/integrity.json.gz'], { base: 'demo' });
 });
 
-let version = 'version_1';
-gulp.task('get-version', (done) => {
-  return gulp.src(['demo/original-index.html'], { base: 'demo' })
-    .pipe(through.obj((file, enc, callback) => {
-      let html = String(file.contents);
-      let versionIndex = html.indexOf('/hook.min.js?version=') + '/hook.min.js?version='.length;
-      let versionIndexEnd = html.indexOf('&', versionIndex);
-      version = 'version_' + html.substring(versionIndex, versionIndexEnd);
-      callback(null, file);
-    }))
-    .pipe(through.obj((file, enc, callback) => {
-      done();
-    }));
-});
+targetConfig.task('get-version');
 
 gulp.task('demo-certificates',
   gulp.series(
@@ -223,99 +210,9 @@ gulp.task('demo-certificates',
   )
 );
 
-// key pair for mitm detection, not for HTTPS
-const demoKeysFolder = 'demo-keys';
-const keysJSONName = 'keys.json';
-const keysJSONPath = path.join('.', demoKeysFolder, keysJSONName);
+targetConfig.task('keys');
 
-const SHA256 = {};
-SHA256.hashBits = 256;
-SHA256.hashBytes = SHA256.hashBits / 8;
-SHA256.hashName = 'sha' + SHA256.hashBits;
-
-const RSA = {};
-RSA.keyBits = 2048; // at least 2048 to encrypt keys of 2 * 256 bits (= 64 bytes) in RSA-OAEP
-RSA.keyBytes = RSA.keyBits / 8;
-RSA.keyPairE = 0x10001;
-RSA.privateKeyName = 'rsa-private-key.pem';
-RSA.publicKeyName = 'rsa-public-key.pem';
-
-const ECDSA = {};
-ECDSA.privateKeyName = 'ecdsa-private-key.pem';
-ECDSA.publicKeyName = 'ecdsa-public-key.pem';
-
-const AES_GCM = {};
-AES_GCM.keyLength =  32; // bytes
-AES_GCM.ivLength = 12; // bytes
-AES_GCM.tagLength = 16; // 128 bits
-AES_GCM.sessionIdKeyName = 'session-id-aes-key';
-AES_GCM.sessionIdIvName = 'session-id-aes-iv';
-
-const scriptsHashHexName = 'scriptsHashHex';
-const htmlHashHexName = 'htmlHashHex';
-
-gulp.task('demo-keys', (done) => {
-  // generate RSA key pair
-  let keypair = forge.pki.rsa.generateKeyPair({ bits: RSA.keyBits, e: RSA.keyPairE });
-  let rsaPrivateKeyPEM = forge.pki.privateKeyToPem(keypair.privateKey).replace(/\r/g, '');
-  let rsaPublicKeyPEM = forge.pki.publicKeyToPem(keypair.publicKey).replace(/\r/g, '');
-
-  // generate ECDSA key pair
-  let ecdsaKeyPair = crypto.generateKeyPairSync('ec',
-    {
-      namedCurve: 'P-256',
-      publicKeyEncoding: {
-        type: 'spki',
-        format: 'pem'
-      },
-      privateKeyEncoding: {
-        type: 'pkcs8',
-        format: 'pem'
-      }
-    });
-
-  // generate session ID key and iv
-  let sessionIdAesKeyBase64 = crypto.randomFillSync(Buffer.alloc(AES_GCM.keyLength)).toString('base64');
-  let sessionIdAesIvBase64 = crypto.randomFillSync(Buffer.alloc(AES_GCM.ivLength)).toString('base64');
-
-  try {
-    fs.mkdirSync(demoKeysFolder);
-  }
-  catch (e) {
-    // EEXIST
-  }
-
-  let keys = {
-    version: version,
-    [RSA.privateKeyName]: rsaPrivateKeyPEM,
-    [RSA.publicKeyName]: rsaPublicKeyPEM,
-    [ECDSA.privateKeyName]: ecdsaKeyPair.privateKey,
-    [ECDSA.publicKeyName]: ecdsaKeyPair.publicKey,
-    [AES_GCM.sessionIdKeyName]: sessionIdAesKeyBase64,
-    [AES_GCM.sessionIdIvName]: sessionIdAesIvBase64,
-  };
-  let keysJSON = JSON.stringify(keys, null, 2) + '\n';
-
-  fs.writeFileSync(keysJSONPath, keysJSON, 'utf-8');
-  done();
-});
-
-gulp.task('update-integrity-js', () => {
-  return gulp.src(['demo/integrity.js'], { base: 'demo' })
-    .pipe(through.obj((file, enc, callback) => {
-      let script = String(file.contents);
-      let keys = JSON.parse(fs.readFileSync(keysJSONPath, 'utf-8'));
-      let rsaPublicKeyPEM = keys[RSA.publicKeyName];
-      let rsaPublicKeyBase64 = rsaPublicKeyPEM.replace('-----BEGIN PUBLIC KEY-----', '').replace('-----END PUBLIC KEY-----', '').replace(/[ \r\n\t]/g, '');
-      let ecdsaPublicKeyPEM = keys[ECDSA.publicKeyName];
-      let ecdsaPublicKeyBase64 = ecdsaPublicKeyPEM.replace('-----BEGIN PUBLIC KEY-----', '').replace('-----END PUBLIC KEY-----', '').replace(/[ \r\n\t]/g, '');
-      script = script.replace(/RSA\.publicKeyBase64 = '([^']*)'/, 'RSA.publicKeyBase64 = \'' + rsaPublicKeyBase64 + '\'');
-      script = script.replace(/ECDSA\.publicKeyBase64 = '([^']*)'/, 'ECDSA.publicKeyBase64 = \'' + ecdsaPublicKeyBase64 + '\'');
-      file.contents = new Buffer(script);
-      callback(null, file);
-    }))
-    .pipe(gulp.dest('demo'));
-});
+targetConfig.task('integrity-js');
 
 // generate demo/integrity.json for static contents
 // Note: toWebPath() and gulp.src() have to be customized for the target application.
@@ -327,7 +224,7 @@ gulp.task('integrity-json', () => {
   let files = [];
   let cwd;
   let base;
-  let integrity = { version: version };
+  let integrity = { version: targetConfig['get-version'].version };
   // toWebPath() must be customized for the target application
   let toWebPath = function (fullpath) { // convert full file path to URL path for the target application
     // for components via polyserve
@@ -403,165 +300,17 @@ targetConfig.task('policy');
 
 targetConfig.task('disable-devtools');
 
-// server secret for cache-automation.js
-const serverSecret = crypto.randomFillSync(Buffer.alloc(32)).toString('hex');
-const cacheBundlePath = path.join('demo', 'cache-bundle.json');
-const cacheAutomationScriptPath = path.join('demo', 'cache-automation.js');
-const cacheAutomationScript = fs.readFileSync(cacheAutomationScriptPath, 'UTF-8');
-const integrityJSONPath = path.join('demo', 'integrity.json');
-let authorization; // sha256(serverSecret + cacheAutomationScript)
-let hash = hook.utils.createHash('sha256');
-hash.update(serverSecret + cacheAutomationScript);
-authorization = hash.digest('hex');
+targetConfig.task('automation-secret');
 
-gulp.task('cache-bundle-automation-json', (done) => {
-  fs.writeFileSync(cacheBundlePath, JSON.stringify({
-    "version": version,
-    "https://thin-hook.localhost.localdomain/automation.json": JSON.stringify({
-      "state": "init", // update state in the script to perform operations including reloading
-      "serverSecret": serverSecret,
-      "script": cacheAutomationScript
-    },null,0)
-  },null,2))
-  done();
-});
+targetConfig.task('cache-bundle-automation-json');
 
-// generate a dummy demo/integrity.json for cache-bundle generation
-gulp.task('dummy-integrity', (done) => {
-  fs.writeFileSync(integrityJSONPath, JSON.stringify({
-    "version": version,
-    "https://thin-hook.localhost.localdomain/automation.json": JSON.stringify({
-      "state": "init", // update state in the script to perform operations including reloading
-      "serverSecret": serverSecret,
-      "script": cacheAutomationScript
-    },null,0)
-  },null,2))
-  done();
-});
+targetConfig.task('dummy-integrity');
 
 gulp.task('cache-bundle-automation', shell.task('npm run cache-bundle'));
 
-const SCRIPT_HASHES_PSEUDO_URL = 'https://thin-hook.localhost.localdomain/script-hashes.json';
-gulp.task('script-hashes', () => {
-  return gulp.src(['demo/cache-bundle.json'], { base: 'demo' })
-    .pipe(through.obj((file, enc, callback) => {
-      let cacheBundle = JSON.parse(String(file.contents));
-      let hashes = {};
-      /*
-        Note: Metadata format
-          cacheBundle = {
-            "version": "version_123", // cache version
-            "url?param=1": "body in string", // concise format for string data for .js, .html, .json, .svg; equivalent to { "body": "body in string", "Content-Type": "{type}" }
-            "url?param=2": {
-              "Location": "url?param=1", // link to the other content
-              "Location": "data:image/jpeg;base64,...", // encoded body data; Note: "Location" appears only once in a metadata object, of course
-              // If Non-dataURI "Location" exists, other metadata entries are ignored
-              "Content-Type": "text/xml", // MIME type
-              "body": "body in string", // content body
-              "Other-Headers": "header value", // HTTP headers
-            },
-          }
-      */
-      for (let key in cacheBundle) {
-        let content = cacheBundle[key];
-        let url = new URL(key, 'https://localhost/');
-        if (key === 'version') {
-          continue;
-        }
-        if (typeof content === 'object') {
-          if (typeof content['Content-Type'] === 'string' && content['Content-Type'].startsWith('text/html') && typeof content.body === 'string') {
-            if (typeof content.body !== 'string') {
-              continue;
-            }
-            content = content.body;
-          }
-          else {
-            continue;
-          }
-        }
-        let pathname = (url.protocol === 'https:' || url.protocol === 'http:') ? url.pathname : '';
-        if (pathname && pathname.match(/([.]html?|[/])$/)) {
-          let inScript = false;
-          let inlineScript;
-          let stream = new hook.utils.HTMLParser.WritableStream({
-            onopentag(name, attributes) {
-              if (name === 'script') {
-                inScript = true;
-                inlineScript = '';
-              }
-              for (let attr in attributes) {
-                let attrValue = attributes[attr];
-                if (attrValue) {
-                  let match = attrValue.match(/^\/\* ctx:(["'])([a-zA-Z0-9+/=]*)["'] raw:["']([a-zA-Z0-9+/=]*)["'] \*\/((.*\n?)*)$/);
-                  if (match) {
-                    const hash = hook.utils.createHash('sha256');
-                    hash.update(attrValue);
-                    let digest = hash.digest('hex');
-                    hashes[digest] = decodeURIComponent(new Buffer(match[2], 'base64').toString('binary'));
-                  }
-                }
-              }
-            },
-            ontext(text) {
-              if (inScript) {
-                inlineScript += text;
-              }
-            },
-            onclosetag(name) {
-              if (name === 'script' && inScript) {
-                if (inlineScript) {
-                  let match = inlineScript.match(/^\/\* ctx:(["'])([a-zA-Z0-9+/=]*)["'] raw:["']([a-zA-Z0-9+/=]*)["'] \*\/((.*\n?)*)$/);
-                  if (match) {
-                    const hash = hook.utils.createHash('sha256');
-                    hash.update(inlineScript);
-                    let digest = hash.digest('hex');
-                    hashes[digest] = decodeURIComponent(new Buffer(match[2], 'base64').toString('binary'));
-                  }
-                }
-              }
-              inScript = false;
-            }
-          });
-          stream.write(content);
-          stream.end();
-        }
-      }
-      let hashesJSON = JSON.stringify(hashes, null, 0);
-      console.log('script-hashes = \n' + JSON.stringify(hashes, null, 2));
-      cacheBundle[SCRIPT_HASHES_PSEUDO_URL] = hashesJSON;
-      let cacheBundleJSON = JSON.stringify(cacheBundle, null, 2);
-      file.contents = new Buffer(cacheBundleJSON);
-      callback(null, file);
-    }))
-    .pipe(gulp.dest('demo'));
-});
+targetConfig.task('script-hashes');
 
-gulp.task('script-hashes-integrity', () => {
-  return gulp.src(['demo/index.html', 'demo/original-index.html'], { base: 'demo' })
-    .pipe(through.obj((file, enc, callback) => {
-      let html = String(file.contents);
-      const cacheBundle = require('./demo/cache-bundle.json');
-      const scriptHashes = JSON.parse(cacheBundle[SCRIPT_HASHES_PSEUDO_URL]);
-      const scriptHashesJs = fs.readFileSync('./demo/script-hashes.js', 'UTF-8');
-      const mutatedScriptHashesJs = scriptHashesJs.replace('hook.parameters.scriptHashes = {}', 'hook.parameters.scriptHashes = ' + JSON.stringify(scriptHashes, null, 2));
-      const hashFunction = 'sha256';
-      const hash = hook.utils.createHash(hashFunction);
-      hash.update(mutatedScriptHashesJs);
-      const integrity = hashFunction + '-' + hash.digest('base64');
-      const scriptUrl = 'script-hashes.js[?]no-hook=true&service-worker-ready=false';
-      html = html.replace(new RegExp(`src="(${scriptUrl})"( *)integrity="([^"]*)( [^"]*)?"`), `src="$1"$2integrity="$3 ${integrity}"`);
-      /*
-      console.log('scriptHashes = ' + JSON.stringify(scriptHashes, null, 2));
-      console.log('scriptHashesJs = ' + scriptHashesJs);
-      console.log('mutatedScriptHashesJs = ' + mutatedScriptHashesJs);
-      */
-      console.log('mutatedScriptHashesJs integrity = ' + integrity);
-      //console.log('html = ' + html);
-      file.contents = new Buffer(html);
-      callback(null, file);
-    }))
-    .pipe(gulp.dest('demo'));
-});
+targetConfig.task('script-hashes-integrity');
 
 gulp.task('update-html-hash', shell.task('npm run updateHtmlHash'));
 
@@ -723,7 +472,7 @@ gulp.task('encode-demo-html', (done) => {
         });
         html = html.replace(/no-hook-authorization=([a-z0-9]*),([a-z0-9]*),/,
           'no-hook-authorization=' + digests.join(',') + ',');
-        html = html.replace(/(src="cache-bundle[.]js\?no-hook=true&authorization=)([a-z0-9,]*)"/, '$1' + authorization + '"');
+        html = html.replace(/(src="cache-bundle[.]js\?no-hook=true&authorization=)([a-z0-9,]*)"/, '$1' + targetConfig['automation-secret'].authorization + '"');
         integrity.forEach(([ scriptPath, scriptUrl, integrity, hookScript ]) => {
           if (scriptPath === 'rawInlineNoHookScript') {
             html = html.replace(new RegExp(scriptUrl), `$1${integrity}$3`);
@@ -1536,11 +1285,12 @@ gulp.task('_demo',
     //'validation-console',
     'clean-gzip',
     'get-version',
-    //'demo-keys',
+    'keys',
+    'automation-secret', 
     //'browserify-commonjs',
     //'webpack-es6-module',
     //'webpack-commonjs',
-    'update-integrity-js',
+    'integrity-js',
     'update-no-hook-authorization',
     'update-no-hook-authorization-in-html',
     'encode-demo-html',
@@ -1558,7 +1308,8 @@ gulp.task('demo',
     'clean-gzip',
     'get-version',
     'demo-certificates',
-    'demo-keys',
+    'keys',
+    'automation-secret', 
     'import-maps',
     'browserify-commonjs',
     'webpack-es6-module',
@@ -1566,7 +1317,7 @@ gulp.task('demo',
     'rollup-es-modules',
     'policy',
     'disable-devtools',
-    'update-integrity-js',
+    'integrity-js',
     'update-no-hook-authorization',
     'update-no-hook-authorization-in-html',
     'encode-demo-html',

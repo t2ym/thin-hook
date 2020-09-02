@@ -50,7 +50,26 @@ const task = function (pluginName) {
   if (plugin.name !== pluginName) {
     throw new Error(`targetConfig.task("${pluginName}"): plugin.name === ${plugin.name} does not match`);
   }
-  return gulp.task(pluginName, plugin.configurator(targetConfig));
+  return gulp.task(pluginName,
+    gulp.series(
+      (done) => {
+        if (Array.isArray(plugin.dependencies)) {
+          plugin.dependencies.forEach(dependency => {
+            if(!(targetConfig[dependency] && targetConfig[dependency].done)) {
+              throw new Error(`plugin task "${pluginName}": dependent task "${dependency}" has not completed`);
+            }
+          });
+        }
+        done();
+      },
+      plugin.configurator(targetConfig),
+      (done) => {
+        targetConfig[pluginName] = targetConfig[pluginName] || {};
+        targetConfig[pluginName].done = true;
+        done();
+      }
+    )
+  );
 }
 
 const targetConfig = {
@@ -62,6 +81,8 @@ const targetConfig = {
     backend: 'demo-backend',
     frontend: 'demo-frontend',
     keys: 'demo-keys',
+    encodedIndexHtml: 'index.html',
+    decodedIndexHtml: 'original-index.html',
     hook: hookPath,
     plugins: plugins,
   },
