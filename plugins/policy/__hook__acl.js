@@ -1552,6 +1552,8 @@ Copyright (c) 2017, 2018, 2019, 2020 Tetsuya Mori <t2y3141592@gmail.com>. All ri
         result[5] = rawContext;
         delete normalizedArgs.result; // delete the used result property
       }
+      arguments[3] = context; // In strict mode in ES modules, elements in arguments are not bound to their corresponding argument variables
+      arguments[5] = contextSymbol;
       onThrow(e, arguments, contextStack, result); // result contains arguments to applyAcl, or undefined
       lastContext = _lastContext;
       contextStack.pop();

@@ -13,6 +13,8 @@ contextNormalizer: {
   '/components/thin-hook/demo/web-worker-client.js': '@worker_manipulator',
   '/components/thin-hook/demo/web-worker-module-client.js,worker': '@worker_manipulator',
   '/components/thin-hook/demo/web-worker-module-client.js': '@worker_manipulator',
+  '/components/thin-hook/demo/web-worker-module.js': '@worker_module',
+  '/components/thin-hook/demo/web-worker-module.js,*': '@worker_module',
   '/components/thin-hook/demo/shared-worker-client.js,worker': '@shared_worker_manipulator',
   '/components/thin-hook/demo/shared-worker-client.js': '@shared_worker_manipulator',
   '/components/thin-hook/demo/normalize.js': '@normalization_checker',
@@ -3385,6 +3387,7 @@ acl: {
       '@es6-module3': 'rw-R-',
       '@es6-module4': 'rw-R-',
       '@Module_importer': 'r--RW',
+      '@worker_module': 'r--R-',
     },
     [S_DEFAULT]: {
       [S_DEFAULT]: 'r-x',
@@ -3404,6 +3407,7 @@ acl: {
         '@es6-module3': 'rw-RW',
         '@es6-module4': 'rw-R-',
         '@Module_importer': 'r-xRW',
+        '@worker_module': 'r-xR-',
       },
       [S_DEFAULT]: {
         [S_DEFAULT]: 'r-x',
