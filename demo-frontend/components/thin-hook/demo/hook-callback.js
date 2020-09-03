@@ -2704,6 +2704,8 @@ else {
     '/components/thin-hook/demo/web-worker-client.js': '@worker_manipulator',
     '/components/thin-hook/demo/web-worker-module-client.js,worker': '@worker_manipulator',
     '/components/thin-hook/demo/web-worker-module-client.js': '@worker_manipulator',
+    '/components/thin-hook/demo/web-worker-module.js': '@worker_module',
+    '/components/thin-hook/demo/web-worker-module.js,*': '@worker_module',
     '/components/thin-hook/demo/shared-worker-client.js,worker': '@shared_worker_manipulator',
     '/components/thin-hook/demo/shared-worker-client.js': '@shared_worker_manipulator',
     '/components/thin-hook/demo/normalize.js': '@normalization_checker',
@@ -6076,6 +6078,7 @@ else {
         '@es6-module3': 'rw-R-',
         '@es6-module4': 'rw-R-',
         '@Module_importer': 'r--RW',
+        '@worker_module': 'r--R-',
       },
       [S_DEFAULT]: {
         [S_DEFAULT]: 'r-x',
@@ -6095,6 +6098,7 @@ else {
           '@es6-module3': 'rw-RW',
           '@es6-module4': 'rw-R-',
           '@Module_importer': 'r-xRW',
+          '@worker_module': 'r-xR-',
         },
         [S_DEFAULT]: {
           [S_DEFAULT]: 'r-x',
@@ -8599,6 +8603,8 @@ else {
         result[5] = rawContext;
         delete normalizedArgs.result; // delete the used result property
       }
+      arguments[3] = context; // In strict mode, elements in arguments are not bound to their corresponding argument variables
+      arguments[5] = contextSymbol;
       onThrow(e, arguments, contextStack, result); // result contains arguments to applyAcl, or undefined
       lastContext = _lastContext;
       contextStack.pop();
@@ -10155,6 +10161,8 @@ else {
         result[5] = rawContext;
         delete normalizedArgs.result; // delete the used result property
       }
+      arguments[3] = context; // In strict mode in ES modules, elements in arguments are not bound to their corresponding argument variables
+      arguments[5] = contextSymbol;
       onThrow(e, arguments, contextStack, result); // result contains arguments to applyAcl, or undefined
       lastContext = _lastContext;
       contextStack.pop();
