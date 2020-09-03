@@ -222,6 +222,8 @@ const CacheControl = {
   encryptedResponse: 'no-cache, no-transform',
 };
 
+const clientHintsDefault = 'UA, UA-Arch, UA-Platform, UA-Full-Version';
+
 const RecordType = {
   size: 1, // byte
   Connect: 0x01, // client -> server
@@ -311,6 +313,7 @@ const setResponseHeaders = function setResponseHeaders(req, res, {
       'date': true,
       //'cache-control': true,
     },
+    clientHints = 'default',
   }) {
   res.removeHeader('content-length');
   if (body) {
@@ -332,7 +335,9 @@ const setResponseHeaders = function setResponseHeaders(req, res, {
     res.removeHeader('cache-control');
     res.setHeader('cache-control', CacheControl.integrityResponse);
   }
-  res.setHeader('accept-ch', 'UA, UA-Arch, UA-Platform, UA-Model, UA-Full-Version, UA-Platform-Version');
+  if (clientHints) {
+    res.setHeader('accept-ch', clientHints === 'default' ? clientHintsDefault : clientHints);
+  }
   res.setHeader('x-status', '' + statusCode);
   res.setHeader('x-scheme', scheme);
   if (authority) {
@@ -738,7 +743,7 @@ const prepareNextSession = function prepareNextSession(req, res, Record, Accept,
 }
 
 const aboutBlankRedirectorHTML = `<script no-hook>location = 'about:blank';</script>`;
-const integrityService = function integrityService({ mode = 'debug', entryPageURLPath = '/', authority = 'localhost', whitelist = null, blacklist = null }) {
+const integrityService = function integrityService({ mode = 'debug', entryPageURLPath = '/', authority = 'localhost', whitelist = null, blacklist = null, clientHints = 'default' }) {
   const integrityServiceURLPath = path.join(entryPageURLPath, 'integrity');
   validate = validationService({ mode, host: process.env['VALIDATION_HOST'] || 'localhost', keys });
   //const aboutBlankURL = mode !== 'debug' ? 'about:blank' : 'about:blank?from=integrityService.js';
@@ -805,6 +810,7 @@ const integrityService = function integrityService({ mode = 'debug', entryPageUR
           salt: NextSession.server_write_salt,
           body: responseBody,
           type: 'application/octet-stream',
+          clientHints: clientHints,
         });
         res.send(responseBody);
       }
@@ -969,6 +975,7 @@ const integrityService = function integrityService({ mode = 'debug', entryPageUR
               salt: this.locals.CurrentSession.server_write_salt,
               statusCode: statusCode,
               body: this.locals.data,
+              clientHints: clientHints,
             });
             this.locals.headergenerated = Date.now();
             /*
@@ -982,6 +989,7 @@ const integrityService = function integrityService({ mode = 'debug', entryPageUR
               salt: this.locals.CurrentSession.server_write_salt,
               statusCode: statusCode,
               body: null,
+              clientHints: clientHints,
             });
           }
           //console.log('integrityService.js: calling res.writeHead', statusCode, reason, obj, this.getHeaders(), this.locals.url);

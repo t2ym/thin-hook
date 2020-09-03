@@ -25,6 +25,8 @@ const defaultServerPort = 8080;
 const defaultMode = 'debug';
 const defaultProtocol = 'http';
 const defaultHostName = 'localhost';
+const defaultClientHints = 'default';
+const defaultClientHintsForHelp = 'UA, UA-Arch, UA-Platform, UA-Full-Version';
 const demoCAPath = 'demo-keys/demoCA/';
 const whitelistPath = path.join(__dirname, 'whitelist.json');
 const blacklistPath = path.join(__dirname, 'blacklist.json');
@@ -40,6 +42,7 @@ argParser.addArgument([ '-p', '--port' ], { help: 'HTTP server port to listen. D
 argParser.addArgument([ '-m', '--mode' ], { help: 'Server mode "build" or "debug". Default: ' + defaultMode });
 argParser.addArgument([ '-P', '--protocol'], { help: 'Server protocol. Default: ' + defaultProtocol });
 argParser.addArgument([ '-H', '--host'], { help: 'Server host name. Default: ' + defaultHostName });
+argParser.addArgument([ '--clientHints'], { help: 'Accept-CH header for User-Agent Client Hints. Default: ' + defaultClientHintsForHelp });
 argParser.addArgument([ '--middleware'], { help: 'middleware to import. Default: null' });
 const args = argParser.parseArgs();
 
@@ -56,6 +59,7 @@ else {
   const middleware = args.middleware ? require(args.middleware) : null;
   const mode = args.mode || defaultMode;
   const protocol = args.protocol || defaultProtocol;
+  const clientHints = typeof args.clientHints === 'string' ? args.clientHints : defaultClientHints;
   let hostname = args.host || defaultHostName;
   if (!hostname.split(':')[0]) {
     hostname = [defaultHostName, hostname.split(':')[1]].join(':');
@@ -161,7 +165,7 @@ else {
       }
     })
     */
-    .all('/*', integrityService({ mode, entryPageURLPath, authority: hostname, whitelist, blacklist }))
+    .all('/*', integrityService({ mode, entryPageURLPath, authority: hostname, whitelist, blacklist, clientHints }))
     .use(errorReportServiceURLPath, proxy({
       target: errorReportServiceOriginURL, 
       changeOrigin: true,
