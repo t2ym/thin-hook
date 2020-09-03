@@ -332,6 +332,7 @@ const setResponseHeaders = function setResponseHeaders(req, res, {
     res.removeHeader('cache-control');
     res.setHeader('cache-control', CacheControl.integrityResponse);
   }
+  res.setHeader('accept-ch', 'UA, UA-Arch, UA-Platform, UA-Model, UA-Full-Version, UA-Platform-Version');
   res.setHeader('x-status', '' + statusCode);
   res.setHeader('x-scheme', scheme);
   if (authority) {
