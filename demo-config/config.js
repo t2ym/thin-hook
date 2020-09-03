@@ -52,7 +52,7 @@ const task = function (pluginName) {
   }
   return gulp.task(pluginName,
     gulp.series(
-      (done) => {
+      Object.assign((done) => {
         if (Array.isArray(plugin.dependencies)) {
           plugin.dependencies.forEach(dependency => {
             if(!(targetConfig[dependency] && targetConfig[dependency].done)) {
@@ -61,13 +61,13 @@ const task = function (pluginName) {
           });
         }
         done();
-      },
-      plugin.configurator(targetConfig),
-      (done) => {
+      }, { displayName: `${pluginName} check dependencies` }),
+      Object.assign(plugin.configurator(targetConfig), { displayName: `${pluginName} configurator` }),
+      Object.assign((done) => {
         targetConfig[pluginName] = targetConfig[pluginName] || {};
         targetConfig[pluginName].done = true;
         done();
-      }
+      }, { displayName: `${pluginName} done` }),
     )
   );
 }
