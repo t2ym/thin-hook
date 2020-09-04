@@ -40,7 +40,7 @@ if (!gulp.series) {
 }
 
 const targetConfig = require('./demo-config/config.js');
-console.log('targetConfig', targetConfig);
+console.log('targetConfig', JSON.stringify(targetConfig, null, 2));
 
 const hook = require('./hook.js');
 
@@ -214,87 +214,7 @@ targetConfig.task('keys');
 
 targetConfig.task('integrity-js');
 
-// generate demo/integrity.json for static contents
-// Note: toWebPath() and gulp.src() have to be customized for the target application.
-// TODO: Handle cross origin contents
-gulp.task('integrity-json', () => {
-  const integrityJSONPath = 'demo/integrity.json';
-  const entryPageRelativeFilePath = 'demo/index.html';
-  const entryPagePath = entryPageRelativeFilePath.split('/')[0] + '/'
-  let files = [];
-  let cwd;
-  let base;
-  let integrity = { version: targetConfig['get-version'].version };
-  // toWebPath() must be customized for the target application
-  let toWebPath = function (fullpath) { // convert full file path to URL path for the target application
-    // for components via polyserve
-    const componentRootPath = '/components'
-    const thisComponentPath = cwd.split(path.sep).pop(); // 'thin-hook'
-    const mappedComponentPath = 'bower_components'; // should be customized
-    let fullPaths = fullpath.split(path.sep);
-    let cwdPaths = cwd.split(path.sep);
-    let relativePaths = fullPaths.slice(cwdPaths.length);
-    let paths = [];
-    paths.push(componentRootPath);
-    if (relativePaths[0] === mappedComponentPath) {
-      paths = paths.concat(relativePaths.slice(1));
-    }
-    else {
-      paths.push(thisComponentPath);
-      paths = paths.concat(relativePaths);
-    }
-    return paths.join('/');
-  };
-  return gulp.src([
-      'hook.min.js',
-      'demo/**/*',
-      'bower_components/**/*',
-      // 'node_modules/**/*', // this demo does not use components directly from node_modules
-      // integrity.json itself
-      '!' + integrityJSONPath,
-      '!demo/**/*.gz',
-      '!demo/errorReport.json',
-      // original index.html
-      '!demo/original-index.html',
-      '!demo/index.html',
-      '!node_modules/**/*', // this demo does not use components directly from node_modules
-      '!test/**/*',
-      '!lib/**/*',
-      '!demo-keys/**/*',
-      '!demo-backend/**/*',
-      '!examples/**/*',
-      '!bower_components/**/test/**/*',
-      '!bower_components/**/demo/**/*',
-    ], { base: '.' })
-    .pipe(through.obj(
-      function (file, enc, callback) {
-        if (file.contents) {
-          let hash = hook.utils.createHash('sha256');
-          hash.update(file.contents);
-          let digest = hash.digest('base64');
-          cwd = file.cwd;
-          base = file.base;
-          files.push([toWebPath(file.path), digest]);
-        }
-        callback(null, null);
-      },
-      function (callback) {
-        files.sort((a, b) => a[0].localeCompare(b[0]));
-        for (let file of files) {
-          integrity[file[0]] = file[1];
-        }
-        //console.log(JSON.stringify(integrity, null, 2));
-        this.push(new File({
-          cwd: cwd,
-          base: base,
-          path: integrityJSONPath,
-          contents: Buffer.from(JSON.stringify(integrity, null, 2)),
-        }));
-        callback();
-      }
-    ))
-    .pipe(gulp.dest('.'));
-});
+targetConfig.task('integrity-json');
 
 targetConfig.task('policy');
 

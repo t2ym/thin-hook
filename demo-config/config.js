@@ -86,6 +86,14 @@ const targetConfig = {
     hook: hookPath,
     plugins: plugins,
   },
+  url: {
+    mappings: [
+      // [ fullPath, urlPath ] in directory path names
+      [path.resolve(basePath, 'bower_components'), '/components'], // highest priority in mapping
+      [path.resolve(basePath, 'demo'), '/components/thin-hook/demo'], // path.resolve(targetConfig.path.base, targetConfig.path.root) is interpreted as root
+      [hookPath, '/components/thin-hook'], // for hook.min.js
+    ],
+  },
   mode: {
     enableDebugging: false,
     devtoolsDisabled: true,
