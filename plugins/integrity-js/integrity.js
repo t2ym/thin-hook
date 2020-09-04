@@ -1512,6 +1512,7 @@
       const volatileObjectsRegExp = new RegExp(
         '^(\.navigator:object\.languages:object|' + // language preferences
         '\.navigator:object\.serviceWorker:object\.controller:object|' + // Service Worker status
+        '\.navigator:object\.userAgentData:object|' + // User-Agent Client Hints data
         '\.performance:object\.navigation:object|' + // navigation history
         '\.screen:object\.orientation:object|' + // screen device
         '\.location:object|' + // location object
