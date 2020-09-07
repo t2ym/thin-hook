@@ -33,6 +33,7 @@ const crypto = require('crypto');
 const forge = require('node-forge');
 const zlib = require('pako');
 const { URL } = require('url');
+const stringify = require('json-stringify-safe');
 
 if (!gulp.series) {
   // polyfill for gulp 3
@@ -40,10 +41,10 @@ if (!gulp.series) {
 }
 
 const targetConfig = require('./demo-config/config.js');
-console.log('targetConfig', JSON.stringify(targetConfig, null, 2));
+gulp.registry(targetConfig); // targetConfig as custom gulp registry
+console.log('targetConfig', stringify(targetConfig, null, 2));
 
-const hook = require('./hook.js');
-
+const hook = require(path.resolve(targetConfig.path.hook, 'hook.js'));
 const moduleExampleDependencies = {};
 const moduleExamples = []
 
@@ -187,52 +188,52 @@ gulp.task('demo:convert:full', () => {
     .pipe(gulp.dest('demo'))
 });
 
-gulp.task('integrity-service-helpers', shell.task('npm run integrity-service-helpers'));
+gulp.task('integrity-service-helpers', shell.task(targetConfig.commands['integrity-service-helpers']));
 
-gulp.task('validation-console', shell.task('npm run validation-console'));
+gulp.task('validation-console', shell.task(targetConfig.commands['validation-console']));
 
 gulp.task('clean-gzip', () => {
   return del(['demo/cache-bundle.json.gz', 'demo/integrity.json.gz'], { base: 'demo' });
 });
 
-targetConfig.task('get-version');
+gulp.task('get-version');
 
-gulp.task('demo-certificates',
+gulp.task('certificates',
   gulp.series(
-    shell.task('npm run demo-certificates -- localhost'),
-    shell.task('npm run demo-certificates -- client client'),
+    shell.task(`${targetConfig.commands.certificates} localhost`),
+    shell.task(`${targetConfig.commands.certificates} client client`),
     shell.task(process.env['SERVER_HOST']
-      ? `npm run demo-certificates -- ${process.env['SERVER_HOST']}`
+      ? `${targetConfig.commands.certificates} ${process.env['SERVER_HOST']}`
       : `echo you can set environment variable SERVER_HOST={host name for your demo server. Note: defaults to localhost}`),
     shell.task(process.env['VALIDATION_HOST']
-      ? `npm run demo-certificates -- ${process.env['VALIDATION_HOST']}`
+      ? `${targetConfig.commands.certificates} ${process.env['VALIDATION_HOST']}`
       : `echo you can set environment variable VALIDATION_HOST={host name for the validation service for your demo. Note: defaults to localhost}`),
   )
 );
 
-targetConfig.task('keys');
+gulp.task('keys');
 
-targetConfig.task('integrity-js');
+gulp.task('integrity-js');
 
-targetConfig.task('integrity-json');
+gulp.task('integrity-json');
 
-targetConfig.task('policy');
+gulp.task('policy');
 
-targetConfig.task('disable-devtools');
+gulp.task('disable-devtools');
 
-targetConfig.task('automation-secret');
+gulp.task('automation-secret');
 
-targetConfig.task('cache-bundle-automation-json');
+gulp.task('cache-bundle-automation-json');
 
-targetConfig.task('dummy-integrity');
+gulp.task('dummy-integrity');
 
-gulp.task('cache-bundle-automation', shell.task('npm run cache-bundle'));
+gulp.task('cache-bundle-automation', shell.task(targetConfig.commands['cache-bundle']));
 
-targetConfig.task('script-hashes');
+gulp.task('script-hashes');
 
-targetConfig.task('script-hashes-integrity');
+gulp.task('script-hashes-integrity');
 
-gulp.task('update-html-hash', shell.task('npm run updateHtmlHash'));
+gulp.task('update-html-hash', shell.task(targetConfig.commands['updateHtmlHash']));
 
 gulp.task('gzip', () => {
   return gulp.src(['demo/cache-bundle.json', 'demo/integrity.json'], { base: 'demo' })
@@ -245,7 +246,7 @@ gulp.task('gzip', () => {
     .pipe(gulp.dest('demo'));
 });
 
-gulp.task('puppeteer-attack-test', shell.task('npm run test:attack'));
+gulp.task('puppeteer-attack-test', shell.task(targetConfig.commands['puppeteerAttackTest']));
 
 gulp.task('update-no-hook-authorization', (done) => {
   setTimeout(() => {
@@ -814,7 +815,7 @@ const copyModuleScopesToImports = function (importMaps) {
 }
 
 // Reinstall frontend nodejs modules for demo in demo/node_modules/ with the locked versions in demo/package-lock.json
-gulp.task('demo-frontend-modules-locked', shell.task('npm run demo-frontend-modules-locked'));
+gulp.task('demo-frontend-modules-locked', shell.task(targetConfig.commands['demo-frontend-modules-locked']));
 
 // Generate import maps
 //  - Using "@jsenv/node-module-import-map" for the time being
@@ -1227,7 +1228,7 @@ gulp.task('demo',
     'validation-console',
     'clean-gzip',
     'get-version',
-    'demo-certificates',
+    'certificates',
     'keys',
     'automation-secret', 
     'import-maps',
@@ -1259,3 +1260,6 @@ gulp.task('delayed-build',
 gulp.task('default',
   gulp.series('build', 'build:test', 'examples', 'demo')
 );
+
+gulp.task('https', shell.task(targetConfig.commands.https));
+gulp.task('http', shell.task(targetConfig.commands.http));
