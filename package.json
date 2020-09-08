@@ -62,6 +62,7 @@
   },
   "devDependencies": {
     "@jsenv/node-module-import-map": "^12.0.1",
+    "@thin-hook/examples": "file:examples/plugins/examples",
     "argparse": "^1.0.10",
     "body-parser": "^1.18.2",
     "browserify": "^14.0.0",

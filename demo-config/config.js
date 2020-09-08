@@ -30,11 +30,61 @@ class TargetConfig extends GulpDefaultRegistry {
     boundFn.flags = fn.flags;
     return super.set(name, boundFn);
   }
+  resolveConfiguratorPath(pluginName) {
+    let configuratorJs = 'configurator.js';
+    let pluginConfiguratorPath = path.resolve(targetConfig.path.hook, targetConfig.path.plugins, pluginName, configuratorJs); // local
+    if (fs.existsSync(pluginConfiguratorPath)) {
+      return pluginConfiguratorPath;
+    }
+    if (this['thin-hook'].pluginScope) {
+      let packageName = pluginName.split('/')[0] === this['thin-hook'].pluginScope
+        ? pluginName
+        : path.join(this['thin-hook'].pluginScope, pluginName);
+      try {
+        pluginConfiguratorPath = require.resolve(path.join(packageName, configuratorJs)); // @thin-hook scope
+        if (fs.existsSync(pluginConfiguratorPath)) {
+          return pluginConfiguratorPath;
+        }
+      }
+      catch (e) {}
+    }
+    if (pluginName.startsWith('@')) { // scoped
+      let packageNameSplit = pluginName.split('/');
+      let packageName;
+      switch (packageNameSplit.length) {
+      case 1: // "@plugin-scope"
+        packageName = path.join(pluginName, 'default'); // "@plugin-scope/default"
+        break;
+      case 2: // "@plugin-scope/name"
+        packageName = pluginName;
+        break;
+      default: // "@plugin-scope/name/..."
+        if (packageNameSplit[packageNameSplit.length - 1] === configuratorJs) {
+          // "@plugin-scope/name/configurator.js"
+          packageNameSplit.pop();
+          packageName = packageNameSplit.join('/');
+        }
+        else {
+          // "@plugin-scope/name/subdir"
+          packageName = pluginName;
+        }
+        break;
+      }
+      try {
+        pluginConfiguratorPath = require.resolve(path.join(packageName, configuratorJs)); // scoped plugin
+        if (fs.existsSync(pluginConfiguratorPath)) {
+          return pluginConfiguratorPath;
+        }
+      }
+      catch (e) {}
+    }
+    throw new Error(`targetConfig.resolveConfiguratorPath: failed to resolve pluginName "${pluginName}"`);
+  }
   // register gulp task
   // Note: this function must be called via task() so that this is the targetConfig object
   task(pluginName) {
     const targetConfig = this;
-    const configuratorPath = path.resolve(targetConfig.path.hook, targetConfig.path.plugins, pluginName, 'configurator.js');
+    const configuratorPath = this.resolveConfiguratorPath(pluginName);
     const plugin = require(configuratorPath);
     if (plugin.name !== pluginName) {
       throw new Error(`task("${pluginName}"): plugin.name === ${plugin.name} does not match`);
@@ -128,6 +178,10 @@ class TargetConfig extends GulpDefaultRegistry {
       plugins: 'plugins',
     };
     Object.assign(this, { // dependent on this.path
+      'thin-hook': {
+        hook: require(path.resolve(this.path.hook, 'hook.js')),
+        pluginScope: '@thin-hook',
+      },
       url: {
         mappings: [
           // [ fullPath, urlPath ] in directory path names
@@ -197,6 +251,20 @@ class TargetConfig extends GulpDefaultRegistry {
         "puppeteerAttackTest": `node ${path.resolve(this.path.base, 'test/puppeteerAttackTest.js')}`,
         "demo-frontend-modules": `cd ${path.resolve(this.path.base, this.path.root)} && npm install`,
         "demo-frontend-modules-locked": `cd ${path.resolve(this.path.base, this.path.root)} && npm ci`,
+      },
+    });
+    Object.assign(this, { // scoped plugins
+      '@thin-hook/examples': {
+        base: path.resolve(this.path.hook, 'examples'),
+      },
+      '@thin-hook/module-examples': {
+        [TargetConfig.needResolution]: true,
+        importMapsPath: () => path.resolve(this['@thin-hook/examples'].base, 'examples.importmap'),
+        baseURL: '/components/'
+      },
+      '@thin-hook/module-examples-dependencies': {
+        [TargetConfig.needResolution]: true,
+        moduleDependenciesPath: () => path.resolve(this['@thin-hook/examples'].base, 'moduleDependencies.json'),
       },
     });
   }
