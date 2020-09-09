@@ -5,19 +5,18 @@ Copyright (c) 2020, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 const path = require('path');
 const { preprocess } = require('preprocess');
 const through = require('through2');
-const gulp = require('gulp');
 
 const pluginName = 'policy';
 
-const configurator = (targetConfig) => {
-  const configPath = path.resolve(targetConfig.path.base, targetConfig.path.config, pluginName);
-  const destPath = path.resolve(targetConfig.path.base, targetConfig.path.root);
-  const enableDebugging = targetConfig.mode.enableDebugging;
+const configurator = function (targetConfig) {
+  const configPath = path.resolve(this.path.base, this.path.config, pluginName);
+  const destPath = path.resolve(this.path.base, this.path.root);
+  const enableDebugging = this.mode.enableDebugging;
   const pluginDirname = __dirname;
-  const sourceFile = targetConfig[pluginName] && targetConfig[pluginName].sourceFile
-    ? targetConfig[pluginName].sourceFile
+  const sourceFile = this[pluginName] && this[pluginName].sourceFile
+    ? this[pluginName].sourceFile
     : 'hook-callback.js';
-  return () => gulp.src([ path.resolve(pluginDirname, sourceFile) ])
+  return () => this.gulp.src([ path.resolve(pluginDirname, sourceFile) ])
     // 1st pass
     .pipe(through.obj((file, enc, callback) => {
       let script = String(file.contents);
@@ -54,7 +53,7 @@ const configurator = (targetConfig) => {
       file.contents = Buffer.from(script);
       callback(null, file);
     }))
-    .pipe(gulp.dest(destPath));
+    .pipe(this.gulp.dest(destPath));
 }
 
 module.exports = {

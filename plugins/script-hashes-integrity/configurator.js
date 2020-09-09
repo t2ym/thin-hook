@@ -4,26 +4,23 @@ Copyright (c) 2020, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 */
 const path = require('path');
 const fs = require('fs');
-const { preprocess } = require('preprocess');
 const through = require('through2');
-const gulp = require('gulp');
 const createHash = require('sha.js');
 
 const pluginName = 'script-hashes-integrity';
 
-const configurator = (targetConfig) => {
-  const configPath = path.resolve(targetConfig.path.base, targetConfig.path.config, pluginName);
-  const destPath = path.resolve(targetConfig.path.base, targetConfig.path.root);
-  const enableDebugging = targetConfig.mode.enableDebugging;
+const configurator = function (targetConfig) {
+  const configPath = path.resolve(this.path.base, this.path.config, pluginName);
+  const destPath = path.resolve(this.path.base, this.path.root);
   const pluginDirname = __dirname;
-  const sourceFile = targetConfig[pluginName] && targetConfig[pluginName].sourceFile
-    ? targetConfig[pluginName].sourceFile
+  const sourceFile = this[pluginName] && this[pluginName].sourceFile
+    ? this[pluginName].sourceFile
     : 'cache-bundle.json';
-  return () => gulp.src([ path.resolve(destPath, targetConfig.path.encodedIndexHtml), path.resolve(destPath, targetConfig.path.decodedIndexHtml) ])
+  return () => this.gulp.src([ path.resolve(destPath, this.path.encodedIndexHtml), path.resolve(destPath, this.path.decodedIndexHtml) ])
     .pipe(through.obj((file, enc, callback) => {
       let html = String(file.contents);
       const cacheBundle = require(path.resolve(destPath, sourceFile));
-      const scriptHashes = JSON.parse(cacheBundle[targetConfig['script-hashes'].SCRIPT_HASHES_PSEUDO_URL]);
+      const scriptHashes = JSON.parse(cacheBundle[this['script-hashes'].SCRIPT_HASHES_PSEUDO_URL]);
       const scriptHashesJs = fs.readFileSync(path.resolve(destPath, 'script-hashes.js'), 'UTF-8');
       const mutatedScriptHashesJs = scriptHashesJs.replace('hook.parameters.scriptHashes = {}', 'hook.parameters.scriptHashes = ' + JSON.stringify(scriptHashes, null, 2));
       const hashFunction = 'sha256';
@@ -42,7 +39,7 @@ const configurator = (targetConfig) => {
       file.contents = Buffer.from(html);
       callback(null, file);
     }))
-    .pipe(gulp.dest(destPath));
+    .pipe(this.gulp.dest(destPath));
 }
 
 module.exports = {

@@ -5,25 +5,25 @@ Copyright (c) 2020, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 const path = require('path');
 
 // return globs for target entries in integrity.json
-const targets = (targetConfig) => {
-  const destPath = path.resolve(targetConfig.path.base, targetConfig.path.root);
+const targets = function (targetConfig) {
+  const destPath = path.resolve(this.path.base, this.path.root);
   return [
-    path.resolve(targetConfig.path.hook, 'hook.min.js'),
+    path.resolve(this.path.hook, 'hook.min.js'),
     path.resolve(destPath, '**/*'),
-    path.resolve(targetConfig.path.base, 'bower_components/**/*'),
+    path.resolve(this.path.base, this.path.components, '**/*'),
     // integrity.json itself
     '!' + path.resolve(destPath, 'integrity.json'),
     '!' + path.resolve(destPath, '**/*.gz'),
     '!' + path.resolve(destPath, 'errorReport.json'),
     // decoded index.html
-    '!' + path.resolve(destPath, targetConfig.path.decodedIndexHtml),
+    '!' + path.resolve(destPath, this.path.decodedIndexHtml),
     // encoded index.html
-    '!' + path.resolve(destPath, targetConfig.path.encodedIndexHtml),
-    '!' + path.resolve(targetConfig.path.base, 'bower_components/**/test/**/*'),
-    '!' + path.resolve(targetConfig.path.base, 'bower_components/**/demo/**/*'),
+    '!' + path.resolve(destPath, this.path.encodedIndexHtml),
+    '!' + path.resolve(this.path.base, this.path.components, '**/test/**/*'),
+    '!' + path.resolve(this.path.base, this.path.components, '**/demo/**/*'),
   ];
 }
 
 module.exports = {
-  targets: targets,
+  targets,
 };

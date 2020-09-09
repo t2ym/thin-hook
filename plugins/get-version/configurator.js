@@ -3,19 +3,16 @@
 Copyright (c) 2020, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 */
 const path = require('path');
-const { preprocess } = require('preprocess');
 const through = require('through2');
-const gulp = require('gulp');
 
 const pluginName = 'get-version';
 
-const configurator = (targetConfig) => {
-  const configPath = path.resolve(targetConfig.path.base, targetConfig.path.config, pluginName);
-  const destPath = path.resolve(targetConfig.path.base, targetConfig.path.root);
+const configurator = function (targetConfig) {
+  const destPath = path.resolve(this.path.base, this.path.root);
   const pluginDirname = __dirname;
-  const sourceFile = targetConfig.path.decodedIndexHtml || 'original-index.html';
+  const sourceFile = this.path.decodedIndexHtml || 'original-index.html';
   let version = 'version_1';
-  return (done) => gulp.src([path.resolve(destPath, sourceFile)])
+  return (done) => this.gulp.src([path.resolve(destPath, sourceFile)])
     .pipe(through.obj((file, enc, callback) => {
       let html = String(file.contents);
       let versionIndex = html.indexOf('/hook.min.js?version=') + '/hook.min.js?version='.length;
@@ -24,9 +21,8 @@ const configurator = (targetConfig) => {
       callback(null, file);
     }))
     .pipe(through.obj((file, enc, callback) => {
-      targetConfig[pluginName] = targetConfig[pluginName] || {};
-      targetConfig[pluginName].version = version;
-      //console.log('targetConfig', targetConfig);
+      this[pluginName] = this[pluginName] || {};
+      this[pluginName].version = version;
       done();
     }));
 }

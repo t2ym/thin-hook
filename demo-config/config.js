@@ -90,7 +90,7 @@ class TargetConfig extends GulpDefaultRegistry {
       throw new Error(`task("${pluginName}"): plugin.name === ${plugin.name} does not match`);
     }
     if (typeof plugin.init === 'function') {
-      plugin.init(targetConfig);
+      plugin.init.call(targetConfig, targetConfig);
     }
     return this.gulp.task(pluginName,
       this.gulp.series(
@@ -104,7 +104,8 @@ class TargetConfig extends GulpDefaultRegistry {
           }
           done();
         }, { displayName: `${pluginName} check dependencies` }),
-        Object.assign(plugin.configurator(targetConfig), { displayName: `${pluginName} configurator` }),
+        // Note: task function is bound to targetConfig since gulp.series() bypasses registry.set(name, fn)
+        Object.assign(plugin.configurator.call(targetConfig, targetConfig).bind(targetConfig), { displayName: `${pluginName} configurator` }),
         Object.assign((done) => {
           targetConfig[pluginName] = targetConfig[pluginName] || {};
           targetConfig[pluginName].done = true;
@@ -163,6 +164,43 @@ class TargetConfig extends GulpDefaultRegistry {
     let args = names.map(command => `"${commands[command]}"`);
     return `--names "${names.join(',')}" ${args.join(' ')}`;
   }
+  // reverse [ fullPath, urlPath ] mappings
+  reverseMappings(mappings) {
+    // [ urlPath, fullPath ] in directory path names
+    let _mappings = JSON.parse(JSON.stringify(mappings)); // clone
+    _mappings.sort((a, b) => {
+      let _a = a[1] + (a[1].endsWith('/') ? '' : '/');
+      let _b = b[1] + (b[1].endsWith('/') ? '' : '/');
+      if (_a.length < _b.length) {
+        if (_b.startsWith(_a)) {
+          // a > b
+          return 1;
+        }
+      }
+      else if (_a.length > _b.length) {
+        if (_a.startsWith(_b)) {
+          // a < b
+          return -1;
+        }
+      }
+      return _a.localeCompare(_b);
+    });
+    return _mappings.map(([ fullPath, urlPath ]) => [ urlPath, fullPath ]);
+  }
+  // map a path with provided mappings
+  mapper(mappings, _path) {
+    let result;
+    for (let [ original, mapped ] of mappings) {
+      if (_path.startsWith(original + '/')) {
+        result = path.join(mapped, _path.substring(original.length + '/'.length));
+        break;
+      }
+    }
+    if (!result) {
+      throw new Error(`targetConfig.mapper(): "${_path}" cannot be mapped`);
+    }
+    return result;
+  }
   // configure itself step by step
   _configure() {
     this.path = {
@@ -172,6 +210,7 @@ class TargetConfig extends GulpDefaultRegistry {
       backend: 'demo-backend',
       frontend: 'demo-frontend',
       keys: 'demo-keys',
+      components: 'bower_components',
       encodedIndexHtml: 'index.html',
       decodedIndexHtml: 'original-index.html',
       hook: TargetConfig.hookPath,
@@ -183,12 +222,19 @@ class TargetConfig extends GulpDefaultRegistry {
         pluginScope: '@thin-hook',
       },
       url: {
-        mappings: [
-          // [ fullPath, urlPath ] in directory path names
-          [path.resolve(this.path.base, 'bower_components'), '/components'], // highest priority in mapping
-          [path.resolve(this.path.base, 'demo'), '/components/thin-hook/demo'], // path.resolve(targetConfig.path.base, targetConfig.path.root) is interpreted as root
-          [this.path.hook, '/components/thin-hook'], // for hook.min.js
-        ],
+        [TargetConfig.needResolution]: true,
+        root: '/components/thin-hook/demo', // usually root path should be in an upper directory like '/'; this root is in a deep directory since it is a demo in a component
+        components: '/components',
+        mappings: () => {
+          let mappings = [
+            // [ fullPath, urlPath ] in directory path names
+            [path.resolve(this.path.base, this.path.components), this.url.components], // highest priority in mapping
+            [path.resolve(this.path.base, this.path.root), this.url.root],
+            [this.path.hook, path.resolve(this.url.components, this.path.hook.split('/').pop())], // for hook.min.js
+          ];
+          this.url.reverseMappings = this.reverseMappings(mappings); // [ urlPath, fullPath ] in directory path names
+          return mappings;
+        },
       },
       server: {
         serverJs: 'demoServer.js',
@@ -204,7 +250,7 @@ class TargetConfig extends GulpDefaultRegistry {
       },
       certificates: {
         generateCertSh: 'generate_cert.sh',
-        CA: 'demoCA',
+        CA: 'demoCA', // default value for openssl
       },
       mode: {
         enableDebugging: false,
@@ -249,8 +295,14 @@ class TargetConfig extends GulpDefaultRegistry {
         "test:attack": () => `concurrently -k -s all -c cyan,magentaBright,yellowBright \\
           ${this.getConcurrentlyArguments(this.commands, 'buildServer', 'cacheBundleUploadService', 'puppeteerAttackTest')}`,
         "puppeteerAttackTest": `node ${path.resolve(this.path.base, 'test/puppeteerAttackTest.js')}`,
-        "demo-frontend-modules": `cd ${path.resolve(this.path.base, this.path.root)} && npm install`,
-        "demo-frontend-modules-locked": `cd ${path.resolve(this.path.base, this.path.root)} && npm ci`,
+        "frontend-modules": `cd ${path.resolve(this.path.base, this.path.root)} && npm install`,
+        "frontend-modules-locked": `cd ${path.resolve(this.path.base, this.path.root)} && npm ci`,
+      },
+      keys: {
+        noUpdate: true,
+      },
+      'automation-secret': {
+        serverSecret: /*null*/'DummyServerSecretOnlyForDebugging',
       },
     });
     Object.assign(this, { // scoped plugins

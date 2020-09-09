@@ -3,9 +3,6 @@
 Copyright (c) 2020, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 */
 const path = require('path');
-const { preprocess } = require('preprocess');
-const through = require('through2');
-const gulp = require('gulp');
 
 const readline = require('readline');
 const crypto = require('crypto');
@@ -41,9 +38,9 @@ AES_GCM.sessionIdIvName = 'session-id-aes-iv';
 const scriptsHashHexName = 'scriptsHashHex';
 const htmlHashHexName = 'htmlHashHex';
 
-const configurator = (targetConfig) => {
-  const configPath = path.resolve(targetConfig.path.base, targetConfig.path.config, pluginName);
-  const keysPath = path.resolve(targetConfig.path.base, targetConfig.path.keys);
+const configurator = function (targetConfig) {
+  const configPath = path.resolve(this.path.base, this.path.config, pluginName);
+  const keysPath = path.resolve(this.path.base, this.path.keys);
   const pluginDirname = __dirname;
   const keysJSONName = 'keys.json';
   const keysJSONPath = path.resolve(keysPath, keysJSONName);
@@ -80,7 +77,7 @@ const configurator = (targetConfig) => {
     }
   
     let keys = {
-      version: targetConfig['get-version'].version,
+      version: this['get-version'].version,
       [RSA.privateKeyName]: rsaPrivateKeyPEM,
       [RSA.publicKeyName]: rsaPublicKeyPEM,
       [ECDSA.privateKeyName]: ecdsaKeyPair.privateKey,
@@ -91,7 +88,7 @@ const configurator = (targetConfig) => {
     let keysJSON = JSON.stringify(keys, null, 2) + '\n';
   
     let doUpdate = true;
-    if (targetConfig[pluginName] && targetConfig[pluginName].noUpdate) {
+    if (this[pluginName] && this[pluginName].noUpdate) {
       if (fs.existsSync(keysJSONPath)) {
         const rl = readline.createInterface({
           input: process.stdin,
@@ -105,7 +102,7 @@ const configurator = (targetConfig) => {
 
 plugin: ${pluginName}
 
-targetConfig["${pluginName}"].noUpdate is set as "${targetConfig[pluginName].noUpdate}"
+targetConfig["${pluginName}"].noUpdate is set as "${this[pluginName].noUpdate}"
 
 The current configuration must be solely for debugging purposes and must never be applied for production.
 If the fixed encryption keys should be known to attackers, the web application would have a severe vulnerability through mitm attacks.
@@ -131,8 +128,8 @@ Can you confirm this vulnerable configuration for encryption keys? (y/N) `, (ans
       fs.writeFileSync(keysJSONPath, keysJSON, 'utf-8');
     }
 
-    targetConfig[pluginName] = targetConfig[pluginName] || {};
-    Object.assign(targetConfig[pluginName], {
+    this[pluginName] = this[pluginName] || {};
+    Object.assign(this[pluginName], {
       keysPath,
       keysJSONPath,
       SHA256,

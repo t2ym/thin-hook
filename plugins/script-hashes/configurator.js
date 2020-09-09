@@ -3,9 +3,7 @@
 Copyright (c) 2020, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 */
 const path = require('path');
-const { preprocess } = require('preprocess');
 const through = require('through2');
-const gulp = require('gulp');
 const htmlparser = require('htmlparser2');
 const createHash = require('sha.js');
 
@@ -13,15 +11,14 @@ const pluginName = 'script-hashes';
 
 const SCRIPT_HASHES_PSEUDO_URL = 'https://thin-hook.localhost.localdomain/script-hashes.json';
 
-const configurator = (targetConfig) => {
-  const configPath = path.resolve(targetConfig.path.base, targetConfig.path.config, pluginName);
-  const destPath = path.resolve(targetConfig.path.base, targetConfig.path.root);
-  const enableDebugging = targetConfig.mode.enableDebugging;
+const configurator = function (targetConfig) {
+  const configPath = path.resolve(this.path.base, this.path.config, pluginName);
+  const destPath = path.resolve(this.path.base, this.path.root);
   const pluginDirname = __dirname;
-  const sourceFile = targetConfig[pluginName] && targetConfig[pluginName].sourceFile
-    ? targetConfig[pluginName].sourceFile
+  const sourceFile = this[pluginName] && this[pluginName].sourceFile
+    ? this[pluginName].sourceFile
     : 'cache-bundle.json';
-  return () => gulp.src([ path.resolve(destPath, sourceFile) ])
+  return () => this.gulp.src([ path.resolve(destPath, sourceFile) ])
     .pipe(through.obj((file, enc, callback) => {
       let cacheBundle = JSON.parse(String(file.contents));
       let hashes = {};
@@ -109,11 +106,11 @@ const configurator = (targetConfig) => {
       cacheBundle[SCRIPT_HASHES_PSEUDO_URL] = hashesJSON;
       let cacheBundleJSON = JSON.stringify(cacheBundle, null, 2);
       file.contents = Buffer.from(cacheBundleJSON);
-      targetConfig[pluginName] = targetConfig[pluginName] || {};
-      targetConfig[pluginName].SCRIPT_HASHES_PSEUDO_URL = SCRIPT_HASHES_PSEUDO_URL;
+      this[pluginName] = this[pluginName] || {};
+      this[pluginName].SCRIPT_HASHES_PSEUDO_URL = SCRIPT_HASHES_PSEUDO_URL;
       callback(null, file);
     }))
-    .pipe(gulp.dest(destPath));
+    .pipe(this.gulp.dest(destPath));
 }
 
 module.exports = {

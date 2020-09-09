@@ -12,19 +12,19 @@ const readline = require('readline');
 
 const pluginName = 'automation-secret';
 
-const configurator = (targetConfig) => {
-  const configPath = path.resolve(targetConfig.path.base, targetConfig.path.config, pluginName);
-  const destPath = path.resolve(targetConfig.path.base, targetConfig.path.root);
+const configurator = function (targetConfig) {
+  const configPath = path.resolve(this.path.base, this.path.config, pluginName);
+  const destPath = path.resolve(this.path.base, this.path.root);
   const pluginDirname = __dirname;
-  const sourceFile = targetConfig[pluginName] && targetConfig[pluginName].sourceFile
-    ? targetConfig[pluginName].sourceFile
+  const sourceFile = this[pluginName] && this[pluginName].sourceFile
+    ? this[pluginName].sourceFile
     : 'cache-automation.js';
   return (done) => gulp.src([path.resolve(destPath, sourceFile)])
     .pipe(through.obj((file, enc, callback) => {
       // server secret for cache-automation.js
       (async () => {
         let usePreconfiguredServerSecret = false;
-        if (targetConfig[pluginName] && targetConfig[pluginName].serverSecret) {
+        if (this[pluginName] && this[pluginName].serverSecret) {
           const rl = readline.createInterface({
             input: process.stdin,
             output: process.stdout
@@ -37,7 +37,7 @@ const configurator = (targetConfig) => {
   
 plugin: ${pluginName}
   
-targetConfig["${pluginName}"].serverSecret is set as "${targetConfig[pluginName].serverSecret}"
+targetConfig["${pluginName}"].serverSecret is set as "${this[pluginName].serverSecret}"
   
 The current configuration must be solely for debugging purposes and must never be applied for production.
 If serverSecret should be known to attackers, the web application would have a severe vulnerability through a crafted automation script.
@@ -58,16 +58,16 @@ Can you confirm this vulnerable configuration for serverSecret? (y/N) `, (answer
             });
           });
         }
-        const serverSecret = usePreconfiguredServerSecret ? targetConfig[pluginName].serverSecret : crypto.randomFillSync(Buffer.alloc(32)).toString('hex');
+        const serverSecret = usePreconfiguredServerSecret ? this[pluginName].serverSecret : crypto.randomFillSync(Buffer.alloc(32)).toString('hex');
         const cacheAutomationScript = String(file.contents);
         let authorization; // sha256(serverSecret + cacheAutomationScript)
         let hash = createHash('sha256');
         hash.update(serverSecret + cacheAutomationScript);
         authorization = hash.digest('hex');
-        targetConfig[pluginName] = targetConfig[pluginName] || {};
-        targetConfig[pluginName].serverSecret = serverSecret;
-        targetConfig[pluginName].cacheAutomationScriptPath = file.path;
-        targetConfig[pluginName].authorization = authorization;
+        this[pluginName] = this[pluginName] || {};
+        this[pluginName].serverSecret = serverSecret;
+        this[pluginName].cacheAutomationScriptPath = file.path;
+        this[pluginName].authorization = authorization;
         //console.log(targetConfig);
         done();
       })();

@@ -3,38 +3,33 @@
 Copyright (c) 2020, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 */
 const path = require('path');
-const { preprocess } = require('preprocess');
 const through = require('through2');
-const gulp = require('gulp');
 const createHash = require('sha.js');
 const File = require('vinyl');
 
 const pluginName = 'integrity-json';
 
 // generate integrity.json for static contents
-const configurator = (targetConfig) => {
-  const configPath = path.resolve(targetConfig.path.base, targetConfig.path.config, pluginName);
-  const destPath = path.resolve(targetConfig.path.base, targetConfig.path.root);
+const configurator = function (targetConfig) {
+  const configPath = path.resolve(this.path.base, this.path.config, pluginName);
+  const destPath = path.resolve(this.path.base, this.path.root);
   const pluginDirname = __dirname;
   const integrityJSONPath = path.resolve(destPath, 'integrity.json');
   const cacheBundleJSONPath = path.resolve(destPath, 'cache-bundle.json');
   let files = [];
   let integrity = {};
   let cacheBundleJSON;
-  let toUrlPath = function (fullPath) { // convert full file path to URL path for the target application
+  let toUrlPath = (fullPath) => { // convert full file path to URL path for the target application
     let urlPath;
-    for (let [ _fullPath, _urlPath ] of targetConfig.url.mappings) {
-      if (fullPath.startsWith(_fullPath + '/')) {
-        urlPath = path.join(_urlPath, fullPath.substring(_fullPath.length + '/'.length));
-        break;
-      }
+    try {
+      urlPath = this.mapper(this.url.mappings, fullPath);
     }
-    if (!urlPath) {
+    catch (e) {
       throw new Error(`${pluginName}: toUrlPath(): "${fullPath}" cannot be mapped to URL`);
     }
     return urlPath;
   };
-  const removeRedundantCacheBundleEntries = function (integrity, cacheBundleJSON) {
+  const removeRedundantCacheBundleEntries = (integrity, cacheBundleJSON) => {
     let originalCacheBundle = JSON.parse(cacheBundleJSON);
     let keys = Object.keys(originalCacheBundle);
     let cacheBundle = {};
@@ -52,7 +47,7 @@ const configurator = (targetConfig) => {
               originalCacheBundle[urlPath].Location.startsWith('/') &&
               !originalCacheBundle[urlPath]['Content-Type'] &&
               new URL(originalCacheBundle[urlPath].Location, 'https://localhost').pathname === pathname &&
-              pathname !== toUrlPath(path.resolve(targetConfig.path.hook, 'hook.min.js'))) {
+              pathname !== toUrlPath(path.resolve(this.path.hook, 'hook.min.js'))) {
             continue; // skip redundant entry
           }
         }
@@ -66,7 +61,7 @@ const configurator = (targetConfig) => {
     integrity[toUrlPath(cacheBundleJSONPath)] = digest;
     return cacheBundleJSON;
   }
-  return () => gulp.src(require(path.resolve(configPath, 'targets.js')).targets(targetConfig), { base: targetConfig.path.base })
+  return () => this.gulp.src(require(path.resolve(configPath, 'targets.js')).targets.call(this, this), { base: this.path.base })
     .pipe(through.obj(
       function (file, enc, callback) {
         if (file.contents) {
@@ -105,7 +100,7 @@ const configurator = (targetConfig) => {
         callback();
       }
     ))
-    .pipe(gulp.dest(targetConfig.path.base));
+    .pipe(this.gulp.dest(this.path.base));
 }
 
 module.exports = {
