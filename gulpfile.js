@@ -2,10 +2,8 @@
 
 const gulp = require('gulp');
 const gulpif = require('gulp-if');
-const runSequence = require('run-sequence');
 const shell = require('gulp-shell');
 const rename = require('gulp-rename');
-const sourcemaps = require('gulp-sourcemaps');
 const ImportMaps = require("@jsenv/node-module-import-map");
 const rollup = require('rollup');
 const rollupPluginBrowserifyTransform = require('rollup-plugin-browserify-transform');
@@ -14,31 +12,18 @@ const browserifyBuiltins = require('browserify/lib/builtins.js');
 const licensify = require('licensify');
 const webpack = require('webpack');
 const webpackStream = require('webpack-stream');
-const loaderUtils = require('loader-utils');
 const nodeLibsBrowser = require('node-libs-browser');
 const source = require('vinyl-source-stream');
 const buffer = require('vinyl-buffer');
 const File = require('vinyl');
-const uglify = require('gulp-uglify');
 const fs = require('fs');
 const through = require('through2');
 const path = require('path');
-const del = require('del');
 const chai = require('chai');
 const assert = chai.assert;
 const espree = require('espree');
 const escodegen = require('escodegen');
-const createHash = require('sha.js');
-const crypto = require('crypto');
-const forge = require('node-forge');
-const zlib = require('pako');
-const { URL } = require('url');
 const stringify = require('json-stringify-safe');
-
-if (!gulp.series) {
-  // polyfill for gulp 3
-  gulp.series = (...tasks) => (done) => runSequence(...tasks, done);
-}
 
 const targetConfig = require('./demo-config/config.js');
 gulp.registry(targetConfig); // targetConfig as custom gulp registry
@@ -101,9 +86,7 @@ gulp.task('integrity-service-helpers', shell.task(targetConfig.commands['integri
 
 gulp.task('validation-console', shell.task(targetConfig.commands['validation-console']));
 
-gulp.task('clean-gzip', () => {
-  return del(['demo/cache-bundle.json.gz', 'demo/integrity.json.gz'], { base: 'demo' });
-});
+gulp.task('clean-gzip-json');
 
 gulp.task('get-version');
 
@@ -144,16 +127,7 @@ gulp.task('script-hashes-integrity');
 
 gulp.task('update-html-hash', shell.task(targetConfig.commands['updateHtmlHash']));
 
-gulp.task('gzip', () => {
-  return gulp.src(['demo/cache-bundle.json', 'demo/integrity.json'], { base: 'demo' })
-    .pipe(through.obj((file, enc, callback) => {
-      let data = file.contents;
-      file.contents = Buffer.from(zlib.gzip(data));
-      file.path = file.path + '.gz';
-      callback(null, file);
-    }))
-    .pipe(gulp.dest('demo'));
-});
+gulp.task('gzip-json');
 
 gulp.task('puppeteer-attack-test', shell.task(targetConfig.commands['puppeteerAttackTest']));
 
@@ -383,109 +357,11 @@ gulp.task('encode-demo-html', (done) => {
   }, 1000);
 });
 
-gulp.task('clean-demo-frontend', () => {
-  return del(['demo-frontend']);
-});
+gulp.task('clean-frontend');
 
-gulp.task('demo-frontend-components', () => {
-  const cacheBundle = require('./demo/cache-bundle.json');
-  const blocked = [];
-  const componentsFilePath = 'bower_components/';
-  const componentsUrlPath = '/components/';
-  const packageName = 'thin-hook';
-  for (let cached in cacheBundle) {
-    if (cached === 'version') {
-      continue;
-    }
-    if (!cached.startsWith('/')) {
-      continue;
-    }
-    let url = new URL(cached, 'https://localhost');
-    if (url.searchParams.get('no-hook') === 'true') {
-      continue;
-    }
-    let urlPathname = url.pathname;
-    let filePathname;
-    if (urlPathname.startsWith('/components/thin-hook/')) {
-      continue;
-    }
-    // dependent components
-    filePathname = urlPathname.replace(new RegExp(`^${componentsUrlPath}`), componentsFilePath);
-    blocked.push('!' + filePathname);
-  }
-  //console.log('blocked', blocked);
+gulp.task('frontend-components');
 
-  return gulp.src([
-      'bower_components/**/*', 
-      '!bower_components/intl/**/*', // only for unsupported Safari 9
-      '!bower_components/**/test/**/*',
-      '!bower_components/**/demo/**/*',
-      ...blocked
-    ], { base: 'bower_components/' })
-    //.pipe(debug())
-    .pipe(gulp.dest('demo-frontend/components'));
-});
-
-gulp.task('demo-frontend-core', () => {
-  const cacheBundle = require('./demo/cache-bundle.json');
-  const blocked = [];
-  const componentsFilePath = 'demo/';
-  const packageName = 'thin-hook';
-  const componentsUrlPath = '/components/' + packageName + '/demo/';
-  for (let cached in cacheBundle) {
-    if (cached === 'version') {
-      continue;
-    }
-    if (!cached.startsWith('/')) {
-      continue;
-    }
-    let url = new URL(cached, 'https://localhost');
-    if (url.searchParams.get('no-hook') === 'true') {
-      continue;
-    }
-    let urlPathname = url.pathname;
-    let filePathname;
-    if (!urlPathname.startsWith(componentsUrlPath)) {
-      continue;
-    }
-    // core components
-    filePathname = urlPathname.replace(new RegExp(`^${componentsUrlPath}`), componentsFilePath);
-    blocked.push('!' + filePathname);
-  }
-  //console.log('blocked', blocked);
-
-  return gulp.src([
-    'hook.min.js',
-    'demo/**/*',
-    '!demo/original-index.html',
-    '!demo/index-fb.html',
-    '!demo/gulpfile.js',
-    ...blocked
-  ], { base: '.' })
-    //.pipe(debug())
-    .pipe(gulp.dest('demo-frontend/components/thin-hook'));
-});
-
-gulp.task('gzip-demo-frontend', () => {
-  return gulp.src([
-      'demo-frontend/**/*.js',
-      'demo-frontend/**/*.html',
-      'demo-frontend/**/*.json',
-      'demo-frontend/**/*.css',
-      '!demo-frontend/components/thin-hook/demo/index.html',
-      '!**/*.gz',
-      '!**/*.gif'
-    ], { base: 'demo-frontend' })
-    .pipe(through.obj((file, enc, callback) => {
-      let data = file.contents;
-      if (data && data.byteLength > 1000) { // gzip files larger than 1000 bytes
-        file.contents = Buffer.from(zlib.gzip(data));
-        file.path = file.path + '.gz';
-      }
-      callback(null, file);
-    }))
-    .pipe(gulp.dest('demo-frontend'));
-});
+gulp.task('gzip-frontend');
 
 gulp.task('build:test-html', () => {
   return gulp.src(['test/**/*-test-original.html'], { base: 'test/' })
@@ -724,7 +600,7 @@ const copyModuleScopesToImports = function (importMaps) {
 }
 
 // Reinstall frontend nodejs modules for demo in demo/node_modules/ with the locked versions in demo/package-lock.json
-gulp.task('demo-frontend-modules-locked', shell.task(targetConfig.commands['demo-frontend-modules-locked']));
+gulp.task('frontend-modules-locked', shell.task(targetConfig.commands['frontend-modules-locked']));
 
 // Generate import maps
 //  - Using "@jsenv/node-module-import-map" for the time being
@@ -776,7 +652,7 @@ gulp.task('embed-import-maps', () => {
 // Update import maps
 gulp.task('import-maps', 
   gulp.series(
-    'demo-frontend-modules-locked',
+    'frontend-modules-locked',
     'generate-import-maps',
     'embed-import-maps',
   )
@@ -1105,15 +981,15 @@ gulp.task('build:test',
   gulp.series('build:instrument', 'build:coverage', 'build:test-html')
 );
 
-gulp.task('demo-frontend',
-  gulp.series('clean-demo-frontend', 'demo-frontend-components', 'demo-frontend-core', 'gzip-demo-frontend')
+gulp.task('frontend',
+  gulp.series('clean-frontend', 'frontend-components', 'gzip-frontend')
 );
 
 gulp.task('_demo',
   gulp.series(
     //'integrity-service-helpers',
     //'validation-console',
-    'clean-gzip',
+    'clean-gzip-json',
     'get-version',
     'keys',
     'automation-secret', 
@@ -1126,8 +1002,8 @@ gulp.task('_demo',
     'encode-demo-html',
     'cache-bundle',
     'integrity-json',
-    'gzip',
-    'demo-frontend',
+    'gzip-json',
+    'frontend',
   )
 );
 
@@ -1135,7 +1011,7 @@ gulp.task('demo',
   gulp.series(
     'integrity-service-helpers',
     'validation-console',
-    'clean-gzip',
+    'clean-gzip-json',
     'get-version',
     'certificates',
     'keys',
@@ -1153,8 +1029,8 @@ gulp.task('demo',
     'encode-demo-html',
     'cache-bundle',
     'integrity-json',
-    'gzip',
-    'demo-frontend',
+    'gzip-json',
+    'frontend',
   )
 );
 
