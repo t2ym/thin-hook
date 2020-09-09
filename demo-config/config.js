@@ -298,12 +298,6 @@ class TargetConfig extends GulpDefaultRegistry {
         "frontend-modules": `cd ${path.resolve(this.path.base, this.path.root)} && npm install`,
         "frontend-modules-locked": `cd ${path.resolve(this.path.base, this.path.root)} && npm ci`,
       },
-      keys: {
-        noUpdate: true,
-      },
-      'automation-secret': {
-        serverSecret: /*null*/'DummyServerSecretOnlyForDebugging',
-      },
     });
     Object.assign(this, { // scoped plugins
       '@thin-hook/examples': {
