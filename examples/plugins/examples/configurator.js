@@ -4,14 +4,14 @@ Copyright (c) 2020, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 */
 const pluginName = '@thin-hook/examples';
 
-const init = (targetConfig) => {
+const init = function (targetConfig) {
   for (let subtask of ['@thin-hook/script-examples', '@thin-hook/module-examples', '@thin-hook/module-examples-dependencies']) {
-    targetConfig.gulp.task(subtask);
+    this.gulp.task(subtask);
   }
 }
 
-const configurator = (targetConfig) => {
-  return targetConfig.gulp.series('@thin-hook/script-examples', '@thin-hook/module-examples', '@thin-hook/module-examples-dependencies')
+const configurator = function (targetConfig) {
+  return this.gulp.series('@thin-hook/script-examples', '@thin-hook/module-examples', '@thin-hook/module-examples-dependencies')
 }
 
 module.exports = {

@@ -10,19 +10,19 @@ const fs = require('fs');
 
 const pluginName = '@thin-hook/module-examples';
 
-const configurator = (targetConfig) => {
-  const destPath = targetConfig['@thin-hook/examples'].base;
+const configurator = function (targetConfig) {
+  const destPath = this['@thin-hook/examples'].base;
   const pluginDirname = __dirname;
   const moduleExampleDependencies = {};
   const moduleExamples = []
-  const hook = targetConfig['thin-hook'].hook;
+  const hook = this['thin-hook'].hook;
   
-  return () => targetConfig.gulp.src([ 'module*.js', 'export*.js', 'circular*.js', '!module-import1.js', '!plugins/**/*' ].map(glob => {
+  return () => this.gulp.src([ 'module*.js', 'export*.js', 'circular*.js', '!module-import1.js', '!plugins/**/*' ].map(glob => {
         if (glob.startsWith('!')) {
-          return '!' + path.resolve(targetConfig['@thin-hook/examples'].base, glob.substring(1));
+          return '!' + path.resolve(this['@thin-hook/examples'].base, glob.substring(1));
         }
         else {
-          return path.resolve(targetConfig['@thin-hook/examples'].base, glob);
+          return path.resolve(this['@thin-hook/examples'].base, glob);
         }
       }))
     //.pipe(sourcemaps.init())
@@ -82,7 +82,7 @@ const configurator = (targetConfig) => {
     }))
     .pipe(rename(_path => { _path.basename = 'hooked.' + _path.basename; }))
     //.pipe(sourcemaps.write('.'))
-    .pipe(targetConfig.gulp.dest(destPath));
+    .pipe(this.gulp.dest(destPath));
 }
 
 module.exports = {

@@ -6,12 +6,12 @@ const fs = require('fs');
 
 const pluginName = '@thin-hook/module-examples-dependencies';
 
-const configurator = (targetConfig) => {
+const configurator = function (targetConfig) {
   const pluginDirname = __dirname;
-  const hook = targetConfig['thin-hook'].hook;
+  const hook = this['thin-hook'].hook;
   
   return (done) => {
-    fs.writeFileSync(targetConfig[pluginName].moduleDependenciesPath, JSON.stringify(hook.parameters.moduleDependencies, null, 2), 'utf8');
+    fs.writeFileSync(this[pluginName].moduleDependenciesPath, JSON.stringify(hook.parameters.moduleDependencies, null, 2), 'utf8');
     hook.parameters.moduleDependencies = null;
     done();
   }
