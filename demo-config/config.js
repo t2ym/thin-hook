@@ -21,7 +21,7 @@ class TargetConfig extends Configurable(GulpDefaultRegistry, 'thin-hook') {
     });
     Object.assign(this, { // dependent on this.path
       'thin-hook': {
-        hook: require('../hook.js'/*path.resolve(this.path.hook, 'hook.js')*/),
+        hook: require(path.resolve(this.path.hook, 'hook.js')),
       },
       url: {
         [TargetConfig.needResolution]: true,
