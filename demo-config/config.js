@@ -37,7 +37,7 @@ class TargetConfig extends Configurable(GulpDefaultRegistry, 'thin-hook') {
             [this.path.hook, path.resolve(this.url.components, this.path.hook.split('/').pop())], // for hook.min.js
           ];
           this.url.reverseMappings = this.reverseMappings(mappings); // [ urlPath, fullPath ] in directory path names
-          return mappings;
+          return this.reverseMappings(this.url.reverseMappings);
         },
       },
       server: {
