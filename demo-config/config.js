@@ -6,6 +6,8 @@ const path = require('path');
 const { GulpDefaultRegistry, Configurable } = require('target-configurator');
 
 class TargetConfig extends Configurable(GulpDefaultRegistry, 'thin-hook') {
+  static basePath = module.parent.path; // module.parent is gulpfile.js in the base directory
+  static configPath = module.path; // Overriding configPath is safe and robust
   // configure itself step by step
   _configure() {
     super._configure();
