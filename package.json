@@ -62,6 +62,8 @@
   },
   "devDependencies": {
     "@jsenv/node-module-import-map": "^12.0.1",
+    "@thin-hook/build": "file:plugins/build",
+    "@thin-hook/build-test": "file:plugins/build-test",
     "@thin-hook/demo-convert-full": "file:plugins/demo-convert-full",
     "@thin-hook/demo-convert-skinny": "file:plugins/demo-convert-skinny",
     "@thin-hook/examples": "file:examples/plugins/examples",

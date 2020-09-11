@@ -20,6 +20,7 @@ class TargetConfig extends Configurable(GulpDefaultRegistry, 'thin-hook') {
       encodedIndexHtml: 'index.html',
       decodedIndexHtml: 'original-index.html',
       hook: TargetConfig.packagePath,
+      test: 'test',
     });
     Object.assign(this, { // dependent on this.path
       'thin-hook': {

@@ -9,20 +9,14 @@ const rollup = require('rollup');
 const rollupPluginBrowserifyTransform = require('rollup-plugin-browserify-transform');
 const browserify = require('browserify');
 const browserifyBuiltins = require('browserify/lib/builtins.js');
-const licensify = require('licensify');
 const webpack = require('webpack');
 const webpackStream = require('webpack-stream');
 const nodeLibsBrowser = require('node-libs-browser');
 const source = require('vinyl-source-stream');
 const buffer = require('vinyl-buffer');
-const File = require('vinyl');
 const fs = require('fs');
 const through = require('through2');
 const path = require('path');
-const chai = require('chai');
-const assert = chai.assert;
-const espree = require('espree');
-const escodegen = require('escodegen');
 const stringify = require('json-stringify-safe');
 
 const targetConfig = require('./demo-config/config.js');
@@ -322,48 +316,6 @@ gulp.task('clean-frontend');
 gulp.task('frontend-components');
 
 gulp.task('gzip-frontend');
-
-gulp.task('build:test-html', () => {
-  return gulp.src(['test/**/*-test-original.html'], { base: 'test/' })
-    .pipe(through.obj((file, enc, callback) => {
-      let html = String(file.contents);
-      let transformed = hook.serviceWorkerTransformers.encodeHtml(html);
-      file.contents = new Buffer(transformed);
-      callback(null, file);
-    }))
-    .pipe(rename((path) => {
-      path.basename = path.basename.replace(/-original$/, '');
-    }))
-    .pipe(gulp.dest('test/'));
-});
-
-function _trimStartEndRaw(ast) {
-  if (ast && typeof ast === 'object') {
-    [ 'start', 'end', 'raw' ].forEach(prop => {
-      if (ast && ast.hasOwnProperty(prop)) {
-        if (prop === 'raw' && ast[prop].match(/(\\xaa\\xb5|\\u200c\\u200d)/) && ast.hasOwnProperty('value')) {
-          ast.value = ast.raw.replace(/^\"(.*)\"/, '$1');
-        }
-        delete ast[prop];
-      }
-    });
-  }
-  for (let target in ast) {
-    if (ast[target]) {
-      if (Array.isArray(ast[target])) {
-        for (let i = 0; i < ast[target].length; i++) {
-          let item = ast[target][i];
-          if (item && typeof item === 'object' && typeof item.type === 'string') {
-            _trimStartEndRaw(ast[target][i]);
-          }
-        }
-      }
-      else if (typeof ast[target] === 'object' && typeof ast[target].type === 'string') {
-        _trimStartEndRaw(ast[target]);
-      }
-    }
-  }
-}
 
 const enhancedResolve = require('enhanced-resolve');
 const resolveSync = enhancedResolve.create.sync({ // webPackConfig.resolve
@@ -771,157 +723,9 @@ gulp.task('webpack-es6-module', () => {
     .pipe(gulp.dest('./demo'));
 });
 
-gulp.task('build', () => {
-  return browserify('./hook.js', { standalone: 'hook' })
-    .plugin(licensify)
-    .bundle()
-    .pipe(source('hook.min.js'))
-    .pipe(buffer())
-    //.pipe(babel({ "presets": [ 'es2015' ]}))
-    //.pipe(uglify({ mangle: true }))
-    .pipe(through.obj((file, end, callback) => {
-      // robust minification by escodegen's compact option
-      let code = String(file.contents);
-      let licenseHeader = code.substring(0, code.indexOf('*/') + 3);
-      let espreeOptions = { range: false, tokens: false, comment: false, ecmaVersion: 8 };
-      let originalAst = espree.parse(code, espreeOptions);
-      let unconfigurableGlobalHookAst = espree.parse(
-        "Object.defineProperty(g, 'hook', { configurable: g.constructor.name === 'ServiceWorkerGlobalScope', enumerable: false, writable: false, value: f() });",
-        espreeOptions).body[0];
-      let unconfigurableGlobalHookAliasAst = espree.parse(
-        "Object.defineProperty(g, '$hook$', { configurable: g.constructor.name === 'ServiceWorkerGlobalScope', enumerable: false, writable: false, value: g.hook });",
-        espreeOptions).body[0];
-      let serviceWorkerHandlerRegistrationAst = espree.parse(
-        "if (g.constructor.name === 'ServiceWorkerGlobalScope')" +
-        "{ for (let h in hook.serviceWorkerHandlers) { g.addEventListener(h, hook.serviceWorkerHandlers[h]) } }",
-        espreeOptions).body[0];
-      let serviceWorkerRegistrationAst = espree.parse(
-        "if (g.constructor.name === 'Window') { hook.registerServiceWorker(); }", espreeOptions).body[0];
-      let expectedOriginalGlobalHookAst = espree.parse('g.hook = f();', espreeOptions).body[0];
-      _trimStartEndRaw(expectedOriginalGlobalHookAst);
-      _trimStartEndRaw(originalAst.body[0].expression.callee.body.body[0].alternate.alternate.body[2]);
-      assert.equal(
-        JSON.stringify(originalAst.body[0].expression.callee.body.body[0].alternate.alternate.body[2], null, 2),
-        JSON.stringify(expectedOriginalGlobalHookAst, null, 2), 'g.hook = f() exists');
-      // replace g.hook = f() with unconfigurable property definition
-      originalAst.body[0].expression.callee.body.body[0].alternate.alternate.body[2] = unconfigurableGlobalHookAst;
-      // append alias $hook$ with unconfigurable property definition
-      originalAst.body[0].expression.callee.body.body[0].alternate.alternate.body[3] = unconfigurableGlobalHookAliasAst;
-      // append service worker handler registration code
-      originalAst.body[0].expression.callee.body.body[0].alternate.alternate.body[4] = serviceWorkerHandlerRegistrationAst;
-      // append service worker registration code
-      originalAst.body[0].expression.callee.body.body[0].alternate.alternate.body[5] = serviceWorkerRegistrationAst;
-      _trimStartEndRaw(originalAst);
-      let minifiedCode = escodegen.generate(originalAst, { format: { compact: true } });
-      let minifiedAst = espree.parse(minifiedCode, espreeOptions);
-      _trimStartEndRaw(minifiedAst);
-      let originalAstJson = JSON.stringify(originalAst, null, 2);
-      let minifiedAstJson = JSON.stringify(minifiedAst, null, 2);
-      try {
-        assert.equal(minifiedAstJson, originalAstJson, 'Minified AST is identical to the original AST');
-        minifiedCode = minifiedCode.replace(/var define,module,exports;/,
-          'var define,module,exports;const _global_=new Function("return this")();const Reflect=_global_.Reflect,String=_global_.String,Array=_global_.Array,RegExp=_global_.RegExp,Object=_global_.Object,Uint8Array=_global_.Uint8Array,RangeError=_global_.RangeError,parseInt=_global_.parseInt,parseFloat=_global_.parseFloat,ArrayBuffer=_global_.ArrayBuffer,Symbol=_global_.Symbol,setTimeout=_global_.setTimeout,clearTimeout=_global_.clearTimeout,URL=_global_.URL,console=_global_.console,JSON=_global_.JSON;');
-        file = new File({
-          cwd: file.cwd,
-          base: file.base,
-          path: file.path,
-        });
-        file.contents = Buffer.from(licenseHeader + minifiedCode);
-      }
-      catch (e) {
-        fs.writeFileSync('_originalAst.json', originalAstJson);
-        fs.writeFileSync('_minifiedAst.json', minifiedAstJson);
-        throw e;
-      }
-      callback(null, file);
-    }))
-    .pipe(gulp.dest('.'));
-});
+gulp.task('@thin-hook/build');
 
-const exec = require('child_process').exec;
-
-gulp.task('build:instrument', () => {
-  return gulp.src([ 'hook.js', 'lib/*.js' ], { base: '.' })
-    .pipe(through.obj((file, end, callback) => {
-      exec('nyc instrument ' + path.relative(file.cwd, file.path), { maxBuffer: 10 * 1024 * 1024 }, function (err, stdout, stderr) {
-        if (err) {
-          callback(err)
-        }
-        else {
-          file.contents = new Buffer(stdout);
-          callback(null, file);
-        }
-      })
-    }))
-    .pipe(gulp.dest('test/coverage'));
-});
-
-gulp.task('build:coverage', () => {
-  return browserify('test/coverage/hook.js', { standalone: 'hook' })
-    .plugin(licensify)
-    .bundle()
-    .pipe(source('hook.min.js'))
-    .pipe(buffer())
-    //.pipe(babel({ "plugins": [ 'babel-plugin-istanbul' ]}))
-    //.pipe(uglify({ mangle: true }))
-    .pipe(through.obj((file, end, callback) => {
-      // robust minification by escodegen's compact option
-      let code = String(file.contents);
-      let licenseHeader = code.substring(0, code.indexOf('*/') + 3);
-      let espreeOptions = { range: false, tokens: false, comment: false, ecmaVersion: 8 };
-      let originalAst = espree.parse(code, espreeOptions);
-      let unconfigurableGlobalHookAst = espree.parse(
-        "Object.defineProperty(g, 'hook', { configurable: g.constructor.name === 'ServiceWorkerGlobalScope', enumerable: false, writable: false, value: f() });",
-        espreeOptions).body[0];
-      let unconfigurableGlobalHookAliasAst = espree.parse(
-        "Object.defineProperty(g, '$hook$', { configurable: g.constructor.name === 'ServiceWorkerGlobalScope', enumerable: false, writable: false, value: g.hook });",
-        espreeOptions).body[0];
-      let serviceWorkerHandlerRegistrationAst = espree.parse(
-        "if (g.constructor.name === 'ServiceWorkerGlobalScope')" +
-        "{ for (let h in hook.serviceWorkerHandlers) { g.addEventListener(h, hook.serviceWorkerHandlers[h]) } }",
-        espreeOptions).body[0];
-      let serviceWorkerRegistrationAst = espree.parse(
-        "if (g.constructor.name === 'Window') { hook.registerServiceWorker(); }", espreeOptions).body[0];
-      let expectedOriginalGlobalHookAst = espree.parse('g.hook = f();', espreeOptions).body[0];
-      _trimStartEndRaw(expectedOriginalGlobalHookAst);
-      _trimStartEndRaw(originalAst.body[0].expression.callee.body.body[0].alternate.alternate.body[2]);
-      assert.equal(
-        JSON.stringify(originalAst.body[0].expression.callee.body.body[0].alternate.alternate.body[2], null, 2),
-        JSON.stringify(expectedOriginalGlobalHookAst, null, 2), 'g.hook = f() exists');
-      // replace g.hook = f() with unconfigurable property definition
-      originalAst.body[0].expression.callee.body.body[0].alternate.alternate.body[2] = unconfigurableGlobalHookAst;
-      // append alias $hook$ with unconfigurable property definition
-      originalAst.body[0].expression.callee.body.body[0].alternate.alternate.body[3] = unconfigurableGlobalHookAliasAst;
-      // append service worker handler registration code
-      originalAst.body[0].expression.callee.body.body[0].alternate.alternate.body[4] = serviceWorkerHandlerRegistrationAst;
-      // append service worker registration code
-      originalAst.body[0].expression.callee.body.body[0].alternate.alternate.body[5] = serviceWorkerRegistrationAst;
-      _trimStartEndRaw(originalAst);
-      let minifiedCode = escodegen.generate(originalAst, { format: { compact: true } });
-      let minifiedAst = espree.parse(minifiedCode, espreeOptions);
-      _trimStartEndRaw(minifiedAst);
-      let originalAstJson = JSON.stringify(originalAst, null, 2);
-      let minifiedAstJson = JSON.stringify(minifiedAst, null, 2);
-      try {
-        assert.equal(minifiedAstJson, originalAstJson, 'Minified AST is identical to the original AST');
-        minifiedCode = minifiedCode.replace(/var define,module,exports;/,
-          'var define,module,exports;const _global_=new Function("return this")();const Reflect=_global_.Reflect,String=_global_.String,Array=_global_.Array,RegExp=_global_.RegExp,Object=_global_.Object,Uint8Array=_global_.Uint8Array,RangeError=_global_.RangeError,parseInt=_global_.parseInt,parseFloat=_global_.parseFloat,ArrayBuffer=_global_.ArrayBuffer,Symbol=_global_.Symbol,setTimeout=_global_.setTimeout,clearTimeout=_global_.clearTimeout,URL=_global_.URL,console=_global_.console,JSON=_global_.JSON;');
-        file = new File({
-          cwd: file.cwd,
-          base: file.base,
-          path: file.path,
-        });
-        file.contents = Buffer.from(licenseHeader + minifiedCode);
-      }
-      catch (e) {
-        fs.writeFileSync('_originalAst.json', originalAstJson);
-        fs.writeFileSync('_minifiedAst.json', minifiedAstJson);
-        throw e;
-      }
-      callback(null, file);
-    }))
-    .pipe(gulp.dest('test'));
-});
+gulp.task('@thin-hook/build-test');
 
 // Skip the standard transform middleware for polyserve
 gulp.task('patch-wct-istanbul', () => {
@@ -935,10 +739,6 @@ gulp.task('delay', (done) => {
 
 gulp.task('cache-bundle',
   gulp.series('get-version', 'dummy-integrity', 'cache-bundle-automation-json', 'cache-bundle-automation', 'script-hashes', 'script-hashes-integrity', 'update-html-hash')
-);
-
-gulp.task('build:test',
-  gulp.series('build:instrument', 'build:coverage', 'build:test-html')
 );
 
 gulp.task('frontend',
@@ -999,11 +799,11 @@ gulp.task('delayed-demo',
 );
 
 gulp.task('delayed-build',
-  gulp.series('delay', 'build', 'build:test', '@thin-hook/examples', 'demo')
+  gulp.series('delay', '@thin-hook/build', '@thin-hook/build-test', '@thin-hook/examples', 'demo')
 );
 
 gulp.task('default',
-  gulp.series('build', 'build:test', '@thin-hook/examples', 'demo')
+  gulp.series('@thin-hook/build', '@thin-hook/build-test', '@thin-hook/examples', 'demo')
 );
 
 gulp.task('https', shell.task(targetConfig.commands.https));
