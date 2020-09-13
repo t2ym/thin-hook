@@ -77,5 +77,5 @@ Can you confirm this vulnerable configuration for serverSecret? (y/N) `, (answer
 module.exports = {
   configurator,
   name: pluginName,
-  dependencies: [],
+  dependencies: [ 'cache-bundle-js', 'cache-automation-js' ],
 };

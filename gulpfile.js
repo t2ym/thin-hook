@@ -59,6 +59,24 @@ gulp.task('certificates',
 
 gulp.task('keys');
 
+gulp.task('cache-automation-js');
+
+gulp.task('cache-bundle-js');
+
+gulp.task('about-blank-redirector');
+
+gulp.task('content-loader-js');
+
+gulp.task('mark-parsed-js');
+
+gulp.task('script-hashes-js');
+
+gulp.task('wrap-globals-js');
+
+gulp.task('hook-native-api-js');
+
+gulp.task('context-generator-js');
+
 gulp.task('integrity-js');
 
 gulp.task('integrity-json');
@@ -752,6 +770,15 @@ gulp.task('_demo',
     'clean-gzip-json',
     'get-version',
     'keys',
+    'about-blank-redirector',
+    'content-loader-js',
+    'mark-parsed-js',
+    'script-hashes-js',
+    'wrap-globals-js',
+    'hook-native-api-js',
+    'context-generator-js',
+    'cache-bundle-js',
+    'cache-automation-js',
     'automation-secret', 
     //'browserify-commonjs',
     //'webpack-es6-module',
@@ -775,6 +802,15 @@ gulp.task('demo',
     'get-version',
     'certificates',
     'keys',
+    'about-blank-redirector',
+    'content-loader-js',
+    'mark-parsed-js',
+    'script-hashes-js',
+    'wrap-globals-js',
+    'hook-native-api-js',
+    'context-generator-js',
+    'cache-bundle-js',
+    'cache-automation-js',
     'automation-secret', 
     'import-maps',
     'browserify-commonjs',

@@ -116,5 +116,5 @@ const configurator = function (targetConfig) {
 module.exports = {
   configurator,
   name: pluginName,
-  dependencies: [],
+  dependencies: [ 'script-hashes-js' ],
 };

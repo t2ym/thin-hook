@@ -6,16 +6,15 @@ const path = require('path');
 const { preprocess } = require('preprocess');
 const through = require('through2');
 
-const pluginName = 'policy';
+const pluginName = 'cache-automation-js';
 
 const configurator = function (targetConfig) {
   const configPath = path.resolve(this.path.base, this.path.config, pluginName);
   const destPath = path.resolve(this.path.base, this.path.root);
-  const enableDebugging = this.mode.enableDebugging;
   const pluginDirname = __dirname;
   const sourceFile = this[pluginName] && this[pluginName].sourceFile
     ? this[pluginName].sourceFile
-    : 'hook-callback.js';
+    : 'cache-automation.js';
   return () => this.gulp.src([ path.resolve(pluginDirname, sourceFile) ])
     // 1st pass
     .pipe(through.obj((file, enc, callback) => {
@@ -25,11 +24,10 @@ const configurator = function (targetConfig) {
           SPACE: ' ',
           EQUAL: '=',
           SEMICOLON: ';',
-          enableDebugging: typeof enableDebugging === 'undefined' ? 'false' : enableDebugging,
         },
         {
           type: 'js',
-          srcDir: pluginDirname, // in plugins/policy/
+          srcDir: pluginDirname, // in plugins/cache-automation-js/
         }
       );
       script = script.replace(/\/\* #include /g, '/* @include ');
@@ -47,18 +45,10 @@ const configurator = function (targetConfig) {
         },
         {
           type: 'js',
-          srcDir: configPath, // in demo-config/policy/
+          srcDir: configPath, // in demo-config/cache-automation-js/
         }
       );
       file.contents = Buffer.from(script);
-      callback(null, file);
-    }))
-    .pipe(through.obj((file, end, callback) => {
-      if (path.extname(file.path) === '.js') {
-        this['no-hook-authorization'] = this['no-hook-authorization'] || {};
-        this['no-hook-authorization'].hash = this['no-hook-authorization'].hash || {};
-        this['no-hook-authorization'].hash[path.resolve(destPath, path.relative(pluginDirname, file.path))] = true;
-      }
       callback(null, file);
     }))
     .pipe(this.gulp.dest(destPath));

@@ -6,36 +6,49 @@ const path = require('path');
 const { preprocess } = require('preprocess');
 const through = require('through2');
 
-const fs = require('fs');
-
-const pluginName = 'integrity-js';
+const pluginName = 'cache-bundle-js';
 
 const configurator = function (targetConfig) {
   const configPath = path.resolve(this.path.base, this.path.config, pluginName);
   const destPath = path.resolve(this.path.base, this.path.root);
+  const enableCacheBundle = this[pluginName] && Reflect.has(this[pluginName], 'enableCacheBundle') ? this[pluginName].enableCacheBundle : true;
   const pluginDirname = __dirname;
   const sourceFile = this[pluginName] && this[pluginName].sourceFile
     ? this[pluginName].sourceFile
-    : 'integrity.js';
+    : 'cache-bundle.js';
   return () => this.gulp.src([ path.resolve(pluginDirname, sourceFile) ])
+    // 1st pass
     .pipe(through.obj((file, enc, callback) => {
       let script = String(file.contents);
-      let keys = JSON.parse(fs.readFileSync(this['keys'].keysJSONPath, 'utf-8'));
-      let rsaPublicKeyPEM = keys[this['keys'].RSA.publicKeyName];
-      let rsaPublicKeyBase64 = rsaPublicKeyPEM.replace('-----BEGIN PUBLIC KEY-----', '').replace('-----END PUBLIC KEY-----', '').replace(/[ \r\n\t]/g, '');
-      let ecdsaPublicKeyPEM = keys[this['keys'].ECDSA.publicKeyName];
-      let ecdsaPublicKeyBase64 = ecdsaPublicKeyPEM.replace('-----BEGIN PUBLIC KEY-----', '').replace('-----END PUBLIC KEY-----', '').replace(/[ \r\n\t]/g, '');
       script = preprocess(script,
         {
           SPACE: ' ',
           EQUAL: '=',
           SEMICOLON: ';',
-          rsaPublicKeyBase64: `'${rsaPublicKeyBase64}'`,
-          ecdsaPublicKeyBase64: `'${ecdsaPublicKeyBase64}'`,
+          enableCacheBundle,
         },
         {
           type: 'js',
-          srcDir: pluginDirname, // in plugins/policy/
+          srcDir: pluginDirname, // in plugins/cache-bundle-js/
+        }
+      );
+      script = script.replace(/\/\* #include /g, '/* @include ');
+      file.contents = Buffer.from(script);
+      callback(null, file);
+    }))
+    // 2nd pass
+    .pipe(through.obj((file, enc, callback) => {
+      let script = String(file.contents);
+      script = preprocess(script,
+        {
+          SPACE: ' ',
+          EQUAL: '=',
+          SEMICOLON: ';',
+          enableCacheBundle,
+        },
+        {
+          type: 'js',
+          srcDir: configPath, // in demo-config/cache-bundle-js/
         }
       );
       file.contents = Buffer.from(script);
@@ -55,5 +68,5 @@ const configurator = function (targetConfig) {
 module.exports = {
   configurator,
   name: pluginName,
-  dependencies: [ 'keys' ],
+  dependencies: [],
 };
