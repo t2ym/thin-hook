@@ -831,7 +831,6 @@ gulp.task('demo',
     'integrity-json',
     'gzip-json',
     'frontend',
-    done => { console.log(stringify(targetConfig, null, 2)); done() },
   )
 );
 

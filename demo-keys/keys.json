@@ -6,6 +6,6 @@
   "ecdsa-public-key.pem": "-----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAELGVJPsg0GZhp4r2sxXotwuie7+b6\nJS+9LU7Umj+9DpQfVaw0mXLW2+3tHgMUGREUoy7q3ddWhb+vSoLnnU6ruQ==\n-----END PUBLIC KEY-----\n",
   "session-id-aes-key": "xXIkj53mF2+CEkkXczw/v501NuS2JoQ6dbqsnCfKiBA=",
   "session-id-aes-iv": "pBhb1RgKJ/SajT8U",
-  "scriptsHashHex": "7f1b3462242901c913a1d617a3d6449330f59d8855c07816841161aa2af7d334",
-  "htmlHashHex": "a56acd7407ef126c925c234c9f04693ff91fe84ca37f72279a8c2b94d7965c8c"
+  "scriptsHashHex": "e0bed2716dd5b1e0f2bc9be3c7b0516c139f1f5cc3a6ea4211ad804df3d31f87",
+  "htmlHashHex": "d8c63d87dac97757b71121968890dad0817ed68e3f2c766a7bb4522d7c998a1b"
 }
