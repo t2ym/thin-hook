@@ -36,6 +36,8 @@ gulp.task('@thin-hook/demo-convert-skinny');
 
 gulp.task('@thin-hook/demo-convert-full');
 
+gulp.task('@thin-hook/demo-gulpfile-js');
+
 gulp.task('integrity-service-helpers', shell.task(targetConfig.commands['integrity-service-helpers']));
 
 gulp.task('validation-console', shell.task(targetConfig.commands['validation-console']));
@@ -770,6 +772,7 @@ gulp.task('_demo',
     'clean-gzip-json',
     'get-version',
     'keys',
+    '@thin-hook/demo-gulpfile-js',
     'about-blank-redirector',
     'content-loader-js',
     'mark-parsed-js',
@@ -802,6 +805,7 @@ gulp.task('demo',
     'get-version',
     'certificates',
     'keys',
+    '@thin-hook/demo-gulpfile-js',
     'about-blank-redirector',
     'content-loader-js',
     'mark-parsed-js',
@@ -827,6 +831,7 @@ gulp.task('demo',
     'integrity-json',
     'gzip-json',
     'frontend',
+    done => { console.log(stringify(targetConfig, null, 2)); done() },
   )
 );
 
