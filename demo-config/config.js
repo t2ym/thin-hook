@@ -43,6 +43,7 @@ class TargetConfig extends Configurable(GulpDefaultRegistry, 'thin-hook') {
       },
       server: {
         serverJs: 'demoServer.js',
+        host: process.env['SERVER_HOST'] || 'localhost',
         port: 8080,
         devToolsHostPort: '0.0.0.0:9229',
         concurrency: 4,
@@ -51,11 +52,19 @@ class TargetConfig extends Configurable(GulpDefaultRegistry, 'thin-hook') {
         port: 8081,
       },
       validationService: {
+        host: process.env['VALIDATION_HOST'] || 'localhost',
         port: 8082,
       },
       certificates: {
         generateCertSh: 'generate_cert.sh',
         CA: 'demoCA', // default value for openssl
+        DN: {
+          C: 'JP',
+          ST: 'Tokyo',
+          O: 'thin-hook',
+          OU: 'demo',
+          CN: 'thin-hook demo CA',
+        },
       },
       'cache-bundle-js': {
         enableCacheBundle: true,

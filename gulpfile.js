@@ -46,18 +46,9 @@ gulp.task('clean-gzip-json');
 
 gulp.task('get-version');
 
-gulp.task('certificates',
-  gulp.series(
-    shell.task(`${targetConfig.commands.certificates} localhost`),
-    shell.task(`${targetConfig.commands.certificates} client client`),
-    shell.task(process.env['SERVER_HOST']
-      ? `${targetConfig.commands.certificates} ${process.env['SERVER_HOST']}`
-      : `echo you can set environment variable SERVER_HOST={host name for your demo server. Note: defaults to localhost}`),
-    shell.task(process.env['VALIDATION_HOST']
-      ? `${targetConfig.commands.certificates} ${process.env['VALIDATION_HOST']}`
-      : `echo you can set environment variable VALIDATION_HOST={host name for the validation service for your demo. Note: defaults to localhost}`),
-  )
-);
+gulp.task('generate-cert-sh');
+
+gulp.task('certificates');
 
 gulp.task('keys');
 
@@ -801,6 +792,7 @@ gulp.task('demo',
     'validation-console',
     'clean-gzip-json',
     'get-version',
+    'generate-cert-sh',
     'certificates',
     'keys',
     '@thin-hook/demo-gulpfile-js',
