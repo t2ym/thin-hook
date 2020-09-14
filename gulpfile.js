@@ -753,6 +753,8 @@ gulp.task('patch-wct-istanbul', () => {
     .pipe(gulp.dest('node_modules/wct-istanbul/lib'));
 });
 
+gulp.task('test', gulp.series('patch-wct-istanbul', shell.task('wct')));
+
 gulp.task('delay', (done) => {
   setTimeout(done, 1000);
 });
