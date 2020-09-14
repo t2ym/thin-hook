@@ -755,10 +755,6 @@ gulp.task('patch-wct-istanbul', () => {
 
 gulp.task('test', gulp.series('patch-wct-istanbul', shell.task('wct')));
 
-gulp.task('delay', (done) => {
-  setTimeout(done, 1000);
-});
-
 gulp.task('cache-bundle',
   gulp.series('get-version', 'dummy-integrity', 'cache-bundle-automation-json', 'cache-bundle-automation', 'script-hashes', 'script-hashes-integrity', 'update-html-hash')
 );
@@ -834,14 +830,6 @@ gulp.task('demo',
     'gzip-json',
     'frontend',
   )
-);
-
-gulp.task('delayed-demo',
-  gulp.series('delay', 'demo')
-);
-
-gulp.task('delayed-build',
-  gulp.series('delay', '@thin-hook/build', '@thin-hook/build-test', '@thin-hook/examples', 'demo')
 );
 
 gulp.task('default',
