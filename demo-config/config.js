@@ -72,6 +72,16 @@ class TargetConfig extends Configurable(GulpDefaultRegistry, 'thin-hook') {
       'context-generator-js': {
         defineCustomContextGenerator: true,
       },
+      'import-maps': {
+        importMapName: 'modules.importmap',
+        privateImportMapName: 'modules-private.importmap',
+        auxiliaryImportMap: {
+          imports: {
+            foo: "./bar.js", // dummy
+            "module-on-cdn": "https://cdn.domain.com/path/cdn-module/index.js" // dummy
+          },
+        },
+      },
       'no-hook-authorization': {
         hash: {
           "https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.js": "db82c32a68bc3ddbb2232a947c3cdeb88f5ee7ba41d05d686146507687a6897f", // TODO: generate from URL response
