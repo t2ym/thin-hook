@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/t2ym/thin-hook#readme",
   "dependencies": {
+    "firebase": "^7.20.0",
     "gulp": "^4.0.2",
     "gulp-debug": "^2.1.2",
     "gulp-grep-contents": "0.0.1",
