@@ -82,6 +82,94 @@ class TargetConfig extends Configurable(GulpDefaultRegistry, 'thin-hook') {
           },
         },
       },
+      bundles: {
+        targets: [
+          [ 'commonjs.js',        'browserify-commonjs.js', 'browserify', { browserify: { standalone: 'commonjs_module' } } ],
+          [ 'commonjs.js',        'webpack-commonjs.js',    'webpack'   ],
+          [ 'es6-module3.js',     'webpack-es6-module.js',  'webpack'   ],
+          [ 'es6-module3.js',     'rollup-es6-module.js',   'rollup'    ],
+          [ 'modules/module1.js', 'rollup-module1.js',      'rollup'    ],
+        ].map(([entry, output, bundler, options]) => ({
+          entryBase: path.resolve(this.path.base, this.path.root),
+          outputBase: path.resolve(this.path.base, this.path.root),
+          entry,
+          output,
+          bundler,
+          options,
+        })),
+        'thin-hook': {
+          sourceMap: (file, targetConfig) => null,
+          compact: false,
+          hookPrefix: '_uNpREdiC4aB1e_',
+          initialScope: (file, target, targetConfig) => ({ require: true, module: true, exports: true }),
+        },
+        'enhanced-resolve': {
+          options: { // same as resolve in webpack config
+            extensions: [ '.js', '.json' ],
+          },
+          // context: base path for resolving non-relative module names with enhanced-resolve in context generators; not affecting import maps
+          //   this.path.base: search from package/node_modules/
+          //   path.resolve(this.path.base, this.path.root): search from this.path.root/node_modules/
+          //   ".": search from the node_modules directory of the current importer module
+          context: this.path.base,
+        },
+        browserify: {
+          configurator: 'bundle-browserify', // TODO: '@thin-hook/bundle-browserify'
+          browserify: (target, targetConfig) => ({
+            standalone: target.options.browserify.standalone,
+            insertGlobals: false,
+            insertGlobalVars: {
+              __hook__: undefined
+            },
+          }),
+          transform: (target, targetConfig) => [ // returns [tr, opts] or [[tr1, opts1], [tr2, opts2], ...]
+            this.bundles.components.hookTransformFactory('browserify', target),
+            {
+              global: true
+            },
+          ],
+        },
+        webpack: {
+          configurator: 'bundle-webpack', // TODO: '@thin-hook/bundle-webpack'
+          options: (target, targetConfig) => ({
+            entry: path.resolve(target.entryBase, target.entry),
+            output: {
+              filename: target.output,
+            },
+            plugins: [
+              new this.bundles.components.webpack.LoaderOptionsPlugin({
+                options: {
+                  transforms: [
+                    this.bundles.components.hookTransformFactory('webpack', target)
+                  ],
+                },
+              }),
+            ],
+            module: {
+              loaders: [{
+                test: /\.js$/,
+                loader: 'transform-loader?0',
+              }],
+            },
+          }),
+        },
+        rollup: {
+          configurator: 'bundle-rollup', // TODO: '@thin-hook/bundle-rollup'
+          inputOptions: (target, targetConfig) => ({
+            input: path.resolve(target.entryBase, target.entry),
+            treeshake: false,
+            plugins: [
+              this.bundles.components.rollupPluginBrowserifyTransform(
+                this.bundles.components.hookTransformFactory('rollup', target, this.bundles.components.importMapperFactory, this.bundles.components.contextGeneratorHelper)
+              ),
+            ],
+          }),
+          outputOptions: (target, targetConfig) => ({
+            file: path.resolve(target.outputBase, target.output),
+            format: 'esm',
+          }),
+        },
+      },
       'no-hook-authorization': {
         hash: {
           "https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.js": "db82c32a68bc3ddbb2232a947c3cdeb88f5ee7ba41d05d686146507687a6897f", // TODO: generate from URL response
@@ -96,11 +184,6 @@ class TargetConfig extends Configurable(GulpDefaultRegistry, 'thin-hook') {
           "c739e860b7427393bdda7eec6442969c440bad792ed9bc78e3ff54212645215a": true, // hook.min.js
           "6282ed809090895f8477143bc3ab8d8af4dbcd2960c724943f499c0f2913a159": true, // demo/bootstrap.js
           "5b615aa885a0518466153be6ecb2cfeef1300f181ff60ca91cad964659c92052": true, // demo/hook-worker.js
-          "13517425e13d008da30e5638a6f91b3bcb913210191ada9e5b1be85df73ebaa9": true, // demo/browserify-commonjs.js
-          "e992640bf3759389183b8cb9f06e289f97d6390ebd10515eef7f670366db9291": true, // demo/webpack-es6-module.js
-          "97f2022963c310fadb096c328d849fdb6658c1cd509cad030f71cb426c7841a4": true, // demo/webpack-commonjs.js
-          "be62ecde142b4cdf07dfa764b264215b0d52ab6209d666fe0f3bc1832f021cd0": true, // demo/rollup-es6-module.js
-          "dfb424d10dd73ee1bb1028ac0073e941d024d3b9a5f9e5a2fd6c9ce99a9ba8f1": true, // demo/rollup-module1.js
           */
         },
       },

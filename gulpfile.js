@@ -4,16 +4,6 @@ const gulp = require('gulp');
 const gulpif = require('gulp-if');
 const shell = require('gulp-shell');
 const rename = require('gulp-rename');
-const ImportMaps = require("@jsenv/node-module-import-map");
-const rollup = require('rollup');
-const rollupPluginBrowserifyTransform = require('rollup-plugin-browserify-transform');
-const browserify = require('browserify');
-const browserifyBuiltins = require('browserify/lib/builtins.js');
-const webpack = require('webpack');
-const webpackStream = require('webpack-stream');
-const nodeLibsBrowser = require('node-libs-browser');
-const source = require('vinyl-source-stream');
-const buffer = require('vinyl-buffer');
 const fs = require('fs');
 const through = require('through2');
 const path = require('path');
@@ -328,127 +318,6 @@ gulp.task('frontend-components');
 
 gulp.task('gzip-frontend');
 
-function bundlerContextGeneratorFactory(nodeLibs = {}, contextGeneratorHelper = null) {
-  const enhancedResolve = require('enhanced-resolve');
-  const resolveSync = enhancedResolve.create.sync({ // webPackConfig.resolve
-    extensions: ['.js', '.json']
-  });
-  // Note: Not tested on Windows
-  return function bundlerContextGenerator(astPath) {
-    let ast = astPath[astPath.length - 1][1];
-    let context = hook.contextGenerators.method(astPath);
-    if (contextGeneratorHelper && typeof contextGeneratorHelper.pre === 'function') {
-      contextGeneratorHelper.pre(ast, astPath, context);
-    }
-    if (ast.type === 'CallExpression' &&
-        ast.callee.type === 'Identifier' &&
-        ast.callee.name === 'require' &&
-        ast.arguments.length === 1 &&
-        ast.arguments[0].type === 'Literal' &&
-        typeof ast.arguments[0].value === 'string') {
-      let name = ast.arguments[0].value;
-      let origin = context.split(/,/)[0];
-      let base = targetConfig.path.base;
-      let originPhysicalDir = path.dirname(targetConfig.mapper(targetConfig.url.reverseMappings, origin));
-      let resolved;
-      let componentName;
-      if (name[0] === '.') {
-        resolved = resolveSync({}, originPhysicalDir, name);
-      }
-      else {
-        resolved = nodeLibs[name];
-        if (!resolved) {
-          resolved = resolveSync({}, base, name);
-        }
-      }
-      componentName = targetConfig.mapper(targetConfig.url.mappings, resolved);
-      console.log('requireContextGenerator: context = ' + context + ' name = ' + name + ' componentName = ' + componentName);
-      context += '|' + componentName;
-    }
-    else if ((ast.type === 'ImportDeclaration' || ast.type === 'ExportNamedDeclaration' || ast.type === 'ExportAllDeclaration') && ast.source && ast.resolvedSource) {
-      ast.resolvedSource = path.relative(path.dirname(astPath[0][0]), ast.resolvedSource);
-      if (!ast.resolvedSource.startsWith('.')) {
-        ast.resolvedSource = './' + ast.resolvedSource;
-      }
-    }
-    else if (ast.type === 'Program' && ast.moduleDependencies) {
-      for (let _module in ast.moduleDependencies) {
-        let resolvedSource;
-        if (ast.moduleDependencies[_module][0] === 'export') {
-          resolvedSource = './' + path.relative(path.dirname(ast.moduleDependencies[_module].source), ast.moduleDependencies[_module].source);
-        }
-        else if (ast.moduleDependencies[_module].source.startsWith('.')) {
-          resolvedSource = ast.moduleDependencies[_module].source; // relative path
-        }
-        else {
-          resolvedSource = path.relative(path.dirname(astPath[0][0]), _module);
-          if (!resolvedSource.startsWith('.')) {
-            resolvedSource = './' + ast.resolvedSource;
-          }
-        }
-        ast.moduleDependencies[_module].resolvedSource = resolvedSource; // for rollup
-      }
-    }
-    if (contextGeneratorHelper && typeof contextGeneratorHelper.post === 'function') {
-      contextGeneratorHelper.post(ast, astPath, context);
-    }
-    return context;
-  };
-}
-
-// Hook transformer - browserify transform
-function hookTransformFactory(contextGeneratorName, importMapperFactory, contextGeneratorHelper) {
-  switch (contextGeneratorName) {
-  case 'rollup':
-    hook.contextGenerators.rollup = bundlerContextGeneratorFactory({}, contextGeneratorHelper);
-    break;
-  case 'webpack':
-    hook.contextGenerators.webpack = bundlerContextGeneratorFactory(nodeLibsBrowser, contextGeneratorHelper);
-    break;
-  case 'browserify':
-    hook.contextGenerators.browserify = bundlerContextGeneratorFactory(browserifyBuiltins, contextGeneratorHelper);
-    break;
-  }
- 
-  return function hookTransform(file) {
-    let chunks = [];
-    function transform(chunk, encoding, callback) {
-      chunks.push(chunk);
-      callback();
-    }
-    function flush(callback) {
-      let stream = this;
-      let code = Buffer.concat(chunks).toString();
-      let context = targetConfig.mapper(targetConfig.url.mappings, file);
-      if (!file.match(/\/node_modules\/webpack\/buildin\/module[.]js$/)) { // TODO: Hooking webpack/buildin/module.js raises an error
-        if (importMapperFactory) {
-          hook.parameters.importMapper = importMapperFactory(file);
-        }
-        code = hook(code,
-          '__hook__', // hookName = '__hook__',
-          [ Object.assign([ context, {} ], { source: file }) ], // initialContext = [],
-          contextGeneratorName, // contextGeneratorName = 'method',
-          true, // metaHooking = true,
-          true, // _hookProperty = getHookProperty(),
-          null, // _sourceMap = null,
-          false, // asynchronous = false,
-          false, // _compact = getCompact(),
-          true, // _hookGlobal = getHookGlobal(),
-          '_uNpREdiC4aB1e_', // _hookPrefix = getHookPrefix(),
-          { require: true, module: true, exports: true } // initialScope = null
-        );
-        if (importMapperFactory) {
-          hook.parameters.importMapper = null;
-        }
-      }
-      console.log('hook ', file);
-      stream.push(code);
-      callback(null);
-    }
-    return through(transform, flush);
-  }
-}
-
 // Reinstall frontend nodejs modules for demo in demo/node_modules/ with the locked versions in demo/package-lock.json
 gulp.task('frontend-modules-locked', shell.task(targetConfig.commands['frontend-modules-locked']));
 
@@ -478,156 +347,22 @@ gulp.task('import-maps',
   )
 );
 
-// Hook ES6 modules in rollup
-// NOTES:
-gulp.task('rollup-es-modules', async () => {
-  const importMapperFactory = function importMapperFactory(filePath) {
-    const importMapsJson = fs.readFileSync(path.resolve(targetConfig.path.base, targetConfig.path.root, targetConfig['import-maps'].importMapName), 'utf8');
-    const origin = 'location.origin';
-    let baseURLPath = targetConfig.mapper(targetConfig.url.mappings, filePath);
-    let normalizedBaseURL = baseURLPath[0] === '/'
-      ? 'https://' + origin + baseURLPath
-      : baseURLPath;
-    let resolvedURLCache = new Map();
-    hook.parameters.parsedImportMap = hook.utils.importMaps.parseFromString(importMapsJson, normalizedBaseURL);
-    hook.parameters._importMapper =
-      (specifier, scriptURL) => {
-        const key = specifier + ';' + scriptURL;
-        let resolvedURL = resolvedURLCache.get(key);
-        if (!resolvedURL) {
-          if (scriptURL[0] === '/') {
-            scriptURL = 'https://' + origin + scriptURL;
-          }
-          if (specifier.endsWith('/')) {
-            specifier = specifier.substring(0, specifier.length - 1);
-          }
-          resolvedURL = hook.utils.importMaps.resolve(specifier, hook.parameters.parsedImportMap, new URL(scriptURL));
-          if (resolvedURL.host === origin) {
-            resolvedURL = resolvedURL.pathname + resolvedURL.search + resolvedURL.hash;
-          }
-          else {
-            resolvedURL = resolvedURL.href;
-          }
-          resolvedURLCache.set(key, resolvedURL);
-        }
-        //console.log(`importMapper(${specifier}, ${scriptURL}) = ${resolvedURL}`);
-        return resolvedURL;
-      }
-    return hook.parameters._importMapper;
-  };
+gulp.task('bundler-helpers');
 
-  const targets = [
-    [ './demo/es6-module3.js', './demo/rollup-es6-module.js' ],
-    [ './demo/modules/module1.js', './demo/rollup-module1.js' ],
-  ];
-  hook.parameters.moduleDependencies = Object.create(null);
-  for (let [input, output] of targets) {
-    const bundle = await rollup.rollup({
-      input: input,
-      treeshake: false,
-      plugins: [
-        rollupPluginBrowserifyTransform(hookTransformFactory('rollup', importMapperFactory))
-      ]
-    });
-  
-    await bundle.write({
-      file: output,
-      format: 'esm',
-    });
-  }
-  const moduleDependenciesFileName = 'moduleDependencies.json';
+gulp.task('bundle-browserify');
 
-  // sort names in moduleDependencies
-  const moduleDependencies = hook.parameters.moduleDependencies; // store the original
-  hook.parameters.moduleDependencies = Object.create(null);
-  for (let name of Object.getOwnPropertyNames(moduleDependencies).sort()) {
-    hook.parameters.moduleDependencies[name] = moduleDependencies[name];    
-  }
+gulp.task('bundle-webpack');
 
-  fs.writeFileSync(
-    path.resolve(targetConfig.path.base, targetConfig.path.root, moduleDependenciesFileName),
-    JSON.stringify(hook.parameters.moduleDependencies, null, 2),
-    'utf8'
-  );
-  hook.parameters.moduleDependencies = null;
-});
+gulp.task('bundle-rollup');
 
-// Hook CommonJs modules in browserify
-// NOTES:
-// - Wrappers are not hooked
-gulp.task('browserify-commonjs', () => {
-  const cwd = process.cwd();
-  return browserify('./demo/commonjs.js', { standalone: 'commonjs_module', insertGlobals: false, insertGlobalVars: {
-      __hook__: undefined
-    } })
-    .transform({ global: true }, hookTransformFactory('browserify'))
-    .bundle()
-    .pipe(source('browserify-commonjs.js'))
-    .pipe(buffer())
-    .pipe(gulp.dest('./demo'));
-
-});
-
-// Hook CommonJs modules in webpack
-// NOTES:
-// - Wrappers like __webpack_require__ are not hooked
-gulp.task('webpack-commonjs', () => {
-  const cwd = process.cwd();
-  const webpackConfig = {
-    entry: "./demo/commonjs.js",
-    output: {
-      filename: "webpack-commonjs.js"
-    },
-    plugins: [
-      new webpack.LoaderOptionsPlugin({
-        options: {
-          transforms: [
-            hookTransformFactory('webpack')
-          ]
-        }
-      })
-    ],
-    module: {
-      loaders: [{
-        test: /\.js$/,
-        loader: 'transform-loader?0',
-      }],
-    },
-  };
-  return webpackStream(webpackConfig, webpack)
-    .pipe(gulp.dest('./demo'));
-
-});
-
-// Hook ES6 modules in webpack
-// NOTES:
-// - Wrappers like __webpack_require__ are not hooked
-gulp.task('webpack-es6-module', () => {
-  const cwd = process.cwd();
-  const webpackConfig = {
-    entry: "./demo/es6-module3.js",
-    output: {
-      filename: "webpack-es6-module.js"
-    },
-    plugins: [
-      new webpack.LoaderOptionsPlugin({
-        options: {
-          transforms: [
-            hookTransformFactory('webpack')
-          ]
-        }
-      })
-    ],
-    module: {
-      loaders: [{
-        test: /\.js$/,
-        loader: 'transform-loader?0',
-      }],
-    },
-  };
-  return webpackStream(webpackConfig, webpack)
-    .pipe(gulp.dest('./demo'));
-});
+gulp.task('bundles',
+  gulp.series(
+    'bundler-helpers',
+    'bundle-browserify',
+    'bundle-webpack',
+    'bundle-rollup',
+  )
+);
 
 gulp.task('@thin-hook/build');
 
@@ -667,9 +402,8 @@ gulp.task('_demo',
     'cache-bundle-js',
     'cache-automation-js',
     'automation-secret', 
-    //'browserify-commonjs',
-    //'webpack-es6-module',
-    //'webpack-commonjs',
+    //'import-maps'
+    //'bundles',
     'integrity-js',
     'update-no-hook-authorization',
     'update-no-hook-authorization-in-html',
@@ -702,10 +436,7 @@ gulp.task('demo',
     'cache-automation-js',
     'automation-secret', 
     'import-maps',
-    'browserify-commonjs',
-    'webpack-es6-module',
-    'webpack-commonjs',
-    'rollup-es-modules',
+    'bundles',
     'policy',
     'disable-devtools',
     'integrity-js',
