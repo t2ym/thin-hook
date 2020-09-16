@@ -25,7 +25,7 @@ function bundlerContextGeneratorFactory(nodeLibs = {}, contextGeneratorHelper = 
       let name = ast.arguments[0].value;
       let origin = context.split(/,/)[0];
       let originPhysicalDir = path.dirname(targetConfig.mapper(targetConfig.url.reverseMappings, origin));
-      let base = targetConfig.bundles['enhanced-resolve'].context === '.' ? originPhysiclDir : targetConfig.bundles['enhanced-resolve'].context;
+      let base = targetConfig.bundles['enhanced-resolve'].context === '.' ? originPhysicalDir : targetConfig.bundles['enhanced-resolve'].context;
       let resolved;
       let componentName;
       if (name[0] === '.') {
