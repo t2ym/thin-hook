@@ -170,6 +170,17 @@ class TargetConfig extends Configurable(GulpDefaultRegistry, 'thin-hook') {
           }),
         },
       },
+      policy: {
+        // @ifdef arguments to include/exclude hook callback functions in hook-callback.js
+        __hook__: true, // undefined to skip including plugins/policy/__hook__.js
+        __hook__acl: true, // undefined to skip including plugins/policy/__hook__acl.js
+        __hook__min: true, // undefined to skip including plugins/policy/__hook__min.js
+        // @ifdef argument to include/exclude hookBenchmark() in hook-callback.js
+        hookBenchmark: true, // undefined to exclude hookBenchmark()
+        // postfix to the hook callback function name __hook__
+        __hook__callback: 'acl', // '': __hook__, 'acl': __hook__acl, 'min': __hook__min
+        // any custom parameters can be used for this.path.config/policy/policy.js and its dependencies as well
+      },
       'no-hook-authorization': {
         hash: {
           "https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.js": "db82c32a68bc3ddbb2232a947c3cdeb88f5ee7ba41d05d686146507687a6897f", // TODO: generate from URL response

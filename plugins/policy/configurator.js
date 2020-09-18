@@ -26,6 +26,7 @@ const configurator = function (targetConfig) {
           EQUAL: '=',
           SEMICOLON: ';',
           enableDebugging: typeof enableDebugging === 'undefined' ? 'false' : enableDebugging,
+          ...this[pluginName],
         },
         {
           type: 'js',
@@ -44,6 +45,7 @@ const configurator = function (targetConfig) {
           SPACE: ' ',
           EQUAL: '=',
           SEMICOLON: ';',
+          ...this[pluginName],
         },
         {
           type: 'js',

@@ -257,27 +257,41 @@ else {
   const GeneratorFunction = (function * () {}).constructor;
   const AsyncFunction = (async function () {}).constructor;
   const FunctionPrototype = Function.prototype;
+/* @ifdef __hook__ */
 /* @include __hook__.js */
+/* @endif */
+/* @ifdef __hook__acl */
 /* @include __hook__acl.js */
+/* @endif */
   function showContextStackLog() {
     let asyncCalls = Object.keys(contextStackLog).filter(c => c.match(/(setTimeout|setInterval|Promise)/g));
     console.log(asyncCalls);
   }
 
+/* @ifdef __hook__min */
 /* @include __hook__min.js */
+/* @endif */
   const hookCallbacks = {
+/* @ifdef __hook__ */
     __hook__,    // full features (acl + contextStack + graph)
+/* @endif */
+/* @ifdef __hook__acl */
     __hook__acl, // acl only (acl + contextStack)
+/* @endif */
+/* @ifdef __hook__min */
     __hook__min, // minimal (no acl)
+/* @endif */
   };
 
-  Object.defineProperty(_global, '__hook__', { configurable: false, enumerable: false, writable: false, value: hookCallbacks.__hook__acl });
+  Object.defineProperty(_global, '__hook__', { configurable: false, enumerable: false, writable: false, value: hookCallbacks.__hook__/* @echo __hook__callback */ });
   _globalObjects.set(_global.__hook__, '__hook__');
 
   hook.hookCallbackCompatibilityTest();
   hookCallbackCompatibilityTestDone = true;
 
+/* @ifdef hookBenchmark */
 /* @include hookBenchmark.js */
+/* @endif */
 /* @include mutation-observer.js */
 /* @include hook-native-api.js */
 }
