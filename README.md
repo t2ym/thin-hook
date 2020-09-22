@@ -1044,6 +1044,8 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
             - If `hook.parameters.hangUpOnEmbedAndObjectElement = true`, the SVG loads `about:blank`
         - Bootstrap Scripts for SVG
           - `hook.parameters.bootstrapSvgScripts = '<script xlink:href="URL?params"></script>...'`
+        - Flag to hook all SVG images even they have no scripts
+          - `hook.parameters.hookAllSvg = true`: Should be set in `demo/bootstrap.js`
         - Check Request callback on Fetch at Service Worker
           - `hook.parameters.checkRequest = async function (event, response, cache) { /* check request */ return response ; }`: `response` - cached response if exists; See `demo/disable-devtools.js`
         - Check Response callback on Fetch at Service Worker
