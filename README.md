@@ -1044,6 +1044,12 @@ To achieve this, the static entry HTML has to be __Encoded__ at build time by `h
             - If `hook.parameters.hangUpOnEmbedAndObjectElement = true`, the SVG loads `about:blank`
         - Bootstrap Scripts for SVG
           - `hook.parameters.bootstrapSvgScripts = '<script xlink:href="URL?params"></script>...'`
+        - Flag to omit superfluous closing tags
+          - `hook.parameters.omitSuperfluousClosingHtmlTags = true`: `true` to omit superfluous closing tags; Set in `demo/bootstrap.js`
+            - `false` to be compatible with old versions
+            - In SVG, tag names and attribute names are case-sensitive. If the flag is `false`, SVG images with case-sensitive tags and attributes can be broken.
+            - If the flag is set as `true`, the output should have minimal required changes from the original HTML or SVG
+            - Note on Side-Effects: Policy contexts for inline scripts can contain `/path/script.js,script@{pos}`, which can vary with this flag set as `true`
         - Check Request callback on Fetch at Service Worker
           - `hook.parameters.checkRequest = async function (event, response, cache) { /* check request */ return response ; }`: `response` - cached response if exists; See `demo/disable-devtools.js`
         - Check Response callback on Fetch at Service Worker

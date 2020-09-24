@@ -147,6 +147,9 @@ else {
     <script xlink:href="${new URL('bootstrap.js?no-hook=true', baseURI).href.substring(location.origin.length)}"></script>
     <script xlink:href="${new URL('hook-callback.js?no-hook=true', baseURI).href.substring(location.origin.length)}"></script>
     <script xlink:href="${new URL('hook-native-api.js?no-hook=true', baseURI).href.substring(location.origin.length)}"></script>`;
+  // Set as true to omit superfluous closing tags for void elements like <input>
+  // false is the compatiblity mode for policies for inline scripts with context /path/file.js,script@{pos}, which may change with this flag
+  hook.parameters.omitSuperfluousClosingHtmlTags = false;
   hook.parameters.noHookAuthorizationParameter = noHookAuthorization;
   hook.parameters.noHookAuthorizationFailed = {};
   hook.parameters.noHookAuthorizationPassed = {};
