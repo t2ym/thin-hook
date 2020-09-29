@@ -364,6 +364,16 @@ gulp.task('bundles',
   )
 );
 
+gulp.task('injector-helpers');
+
+gulp.task('inject',
+  gulp.series(
+    'update-no-hook-authorization',
+    'update-no-hook-authorization-in-html',
+    'encode-demo-html',
+  )
+);
+
 gulp.task('@thin-hook/build');
 
 gulp.task('@thin-hook/build-test');
@@ -386,6 +396,7 @@ gulp.task('frontend',
 
 gulp.task('_demo',
   gulp.series(
+    'injector-helpers',
     //'integrity-service-helpers',
     //'validation-console',
     'clean-gzip-json',
@@ -405,9 +416,7 @@ gulp.task('_demo',
     //'import-maps'
     //'bundles',
     'integrity-js',
-    'update-no-hook-authorization',
-    'update-no-hook-authorization-in-html',
-    'encode-demo-html',
+    'inject',
     'cache-bundle',
     'integrity-json',
     'gzip-json',
@@ -417,6 +426,7 @@ gulp.task('_demo',
 
 gulp.task('demo',
   gulp.series(
+    'injector-helpers',
     'integrity-service-helpers',
     'validation-console',
     'clean-gzip-json',
@@ -440,9 +450,7 @@ gulp.task('demo',
     'policy',
     'disable-devtools',
     'integrity-js',
-    'update-no-hook-authorization',
-    'update-no-hook-authorization-in-html',
-    'encode-demo-html',
+    'inject',
     'cache-bundle',
     'integrity-json',
     'gzip-json',
