@@ -1,0 +1,1840 @@
+digraph dependencies {
+  ratio = fill;
+  rankdir="LR"
+  node [fontsize=10, style=filled, shape=box, height=0.25]
+  edge [fontsize=10]
+  
+
+  "init:thin-hook"[color="0.590 0.273 1.000"]
+  "init:thin-hook" -> "this.path"
+  "init:thin-hook" -> "this.path.hook"
+  "this.thin-hook" -> "init:thin-hook"[color="0.002 0.999 0.999"]
+  "this.thin-hook.hook" -> "init:thin-hook"[color="0.002 0.999 0.999"]
+
+  "init:hook-min-js"[color="0.590 0.273 1.000"]
+  "this.hook-min-js" -> "init:hook-min-js"[color="0.002 0.999 0.999"]
+  "this.hook-min-js.searchParams" -> "init:hook-min-js"[color="0.002 0.999 0.999"]
+  "this.hook-min-js.targetTypes" -> "init:hook-min-js"[color="0.002 0.999 0.999"]
+
+  "init:inject"[color="0.590 0.273 1.000"]
+  "this.inject" -> "init:inject"[color="0.002 0.999 0.999"]
+  "this.inject.injectors" -> "init:inject"[color="0.002 0.999 0.999"]
+  "this.inject.entryPage" -> "init:inject"[color="0.002 0.999 0.999"]
+  "this.inject.emptyDocument" -> "init:inject"[color="0.002 0.999 0.999"]
+  "this.inject.iframe" -> "init:inject"[color="0.002 0.999 0.999"]
+  "this.inject.svg" -> "init:inject"[color="0.002 0.999 0.999"]
+  "this.inject.hookWorker" -> "init:inject"[color="0.002 0.999 0.999"]
+  "this.inject.dedicatedWorker" -> "init:inject"[color="0.002 0.999 0.999"]
+  "this.inject.dedicatedWorkerModule" -> "init:inject"[color="0.002 0.999 0.999"]
+  "this.inject.sharedWorker" -> "init:inject"[color="0.002 0.999 0.999"]
+
+  "init:url"[color="0.590 0.273 1.000"]
+  "this.url" -> "init:url"[color="0.002 0.999 0.999"]
+  "this.url.root" -> "init:url"[color="0.002 0.999 0.999"]
+  "this.url.components" -> "init:url"[color="0.002 0.999 0.999"]
+  "this.url.mappings" -> "init:url"[color="0.002 0.999 0.999"]
+
+  "init:server"[color="0.590 0.273 1.000"]
+  "this.server" -> "init:server"[color="0.002 0.999 0.999"]
+  "this.server.serverJs" -> "init:server"[color="0.002 0.999 0.999"]
+  "this.server.host" -> "init:server"[color="0.002 0.999 0.999"]
+  "this.server.port" -> "init:server"[color="0.002 0.999 0.999"]
+  "this.server.devToolsHostPort" -> "init:server"[color="0.002 0.999 0.999"]
+  "this.server.concurrency" -> "init:server"[color="0.002 0.999 0.999"]
+
+  "init:errorReportService"[color="0.590 0.273 1.000"]
+  "this.errorReportService" -> "init:errorReportService"[color="0.002 0.999 0.999"]
+  "this.errorReportService.port" -> "init:errorReportService"[color="0.002 0.999 0.999"]
+
+  "init:validationService"[color="0.590 0.273 1.000"]
+  "this.validationService" -> "init:validationService"[color="0.002 0.999 0.999"]
+  "this.validationService.host" -> "init:validationService"[color="0.002 0.999 0.999"]
+  "this.validationService.port" -> "init:validationService"[color="0.002 0.999 0.999"]
+
+  "init:certificates"[color="0.590 0.273 1.000"]
+  "this.certificates" -> "init:certificates"[color="0.002 0.999 0.999"]
+  "this.certificates.generateCertSh" -> "init:certificates"[color="0.002 0.999 0.999"]
+  "this.certificates.CA" -> "init:certificates"[color="0.002 0.999 0.999"]
+  "this.certificates.DN" -> "init:certificates"[color="0.002 0.999 0.999"]
+
+  "init:cache-bundle-js"[color="0.590 0.273 1.000"]
+  "this.cache-bundle-js" -> "init:cache-bundle-js"[color="0.002 0.999 0.999"]
+  "this.cache-bundle-js.enableCacheBundle" -> "init:cache-bundle-js"[color="0.002 0.999 0.999"]
+
+  "init:context-generator-js"[color="0.590 0.273 1.000"]
+  "this.context-generator-js" -> "init:context-generator-js"[color="0.002 0.999 0.999"]
+  "this.context-generator-js.defineCustomContextGenerator" -> "init:context-generator-js"[color="0.002 0.999 0.999"]
+
+  "init:import-maps"[color="0.590 0.273 1.000"]
+  "this.import-maps" -> "init:import-maps"[color="0.002 0.999 0.999"]
+  "this.import-maps.importMapName" -> "init:import-maps"[color="0.002 0.999 0.999"]
+  "this.import-maps.privateImportMapName" -> "init:import-maps"[color="0.002 0.999 0.999"]
+  "this.import-maps.auxiliaryImportMap" -> "init:import-maps"[color="0.002 0.999 0.999"]
+
+  "init:bundles"[color="0.590 0.273 1.000"]
+  "init:bundles" -> "this.path"
+  "init:bundles" -> "this.path.base"
+  "init:bundles" -> "this.path.root"
+  "this.bundles" -> "init:bundles"[color="0.002 0.999 0.999"]
+  "this.bundles.targets" -> "init:bundles"[color="0.002 0.999 0.999"]
+  "this.bundles.thin-hook" -> "init:bundles"[color="0.002 0.999 0.999"]
+  "this.bundles.enhanced-resolve" -> "init:bundles"[color="0.002 0.999 0.999"]
+  "this.bundles.browserify" -> "init:bundles"[color="0.002 0.999 0.999"]
+  "this.bundles.webpack" -> "init:bundles"[color="0.002 0.999 0.999"]
+  "this.bundles.rollup" -> "init:bundles"[color="0.002 0.999 0.999"]
+
+  "init:policy"[color="0.590 0.273 1.000"]
+  "this.policy" -> "init:policy"[color="0.002 0.999 0.999"]
+  "this.policy.__hook__" -> "init:policy"[color="0.002 0.999 0.999"]
+  "this.policy.__hook__acl" -> "init:policy"[color="0.002 0.999 0.999"]
+  "this.policy.__hook__min" -> "init:policy"[color="0.002 0.999 0.999"]
+  "this.policy.hookBenchmark" -> "init:policy"[color="0.002 0.999 0.999"]
+  "this.policy.__hook__callback" -> "init:policy"[color="0.002 0.999 0.999"]
+
+  "init:no-hook-authorization"[color="0.590 0.273 1.000"]
+  "this.no-hook-authorization" -> "init:no-hook-authorization"[color="0.002 0.999 0.999"]
+  "this.no-hook-authorization.hash" -> "init:no-hook-authorization"[color="0.002 0.999 0.999"]
+
+  "init:mode"[color="0.590 0.273 1.000"]
+  "this.mode" -> "init:mode"[color="0.002 0.999 0.999"]
+  "this.mode.enableDebugging" -> "init:mode"[color="0.002 0.999 0.999"]
+  "this.mode.devtoolsDisabled" -> "init:mode"[color="0.002 0.999 0.999"]
+
+  "init:commands"[color="0.590 0.273 1.000"]
+  "init:commands" -> "this.path"
+  "init:commands" -> "this.path.base"
+  "init:commands" -> "this.path.backend"
+  "init:commands" -> "this.server"
+  "init:commands" -> "this.server.serverJs"
+  "init:commands" -> "this.server.port"
+  "init:commands" -> "this.server.concurrency"
+  "init:commands" -> "this.server.devToolsHostPort"
+  "init:commands" -> "this.errorReportService"
+  "init:commands" -> "this.errorReportService.port"
+  "init:commands" -> "this.validationService"
+  "init:commands" -> "this.validationService.port"
+  "init:commands" -> "this.path.keys"
+  "init:commands" -> "this.certificates"
+  "init:commands" -> "this.certificates.generateCertSh"
+  "init:commands" -> "this.certificates.CA"
+  "init:commands" -> "this.path.root"
+  "this.commands" -> "init:commands"[color="0.002 0.999 0.999"]
+  "this.commands.http" -> "init:commands"[color="0.002 0.999 0.999"]
+  "this.commands.debug" -> "init:commands"[color="0.002 0.999 0.999"]
+  "this.commands.https" -> "init:commands"[color="0.002 0.999 0.999"]
+  "this.commands.cache-bundle" -> "init:commands"[color="0.002 0.999 0.999"]
+  "this.commands.updateHtmlHash" -> "init:commands"[color="0.002 0.999 0.999"]
+  "this.commands.buildServer" -> "init:commands"[color="0.002 0.999 0.999"]
+  "this.commands.httpServer" -> "init:commands"[color="0.002 0.999 0.999"]
+  "this.commands.httpsServer" -> "init:commands"[color="0.002 0.999 0.999"]
+  "this.commands.debugServer" -> "init:commands"[color="0.002 0.999 0.999"]
+  "this.commands.postHtml" -> "init:commands"[color="0.002 0.999 0.999"]
+  "this.commands.postHtmlServer" -> "init:commands"[color="0.002 0.999 0.999"]
+  "this.commands.errorReportService" -> "init:commands"[color="0.002 0.999 0.999"]
+  "this.commands.validationService" -> "init:commands"[color="0.002 0.999 0.999"]
+  "this.commands.integrity-service-helpers" -> "init:commands"[color="0.002 0.999 0.999"]
+  "this.commands.validation-console" -> "init:commands"[color="0.002 0.999 0.999"]
+  "this.commands.certificates" -> "init:commands"[color="0.002 0.999 0.999"]
+  "this.commands.clean-demo-certificates" -> "init:commands"[color="0.002 0.999 0.999"]
+  "this.commands.cacheBundleUploadService" -> "init:commands"[color="0.002 0.999 0.999"]
+  "this.commands.cacheBundleGeneration" -> "init:commands"[color="0.002 0.999 0.999"]
+  "this.commands.loadOnly" -> "init:commands"[color="0.002 0.999 0.999"]
+  "this.commands[test:attack]" -> "init:commands"[color="0.002 0.999 0.999"]
+  "this.commands.puppeteerAttackTest" -> "init:commands"[color="0.002 0.999 0.999"]
+  "this.commands.frontend-modules" -> "init:commands"[color="0.002 0.999 0.999"]
+  "this.commands.frontend-modules-locked" -> "init:commands"[color="0.002 0.999 0.999"]
+  "this.commands.dot" -> "init:commands"[color="0.002 0.999 0.999"]
+
+  "init:keys"[color="0.590 0.273 1.000"]
+  "this.keys" -> "init:keys"[color="0.002 0.999 0.999"]
+  "this.keys.noUpdate" -> "init:keys"[color="0.002 0.999 0.999"]
+
+  "init:automation-secret"[color="0.590 0.273 1.000"]
+  "this.automation-secret" -> "init:automation-secret"[color="0.002 0.999 0.999"]
+  "this.automation-secret.serverSecret" -> "init:automation-secret"[color="0.002 0.999 0.999"]
+
+  "init:@thin-hook/examples"[color="0.590 0.273 1.000"]
+  "init:@thin-hook/examples" -> "this.path"
+  "init:@thin-hook/examples" -> "this.path.hook"
+  "this[@thin-hook/examples]" -> "init:@thin-hook/examples"[color="0.002 0.999 0.999"]
+  "this[@thin-hook/examples].base" -> "init:@thin-hook/examples"[color="0.002 0.999 0.999"]
+
+  "init:@thin-hook/module-examples"[color="0.590 0.273 1.000"]
+  "this[@thin-hook/module-examples]" -> "init:@thin-hook/module-examples"[color="0.002 0.999 0.999"]
+  "this[@thin-hook/module-examples].importMapsPath" -> "init:@thin-hook/module-examples"[color="0.002 0.999 0.999"]
+  "this[@thin-hook/module-examples].baseURL" -> "init:@thin-hook/module-examples"[color="0.002 0.999 0.999"]
+
+  "init:@thin-hook/module-examples-dependencies"[color="0.590 0.273 1.000"]
+  "this[@thin-hook/module-examples-dependencies]" -> "init:@thin-hook/module-examples-dependencies"[color="0.002 0.999 0.999"]
+  "this[@thin-hook/module-examples-dependencies].moduleDependenciesPath" -> "init:@thin-hook/module-examples-dependencies"[color="0.002 0.999 0.999"]
+
+  "init_resolve:url.mappings"[color="0.590 0.273 1.000"]
+  "init_resolve:url.mappings" -> "this.url"
+  "init_resolve:url.mappings" -> "this.url.mappings"
+  "init_resolve:url.mappings" -> "this.path"
+  "init_resolve:url.mappings" -> "this.path.base"
+  "init_resolve:url.mappings" -> "this.path.components"
+  "init_resolve:url.mappings" -> "this.url.components"
+  "init_resolve:url.mappings" -> "this.path.root"
+  "init_resolve:url.mappings" -> "this.url.root"
+  "init_resolve:url.mappings" -> "this.path.hook"
+  "this.url.reverseMappings" -> "init_resolve:url.mappings"[color="0.002 0.999 0.999"]
+  "this.url.reverseMappings[0]" -> "init_resolve:url.mappings"[color="0.002 0.999 0.999"]
+  "this.url.reverseMappings[1]" -> "init_resolve:url.mappings"[color="0.002 0.999 0.999"]
+  "this.url.reverseMappings[2]" -> "init_resolve:url.mappings"[color="0.002 0.999 0.999"]
+  "init_resolve:url.mappings" -> "this.url.reverseMappings"
+  "init_resolve:url.mappings" -> "this.url.reverseMappings.length"
+  "init_resolve:url.mappings" -> "this.url.reverseMappings[0]"
+  "init_resolve:url.mappings" -> "this.url.reverseMappings[0].length"
+  "init_resolve:url.mappings" -> "this.url.reverseMappings[0][0]"
+  "init_resolve:url.mappings" -> "this.url.reverseMappings[0][1]"
+  "init_resolve:url.mappings" -> "this.url.reverseMappings[1]"
+  "init_resolve:url.mappings" -> "this.url.reverseMappings[1].length"
+  "init_resolve:url.mappings" -> "this.url.reverseMappings[1][0]"
+  "init_resolve:url.mappings" -> "this.url.reverseMappings[1][1]"
+  "init_resolve:url.mappings" -> "this.url.reverseMappings[2]"
+  "init_resolve:url.mappings" -> "this.url.reverseMappings[2].length"
+  "init_resolve:url.mappings" -> "this.url.reverseMappings[2][0]"
+  "init_resolve:url.mappings" -> "this.url.reverseMappings[2][1]"
+  "this.url.mappings" -> "init_resolve:url.mappings"[color="0.002 0.999 0.999"]
+  "this.url.mappings[0]" -> "init_resolve:url.mappings"[color="0.002 0.999 0.999"]
+  "this.url.mappings[1]" -> "init_resolve:url.mappings"[color="0.002 0.999 0.999"]
+  "this.url.mappings[2]" -> "init_resolve:url.mappings"[color="0.002 0.999 0.999"]
+
+  "init_resolve:commands.http"[color="0.590 0.273 1.000"]
+  "init_resolve:commands.http" -> "this.commands"
+  "init_resolve:commands.http" -> "this.commands.http"
+  "init_resolve:commands.http" -> "this.commands.httpServer"
+  "init_resolve:commands.http" -> "this.commands.errorReportService"
+  "init_resolve:commands.http" -> "this.commands.validationService"
+  "this.commands.http" -> "init_resolve:commands.http"[color="0.002 0.999 0.999"]
+
+  "init_resolve:commands.debug"[color="0.590 0.273 1.000"]
+  "init_resolve:commands.debug" -> "this.commands"
+  "init_resolve:commands.debug" -> "this.commands.debug"
+  "init_resolve:commands.debug" -> "this.commands.debugServer"
+  "init_resolve:commands.debug" -> "this.commands.errorReportService"
+  "init_resolve:commands.debug" -> "this.commands.validationService"
+  "this.commands.debug" -> "init_resolve:commands.debug"[color="0.002 0.999 0.999"]
+
+  "init_resolve:commands.https"[color="0.590 0.273 1.000"]
+  "init_resolve:commands.https" -> "this.commands"
+  "init_resolve:commands.https" -> "this.commands.https"
+  "init_resolve:commands.https" -> "this.commands.httpsServer"
+  "init_resolve:commands.https" -> "this.commands.errorReportService"
+  "init_resolve:commands.https" -> "this.commands.validationService"
+  "this.commands.https" -> "init_resolve:commands.https"[color="0.002 0.999 0.999"]
+
+  "init_resolve:commands.cache-bundle"[color="0.590 0.273 1.000"]
+  "init_resolve:commands.cache-bundle" -> "this.commands"
+  "init_resolve:commands.cache-bundle" -> "this.commands.cache-bundle"
+  "init_resolve:commands.cache-bundle" -> "this.commands.buildServer"
+  "init_resolve:commands.cache-bundle" -> "this.commands.cacheBundleUploadService"
+  "init_resolve:commands.cache-bundle" -> "this.commands.cacheBundleGeneration"
+  "this.commands.cache-bundle" -> "init_resolve:commands.cache-bundle"[color="0.002 0.999 0.999"]
+
+  "init_resolve:commands.updateHtmlHash"[color="0.590 0.273 1.000"]
+  "init_resolve:commands.updateHtmlHash" -> "this.commands"
+  "init_resolve:commands.updateHtmlHash" -> "this.commands.updateHtmlHash"
+  "init_resolve:commands.updateHtmlHash" -> "this.commands.buildServer"
+  "init_resolve:commands.updateHtmlHash" -> "this.commands.cacheBundleUploadService"
+  "init_resolve:commands.updateHtmlHash" -> "this.commands.loadOnly"
+  "this.commands.updateHtmlHash" -> "init_resolve:commands.updateHtmlHash"[color="0.002 0.999 0.999"]
+
+  "init_resolve:commands.postHtml"[color="0.590 0.273 1.000"]
+  "init_resolve:commands.postHtml" -> "this.commands"
+  "init_resolve:commands.postHtml" -> "this.commands.postHtml"
+  "init_resolve:commands.postHtml" -> "this.commands.postHtmlServer"
+  "init_resolve:commands.postHtml" -> "this.commands.errorReportService"
+  "init_resolve:commands.postHtml" -> "this.commands.validationService"
+  "this.commands.postHtml" -> "init_resolve:commands.postHtml"[color="0.002 0.999 0.999"]
+
+  "init_resolve:commands[test:attack]"[color="0.590 0.273 1.000"]
+  "init_resolve:commands[test:attack]" -> "this.commands"
+  "init_resolve:commands[test:attack]" -> "this.commands[test:attack]"
+  "init_resolve:commands[test:attack]" -> "this.commands.buildServer"
+  "init_resolve:commands[test:attack]" -> "this.commands.cacheBundleUploadService"
+  "init_resolve:commands[test:attack]" -> "this.commands.puppeteerAttackTest"
+  "this.commands[test:attack]" -> "init_resolve:commands[test:attack]"[color="0.002 0.999 0.999"]
+
+  "init_resolve:@thin-hook/module-examples.importMapsPath"[color="0.590 0.273 1.000"]
+  "init_resolve:@thin-hook/module-examples.importMapsPath" -> "this[@thin-hook/module-examples]"
+  "init_resolve:@thin-hook/module-examples.importMapsPath" -> "this[@thin-hook/module-examples].importMapsPath"
+  "init_resolve:@thin-hook/module-examples.importMapsPath" -> "this[@thin-hook/examples]"
+  "init_resolve:@thin-hook/module-examples.importMapsPath" -> "this[@thin-hook/examples].base"
+  "this[@thin-hook/module-examples].importMapsPath" -> "init_resolve:@thin-hook/module-examples.importMapsPath"[color="0.002 0.999 0.999"]
+
+  "init_resolve:@thin-hook/module-examples-dependencies.moduleDependenciesPath"[color="0.590 0.273 1.000"]
+  "init_resolve:@thin-hook/module-examples-dependencies.moduleDependenciesPath" -> "this[@thin-hook/module-examples-dependencies]"
+  "init_resolve:@thin-hook/module-examples-dependencies.moduleDependenciesPath" -> "this[@thin-hook/module-examples-dependencies].moduleDependenciesPath"
+  "init_resolve:@thin-hook/module-examples-dependencies.moduleDependenciesPath" -> "this[@thin-hook/examples]"
+  "init_resolve:@thin-hook/module-examples-dependencies.moduleDependenciesPath" -> "this[@thin-hook/examples].base"
+  "this[@thin-hook/module-examples-dependencies].moduleDependenciesPath" -> "init_resolve:@thin-hook/module-examples-dependencies.moduleDependenciesPath"[color="0.002 0.999 0.999"]
+
+  "@thin-hook/examples"[color="0.590 0.273 1.000"]
+  "@thin-hook/examples" -> "this.path"
+  "@thin-hook/examples" -> "this.path.plugins"
+  "@thin-hook/examples" -> "this.path.base"
+  "examples/plugins/examples/configurator.js"[color="0.408 0.498 1.000"]
+  "@thin-hook/examples" -> "examples/plugins/examples/configurator.js"
+  "@thin-hook/examples" -> "this.gulp"
+  "@thin-hook/examples" -> "this.gulp.task"
+
+  "@thin-hook/script-examples"[color="0.590 0.273 1.000"]
+  "@thin-hook/script-examples" -> "this.path"
+  "@thin-hook/script-examples" -> "this.path.plugins"
+  "@thin-hook/script-examples" -> "this.path.base"
+  "examples/plugins/script-examples/configurator.js"[color="0.408 0.498 1.000"]
+  "@thin-hook/script-examples" -> "examples/plugins/script-examples/configurator.js"
+  "@thin-hook/script-examples" -> "this.gulp"
+  "@thin-hook/script-examples" -> "this.gulp.task"
+  "@thin-hook/script-examples" -> "this.gulp.series"
+  "@thin-hook/script-examples" -> "this[@thin-hook/examples]"
+  "@thin-hook/script-examples" -> "this[@thin-hook/examples].base"
+  "@thin-hook/script-examples" -> "this.thin-hook"
+  "@thin-hook/script-examples" -> "this.thin-hook.hook"
+
+  "@thin-hook/module-examples"[color="0.590 0.273 1.000"]
+  "@thin-hook/module-examples" -> "this.path"
+  "@thin-hook/module-examples" -> "this.path.plugins"
+  "@thin-hook/module-examples" -> "this.path.base"
+  "examples/plugins/module-examples/configurator.js"[color="0.408 0.498 1.000"]
+  "@thin-hook/module-examples" -> "examples/plugins/module-examples/configurator.js"
+  "@thin-hook/module-examples" -> "this.gulp"
+  "@thin-hook/module-examples" -> "this.gulp.task"
+  "@thin-hook/module-examples" -> "this.gulp.series"
+  "@thin-hook/module-examples" -> "this[@thin-hook/examples]"
+  "@thin-hook/module-examples" -> "this[@thin-hook/examples].base"
+  "@thin-hook/module-examples" -> "this.thin-hook"
+  "@thin-hook/module-examples" -> "this.thin-hook.hook"
+
+  "@thin-hook/module-examples-dependencies"[color="0.590 0.273 1.000"]
+  "@thin-hook/module-examples-dependencies" -> "this.path"
+  "@thin-hook/module-examples-dependencies" -> "this.path.plugins"
+  "@thin-hook/module-examples-dependencies" -> "this.path.base"
+  "examples/plugins/module-examples-dependencies/configurator.js"[color="0.408 0.498 1.000"]
+  "@thin-hook/module-examples-dependencies" -> "examples/plugins/module-examples-dependencies/configurator.js"
+  "@thin-hook/module-examples-dependencies" -> "this.gulp"
+  "@thin-hook/module-examples-dependencies" -> "this.gulp.task"
+  "@thin-hook/module-examples-dependencies" -> "this.gulp.series"
+  "@thin-hook/module-examples-dependencies" -> "this.thin-hook"
+  "@thin-hook/module-examples-dependencies" -> "this.thin-hook.hook"
+
+  "@thin-hook/demo-convert-skinny"[color="0.590 0.273 1.000"]
+  "@thin-hook/demo-convert-skinny" -> "this.path"
+  "@thin-hook/demo-convert-skinny" -> "this.path.plugins"
+  "@thin-hook/demo-convert-skinny" -> "this.path.base"
+  "plugins/demo-convert-skinny/configurator.js"[color="0.408 0.498 1.000"]
+  "@thin-hook/demo-convert-skinny" -> "plugins/demo-convert-skinny/configurator.js"
+  "@thin-hook/demo-convert-skinny" -> "this.gulp"
+  "@thin-hook/demo-convert-skinny" -> "this.gulp.task"
+  "@thin-hook/demo-convert-skinny" -> "this.gulp.series"
+  "@thin-hook/demo-convert-skinny" -> "this.path.root"
+
+  "@thin-hook/demo-convert-full"[color="0.590 0.273 1.000"]
+  "@thin-hook/demo-convert-full" -> "this.path"
+  "@thin-hook/demo-convert-full" -> "this.path.plugins"
+  "@thin-hook/demo-convert-full" -> "this.path.base"
+  "plugins/demo-convert-full/configurator.js"[color="0.408 0.498 1.000"]
+  "@thin-hook/demo-convert-full" -> "plugins/demo-convert-full/configurator.js"
+  "@thin-hook/demo-convert-full" -> "this.gulp"
+  "@thin-hook/demo-convert-full" -> "this.gulp.task"
+  "@thin-hook/demo-convert-full" -> "this.gulp.series"
+  "@thin-hook/demo-convert-full" -> "this.path.root"
+
+  "@thin-hook/demo-gulpfile-js"[color="0.590 0.273 1.000"]
+  "demo/gulpfile.js"[color="0.408 0.498 1.000"]
+  "demo/gulpfile.js" -> "@thin-hook/demo-gulpfile-js"[color="0.002 0.999 0.999"]
+  "plugins/demo-gulpfile-js/configurator.js"[color="0.408 0.498 1.000"]
+  "@thin-hook/demo-gulpfile-js" -> "plugins/demo-gulpfile-js/configurator.js"
+  "plugins/demo-gulpfile-js/gulpfile.js"[color="0.408 0.498 1.000"]
+  "@thin-hook/demo-gulpfile-js" -> "plugins/demo-gulpfile-js/gulpfile.js"
+  "@thin-hook/demo-gulpfile-js" -> "this.gulp.dest"
+  "@thin-hook/demo-gulpfile-js" -> "this.gulp.series"
+  "@thin-hook/demo-gulpfile-js" -> "this.gulp.src"
+  "@thin-hook/demo-gulpfile-js" -> "this.gulp.task"
+  "@thin-hook/demo-gulpfile-js" -> "this.path.base"
+  "@thin-hook/demo-gulpfile-js" -> "this.path.plugins"
+  "@thin-hook/demo-gulpfile-js" -> "this.path.root"
+  "this[@thin-hook/demo-gulpfile-js].done" -> "@thin-hook/demo-gulpfile-js"[color="0.002 0.999 0.999"]
+
+  "clean-gzip-json"[color="0.590 0.273 1.000"]
+  "node_modules/*"[color="0.408 0.498 1.000"]
+  "clean-gzip-json" -> "node_modules/*"
+  "plugins/clean-gzip-json/configurator.js"[color="0.408 0.498 1.000"]
+  "clean-gzip-json" -> "plugins/clean-gzip-json/configurator.js"
+  "this.clean-gzip-json.done" -> "clean-gzip-json"[color="0.002 0.999 0.999"]
+  "clean-gzip-json" -> "this.gulp.series"
+  "clean-gzip-json" -> "this.gulp.task"
+  "clean-gzip-json" -> "this.path.base"
+  "clean-gzip-json" -> "this.path.plugins"
+  "clean-gzip-json" -> "this.path.root"
+
+  "get-version"[color="0.590 0.273 1.000"]
+  "demo/original-index.html"[color="0.408 0.498 1.000"]
+  "get-version" -> "demo/original-index.html"
+  "plugins/get-version/configurator.js"[color="0.408 0.498 1.000"]
+  "get-version" -> "plugins/get-version/configurator.js"
+  "this.get-version.done" -> "get-version"[color="0.002 0.999 0.999"]
+  "this.get-version.version" -> "get-version"[color="0.002 0.999 0.999"]
+  "get-version" -> "this.gulp.series"
+  "get-version" -> "this.gulp.src"
+  "get-version" -> "this.gulp.task"
+  "get-version" -> "this.path.base"
+  "get-version" -> "this.path.decodedIndexHtml"
+  "get-version" -> "this.path.plugins"
+  "get-version" -> "this.path.root"
+
+  "generate-cert-sh"[color="0.590 0.273 1.000"]
+  "demo-keys/generate_cert.sh"[color="0.408 0.498 1.000"]
+  "demo-keys/generate_cert.sh" -> "generate-cert-sh"[color="0.002 0.999 0.999"]
+  "node_modules/*"[color="0.408 0.498 1.000"]
+  "generate-cert-sh" -> "node_modules/*"
+  "plugins/generate-cert-sh/configurator.js"[color="0.408 0.498 1.000"]
+  "generate-cert-sh" -> "plugins/generate-cert-sh/configurator.js"
+  "plugins/generate-cert-sh/generate_cert.sh"[color="0.408 0.498 1.000"]
+  "generate-cert-sh" -> "plugins/generate-cert-sh/generate_cert.sh"
+  "generate-cert-sh" -> "this.certificates.CA"
+  "generate-cert-sh" -> "this.certificates.DN.CN"
+  "generate-cert-sh" -> "this.certificates.DN.OU"
+  "generate-cert-sh" -> "this.certificates.DN.ST"
+  "generate-cert-sh" -> "this.certificates.generateCertSh"
+  "this.generate-cert-sh.done" -> "generate-cert-sh"[color="0.002 0.999 0.999"]
+  "generate-cert-sh" -> "this.gulp.dest"
+  "generate-cert-sh" -> "this.gulp.series"
+  "generate-cert-sh" -> "this.gulp.src"
+  "generate-cert-sh" -> "this.gulp.task"
+  "generate-cert-sh" -> "this.path.base"
+  "generate-cert-sh" -> "this.path.config"
+  "generate-cert-sh" -> "this.path.keys"
+  "generate-cert-sh" -> "this.path.plugins"
+
+  "certificates"[color="0.590 0.273 1.000"]
+  "plugins/certificates/configurator.js"[color="0.408 0.498 1.000"]
+  "certificates" -> "plugins/certificates/configurator.js"
+  "this.certificates.done" -> "certificates"[color="0.002 0.999 0.999"]
+  "certificates" -> "this.commands.certificates"
+  "certificates" -> "this.gulp.series"
+  "certificates" -> "this.gulp.task"
+  "certificates" -> "this.path.base"
+  "certificates" -> "this.path.plugins"
+  "certificates" -> "this.server.host"
+  "certificates" -> "this.validationService.host"
+
+  "keys"[color="0.590 0.273 1.000"]
+  "node_modules/*"[color="0.408 0.498 1.000"]
+  "keys" -> "node_modules/*"
+  "plugins/keys/configurator.js"[color="0.408 0.498 1.000"]
+  "keys" -> "plugins/keys/configurator.js"
+  "keys" -> "this.get-version.version"
+  "keys" -> "this.gulp.series"
+  "keys" -> "this.gulp.task"
+  "this.keys.AES_GCM.ivLength" -> "keys"[color="0.002 0.999 0.999"]
+  "this.keys.AES_GCM.keyLength" -> "keys"[color="0.002 0.999 0.999"]
+  "this.keys.AES_GCM.sessionIdIvName" -> "keys"[color="0.002 0.999 0.999"]
+  "this.keys.AES_GCM.sessionIdKeyName" -> "keys"[color="0.002 0.999 0.999"]
+  "this.keys.AES_GCM.tagLength" -> "keys"[color="0.002 0.999 0.999"]
+  "this.keys.ECDSA.privateKeyName" -> "keys"[color="0.002 0.999 0.999"]
+  "this.keys.ECDSA.publicKeyName" -> "keys"[color="0.002 0.999 0.999"]
+  "this.keys.RSA.keyBits" -> "keys"[color="0.002 0.999 0.999"]
+  "this.keys.RSA.keyBytes" -> "keys"[color="0.002 0.999 0.999"]
+  "this.keys.RSA.keyPairE" -> "keys"[color="0.002 0.999 0.999"]
+  "this.keys.RSA.privateKeyName" -> "keys"[color="0.002 0.999 0.999"]
+  "this.keys.RSA.publicKeyName" -> "keys"[color="0.002 0.999 0.999"]
+  "this.keys.SHA256.hashBits" -> "keys"[color="0.002 0.999 0.999"]
+  "this.keys.SHA256.hashBytes" -> "keys"[color="0.002 0.999 0.999"]
+  "this.keys.SHA256.hashName" -> "keys"[color="0.002 0.999 0.999"]
+  "this.keys.done" -> "keys"[color="0.002 0.999 0.999"]
+  "this.keys.keysJSONPath" -> "keys"[color="0.002 0.999 0.999"]
+  "this.keys.keysPath" -> "keys"[color="0.002 0.999 0.999"]
+  "keys" -> "this.keys.noUpdate"
+  "keys" -> "this.path.base"
+  "keys" -> "this.path.config"
+  "keys" -> "this.path.keys"
+  "keys" -> "this.path.plugins"
+
+  "cache-automation-js"[color="0.590 0.273 1.000"]
+  "demo-config/cache-automation-js/automation.js"[color="0.408 0.498 1.000"]
+  "cache-automation-js" -> "demo-config/cache-automation-js/automation.js"
+  "demo-config/cache-automation-js/fetch-bundle-set.js"[color="0.408 0.498 1.000"]
+  "cache-automation-js" -> "demo-config/cache-automation-js/fetch-bundle-set.js"
+  "demo-config/cache-automation-js/navigate-menu-items.js"[color="0.408 0.498 1.000"]
+  "cache-automation-js" -> "demo-config/cache-automation-js/navigate-menu-items.js"
+  "demo/cache-automation.js"[color="0.408 0.498 1.000"]
+  "demo/cache-automation.js" -> "cache-automation-js"[color="0.002 0.999 0.999"]
+  "plugins/cache-automation-js/cache-about-blank-redirector.js"[color="0.408 0.498 1.000"]
+  "cache-automation-js" -> "plugins/cache-automation-js/cache-about-blank-redirector.js"
+  "plugins/cache-automation-js/cache-automation.js"[color="0.408 0.498 1.000"]
+  "cache-automation-js" -> "plugins/cache-automation-js/cache-automation.js"
+  "plugins/cache-automation-js/configurator.js"[color="0.408 0.498 1.000"]
+  "cache-automation-js" -> "plugins/cache-automation-js/configurator.js"
+  "this.cache-automation-js.done" -> "cache-automation-js"[color="0.002 0.999 0.999"]
+  "cache-automation-js" -> "this.gulp.dest"
+  "cache-automation-js" -> "this.gulp.series"
+  "cache-automation-js" -> "this.gulp.src"
+  "cache-automation-js" -> "this.gulp.task"
+  "cache-automation-js" -> "this.path.base"
+  "cache-automation-js" -> "this.path.config"
+  "cache-automation-js" -> "this.path.plugins"
+  "cache-automation-js" -> "this.path.root"
+
+  "cache-bundle-js"[color="0.590 0.273 1.000"]
+  "demo-config/cache-bundle-js/cache-policy.js"[color="0.408 0.498 1.000"]
+  "cache-bundle-js" -> "demo-config/cache-bundle-js/cache-policy.js"
+  "demo/cache-bundle.js"[color="0.408 0.498 1.000"]
+  "demo/cache-bundle.js" -> "cache-bundle-js"[color="0.002 0.999 0.999"]
+  "plugins/cache-bundle-js/cache-bundle.js"[color="0.408 0.498 1.000"]
+  "cache-bundle-js" -> "plugins/cache-bundle-js/cache-bundle.js"
+  "plugins/cache-bundle-js/configurator.js"[color="0.408 0.498 1.000"]
+  "cache-bundle-js" -> "plugins/cache-bundle-js/configurator.js"
+  "this.cache-bundle-js.done" -> "cache-bundle-js"[color="0.002 0.999 0.999"]
+  "cache-bundle-js" -> "this.cache-bundle-js.enableCacheBundle"
+  "cache-bundle-js" -> "this.gulp.dest"
+  "cache-bundle-js" -> "this.gulp.series"
+  "cache-bundle-js" -> "this.gulp.src"
+  "cache-bundle-js" -> "this.gulp.task"
+  "cache-bundle-js" -> "this.no-hook-authorization.hash[(function write2() { console.log(\"no-hook script tag via document.write\"); })()]"
+  "cache-bundle-js" -> "this.no-hook-authorization.hash[(function write4() { console.log(\"no-hook script tag in div tag via document.write\"); })()]"
+  "cache-bundle-js" -> "this.no-hook-authorization.hash[(function writeln2() { console.log(\"no-hook script tag via document.writeln\"); })()]"
+  "cache-bundle-js" -> "this.no-hook-authorization.hash[(function writeln4() { console.log(\"no-hook script tag in div tag via document.writeln\"); })()]"
+  "cache-bundle-js" -> "this.no-hook-authorization.hash[/components/thin-hook/demo/ inline cors]"
+  "cache-bundle-js" -> "this.no-hook-authorization.hash[/components/thin-hook/demo/ inline hooked eval results]"
+  "cache-bundle-js" -> "this.no-hook-authorization.hash[demo/about-blank-redirector.js]"
+  "this.no-hook-authorization.hash[demo/cache-bundle.js]" -> "cache-bundle-js"[color="0.002 0.999 0.999"]
+  "cache-bundle-js" -> "this.no-hook-authorization.hash[demo/content-loader.js]"
+  "cache-bundle-js" -> "this.no-hook-authorization.hash[demo/context-generator.js]"
+  "cache-bundle-js" -> "this.no-hook-authorization.hash[demo/hook-native-api.js]"
+  "cache-bundle-js" -> "this.no-hook-authorization.hash[demo/mark-parsed.js]"
+  "cache-bundle-js" -> "this.no-hook-authorization.hash[demo/script-hashes.js]"
+  "cache-bundle-js" -> "this.no-hook-authorization.hash[demo/wrap-globals.js]"
+  "cache-bundle-js" -> "this.no-hook-authorization.hash[https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.js]"
+  "cache-bundle-js" -> "this.no-hook-authorization.hash[location = \"about:blank\";]"
+  "cache-bundle-js" -> "this.path.base"
+  "cache-bundle-js" -> "this.path.config"
+  "cache-bundle-js" -> "this.path.plugins"
+  "cache-bundle-js" -> "this.path.root"
+
+  "about-blank-redirector"[color="0.590 0.273 1.000"]
+  "demo/about-blank-redirector.html"[color="0.408 0.498 1.000"]
+  "demo/about-blank-redirector.html" -> "about-blank-redirector"[color="0.002 0.999 0.999"]
+  "demo/about-blank-redirector.js"[color="0.408 0.498 1.000"]
+  "demo/about-blank-redirector.js" -> "about-blank-redirector"[color="0.002 0.999 0.999"]
+  "plugins/about-blank-redirector/about-blank-redirector.html"[color="0.408 0.498 1.000"]
+  "about-blank-redirector" -> "plugins/about-blank-redirector/about-blank-redirector.html"
+  "plugins/about-blank-redirector/about-blank-redirector.js"[color="0.408 0.498 1.000"]
+  "about-blank-redirector" -> "plugins/about-blank-redirector/about-blank-redirector.js"
+  "plugins/about-blank-redirector/configurator.js"[color="0.408 0.498 1.000"]
+  "about-blank-redirector" -> "plugins/about-blank-redirector/configurator.js"
+  "this.about-blank-redirector.done" -> "about-blank-redirector"[color="0.002 0.999 0.999"]
+  "about-blank-redirector" -> "this.gulp.dest"
+  "about-blank-redirector" -> "this.gulp.series"
+  "about-blank-redirector" -> "this.gulp.src"
+  "about-blank-redirector" -> "this.gulp.task"
+  "this.no-hook-authorization.hash[demo/about-blank-redirector.js]" -> "about-blank-redirector"[color="0.002 0.999 0.999"]
+  "about-blank-redirector" -> "this.path.base"
+  "about-blank-redirector" -> "this.path.config"
+  "about-blank-redirector" -> "this.path.plugins"
+  "about-blank-redirector" -> "this.path.root"
+
+  "content-loader-js"[color="0.590 0.273 1.000"]
+  "demo/content-loader.js"[color="0.408 0.498 1.000"]
+  "demo/content-loader.js" -> "content-loader-js"[color="0.002 0.999 0.999"]
+  "plugins/content-loader-js/configurator.js"[color="0.408 0.498 1.000"]
+  "content-loader-js" -> "plugins/content-loader-js/configurator.js"
+  "plugins/content-loader-js/content-loader.js"[color="0.408 0.498 1.000"]
+  "content-loader-js" -> "plugins/content-loader-js/content-loader.js"
+  "this.content-loader-js.done" -> "content-loader-js"[color="0.002 0.999 0.999"]
+  "content-loader-js" -> "this.gulp.dest"
+  "content-loader-js" -> "this.gulp.series"
+  "content-loader-js" -> "this.gulp.src"
+  "content-loader-js" -> "this.gulp.task"
+  "content-loader-js" -> "this.no-hook-authorization.hash[(function write2() { console.log(\"no-hook script tag via document.write\"); })()]"
+  "content-loader-js" -> "this.no-hook-authorization.hash[(function write4() { console.log(\"no-hook script tag in div tag via document.write\"); })()]"
+  "content-loader-js" -> "this.no-hook-authorization.hash[(function writeln2() { console.log(\"no-hook script tag via document.writeln\"); })()]"
+  "content-loader-js" -> "this.no-hook-authorization.hash[(function writeln4() { console.log(\"no-hook script tag in div tag via document.writeln\"); })()]"
+  "content-loader-js" -> "this.no-hook-authorization.hash[/components/thin-hook/demo/ inline cors]"
+  "content-loader-js" -> "this.no-hook-authorization.hash[/components/thin-hook/demo/ inline hooked eval results]"
+  "content-loader-js" -> "this.no-hook-authorization.hash[demo/about-blank-redirector.js]"
+  "this.no-hook-authorization.hash[demo/content-loader.js]" -> "content-loader-js"[color="0.002 0.999 0.999"]
+  "content-loader-js" -> "this.no-hook-authorization.hash[https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.js]"
+  "content-loader-js" -> "this.no-hook-authorization.hash[location = \"about:blank\";]"
+  "content-loader-js" -> "this.path.base"
+  "content-loader-js" -> "this.path.config"
+  "content-loader-js" -> "this.path.plugins"
+  "content-loader-js" -> "this.path.root"
+
+  "mark-parsed-js"[color="0.590 0.273 1.000"]
+  "demo/mark-parsed.js"[color="0.408 0.498 1.000"]
+  "demo/mark-parsed.js" -> "mark-parsed-js"[color="0.002 0.999 0.999"]
+  "plugins/mark-parsed-js/configurator.js"[color="0.408 0.498 1.000"]
+  "mark-parsed-js" -> "plugins/mark-parsed-js/configurator.js"
+  "plugins/mark-parsed-js/mark-parsed.js"[color="0.408 0.498 1.000"]
+  "mark-parsed-js" -> "plugins/mark-parsed-js/mark-parsed.js"
+  "mark-parsed-js" -> "this.gulp.dest"
+  "mark-parsed-js" -> "this.gulp.series"
+  "mark-parsed-js" -> "this.gulp.src"
+  "mark-parsed-js" -> "this.gulp.task"
+  "this.mark-parsed-js.done" -> "mark-parsed-js"[color="0.002 0.999 0.999"]
+  "mark-parsed-js" -> "this.no-hook-authorization.hash[(function write2() { console.log(\"no-hook script tag via document.write\"); })()]"
+  "mark-parsed-js" -> "this.no-hook-authorization.hash[(function write4() { console.log(\"no-hook script tag in div tag via document.write\"); })()]"
+  "mark-parsed-js" -> "this.no-hook-authorization.hash[(function writeln2() { console.log(\"no-hook script tag via document.writeln\"); })()]"
+  "mark-parsed-js" -> "this.no-hook-authorization.hash[(function writeln4() { console.log(\"no-hook script tag in div tag via document.writeln\"); })()]"
+  "mark-parsed-js" -> "this.no-hook-authorization.hash[/components/thin-hook/demo/ inline cors]"
+  "mark-parsed-js" -> "this.no-hook-authorization.hash[/components/thin-hook/demo/ inline hooked eval results]"
+  "mark-parsed-js" -> "this.no-hook-authorization.hash[demo/about-blank-redirector.js]"
+  "mark-parsed-js" -> "this.no-hook-authorization.hash[demo/content-loader.js]"
+  "this.no-hook-authorization.hash[demo/mark-parsed.js]" -> "mark-parsed-js"[color="0.002 0.999 0.999"]
+  "mark-parsed-js" -> "this.no-hook-authorization.hash[https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.js]"
+  "mark-parsed-js" -> "this.no-hook-authorization.hash[location = \"about:blank\";]"
+  "mark-parsed-js" -> "this.path.base"
+  "mark-parsed-js" -> "this.path.config"
+  "mark-parsed-js" -> "this.path.plugins"
+  "mark-parsed-js" -> "this.path.root"
+
+  "script-hashes-js"[color="0.590 0.273 1.000"]
+  "demo/script-hashes.js"[color="0.408 0.498 1.000"]
+  "demo/script-hashes.js" -> "script-hashes-js"[color="0.002 0.999 0.999"]
+  "plugins/script-hashes-js/configurator.js"[color="0.408 0.498 1.000"]
+  "script-hashes-js" -> "plugins/script-hashes-js/configurator.js"
+  "plugins/script-hashes-js/script-hashes.js"[color="0.408 0.498 1.000"]
+  "script-hashes-js" -> "plugins/script-hashes-js/script-hashes.js"
+  "script-hashes-js" -> "this.gulp.dest"
+  "script-hashes-js" -> "this.gulp.series"
+  "script-hashes-js" -> "this.gulp.src"
+  "script-hashes-js" -> "this.gulp.task"
+  "script-hashes-js" -> "this.no-hook-authorization.hash[(function write2() { console.log(\"no-hook script tag via document.write\"); })()]"
+  "script-hashes-js" -> "this.no-hook-authorization.hash[(function write4() { console.log(\"no-hook script tag in div tag via document.write\"); })()]"
+  "script-hashes-js" -> "this.no-hook-authorization.hash[(function writeln2() { console.log(\"no-hook script tag via document.writeln\"); })()]"
+  "script-hashes-js" -> "this.no-hook-authorization.hash[(function writeln4() { console.log(\"no-hook script tag in div tag via document.writeln\"); })()]"
+  "script-hashes-js" -> "this.no-hook-authorization.hash[/components/thin-hook/demo/ inline cors]"
+  "script-hashes-js" -> "this.no-hook-authorization.hash[/components/thin-hook/demo/ inline hooked eval results]"
+  "script-hashes-js" -> "this.no-hook-authorization.hash[demo/about-blank-redirector.js]"
+  "script-hashes-js" -> "this.no-hook-authorization.hash[demo/content-loader.js]"
+  "script-hashes-js" -> "this.no-hook-authorization.hash[demo/mark-parsed.js]"
+  "this.no-hook-authorization.hash[demo/script-hashes.js]" -> "script-hashes-js"[color="0.002 0.999 0.999"]
+  "script-hashes-js" -> "this.no-hook-authorization.hash[https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.js]"
+  "script-hashes-js" -> "this.no-hook-authorization.hash[location = \"about:blank\";]"
+  "script-hashes-js" -> "this.path.base"
+  "script-hashes-js" -> "this.path.config"
+  "script-hashes-js" -> "this.path.plugins"
+  "script-hashes-js" -> "this.path.root"
+  "this.script-hashes-js.done" -> "script-hashes-js"[color="0.002 0.999 0.999"]
+
+  "wrap-globals-js"[color="0.590 0.273 1.000"]
+  "demo/wrap-globals.js"[color="0.408 0.498 1.000"]
+  "demo/wrap-globals.js" -> "wrap-globals-js"[color="0.002 0.999 0.999"]
+  "plugins/wrap-globals-js/configurator.js"[color="0.408 0.498 1.000"]
+  "wrap-globals-js" -> "plugins/wrap-globals-js/configurator.js"
+  "plugins/wrap-globals-js/wrap-globals.js"[color="0.408 0.498 1.000"]
+  "wrap-globals-js" -> "plugins/wrap-globals-js/wrap-globals.js"
+  "wrap-globals-js" -> "this.gulp.dest"
+  "wrap-globals-js" -> "this.gulp.series"
+  "wrap-globals-js" -> "this.gulp.src"
+  "wrap-globals-js" -> "this.gulp.task"
+  "wrap-globals-js" -> "this.no-hook-authorization.hash[(function write2() { console.log(\"no-hook script tag via document.write\"); })()]"
+  "wrap-globals-js" -> "this.no-hook-authorization.hash[(function write4() { console.log(\"no-hook script tag in div tag via document.write\"); })()]"
+  "wrap-globals-js" -> "this.no-hook-authorization.hash[(function writeln2() { console.log(\"no-hook script tag via document.writeln\"); })()]"
+  "wrap-globals-js" -> "this.no-hook-authorization.hash[(function writeln4() { console.log(\"no-hook script tag in div tag via document.writeln\"); })()]"
+  "wrap-globals-js" -> "this.no-hook-authorization.hash[/components/thin-hook/demo/ inline cors]"
+  "wrap-globals-js" -> "this.no-hook-authorization.hash[/components/thin-hook/demo/ inline hooked eval results]"
+  "wrap-globals-js" -> "this.no-hook-authorization.hash[demo/about-blank-redirector.js]"
+  "wrap-globals-js" -> "this.no-hook-authorization.hash[demo/content-loader.js]"
+  "wrap-globals-js" -> "this.no-hook-authorization.hash[demo/mark-parsed.js]"
+  "wrap-globals-js" -> "this.no-hook-authorization.hash[demo/script-hashes.js]"
+  "this.no-hook-authorization.hash[demo/wrap-globals.js]" -> "wrap-globals-js"[color="0.002 0.999 0.999"]
+  "wrap-globals-js" -> "this.no-hook-authorization.hash[https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.js]"
+  "wrap-globals-js" -> "this.no-hook-authorization.hash[location = \"about:blank\";]"
+  "wrap-globals-js" -> "this.path.base"
+  "wrap-globals-js" -> "this.path.config"
+  "wrap-globals-js" -> "this.path.plugins"
+  "wrap-globals-js" -> "this.path.root"
+  "this.wrap-globals-js.done" -> "wrap-globals-js"[color="0.002 0.999 0.999"]
+
+  "hook-native-api-js"[color="0.590 0.273 1.000"]
+  "demo/hook-native-api.js"[color="0.408 0.498 1.000"]
+  "demo/hook-native-api.js" -> "hook-native-api-js"[color="0.002 0.999 0.999"]
+  "plugins/hook-native-api-js/configurator.js"[color="0.408 0.498 1.000"]
+  "hook-native-api-js" -> "plugins/hook-native-api-js/configurator.js"
+  "plugins/hook-native-api-js/hook-native-api.js"[color="0.408 0.498 1.000"]
+  "hook-native-api-js" -> "plugins/hook-native-api-js/hook-native-api.js"
+  "hook-native-api-js" -> "this.gulp.dest"
+  "hook-native-api-js" -> "this.gulp.series"
+  "hook-native-api-js" -> "this.gulp.src"
+  "hook-native-api-js" -> "this.gulp.task"
+  "this.hook-native-api-js.done" -> "hook-native-api-js"[color="0.002 0.999 0.999"]
+  "hook-native-api-js" -> "this.no-hook-authorization.hash[(function write2() { console.log(\"no-hook script tag via document.write\"); })()]"
+  "hook-native-api-js" -> "this.no-hook-authorization.hash[(function write4() { console.log(\"no-hook script tag in div tag via document.write\"); })()]"
+  "hook-native-api-js" -> "this.no-hook-authorization.hash[(function writeln2() { console.log(\"no-hook script tag via document.writeln\"); })()]"
+  "hook-native-api-js" -> "this.no-hook-authorization.hash[(function writeln4() { console.log(\"no-hook script tag in div tag via document.writeln\"); })()]"
+  "hook-native-api-js" -> "this.no-hook-authorization.hash[/components/thin-hook/demo/ inline cors]"
+  "hook-native-api-js" -> "this.no-hook-authorization.hash[/components/thin-hook/demo/ inline hooked eval results]"
+  "hook-native-api-js" -> "this.no-hook-authorization.hash[demo/about-blank-redirector.js]"
+  "hook-native-api-js" -> "this.no-hook-authorization.hash[demo/content-loader.js]"
+  "this.no-hook-authorization.hash[demo/hook-native-api.js]" -> "hook-native-api-js"[color="0.002 0.999 0.999"]
+  "hook-native-api-js" -> "this.no-hook-authorization.hash[demo/mark-parsed.js]"
+  "hook-native-api-js" -> "this.no-hook-authorization.hash[demo/script-hashes.js]"
+  "hook-native-api-js" -> "this.no-hook-authorization.hash[demo/wrap-globals.js]"
+  "hook-native-api-js" -> "this.no-hook-authorization.hash[https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.js]"
+  "hook-native-api-js" -> "this.no-hook-authorization.hash[location = \"about:blank\";]"
+  "hook-native-api-js" -> "this.path.base"
+  "hook-native-api-js" -> "this.path.config"
+  "hook-native-api-js" -> "this.path.plugins"
+  "hook-native-api-js" -> "this.path.root"
+
+  "context-generator-js"[color="0.590 0.273 1.000"]
+  "demo-config/context-generator-js/custom-context-generator.js"[color="0.408 0.498 1.000"]
+  "context-generator-js" -> "demo-config/context-generator-js/custom-context-generator.js"
+  "demo/context-generator.js"[color="0.408 0.498 1.000"]
+  "demo/context-generator.js" -> "context-generator-js"[color="0.002 0.999 0.999"]
+  "plugins/context-generator-js/configurator.js"[color="0.408 0.498 1.000"]
+  "context-generator-js" -> "plugins/context-generator-js/configurator.js"
+  "plugins/context-generator-js/context-generator.js"[color="0.408 0.498 1.000"]
+  "context-generator-js" -> "plugins/context-generator-js/context-generator.js"
+  "context-generator-js" -> "this.context-generator-js.defineCustomContextGenerator"
+  "this.context-generator-js.done" -> "context-generator-js"[color="0.002 0.999 0.999"]
+  "context-generator-js" -> "this.gulp.dest"
+  "context-generator-js" -> "this.gulp.series"
+  "context-generator-js" -> "this.gulp.src"
+  "context-generator-js" -> "this.gulp.task"
+  "context-generator-js" -> "this.no-hook-authorization.hash[(function write2() { console.log(\"no-hook script tag via document.write\"); })()]"
+  "context-generator-js" -> "this.no-hook-authorization.hash[(function write4() { console.log(\"no-hook script tag in div tag via document.write\"); })()]"
+  "context-generator-js" -> "this.no-hook-authorization.hash[(function writeln2() { console.log(\"no-hook script tag via document.writeln\"); })()]"
+  "context-generator-js" -> "this.no-hook-authorization.hash[(function writeln4() { console.log(\"no-hook script tag in div tag via document.writeln\"); })()]"
+  "context-generator-js" -> "this.no-hook-authorization.hash[/components/thin-hook/demo/ inline cors]"
+  "context-generator-js" -> "this.no-hook-authorization.hash[/components/thin-hook/demo/ inline hooked eval results]"
+  "context-generator-js" -> "this.no-hook-authorization.hash[demo/about-blank-redirector.js]"
+  "context-generator-js" -> "this.no-hook-authorization.hash[demo/content-loader.js]"
+  "this.no-hook-authorization.hash[demo/context-generator.js]" -> "context-generator-js"[color="0.002 0.999 0.999"]
+  "context-generator-js" -> "this.no-hook-authorization.hash[demo/hook-native-api.js]"
+  "context-generator-js" -> "this.no-hook-authorization.hash[demo/mark-parsed.js]"
+  "context-generator-js" -> "this.no-hook-authorization.hash[demo/script-hashes.js]"
+  "context-generator-js" -> "this.no-hook-authorization.hash[demo/wrap-globals.js]"
+  "context-generator-js" -> "this.no-hook-authorization.hash[https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.js]"
+  "context-generator-js" -> "this.no-hook-authorization.hash[location = \"about:blank\";]"
+  "context-generator-js" -> "this.path.base"
+  "context-generator-js" -> "this.path.config"
+  "context-generator-js" -> "this.path.plugins"
+  "context-generator-js" -> "this.path.root"
+
+  "integrity-js"[color="0.590 0.273 1.000"]
+  "demo-keys/keys.json"[color="0.408 0.498 1.000"]
+  "integrity-js" -> "demo-keys/keys.json"
+  "demo/integrity.js"[color="0.408 0.498 1.000"]
+  "demo/integrity.js" -> "integrity-js"[color="0.002 0.999 0.999"]
+  "plugins/integrity-js/configurator.js"[color="0.408 0.498 1.000"]
+  "integrity-js" -> "plugins/integrity-js/configurator.js"
+  "plugins/integrity-js/integrity.js"[color="0.408 0.498 1.000"]
+  "integrity-js" -> "plugins/integrity-js/integrity.js"
+  "integrity-js" -> "this.gulp.dest"
+  "integrity-js" -> "this.gulp.series"
+  "integrity-js" -> "this.gulp.src"
+  "integrity-js" -> "this.gulp.task"
+  "this.integrity-js.done" -> "integrity-js"[color="0.002 0.999 0.999"]
+  "integrity-js" -> "this.keys.ECDSA.publicKeyName"
+  "integrity-js" -> "this.keys.RSA.publicKeyName"
+  "integrity-js" -> "this.keys.keysJSONPath"
+  "integrity-js" -> "this.no-hook-authorization.hash[(function write2() { console.log(\"no-hook script tag via document.write\"); })()]"
+  "integrity-js" -> "this.no-hook-authorization.hash[(function write4() { console.log(\"no-hook script tag in div tag via document.write\"); })()]"
+  "integrity-js" -> "this.no-hook-authorization.hash[(function writeln2() { console.log(\"no-hook script tag via document.writeln\"); })()]"
+  "integrity-js" -> "this.no-hook-authorization.hash[(function writeln4() { console.log(\"no-hook script tag in div tag via document.writeln\"); })()]"
+  "integrity-js" -> "this.no-hook-authorization.hash[/components/thin-hook/demo/ inline cors]"
+  "integrity-js" -> "this.no-hook-authorization.hash[/components/thin-hook/demo/ inline hooked eval results]"
+  "integrity-js" -> "this.no-hook-authorization.hash[demo/about-blank-redirector.js]"
+  "integrity-js" -> "this.no-hook-authorization.hash[demo/browserify-commonjs.js]"
+  "integrity-js" -> "this.no-hook-authorization.hash[demo/cache-bundle.js]"
+  "integrity-js" -> "this.no-hook-authorization.hash[demo/content-loader.js]"
+  "integrity-js" -> "this.no-hook-authorization.hash[demo/context-generator.js]"
+  "integrity-js" -> "this.no-hook-authorization.hash[demo/disable-devtools.js]"
+  "integrity-js" -> "this.no-hook-authorization.hash[demo/hook-callback.js]"
+  "integrity-js" -> "this.no-hook-authorization.hash[demo/hook-native-api.js]"
+  "this.no-hook-authorization.hash[demo/integrity.js]" -> "integrity-js"[color="0.002 0.999 0.999"]
+  "integrity-js" -> "this.no-hook-authorization.hash[demo/mark-parsed.js]"
+  "integrity-js" -> "this.no-hook-authorization.hash[demo/rollup-es6-module.js]"
+  "integrity-js" -> "this.no-hook-authorization.hash[demo/rollup-module1.js]"
+  "integrity-js" -> "this.no-hook-authorization.hash[demo/script-hashes.js]"
+  "integrity-js" -> "this.no-hook-authorization.hash[demo/webpack-commonjs.js]"
+  "integrity-js" -> "this.no-hook-authorization.hash[demo/webpack-es6-module.js]"
+  "integrity-js" -> "this.no-hook-authorization.hash[demo/wrap-globals.js]"
+  "integrity-js" -> "this.no-hook-authorization.hash[https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.js]"
+  "integrity-js" -> "this.no-hook-authorization.hash[location = \"about:blank\";]"
+  "integrity-js" -> "this.path.base"
+  "integrity-js" -> "this.path.config"
+  "integrity-js" -> "this.path.plugins"
+  "integrity-js" -> "this.path.root"
+
+  "integrity-json"[color="0.590 0.273 1.000"]
+  "bower_components/*"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "bower_components/*"
+  "demo-config/integrity-json/targets.js"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo-config/integrity-json/targets.js"
+  "demo/Function.js"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/Function.js"
+  "demo/about-blank-redirector.html"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/about-blank-redirector.html"
+  "demo/about-blank-redirector.js"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/about-blank-redirector.js"
+  "demo/bootstrap.js"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/bootstrap.js"
+  "demo/browserify-commonjs.js"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/browserify-commonjs.js"
+  "demo/bundle.json"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/bundle.json"
+  "demo/cache-automation.js"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/cache-automation.js"
+  "demo/cache-bundle.js"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/cache-bundle.js"
+  "demo/cache-bundle.json"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/cache-bundle.json"
+  "demo/cache-bundle.json"[color="0.408 0.498 1.000"]
+  "demo/cache-bundle.json" -> "integrity-json"[color="0.002 0.999 0.999"]
+  "demo/commonjs.js"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/commonjs.js"
+  "demo/commonjs2.js"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/commonjs2.js"
+  "demo/content-loader.js"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/content-loader.js"
+  "demo/context-generator.js"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/context-generator.js"
+  "demo/disable-devtools.js"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/disable-devtools.js"
+  "demo/empty-document.html"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/empty-document.html"
+  "demo/es6-module.js"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/es6-module.js"
+  "demo/es6-module2.js"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/es6-module2.js"
+  "demo/es6-module3.js"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/es6-module3.js"
+  "demo/es6-module4.js"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/es6-module4.js"
+  "demo/exported.html"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/exported.html"
+  "demo/generator.js"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/generator.js"
+  "demo/global.js"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/global.js"
+  "demo/gulpfile.js"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/gulpfile.js"
+  "demo/hook-callback.js"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/hook-callback.js"
+  "demo/hook-native-api.js"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/hook-native-api.js"
+  "demo/hook-worker.js"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/hook-worker.js"
+  "demo/index-fb.html"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/index-fb.html"
+  "demo/inline-script.svg"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/inline-script.svg"
+  "demo/integrity.js"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/integrity.js"
+  "demo/integrity.json"[color="0.408 0.498 1.000"]
+  "demo/integrity.json" -> "integrity-json"[color="0.002 0.999 0.999"]
+  "demo/invalid-document.html"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/invalid-document.html"
+  "demo/lhs.js"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/lhs.js"
+  "demo/locales/bundle.de.json"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/locales/bundle.de.json"
+  "demo/locales/bundle.es.json"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/locales/bundle.es.json"
+  "demo/locales/bundle.fr.json"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/locales/bundle.fr.json"
+  "demo/locales/bundle.ja.json"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/locales/bundle.ja.json"
+  "demo/locales/bundle.zh-Hans.json"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/locales/bundle.zh-Hans.json"
+  "demo/locales/my-app.de.json"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/locales/my-app.de.json"
+  "demo/locales/my-app.es.json"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/locales/my-app.es.json"
+  "demo/locales/my-app.fr.json"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/locales/my-app.fr.json"
+  "demo/locales/my-app.ja.json"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/locales/my-app.ja.json"
+  "demo/locales/my-app.zh-Hans.json"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/locales/my-app.zh-Hans.json"
+  "demo/locales/my-view1.de.json"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/locales/my-view1.de.json"
+  "demo/locales/my-view1.es.json"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/locales/my-view1.es.json"
+  "demo/locales/my-view1.fr.json"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/locales/my-view1.fr.json"
+  "demo/locales/my-view1.ja.json"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/locales/my-view1.ja.json"
+  "demo/locales/my-view1.zh-Hans.json"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/locales/my-view1.zh-Hans.json"
+  "demo/locales/my-view2.de.json"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/locales/my-view2.de.json"
+  "demo/locales/my-view2.es.json"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/locales/my-view2.es.json"
+  "demo/locales/my-view2.fr.json"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/locales/my-view2.fr.json"
+  "demo/locales/my-view2.ja.json"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/locales/my-view2.ja.json"
+  "demo/locales/my-view2.zh-Hans.json"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/locales/my-view2.zh-Hans.json"
+  "demo/locales/my-view3.de.json"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/locales/my-view3.de.json"
+  "demo/locales/my-view3.es.json"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/locales/my-view3.es.json"
+  "demo/locales/my-view3.fr.json"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/locales/my-view3.fr.json"
+  "demo/locales/my-view3.ja.json"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/locales/my-view3.ja.json"
+  "demo/locales/my-view3.zh-Hans.json"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/locales/my-view3.zh-Hans.json"
+  "demo/mark-parsed.js"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/mark-parsed.js"
+  "demo/moduleDependencies.json"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/moduleDependencies.json"
+  "demo/modules-private.importmap"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/modules-private.importmap"
+  "demo/modules.importmap"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/modules.importmap"
+  "demo/modules/module1.js"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/modules/module1.js"
+  "demo/modules/module2.js"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/modules/module2.js"
+  "demo/modules/module3.js"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/modules/module3.js"
+  "demo/my-app.html"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/my-app.html"
+  "demo/my-app.json"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/my-app.json"
+  "demo/my-view1.html"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/my-view1.html"
+  "demo/my-view1.json"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/my-view1.json"
+  "demo/my-view2.html"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/my-view2.html"
+  "demo/my-view2.json"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/my-view2.json"
+  "demo/my-view3.html"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/my-view3.html"
+  "demo/my-view3.json"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/my-view3.json"
+  "demo/no-hook-authorization.js"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/no-hook-authorization.js"
+  "demo/node_modules/*"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/node_modules/*"
+  "demo/normalize.js"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/normalize.js"
+  "demo/package-lock.json"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/package-lock.json"
+  "demo/package.json"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/package.json"
+  "demo/rollup-es6-module.js"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/rollup-es6-module.js"
+  "demo/rollup-module1.js"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/rollup-module1.js"
+  "demo/script-hashes.js"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/script-hashes.js"
+  "demo/shared-worker-client.js"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/shared-worker-client.js"
+  "demo/shared-worker.js"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/shared-worker.js"
+  "demo/spread.js"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/spread.js"
+  "demo/sub-document.html"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/sub-document.html"
+  "demo/sub-sub-document.html"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/sub-sub-document.html"
+  "demo/unauthorized-no-hook-script.js"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/unauthorized-no-hook-script.js"
+  "demo/unauthorized-no-hook-worker-script.js"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/unauthorized-no-hook-worker-script.js"
+  "demo/web-worker-client.js"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/web-worker-client.js"
+  "demo/web-worker-module-client.js"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/web-worker-module-client.js"
+  "demo/web-worker-module.js"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/web-worker-module.js"
+  "demo/web-worker.js"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/web-worker.js"
+  "demo/webpack-commonjs.js"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/webpack-commonjs.js"
+  "demo/webpack-es6-module.js"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/webpack-es6-module.js"
+  "demo/wrap-globals.js"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/wrap-globals.js"
+  "demo/xliff/bundle.de.xlf"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/xliff/bundle.de.xlf"
+  "demo/xliff/bundle.es.xlf"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/xliff/bundle.es.xlf"
+  "demo/xliff/bundle.fr.xlf"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/xliff/bundle.fr.xlf"
+  "demo/xliff/bundle.ja.xlf"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/xliff/bundle.ja.xlf"
+  "demo/xliff/bundle.zh-Hans.xlf"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "demo/xliff/bundle.zh-Hans.xlf"
+  "hook.min.js"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "hook.min.js"
+  "node_modules/*"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "node_modules/*"
+  "plugins/integrity-json/configurator.js"[color="0.408 0.498 1.000"]
+  "integrity-json" -> "plugins/integrity-json/configurator.js"
+  "integrity-json" -> "this.get-version.version"
+  "integrity-json" -> "this.gulp.dest"
+  "integrity-json" -> "this.gulp.series"
+  "integrity-json" -> "this.gulp.src"
+  "integrity-json" -> "this.gulp.task"
+  "this.integrity-json.done" -> "integrity-json"[color="0.002 0.999 0.999"]
+  "integrity-json" -> "this.path.base"
+  "integrity-json" -> "this.path.components"
+  "integrity-json" -> "this.path.config"
+  "integrity-json" -> "this.path.decodedIndexHtml"
+  "integrity-json" -> "this.path.encodedIndexHtml"
+  "integrity-json" -> "this.path.hook"
+  "integrity-json" -> "this.path.plugins"
+  "integrity-json" -> "this.path.root"
+  "integrity-json" -> "this.url.mappings.length"
+  "integrity-json" -> "this.url.mappings[0].length"
+  "integrity-json" -> "this.url.mappings[0][0]"
+  "integrity-json" -> "this.url.mappings[0][1]"
+  "integrity-json" -> "this.url.mappings[1].length"
+  "integrity-json" -> "this.url.mappings[1][0]"
+  "integrity-json" -> "this.url.mappings[1][1]"
+  "integrity-json" -> "this.url.mappings[2].length"
+  "integrity-json" -> "this.url.mappings[2][0]"
+  "integrity-json" -> "this.url.mappings[2][1]"
+
+  "policy"[color="0.590 0.273 1.000"]
+  "demo-config/policy/basePolicyModule.js"[color="0.408 0.498 1.000"]
+  "policy" -> "demo-config/policy/basePolicyModule.js"
+  "demo-config/policy/policy.js"[color="0.408 0.498 1.000"]
+  "policy" -> "demo-config/policy/policy.js"
+  "demo-config/policy/wildcardWhitelist.js"[color="0.408 0.498 1.000"]
+  "policy" -> "demo-config/policy/wildcardWhitelist.js"
+  "demo/hook-callback.js"[color="0.408 0.498 1.000"]
+  "demo/hook-callback.js" -> "policy"[color="0.002 0.999 0.999"]
+  "plugins/policy/DistinctSet.js"[color="0.408 0.498 1.000"]
+  "policy" -> "plugins/policy/DistinctSet.js"
+  "plugins/policy/GlobalMethodsWrapper.js"[color="0.408 0.498 1.000"]
+  "policy" -> "plugins/policy/GlobalMethodsWrapper.js"
+  "plugins/policy/Policy.js"[color="0.408 0.498 1.000"]
+  "policy" -> "plugins/policy/Policy.js"
+  "plugins/policy/SetMap.js"[color="0.408 0.498 1.000"]
+  "policy" -> "plugins/policy/SetMap.js"
+  "plugins/policy/Stack.js"[color="0.408 0.498 1.000"]
+  "policy" -> "plugins/policy/Stack.js"
+  "plugins/policy/StrictModeWrapper.js"[color="0.408 0.498 1.000"]
+  "policy" -> "plugins/policy/StrictModeWrapper.js"
+  "plugins/policy/Symbols.js"[color="0.408 0.498 1.000"]
+  "policy" -> "plugins/policy/Symbols.js"
+  "plugins/policy/__hook__.js"[color="0.408 0.498 1.000"]
+  "policy" -> "plugins/policy/__hook__.js"
+  "plugins/policy/__hook__acl.js"[color="0.408 0.498 1.000"]
+  "policy" -> "plugins/policy/__hook__acl.js"
+  "plugins/policy/__hook__min.js"[color="0.408 0.498 1.000"]
+  "policy" -> "plugins/policy/__hook__min.js"
+  "plugins/policy/configurator.js"[color="0.408 0.498 1.000"]
+  "policy" -> "plugins/policy/configurator.js"
+  "plugins/policy/errorReport.js"[color="0.408 0.498 1.000"]
+  "policy" -> "plugins/policy/errorReport.js"
+  "plugins/policy/hook-callback.js"[color="0.408 0.498 1.000"]
+  "policy" -> "plugins/policy/hook-callback.js"
+  "plugins/policy/hook-native-api.js"[color="0.408 0.498 1.000"]
+  "policy" -> "plugins/policy/hook-native-api.js"
+  "plugins/policy/hookBenchmark.js"[color="0.408 0.498 1.000"]
+  "policy" -> "plugins/policy/hookBenchmark.js"
+  "plugins/policy/mutation-observer.js"[color="0.408 0.498 1.000"]
+  "policy" -> "plugins/policy/mutation-observer.js"
+  "policy" -> "this.gulp.dest"
+  "policy" -> "this.gulp.series"
+  "policy" -> "this.gulp.src"
+  "policy" -> "this.gulp.task"
+  "policy" -> "this.mode.enableDebugging"
+  "policy" -> "this.no-hook-authorization.hash[(function write2() { console.log(\"no-hook script tag via document.write\"); })()]"
+  "policy" -> "this.no-hook-authorization.hash[(function write4() { console.log(\"no-hook script tag in div tag via document.write\"); })()]"
+  "policy" -> "this.no-hook-authorization.hash[(function writeln2() { console.log(\"no-hook script tag via document.writeln\"); })()]"
+  "policy" -> "this.no-hook-authorization.hash[(function writeln4() { console.log(\"no-hook script tag in div tag via document.writeln\"); })()]"
+  "policy" -> "this.no-hook-authorization.hash[/components/thin-hook/demo/ inline cors]"
+  "policy" -> "this.no-hook-authorization.hash[/components/thin-hook/demo/ inline hooked eval results]"
+  "policy" -> "this.no-hook-authorization.hash[demo/about-blank-redirector.js]"
+  "policy" -> "this.no-hook-authorization.hash[demo/browserify-commonjs.js]"
+  "policy" -> "this.no-hook-authorization.hash[demo/cache-bundle.js]"
+  "policy" -> "this.no-hook-authorization.hash[demo/content-loader.js]"
+  "policy" -> "this.no-hook-authorization.hash[demo/context-generator.js]"
+  "this.no-hook-authorization.hash[demo/hook-callback.js]" -> "policy"[color="0.002 0.999 0.999"]
+  "policy" -> "this.no-hook-authorization.hash[demo/hook-native-api.js]"
+  "policy" -> "this.no-hook-authorization.hash[demo/mark-parsed.js]"
+  "policy" -> "this.no-hook-authorization.hash[demo/rollup-es6-module.js]"
+  "policy" -> "this.no-hook-authorization.hash[demo/rollup-module1.js]"
+  "policy" -> "this.no-hook-authorization.hash[demo/script-hashes.js]"
+  "policy" -> "this.no-hook-authorization.hash[demo/webpack-commonjs.js]"
+  "policy" -> "this.no-hook-authorization.hash[demo/webpack-es6-module.js]"
+  "policy" -> "this.no-hook-authorization.hash[demo/wrap-globals.js]"
+  "policy" -> "this.no-hook-authorization.hash[https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.js]"
+  "policy" -> "this.no-hook-authorization.hash[location = \"about:blank\";]"
+  "policy" -> "this.path.base"
+  "policy" -> "this.path.config"
+  "policy" -> "this.path.plugins"
+  "policy" -> "this.path.root"
+  "policy" -> "this.policy.__hook__acl"
+  "policy" -> "this.policy.__hook__callback"
+  "policy" -> "this.policy.__hook__min"
+  "this.policy.done" -> "policy"[color="0.002 0.999 0.999"]
+  "policy" -> "this.policy.hookBenchmark"
+
+  "disable-devtools"[color="0.590 0.273 1.000"]
+  "demo/disable-devtools.js"[color="0.408 0.498 1.000"]
+  "demo/disable-devtools.js" -> "disable-devtools"[color="0.002 0.999 0.999"]
+  "plugins/disable-devtools/configurator.js"[color="0.408 0.498 1.000"]
+  "disable-devtools" -> "plugins/disable-devtools/configurator.js"
+  "plugins/disable-devtools/disable-devtools.js"[color="0.408 0.498 1.000"]
+  "disable-devtools" -> "plugins/disable-devtools/disable-devtools.js"
+  "this.disable-devtools.done" -> "disable-devtools"[color="0.002 0.999 0.999"]
+  "disable-devtools" -> "this.gulp.dest"
+  "disable-devtools" -> "this.gulp.series"
+  "disable-devtools" -> "this.gulp.src"
+  "disable-devtools" -> "this.gulp.task"
+  "disable-devtools" -> "this.mode.devtoolsDisabled"
+  "disable-devtools" -> "this.no-hook-authorization.hash[(function write2() { console.log(\"no-hook script tag via document.write\"); })()]"
+  "disable-devtools" -> "this.no-hook-authorization.hash[(function write4() { console.log(\"no-hook script tag in div tag via document.write\"); })()]"
+  "disable-devtools" -> "this.no-hook-authorization.hash[(function writeln2() { console.log(\"no-hook script tag via document.writeln\"); })()]"
+  "disable-devtools" -> "this.no-hook-authorization.hash[(function writeln4() { console.log(\"no-hook script tag in div tag via document.writeln\"); })()]"
+  "disable-devtools" -> "this.no-hook-authorization.hash[/components/thin-hook/demo/ inline cors]"
+  "disable-devtools" -> "this.no-hook-authorization.hash[/components/thin-hook/demo/ inline hooked eval results]"
+  "disable-devtools" -> "this.no-hook-authorization.hash[demo/about-blank-redirector.js]"
+  "disable-devtools" -> "this.no-hook-authorization.hash[demo/browserify-commonjs.js]"
+  "disable-devtools" -> "this.no-hook-authorization.hash[demo/cache-bundle.js]"
+  "disable-devtools" -> "this.no-hook-authorization.hash[demo/content-loader.js]"
+  "disable-devtools" -> "this.no-hook-authorization.hash[demo/context-generator.js]"
+  "this.no-hook-authorization.hash[demo/disable-devtools.js]" -> "disable-devtools"[color="0.002 0.999 0.999"]
+  "disable-devtools" -> "this.no-hook-authorization.hash[demo/hook-callback.js]"
+  "disable-devtools" -> "this.no-hook-authorization.hash[demo/hook-native-api.js]"
+  "disable-devtools" -> "this.no-hook-authorization.hash[demo/mark-parsed.js]"
+  "disable-devtools" -> "this.no-hook-authorization.hash[demo/rollup-es6-module.js]"
+  "disable-devtools" -> "this.no-hook-authorization.hash[demo/rollup-module1.js]"
+  "disable-devtools" -> "this.no-hook-authorization.hash[demo/script-hashes.js]"
+  "disable-devtools" -> "this.no-hook-authorization.hash[demo/webpack-commonjs.js]"
+  "disable-devtools" -> "this.no-hook-authorization.hash[demo/webpack-es6-module.js]"
+  "disable-devtools" -> "this.no-hook-authorization.hash[demo/wrap-globals.js]"
+  "disable-devtools" -> "this.no-hook-authorization.hash[https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.js]"
+  "disable-devtools" -> "this.no-hook-authorization.hash[location = \"about:blank\";]"
+  "disable-devtools" -> "this.path.base"
+  "disable-devtools" -> "this.path.config"
+  "disable-devtools" -> "this.path.plugins"
+  "disable-devtools" -> "this.path.root"
+
+  "automation-secret"[color="0.590 0.273 1.000"]
+  "demo/cache-automation.js"[color="0.408 0.498 1.000"]
+  "automation-secret" -> "demo/cache-automation.js"
+  "plugins/automation-secret/configurator.js"[color="0.408 0.498 1.000"]
+  "automation-secret" -> "plugins/automation-secret/configurator.js"
+  "this.automation-secret.authorization" -> "automation-secret"[color="0.002 0.999 0.999"]
+  "this.automation-secret.cacheAutomationScriptPath" -> "automation-secret"[color="0.002 0.999 0.999"]
+  "this.automation-secret.done" -> "automation-secret"[color="0.002 0.999 0.999"]
+  "this.automation-secret.serverSecret" -> "automation-secret"[color="0.002 0.999 0.999"]
+  "automation-secret" -> "this.gulp.series"
+  "automation-secret" -> "this.gulp.task"
+  "automation-secret" -> "this.path.base"
+  "automation-secret" -> "this.path.config"
+  "automation-secret" -> "this.path.plugins"
+  "automation-secret" -> "this.path.root"
+
+  "cache-bundle-automation-json"[color="0.590 0.273 1.000"]
+  "demo/cache-automation.js"[color="0.408 0.498 1.000"]
+  "cache-bundle-automation-json" -> "demo/cache-automation.js"
+  "demo/cache-bundle.json"[color="0.408 0.498 1.000"]
+  "demo/cache-bundle.json" -> "cache-bundle-automation-json"[color="0.002 0.999 0.999"]
+  "plugins/cache-bundle-automation-json/configurator.js"[color="0.408 0.498 1.000"]
+  "cache-bundle-automation-json" -> "plugins/cache-bundle-automation-json/configurator.js"
+  "cache-bundle-automation-json" -> "this.automation-secret.cacheAutomationScriptPath"
+  "cache-bundle-automation-json" -> "this.automation-secret.serverSecret"
+  "this.cache-bundle-automation-json.done" -> "cache-bundle-automation-json"[color="0.002 0.999 0.999"]
+  "cache-bundle-automation-json" -> "this.get-version.version"
+  "cache-bundle-automation-json" -> "this.gulp.series"
+  "cache-bundle-automation-json" -> "this.gulp.task"
+  "cache-bundle-automation-json" -> "this.path.base"
+  "cache-bundle-automation-json" -> "this.path.plugins"
+  "cache-bundle-automation-json" -> "this.path.root"
+
+  "dummy-integrity"[color="0.590 0.273 1.000"]
+  "demo/cache-automation.js"[color="0.408 0.498 1.000"]
+  "dummy-integrity" -> "demo/cache-automation.js"
+  "demo/integrity.json"[color="0.408 0.498 1.000"]
+  "demo/integrity.json" -> "dummy-integrity"[color="0.002 0.999 0.999"]
+  "plugins/dummy-integrity/configurator.js"[color="0.408 0.498 1.000"]
+  "dummy-integrity" -> "plugins/dummy-integrity/configurator.js"
+  "dummy-integrity" -> "this.automation-secret.cacheAutomationScriptPath"
+  "dummy-integrity" -> "this.automation-secret.serverSecret"
+  "this.dummy-integrity.done" -> "dummy-integrity"[color="0.002 0.999 0.999"]
+  "dummy-integrity" -> "this.get-version.version"
+  "dummy-integrity" -> "this.gulp.series"
+  "dummy-integrity" -> "this.gulp.task"
+  "dummy-integrity" -> "this.path.base"
+  "dummy-integrity" -> "this.path.plugins"
+  "dummy-integrity" -> "this.path.root"
+
+  "script-hashes"[color="0.590 0.273 1.000"]
+  "demo/cache-bundle.json"[color="0.408 0.498 1.000"]
+  "script-hashes" -> "demo/cache-bundle.json"
+  "demo/cache-bundle.json"[color="0.408 0.498 1.000"]
+  "demo/cache-bundle.json" -> "script-hashes"[color="0.002 0.999 0.999"]
+  "plugins/script-hashes/configurator.js"[color="0.408 0.498 1.000"]
+  "script-hashes" -> "plugins/script-hashes/configurator.js"
+  "script-hashes" -> "this.gulp.dest"
+  "script-hashes" -> "this.gulp.series"
+  "script-hashes" -> "this.gulp.src"
+  "script-hashes" -> "this.gulp.task"
+  "script-hashes" -> "this.path.base"
+  "script-hashes" -> "this.path.config"
+  "script-hashes" -> "this.path.plugins"
+  "script-hashes" -> "this.path.root"
+  "this.script-hashes.SCRIPT_HASHES_PSEUDO_URL" -> "script-hashes"[color="0.002 0.999 0.999"]
+  "this.script-hashes.done" -> "script-hashes"[color="0.002 0.999 0.999"]
+
+  "script-hashes-integrity"[color="0.590 0.273 1.000"]
+  "demo/cache-bundle.json"[color="0.408 0.498 1.000"]
+  "script-hashes-integrity" -> "demo/cache-bundle.json"
+  "demo/index.html"[color="0.408 0.498 1.000"]
+  "script-hashes-integrity" -> "demo/index.html"
+  "demo/index.html"[color="0.408 0.498 1.000"]
+  "demo/index.html" -> "script-hashes-integrity"[color="0.002 0.999 0.999"]
+  "demo/original-index.html"[color="0.408 0.498 1.000"]
+  "script-hashes-integrity" -> "demo/original-index.html"
+  "demo/original-index.html"[color="0.408 0.498 1.000"]
+  "demo/original-index.html" -> "script-hashes-integrity"[color="0.002 0.999 0.999"]
+  "demo/script-hashes.js"[color="0.408 0.498 1.000"]
+  "script-hashes-integrity" -> "demo/script-hashes.js"
+  "plugins/script-hashes-integrity/configurator.js"[color="0.408 0.498 1.000"]
+  "script-hashes-integrity" -> "plugins/script-hashes-integrity/configurator.js"
+  "script-hashes-integrity" -> "this.gulp.dest"
+  "script-hashes-integrity" -> "this.gulp.series"
+  "script-hashes-integrity" -> "this.gulp.src"
+  "script-hashes-integrity" -> "this.gulp.task"
+  "script-hashes-integrity" -> "this.path.base"
+  "script-hashes-integrity" -> "this.path.config"
+  "script-hashes-integrity" -> "this.path.decodedIndexHtml"
+  "script-hashes-integrity" -> "this.path.encodedIndexHtml"
+  "script-hashes-integrity" -> "this.path.plugins"
+  "script-hashes-integrity" -> "this.path.root"
+  "this.script-hashes-integrity.done" -> "script-hashes-integrity"[color="0.002 0.999 0.999"]
+  "script-hashes-integrity" -> "this.script-hashes.SCRIPT_HASHES_PSEUDO_URL"
+
+  "gzip-json"[color="0.590 0.273 1.000"]
+  "demo/cache-bundle.json"[color="0.408 0.498 1.000"]
+  "gzip-json" -> "demo/cache-bundle.json"
+  "demo/cache-bundle.json.gz"[color="0.408 0.498 1.000"]
+  "demo/cache-bundle.json.gz" -> "gzip-json"[color="0.002 0.999 0.999"]
+  "demo/integrity.json"[color="0.408 0.498 1.000"]
+  "gzip-json" -> "demo/integrity.json"
+  "demo/integrity.json.gz"[color="0.408 0.498 1.000"]
+  "demo/integrity.json.gz" -> "gzip-json"[color="0.002 0.999 0.999"]
+  "plugins/gzip-json/configurator.js"[color="0.408 0.498 1.000"]
+  "gzip-json" -> "plugins/gzip-json/configurator.js"
+  "gzip-json" -> "this.gulp.dest"
+  "gzip-json" -> "this.gulp.series"
+  "gzip-json" -> "this.gulp.src"
+  "gzip-json" -> "this.gulp.task"
+  "this.gzip-json.done" -> "gzip-json"[color="0.002 0.999 0.999"]
+  "gzip-json" -> "this.path.base"
+  "gzip-json" -> "this.path.plugins"
+  "gzip-json" -> "this.path.root"
+
+  "clean-frontend"[color="0.590 0.273 1.000"]
+  "plugins/clean-frontend/configurator.js"[color="0.408 0.498 1.000"]
+  "clean-frontend" -> "plugins/clean-frontend/configurator.js"
+  "this.clean-frontend.done" -> "clean-frontend"[color="0.002 0.999 0.999"]
+  "clean-frontend" -> "this.gulp.series"
+  "clean-frontend" -> "this.gulp.task"
+  "clean-frontend" -> "this.path.base"
+  "clean-frontend" -> "this.path.frontend"
+  "clean-frontend" -> "this.path.plugins"
+
+  "frontend-components"[color="0.590 0.273 1.000"]
+  "bower_components/*"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "bower_components/*"
+  "demo-config/frontend-components/targets.js"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo-config/frontend-components/targets.js"
+  "demo-frontend/*"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo-frontend/*"
+  "demo-frontend/*"[color="0.408 0.498 1.000"]
+  "demo-frontend/*" -> "frontend-components"[color="0.002 0.999 0.999"]
+  "demo/about-blank-redirector.js"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/about-blank-redirector.js"
+  "demo/bootstrap.js"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/bootstrap.js"
+  "demo/browserify-commonjs.js"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/browserify-commonjs.js"
+  "demo/bundle.json"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/bundle.json"
+  "demo/cache-automation.js"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/cache-automation.js"
+  "demo/cache-bundle.js"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/cache-bundle.js"
+  "demo/cache-bundle.json"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/cache-bundle.json"
+  "demo/cache-bundle.json.gz"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/cache-bundle.json.gz"
+  "demo/commonjs.js"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/commonjs.js"
+  "demo/commonjs2.js"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/commonjs2.js"
+  "demo/content-loader.js"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/content-loader.js"
+  "demo/context-generator.js"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/context-generator.js"
+  "demo/disable-devtools.js"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/disable-devtools.js"
+  "demo/exported.html"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/exported.html"
+  "demo/hook-callback.js"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/hook-callback.js"
+  "demo/hook-native-api.js"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/hook-native-api.js"
+  "demo/hook-worker.js"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/hook-worker.js"
+  "demo/index.html"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/index.html"
+  "demo/integrity.js"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/integrity.js"
+  "demo/integrity.json"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/integrity.json"
+  "demo/integrity.json.gz"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/integrity.json.gz"
+  "demo/locales/my-app.de.json"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/locales/my-app.de.json"
+  "demo/locales/my-app.es.json"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/locales/my-app.es.json"
+  "demo/locales/my-app.fr.json"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/locales/my-app.fr.json"
+  "demo/locales/my-app.ja.json"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/locales/my-app.ja.json"
+  "demo/locales/my-app.zh-Hans.json"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/locales/my-app.zh-Hans.json"
+  "demo/locales/my-view1.de.json"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/locales/my-view1.de.json"
+  "demo/locales/my-view1.es.json"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/locales/my-view1.es.json"
+  "demo/locales/my-view1.fr.json"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/locales/my-view1.fr.json"
+  "demo/locales/my-view1.ja.json"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/locales/my-view1.ja.json"
+  "demo/locales/my-view1.zh-Hans.json"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/locales/my-view1.zh-Hans.json"
+  "demo/locales/my-view2.de.json"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/locales/my-view2.de.json"
+  "demo/locales/my-view2.es.json"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/locales/my-view2.es.json"
+  "demo/locales/my-view2.fr.json"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/locales/my-view2.fr.json"
+  "demo/locales/my-view2.ja.json"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/locales/my-view2.ja.json"
+  "demo/locales/my-view2.zh-Hans.json"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/locales/my-view2.zh-Hans.json"
+  "demo/locales/my-view3.de.json"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/locales/my-view3.de.json"
+  "demo/locales/my-view3.es.json"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/locales/my-view3.es.json"
+  "demo/locales/my-view3.fr.json"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/locales/my-view3.fr.json"
+  "demo/locales/my-view3.ja.json"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/locales/my-view3.ja.json"
+  "demo/locales/my-view3.zh-Hans.json"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/locales/my-view3.zh-Hans.json"
+  "demo/mark-parsed.js"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/mark-parsed.js"
+  "demo/moduleDependencies.json"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/moduleDependencies.json"
+  "demo/modules-private.importmap"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/modules-private.importmap"
+  "demo/modules.importmap"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/modules.importmap"
+  "demo/my-app.json"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/my-app.json"
+  "demo/my-view1.json"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/my-view1.json"
+  "demo/my-view2.json"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/my-view2.json"
+  "demo/my-view3.json"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/my-view3.json"
+  "demo/no-hook-authorization.js"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/no-hook-authorization.js"
+  "demo/node_modules/*"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/node_modules/*"
+  "demo/package-lock.json"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/package-lock.json"
+  "demo/package.json"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/package.json"
+  "demo/rollup-es6-module.js"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/rollup-es6-module.js"
+  "demo/rollup-module1.js"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/rollup-module1.js"
+  "demo/script-hashes.js"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/script-hashes.js"
+  "demo/unauthorized-no-hook-script.js"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/unauthorized-no-hook-script.js"
+  "demo/unauthorized-no-hook-worker-script.js"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/unauthorized-no-hook-worker-script.js"
+  "demo/web-worker-module.js"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/web-worker-module.js"
+  "demo/webpack-commonjs.js"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/webpack-commonjs.js"
+  "demo/webpack-es6-module.js"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/webpack-es6-module.js"
+  "demo/wrap-globals.js"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/wrap-globals.js"
+  "demo/xliff/bundle.de.xlf"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/xliff/bundle.de.xlf"
+  "demo/xliff/bundle.es.xlf"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/xliff/bundle.es.xlf"
+  "demo/xliff/bundle.fr.xlf"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/xliff/bundle.fr.xlf"
+  "demo/xliff/bundle.ja.xlf"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/xliff/bundle.ja.xlf"
+  "demo/xliff/bundle.zh-Hans.xlf"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "demo/xliff/bundle.zh-Hans.xlf"
+  "hook.min.js"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "hook.min.js"
+  "plugins/frontend-components/configurator.js"[color="0.408 0.498 1.000"]
+  "frontend-components" -> "plugins/frontend-components/configurator.js"
+  "this.frontend-components.done" -> "frontend-components"[color="0.002 0.999 0.999"]
+  "frontend-components" -> "this.gulp.dest"
+  "frontend-components" -> "this.gulp.series"
+  "frontend-components" -> "this.gulp.src"
+  "frontend-components" -> "this.gulp.task"
+  "frontend-components" -> "this.path.base"
+  "frontend-components" -> "this.path.components"
+  "frontend-components" -> "this.path.config"
+  "frontend-components" -> "this.path.decodedIndexHtml"
+  "frontend-components" -> "this.path.frontend"
+  "frontend-components" -> "this.path.hook"
+  "frontend-components" -> "this.path.plugins"
+  "frontend-components" -> "this.path.root"
+  "frontend-components" -> "this.url.mappings.length"
+  "frontend-components" -> "this.url.mappings[0].length"
+  "frontend-components" -> "this.url.mappings[0][0]"
+  "frontend-components" -> "this.url.mappings[0][1]"
+  "frontend-components" -> "this.url.mappings[1].length"
+  "frontend-components" -> "this.url.mappings[1][0]"
+  "frontend-components" -> "this.url.mappings[1][1]"
+  "frontend-components" -> "this.url.mappings[2].length"
+  "frontend-components" -> "this.url.mappings[2][0]"
+  "frontend-components" -> "this.url.mappings[2][1]"
+  "frontend-components" -> "this.url.reverseMappings.length"
+  "frontend-components" -> "this.url.reverseMappings[0].length"
+  "frontend-components" -> "this.url.reverseMappings[0][0]"
+  "frontend-components" -> "this.url.reverseMappings[0][1]"
+  "frontend-components" -> "this.url.reverseMappings[1].length"
+  "frontend-components" -> "this.url.reverseMappings[1][0]"
+  "frontend-components" -> "this.url.reverseMappings[1][1]"
+  "frontend-components" -> "this.url.reverseMappings[2].length"
+  "frontend-components" -> "this.url.reverseMappings[2][0]"
+  "frontend-components" -> "this.url.reverseMappings[2][1]"
+
+  "gzip-frontend"[color="0.590 0.273 1.000"]
+  "demo-config/gzip-frontend/targets.js"[color="0.408 0.498 1.000"]
+  "gzip-frontend" -> "demo-config/gzip-frontend/targets.js"
+  "demo-frontend/*"[color="0.408 0.498 1.000"]
+  "gzip-frontend" -> "demo-frontend/*"
+  "demo-frontend/*"[color="0.408 0.498 1.000"]
+  "demo-frontend/*" -> "gzip-frontend"[color="0.002 0.999 0.999"]
+  "plugins/gzip-frontend/configurator.js"[color="0.408 0.498 1.000"]
+  "gzip-frontend" -> "plugins/gzip-frontend/configurator.js"
+  "gzip-frontend" -> "this.gulp.dest"
+  "gzip-frontend" -> "this.gulp.series"
+  "gzip-frontend" -> "this.gulp.src"
+  "gzip-frontend" -> "this.gulp.task"
+  "this.gzip-frontend.done" -> "gzip-frontend"[color="0.002 0.999 0.999"]
+  "gzip-frontend" -> "this.path.base"
+  "gzip-frontend" -> "this.path.config"
+  "gzip-frontend" -> "this.path.encodedIndexHtml"
+  "gzip-frontend" -> "this.path.frontend"
+  "gzip-frontend" -> "this.path.plugins"
+  "gzip-frontend" -> "this.url.root"
+
+  "generate-import-maps"[color="0.590 0.273 1.000"]
+  "demo-config/generate-import-maps/modules-private.importmap"[color="0.408 0.498 1.000"]
+  "generate-import-maps" -> "demo-config/generate-import-maps/modules-private.importmap"
+  "demo/modules-private.importmap"[color="0.408 0.498 1.000"]
+  "generate-import-maps" -> "demo/modules-private.importmap"
+  "demo/modules-private.importmap"[color="0.408 0.498 1.000"]
+  "demo/modules-private.importmap" -> "generate-import-maps"[color="0.002 0.999 0.999"]
+  "demo/modules.importmap"[color="0.408 0.498 1.000"]
+  "demo/modules.importmap" -> "generate-import-maps"[color="0.002 0.999 0.999"]
+  "demo/node_modules/*"[color="0.408 0.498 1.000"]
+  "generate-import-maps" -> "demo/node_modules/*"
+  "demo/package.json"[color="0.408 0.498 1.000"]
+  "generate-import-maps" -> "demo/package.json"
+  "node_modules/*"[color="0.408 0.498 1.000"]
+  "generate-import-maps" -> "node_modules/*"
+  "plugins/generate-import-maps/configurator.js"[color="0.408 0.498 1.000"]
+  "generate-import-maps" -> "plugins/generate-import-maps/configurator.js"
+  "this.generate-import-maps.done" -> "generate-import-maps"[color="0.002 0.999 0.999"]
+  "generate-import-maps" -> "this.gulp.dest"
+  "generate-import-maps" -> "this.gulp.series"
+  "generate-import-maps" -> "this.gulp.src"
+  "generate-import-maps" -> "this.gulp.task"
+  "generate-import-maps" -> "this.import-maps.auxiliaryImportMap.imports.foo"
+  "generate-import-maps" -> "this.import-maps.auxiliaryImportMap.imports.module-on-cdn"
+  "generate-import-maps" -> "this.import-maps.importMapName"
+  "generate-import-maps" -> "this.import-maps.privateImportMapName"
+  "generate-import-maps" -> "this.path.base"
+  "generate-import-maps" -> "this.path.config"
+  "generate-import-maps" -> "this.path.plugins"
+  "generate-import-maps" -> "this.path.root"
+  "generate-import-maps" -> "this.url.mappings.length"
+  "generate-import-maps" -> "this.url.mappings[0].length"
+  "generate-import-maps" -> "this.url.mappings[0][0]"
+  "generate-import-maps" -> "this.url.mappings[0][1]"
+  "generate-import-maps" -> "this.url.mappings[1].length"
+  "generate-import-maps" -> "this.url.mappings[1][0]"
+  "generate-import-maps" -> "this.url.mappings[1][1]"
+
+  "bundler-helpers"[color="0.590 0.273 1.000"]
+  "node_modules/*"[color="0.408 0.498 1.000"]
+  "bundler-helpers" -> "node_modules/*"
+  "plugins/bundler-helpers/bundlerContextGeneratorFactory.js"[color="0.408 0.498 1.000"]
+  "bundler-helpers" -> "plugins/bundler-helpers/bundlerContextGeneratorFactory.js"
+  "plugins/bundler-helpers/configurator.js"[color="0.408 0.498 1.000"]
+  "bundler-helpers" -> "plugins/bundler-helpers/configurator.js"
+  "plugins/bundler-helpers/contextGeneratorHelper.js"[color="0.408 0.498 1.000"]
+  "bundler-helpers" -> "plugins/bundler-helpers/contextGeneratorHelper.js"
+  "plugins/bundler-helpers/hookTransformFactory.js"[color="0.408 0.498 1.000"]
+  "bundler-helpers" -> "plugins/bundler-helpers/hookTransformFactory.js"
+  "plugins/bundler-helpers/importMapperFactory.js"[color="0.408 0.498 1.000"]
+  "bundler-helpers" -> "plugins/bundler-helpers/importMapperFactory.js"
+  "this.bundler-helpers.done" -> "bundler-helpers"[color="0.002 0.999 0.999"]
+  "this.bundles.components" -> "bundler-helpers"[color="0.002 0.999 0.999"]
+  "bundler-helpers" -> "this.gulp.series"
+  "bundler-helpers" -> "this.gulp.task"
+  "bundler-helpers" -> "this.path.base"
+  "bundler-helpers" -> "this.path.config"
+  "bundler-helpers" -> "this.path.plugins"
+  "bundler-helpers" -> "this.path.root"
+
+  "bundle-browserify"[color="0.590 0.273 1.000"]
+  "demo/browserify-commonjs.js"[color="0.408 0.498 1.000"]
+  "demo/browserify-commonjs.js" -> "bundle-browserify"[color="0.002 0.999 0.999"]
+  "demo/commonjs.js"[color="0.408 0.498 1.000"]
+  "bundle-browserify" -> "demo/commonjs.js"
+  "demo/commonjs2.js"[color="0.408 0.498 1.000"]
+  "bundle-browserify" -> "demo/commonjs2.js"
+  "demo/package.json"[color="0.408 0.498 1.000"]
+  "bundle-browserify" -> "demo/package.json"
+  "node_modules/*"[color="0.408 0.498 1.000"]
+  "bundle-browserify" -> "node_modules/*"
+  "package.json"[color="0.408 0.498 1.000"]
+  "bundle-browserify" -> "package.json"
+  "plugins/bundle-browserify/configurator.js"[color="0.408 0.498 1.000"]
+  "bundle-browserify" -> "plugins/bundle-browserify/configurator.js"
+  "this.bundle-browserify.done" -> "bundle-browserify"[color="0.002 0.999 0.999"]
+  "bundle-browserify" -> "this.bundles.browserify.browserify"
+  "bundle-browserify" -> "this.bundles.browserify.configurator"
+  "this.bundles.components" -> "bundle-browserify"[color="0.002 0.999 0.999"]
+  "bundle-browserify" -> "this.bundles.enhanced-resolve.options.extensions.length"
+  "bundle-browserify" -> "this.bundles.enhanced-resolve.options.extensions[0]"
+  "bundle-browserify" -> "this.bundles.enhanced-resolve.options.extensions[1]"
+  "this.bundles.node-builtins-wrapper.browserify.*" -> "bundle-browserify"[color="0.002 0.999 0.999"]
+  "bundle-browserify" -> "this.bundles.rollup.configurator"
+  "bundle-browserify" -> "this.bundles.targets.length"
+  "bundle-browserify" -> "this.bundles.targets[0].bundler"
+  "bundle-browserify" -> "this.bundles.targets[0].entryBase"
+  "bundle-browserify" -> "this.bundles.targets[0].options.browserify.standalone"
+  "bundle-browserify" -> "this.bundles.targets[0].outputBase"
+  "bundle-browserify" -> "this.bundles.targets[1].bundler"
+  "bundle-browserify" -> "this.bundles.targets[2].bundler"
+  "bundle-browserify" -> "this.bundles.targets[3].bundler"
+  "bundle-browserify" -> "this.bundles.targets[4].bundler"
+  "bundle-browserify" -> "this.bundles.thin-hook.sourceMap"
+  "bundle-browserify" -> "this.bundles.webpack.configurator"
+  "bundle-browserify" -> "this.gulp.dest"
+  "bundle-browserify" -> "this.gulp.series"
+  "bundle-browserify" -> "this.gulp.task"
+  "bundle-browserify" -> "this.no-hook-authorization.hash[(function write2() { console.log(\"no-hook script tag via document.write\"); })()]"
+  "bundle-browserify" -> "this.no-hook-authorization.hash[(function write4() { console.log(\"no-hook script tag in div tag via document.write\"); })()]"
+  "bundle-browserify" -> "this.no-hook-authorization.hash[(function writeln2() { console.log(\"no-hook script tag via document.writeln\"); })()]"
+  "bundle-browserify" -> "this.no-hook-authorization.hash[(function writeln4() { console.log(\"no-hook script tag in div tag via document.writeln\"); })()]"
+  "bundle-browserify" -> "this.no-hook-authorization.hash[/components/thin-hook/demo/ inline cors]"
+  "bundle-browserify" -> "this.no-hook-authorization.hash[/components/thin-hook/demo/ inline hooked eval results]"
+  "bundle-browserify" -> "this.no-hook-authorization.hash[demo/about-blank-redirector.js]"
+  "this.no-hook-authorization.hash[demo/browserify-commonjs.js]" -> "bundle-browserify"[color="0.002 0.999 0.999"]
+  "bundle-browserify" -> "this.no-hook-authorization.hash[demo/cache-bundle.js]"
+  "bundle-browserify" -> "this.no-hook-authorization.hash[demo/content-loader.js]"
+  "bundle-browserify" -> "this.no-hook-authorization.hash[demo/context-generator.js]"
+  "bundle-browserify" -> "this.no-hook-authorization.hash[demo/hook-native-api.js]"
+  "bundle-browserify" -> "this.no-hook-authorization.hash[demo/mark-parsed.js]"
+  "bundle-browserify" -> "this.no-hook-authorization.hash[demo/script-hashes.js]"
+  "bundle-browserify" -> "this.no-hook-authorization.hash[demo/wrap-globals.js]"
+  "bundle-browserify" -> "this.no-hook-authorization.hash[https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.js]"
+  "bundle-browserify" -> "this.no-hook-authorization.hash[location = \"about:blank\";]"
+  "bundle-browserify" -> "this.path.base"
+  "bundle-browserify" -> "this.path.config"
+  "bundle-browserify" -> "this.path.plugins"
+  "bundle-browserify" -> "this.path.root"
+  "bundle-browserify" -> "this.thin-hook.hook.contextGenerators"
+  "bundle-browserify" -> "this.url.mappings.length"
+  "bundle-browserify" -> "this.url.mappings[0].length"
+  "bundle-browserify" -> "this.url.mappings[0][0]"
+  "bundle-browserify" -> "this.url.mappings[0][1]"
+  "bundle-browserify" -> "this.url.mappings[1].length"
+  "bundle-browserify" -> "this.url.mappings[1][0]"
+  "bundle-browserify" -> "this.url.mappings[1][1]"
+  "bundle-browserify" -> "this.url.mappings[2].length"
+  "bundle-browserify" -> "this.url.mappings[2][0]"
+  "bundle-browserify" -> "this.url.mappings[2][1]"
+  "bundle-browserify" -> "this.url.reverseMappings.length"
+  "bundle-browserify" -> "this.url.reverseMappings[0].length"
+  "bundle-browserify" -> "this.url.reverseMappings[0][0]"
+  "bundle-browserify" -> "this.url.reverseMappings[0][1]"
+  "bundle-browserify" -> "this.url.reverseMappings[1].length"
+  "bundle-browserify" -> "this.url.reverseMappings[1][0]"
+  "bundle-browserify" -> "this.url.reverseMappings[1][1]"
+
+  "bundle-webpack"[color="0.590 0.273 1.000"]
+  "demo/commonjs.js"[color="0.408 0.498 1.000"]
+  "bundle-webpack" -> "demo/commonjs.js"
+  "demo/commonjs2.js"[color="0.408 0.498 1.000"]
+  "bundle-webpack" -> "demo/commonjs2.js"
+  "demo/es6-module.js"[color="0.408 0.498 1.000"]
+  "bundle-webpack" -> "demo/es6-module.js"
+  "demo/es6-module2.js"[color="0.408 0.498 1.000"]
+  "bundle-webpack" -> "demo/es6-module2.js"
+  "demo/es6-module3.js"[color="0.408 0.498 1.000"]
+  "bundle-webpack" -> "demo/es6-module3.js"
+  "demo/package.json"[color="0.408 0.498 1.000"]
+  "bundle-webpack" -> "demo/package.json"
+  "demo/webpack-commonjs.js"[color="0.408 0.498 1.000"]
+  "demo/webpack-commonjs.js" -> "bundle-webpack"[color="0.002 0.999 0.999"]
+  "demo/webpack-es6-module.js"[color="0.408 0.498 1.000"]
+  "demo/webpack-es6-module.js" -> "bundle-webpack"[color="0.002 0.999 0.999"]
+  "node_modules/*"[color="0.408 0.498 1.000"]
+  "bundle-webpack" -> "node_modules/*"
+  "package.json"[color="0.408 0.498 1.000"]
+  "bundle-webpack" -> "package.json"
+  "plugins/bundle-webpack/configurator.js"[color="0.408 0.498 1.000"]
+  "bundle-webpack" -> "plugins/bundle-webpack/configurator.js"
+  "this.bundle-webpack.done" -> "bundle-webpack"[color="0.002 0.999 0.999"]
+  "bundle-webpack" -> "this.bundles.browserify.configurator"
+  "this.bundles.components" -> "bundle-webpack"[color="0.002 0.999 0.999"]
+  "bundle-webpack" -> "this.bundles.enhanced-resolve"
+  "this.bundles.node-builtins-wrapper" -> "bundle-webpack"[color="0.002 0.999 0.999"]
+  "bundle-webpack" -> "this.bundles.rollup.configurator"
+  "bundle-webpack" -> "this.bundles.targets.length"
+  "bundle-webpack" -> "this.bundles.targets[0].bundler"
+  "bundle-webpack" -> "this.bundles.targets[1].bundler"
+  "bundle-webpack" -> "this.bundles.targets[1].entryBase"
+  "bundle-webpack" -> "this.bundles.targets[1].outputBase"
+  "bundle-webpack" -> "this.bundles.targets[2].bundler"
+  "bundle-webpack" -> "this.bundles.targets[2].entryBase"
+  "bundle-webpack" -> "this.bundles.targets[2].outputBase"
+  "bundle-webpack" -> "this.bundles.targets[3].bundler"
+  "bundle-webpack" -> "this.bundles.targets[4].bundler"
+  "bundle-webpack" -> "this.bundles.thin-hook"
+  "bundle-webpack" -> "this.bundles.webpack.configurator"
+  "bundle-webpack" -> "this.bundles.webpack.options"
+  "bundle-webpack" -> "this.gulp.dest"
+  "bundle-webpack" -> "this.gulp.series"
+  "bundle-webpack" -> "this.gulp.task"
+  "bundle-webpack" -> "this.no-hook-authorization.hash[(function write2() { console.log(\"no-hook script tag via document.write\"); })()]"
+  "bundle-webpack" -> "this.no-hook-authorization.hash[(function write4() { console.log(\"no-hook script tag in div tag via document.write\"); })()]"
+  "bundle-webpack" -> "this.no-hook-authorization.hash[(function writeln2() { console.log(\"no-hook script tag via document.writeln\"); })()]"
+  "bundle-webpack" -> "this.no-hook-authorization.hash[(function writeln4() { console.log(\"no-hook script tag in div tag via document.writeln\"); })()]"
+  "bundle-webpack" -> "this.no-hook-authorization.hash[/components/thin-hook/demo/ inline cors]"
+  "bundle-webpack" -> "this.no-hook-authorization.hash[/components/thin-hook/demo/ inline hooked eval results]"
+  "bundle-webpack" -> "this.no-hook-authorization.hash[demo/about-blank-redirector.js]"
+  "bundle-webpack" -> "this.no-hook-authorization.hash[demo/browserify-commonjs.js]"
+  "bundle-webpack" -> "this.no-hook-authorization.hash[demo/cache-bundle.js]"
+  "bundle-webpack" -> "this.no-hook-authorization.hash[demo/content-loader.js]"
+  "bundle-webpack" -> "this.no-hook-authorization.hash[demo/context-generator.js]"
+  "bundle-webpack" -> "this.no-hook-authorization.hash[demo/hook-native-api.js]"
+  "bundle-webpack" -> "this.no-hook-authorization.hash[demo/mark-parsed.js]"
+  "bundle-webpack" -> "this.no-hook-authorization.hash[demo/script-hashes.js]"
+  "this.no-hook-authorization.hash[demo/webpack-commonjs.js]" -> "bundle-webpack"[color="0.002 0.999 0.999"]
+  "this.no-hook-authorization.hash[demo/webpack-es6-module.js]" -> "bundle-webpack"[color="0.002 0.999 0.999"]
+  "bundle-webpack" -> "this.no-hook-authorization.hash[demo/wrap-globals.js]"
+  "bundle-webpack" -> "this.no-hook-authorization.hash[https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.js]"
+  "bundle-webpack" -> "this.no-hook-authorization.hash[location = \"about:blank\";]"
+  "bundle-webpack" -> "this.path.base"
+  "bundle-webpack" -> "this.path.config"
+  "bundle-webpack" -> "this.path.plugins"
+  "bundle-webpack" -> "this.path.root"
+  "bundle-webpack" -> "this.thin-hook.hook.contextGenerators"
+  "bundle-webpack" -> "this.url.mappings.length"
+  "bundle-webpack" -> "this.url.mappings[0].length"
+  "bundle-webpack" -> "this.url.mappings[0][0]"
+  "bundle-webpack" -> "this.url.mappings[0][1]"
+  "bundle-webpack" -> "this.url.mappings[1].length"
+  "bundle-webpack" -> "this.url.mappings[1][0]"
+  "bundle-webpack" -> "this.url.mappings[1][1]"
+  "bundle-webpack" -> "this.url.mappings[2].length"
+  "bundle-webpack" -> "this.url.mappings[2][0]"
+  "bundle-webpack" -> "this.url.mappings[2][1]"
+  "bundle-webpack" -> "this.url.reverseMappings.length"
+  "bundle-webpack" -> "this.url.reverseMappings[0].length"
+  "bundle-webpack" -> "this.url.reverseMappings[0][0]"
+  "bundle-webpack" -> "this.url.reverseMappings[0][1]"
+  "bundle-webpack" -> "this.url.reverseMappings[1].length"
+  "bundle-webpack" -> "this.url.reverseMappings[1][0]"
+  "bundle-webpack" -> "this.url.reverseMappings[1][1]"
+
+  "bundle-rollup"[color="0.590 0.273 1.000"]
+  "demo/es6-module.js"[color="0.408 0.498 1.000"]
+  "bundle-rollup" -> "demo/es6-module.js"
+  "demo/es6-module2.js"[color="0.408 0.498 1.000"]
+  "bundle-rollup" -> "demo/es6-module2.js"
+  "demo/es6-module3.js"[color="0.408 0.498 1.000"]
+  "bundle-rollup" -> "demo/es6-module3.js"
+  "demo/moduleDependencies.json"[color="0.408 0.498 1.000"]
+  "demo/moduleDependencies.json" -> "bundle-rollup"[color="0.002 0.999 0.999"]
+  "demo/modules.importmap"[color="0.408 0.498 1.000"]
+  "bundle-rollup" -> "demo/modules.importmap"
+  "demo/modules/module1.js"[color="0.408 0.498 1.000"]
+  "bundle-rollup" -> "demo/modules/module1.js"
+  "demo/modules/module2.js"[color="0.408 0.498 1.000"]
+  "bundle-rollup" -> "demo/modules/module2.js"
+  "demo/modules/module3.js"[color="0.408 0.498 1.000"]
+  "bundle-rollup" -> "demo/modules/module3.js"
+  "demo/node_modules/*"[color="0.408 0.498 1.000"]
+  "bundle-rollup" -> "demo/node_modules/*"
+  "demo/rollup-es6-module.js"[color="0.408 0.498 1.000"]
+  "demo/rollup-es6-module.js" -> "bundle-rollup"[color="0.002 0.999 0.999"]
+  "demo/rollup-module1.js"[color="0.408 0.498 1.000"]
+  "demo/rollup-module1.js" -> "bundle-rollup"[color="0.002 0.999 0.999"]
+  "node_modules/*"[color="0.408 0.498 1.000"]
+  "bundle-rollup" -> "node_modules/*"
+  "plugins/bundle-rollup/configurator.js"[color="0.408 0.498 1.000"]
+  "bundle-rollup" -> "plugins/bundle-rollup/configurator.js"
+  "this.bundle-rollup.done" -> "bundle-rollup"[color="0.002 0.999 0.999"]
+  "bundle-rollup" -> "this.bundles.browserify"
+  "this.bundles.components" -> "bundle-rollup"[color="0.002 0.999 0.999"]
+  "bundle-rollup" -> "this.bundles.enhanced-resolve"
+  "this.bundles.node-builtins-wrapper" -> "bundle-rollup"[color="0.002 0.999 0.999"]
+  "bundle-rollup" -> "this.bundles.rollup.configurator"
+  "bundle-rollup" -> "this.bundles.targets.length"
+  "bundle-rollup" -> "this.bundles.targets[0].bundler"
+  "bundle-rollup" -> "this.bundles.targets[1].bundler"
+  "bundle-rollup" -> "this.bundles.targets[2].bundler"
+  "bundle-rollup" -> "this.bundles.targets[3].bundler"
+  "bundle-rollup" -> "this.bundles.targets[3].entryBase"
+  "bundle-rollup" -> "this.bundles.targets[3].outputBase"
+  "bundle-rollup" -> "this.bundles.targets[4].bundler"
+  "bundle-rollup" -> "this.bundles.targets[4].entryBase"
+  "bundle-rollup" -> "this.bundles.targets[4].outputBase"
+  "bundle-rollup" -> "this.bundles.thin-hook"
+  "bundle-rollup" -> "this.bundles.webpack"
+  "bundle-rollup" -> "this.gulp.series"
+  "bundle-rollup" -> "this.gulp.task"
+  "bundle-rollup" -> "this.import-maps.importMapName"
+  "bundle-rollup" -> "this.no-hook-authorization.hash[(function write2() { console.log(\"no-hook script tag via document.write\"); })()]"
+  "bundle-rollup" -> "this.no-hook-authorization.hash[(function write4() { console.log(\"no-hook script tag in div tag via document.write\"); })()]"
+  "bundle-rollup" -> "this.no-hook-authorization.hash[(function writeln2() { console.log(\"no-hook script tag via document.writeln\"); })()]"
+  "bundle-rollup" -> "this.no-hook-authorization.hash[(function writeln4() { console.log(\"no-hook script tag in div tag via document.writeln\"); })()]"
+  "bundle-rollup" -> "this.no-hook-authorization.hash[/components/thin-hook/demo/ inline cors]"
+  "bundle-rollup" -> "this.no-hook-authorization.hash[/components/thin-hook/demo/ inline hooked eval results]"
+  "bundle-rollup" -> "this.no-hook-authorization.hash[demo/about-blank-redirector.js]"
+  "bundle-rollup" -> "this.no-hook-authorization.hash[demo/browserify-commonjs.js]"
+  "bundle-rollup" -> "this.no-hook-authorization.hash[demo/cache-bundle.js]"
+  "bundle-rollup" -> "this.no-hook-authorization.hash[demo/content-loader.js]"
+  "bundle-rollup" -> "this.no-hook-authorization.hash[demo/context-generator.js]"
+  "bundle-rollup" -> "this.no-hook-authorization.hash[demo/hook-native-api.js]"
+  "bundle-rollup" -> "this.no-hook-authorization.hash[demo/mark-parsed.js]"
+  "this.no-hook-authorization.hash[demo/rollup-es6-module.js]" -> "bundle-rollup"[color="0.002 0.999 0.999"]
+  "this.no-hook-authorization.hash[demo/rollup-module1.js]" -> "bundle-rollup"[color="0.002 0.999 0.999"]
+  "bundle-rollup" -> "this.no-hook-authorization.hash[demo/script-hashes.js]"
+  "bundle-rollup" -> "this.no-hook-authorization.hash[demo/webpack-commonjs.js]"
+  "bundle-rollup" -> "this.no-hook-authorization.hash[demo/webpack-es6-module.js]"
+  "bundle-rollup" -> "this.no-hook-authorization.hash[demo/wrap-globals.js]"
+  "bundle-rollup" -> "this.no-hook-authorization.hash[https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.js]"
+  "bundle-rollup" -> "this.no-hook-authorization.hash[location = \"about:blank\";]"
+  "bundle-rollup" -> "this.path.base"
+  "bundle-rollup" -> "this.path.config"
+  "bundle-rollup" -> "this.path.plugins"
+  "bundle-rollup" -> "this.path.root"
+  "bundle-rollup" -> "this.thin-hook.hook.contextGenerators"
+  "bundle-rollup" -> "this.thin-hook.hook.parameters"
+  "bundle-rollup" -> "this.thin-hook.hook.utils"
+  "bundle-rollup" -> "this.url.mappings.length"
+  "bundle-rollup" -> "this.url.mappings[0].length"
+  "bundle-rollup" -> "this.url.mappings[0][0]"
+  "bundle-rollup" -> "this.url.mappings[0][1]"
+  "bundle-rollup" -> "this.url.mappings[1].length"
+  "bundle-rollup" -> "this.url.mappings[1][0]"
+  "bundle-rollup" -> "this.url.mappings[1][1]"
+
+  "injector-helpers"[color="0.590 0.273 1.000"]
+  "node_modules/*"[color="0.408 0.498 1.000"]
+  "injector-helpers" -> "node_modules/*"
+  "plugins/injector-helpers/configurator.js"[color="0.408 0.498 1.000"]
+  "injector-helpers" -> "plugins/injector-helpers/configurator.js"
+  "plugins/injector-helpers/node_modules/domhandler/lib/index.js"[color="0.408 0.498 1.000"]
+  "injector-helpers" -> "plugins/injector-helpers/node_modules/domhandler/lib/index.js"
+  "plugins/injector-helpers/node_modules/domhandler/lib/node.js"[color="0.408 0.498 1.000"]
+  "injector-helpers" -> "plugins/injector-helpers/node_modules/domhandler/lib/node.js"
+  "plugins/target-injector/HtmlInjectionHandlerFactory.js"[color="0.408 0.498 1.000"]
+  "injector-helpers" -> "plugins/target-injector/HtmlInjectionHandlerFactory.js"
+  "plugins/target-injector/InjectionHandlerBase.js"[color="0.408 0.498 1.000"]
+  "injector-helpers" -> "plugins/target-injector/InjectionHandlerBase.js"
+  "plugins/target-injector/Injector.js"[color="0.408 0.498 1.000"]
+  "injector-helpers" -> "plugins/target-injector/Injector.js"
+  "plugins/target-injector/JsInjectionHandlerFactory.js"[color="0.408 0.498 1.000"]
+  "injector-helpers" -> "plugins/target-injector/JsInjectionHandlerFactory.js"
+  "plugins/target-injector/package.json"[color="0.408 0.498 1.000"]
+  "injector-helpers" -> "plugins/target-injector/package.json"
+  "injector-helpers" -> "this.gulp.series"
+  "injector-helpers" -> "this.gulp.task"
+  "this.inject.components" -> "injector-helpers"[color="0.002 0.999 0.999"]
+  "this.injector-helpers.done" -> "injector-helpers"[color="0.002 0.999 0.999"]
+  "injector-helpers" -> "this.path.base"
+  "injector-helpers" -> "this.path.config"
+  "injector-helpers" -> "this.path.plugins"
+  "injector-helpers" -> "this.path.root"
+
+  "@thin-hook/build"[color="0.590 0.273 1.000"]
+  "@thin-hook/build" -> "this.path"
+  "@thin-hook/build" -> "this.path.plugins"
+  "@thin-hook/build" -> "this.path.base"
+  "plugins/build/configurator.js"[color="0.408 0.498 1.000"]
+  "@thin-hook/build" -> "plugins/build/configurator.js"
+  "node_modules/*"[color="0.408 0.498 1.000"]
+  "@thin-hook/build" -> "node_modules/*"
+  "plugins/build/build-helpers.js"[color="0.408 0.498 1.000"]
+  "@thin-hook/build" -> "plugins/build/build-helpers.js"
+  "@thin-hook/build" -> "this.gulp"
+  "@thin-hook/build" -> "this.gulp.task"
+  "@thin-hook/build" -> "this.gulp.series"
+
+  "@thin-hook/build-test"[color="0.590 0.273 1.000"]
+  "@thin-hook/build-test" -> "this.path"
+  "@thin-hook/build-test" -> "this.path.plugins"
+  "@thin-hook/build-test" -> "this.path.base"
+  "plugins/build-test/configurator.js"[color="0.408 0.498 1.000"]
+  "@thin-hook/build-test" -> "plugins/build-test/configurator.js"
+  "@thin-hook/build-test" -> "this.gulp"
+  "@thin-hook/build-test" -> "this.gulp.task"
+
+  "@thin-hook/build-instrument"[color="0.590 0.273 1.000"]
+  "@thin-hook/build-instrument" -> "this.path"
+  "@thin-hook/build-instrument" -> "this.path.plugins"
+  "@thin-hook/build-instrument" -> "this.path.base"
+  "plugins/build-instrument/configurator.js"[color="0.408 0.498 1.000"]
+  "@thin-hook/build-instrument" -> "plugins/build-instrument/configurator.js"
+  "@thin-hook/build-instrument" -> "this.gulp"
+  "@thin-hook/build-instrument" -> "this.gulp.task"
+  "@thin-hook/build-instrument" -> "this.gulp.series"
+
+  "@thin-hook/build-coverage"[color="0.590 0.273 1.000"]
+  "@thin-hook/build-coverage" -> "this.path"
+  "@thin-hook/build-coverage" -> "this.path.plugins"
+  "@thin-hook/build-coverage" -> "this.path.base"
+  "plugins/build-coverage/configurator.js"[color="0.408 0.498 1.000"]
+  "@thin-hook/build-coverage" -> "plugins/build-coverage/configurator.js"
+  "@thin-hook/build-coverage" -> "this.gulp"
+  "@thin-hook/build-coverage" -> "this.gulp.task"
+  "@thin-hook/build-coverage" -> "this.gulp.series"
+
+  "@thin-hook/build-test-html"[color="0.590 0.273 1.000"]
+  "@thin-hook/build-test-html" -> "this.path"
+  "@thin-hook/build-test-html" -> "this.path.plugins"
+  "@thin-hook/build-test-html" -> "this.path.base"
+  "plugins/build-test-html/configurator.js"[color="0.408 0.498 1.000"]
+  "@thin-hook/build-test-html" -> "plugins/build-test-html/configurator.js"
+  "@thin-hook/build-test-html" -> "this.gulp"
+  "@thin-hook/build-test-html" -> "this.gulp.task"
+  "@thin-hook/build-test-html" -> "this.gulp.series"
+  "@thin-hook/build-test-html" -> "this.thin-hook"
+  "@thin-hook/build-test-html" -> "this.thin-hook.hook"
+
+}

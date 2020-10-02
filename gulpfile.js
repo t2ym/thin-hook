@@ -394,6 +394,10 @@ gulp.task('frontend',
   gulp.series('clean-frontend', 'frontend-components', 'gzip-frontend')
 );
 
+gulp.task('dependency-graph');
+
+gulp.task('dot', shell.task(targetConfig.commands.dot));
+
 gulp.task('_demo',
   gulp.series(
     'injector-helpers',
@@ -455,6 +459,7 @@ gulp.task('demo',
     'integrity-json',
     'gzip-json',
     'frontend',
+    'dependency-graph',
   )
 );
 
