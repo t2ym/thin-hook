@@ -11,23 +11,6 @@ digraph dependencies {
   "this.thin-hook" -> "init:thin-hook"[color="0.002 0.999 0.999"]
   "this.thin-hook.hook" -> "init:thin-hook"[color="0.002 0.999 0.999"]
 
-  "init:hook-min-js"[color="0.590 0.273 1.000"]
-  "this.hook-min-js" -> "init:hook-min-js"[color="0.002 0.999 0.999"]
-  "this.hook-min-js.searchParams" -> "init:hook-min-js"[color="0.002 0.999 0.999"]
-  "this.hook-min-js.targetTypes" -> "init:hook-min-js"[color="0.002 0.999 0.999"]
-
-  "init:inject"[color="0.590 0.273 1.000"]
-  "this.inject" -> "init:inject"[color="0.002 0.999 0.999"]
-  "this.inject.injectors" -> "init:inject"[color="0.002 0.999 0.999"]
-  "this.inject.entryPage" -> "init:inject"[color="0.002 0.999 0.999"]
-  "this.inject.emptyDocument" -> "init:inject"[color="0.002 0.999 0.999"]
-  "this.inject.iframe" -> "init:inject"[color="0.002 0.999 0.999"]
-  "this.inject.svg" -> "init:inject"[color="0.002 0.999 0.999"]
-  "this.inject.hookWorker" -> "init:inject"[color="0.002 0.999 0.999"]
-  "this.inject.dedicatedWorker" -> "init:inject"[color="0.002 0.999 0.999"]
-  "this.inject.dedicatedWorkerModule" -> "init:inject"[color="0.002 0.999 0.999"]
-  "this.inject.sharedWorker" -> "init:inject"[color="0.002 0.999 0.999"]
-
   "init:url"[color="0.590 0.273 1.000"]
   "this.url" -> "init:url"[color="0.002 0.999 0.999"]
   "this.url.root" -> "init:url"[color="0.002 0.999 0.999"]
@@ -1775,7 +1758,10 @@ digraph dependencies {
   "injector-helpers" -> "plugins/target-injector/package.json"
   "injector-helpers" -> "this.gulp.series"
   "injector-helpers" -> "this.gulp.task"
-  "this.inject.components" -> "injector-helpers"[color="0.002 0.999 0.999"]
+  "this.inject.components.HtmlInjectionHandlerFactory" -> "injector-helpers"[color="0.002 0.999 0.999"]
+  "this.inject.components.InjectionHandlerBase" -> "injector-helpers"[color="0.002 0.999 0.999"]
+  "this.inject.components.Injector" -> "injector-helpers"[color="0.002 0.999 0.999"]
+  "this.inject.components.JsInjectionHandlerFactory" -> "injector-helpers"[color="0.002 0.999 0.999"]
   "this.injector-helpers.done" -> "injector-helpers"[color="0.002 0.999 0.999"]
   "injector-helpers" -> "this.path.base"
   "injector-helpers" -> "this.path.config"

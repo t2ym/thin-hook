@@ -5,7 +5,9 @@ Copyright (c) 2020 Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 const Traceable = (base) => class TraceableConfigBase extends base {
   // this.assign('name')({ property: value, ... }).assign('name2')({ property: value, ... })...
   assign(name) {
-    this.trace.currentPlugin = { name: `init:${name}` };
+    if (this.trace && this.trace.proxy) {
+      this.trace.currentPlugin = { name: `init:${name}` };
+    }
     return (properties) => {
       if (!this[name]) {
         this[name] = properties;
@@ -13,9 +15,11 @@ const Traceable = (base) => class TraceableConfigBase extends base {
       else {
         Object.assign(this[name], properties);
       }
-      this.trace.currentPlugin = null;
-      if (name === 'trace') {
-        this.setProxyHandlers();
+      if (this.trace && this.trace.proxy) {
+        this.trace.currentPlugin = null;
+        if (name === 'trace') {
+          this.setProxyHandlers();
+        }
       }
       return this;
     };
@@ -64,6 +68,9 @@ const Traceable = (base) => class TraceableConfigBase extends base {
   setProxyHandlers() {
     let targetConfig = this;
     let trace = this.trace;
+    if (!(trace && trace.proxy)) {
+      return;
+    }
     let traceMap = new Map();
     let traceLog = trace.log;
     let aggregations = trace.aggregations;
@@ -182,6 +189,9 @@ const Traceable = (base) => class TraceableConfigBase extends base {
   }
   setFsTracer() {
     let trace = this.trace;
+    if (!(trace && trace.proxy)) {
+      return;
+    }
     let traceLog = trace.log;
     const aggregate = (path) => {
       let base = this.path.base;
@@ -251,10 +261,15 @@ const Traceable = (base) => class TraceableConfigBase extends base {
   }
   pre(plugin) {
     super.pre(plugin);
-    this.trace.currentPlugin = plugin;
+    if (this.trace && this.trace.proxy) {
+      this.trace.currentPlugin = plugin;
+    }
   }
   post(plugin) {
-    super.post(plugin);    
+    super.post(plugin);
+    if (!(this.trace && this.trace.proxy)) {
+      return;
+    }
     let traceLog = this.trace.log[plugin.name];
     if (!traceLog) {
       this.trace.log[plugin.name] = traceLog = new Set();
