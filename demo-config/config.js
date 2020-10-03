@@ -47,17 +47,155 @@ class TargetConfig extends Traceable(Configurable(GulpDefaultRegistry, 'thin-hoo
                 '  edge [fontsize=10]\n' +
                 '  \n',
         footer: '\n}\n',
+        tooltip: (type, name) => {
+          let tooltip = '';
+          switch (type) {
+          case 'plugin':
+            tooltip = name + '\\n' + [...this.trace.log[name]].map(log => {
+                log = log.replace(/"/g, '\\"');
+                let match;
+                if (match = log.match(/^(.*) r$/)) {
+                  return `-> ${match[1]}`;
+                }
+                else if (match = log.match(/^(.*) w$/)) {
+                  return `<- ${match[1]}`;
+                }
+                else if (match = log.match(/^(.*) set$/)) {
+                  return `<- ${match[1]}`;
+                }
+                else {
+                  return `-> ${log}`;
+                }
+              })
+              .sort((a, b) => {
+                if (a.startsWith('<-') && b.startsWith('->')) {
+                  return -1;
+                }
+                else if (a.startsWith('->') && b.startsWith('<-')) {
+                  return 1;
+                }
+                else {
+                  return a.localeCompare(b);
+                }
+              })
+              .join('\\n')
+            break;
+          case 'file':
+            {
+              tooltip = name + '\\n';
+              let plugins = [];
+              for (let plugin in this.trace.log) {
+                let traceLog = this.trace.log[plugin];
+                for (let log of traceLog) {
+                  //console.log(plugin, log, name)
+                  let match = log.match(/^(.*)( r| w| set)$/);
+                  let key = log;
+                  let type = '';
+                  if (match) {
+                    key = match[1];
+                    type = match[2];
+                  }
+                  key = key.replace(/"/g, '\\"');
+                  if (name === key) {
+                    switch (type) {
+                    default:
+                    case '':
+                      plugins.push(`<- ${plugin}`);
+                      break;
+                    case ' set':
+                      plugins.push(`-> ${plugin}`);
+                      break;
+                    case ' r':
+                      plugins.push(`<- ${plugin}`);
+                      break;
+                    case ' w':
+                      plugins.push(`-> ${plugin}`);
+                      break;
+                    }
+                  }
+                }
+              }
+              tooltip += plugins
+                .sort((a, b) => {
+                  if (a.startsWith('<-') && b.startsWith('->')) {
+                    return -1;
+                  }
+                  else if (a.startsWith('->') && b.startsWith('<-')) {
+                    return 1;
+                  }
+                  else {
+                    return a.localeCompare(b);
+                  }
+                })
+                .join('\\n')
+            }
+            break;
+          case 'property':
+            {
+              tooltip = name + '\\n';
+              let plugins = [];
+              for (let plugin in this.trace.log) {
+                let traceLog = this.trace.log[plugin];
+                for (let log of traceLog) {
+                  //console.log(plugin, log, name)
+                  let match = log.match(/^(.*)( r| w| set)$/);
+                  let key = log;
+                  let type = '';
+                  if (match) {
+                    key = match[1];
+                    type = match[2];
+                  }
+                  key = key.replace(/"/g, '\\"');
+                  if (name === key) {
+                    switch (type) {
+                    default:
+                    case '':
+                      plugins.push(`<- ${plugin}`);
+                      break;
+                    case ' set':
+                      plugins.push(`-> ${plugin}`);
+                      break;
+                    case ' r':
+                      plugins.push(`<- ${plugin}`);
+                      break;
+                    case ' w':
+                      plugins.push(`-> ${plugin}`);
+                      break;
+                    }
+                  }
+                }
+              }
+              tooltip += plugins
+                .sort((a, b) => {
+                  if (a.startsWith('<-') && b.startsWith('->')) {
+                    return -1;
+                  }
+                  else if (a.startsWith('->') && b.startsWith('<-')) {
+                    return 1;
+                  }
+                  else {
+                    return a.localeCompare(b);
+                  }
+                })
+                .join('\\n')
+            }
+            break;
+          }
+          return tooltip;
+        },
         focus: (pluginName, propertyName, fileName) =>
           !(pluginName === 'dependency-graph' ||
             (fileName && fileName.indexOf("dependency-graph") >= 0) ||
             (propertyName && propertyName.indexOf("dependency-graph") >= 0)),
         plugin: (pluginName) => this.trace.dot.focus(pluginName, null, null)
-          ? `\n  "${pluginName}"[color="0.590 0.273 1.000"]\n`
+          ? `\n  "${pluginName}"[color="0.590 0.273 1.000",tooltip="${this.trace.dot.tooltip('plugin', pluginName)}"]\n`
           : '',
         file: (fileName) => this.trace.dot.focus(null, null, fileName)
-          ? `  "${fileName}"[color="0.408 0.498 1.000"]\n`
+          ? `  "${fileName}"[color="0.408 0.498 1.000",tooltip="${this.trace.dot.tooltip('file', fileName)}"]\n`
           : '',
-        property: (propertyName) => ``,
+        property: (propertyName) => this.trace.dot.focus(null, propertyName, null)
+          ? `  "${propertyName}"[tooltip="${this.trace.dot.tooltip('property', propertyName)}"]\n`
+          : '',
         writeProperty: (propertyName, pluginName) => this.trace.dot.focus(pluginName, propertyName, null)
           ? `  "${propertyName}" -> "${pluginName}"[color="0.002 0.999 0.999"]\n`
           : '',
