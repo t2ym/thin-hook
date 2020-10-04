@@ -47,6 +47,7 @@ class TargetConfig extends Traceable(Configurable(GulpDefaultRegistry, 'thin-hoo
                 '  edge [fontsize=10]\n' +
                 '  \n',
         footer: '\n}\n',
+        reverseArrowDirection: true, // true to show dataflow; false to show dependency
         tooltip: (type, name) => {
           let tooltip = '';
           switch (type) {
@@ -55,24 +56,24 @@ class TargetConfig extends Traceable(Configurable(GulpDefaultRegistry, 'thin-hoo
                 log = log.replace(/"/g, '\\"');
                 let match;
                 if (match = log.match(/^(.*) r$/)) {
-                  return `-> ${match[1]}`;
+                  return `${this.trace.dot.reverseArrowDirection ? '<-' : '->'} ${match[1]}`;
                 }
                 else if (match = log.match(/^(.*) w$/)) {
-                  return `<- ${match[1]}`;
+                  return `${this.trace.dot.reverseArrowDirection ? '->' : '<-'} ${match[1]}`;
                 }
                 else if (match = log.match(/^(.*) set$/)) {
-                  return `<- ${match[1]}`;
+                  return `${this.trace.dot.reverseArrowDirection ? '->' : '<-'} ${match[1]}`;
                 }
                 else {
-                  return `-> ${log}`;
+                  return `${this.trace.dot.reverseArrowDirection ? '<-' : '->'} ${log}`;
                 }
               })
               .sort((a, b) => {
                 if (a.startsWith('<-') && b.startsWith('->')) {
-                  return -1;
+                  return this.trace.dot.reverseArrowDirection ? 1 : -1;
                 }
                 else if (a.startsWith('->') && b.startsWith('<-')) {
-                  return 1;
+                  return this.trace.dot.reverseArrowDirection ? -1 : 1;
                 }
                 else {
                   return a.localeCompare(b);
@@ -100,16 +101,16 @@ class TargetConfig extends Traceable(Configurable(GulpDefaultRegistry, 'thin-hoo
                     switch (type) {
                     default:
                     case '':
-                      plugins.push(`<- ${plugin}`);
+                      plugins.push(`${this.trace.dot.reverseArrowDirection ? '->' : '<-'} ${plugin}`);
                       break;
                     case ' set':
-                      plugins.push(`-> ${plugin}`);
+                      plugins.push(`${this.trace.dot.reverseArrowDirection ? '<-' : '->'} ${plugin}`);
                       break;
                     case ' r':
-                      plugins.push(`<- ${plugin}`);
+                      plugins.push(`${this.trace.dot.reverseArrowDirection ? '->' : '<-'} ${plugin}`);
                       break;
                     case ' w':
-                      plugins.push(`-> ${plugin}`);
+                      plugins.push(`${this.trace.dot.reverseArrowDirection ? '<-' : '->'} ${plugin}`);
                       break;
                     }
                   }
@@ -118,10 +119,10 @@ class TargetConfig extends Traceable(Configurable(GulpDefaultRegistry, 'thin-hoo
               tooltip += plugins
                 .sort((a, b) => {
                   if (a.startsWith('<-') && b.startsWith('->')) {
-                    return -1;
+                    return this.trace.dot.reverseArrowDirection ? 1 : -1;
                   }
                   else if (a.startsWith('->') && b.startsWith('<-')) {
-                    return 1;
+                    return this.trace.dot.reverseArrowDirection ? -1 : 1;
                   }
                   else {
                     return a.localeCompare(b);
@@ -150,16 +151,16 @@ class TargetConfig extends Traceable(Configurable(GulpDefaultRegistry, 'thin-hoo
                     switch (type) {
                     default:
                     case '':
-                      plugins.push(`<- ${plugin}`);
+                      plugins.push(`${this.trace.dot.reverseArrowDirection ? '->' : '<-'} ${plugin}`);
                       break;
                     case ' set':
-                      plugins.push(`-> ${plugin}`);
+                      plugins.push(`${this.trace.dot.reverseArrowDirection ? '<-' : '->'} ${plugin}`);
                       break;
                     case ' r':
-                      plugins.push(`<- ${plugin}`);
+                      plugins.push(`${this.trace.dot.reverseArrowDirection ? '->' : '<-'} ${plugin}`);
                       break;
                     case ' w':
-                      plugins.push(`-> ${plugin}`);
+                      plugins.push(`${this.trace.dot.reverseArrowDirection ? '<-' : '->'} ${plugin}`);
                       break;
                     }
                   }
@@ -168,10 +169,10 @@ class TargetConfig extends Traceable(Configurable(GulpDefaultRegistry, 'thin-hoo
               tooltip += plugins
                 .sort((a, b) => {
                   if (a.startsWith('<-') && b.startsWith('->')) {
-                    return -1;
+                    return this.trace.dot.reverseArrowDirection ? 1 : -1;
                   }
                   else if (a.startsWith('->') && b.startsWith('<-')) {
-                    return 1;
+                    return this.trace.dot.reverseArrowDirection ? -1 : 1;
                   }
                   else {
                     return a.localeCompare(b);
@@ -197,16 +198,16 @@ class TargetConfig extends Traceable(Configurable(GulpDefaultRegistry, 'thin-hoo
           ? `  "${propertyName}"[tooltip="${this.trace.dot.tooltip('property', propertyName)}"]\n`
           : '',
         writeProperty: (propertyName, pluginName) => this.trace.dot.focus(pluginName, propertyName, null)
-          ? `  "${propertyName}" -> "${pluginName}"[color="0.002 0.999 0.999"]\n`
+          ? `  "${this.trace.dot.reverseArrowDirection ? pluginName : propertyName}" -> "${this.trace.dot.reverseArrowDirection ? propertyName : pluginName}"[color="0.002 0.999 0.999"]\n`
           : '',
         readProperty: (propertyName, pluginName) => this.trace.dot.focus(pluginName, propertyName, null)
-          ? `  "${pluginName}" -> "${propertyName}"\n`
+          ? `  "${this.trace.dot.reverseArrowDirection ? propertyName : pluginName}" -> "${this.trace.dot.reverseArrowDirection ? pluginName : propertyName}"\n`
           : '',
         writeFile: (fileName, pluginName) => this.trace.dot.focus(pluginName, null, fileName)
-          ? `  "${fileName}" -> "${pluginName}"[color="0.002 0.999 0.999"]\n`
+          ? `  "${this.trace.dot.reverseArrowDirection ? pluginName : fileName}" -> "${this.trace.dot.reverseArrowDirection ? fileName : pluginName}"[color="0.002 0.999 0.999"]\n`
           : '',
         readFile: (fileName, pluginName) => this.trace.dot.focus(pluginName, null, fileName)
-          ? `  "${pluginName}" -> "${fileName}"\n`
+          ? `  "${this.trace.dot.reverseArrowDirection ? fileName : pluginName}" -> "${this.trace.dot.reverseArrowDirection ? pluginName : fileName}"\n`
           : '',
       },
     })
