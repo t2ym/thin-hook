@@ -1,6 +1,8 @@
 node_modules
 bower_components
 test/coverage*
+coverage
+.nyc_output
 demo-backend/integrity-service-helpers/node_modules/*
 demo-backend/integrity-service-helpers/build/*
 demo-backend/validation-console/node_modules/*

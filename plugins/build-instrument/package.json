@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/t2ym/thin-hook#readme",
   "dependencies": {
-    "nyc": "11.3.0",
+    "nyc": "15.1.0",
     "through2": "^2.0.3"
   }
 }
