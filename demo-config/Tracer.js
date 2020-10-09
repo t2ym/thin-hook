@@ -93,6 +93,9 @@ const Traceable = (base) => class TraceableConfigBase extends base {
     }
     Object.assign(trace.proxy.this.handler, {
       get: function(target, property, receiver) {
+        if (property === Symbol.for('isProxy')) {
+          return true;
+        }
         if (((target === trace.proxy.this.target && ['trace', 'pre', 'post'].indexOf(property) < 0) || target !== trace.proxy.this.target) && target.hasOwnProperty(property)) {
           if (trace.currentPlugin) {
             let isProxy = false;
@@ -106,6 +109,9 @@ const Traceable = (base) => class TraceableConfigBase extends base {
                 isProxy = true;
               }
             }
+            if (target[Symbol.for('isProxy')]) {
+              isProxy = true;
+            }
             let propertyName = trace.propertyName(name, property);
             //console.log(`${proxy.currentPlugin.name} get ${propertyName}`);
             traceLog[trace.currentPlugin.name] = traceLog[trace.currentPlugin.name] || new Set();
@@ -116,7 +122,7 @@ const Traceable = (base) => class TraceableConfigBase extends base {
             let desc = Object.getOwnPropertyDescriptor(target, property);
             if (desc && desc.configurable && desc.writable) {
               let _target = (isProxy ? trace.proxy[name].target : target)[property];
-              if (_target instanceof Object) {
+              if (_target instanceof Object && !_target[Symbol.for('isProxy')]) {
                 if (trace.proxy[propertyName]) {
                   if (trace.proxy[propertyName].target === _target) {
                     _trace = trace.proxy[propertyName].proxy;
