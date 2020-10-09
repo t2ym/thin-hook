@@ -446,6 +446,6 @@ class TargetConfig extends Traceable(Configurable(GulpDefaultRegistry, 'thin-hoo
   }
 }
 
-const targetConfig = new TargetConfig().setTracer();
+const targetConfig = ((config) => process.argv.indexOf('--tracer') >= 0 ? config.setTracer() : config)(new TargetConfig());
 
 module.exports = targetConfig;
