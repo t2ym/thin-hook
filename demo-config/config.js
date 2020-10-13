@@ -1334,12 +1334,6 @@ class TargetConfig extends Injectable(Traceable(Configurable(GulpDefaultRegistry
         'hook-worker-js',
       ],
     })
-    .assign('keys')({
-      noUpdate: true,
-    })
-    .assign('automation-secret')({
-      serverSecret: /*null*/'077885637984c7840c72b80b3a26059cf50e945cce91097472054ec9be9a4ddf',
-    })
     .assign('mode')({
       enableDebugging: false,
       devtoolsDisabled: true,
