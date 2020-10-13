@@ -15,6 +15,9 @@ const parser = require('espree'); // can be esprima or acorn
 const estraverse = 'estraverse'; // hand a string specifier to patch the component in InjectorFactory
 const esquery = require('esquery');
 
+const toposort = require('toposort');
+const createHash = require('sha.js');
+
 const pluginName = 'injector-helpers';
 
 const configurator = function (targetConfig) {
@@ -23,30 +26,34 @@ const configurator = function (targetConfig) {
   const pluginDirname = __dirname;
   
   return (done) => {
-    const Injector = InjectorFactory({
-      html: {
-        factory: HtmlInjectionHandlerFactory,
-        components: {
-          Parser, DomHandler, cssauron,
+    if (!this[pluginName].done) {
+      const Injector = InjectorFactory({
+        html: {
+          factory: HtmlInjectionHandlerFactory,
+          components: {
+            Parser, DomHandler, cssauron,
+          },
+          extensions: [ '.html', '.htm' ],
         },
-        extensions: [ '.html', '.htm' ],
-      },
-      js: {
-        factory: JsInjectionHandlerFactory,
-        components: {
-          parser, estraverse, esquery, /*, parserOptions: parserOptions */
+        js: {
+          factory: JsInjectionHandlerFactory,
+          components: {
+            parser, estraverse, esquery, /*, parserOptions: parserOptions */
+          },
+          extensions: [ '.js', '.mjs' ],
         },
-        extensions: [ '.js', '.mjs' ],
-      },
-    });
-    
-    this.inject = this.inject || {};
-    this.inject.components = this.inject.components || {};
-    this.inject.components.targetConfig = this;
-    this.inject.components.Injector = Injector;
-    this.inject.components.InjectionHandlerBase = InjectionHandlerBase;
-    this.inject.components.HtmlInjectionHandlerFactory = HtmlInjectionHandlerFactory;
-    this.inject.components.JsInjectionHandlerFactory = JsInjectionHandlerFactory;
+      });
+      
+      this.inject = this.inject || {};
+      this.inject.components = this.inject.components || {};
+      this.inject.components.targetConfig = this;
+      this.inject.components.Injector = Injector;
+      this.inject.components.InjectionHandlerBase = InjectionHandlerBase;
+      this.inject.components.HtmlInjectionHandlerFactory = HtmlInjectionHandlerFactory;
+      this.inject.components.JsInjectionHandlerFactory = JsInjectionHandlerFactory;
+      this.inject.components.toposort = toposort;
+      this.inject.components.createHash = createHash;
+    }
     done();
   }
 }

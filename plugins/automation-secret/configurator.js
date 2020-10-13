@@ -3,7 +3,6 @@
 Copyright (c) 2020, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 */
 const path = require('path');
-const { preprocess } = require('preprocess');
 const through = require('through2');
 const gulp = require('gulp');
 const crypto = require('crypto');

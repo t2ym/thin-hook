@@ -1,0 +1,1 @@
+document.currentScript.setAttribute('unauthorized-no-hook-script-executed', '');

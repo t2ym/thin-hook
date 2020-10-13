@@ -52,7 +52,7 @@ else {
   var otherWindowObjectsStatus = { set: false };
   if (typeof window === 'object') {
     if (window.top === window) {
-      emptyDocumentURL = (new URL('./empty-document.html', location.href)).href
+      emptyDocumentURL = (new URL('/* @echo emptyDocument */', location.href)).href
       otherWindowObjects = new Map();
       otherWindowObjects.set(Object, window);
     }

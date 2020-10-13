@@ -13,15 +13,15 @@ const configurator = function (targetConfig) {
   const pluginDirname = __dirname;
 
   return () => this.gulp.src([ 'about-blank-redirector.html', 'about-blank-redirector.js' ].map(name => path.resolve(pluginDirname, name)), { base: pluginDirname })
+    .pipe(this.gulp.dest(destPath))
     .pipe(through.obj((file, end, callback) => {
       if (path.extname(file.path) === '.js') {
         this['no-hook-authorization'] = this['no-hook-authorization'] || {};
         this['no-hook-authorization'].hash = this['no-hook-authorization'].hash || {};
-        this['no-hook-authorization'].hash[path.resolve(destPath, path.relative(pluginDirname, file.path))] = true;
+        this['no-hook-authorization'].hash[file.path] = true;
       }
       callback(null, file);
     }))
-    .pipe(this.gulp.dest(destPath));
 }
 
 module.exports = {

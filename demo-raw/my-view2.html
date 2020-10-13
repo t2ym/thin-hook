@@ -1,0 +1,249 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../i18n-behavior/i18n-behavior.html">
+<link rel="import" href="../../paper-progress/paper-progress.html">
+
+<dom-module id="my-view2">
+
+  <template>
+
+    <style>
+      :host {
+        display: block;
+        padding: 10px;
+      }
+      .card {
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+        padding: 16px;
+        margin: 24px;
+        border-radius: 5px;
+        background-color: #fff;
+        color: #757575;
+      }
+      .circle {
+        display: inline-block;
+        height: 64px;
+        width: 64px;
+        border-radius: 50%;
+        background: #ddd;
+        line-height: 64px;
+        font-size: 30px;
+        color: #555;
+        text-align: center;
+      }
+      h1 {
+        font-size: 22px;
+        margin: 16px 0;
+        color: #212121;
+      }
+      .progress {
+        bottom: 0px;
+        width: 100%;
+      }
+      .progress.finished {
+        visibility: hidden;
+      }
+      #mynetwork {
+        min-width: 400px;
+        min-height: 700px;
+      }
+    </style>
+
+    <div class="card">
+      <a href="javascript:alert('clicked')"><div class="circle">2</div></a>
+      <h1>View Two</h1>
+      <p>Ea duis bonorum nec, falli paulo aliquid ei eum.</p>
+      <p>Id nam odio natum malorum, tibique copiosae expetenda mel ea.Detracto suavitate repudiandae no eum. Id adhuc minim soluta nam.Id nam odio natum malorum, tibique copiosae expetenda mel ea.</p>
+      <paper-progress id="progress" class="progress" max="150" value="[[progress]]"></paper-progress>
+      <div id="mynetwork"></div>
+    </div>
+
+  </template>
+
+  <script>
+    {
+      const data3 = { nodes: [], edges: [] };
+      const nodes = new Map();
+      const objects = new Map();
+      const _escapePlatformProperties = new Map();
+      const _unescapePlatformProperties = new Map();
+      Object.getOwnPropertyNames(Object.prototype).concat(['prototype']).forEach(n => {
+        _escapePlatformProperties.set(n, '$' + n + '$');
+        _unescapePlatformProperties.set('$' + n + '$', n);
+      });
+      let g = (new Function('return this'))();
+      let gObject = g;
+
+      while (gObject) {
+        let descriptors = Object.getOwnPropertyDescriptors(gObject);
+        for (let rawName in descriptors) {
+          if (rawName === '__proto__') {
+            continue;
+          }
+          let name = _escapePlatformProperties.get(rawName) || rawName;
+          let node = { id: name, label: rawName, group: name };
+          let object;
+          try {
+            object = gObject[rawName];
+            if (!nodes.has(name)) {
+              nodes.set(name, node);
+              objects.set(object, name);
+              data3.nodes.push(node);
+            }
+            if (object instanceof Object && Reflect.has(object, 'prototype')) {
+              let prototypeObject = object.prototype;
+              let prototypeObjectName = rawName + '.prototype';
+              if (!nodes.has(prototypeObjectName)) {
+                node = { id: prototypeObjectName, label: prototypeObjectName, group: name };
+                nodes.set(prototypeObjectName, node);
+                objects.set(prototypeObject, prototypeObjectName);
+                data3.nodes.push(node);
+                data3.edges.push({ from: name, to: prototypeObjectName, dashes: false, arrows: 'to' });
+              }
+            }
+          }
+          catch (e) {
+
+          }
+        }
+        gObject = Object.getPrototypeOf(gObject);
+      }
+      gObject = g;
+      while (gObject) {
+        let descriptors = Object.getOwnPropertyDescriptors(gObject);
+        for (let rawName in descriptors) {
+          if (rawName === '__proto__') {
+            continue;
+          }
+          let name = _escapePlatformProperties.get(rawName) || rawName;
+          let object;
+          try {
+            object = gObject[rawName];
+            let __proto__ = Object.getPrototypeOf(object);
+            let protoName = objects.get(__proto__);
+            if (protoName) {
+              let edge = { from: name, to: protoName, dashes: true, arrows: 'to' };
+              data3.edges.push(edge);
+            }
+          }
+          catch (e) {
+
+          }
+        }
+        gObject = Object.getPrototypeOf(gObject);
+      }
+      g._data3 = data3;
+    }
+
+    Polymer({
+
+      is: 'my-view2',
+
+      behaviors: [ BehaviorsStore.I18nBehavior ],
+
+      attached: function() {
+        this._lastEdges = 0;
+        this.intervalId = setInterval(function() {
+          if (this.isSelected()) {
+            let _lastEdges = this.getData().edges.length;
+            let now = Date.now();
+            if (_lastEdges - this._lastEdges >= 1000
+              || (now - this._lastDraw >= 120000 && _lastEdges - this._lastEdges >= 100)
+              || this._lastEdges === 0) {
+              //console.log('drawGraph _lastEdges = ', _lastEdges, 'this._lastEdges = ', this._lastEdges, 'now - this._lastDraw = ', now - this._lastDraw);
+              this._lastEdges = _lastEdges;
+              this._lastDraw = now;
+              this.drawGraph();
+            }
+          }
+          else {
+            if (this._lastEdges > 0) {
+              //console.log('Reset');
+              this.network.setData({ nodes: [], edges: [] });
+              this.network.removeEventListener('stabilizationProgress', this.onProgressBindThis);
+              this.network.removeEventListener('stabilizationIterationsDone', this.onFinishBindThis);
+              this.progress = 0;
+              this._lastDraw = Date.now();
+              this._lastEdges = 0;
+            }
+          }
+        }.bind(this), 100);
+      },
+
+      detached: function() {
+        if (typeof this.intervalId !== 'undefined') {
+          clearInterval(this.intervalId);
+          this.intervalId = undefined;
+        }
+      },
+
+      isSelected: function() {
+        return this.classList.contains('iron-selected');
+      },
+
+      getData: function() {
+        return window._data3;
+      },
+
+      drawGraph: function() {
+        // create a network
+        let container = this.$.mynetwork;
+        let options = {
+          autoResize: true,
+          width: '100%',
+          height: '700px',
+          nodes: {
+            shape: 'dot',
+            size: 16
+          },
+          physics: {
+            forceAtlas2Based: {
+              gravitationalConstant: -26,
+              centralGravity: 0.005,
+              springLength: 230,
+              springConstant: 0.18
+            },
+            maxVelocity: 146,
+            solver: 'forceAtlas2Based',
+            timestep: 0.35,
+            stabilization: {
+              iterations: 150,
+              updateInterval: 1
+            }
+          },
+          layout: {
+            improvedLayout: false
+          }
+        };
+        this.network = new vis.Network(container, this.getData(), options);
+        this._lastEdges = this.getData().edges.length;
+        this.progress = 0;
+        this.network.addEventListener('stabilizationProgress', this.onProgressBindThis = this.onProgress.bind(this));
+        this.network.addEventListener('stabilizationIterationsDone', this.onFinishBindThis = this.onFinish.bind(this));
+      },
+
+      onProgress: function(e) {
+        this.progress = e.iterations;
+        if (this.$.progress.classList.contains('finished')) {
+          this.$.progress.classList.remove('finished');
+        }
+      },
+
+      onFinish: function(e) {
+        this.progress = 150;
+        this.$.progress.classList.add('finished');
+      }
+    });
+
+  </script>
+
+</dom-module>

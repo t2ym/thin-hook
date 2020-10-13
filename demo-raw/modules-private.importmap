@@ -1,0 +1,7 @@
+{
+  "imports": {
+    "module-name": "./modules/module-name/index.js",
+    "module-name/": "./modules/module-name/",
+    "module-name2": "./modules/module-name2/index.js"
+  }
+}

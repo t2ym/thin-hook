@@ -1,0 +1,573 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<!--
+@license https://github.com/t2ym/thin-hook/blob/master/LICENSE.md
+Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <!-- <script no-hook>
+    (function () {
+      // Native eval() function is bound to the local scope
+      let a = 2;
+      let b = eval('a + 3');
+      let c = eval('let d = 4; d + 2');
+      let e = eval('(function f(x) { return x + 3; })(c)');
+      let f = eval('if (e > 3) { c + 3; } else { b + 2; }');
+      console.log(a, b, c, e, f); // 2 5 6 9 9
+      chai.assert.deepEqual([a, b, c, e, f], [2, 5, 6, 9, 9], 'native eval results');
+    })();
+  </script> -->
+  <!-- <script no-hook>(function ff() { alert('invalid no-hook script that should not be executed'); })()</script> -->
+  <script src="../../chai/chai.js"></script>
+  <script src="https://www.gstatic.com/charts/loader.js"></script>
+  <!--
+  <script src="https://sindresorhus.com/devtools-detect/index.js"></script>
+  <script>
+    {
+      // Disable page inspection by forced transition to about:blank page
+      window.addEventListener('devtoolschange', function () {
+        // optionally clean up all the caches and the storages for the page before the transition
+        location = 'about:blank'; // Note: Called even when the Developer Tools pane is already opened on load
+      });
+      let div = document.createElement('div');
+      Object.defineProperty(div, 'id', {
+        get: function () {
+          // Optional actions before the forced transition
+          //  #1 Clean up all the caches and the storages for the page
+          //  #2 Unregister the running service worker
+          //  #3 Encrypt the application status and store it in the browser storage and decrypt it when the page is loaded later
+          //  etc.
+          location = 'about:blank';
+        },
+        set: function (value) {
+        },
+      });
+      console.log(div);
+      let clear = console.clear;
+      Object.defineProperty(console, 'clear', {
+        configurable: false,
+        writable: false,
+        enumerable: true,
+        value: function () {
+          clear.call(console);
+          console.log(div);
+        }
+      });
+    }
+  </script>
+  -->
+  <!--__BEGIN__-->
+  <script src="normalize.js"></script>
+  <script src="spread.js"></script>
+  <script src="generator.js"></script>
+  <script src="Function.js"></script>
+  <script src="lhs.js"></script>
+  <script>
+    {
+      setTimeout('console.log("callback script in string called")', 1000);
+      setTimeout(() => console.log("callback script called"), 1000);
+      window.__intervalId = setInterval('console.log("callback script in string called. intervalId = ", __intervalId); clearInterval(__intervalId)', 1000);
+    }
+    {
+      let script = document.createElement('script');
+      script.textContent = '(function setTextContent() { console.log("set textContent of HTMLScriptElement"); })()';
+      addEventListener('load', function onLoad(event) {
+        removeEventListener('load', onLoad);
+        document.body.appendChild(script);
+      });
+    }
+    {
+      let script = document.createElement('script');
+      script.text = '(function setTypeAttribute() { console.log("set type attribute of text/x-script"); })()';
+      script.setAttribute('type', 'text/x-script');
+      script.setAttribute('type', 'text/javascript');
+      addEventListener('load', function onLoad(event) {
+        removeEventListener('load', onLoad);
+        document.body.appendChild(script);
+      });
+    }
+    {
+      let script = document.createElement('script');
+      script.text = '(function setTypeProperty() { console.log("set type property of text/x-script"); })()';
+      script.type = 'text/xx-script';
+      script.type = 'text/javascript';
+      addEventListener('load', function onLoad(event) {
+        removeEventListener('load', onLoad);
+        document.body.appendChild(script);
+      });
+    }
+    {
+      let anchor = document.createElement('a');
+      anchor.setAttribute('href', '.');
+      anchor.setAttribute('href', 'javascript:console.log("set href attribute of anchor element")');
+      console.log('a.href = ' + anchor.getAttribute('href'));
+    }
+    {
+      let div = document.createElement('div');
+      div.setAttribute('onclick', 'console.log("set onclick attribute of div element", event.type)');
+      console.log('div.onclick = ' + div.getAttribute('onclick'));
+      addEventListener('load', function onLoad(event) {
+        removeEventListener('load', onLoad);
+        document.body.appendChild(div);
+        div.click();
+      });
+    }
+    {
+      let div = document.createElement('div');
+      chai.assert.throws(() => {
+        // apply ACL for HTMLDivElement, Element.innerHTML, and document.createElement('live-localizer'), then 'live-localizer'
+        div.innerHTML = '<live-localizer></live-localizer>';
+      }, /^Permission Denied:/);
+      chai.assert.throws(() => {
+        // apply ACL for HTMLDivElement, Element.innerHTML, and document.createElement('pre'), then HTMLPreElement
+        div.innerHTML = '<pre>text content</pre>';
+      }, /^Permission Denied:/);
+    }
+    {
+      let div = document.createElementNS('http://www.w3.org/1999/xhtml', 'live-localizer');
+      chai.assert.throws(() => {
+        // apply ACL for document.createElementNS('live-localizer'), then 'live-localizer'
+        document.createElementNS('http://www.w3.org/1999/xhtml', 'live-localizer');
+      }, /^Permission Denied:/);
+      chai.assert.throws(() => {
+        // apply ACL for document.createElementNS('pre'), then 'pre'
+        document.createElementNS('http://www.w3.org/1999/xhtml', 'pre');
+      }, /^Permission Denied:/);
+    }
+    {
+      // Fake hooked script vulnerability #1 - setAttribute('type')
+      addEventListener('load', function () {
+        let script = document.createElement('script');
+        script.setAttribute('type', 'text/plain');
+        script.textContent = `
+          chai.assert.throws(() => {
+            // __hook__
+            {
+              let c = caches;
+              console.log(c);
+            }
+          }, /^Permission Denied:/);`;
+        script.setAttribute('type', 'text/javascript');
+        document.head.appendChild(script);
+        setTimeout(() => {
+          let hookedTextContent = script.textContent;
+          script.textContent = hookedTextContent;
+          let reassignedTextContent = script.textContent;
+          chai.assert.equal(reassignedTextContent, hookedTextContent, 'Multiple textContent assignments do not affect the content');
+        }, 100);
+      });
+    }
+    {
+      // Fake hooked script vulnerability #2 - .type property
+      addEventListener('load', function () {
+        let script = document.createElement('script');
+        script.type = 'text/plain';
+        script.textContent = `
+          chai.assert.throws(() => {
+            // __hook__
+            {
+              let c = caches;
+              console.log(c);
+            }
+          }, /^Permission Denied:/);`;
+        script.type = 'text/javascript';
+        document.head.appendChild(script);
+        setTimeout(() => {
+          let hookedTextContent = script.textContent;
+          script.textContent = hookedTextContent;
+          let reassignedTextContent = script.textContent;
+          chai.assert.equal(reassignedTextContent, hookedTextContent, 'Multiple textContent assignments do not affect the content');
+        }, 100);
+      });
+    }
+    {
+      let anchor = document.createElement('a');
+      anchor.href = '.';
+      anchor.href = 'javascript:console.log("set href property of anchor element")';
+      console.log('a.href = ' + anchor.href);
+    }
+    {
+      let area = document.createElement('area');
+      area.href = '.';
+      area.href = 'javascript:console.log("set href property of area element")';
+      console.log('area.href = ' + area.href);
+    }
+    {
+      document.write('<sc' + 'ript>' + '(function write1() { console.log("script tag via document.write"); chai.assert.throws(() => { let c = caches; }, /^Permission Denied:/); })()' + '</sc' + 'ript>');
+      document.write('<sc' + 'ript src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js?cors=true"></sc' + 'ript>');
+      document.write('<sc' + 'ript no-hook>' + '(function write2() { console.log("no-hook script tag via document.write"); })()' + '</sc' + 'ript>');
+      document.write('<div><sc' + 'ript>' + '(function write3() { console.log("script tag in div tag via document.write"); chai.assert.throws(() => { let c = caches; }, /^Permission Denied:/); })()' + '</sc' + 'ript></div>');
+      document.write('<div><sc' + 'ript no-hook>' + '(function write4() { console.log("no-hook script tag in div tag via document.write"); })()' + '</sc' + 'ript></div>');
+      document.write('<div></div>');
+    }
+    {
+      document.writeln('<sc' + 'ript>' + '(function writeln1() { console.log("script tag via document.writeln"); chai.assert.throws(() => { let c = caches; }, /^Permission Denied:/); })()' + '</sc' + 'ript>');
+      document.writeln('<sc' + 'ript src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js?cors=true"></sc' + 'ript>');
+      document.writeln('<sc' + 'ript no-hook>' + '(function writeln2() { console.log("no-hook script tag via document.writeln"); })()' + '</sc' + 'ript>');
+      document.writeln('<div><sc' + 'ript>' + '(function writeln3() { console.log("script tag in div tag via document.writeln"); chai.assert.throws(() => { let c = caches; }, /^Permission Denied:/); })()' + '</sc' + 'ript></div>');
+      document.writeln('<div><sc' + 'ript no-hook>' + '(function writeln4() { console.log("no-hook script tag in div tag via document.writeln"); })()' + '</sc' + 'ript></div>');
+      document.writeln('<div></div>');
+    }
+    {
+      let a = 2;
+      let b = eval('a + 3');
+      let c = eval('let d = 4; d + 2');
+      let e = eval('(function f(x) { return x + 3; })(c)');
+      let f = eval('if (e > 3) { c + 3; } else { b + 2; }');
+      // Hooked eval() calls are bound to the local scope
+      console.log(a, b, c, e, f); // 2 5 6 9 9
+      chai.assert.deepEqual([a, b, c, e, f], [2, 5, 6, 9, 9], 'hooked eval results');
+      // invalid eval wrapper function should be detected
+      //eval('console.log("from hooked eval")', (script, e) => e('console.log("from native eval")'));
+    }
+    {
+      class S {
+        static sin(v) {
+          return Math.sin(v);
+        }
+      }
+      console.log(`
+        Math.sin(1) = ${Math.sin(1)}
+        S.sin(1) = ${S.sin(1)}
+        function f(1) = ${function f(v) { return S.sin(v); }(1)}
+        (v => S.sin(v))(1) = ${(v => S.sin(v))(1)}`);
+    }
+    {
+      function asyncFunc1() {
+        return new Promise(function promiseCallback1(resolve, reject) {
+          setTimeout(function timeoutFunc() { resolve(1) }, 1000);
+        }).then(function thenFunc1(value) {
+          console.log('thenFunc1', value);
+          return Promise.resolve(2);
+        }).then(function thenFunc2(value) {
+          console.log('thenFunc2', value);
+          return 3;
+        });
+      }
+      async function asyncFunc2() {
+        let result = await asyncFunc1();
+        console.log('asyncFunc1', result);
+        chai.assert.equal(result, 3, 'asyncFunc1 aynchronously returns 3');
+        return result;
+      }
+      function asyncFunc3() {
+        return new Promise(function promiseCallback2(resolve, reject) {
+          setTimeout(function timeoutFunc2() { resolve(4) }, 500);
+        });
+      }
+      function callPromiseAll() {
+        return Promise.all([asyncFunc2(), asyncFunc3()]);
+      }
+      callPromiseAll().then(function thenFunc3(values) {
+        console.log('thenFunc3', values)
+        chai.assert.deepEqual(values, [ 3, 4 ], 'Promise.all([asyncFunc2(), asyncFunc3()]) resolves to [ 3, 4 ]');
+      });
+    }
+    {
+      function f() {
+        let d = new Date(2017, 7);
+      }
+    }
+    {
+      class A extends Array {
+        constructor(...args) {
+          super(...args);
+        }
+        static isArray(target) {
+          let result = super.isArray(target);
+          return result;
+        }
+        map(...args) {
+          let result = super.map(...args);
+          return result;
+        }
+        static get sprop() {
+          return 'value of A.sprop';
+        }
+        get prop() {
+          return 'value of A.prop';
+        }
+        get nprop() {
+          return this._nprop;
+        }
+        set nprop(value) {
+          this._nprop = value;
+        }
+      }
+      class AA extends A {
+        constructor(...args) {
+          super(...args);
+        }
+        static isArray(target) {
+          let result = super.isArray(target);
+          return result;
+        }
+        map(...args) {
+          let result = super.map(...args);
+          return result;
+        }
+        static get sprop() {
+          return super.sprop + ' via AA';
+        }
+        get prop() {
+          return super.prop + ' via AA';
+        }
+        check() {
+          let result = [];
+          super.nprop = 1;
+          result.push(super.nprop); // 1
+          super.nprop += 1;
+          result.push(super.nprop); // 2
+          super.nprop++;
+          result.push(super.nprop); // 3
+          return result;
+        }
+      }
+      let aa = new AA(1, 2, 3);
+      chai.assert.isOk(AA.isArray(aa), 'new AA() is Array');
+      chai.assert.isOk(aa instanceof Array, 'new AA() is an instanceof Array');
+      chai.assert.isOk(aa instanceof A, 'new AA() is an instanceof class A');
+      chai.assert.isOk(aa instanceof AA, 'new AA() is an instanceof class AA');
+      chai.assert.deepEqual(aa.map(item => item + 3), [4,5,6], '(new AA()).map() works');
+      chai.assert.equal(AA.sprop, 'value of A.sprop via AA', 'get super.sprop');
+      chai.assert.equal(aa.prop, 'value of A.prop via AA', 'get super.prop');
+      chai.assert.deepEqual(aa.check(), [1,2,3], 'operations on super.nprop are fine');
+    }
+    {
+      let baseObject = {
+        method(x, y) {
+          return x + y;
+        }
+      };
+      let subObject = {
+        method(x, y) {
+          return super.method(x, y) * 2;
+        }
+      };
+      Object.setPrototypeOf(subObject, baseObject);
+      chai.assert.equal(subObject.method(2, 3), 10, 'subObject.method(2, 3) = 10');
+    }
+  </script>
+  <script>
+    var gvv, gvv1, gvv2;
+    gvv;
+    gvv1, gvv2;
+    var gv0, [gv00] = [ 0 ];
+    var [ga, ...gb] = [3, 4, 5];
+    let [ga1, ...[gb1, gb2]] = [3, 4, 5];
+    chai.assert.deepEqual(
+      [gvv, gvv1, gvv2, gv0, gv00, ga, gb, ga1, gb1, gb2],
+      [undefined, undefined, undefined, undefined, 0, 3, [4,5], 3, 4, 5], 'gvv, gvv1, gvv2, gv0, gv00, ga, gb, ga1, gb1, gb2 have expected values');
+    gv0;
+    var gv = 1;
+    var [ gv2, gv3 ] = [ 9, 10 ];
+    gv4 = gv;
+    gv2++;
+    var { x: xx, z: { u: uu, v: vv }, q } = { x: 11, z: { u: 12, v: 13 }, q: 14 };
+    function gf() { var local1 = 1; let local2 = 2; }
+    let gl = 2;
+    const gc = 3;
+    chai.assert.deepEqual(
+      [gv, gv2, gv3, gv4, xx, uu, vv, q, gl, gc],
+      [1, 10, 10, 1, 11, 12, 13, 14, 2, 3], 'gv, gv2, gv3, gv4, xx, uu, vv, q, gl, gc have expected values');
+    class gC2 {}
+    class gC4 {}
+    class gC extends gC2 {}
+    var gC3 = class gC3 extends gC4 {};
+    new gC(gl, gv);
+    addEventListener('load', function onloadHandler (event) {});
+    onload = function onloadHandler () {};
+    chai.assert.equal(typeof gC, 'function', 'typeof gC is function');
+    chai.assert.equal(gC.name, 'gC', 'name of gC is gC');
+    chai.assert.equal(typeof gC2, 'function', 'typeof gC2 is function');
+    chai.assert.equal(gC2.name, 'gC2', 'name of gC2 is gC2');
+    chai.assert.equal(typeof gC3, 'function', 'typeof gC3 is function');
+    chai.assert.equal(gC3.name, 'gC3', 'name of gC3 is gC3');
+    chai.assert.equal(typeof gC4, 'function', 'typeof gC4 is function');
+    chai.assert.equal(gC4.name, 'gC4', 'name of gC4 is gC4');
+    chai.assert.isOk((new gC()) instanceof gC2, 'new gC() is an instance of gC2');
+    chai.assert.isOk((new gC3()) instanceof gC4, 'new gC3() is an instance of gC4');
+    {
+      let lf = (arg1, arg2 = gv2, [arg3, arg4 = gv4], { p0, p1: arg5, p2: arg6 = gv2, p3: { p4: arg7 = gl }}) => {
+        chai.assert(
+          [arg1, arg2, arg3, arg4, p0, arg5, arg6, arg7],
+          [1, 2, 3, 1, 'p0', 5, 10, 7], 'arguments arg1, arg2, arg3, arg4, p0, arg5, arg6, arg7 have expected values');
+      };
+      lf(1,2,[3],{p0:'p0',p1:5,p3: {p4:7}});
+    }
+    const v2 = 'v2', v4 = 'v4';
+    async function gfunc (a1, a2 = gv2) {
+      let l1, l2 = 1, [ l3, [ l4 ] ] = [ 3, [ 4 ] ];
+      [ gv2, l1, [ gv3, l2 ] ] = [ 2, 1, [ 3, 2 ]];
+      ({ v1: gv2, v2: l3, p: { v3: gv3, v4: l4 } } = { v1: gv2, [v2]: l3, p: { v3: gv3, [v4]: l4} });
+      gv3++;
+      ++gv3;
+      gv3--;
+      --gv3;
+      l2++;
+      gv3 = l2;
+      l2 = gv3;
+      [ l1 = l2, gv = l2, gv2 = gv3, l3 = gv3 ] = [ gv, l1, gv2, l2 ];
+      gv0;
+      l1 = Promise.resolve(1);
+      gv0 = Promise.resolve(0);
+      let l12 = await l1;
+      let l5 = await gv0;
+      chai.assert(
+        [a1, a2, l1, l2, l3, l4, gv2, gv3, v2, v4, gv0, l12, l5],
+        [1, 10, 1, 2, 3, 4, 3, 2, 'v2', 'v4', undefined, 1, 0], 'l1, l2, l3, l4, gv2, gv3, v2, v4, gv0, l12, l5 have expected values');
+      gv = l1 + l2;
+      gv2 = l2 + gv2 + l3 - gv3;
+      let lC1 = class lC1 extends gC3 {};
+      class lC2 extends gC3 {}
+      class lC3 {};
+      let lC4 = class lC4 {};
+      class lC5 extends lC4 {}
+      let lC6 = class lC6 extends lC5 {};
+      l1 = l2 ? l3 : l4;
+      gv = gv0 ? gv2 : gv3;
+      l1 = gv0 ? l2 : gv3;
+      do {
+        let ll1;
+        gv--;
+      }
+      while (gv);
+      do {
+        let ll2;
+        ll1 = 1; // global assignment
+      }
+      while (ll1 === gv);
+      return gv;
+    }
+    gfunc(1).then((result) => {
+      console.log('gfunc done');
+      chai.assert.equal(result, 0, 'async gfunc returns 0');
+      chai.assert.equal(ll1, 1, 'global ll1 is 1');
+    });
+    chai.assert.equal(typeof gfunc, 'function', 'typeof gfunc is function');
+    const globalConstant = 'constant value';
+    let globalVariable = 'value';
+    class globalClass {}
+    try {
+      globalConstant = 'override constant value';
+    }
+    catch (e) {
+      // "Assignment to constant variable" is not thrown in the emulated environment
+    }
+    finally {
+      chai.assert.equal(globalConstant, 'constant value', 'global constant value is unchanged');
+    }
+    chai.assert.equal(Object.getPrototypeOf(new globalClass()).constructor.name, 'globalClass', 'global class can be instantiated');
+    globalVariable = 'new value';
+    chai.assert.equal(globalVariable, 'new value', 'global variable is changed');
+    chai.assert.throws(() => {
+      caches.keys().then(keys => console.log(keys));
+    }, /^Permission Denied:/);
+    chai.assert.throws(() => {
+      let c = caches;
+    }, /^Permission Denied:/);
+  </script>
+  <script type="module" src="es6-module2.js"></script>
+  <script type="module" src="es6-module3.js"></script>
+  <script type="module" src="es6-module4.js"></script>
+  <!--__END__-->
+  <script type="module" src="modules/module1.js"></script>
+  <!--__BEGIN__-->
+  <!-- <script type="module" src="rollup-module1.js?no-hook=true"></script> --><!-- conflicts with modules/module1.js; only one of the two modules can be imported at a time -->
+  <script type="module" src="rollup-es6-module.js?no-hook=true"></script>
+  <script src="webpack-es6-module.js?no-hook=true"></script>
+  <script src="browserify-commonjs.js?no-hook=true"></script>
+  <script src="webpack-commonjs.js?no-hook=true"></script>
+  <!--__END__-->
+  <!--<script no-hook>
+    {
+      window.a = 9;
+      window.b = 7;
+      window.c = 12;
+      window.e = 19;
+      let a = 2;
+      let b = eval('a + 3');
+      let c = eval('var d = 4; d + 2');
+      let e = eval('(function f(x) { return x + 3; })(c)');
+      let f = eval('if (e > 3) { c + 3; } else { b + 2; }');
+      // hooked window.eval() in a no-hook script is bound to the global scope, not to the local one
+      console.log(a, b, c, e, f); // 2 12 6 15 15
+      chai.assert.deepEqual([a, b, c, e, f], [2, 12, 6, 15, 15], 'hooked eval results');
+    }
+  </script>-->
+  <!--__BEGIN__-->
+  <script src="web-worker-client.js"></script>
+  <script src="shared-worker-client.js"></script>
+  <script src="web-worker-module-client.js"></script>
+  <script src="global.js"></script>
+  <!--__END__-->
+  <!-- CORS scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jsSHA/2.2.0/sha.js?cors=true"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.js?cors=true&no-hook=true"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.css" rel="stylesheet" type="text/css" />
+
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+  <title>thin-hook Demo</title>
+
+  <meta name="theme-color" content="#fff">
+
+  <!--__BEGIN__--> <link rel="import" href="../../live-localizer/live-localizer-lazy.html"> <!--__END__-->
+  <link rel="import" href="my-app.html">
+
+  <style>
+
+    body {
+      margin: 0;
+      font-family: 'Roboto', 'Noto', sans-serif;
+      line-height: 1.5;
+      min-height: 100vh;
+      background-color: #eee;
+    }
+
+  </style>
+
+</head>
+<body>
+
+  <my-app></my-app>
+
+  <live-localizer>
+    <!--
+      Firebase storage for Live Localizer
+
+      Minimum ad-hoc security rules for Firebase storage (to be updated for role-based security and user management):
+
+      // Each user can access one's own data only.
+      {
+        "rules": {
+          "users": {
+            "$uid": {
+              ".read": "$uid === auth.uid",
+              ".write": "$uid === auth.uid"
+            }
+          }
+        }
+      }
+    -->
+    <live-localizer-firebase-storage id="firebase-storage" class="storage cloud"
+      auth-provider="google"
+      auth-domain="live-localizer-demo.firebaseapp.com"
+      database-url="https://live-localizer-demo.firebaseio.com"
+      api-key="AIzaSyCjrlPhl0cLSZVRsDvuajq16vkerhcu_UM">
+    </live-localizer-firebase-storage>
+  </live-localizer>
+</body>
+</html>

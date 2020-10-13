@@ -1,0 +1,1 @@
+onmessage = hook.hookWorkerHandler; // customizable

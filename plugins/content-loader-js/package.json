@@ -1,0 +1,27 @@
+{
+  "name": "@thin-hook/content-loader-js",
+  "version": "0.0.0",
+  "description": "thin-hook plugin to inject content-loader.js",
+  "main": "configurator.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/t2ym/thin-hook.git"
+  },
+  "keywords": [
+    "thin-hook",
+    "plugin"
+  ],
+  "author": "Tetsuya Mori <t2y3141592@gmail.com>",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/t2ym/thin-hook/issues"
+  },
+  "homepage": "https://github.com/t2ym/thin-hook#readme",
+  "dependencies": {
+    "gulp-rename": "*",
+    "through2": "*"
+  }
+}
