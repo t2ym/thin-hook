@@ -32,7 +32,7 @@ const configurator = function (targetConfig) {
   
     return this.gulp.src(require(path.resolve(configPath, 'targets.js')).targets.call(this, this, blocked))
       .pipe(through.obj((file, enc, callback) => {
-        file.path = path.resolve(this.path.base, this.path.frontend, this.mapper(this.url.mappings, file.path).substring(1));
+        file.path = path.resolve(this.path.base, this.path.frontend, this.mapper(this.url.mappings, file.path).replace(/^\//, ''));
         file.base = path.resolve(this.path.base, this.path.frontend);
         callback(null, file);
       }))
