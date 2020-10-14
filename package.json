@@ -139,7 +139,7 @@
     "rollup-plugin-browserify-transform": "^1.0.1",
     "scenarist": "^1.1.8",
     "selenium-standalone": "^6.15.3",
-    "target-configurator": "^0.1.7",
+    "target-configurator": "^0.1.10",
     "target-injector": "file:plugins/target-injector",
     "through2": "^2.0.3",
     "transform-loader": "^0.2.4",
