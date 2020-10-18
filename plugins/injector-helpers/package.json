@@ -28,6 +28,7 @@
     "estraverse": "*",
     "htmlparser2": "*",
     "sha.js": "*",
+    "target-injector": "^0.1.0",
     "toposort": "^2.0.2"
   }
 }
