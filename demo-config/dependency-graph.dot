@@ -1148,7 +1148,7 @@ digraph dependencies {
   "lib/preprocess.js" -> "@thin-hook/build"
   "lib/service-worker.js"[color="0.408 0.498 1.000",tooltip="lib/service-worker.js\n-> @thin-hook/build\n-> @thin-hook/build-instrument"]
   "lib/service-worker.js" -> "@thin-hook/build"
-  "node_modules/*"[color="0.408 0.498 1.000",tooltip="node_modules/*\n-> @thin-hook/build\n-> @thin-hook/build-coverage\n-> @thin-hook/build-test-html\n-> bundle-browserify\n-> bundle-rollup\n-> bundle-webpack\n-> bundler-helpers\n-> clean-gzip-json\n-> entry-page\n-> generate-cert-sh\n-> generate-import-maps\n-> hook-min-js\n-> injector-helpers"]
+  "node_modules/*"[color="0.408 0.498 1.000",tooltip="node_modules/*\n-> @thin-hook/build\n-> @thin-hook/build-coverage\n-> @thin-hook/build-test-html\n-> bundle-browserify\n-> bundle-rollup\n-> bundle-webpack\n-> bundler-helpers\n-> clean-gzip-json\n-> entry-page\n-> generate-cert-sh\n-> generate-import-maps\n-> hook-min-js\n-> injector-helpers\n-> keys"]
   "node_modules/*" -> "@thin-hook/build"
   "package.json"[color="0.408 0.498 1.000",tooltip="package.json\n-> @thin-hook/build\n-> @thin-hook/build-coverage\n-> bundle-browserify\n-> bundle-webpack"]
   "package.json" -> "@thin-hook/build"
@@ -1240,7 +1240,7 @@ digraph dependencies {
   "@thin-hook/build-instrument" -> "this[@thin-hook/build-instrument].done"[color="0.002 0.999 0.999"]
 
   "@thin-hook/build-coverage"[color="0.590 0.273 1.000",tooltip="@thin-hook/build-coverage\n-> test/hook.min.js\n-> this[@thin-hook/build-coverage].dependencies\n-> this[@thin-hook/build-coverage].done\n<- node_modules/*\n<- package.json\n<- plugins/build-coverage/configurator.js\n<- test/coverage/hook.js\n<- test/coverage/lib/context-generator.js\n<- test/coverage/lib/hook-callback.js\n<- test/coverage/lib/native-wrapper.js\n<- test/coverage/lib/preprocess.js\n<- test/coverage/lib/service-worker.js\n<- this._in_TargetConfig_task\n<- this.gulp.dest\n<- this.gulp.series\n<- this.gulp.task\n<- this.path.base\n<- this.path.hook\n<- this.path.plugins\n<- this.path.test"]
-  "node_modules/*"[color="0.408 0.498 1.000",tooltip="node_modules/*\n-> @thin-hook/build\n-> @thin-hook/build-coverage\n-> @thin-hook/build-test-html\n-> bundle-browserify\n-> bundle-rollup\n-> bundle-webpack\n-> bundler-helpers\n-> clean-gzip-json\n-> entry-page\n-> generate-cert-sh\n-> generate-import-maps\n-> hook-min-js\n-> injector-helpers"]
+  "node_modules/*"[color="0.408 0.498 1.000",tooltip="node_modules/*\n-> @thin-hook/build\n-> @thin-hook/build-coverage\n-> @thin-hook/build-test-html\n-> bundle-browserify\n-> bundle-rollup\n-> bundle-webpack\n-> bundler-helpers\n-> clean-gzip-json\n-> entry-page\n-> generate-cert-sh\n-> generate-import-maps\n-> hook-min-js\n-> injector-helpers\n-> keys"]
   "node_modules/*" -> "@thin-hook/build-coverage"
   "package.json"[color="0.408 0.498 1.000",tooltip="package.json\n-> @thin-hook/build\n-> @thin-hook/build-coverage\n-> bundle-browserify\n-> bundle-webpack"]
   "package.json" -> "@thin-hook/build-coverage"
@@ -1282,7 +1282,7 @@ digraph dependencies {
   "@thin-hook/build-coverage" -> "this[@thin-hook/build-coverage].done"[color="0.002 0.999 0.999"]
 
   "@thin-hook/build-test-html"[color="0.590 0.273 1.000",tooltip="@thin-hook/build-test-html\n-> test/basic/basic-test.html\n-> test/basic/reset-test.html\n-> this[@thin-hook/build-test-html].dependencies\n-> this[@thin-hook/build-test-html].done\n<- node_modules/*\n<- plugins/build-test-html/configurator.js\n<- test/basic/basic-test-original.html\n<- test/basic/reset-test-original.html\n<- this._in_TargetConfig_task\n<- this.gulp.dest\n<- this.gulp.series\n<- this.gulp.src\n<- this.gulp.task\n<- this.path.base\n<- this.path.hook\n<- this.path.plugins\n<- this.path.test\n<- this.thin-hook.hook.serviceWorkerTransformers"]
-  "node_modules/*"[color="0.408 0.498 1.000",tooltip="node_modules/*\n-> @thin-hook/build\n-> @thin-hook/build-coverage\n-> @thin-hook/build-test-html\n-> bundle-browserify\n-> bundle-rollup\n-> bundle-webpack\n-> bundler-helpers\n-> clean-gzip-json\n-> entry-page\n-> generate-cert-sh\n-> generate-import-maps\n-> hook-min-js\n-> injector-helpers"]
+  "node_modules/*"[color="0.408 0.498 1.000",tooltip="node_modules/*\n-> @thin-hook/build\n-> @thin-hook/build-coverage\n-> @thin-hook/build-test-html\n-> bundle-browserify\n-> bundle-rollup\n-> bundle-webpack\n-> bundler-helpers\n-> clean-gzip-json\n-> entry-page\n-> generate-cert-sh\n-> generate-import-maps\n-> hook-min-js\n-> injector-helpers\n-> keys"]
   "node_modules/*" -> "@thin-hook/build-test-html"
   "plugins/build-test-html/configurator.js"[color="0.408 0.498 1.000",tooltip="plugins/build-test-html/configurator.js\n-> @thin-hook/build-test-html"]
   "plugins/build-test-html/configurator.js" -> "@thin-hook/build-test-html"
@@ -1910,7 +1910,7 @@ digraph dependencies {
   "@thin-hook/demo-gulpfile-js" -> "this[@thin-hook/demo-gulpfile-js].done"[color="0.002 0.999 0.999"]
 
   "clean-gzip-json"[color="0.590 0.273 1.000",tooltip="clean-gzip-json\n-> this.clean-gzip-json.dependencies\n-> this.clean-gzip-json.done\n<- node_modules/*\n<- plugins/clean-gzip-json/configurator.js\n<- this._in_TargetConfig_task\n<- this.gulp.series\n<- this.gulp.task\n<- this.path.base\n<- this.path.plugins\n<- this.path.root"]
-  "node_modules/*"[color="0.408 0.498 1.000",tooltip="node_modules/*\n-> @thin-hook/build\n-> @thin-hook/build-coverage\n-> @thin-hook/build-test-html\n-> bundle-browserify\n-> bundle-rollup\n-> bundle-webpack\n-> bundler-helpers\n-> clean-gzip-json\n-> entry-page\n-> generate-cert-sh\n-> generate-import-maps\n-> hook-min-js\n-> injector-helpers"]
+  "node_modules/*"[color="0.408 0.498 1.000",tooltip="node_modules/*\n-> @thin-hook/build\n-> @thin-hook/build-coverage\n-> @thin-hook/build-test-html\n-> bundle-browserify\n-> bundle-rollup\n-> bundle-webpack\n-> bundler-helpers\n-> clean-gzip-json\n-> entry-page\n-> generate-cert-sh\n-> generate-import-maps\n-> hook-min-js\n-> injector-helpers\n-> keys"]
   "node_modules/*" -> "clean-gzip-json"
   "plugins/clean-gzip-json/configurator.js"[color="0.408 0.498 1.000",tooltip="plugins/clean-gzip-json/configurator.js\n-> clean-gzip-json"]
   "plugins/clean-gzip-json/configurator.js" -> "clean-gzip-json"
@@ -1958,7 +1958,7 @@ digraph dependencies {
   "generate-cert-sh"[color="0.590 0.273 1.000",tooltip="generate-cert-sh\n-> demo-keys/generate_cert.sh\n-> this.generate-cert-sh.dependencies\n-> this.generate-cert-sh.done\n<- node_modules/*\n<- plugins/generate-cert-sh/configurator.js\n<- plugins/generate-cert-sh/generate_cert.sh\n<- this._in_TargetConfig_task\n<- this.certificates.CA\n<- this.certificates.DN.CN\n<- this.certificates.DN.OU\n<- this.certificates.DN.ST\n<- this.certificates.generateCertSh\n<- this.gulp.dest\n<- this.gulp.series\n<- this.gulp.src\n<- this.gulp.task\n<- this.path.base\n<- this.path.config\n<- this.path.keys\n<- this.path.plugins"]
   "demo-keys/generate_cert.sh"[color="0.408 0.498 1.000",tooltip="demo-keys/generate_cert.sh\n<- generate-cert-sh"]
   "generate-cert-sh" -> "demo-keys/generate_cert.sh"[color="0.002 0.999 0.999"]
-  "node_modules/*"[color="0.408 0.498 1.000",tooltip="node_modules/*\n-> @thin-hook/build\n-> @thin-hook/build-coverage\n-> @thin-hook/build-test-html\n-> bundle-browserify\n-> bundle-rollup\n-> bundle-webpack\n-> bundler-helpers\n-> clean-gzip-json\n-> entry-page\n-> generate-cert-sh\n-> generate-import-maps\n-> hook-min-js\n-> injector-helpers"]
+  "node_modules/*"[color="0.408 0.498 1.000",tooltip="node_modules/*\n-> @thin-hook/build\n-> @thin-hook/build-coverage\n-> @thin-hook/build-test-html\n-> bundle-browserify\n-> bundle-rollup\n-> bundle-webpack\n-> bundler-helpers\n-> clean-gzip-json\n-> entry-page\n-> generate-cert-sh\n-> generate-import-maps\n-> hook-min-js\n-> injector-helpers\n-> keys"]
   "node_modules/*" -> "generate-cert-sh"
   "plugins/generate-cert-sh/configurator.js"[color="0.408 0.498 1.000",tooltip="plugins/generate-cert-sh/configurator.js\n-> generate-cert-sh"]
   "plugins/generate-cert-sh/configurator.js" -> "generate-cert-sh"
@@ -2023,97 +2023,11 @@ digraph dependencies {
   "this.validationService.host"[tooltip="this.validationService.host\n-> certificates\n<- init:validationService"]
   "this.validationService.host" -> "certificates"
 
-  "keys"[color="0.590 0.273 1.000",tooltip="keys\n-> this.keys.AES_GCM.ivLength\n-> this.keys.AES_GCM.keyLength\n-> this.keys.AES_GCM.sessionIdIvName\n-> this.keys.AES_GCM.sessionIdKeyName\n-> this.keys.AES_GCM.tagLength\n-> this.keys.dependencies.length\n-> this.keys.dependencies[0]\n-> this.keys.done\n-> this.keys.ECDSA.privateKeyName\n-> this.keys.ECDSA.publicKeyName\n-> this.keys.keysJSONPath\n-> this.keys.keysPath\n-> this.keys.RSA.keyBits\n-> this.keys.RSA.keyBytes\n-> this.keys.RSA.keyPairE\n-> this.keys.RSA.privateKeyName\n-> this.keys.RSA.publicKeyName\n-> this.keys.SHA256.hashBits\n-> this.keys.SHA256.hashBytes\n-> this.keys.SHA256.hashName\n<- plugins/keys/configurator.js\n<- plugins/keys/node_modules/node-forge/lib/aes.js\n<- plugins/keys/node_modules/node-forge/lib/aesCipherSuites.js\n<- plugins/keys/node_modules/node-forge/lib/asn1-validator.js\n<- plugins/keys/node_modules/node-forge/lib/asn1.js\n<- plugins/keys/node_modules/node-forge/lib/baseN.js\n<- plugins/keys/node_modules/node-forge/lib/cipher.js\n<- plugins/keys/node_modules/node-forge/lib/cipherModes.js\n<- plugins/keys/node_modules/node-forge/lib/debug.js\n<- plugins/keys/node_modules/node-forge/lib/des.js\n<- plugins/keys/node_modules/node-forge/lib/ed25519.js\n<- plugins/keys/node_modules/node-forge/lib/forge.js\n<- plugins/keys/node_modules/node-forge/lib/hmac.js\n<- plugins/keys/node_modules/node-forge/lib/index.js\n<- plugins/keys/node_modules/node-forge/lib/jsbn.js\n<- plugins/keys/node_modules/node-forge/lib/kem.js\n<- plugins/keys/node_modules/node-forge/lib/log.js\n<- plugins/keys/node_modules/node-forge/lib/md.all.js\n<- plugins/keys/node_modules/node-forge/lib/md.js\n<- plugins/keys/node_modules/node-forge/lib/md5.js\n<- plugins/keys/node_modules/node-forge/lib/mgf.js\n<- plugins/keys/node_modules/node-forge/lib/mgf1.js\n<- plugins/keys/node_modules/node-forge/lib/oids.js\n<- plugins/keys/node_modules/node-forge/lib/pbe.js\n<- plugins/keys/node_modules/node-forge/lib/pbkdf2.js\n<- plugins/keys/node_modules/node-forge/lib/pem.js\n<- plugins/keys/node_modules/node-forge/lib/pkcs1.js\n<- plugins/keys/node_modules/node-forge/lib/pkcs12.js\n<- plugins/keys/node_modules/node-forge/lib/pkcs7.js\n<- plugins/keys/node_modules/node-forge/lib/pkcs7asn1.js\n<- plugins/keys/node_modules/node-forge/lib/pki.js\n<- plugins/keys/node_modules/node-forge/lib/prime.js\n<- plugins/keys/node_modules/node-forge/lib/prng.js\n<- plugins/keys/node_modules/node-forge/lib/pss.js\n<- plugins/keys/node_modules/node-forge/lib/random.js\n<- plugins/keys/node_modules/node-forge/lib/rc2.js\n<- plugins/keys/node_modules/node-forge/lib/rsa.js\n<- plugins/keys/node_modules/node-forge/lib/sha1.js\n<- plugins/keys/node_modules/node-forge/lib/sha256.js\n<- plugins/keys/node_modules/node-forge/lib/sha512.js\n<- plugins/keys/node_modules/node-forge/lib/ssh.js\n<- plugins/keys/node_modules/node-forge/lib/task.js\n<- plugins/keys/node_modules/node-forge/lib/tls.js\n<- plugins/keys/node_modules/node-forge/lib/util.js\n<- plugins/keys/node_modules/node-forge/lib/x509.js\n<- this._in_TargetConfig_task\n<- this.get-version.version\n<- this.gulp.series\n<- this.gulp.task\n<- this.keys.noUpdate\n<- this.path.base\n<- this.path.config\n<- this.path.keys\n<- this.path.plugins"]
+  "keys"[color="0.590 0.273 1.000",tooltip="keys\n-> this.keys.AES_GCM.ivLength\n-> this.keys.AES_GCM.keyLength\n-> this.keys.AES_GCM.sessionIdIvName\n-> this.keys.AES_GCM.sessionIdKeyName\n-> this.keys.AES_GCM.tagLength\n-> this.keys.dependencies.length\n-> this.keys.dependencies[0]\n-> this.keys.done\n-> this.keys.ECDSA.privateKeyName\n-> this.keys.ECDSA.publicKeyName\n-> this.keys.keysJSONPath\n-> this.keys.keysPath\n-> this.keys.RSA.keyBits\n-> this.keys.RSA.keyBytes\n-> this.keys.RSA.keyPairE\n-> this.keys.RSA.privateKeyName\n-> this.keys.RSA.publicKeyName\n-> this.keys.SHA256.hashBits\n-> this.keys.SHA256.hashBytes\n-> this.keys.SHA256.hashName\n<- node_modules/*\n<- plugins/keys/configurator.js\n<- this._in_TargetConfig_task\n<- this.get-version.version\n<- this.gulp.series\n<- this.gulp.task\n<- this.keys.noUpdate\n<- this.path.base\n<- this.path.config\n<- this.path.keys\n<- this.path.plugins"]
+  "node_modules/*"[color="0.408 0.498 1.000",tooltip="node_modules/*\n-> @thin-hook/build\n-> @thin-hook/build-coverage\n-> @thin-hook/build-test-html\n-> bundle-browserify\n-> bundle-rollup\n-> bundle-webpack\n-> bundler-helpers\n-> clean-gzip-json\n-> entry-page\n-> generate-cert-sh\n-> generate-import-maps\n-> hook-min-js\n-> injector-helpers\n-> keys"]
+  "node_modules/*" -> "keys"
   "plugins/keys/configurator.js"[color="0.408 0.498 1.000",tooltip="plugins/keys/configurator.js\n-> keys"]
   "plugins/keys/configurator.js" -> "keys"
-  "plugins/keys/node_modules/node-forge/lib/aes.js"[color="0.408 0.498 1.000",tooltip="plugins/keys/node_modules/node-forge/lib/aes.js\n-> keys"]
-  "plugins/keys/node_modules/node-forge/lib/aes.js" -> "keys"
-  "plugins/keys/node_modules/node-forge/lib/aesCipherSuites.js"[color="0.408 0.498 1.000",tooltip="plugins/keys/node_modules/node-forge/lib/aesCipherSuites.js\n-> keys"]
-  "plugins/keys/node_modules/node-forge/lib/aesCipherSuites.js" -> "keys"
-  "plugins/keys/node_modules/node-forge/lib/asn1-validator.js"[color="0.408 0.498 1.000",tooltip="plugins/keys/node_modules/node-forge/lib/asn1-validator.js\n-> keys"]
-  "plugins/keys/node_modules/node-forge/lib/asn1-validator.js" -> "keys"
-  "plugins/keys/node_modules/node-forge/lib/asn1.js"[color="0.408 0.498 1.000",tooltip="plugins/keys/node_modules/node-forge/lib/asn1.js\n-> keys"]
-  "plugins/keys/node_modules/node-forge/lib/asn1.js" -> "keys"
-  "plugins/keys/node_modules/node-forge/lib/baseN.js"[color="0.408 0.498 1.000",tooltip="plugins/keys/node_modules/node-forge/lib/baseN.js\n-> keys"]
-  "plugins/keys/node_modules/node-forge/lib/baseN.js" -> "keys"
-  "plugins/keys/node_modules/node-forge/lib/cipher.js"[color="0.408 0.498 1.000",tooltip="plugins/keys/node_modules/node-forge/lib/cipher.js\n-> keys"]
-  "plugins/keys/node_modules/node-forge/lib/cipher.js" -> "keys"
-  "plugins/keys/node_modules/node-forge/lib/cipherModes.js"[color="0.408 0.498 1.000",tooltip="plugins/keys/node_modules/node-forge/lib/cipherModes.js\n-> keys"]
-  "plugins/keys/node_modules/node-forge/lib/cipherModes.js" -> "keys"
-  "plugins/keys/node_modules/node-forge/lib/debug.js"[color="0.408 0.498 1.000",tooltip="plugins/keys/node_modules/node-forge/lib/debug.js\n-> keys"]
-  "plugins/keys/node_modules/node-forge/lib/debug.js" -> "keys"
-  "plugins/keys/node_modules/node-forge/lib/des.js"[color="0.408 0.498 1.000",tooltip="plugins/keys/node_modules/node-forge/lib/des.js\n-> keys"]
-  "plugins/keys/node_modules/node-forge/lib/des.js" -> "keys"
-  "plugins/keys/node_modules/node-forge/lib/ed25519.js"[color="0.408 0.498 1.000",tooltip="plugins/keys/node_modules/node-forge/lib/ed25519.js\n-> keys"]
-  "plugins/keys/node_modules/node-forge/lib/ed25519.js" -> "keys"
-  "plugins/keys/node_modules/node-forge/lib/forge.js"[color="0.408 0.498 1.000",tooltip="plugins/keys/node_modules/node-forge/lib/forge.js\n-> keys"]
-  "plugins/keys/node_modules/node-forge/lib/forge.js" -> "keys"
-  "plugins/keys/node_modules/node-forge/lib/hmac.js"[color="0.408 0.498 1.000",tooltip="plugins/keys/node_modules/node-forge/lib/hmac.js\n-> keys"]
-  "plugins/keys/node_modules/node-forge/lib/hmac.js" -> "keys"
-  "plugins/keys/node_modules/node-forge/lib/index.js"[color="0.408 0.498 1.000",tooltip="plugins/keys/node_modules/node-forge/lib/index.js\n-> keys"]
-  "plugins/keys/node_modules/node-forge/lib/index.js" -> "keys"
-  "plugins/keys/node_modules/node-forge/lib/jsbn.js"[color="0.408 0.498 1.000",tooltip="plugins/keys/node_modules/node-forge/lib/jsbn.js\n-> keys"]
-  "plugins/keys/node_modules/node-forge/lib/jsbn.js" -> "keys"
-  "plugins/keys/node_modules/node-forge/lib/kem.js"[color="0.408 0.498 1.000",tooltip="plugins/keys/node_modules/node-forge/lib/kem.js\n-> keys"]
-  "plugins/keys/node_modules/node-forge/lib/kem.js" -> "keys"
-  "plugins/keys/node_modules/node-forge/lib/log.js"[color="0.408 0.498 1.000",tooltip="plugins/keys/node_modules/node-forge/lib/log.js\n-> keys"]
-  "plugins/keys/node_modules/node-forge/lib/log.js" -> "keys"
-  "plugins/keys/node_modules/node-forge/lib/md.all.js"[color="0.408 0.498 1.000",tooltip="plugins/keys/node_modules/node-forge/lib/md.all.js\n-> keys"]
-  "plugins/keys/node_modules/node-forge/lib/md.all.js" -> "keys"
-  "plugins/keys/node_modules/node-forge/lib/md.js"[color="0.408 0.498 1.000",tooltip="plugins/keys/node_modules/node-forge/lib/md.js\n-> keys"]
-  "plugins/keys/node_modules/node-forge/lib/md.js" -> "keys"
-  "plugins/keys/node_modules/node-forge/lib/md5.js"[color="0.408 0.498 1.000",tooltip="plugins/keys/node_modules/node-forge/lib/md5.js\n-> keys"]
-  "plugins/keys/node_modules/node-forge/lib/md5.js" -> "keys"
-  "plugins/keys/node_modules/node-forge/lib/mgf.js"[color="0.408 0.498 1.000",tooltip="plugins/keys/node_modules/node-forge/lib/mgf.js\n-> keys"]
-  "plugins/keys/node_modules/node-forge/lib/mgf.js" -> "keys"
-  "plugins/keys/node_modules/node-forge/lib/mgf1.js"[color="0.408 0.498 1.000",tooltip="plugins/keys/node_modules/node-forge/lib/mgf1.js\n-> keys"]
-  "plugins/keys/node_modules/node-forge/lib/mgf1.js" -> "keys"
-  "plugins/keys/node_modules/node-forge/lib/oids.js"[color="0.408 0.498 1.000",tooltip="plugins/keys/node_modules/node-forge/lib/oids.js\n-> keys"]
-  "plugins/keys/node_modules/node-forge/lib/oids.js" -> "keys"
-  "plugins/keys/node_modules/node-forge/lib/pbe.js"[color="0.408 0.498 1.000",tooltip="plugins/keys/node_modules/node-forge/lib/pbe.js\n-> keys"]
-  "plugins/keys/node_modules/node-forge/lib/pbe.js" -> "keys"
-  "plugins/keys/node_modules/node-forge/lib/pbkdf2.js"[color="0.408 0.498 1.000",tooltip="plugins/keys/node_modules/node-forge/lib/pbkdf2.js\n-> keys"]
-  "plugins/keys/node_modules/node-forge/lib/pbkdf2.js" -> "keys"
-  "plugins/keys/node_modules/node-forge/lib/pem.js"[color="0.408 0.498 1.000",tooltip="plugins/keys/node_modules/node-forge/lib/pem.js\n-> keys"]
-  "plugins/keys/node_modules/node-forge/lib/pem.js" -> "keys"
-  "plugins/keys/node_modules/node-forge/lib/pkcs1.js"[color="0.408 0.498 1.000",tooltip="plugins/keys/node_modules/node-forge/lib/pkcs1.js\n-> keys"]
-  "plugins/keys/node_modules/node-forge/lib/pkcs1.js" -> "keys"
-  "plugins/keys/node_modules/node-forge/lib/pkcs12.js"[color="0.408 0.498 1.000",tooltip="plugins/keys/node_modules/node-forge/lib/pkcs12.js\n-> keys"]
-  "plugins/keys/node_modules/node-forge/lib/pkcs12.js" -> "keys"
-  "plugins/keys/node_modules/node-forge/lib/pkcs7.js"[color="0.408 0.498 1.000",tooltip="plugins/keys/node_modules/node-forge/lib/pkcs7.js\n-> keys"]
-  "plugins/keys/node_modules/node-forge/lib/pkcs7.js" -> "keys"
-  "plugins/keys/node_modules/node-forge/lib/pkcs7asn1.js"[color="0.408 0.498 1.000",tooltip="plugins/keys/node_modules/node-forge/lib/pkcs7asn1.js\n-> keys"]
-  "plugins/keys/node_modules/node-forge/lib/pkcs7asn1.js" -> "keys"
-  "plugins/keys/node_modules/node-forge/lib/pki.js"[color="0.408 0.498 1.000",tooltip="plugins/keys/node_modules/node-forge/lib/pki.js\n-> keys"]
-  "plugins/keys/node_modules/node-forge/lib/pki.js" -> "keys"
-  "plugins/keys/node_modules/node-forge/lib/prime.js"[color="0.408 0.498 1.000",tooltip="plugins/keys/node_modules/node-forge/lib/prime.js\n-> keys"]
-  "plugins/keys/node_modules/node-forge/lib/prime.js" -> "keys"
-  "plugins/keys/node_modules/node-forge/lib/prng.js"[color="0.408 0.498 1.000",tooltip="plugins/keys/node_modules/node-forge/lib/prng.js\n-> keys"]
-  "plugins/keys/node_modules/node-forge/lib/prng.js" -> "keys"
-  "plugins/keys/node_modules/node-forge/lib/pss.js"[color="0.408 0.498 1.000",tooltip="plugins/keys/node_modules/node-forge/lib/pss.js\n-> keys"]
-  "plugins/keys/node_modules/node-forge/lib/pss.js" -> "keys"
-  "plugins/keys/node_modules/node-forge/lib/random.js"[color="0.408 0.498 1.000",tooltip="plugins/keys/node_modules/node-forge/lib/random.js\n-> keys"]
-  "plugins/keys/node_modules/node-forge/lib/random.js" -> "keys"
-  "plugins/keys/node_modules/node-forge/lib/rc2.js"[color="0.408 0.498 1.000",tooltip="plugins/keys/node_modules/node-forge/lib/rc2.js\n-> keys"]
-  "plugins/keys/node_modules/node-forge/lib/rc2.js" -> "keys"
-  "plugins/keys/node_modules/node-forge/lib/rsa.js"[color="0.408 0.498 1.000",tooltip="plugins/keys/node_modules/node-forge/lib/rsa.js\n-> keys"]
-  "plugins/keys/node_modules/node-forge/lib/rsa.js" -> "keys"
-  "plugins/keys/node_modules/node-forge/lib/sha1.js"[color="0.408 0.498 1.000",tooltip="plugins/keys/node_modules/node-forge/lib/sha1.js\n-> keys"]
-  "plugins/keys/node_modules/node-forge/lib/sha1.js" -> "keys"
-  "plugins/keys/node_modules/node-forge/lib/sha256.js"[color="0.408 0.498 1.000",tooltip="plugins/keys/node_modules/node-forge/lib/sha256.js\n-> keys"]
-  "plugins/keys/node_modules/node-forge/lib/sha256.js" -> "keys"
-  "plugins/keys/node_modules/node-forge/lib/sha512.js"[color="0.408 0.498 1.000",tooltip="plugins/keys/node_modules/node-forge/lib/sha512.js\n-> keys"]
-  "plugins/keys/node_modules/node-forge/lib/sha512.js" -> "keys"
-  "plugins/keys/node_modules/node-forge/lib/ssh.js"[color="0.408 0.498 1.000",tooltip="plugins/keys/node_modules/node-forge/lib/ssh.js\n-> keys"]
-  "plugins/keys/node_modules/node-forge/lib/ssh.js" -> "keys"
-  "plugins/keys/node_modules/node-forge/lib/task.js"[color="0.408 0.498 1.000",tooltip="plugins/keys/node_modules/node-forge/lib/task.js\n-> keys"]
-  "plugins/keys/node_modules/node-forge/lib/task.js" -> "keys"
-  "plugins/keys/node_modules/node-forge/lib/tls.js"[color="0.408 0.498 1.000",tooltip="plugins/keys/node_modules/node-forge/lib/tls.js\n-> keys"]
-  "plugins/keys/node_modules/node-forge/lib/tls.js" -> "keys"
-  "plugins/keys/node_modules/node-forge/lib/util.js"[color="0.408 0.498 1.000",tooltip="plugins/keys/node_modules/node-forge/lib/util.js\n-> keys"]
-  "plugins/keys/node_modules/node-forge/lib/util.js" -> "keys"
-  "plugins/keys/node_modules/node-forge/lib/x509.js"[color="0.408 0.498 1.000",tooltip="plugins/keys/node_modules/node-forge/lib/x509.js\n-> keys"]
-  "plugins/keys/node_modules/node-forge/lib/x509.js" -> "keys"
   "this._in_TargetConfig_task"[tooltip="this._in_TargetConfig_task\n-> @thin-hook/build\n-> @thin-hook/build-coverage\n-> @thin-hook/build-instrument\n-> @thin-hook/build-test-html\n-> @thin-hook/demo-convert-full\n-> @thin-hook/demo-convert-skinny\n-> @thin-hook/demo-gulpfile-js\n-> @thin-hook/module-examples\n-> @thin-hook/module-examples-dependencies\n-> @thin-hook/script-examples\n-> about-blank-redirector\n-> automation-secret\n-> bootstrap-js\n-> bundle-browserify\n-> bundle-rollup\n-> bundle-webpack\n-> bundler-helpers\n-> cache-automation-js\n-> cache-bundle-automation-json\n-> cache-bundle-js\n-> certificates\n-> clean-frontend\n-> clean-gzip-json\n-> content-loader-js\n-> context-generator-js\n-> dependency-graph\n-> disable-devtools\n-> dummy-integrity\n-> empty-document\n-> entry-page\n-> frontend-components\n-> generate-cert-sh\n-> generate-import-maps\n-> get-version\n-> gzip-frontend\n-> gzip-json\n-> hook-min-js\n-> hook-native-api-js\n-> hook-worker-js\n-> inject\n-> injector-helpers\n-> integrity-js\n-> integrity-json\n-> keys\n-> mark-parsed-js\n-> no-hook-authorization\n-> policy\n-> script-hashes\n-> script-hashes-integrity\n-> script-hashes-js\n-> url-parameters\n-> wrap-globals-js\n<- @thin-hook/build-test\n<- @thin-hook/examples"]
   "this._in_TargetConfig_task" -> "keys"
   "this.get-version.version"[tooltip="this.get-version.version\n-> cache-bundle-automation-json\n-> dummy-integrity\n-> integrity-json\n-> keys\n<- get-version"]
@@ -2204,7 +2118,7 @@ digraph dependencies {
   "demo/script-hashes.js" -> "entry-page"
   "hook.min.js"[color="0.408 0.498 1.000",tooltip="hook.min.js\n-> entry-page\n-> frontend-components\n-> hook-min-js\n-> integrity-json\n-> no-hook-authorization\n<- @thin-hook/build"]
   "hook.min.js" -> "entry-page"
-  "node_modules/*"[color="0.408 0.498 1.000",tooltip="node_modules/*\n-> @thin-hook/build\n-> @thin-hook/build-coverage\n-> @thin-hook/build-test-html\n-> bundle-browserify\n-> bundle-rollup\n-> bundle-webpack\n-> bundler-helpers\n-> clean-gzip-json\n-> entry-page\n-> generate-cert-sh\n-> generate-import-maps\n-> hook-min-js\n-> injector-helpers"]
+  "node_modules/*"[color="0.408 0.498 1.000",tooltip="node_modules/*\n-> @thin-hook/build\n-> @thin-hook/build-coverage\n-> @thin-hook/build-test-html\n-> bundle-browserify\n-> bundle-rollup\n-> bundle-webpack\n-> bundler-helpers\n-> clean-gzip-json\n-> entry-page\n-> generate-cert-sh\n-> generate-import-maps\n-> hook-min-js\n-> injector-helpers\n-> keys"]
   "node_modules/*" -> "entry-page"
   "plugins/entry-page/configurator.js"[color="0.408 0.498 1.000",tooltip="plugins/entry-page/configurator.js\n-> entry-page"]
   "plugins/entry-page/configurator.js" -> "entry-page"
@@ -2584,7 +2498,7 @@ digraph dependencies {
   "hook-min-js"[color="0.590 0.273 1.000",tooltip="hook-min-js\n-> this.hook-min-js.dependencies\n-> this.hook-min-js.done\n-> this.no-hook-authorization.hash[hook.min.js]\n<- hook.min.js\n<- node_modules/*\n<- plugins/hook-min-js/configurator.js\n<- this._in_TargetConfig_task\n<- this.gulp.dest\n<- this.gulp.series\n<- this.gulp.src\n<- this.gulp.task\n<- this.hook-min-js.dest\n<- this.path.base\n<- this.path.hook\n<- this.path.plugins"]
   "hook.min.js"[color="0.408 0.498 1.000",tooltip="hook.min.js\n-> entry-page\n-> frontend-components\n-> hook-min-js\n-> integrity-json\n-> no-hook-authorization\n<- @thin-hook/build"]
   "hook.min.js" -> "hook-min-js"
-  "node_modules/*"[color="0.408 0.498 1.000",tooltip="node_modules/*\n-> @thin-hook/build\n-> @thin-hook/build-coverage\n-> @thin-hook/build-test-html\n-> bundle-browserify\n-> bundle-rollup\n-> bundle-webpack\n-> bundler-helpers\n-> clean-gzip-json\n-> entry-page\n-> generate-cert-sh\n-> generate-import-maps\n-> hook-min-js\n-> injector-helpers"]
+  "node_modules/*"[color="0.408 0.498 1.000",tooltip="node_modules/*\n-> @thin-hook/build\n-> @thin-hook/build-coverage\n-> @thin-hook/build-test-html\n-> bundle-browserify\n-> bundle-rollup\n-> bundle-webpack\n-> bundler-helpers\n-> clean-gzip-json\n-> entry-page\n-> generate-cert-sh\n-> generate-import-maps\n-> hook-min-js\n-> injector-helpers\n-> keys"]
   "node_modules/*" -> "hook-min-js"
   "plugins/hook-min-js/configurator.js"[color="0.408 0.498 1.000",tooltip="plugins/hook-min-js/configurator.js\n-> hook-min-js"]
   "plugins/hook-min-js/configurator.js" -> "hook-min-js"
@@ -5422,7 +5336,7 @@ digraph dependencies {
   "demo/node_modules/*" -> "generate-import-maps"
   "demo/package.json"[color="0.408 0.498 1.000",tooltip="demo/package.json\n-> bundle-browserify\n-> bundle-webpack\n-> frontend-components\n-> generate-import-maps\n-> integrity-json"]
   "demo/package.json" -> "generate-import-maps"
-  "node_modules/*"[color="0.408 0.498 1.000",tooltip="node_modules/*\n-> @thin-hook/build\n-> @thin-hook/build-coverage\n-> @thin-hook/build-test-html\n-> bundle-browserify\n-> bundle-rollup\n-> bundle-webpack\n-> bundler-helpers\n-> clean-gzip-json\n-> entry-page\n-> generate-cert-sh\n-> generate-import-maps\n-> hook-min-js\n-> injector-helpers"]
+  "node_modules/*"[color="0.408 0.498 1.000",tooltip="node_modules/*\n-> @thin-hook/build\n-> @thin-hook/build-coverage\n-> @thin-hook/build-test-html\n-> bundle-browserify\n-> bundle-rollup\n-> bundle-webpack\n-> bundler-helpers\n-> clean-gzip-json\n-> entry-page\n-> generate-cert-sh\n-> generate-import-maps\n-> hook-min-js\n-> injector-helpers\n-> keys"]
   "node_modules/*" -> "generate-import-maps"
   "plugins/generate-import-maps/configurator.js"[color="0.408 0.498 1.000",tooltip="plugins/generate-import-maps/configurator.js\n-> generate-import-maps"]
   "plugins/generate-import-maps/configurator.js" -> "generate-import-maps"
@@ -5472,7 +5386,7 @@ digraph dependencies {
   "this.url.mappings[1][1]" -> "generate-import-maps"
 
   "bundler-helpers"[color="0.590 0.273 1.000",tooltip="bundler-helpers\n-> this.bundler-helpers.dependencies\n-> this.bundler-helpers.done\n-> this.bundles.components.bundlerContextGeneratorFactory\n-> this.bundles.components.contextGeneratorHelper.post\n-> this.bundles.components.contextGeneratorHelper.pre\n-> this.bundles.components.hookTransformFactory\n-> this.bundles.components.importMapperFactory\n<- node_modules/*\n<- plugins/bundler-helpers/bundlerContextGeneratorFactory.js\n<- plugins/bundler-helpers/configurator.js\n<- plugins/bundler-helpers/contextGeneratorHelper.js\n<- plugins/bundler-helpers/hookTransformFactory.js\n<- plugins/bundler-helpers/importMapperFactory.js\n<- this._in_TargetConfig_task\n<- this.gulp.series\n<- this.gulp.task\n<- this.path.base\n<- this.path.config\n<- this.path.plugins\n<- this.path.root"]
-  "node_modules/*"[color="0.408 0.498 1.000",tooltip="node_modules/*\n-> @thin-hook/build\n-> @thin-hook/build-coverage\n-> @thin-hook/build-test-html\n-> bundle-browserify\n-> bundle-rollup\n-> bundle-webpack\n-> bundler-helpers\n-> clean-gzip-json\n-> entry-page\n-> generate-cert-sh\n-> generate-import-maps\n-> hook-min-js\n-> injector-helpers"]
+  "node_modules/*"[color="0.408 0.498 1.000",tooltip="node_modules/*\n-> @thin-hook/build\n-> @thin-hook/build-coverage\n-> @thin-hook/build-test-html\n-> bundle-browserify\n-> bundle-rollup\n-> bundle-webpack\n-> bundler-helpers\n-> clean-gzip-json\n-> entry-page\n-> generate-cert-sh\n-> generate-import-maps\n-> hook-min-js\n-> injector-helpers\n-> keys"]
   "node_modules/*" -> "bundler-helpers"
   "plugins/bundler-helpers/bundlerContextGeneratorFactory.js"[color="0.408 0.498 1.000",tooltip="plugins/bundler-helpers/bundlerContextGeneratorFactory.js\n-> bundler-helpers"]
   "plugins/bundler-helpers/bundlerContextGeneratorFactory.js" -> "bundler-helpers"
@@ -5522,7 +5436,7 @@ digraph dependencies {
   "demo/commonjs2.js" -> "bundle-browserify"
   "demo/package.json"[color="0.408 0.498 1.000",tooltip="demo/package.json\n-> bundle-browserify\n-> bundle-webpack\n-> frontend-components\n-> generate-import-maps\n-> integrity-json"]
   "demo/package.json" -> "bundle-browserify"
-  "node_modules/*"[color="0.408 0.498 1.000",tooltip="node_modules/*\n-> @thin-hook/build\n-> @thin-hook/build-coverage\n-> @thin-hook/build-test-html\n-> bundle-browserify\n-> bundle-rollup\n-> bundle-webpack\n-> bundler-helpers\n-> clean-gzip-json\n-> entry-page\n-> generate-cert-sh\n-> generate-import-maps\n-> hook-min-js\n-> injector-helpers"]
+  "node_modules/*"[color="0.408 0.498 1.000",tooltip="node_modules/*\n-> @thin-hook/build\n-> @thin-hook/build-coverage\n-> @thin-hook/build-test-html\n-> bundle-browserify\n-> bundle-rollup\n-> bundle-webpack\n-> bundler-helpers\n-> clean-gzip-json\n-> entry-page\n-> generate-cert-sh\n-> generate-import-maps\n-> hook-min-js\n-> injector-helpers\n-> keys"]
   "node_modules/*" -> "bundle-browserify"
   "package.json"[color="0.408 0.498 1.000",tooltip="package.json\n-> @thin-hook/build\n-> @thin-hook/build-coverage\n-> bundle-browserify\n-> bundle-webpack"]
   "package.json" -> "bundle-browserify"
@@ -5704,7 +5618,7 @@ digraph dependencies {
   "bundle-webpack" -> "demo/webpack-commonjs.js"[color="0.002 0.999 0.999"]
   "demo/webpack-es6-module.js"[color="0.408 0.498 1.000",tooltip="demo/webpack-es6-module.js\n-> frontend-components\n-> integrity-json\n-> no-hook-authorization\n<- bundle-webpack"]
   "bundle-webpack" -> "demo/webpack-es6-module.js"[color="0.002 0.999 0.999"]
-  "node_modules/*"[color="0.408 0.498 1.000",tooltip="node_modules/*\n-> @thin-hook/build\n-> @thin-hook/build-coverage\n-> @thin-hook/build-test-html\n-> bundle-browserify\n-> bundle-rollup\n-> bundle-webpack\n-> bundler-helpers\n-> clean-gzip-json\n-> entry-page\n-> generate-cert-sh\n-> generate-import-maps\n-> hook-min-js\n-> injector-helpers"]
+  "node_modules/*"[color="0.408 0.498 1.000",tooltip="node_modules/*\n-> @thin-hook/build\n-> @thin-hook/build-coverage\n-> @thin-hook/build-test-html\n-> bundle-browserify\n-> bundle-rollup\n-> bundle-webpack\n-> bundler-helpers\n-> clean-gzip-json\n-> entry-page\n-> generate-cert-sh\n-> generate-import-maps\n-> hook-min-js\n-> injector-helpers\n-> keys"]
   "node_modules/*" -> "bundle-webpack"
   "package.json"[color="0.408 0.498 1.000",tooltip="package.json\n-> @thin-hook/build\n-> @thin-hook/build-coverage\n-> bundle-browserify\n-> bundle-webpack"]
   "package.json" -> "bundle-webpack"
@@ -5904,7 +5818,7 @@ digraph dependencies {
   "bundle-rollup" -> "demo/rollup-es6-module.js"[color="0.002 0.999 0.999"]
   "demo/rollup-module1.js"[color="0.408 0.498 1.000",tooltip="demo/rollup-module1.js\n-> frontend-components\n-> integrity-json\n-> no-hook-authorization\n<- bundle-rollup"]
   "bundle-rollup" -> "demo/rollup-module1.js"[color="0.002 0.999 0.999"]
-  "node_modules/*"[color="0.408 0.498 1.000",tooltip="node_modules/*\n-> @thin-hook/build\n-> @thin-hook/build-coverage\n-> @thin-hook/build-test-html\n-> bundle-browserify\n-> bundle-rollup\n-> bundle-webpack\n-> bundler-helpers\n-> clean-gzip-json\n-> entry-page\n-> generate-cert-sh\n-> generate-import-maps\n-> hook-min-js\n-> injector-helpers"]
+  "node_modules/*"[color="0.408 0.498 1.000",tooltip="node_modules/*\n-> @thin-hook/build\n-> @thin-hook/build-coverage\n-> @thin-hook/build-test-html\n-> bundle-browserify\n-> bundle-rollup\n-> bundle-webpack\n-> bundler-helpers\n-> clean-gzip-json\n-> entry-page\n-> generate-cert-sh\n-> generate-import-maps\n-> hook-min-js\n-> injector-helpers\n-> keys"]
   "node_modules/*" -> "bundle-rollup"
   "plugins/bundle-rollup/configurator.js"[color="0.408 0.498 1.000",tooltip="plugins/bundle-rollup/configurator.js\n-> bundle-rollup"]
   "plugins/bundle-rollup/configurator.js" -> "bundle-rollup"
@@ -6087,7 +6001,7 @@ digraph dependencies {
   "this._in_TargetConfig_task"[tooltip="this._in_TargetConfig_task\n-> @thin-hook/build\n-> @thin-hook/build-coverage\n-> @thin-hook/build-instrument\n-> @thin-hook/build-test-html\n-> @thin-hook/demo-convert-full\n-> @thin-hook/demo-convert-skinny\n-> @thin-hook/demo-gulpfile-js\n-> @thin-hook/module-examples\n-> @thin-hook/module-examples-dependencies\n-> @thin-hook/script-examples\n-> about-blank-redirector\n-> automation-secret\n-> bootstrap-js\n-> bundle-browserify\n-> bundle-rollup\n-> bundle-webpack\n-> bundler-helpers\n-> cache-automation-js\n-> cache-bundle-automation-json\n-> cache-bundle-js\n-> certificates\n-> clean-frontend\n-> clean-gzip-json\n-> content-loader-js\n-> context-generator-js\n-> dependency-graph\n-> disable-devtools\n-> dummy-integrity\n-> empty-document\n-> entry-page\n-> frontend-components\n-> generate-cert-sh\n-> generate-import-maps\n-> get-version\n-> gzip-frontend\n-> gzip-json\n-> hook-min-js\n-> hook-native-api-js\n-> hook-worker-js\n-> inject\n-> injector-helpers\n-> integrity-js\n-> integrity-json\n-> keys\n-> mark-parsed-js\n-> no-hook-authorization\n-> policy\n-> script-hashes\n-> script-hashes-integrity\n-> script-hashes-js\n-> url-parameters\n-> wrap-globals-js\n<- @thin-hook/build-test\n<- @thin-hook/examples"]
 
   "injector-helpers"[color="0.590 0.273 1.000",tooltip="injector-helpers\n-> this.inject.components.createHash\n-> this.inject.components.HtmlInjectionHandlerFactory\n-> this.inject.components.InjectionHandlerBase\n-> this.inject.components.Injector\n-> this.inject.components.JsInjectionHandlerFactory\n-> this.inject.components.toposort\n-> this.injector-helpers.dependencies\n-> this.injector-helpers.done\n<- node_modules/*\n<- plugins/injector-helpers/configurator.js\n<- plugins/injector-helpers/node_modules/domhandler/lib/index.js\n<- plugins/injector-helpers/node_modules/domhandler/lib/node.js\n<- this._in_TargetConfig_task\n<- this.gulp.series\n<- this.gulp.task\n<- this.path.base\n<- this.path.config\n<- this.path.plugins\n<- this.path.root"]
-  "node_modules/*"[color="0.408 0.498 1.000",tooltip="node_modules/*\n-> @thin-hook/build\n-> @thin-hook/build-coverage\n-> @thin-hook/build-test-html\n-> bundle-browserify\n-> bundle-rollup\n-> bundle-webpack\n-> bundler-helpers\n-> clean-gzip-json\n-> entry-page\n-> generate-cert-sh\n-> generate-import-maps\n-> hook-min-js\n-> injector-helpers"]
+  "node_modules/*"[color="0.408 0.498 1.000",tooltip="node_modules/*\n-> @thin-hook/build\n-> @thin-hook/build-coverage\n-> @thin-hook/build-test-html\n-> bundle-browserify\n-> bundle-rollup\n-> bundle-webpack\n-> bundler-helpers\n-> clean-gzip-json\n-> entry-page\n-> generate-cert-sh\n-> generate-import-maps\n-> hook-min-js\n-> injector-helpers\n-> keys"]
   "node_modules/*" -> "injector-helpers"
   "plugins/injector-helpers/configurator.js"[color="0.408 0.498 1.000",tooltip="plugins/injector-helpers/configurator.js\n-> injector-helpers"]
   "plugins/injector-helpers/configurator.js" -> "injector-helpers"
