@@ -95,7 +95,7 @@ const configurator = function (targetConfig) {
         //  - Scoped import maps for "bare-specifier/" are copied to global imports so that "bare-specifier/path/module.js" can be resolved from outside of the module scope
         //  - **NOT** loaded via <script type="importmap" src="modules.importmap"></script> nor <script type="importmap">JSON</script> for the time being
       const projectDirectoryFileUrl = new URL(this.path.root + '/', `file://${this.path.base}/`);
-      const baseUrlPath = this.mapper(this.url.mappings, projectDirectoryFileUrl.pathname) + '/';
+      const baseUrlPath = (this.mapper(this.url.mappings, projectDirectoryFileUrl.pathname) + '/').replace(/\/\/$/, '/');
       const privateImportMapFileUrl = new URL(this['import-maps'].privateImportMapName, projectDirectoryFileUrl);
       const normalizedImportMapFilePath = new URL(this['import-maps'].importMapName, projectDirectoryFileUrl).pathname;
       const importMapInputs = [
