@@ -717,7 +717,7 @@ Copyright (c) 2017, 2018, 2019, 2020 Tetsuya Mori <t2y3141592@gmail.com>. All ri
         if (target === 'r0tb') {
           // TODO: recursive should always be true but some incompatiblity remains
           let recursive = args !== _args;
-          let _thisArg = recursive ? normalizedThisArg[rawProperty] : thisArg;
+          let _thisArg = recursive && normalizedThisArg ? normalizedThisArg[rawProperty] : thisArg;
           let __args = recursive ? _args : args;
           let _method = _globalMethods.get(_thisArg);
           boundParameters = {
