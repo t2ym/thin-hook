@@ -3619,6 +3619,14 @@
     window.DummyObject1 = Object.assign(Object.create(null), { p: 1 });
     Object.assign({}, DummyObject1); // acl.DummyObject1[S_ALL]: '---'
   }, /^Permission Denied:/);
+
+  chai.assert.isOk((() => {
+    let proto = function proto () {};
+    let f = function f() {};
+    Object.setPrototypeOf(f, proto);
+    let boundF = Function.prototype.bind.call(f, null);
+    return Object.getPrototypeOf(boundF) === proto;
+  })());
 }
 () => {
   let target, property, value, attributes, proto, prototype, receiver, args, arg1, arg2, p, v;

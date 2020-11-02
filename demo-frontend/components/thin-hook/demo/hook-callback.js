@@ -7546,7 +7546,7 @@ else {
         if (target === 'r0tb') {
           // TODO: recursive should always be true but some incompatiblity remains
           let recursive = args !== _args;
-          let _thisArg = recursive ? normalizedThisArg[rawProperty] : thisArg;
+          let _thisArg = recursive && normalizedThisArg ? normalizedThisArg[rawProperty] : thisArg;
           let __args = recursive ? _args : args;
           let _method = _globalMethods.get(_thisArg);
           boundParameters = {
@@ -9326,7 +9326,7 @@ else {
         if (target === 'r0tb') {
           // TODO: recursive should always be true but some incompatiblity remains
           let recursive = args !== _args;
-          let _thisArg = recursive ? normalizedThisArg[rawProperty] : thisArg;
+          let _thisArg = recursive && normalizedThisArg ? normalizedThisArg[rawProperty] : thisArg;
           let __args = recursive ? _args : args;
           let _method = _globalMethods.get(_thisArg);
           boundParameters = {
