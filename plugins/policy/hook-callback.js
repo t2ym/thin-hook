@@ -245,6 +245,9 @@ else {
       'hookBenchmark',
     ]);
     Policy.chainAcl(acl);
+/* @ifdef unchainAcl */
+    Policy.unchainAcl(acl);
+/* @endif */
     Policy.proxyAcl(acl);
     Policy.resolveBareSpecifierAcl(acl);
     Policy.generatePrefixedModuleNames(acl);

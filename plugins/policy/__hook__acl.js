@@ -243,7 +243,7 @@ Copyright (c) 2017, 2018, 2019, 2020 Tetsuya Mori <t2y3141592@gmail.com>. All ri
             }
           }
         }
-        if (!name && normalizedThisArg instanceof Object) {
+        if (!name && normalizedThisArg instanceof Object/* @ifdef unchainAcl */ || normalizedThisArg === Object.prototype/* @endif */) {
           [name, isStatic, isObject] = detectName(normalizedThisArg, boundParameters);
         }
         let rawProperty = _args[0];

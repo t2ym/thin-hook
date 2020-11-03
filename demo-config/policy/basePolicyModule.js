@@ -424,6 +424,21 @@ acl: {
       '@HTMLElement_prototype_reader': 'r--',
       '@Object_prototype_reader': 'r-x',
       '@window_enumerator': 'r--R-',
+/* @ifdef unchainAcl */
+      $toString$: {
+        [S_DEFAULT]: '---',
+        '@Object_assign_reader': 'r--',
+        '@Object_prototype_reader': 'r-x',
+        '@chai_js': 'r--',
+        '@deepcopy': 'r--',
+      },
+      $hasOwnProperty$: {
+        [S_DEFAULT]: '---',
+        '@firebase_auth': 'r--',
+        '@firebase_app': 'r--',
+        '@firebase_database': 'r--',
+      },
+/* @endif */
       [S_INSTANCE]: {
         $__proto__$: 'rwx',
         $constructor$: 'rwxRW',

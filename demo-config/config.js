@@ -824,6 +824,8 @@ class TargetConfig extends Injectable(Traceable(Configurable(GulpDefaultRegistry
       __hook__min: true, // undefined to skip including plugins/policy/__hook__min.js
       // @ifdef argument to include/exclude hookBenchmark() in hook-callback.js
       hookBenchmark: true, // undefined to exclude hookBenchmark()
+      // @ifdef argument to unchain ACL policy objects if they are chained directly to Object.prototype
+      //unchainAcl: true, // uncomment this argument to enable vulnerability fix for #398 and #399
       // postfix to the hook callback function name __hook__
       __hook__callback: 'acl', // '': __hook__, 'acl': __hook__acl, 'min': __hook__min
       // TODO: modify plugin/policy/hook-callback.js to use hook.parameters.emptyDocumentUrl
