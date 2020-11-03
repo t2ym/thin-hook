@@ -2505,11 +2505,12 @@ acl: {
       [S_CHAIN]: S_CHAIN,
       [S_INSTANCE]: {
         [S_CHAIN]: S_CHAIN,
-        [S_DEFAULT]: 'r--',
+        [S_DEFAULT]: 'r-x',
         '@live-localizer-lazy': 'rwx',
         tagName: {
           [S_DEFAULT]: '---',
           '@iron-location': 'r--',
+          '@focus-visible': 'r--',
         },
         '@cache_automation': 'r--',
       },
