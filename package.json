@@ -98,7 +98,7 @@
     "@thin-hook/wrap-globals-js": "file:plugins/wrap-globals-js"
   },
   "devDependencies": {
-    "@jsenv/node-module-import-map": "^12.0.1",
+    "@jsenv/node-module-import-map": "12.0.1",
     "@thin-hook/build": "file:plugins/build",
     "@thin-hook/build-test": "file:plugins/build-test",
     "@thin-hook/demo-convert-full": "file:plugins/demo-convert-full",
