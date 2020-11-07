@@ -2,7 +2,7 @@
   "name": "@thin-hook/injector-helpers",
   "version": "0.0.0",
   "description": "Wrapper to inject code into target",
-  "main": "Injector.js",
+  "main": "configurator.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
