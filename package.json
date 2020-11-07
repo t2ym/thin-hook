@@ -75,6 +75,7 @@
     "@thin-hook/clean-gzip-json": "file:plugins/clean-gzip-json",
     "@thin-hook/content-loader-js": "file:plugins/content-loader-js",
     "@thin-hook/context-generator-js": "file:plugins/context-generator-js",
+    "@thin-hook/disable-devtools": "file:plugins/disable-devtools",
     "@thin-hook/entry-page": "file:plugins/entry-page",
     "@thin-hook/frontend-components": "file:plugins/frontend-components",
     "@thin-hook/generate-cert-sh": "file:plugins/generate-cert-sh",
