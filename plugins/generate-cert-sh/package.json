@@ -1,5 +1,5 @@
 {
-  "name": "@thin-hook/bootstrap-js",
+  "name": "@thin-hook/generate-cert-sh",
   "version": "0.0.0",
   "description": "thin-hook plugin to inject generate_cert.sh",
   "main": "configurator.js",

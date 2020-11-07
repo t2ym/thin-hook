@@ -77,6 +77,7 @@
     "@thin-hook/context-generator-js": "file:plugins/context-generator-js",
     "@thin-hook/entry-page": "file:plugins/entry-page",
     "@thin-hook/frontend-components": "file:plugins/frontend-components",
+    "@thin-hook/generate-cert-sh": "file:plugins/generate-cert-sh",
     "@thin-hook/generate-import-maps": "file:plugins/generate-import-maps",
     "@thin-hook/gzip-frontend": "file:plugins/gzip-frontend",
     "@thin-hook/gzip-json": "file:plugins/gzip-json",
