@@ -8,7 +8,16 @@ const { HtmlInjectionHandlerFactory } = require('target-injector/HtmlInjectionHa
 const { JsInjectionHandlerFactory } = require('target-injector/JsInjectionHandlerFactory.js');
 
 const { Parser } = require("htmlparser2");
-const { DomHandler } = require("domhandler");
+const { DomHandler } = require("domhandler").DomHandler
+  ? require("domhandler") // domhandler@3
+  : require(require.resolve("domhandler", { // avoid loading domhandler@2, which is a dependency of htmlparser2@3.9.2
+      paths: require.resolve.paths("domhandler")
+        .filter(_path =>
+          !_path.endsWith('/thin-hook/plugins/injector-helpers/node_modules') &&
+          !_path.endsWith('/thin-hook/plugins/node_modules') &&
+          !_path.endsWith('/thin-hook/node_modules')
+        )
+    }));
 const cssauron = require('cssauron');
 
 const parser = require('espree'); // can be esprima or acorn
