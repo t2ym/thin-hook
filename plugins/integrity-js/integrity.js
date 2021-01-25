@@ -1516,6 +1516,7 @@
         '\.performance:object\.navigation:object|' + // navigation history
         '\.screen:object\.orientation:object|' + // screen device
         '\.location:object|' + // location object
+        '\.document:object\.location:object|' + // document.location object
         '\.localStorage:object|' + // browser storage
         '\.sessionStorage:object).*$'); // browser storage
       const volatileBooleans = [
