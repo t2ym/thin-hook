@@ -13,7 +13,7 @@ else {
     //   hook.parameters.noHookAuthorizationFailed
     // JSONs are output to console in the learning mode
     //'*': true,
-    "0cea004c52dcc980b0be22d8feae3d92f63431f63449ac4177274235d92e3ebf": true, // hook.min.js
+    "de24596d2c3a5655a29d24723d50b7c12513ad13ec97f454226b4ce6f9d677d6": true, // hook.min.js
     "a81209228209941097ac41c5bda3bc1cd64375e69b7c8113aff68c2fe6729ff2": true, // demo/disable-devtools.js
     "4374ae1f28cec2b969ab488895a4266244d65e28e1f82728fd2cd39130fe0d9e": true, // demo/context-generator.js
     "e96184a4e08a67524b596ac298b8f61316e2f267cacdd678836b955e03764179": true, // demo/bootstrap.js
@@ -35,7 +35,7 @@ else {
     "c135fd6ba3cad41e63985ecca191995bf311abc756c5f574ef5b641e7db56914": true, // (function writeln2() { console.log("no-hook script tag via document.writeln"); })()
     "e233738578fd7e8f2e961fb11885e2c187146314a8e3fc65692633ff89c5d34a": true, // (function writeln4() { console.log("no-hook script tag in div tag via document.writeln"); })()
     "4f0395d52a8c1c7edaacacade9c31fe18555b79ce963dfb1abaaa34990993374": true, // location = "about:blank";
-    "58c8f39c47325affb28019bd5057f891e7cd44a2aee06a33241b84ab4cc0cacc": true, // demo/integrity.js
+    "e6405b7d43df7869e54952a9b00fa05a63d2c9206ad5853ab0e7c07265baedd0": true, // demo/integrity.js
     "ba07654d1c24a271ba0fa7ee5c55cd60c02133b0e53cb6bb6e634da473b1e540": true, // demo/script-hashes.js
     "0242016e2887b322ab28b887f03779c63899db232bb036d794a0278db9e54339": true, // demo/content-loader.js
     "6249373b8a4e3bb915788ea4f77e8b892f5bb77407e4fe5d981ebd118876be20": true, // demo/mark-parsed.js
