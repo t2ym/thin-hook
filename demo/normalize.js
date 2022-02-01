@@ -722,6 +722,7 @@
   }
 
   with (Object.create(window)) {
+    const window = globalThis;
     chai.assert.throws(() => {
       caches;
     }, /^Permission Denied:/);

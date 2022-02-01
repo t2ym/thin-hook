@@ -6622,7 +6622,7 @@ else {
   }
   const applyAcl = Policy.getApplyAcl(acl);
   // Handle exceptions
-  const errorReportBaseUrl = (new URL('errorReport.json', typeof window === 'object' ? top.location : location)).pathname;
+  const errorReportBaseUrl = (new URL('errorReport.json', hook.parameters.baseURI)).href;
   const criticalErrorPageUrl = 'about:blank';
   let hookCallbackCompatibilityTestDone = false;
   const _caches = caches; // Take a backup just in case (still not robust)
