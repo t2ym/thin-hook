@@ -3,22 +3,30 @@ if (hook.parameters[Symbol.for('bootstrap.js')]) {
 }
 else {
   hook.parameters[Symbol.for('bootstrap.js')] = true;
+/* @ifdef basePath */
+  const basePath = '/* @echo basePath */'; // hard-coded URL path of the entry page
+/* @endif */
   let baseURI;
   let noHookAuthorization = '';
   switch (self.constructor.name) {
   case 'Window':
-    if (self === top) {
-      baseURI = location.href;
-    }
-    else {
-      baseURI = top.hook.parameters.baseURI;
-    }
-    hook.parameters.baseURI = baseURI;
     let script = top.document.querySelector('script');
     let src = script.src;
     if (!src) {
       location = 'about:blank'; // top SVG is not supported
     }
+    if (self === top) {
+/* @ifndef basePath */
+      baseURI = new URL('.', document.currentScript.src).href; // assuming the bootstrap.js script resides at the same directory as the entry page
+/* @endif */
+/* @ifdef basePath */
+      baseURI = new URL(basePath, document.currentScript.src).href; // same origin as bootstrap.js
+/* @endif */
+    }
+    else {
+      baseURI = top.hook.parameters.baseURI;
+    }
+    hook.parameters.baseURI = baseURI;
     noHookAuthorization = new URL(src, baseURI).searchParams.get('no-hook-authorization');
     break;
   case 'ServiceWorkerGlobalScope':
@@ -29,17 +37,27 @@ else {
   case 'DedicatedWorkerGlobalScope':
   case 'SharedWorkerGlobalScope':
     // For Hook Workers; Insignificant in hooked web workers
+/* @ifndef basePath */
     baseURI = new URL(location.origin + 
         (new URL(location.href).searchParams.has('service-worker-initiator')
           ? new URL(location.href).searchParams.get('service-worker-initiator')
           : location.pathname
         )
       ).href;
+/* @endif */
+/* @ifdef basePath */
+    baseURI = new URL(basePath, location.origin).href; // Note: same origin as worker location; no support for CORS worker scripts
+/* @endif */
     hook.parameters.baseURI = baseURI;
     noHookAuthorization = new URL(location.href).searchParams.has('no-hook-authorization') ? new URL(location.href).searchParams.get('no-hook-authorization') : '';
     break;
   default:
+/* @ifndef basePath */
     baseURI = location.href;
+/* @endif */
+/* @ifdef basePath */
+    baseURI = new URL(basePath, location.origin).href; // same origin
+/* @endif */
     hook.parameters.baseURI = baseURI;
     break;
   }

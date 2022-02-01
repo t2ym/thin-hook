@@ -569,6 +569,7 @@ class TargetConfig extends Injectable(Traceable(Configurable(GulpDefaultRegistry
     .assign('bootstrap-js')({
       [TargetConfig.needResolution]: true,
       type: 'bootstrap',
+      basePath: () => this.url.root + (this.url.root.endsWith('/') ? '' : '/'),
       emptyDocument: () => this.getPluginUrl('empty-document', 'bootstrap-js', true /* startsWithDot */),
       markParsed: () => this.getPluginUrl('mark-parsed-js', 'bootstrap-js'),
       //onloadWrapper: `event.target.addEventListener('srcdoc-load', () => { $onload$ })`,
