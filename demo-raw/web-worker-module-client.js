@@ -3,8 +3,9 @@
 Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 */
 {
-  let isModuleWorkerImplemented = false;
+  let isModuleWorkerImplemented = true;
   let isModuleWorkerEnabled = false;
+  /*
   try {
     new Worker('about:blank', { type: 'xxx' } )
   }
@@ -16,6 +17,7 @@ Copyright (c) 2017, 2018, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserv
       console.log('web-worker-module-client.js: Worker("module.js", { type: "module" }) is not implemented');
     }
   }
+  */
   let worker;
   if (isModuleWorkerImplemented) {
     try {
