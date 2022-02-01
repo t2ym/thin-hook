@@ -5,7 +5,7 @@ Copyright (c) 2017, 2018, 2019, 2020 Tetsuya Mori <t2y3141592@gmail.com>. All ri
 */
 /* @endexclude */
   // Handle exceptions
-  const errorReportBaseUrl = (new URL('errorReport.json', typeof window === 'object' ? top.location : location)).pathname;
+  const errorReportBaseUrl = (new URL('errorReport.json', hook.parameters.baseURI)).href;
   const criticalErrorPageUrl = 'about:blank';
   let hookCallbackCompatibilityTestDone = false;
   const _caches = caches; // Take a backup just in case (still not robust)
