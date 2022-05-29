@@ -1514,6 +1514,7 @@
         '\.navigator:object\.serviceWorker:object\.controller:object|' + // Service Worker status
         '\.navigator:object\.userAgentData:object|' + // User-Agent Client Hints data
         '\.performance:object\.navigation:object|' + // navigation history
+        '\.navigation:object|' + // navigation
         '\.screen:object\.orientation:object|' + // screen device
         '\.location:object|' + // location object
         '\.document:object\.location:object|' + // document.location object
