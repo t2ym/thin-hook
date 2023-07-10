@@ -714,6 +714,10 @@ class TargetConfig extends Injectable(Traceable(Configurable(GulpDefaultRegistry
           searchParams: [],
         },
       },
+      additionalGetImportMapParameters: {
+        packagesManualOverrides: {},
+        packagesExportsPreference: [ "import", "default" ],
+      },
       dest: () => path.resolve(this.path.base, this.path.root, this['import-maps'].importMapName),
       series: [ // equivalent to gulp.task('import-maps', gulp.series('frontend-modules-locked', 'generate-import-maps'))
         'frontend-modules-locked',

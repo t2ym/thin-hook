@@ -103,6 +103,7 @@ const configurator = function (targetConfig) {
           projectDirectoryUrl: projectDirectoryFileUrl,
           projectPackageDevDependenciesIncluded: false,
           packagesExportsPreference: ["import", "node", "require"],
+          ...this['import-maps'].additionalGetImportMapParameters,
         }),
         ImportMaps.getImportMapFromFile(privateImportMapFileUrl),
         this['import-maps'].auxiliaryImportMap,
