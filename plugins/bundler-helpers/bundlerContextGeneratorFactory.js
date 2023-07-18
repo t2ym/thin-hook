@@ -59,7 +59,7 @@ function bundlerContextGeneratorFactory(nodeLibs = {}, contextGeneratorHelper = 
         else {
           resolvedSource = path.relative(path.dirname(astPath[0][0]), _module);
           if (!resolvedSource.startsWith('.')) {
-            resolvedSource = './' + ast.resolvedSource;
+            resolvedSource = './' + resolvedSource;
           }
         }
         ast.moduleDependencies[_module].resolvedSource = resolvedSource; // for rollup
