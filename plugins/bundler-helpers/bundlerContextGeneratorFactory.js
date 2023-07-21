@@ -53,9 +53,6 @@ function bundlerContextGeneratorFactory(nodeLibs = {}, contextGeneratorHelper = 
         if (ast.moduleDependencies[_module][0] === 'export') {
           resolvedSource = './' + path.relative(path.dirname(ast.moduleDependencies[_module].source), ast.moduleDependencies[_module].source);
         }
-        else if (ast.moduleDependencies[_module].source.startsWith('.')) {
-          resolvedSource = ast.moduleDependencies[_module].source; // relative path
-        }
         else {
           resolvedSource = path.relative(path.dirname(astPath[0][0]), _module);
           if (!resolvedSource.startsWith('.')) {
