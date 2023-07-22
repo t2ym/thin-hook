@@ -129,7 +129,7 @@ var __90693844b86f4d9de9bee5c9026eefe73aa20a0dcf4c48ca6c0898a0743e76a8__module_n
     get unsafeCSS () { return unsafeCSS; },
     get css () { return css; }
 });
-var __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__module_namespace_1 = /*#__PURE__*/Object.freeze({
+var __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__module_namespace_1 = /*#__PURE__*/Object.freeze({
     __proto__: null,
     get LitElement () { return LitElement; },
     get html () { return html; },
@@ -152,7 +152,7 @@ var __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__module_n
     get unsafeCSS () { return unsafeCSS; },
     get css () { return css; }
 });
-var __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__module_namespace_2 = /*#__PURE__*/Object.freeze({
+var __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__module_namespace_2 = /*#__PURE__*/Object.freeze({
     __proto__: null,
     get repeat () { return repeat; }
 });
@@ -164,7 +164,7 @@ var __b4acf25a773fa6753a18ba29baa465db9efecfd44c2293cb400579bfe1a7c7cd__module_n
     __proto__: null,
     get Theme () { return Theme; }
 });
-var __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__module_namespace_4 = /*#__PURE__*/Object.freeze({
+var __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__module_namespace_4 = /*#__PURE__*/Object.freeze({
     __proto__: null
 });
 var __d2db9569121542d7295c5a08b5a337669a903d25e30b59c710f12ec45869a77e__module_namespace_1 = /*#__PURE__*/Object.freeze({
@@ -209,7 +209,7 @@ var __b4acf25a773fa6753a18ba29baa465db9efecfd44c2293cb400579bfe1a7c7cd__module_n
 var __635870ddf5c136b9403ab703b75c73e7929228af2a6b08f8b9a8f990b782ada1__module_namespace_6 = /*#__PURE__*/Object.freeze({
     __proto__: null
 });
-var __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__module_namespace_5 = /*#__PURE__*/Object.freeze({
+var __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__module_namespace_5 = /*#__PURE__*/Object.freeze({
     __proto__: null
 });
 var __6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__module_namespace_1 = /*#__PURE__*/Object.freeze({
@@ -564,16 +564,16 @@ var __57a4ba8749659179686903efd686c13024f3a9b0bde1749d740b048da3d5bd07__module_n
     __proto__: null,
     get ClearButton () { return ClearButton; }
 });
-var __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__module_namespace_6 = /*#__PURE__*/Object.freeze({
+var __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__module_namespace_6 = /*#__PURE__*/Object.freeze({
     __proto__: null,
     get Button () { return Button; },
     get ActionButton () { return ActionButton; },
     get ClearButton () { return ClearButton; }
 });
-var __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__module_namespace_7 = /*#__PURE__*/Object.freeze({
+var __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__module_namespace_7 = /*#__PURE__*/Object.freeze({
     __proto__: null
 });
-var __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__module_namespace_8 = /*#__PURE__*/Object.freeze({
+var __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__module_namespace_8 = /*#__PURE__*/Object.freeze({
     __proto__: null,
     get exportedName () { return exportedName; },
     get exportedName2 () { return exportedName2; },
@@ -588,11 +588,11 @@ var __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__module_n
     get inaccessibleObject () { return inaccessibleObject; },
     get ExportedClass () { return ExportedClass; }
 });
-var __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__module_namespace_9 = /*#__PURE__*/Object.freeze({
+var __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__module_namespace_9 = /*#__PURE__*/Object.freeze({
     __proto__: null,
     get UnspecifiedExport () { return UnspecifiedExport; }
 });
-var __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__module_namespace_0 = /*#__PURE__*/Object.freeze({
+var __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__module_namespace_0 = /*#__PURE__*/Object.freeze({
     __proto__: null,
     get HelloWorld () { return HelloWorld; }
 });
@@ -6416,7 +6416,7 @@ __hook__('#=', __hook__('m', LitElement, [__90693844b86f4d9de9bee5c9026eefe73aa2
 }, null, [
   'export',
   __90693844b86f4d9de9bee5c9026eefe73aa20a0dcf4c48ca6c0898a0743e76a8__[0],
-  __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__module_namespace_1
+  __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__module_namespace_1
 ], __90693844b86f4d9de9bee5c9026eefe73aa20a0dcf4c48ca6c0898a0743e76a8__[0], NaN);
 
 /**
@@ -7049,7 +7049,7 @@ const repeat = __hook__('m()', directive, [
 }, null, [
   'export',
   __b15b4641592e06cb6bd58e2388a36a7686fd420263ed87c79d1810ba30d7006d__[0],
-  __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__module_namespace_2
+  __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__module_namespace_2
 ], __b15b4641592e06cb6bd58e2388a36a7686fd420263ed87c79d1810ba30d7006d__[0], NaN);
 
 /*
@@ -7074,7 +7074,7 @@ __hook__(() => {
   'import',
   {
     [__f822ad2d47c510bb510348bec4a136b18f0a134ec61e53deb14476d5f39ee5a6__[1]]: [
-      __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__module_namespace_1,
+      __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__module_namespace_1,
       'css'
     ]
   }
@@ -7160,7 +7160,7 @@ __hook__(() => {
   'import',
   {
     [__75bb9d7189adc464ec4b1e626891e03db4fcecd882e59d8b3a8742c6b70b7a75__[1]]: [
-      __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__module_namespace_1,
+      __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__module_namespace_1,
       'supportsAdoptingStyleSheets'
     ],
     [__75bb9d7189adc464ec4b1e626891e03db4fcecd882e59d8b3a8742c6b70b7a75__[2]]: [
@@ -7704,7 +7704,7 @@ __hook__('#()', $hook$.global(__hook__, __40a10437b394b06aeb9d05a329939c8f7cdaa2
 }, null, [
   'export',
   __40a10437b394b06aeb9d05a329939c8f7cdaa2865f08c9dfcab829f4835eed90__[0],
-  __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__module_namespace_4
+  __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__module_namespace_4
 ], __40a10437b394b06aeb9d05a329939c8f7cdaa2865f08c9dfcab829f4835eed90__[0], NaN);
 
 /*
@@ -7729,7 +7729,7 @@ __hook__(() => {
   'import',
   {
     [__960c980b2f0b471587a33d57a353ed322316dd3a088da5655ff414eb67589a16__[1]]: [
-      __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__module_namespace_1,
+      __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__module_namespace_1,
       'css'
     ]
   }
@@ -7813,7 +7813,7 @@ __hook__(() => {
   'import',
   {
     [__3e763248b40cd79f4283916c55f1565d8aee52b8bc3202b65f961b374e9b4200__[1]]: [
-      __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__module_namespace_1,
+      __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__module_namespace_1,
       'css'
     ]
   }
@@ -7897,7 +7897,7 @@ __hook__(() => {
   'import',
   {
     [__c643460b492463513bfefe2e720abcd628304056888821385de1ab90bb0d148e__[1]]: [
-      __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__module_namespace_1,
+      __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__module_namespace_1,
       'css'
     ]
   }
@@ -7981,7 +7981,7 @@ __hook__(() => {
   'import',
   {
     [__7fbaaddb9e66075bc7c2c038a2a1cce0a9e2a12d004070cadd0031c5b84a58f3__[1]]: [
-      __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__module_namespace_1,
+      __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__module_namespace_1,
       'css'
     ]
   }
@@ -8065,7 +8065,7 @@ __hook__(() => {
   'import',
   {
     [__8aea6ccea293f6a2726ab86516bf7d1675f13b0903bcacbb7eda1807f28a6431__[1]]: [
-      __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__module_namespace_1,
+      __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__module_namespace_1,
       'css'
     ]
   }
@@ -8149,7 +8149,7 @@ __hook__(() => {
   'import',
   {
     [__52b01a7ba8a2b9463d79969b8e3c2bc339b3bf35687ffca228f1716af15b861f__[1]]: [
-      __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__module_namespace_1,
+      __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__module_namespace_1,
       'css'
     ]
   }
@@ -8247,7 +8247,7 @@ __hook__(() => {
 }, null, [
   'export',
   __635870ddf5c136b9403ab703b75c73e7929228af2a6b08f8b9a8f990b782ada1__[0],
-  __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__module_namespace_5
+  __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__module_namespace_5
 ], __635870ddf5c136b9403ab703b75c73e7929228af2a6b08f8b9a8f990b782ada1__[0], NaN);
 
 /*! *****************************************************************************
@@ -9383,7 +9383,7 @@ __hook__(() => {
       '__decorate'
     ],
     [__ab3ebc6acdffadc4983e3dba8fdc22b123de92a9fc869032240de3701cc2fe58__[2]]: [
-      __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__module_namespace_1,
+      __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__module_namespace_1,
       'property',
       'html'
     ],
@@ -9562,7 +9562,7 @@ __hook__(() => {
   'import',
   {
     [__2bd8d707ca1a843f9695b7094693fa9db54f6aa534e8fa286eb25f11c57b6207__[1]]: [
-      __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__module_namespace_1,
+      __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__module_namespace_1,
       'css'
     ]
   }
@@ -10373,7 +10373,7 @@ __hook__(() => {
       '__decorate'
     ],
     [__71005218794ee2bc9d1ba2f2b2a4082aa7df1fedd9adaa965dec71e7e87a12e5__[2]]: [
-      __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__module_namespace_1,
+      __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__module_namespace_1,
       'LitElement',
       'property'
     ],
@@ -11010,7 +11010,7 @@ __hook__(() => {
   'import',
   {
     [__a65496d9a815ca901df9d64519d66e4b98930104f853ef0e0992268e99a6fd6e__[1]]: [
-      __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__module_namespace_1,
+      __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__module_namespace_1,
       'css'
     ]
   }
@@ -11077,7 +11077,7 @@ __hook__(() => {
       '__decorate'
     ],
     [__297d9b1a42eb3085ac24735f5d4dc6f03f3d1e54f0a481f028d3a92a6b6515db__[2]]: [
-      __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__module_namespace_1,
+      __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__module_namespace_1,
       'property',
       'html'
     ],
@@ -11272,7 +11272,7 @@ __hook__(() => {
   'import',
   {
     [__f55191443e535b24459d786e10f0b1fb2a0bd7a0895986d18177ffa666cca04b__[1]]: [
-      __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__module_namespace_1,
+      __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__module_namespace_1,
       'css'
     ]
   }
@@ -11324,7 +11324,7 @@ __hook__(() => {
       '__decorate'
     ],
     [__da30b35bc5b0bbf9c1d0c3dee38d84c8819ae8d80faf85f42d52c1019798046f__[2]]: [
-      __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__module_namespace_1,
+      __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__module_namespace_1,
       'property'
     ],
     [__da30b35bc5b0bbf9c1d0c3dee38d84c8819ae8d80faf85f42d52c1019798046f__[3]]: [
@@ -11459,7 +11459,7 @@ __hook__(() => {
   'import',
   {
     [__10794f8d3fcc55f090012295a1525a955a78674ddd5303532a5cd059381577ed__[1]]: [
-      __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__module_namespace_1,
+      __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__module_namespace_1,
       'css'
     ]
   }
@@ -11512,7 +11512,7 @@ __hook__(() => {
       '__decorate'
     ],
     [__a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[2]]: [
-      __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__module_namespace_1,
+      __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__module_namespace_1,
       'property'
     ],
     [__a208b34507b0e6bce3f1bca2ef192acca427cfe324a14b0dcf5a8826650bdfb6__[3]]: [
@@ -11697,7 +11697,7 @@ __hook__(() => {
   'import',
   {
     [__0ff57c2b0fc041c8bd6e5f015512f754715a80e282ae13927b3693fffeebec73__[1]]: [
-      __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__module_namespace_1,
+      __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__module_namespace_1,
       'css'
     ]
   }
@@ -14316,7 +14316,7 @@ __hook__(() => {
   'import',
   {
     [__fbd8b8b5e9a3c02d321127ae88f53fb55a93301536e76127691c4570dfce5be8__[1]]: [
-      __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__module_namespace_1,
+      __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__module_namespace_1,
       'css'
     ]
   }
@@ -14372,7 +14372,7 @@ __hook__(() => {
       '__decorate'
     ],
     [__6c3cb933eff6e9a782b5c7463383e016242b09cc446f034e721919779b443e66__[2]]: [
-      __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__module_namespace_1,
+      __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__module_namespace_1,
       'html',
       'property'
     ],
@@ -14494,7 +14494,7 @@ __hook__(() => {
 }, null, [
   'export',
   __57a4ba8749659179686903efd686c13024f3a9b0bde1749d740b048da3d5bd07__[0],
-  __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__module_namespace_6
+  __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__module_namespace_6
 ], __57a4ba8749659179686903efd686c13024f3a9b0bde1749d740b048da3d5bd07__[0], NaN);
 
 /*
@@ -14534,7 +14534,7 @@ __hook__('#()', $hook$.global(__hook__, __1e8df5e471cb411f030f7d2f67a33fc489222d
 }, null, [
   'export',
   __1e8df5e471cb411f030f7d2f67a33fc489222df99ec4e45f6ff138345a47f550__[0],
-  __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__module_namespace_7
+  __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__module_namespace_7
 ], __1e8df5e471cb411f030f7d2f67a33fc489222df99ec4e45f6ff138345a47f550__[0], NaN);
 
 const __491e31de2616ac0145a809589586fc0160c0b689ee16153a78fbeda89cc694ae__ = $hook$.$(__hook__, [
@@ -15118,7 +15118,7 @@ __hook__(() => {
 }, null, [
   'export',
   __491e31de2616ac0145a809589586fc0160c0b689ee16153a78fbeda89cc694ae__[0],
-  __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__module_namespace_8
+  __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__module_namespace_8
 ], __491e31de2616ac0145a809589586fc0160c0b689ee16153a78fbeda89cc694ae__[0], NaN);
 
 const __18162bfcb1bfb2b35a54939b0389bcbd177ab61c4857d39d01603dd868b249c2__ = $hook$.$(__hook__, [
@@ -15136,10 +15136,10 @@ __hook__(() => {
 }, null, [
   'export',
   __18162bfcb1bfb2b35a54939b0389bcbd177ab61c4857d39d01603dd868b249c2__[0],
-  __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__module_namespace_9
+  __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__module_namespace_9
 ], __18162bfcb1bfb2b35a54939b0389bcbd177ab61c4857d39d01603dd868b249c2__[0], NaN);
 
-const __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__ = $hook$.$(__hook__, [
+const __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__ = $hook$.$(__hook__, [
   '/components/thin-hook/demo/modules/module1.js',
   '/components/thin-hook/demo/node_modules/lit-element/lit-element.js',
   '/components/thin-hook/demo/node_modules/lit-html/directives/repeat.js',
@@ -15150,8 +15150,8 @@ const __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__ = $ho
   '/components/thin-hook/demo/node_modules/@spectrum-web-components/button/sp-button.js',
   '/components/thin-hook/demo/modules/module2.js',
   '/components/thin-hook/demo/modules/module3.js',
-  'S_uNpREdiC4aB1e_console;/components/thin-hook/demo/modules/module1.js',
   'S_uNpREdiC4aB1e_chai;/components/thin-hook/demo/modules/module1.js',
+  'S_uNpREdiC4aB1e_console;/components/thin-hook/demo/modules/module1.js',
   '/components/thin-hook/demo/modules/module1.js,HelloWorld',
   '/components/thin-hook/demo/node_modules/lit-element/lit-element.js,LitElement',
   '/components/thin-hook/demo/modules/module1.js,HelloWorld,render',
@@ -15177,29 +15177,29 @@ __hook__(() => {
 }, null, [
   'import',
   {
-    [__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[1]]: [
-      __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__module_namespace_1,
+    [__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[1]]: [
+      __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__module_namespace_1,
       'LitElement',
       'html'
     ],
-    [__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[2]]: [
-      __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__module_namespace_2,
+    [__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[2]]: [
+      __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__module_namespace_2,
       'repeat'
     ],
-    [__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[3]]: [
+    [__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[3]]: [
       litHtmlNamespace,
       '*'
     ],
-    [__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[4]]: [__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__module_namespace_4],
-    [__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[5]]: [__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__module_namespace_5],
-    [__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[6]]: [
-      __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__module_namespace_6,
+    [__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[4]]: [__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__module_namespace_4],
+    [__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[5]]: [__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__module_namespace_5],
+    [__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[6]]: [
+      __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__module_namespace_6,
       'Button',
       'ClearButton'
     ],
-    [__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[7]]: [__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__module_namespace_7],
-    [__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[8]]: [
-      __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__module_namespace_8,
+    [__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[7]]: [__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__module_namespace_7],
+    [__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[8]]: [
+      __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__module_namespace_8,
       'exportedName',
       'exportedName2',
       'ExportedClass',
@@ -15213,43 +15213,50 @@ __hook__(() => {
       'inaccessibleFunction',
       'inaccessibleObject'
     ],
-    [__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[9]]: [
-      __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__module_namespace_9,
+    [__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[9]]: [
+      __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__module_namespace_9,
       'UnspecifiedExport'
     ]
   }
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], NaN);
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], NaN);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'chai', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[10]], ['assert'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]), [
+  'isOk',
+  [
+    __hook__('#()', __hook__('#.', __hook__(() => ({ url: new URL('modules/module1.js', import.meta.url).href }), null, ['import.meta'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], NaN), ['url'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]), [
+      'endsWith',
+      ['modules/module1.js']
+    ], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]),
+    'import.meta.url.endsWith(\'modules/module1.js\') ' + __hook__('#.', __hook__(() => ({ url: new URL('modules/module1.js', import.meta.url).href }), null, ['import.meta'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], NaN), ['url'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0])
+  ]
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
 __hook__('#()', __hook__((Import, ImportSpecifier) => import(ImportSpecifier), null, [
   'import()',
   'lit-html',
   { url: '/components/thin-hook/demo/modules/module1.js' }
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], NaN), [
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], NaN), [
   'then',
   [(...args) =>
       (__hook__(dynamicModule => {
-        if (__hook__('#()', __hook__('#.', __hook__(() => import.meta, null, ['import.meta'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], NaN), ['url'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]), [
-            'indexOf',
-            ['rollup']
-          ], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]) >= 0) {
-          __hook__('#()', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], 'console', '#get')[__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[10]], [
+        if (dynamicModule !== __hook__('m', litHtmlNamespace, [__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[3]], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], null)) {
+          __hook__('#()', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'console', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[11]], [
             'warn',
             [
               'dynamically imported "lit-html" module may conflict with that in this bundle ',
-              __hook__('#.', __hook__(() => import.meta, null, ['import.meta'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], NaN), ['url'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0])
+              __hook__('#.', __hook__(() => ({ url: new URL('modules/module1.js', import.meta.url).href }), null, ['import.meta'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], NaN), ['url'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0])
             ]
-          ], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
+          ], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
         } else {
-          __hook__('#()', __hook__('#.', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], 'chai', '#get')[__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[11]], ['assert'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]), [
+          __hook__('#()', __hook__('#.', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'chai', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[10]], ['assert'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]), [
             'equal',
             [
               dynamicModule,
-              __hook__('m', litHtmlNamespace, [__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[3]], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], null),
+              __hook__('m', litHtmlNamespace, [__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[3]], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], null),
               'dynamically imported module matches with that from static import'
             ]
-          ], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
+          ], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
         }
-      }, null, args, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]))]
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
+      }, null, args, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]))]
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
 /*
 import defaultImportLocalName from "./module2.js";
 export { ExportedClass_local1 as ExportedClass_local1_renamedExport1 }; // export comes before import
@@ -15274,140 +15281,140 @@ class PreExportedClass {}
 class MultiplyExportedClass {}
 export { MultiplyExportedClass as MultiplyExportedClass_renamed1, MultiplyExportedClass as MultiplyExportedClass_renamed2 };
 */
-class HelloWorld extends __hook__('m', LitElement, [__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[13]], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[12], null) {
+class HelloWorld extends __hook__('m', LitElement, [__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[13]], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[12], null) {
   render() {
     return __hook__(() => {
-      return __hook__(__hook__('m', html, [__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[15]], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[14], null), null, [((s, r) => {
+      return __hook__(__hook__('m', html, [__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[15]], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[14], null), null, [((s, r) => {
           s.raw = r;
           return s;
-        })(['<div>Hello, World!</div>'], ['<div>Hello, World!</div>'])], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[14], 0);
-    }, null, arguments, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[14]);
+        })(['<div>Hello, World!</div>'], ['<div>Hello, World!</div>'])], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[14], 0);
+    }, null, arguments, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[14]);
   }
 }
-if (!__hook__('#()', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], 'customElements', '#get')[__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[16]], [
+if (!__hook__('#()', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'customElements', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[16]], [
     'get',
     ['hello-world']
-  ], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0])) {
-  __hook__('#()', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], 'customElements', '#get')[__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[16]], [
+  ], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0])) {
+  __hook__('#()', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'customElements', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[16]], [
     'define',
     [
       'hello-world',
-      __hook__('m', HelloWorld, [__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[12]], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], null)
+      __hook__('m', HelloWorld, [__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[12]], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], null)
     ]
-  ], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
+  ], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
 } else {
-  __hook__('#()', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], 'console', '#get')[__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[10]], [
+  __hook__('#()', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'console', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[11]], [
     'warn',
     [
       'skipping registration of "hello-world" custom element as it has already been defined',
-      __hook__('#.', __hook__(() => import.meta, null, ['import.meta'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], NaN), ['url'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0])
+      __hook__('#.', __hook__(() => ({ url: new URL('modules/module1.js', import.meta.url).href }), null, ['import.meta'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], NaN), ['url'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0])
     ]
-  ], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
+  ], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
 }
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], 'chai', '#get')[__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[11]], ['assert'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'chai', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[10]], ['assert'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]), [
   'equal',
   [
     __hook__('mtypeof', UnspecifiedExport, [
-      __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[17],
+      __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[17],
       () => typeof UnspecifiedExport
-    ], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], null),
+    ], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], null),
     'function',
     'typeof UnspecifiedExport'
   ]
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
 // readable
 let unspecifiedExportObject = __hook__('mnew', UnspecifiedExport, [
-  __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[17],
+  __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[17],
   [],
   (...args) => new UnspecifiedExport(...args)
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[18], null);
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[18], null);
 // callable
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], 'chai', '#get')[__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[11]], ['assert'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'chai', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[10]], ['assert'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]), [
   'equal',
   [
-    __hook__('#.', unspecifiedExportObject, ['property'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]),
+    __hook__('#.', unspecifiedExportObject, ['property'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]),
     'property value',
     'UnspecifiedExport.property'
   ]
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
 // readable
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], 'chai', '#get')[__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[11]], ['assert'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'chai', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[10]], ['assert'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
-        __hook__('#=', __hook__('m', UnspecifiedExport, [__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[17]], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], null), [
+        __hook__('#=', __hook__('m', UnspecifiedExport, [__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[17]], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], null), [
           'nonwritable',
           true
-        ], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
-      }, null, args, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0])),
+        ], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
+      }, null, args, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0])),
     /^Permission Denied:/
   ]
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
 // not writable via Policy.globalAcl()
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], 'chai', '#get')[__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[11]], ['assert'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'chai', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[10]], ['assert'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]), [
   'equal',
   [
-    __hook__('m', exportedName, [__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[19]], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], null) + 'concatenated',
+    __hook__('m', exportedName, [__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[19]], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], null) + 'concatenated',
     'exportedNameValueconcatenated',
     'exported readable string value'
   ]
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
 // readable
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], 'chai', '#get')[__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[11]], ['assert'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'chai', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[10]], ['assert'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]), [
   'equal',
   [
     __hook__('mtypeof', exportedName, [
-      __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[19],
+      __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[19],
       () => typeof exportedName
-    ], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], null),
+    ], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], null),
     'string',
     'typeof exported string value'
   ]
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
 // readable
 //chai.assert.throws(() => { exportedName = 'new value'; }, /^Permission Denied:/); // not writable
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], 'chai', '#get')[__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[11]], ['assert'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'chai', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[10]], ['assert'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('m()', exportedName, [
-          __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[19],
+          __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[19],
           [],
           (...args) => exportedName(...args)
-        ], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], null);
-      }, null, args, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0])),
+        ], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], null);
+      }, null, args, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0])),
     /^Permission Denied:/
   ]
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
 // not callable
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], 'chai', '#get')[__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[11]], ['assert'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'chai', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[10]], ['assert'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
-        __hook__('m', exportedName2, [__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[20]], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], null);
-      }, null, args, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0])),
+        __hook__('m', exportedName2, [__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[20]], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], null);
+      }, null, args, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0])),
     /^Permission Denied:/
   ]
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
 // not readable
 // call
 let exportedClassObject = __hook__('mnew', ExportedClass, [
-  __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[22],
+  __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[22],
   [],
   (...args) => new ExportedClass(...args)
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[21], null);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], 'chai', '#get')[__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[11]], ['assert'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]), [
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[21], null);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'chai', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[10]], ['assert'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]), [
   'equal',
   [
-    __hook__('#.', exportedClassObject, ['readableProperty'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]),
+    __hook__('#.', exportedClassObject, ['readableProperty'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]),
     'readable',
     'readable object property'
   ]
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], 'chai', '#get')[__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[11]], ['assert'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]), [
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'chai', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[10]], ['assert'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]), [
   'throws',
   [
     (...args) =>
@@ -15415,273 +15422,273 @@ __hook__('#()', __hook__('#.', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2
         __hook__('#()', exportedClassObject, [
           'readableProperty',
           []
-        ], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
-      }, null, args, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0])),
+        ], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
+      }, null, args, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0])),
     /^Permission Denied:/
   ]
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
 // not callable
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], 'chai', '#get')[__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[11]], ['assert'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'chai', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[10]], ['assert'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
-        __hook__('#.', exportedClassObject, ['unreadableProperty'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
-      }, null, args, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0])),
+        __hook__('#.', exportedClassObject, ['unreadableProperty'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
+      }, null, args, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0])),
     /^Permission Denied:/
   ]
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], 'chai', '#get')[__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[11]], ['assert'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]), [
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'chai', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[10]], ['assert'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]), [
   'equal',
   [
-    __hook__('#()', __hook__('m', ExportedClass, [__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[22]], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], null), [
+    __hook__('#()', __hook__('m', ExportedClass, [__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[22]], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], null), [
       'callableStaticMethod',
       []
-    ], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]),
+    ], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]),
     'called',
     'callable static method'
   ]
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], 'chai', '#get')[__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[11]], ['assert'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]), [
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'chai', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[10]], ['assert'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
-        __hook__('#.', __hook__('m', ExportedClass, [__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[22]], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], null), ['callableStaticMethod'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
-      }, null, args, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0])),
+        __hook__('#.', __hook__('m', ExportedClass, [__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[22]], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], null), ['callableStaticMethod'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
+      }, null, args, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0])),
     /^Permission Denied:/
   ]
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], 'chai', '#get')[__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[11]], ['assert'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]), [
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'chai', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[10]], ['assert'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]), [
   'equal',
   [
     __hook__('#()', exportedClassObject, [
       'callableMethod',
       ['abc']
-    ], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]),
+    ], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]),
     'string',
     'callable method'
   ]
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], 'chai', '#get')[__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[11]], ['assert'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]), [
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'chai', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[10]], ['assert'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
-        __hook__('#.', exportedClassObject, ['callableMethod'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
-      }, null, args, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0])),
+        __hook__('#.', exportedClassObject, ['callableMethod'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
+      }, null, args, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0])),
     /^Permission Denied:/
   ]
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
 // read
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], 'chai', '#get')[__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[11]], ['assert'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'chai', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[10]], ['assert'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
-        __hook__('m', inaccessibleString, [__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[23]], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], null);
-      }, null, args, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0])),
+        __hook__('m', inaccessibleString, [__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[23]], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], null);
+      }, null, args, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0])),
     /^Permission Denied:/
   ]
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], 'chai', '#get')[__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[11]], ['assert'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]), [
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'chai', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[10]], ['assert'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
-        __hook__('m', inaccessibleNumber, [__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[24]], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], null);
-      }, null, args, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0])),
+        __hook__('m', inaccessibleNumber, [__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[24]], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], null);
+      }, null, args, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0])),
     /^Permission Denied:/
   ]
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], 'chai', '#get')[__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[11]], ['assert'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]), [
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'chai', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[10]], ['assert'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
-        __hook__('m', inaccessibleBoolean, [__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[25]], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], null);
-      }, null, args, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0])),
+        __hook__('m', inaccessibleBoolean, [__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[25]], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], null);
+      }, null, args, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0])),
     /^Permission Denied:/
   ]
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], 'chai', '#get')[__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[11]], ['assert'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]), [
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'chai', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[10]], ['assert'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
-        __hook__('m', inaccessibleSymbol, [__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[26]], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], null);
-      }, null, args, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0])),
+        __hook__('m', inaccessibleSymbol, [__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[26]], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], null);
+      }, null, args, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0])),
     /^Permission Denied:/
   ]
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], 'chai', '#get')[__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[11]], ['assert'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]), [
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'chai', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[10]], ['assert'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
-        __hook__('m', inaccessibleNull, [__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[27]], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], null);
-      }, null, args, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0])),
+        __hook__('m', inaccessibleNull, [__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[27]], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], null);
+      }, null, args, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0])),
     /^Permission Denied:/
   ]
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], 'chai', '#get')[__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[11]], ['assert'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]), [
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'chai', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[10]], ['assert'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
-        __hook__('m', inaccessibleUndefined, [__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[28]], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], null);
-      }, null, args, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0])),
+        __hook__('m', inaccessibleUndefined, [__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[28]], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], null);
+      }, null, args, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0])),
     /^Permission Denied:/
   ]
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], 'chai', '#get')[__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[11]], ['assert'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]), [
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'chai', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[10]], ['assert'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
-        __hook__('m', inaccessibleBigInt, [__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[29]], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], null);
-      }, null, args, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0])),
+        __hook__('m', inaccessibleBigInt, [__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[29]], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], null);
+      }, null, args, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0])),
     /^Permission Denied:/
   ]
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], 'chai', '#get')[__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[11]], ['assert'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]), [
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'chai', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[10]], ['assert'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
-        __hook__('m', inaccessibleFunction, [__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[30]], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], null);
-      }, null, args, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0])),
+        __hook__('m', inaccessibleFunction, [__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[30]], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], null);
+      }, null, args, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0])),
     /^Permission Denied:/
   ]
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], 'chai', '#get')[__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[11]], ['assert'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]), [
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'chai', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[10]], ['assert'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
-        __hook__('m', inaccessibleObject, [__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[31]], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], null);
-      }, null, args, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0])),
+        __hook__('m', inaccessibleObject, [__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[31]], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], null);
+      }, null, args, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0])),
     /^Permission Denied:/
   ]
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
 // read via unary operator
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], 'chai', '#get')[__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[11]], ['assert'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'chai', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[10]], ['assert'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('mtypeof', inaccessibleString, [
-          __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[23],
+          __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[23],
           () => typeof inaccessibleString
-        ], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], null);
-      }, null, args, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0])),
+        ], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], null);
+      }, null, args, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0])),
     /^Permission Denied:/
   ]
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], 'chai', '#get')[__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[11]], ['assert'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]), [
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'chai', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[10]], ['assert'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('mtypeof', inaccessibleNumber, [
-          __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[24],
+          __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[24],
           () => typeof inaccessibleNumber
-        ], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], null);
-      }, null, args, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0])),
+        ], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], null);
+      }, null, args, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0])),
     /^Permission Denied:/
   ]
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], 'chai', '#get')[__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[11]], ['assert'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]), [
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'chai', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[10]], ['assert'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('mtypeof', inaccessibleBoolean, [
-          __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[25],
+          __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[25],
           () => typeof inaccessibleBoolean
-        ], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], null);
-      }, null, args, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0])),
+        ], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], null);
+      }, null, args, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0])),
     /^Permission Denied:/
   ]
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], 'chai', '#get')[__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[11]], ['assert'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]), [
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'chai', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[10]], ['assert'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('mtypeof', inaccessibleSymbol, [
-          __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[26],
+          __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[26],
           () => typeof inaccessibleSymbol
-        ], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], null);
-      }, null, args, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0])),
+        ], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], null);
+      }, null, args, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0])),
     /^Permission Denied:/
   ]
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], 'chai', '#get')[__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[11]], ['assert'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]), [
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'chai', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[10]], ['assert'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('mtypeof', inaccessibleNull, [
-          __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[27],
+          __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[27],
           () => typeof inaccessibleNull
-        ], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], null);
-      }, null, args, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0])),
+        ], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], null);
+      }, null, args, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0])),
     /^Permission Denied:/
   ]
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], 'chai', '#get')[__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[11]], ['assert'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]), [
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'chai', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[10]], ['assert'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('mtypeof', inaccessibleUndefined, [
-          __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[28],
+          __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[28],
           () => typeof inaccessibleUndefined
-        ], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], null);
-      }, null, args, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0])),
+        ], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], null);
+      }, null, args, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0])),
     /^Permission Denied:/
   ]
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], 'chai', '#get')[__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[11]], ['assert'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]), [
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'chai', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[10]], ['assert'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('mtypeof', inaccessibleBigInt, [
-          __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[29],
+          __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[29],
           () => typeof inaccessibleBigInt
-        ], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], null);
-      }, null, args, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0])),
+        ], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], null);
+      }, null, args, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0])),
     /^Permission Denied:/
   ]
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], 'chai', '#get')[__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[11]], ['assert'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]), [
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'chai', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[10]], ['assert'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('mtypeof', inaccessibleFunction, [
-          __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[30],
+          __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[30],
           () => typeof inaccessibleFunction
-        ], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], null);
-      }, null, args, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0])),
+        ], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], null);
+      }, null, args, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0])),
     /^Permission Denied:/
   ]
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], 'chai', '#get')[__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[11]], ['assert'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]), [
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'chai', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[10]], ['assert'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('mtypeof', inaccessibleObject, [
-          __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[31],
+          __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[31],
           () => typeof inaccessibleObject
-        ], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], null);
-      }, null, args, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0])),
+        ], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], null);
+      }, null, args, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0])),
     /^Permission Denied:/
   ]
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
 /*
 // update operator (throws before operations)
 chai.assert.throws(() => { inaccessibleString++; }, /^Permission Denied:/);
@@ -15695,259 +15702,259 @@ chai.assert.throws(() => { inaccessibleFunction++; }, /^Permission Denied:/);
 chai.assert.throws(() => { inaccessibleObject++; }, /^Permission Denied:/);
 */
 // call operator (throws before operations)
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], 'chai', '#get')[__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[11]], ['assert'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'chai', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[10]], ['assert'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('m()', inaccessibleString, [
-          __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[23],
+          __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[23],
           [],
           (...args) => inaccessibleString(...args)
-        ], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], null);
-      }, null, args, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0])),
+        ], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], null);
+      }, null, args, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0])),
     /^Permission Denied:/
   ]
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], 'chai', '#get')[__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[11]], ['assert'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]), [
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'chai', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[10]], ['assert'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('m()', inaccessibleNumber, [
-          __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[24],
+          __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[24],
           [],
           (...args) => inaccessibleNumber(...args)
-        ], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], null);
-      }, null, args, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0])),
+        ], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], null);
+      }, null, args, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0])),
     /^Permission Denied:/
   ]
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], 'chai', '#get')[__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[11]], ['assert'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]), [
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'chai', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[10]], ['assert'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('m()', inaccessibleBoolean, [
-          __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[25],
+          __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[25],
           [],
           (...args) => inaccessibleBoolean(...args)
-        ], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], null);
-      }, null, args, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0])),
+        ], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], null);
+      }, null, args, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0])),
     /^Permission Denied:/
   ]
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], 'chai', '#get')[__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[11]], ['assert'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]), [
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'chai', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[10]], ['assert'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('m()', inaccessibleSymbol, [
-          __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[26],
+          __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[26],
           [],
           (...args) => inaccessibleSymbol(...args)
-        ], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], null);
-      }, null, args, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0])),
+        ], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], null);
+      }, null, args, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0])),
     /^Permission Denied:/
   ]
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], 'chai', '#get')[__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[11]], ['assert'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]), [
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'chai', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[10]], ['assert'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('m()', inaccessibleNull, [
-          __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[27],
+          __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[27],
           [],
           (...args) => inaccessibleNull(...args)
-        ], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], null);
-      }, null, args, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0])),
+        ], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], null);
+      }, null, args, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0])),
     /^Permission Denied:/
   ]
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], 'chai', '#get')[__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[11]], ['assert'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]), [
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'chai', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[10]], ['assert'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('m()', inaccessibleUndefined, [
-          __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[28],
+          __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[28],
           [],
           (...args) => inaccessibleUndefined(...args)
-        ], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], null);
-      }, null, args, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0])),
+        ], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], null);
+      }, null, args, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0])),
     /^Permission Denied:/
   ]
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], 'chai', '#get')[__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[11]], ['assert'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]), [
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'chai', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[10]], ['assert'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('m()', inaccessibleBigInt, [
-          __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[29],
+          __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[29],
           [],
           (...args) => inaccessibleBigInt(...args)
-        ], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], null);
-      }, null, args, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0])),
+        ], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], null);
+      }, null, args, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0])),
     /^Permission Denied:/
   ]
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], 'chai', '#get')[__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[11]], ['assert'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]), [
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'chai', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[10]], ['assert'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('m()', inaccessibleFunction, [
-          __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[30],
+          __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[30],
           [],
           (...args) => inaccessibleFunction(...args)
-        ], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], null);
-      }, null, args, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0])),
+        ], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], null);
+      }, null, args, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0])),
     /^Permission Denied:/
   ]
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], 'chai', '#get')[__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[11]], ['assert'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]), [
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'chai', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[10]], ['assert'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('m()', inaccessibleObject, [
-          __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[31],
+          __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[31],
           [],
           (...args) => inaccessibleObject(...args)
-        ], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], null);
-      }, null, args, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0])),
+        ], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], null);
+      }, null, args, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0])),
     /^Permission Denied:/
   ]
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
 // new operator (throws before operations)
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], 'chai', '#get')[__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[11]], ['assert'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]), [
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'chai', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[10]], ['assert'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('mnew', inaccessibleString, [
-          __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[23],
+          __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[23],
           [],
           (...args) => new inaccessibleString(...args)
-        ], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], null);
-      }, null, args, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0])),
+        ], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], null);
+      }, null, args, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0])),
     /^Permission Denied:/
   ]
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], 'chai', '#get')[__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[11]], ['assert'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]), [
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'chai', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[10]], ['assert'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('mnew', inaccessibleNumber, [
-          __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[24],
+          __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[24],
           [],
           (...args) => new inaccessibleNumber(...args)
-        ], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], null);
-      }, null, args, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0])),
+        ], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], null);
+      }, null, args, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0])),
     /^Permission Denied:/
   ]
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], 'chai', '#get')[__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[11]], ['assert'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]), [
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'chai', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[10]], ['assert'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('mnew', inaccessibleBoolean, [
-          __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[25],
+          __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[25],
           [],
           (...args) => new inaccessibleBoolean(...args)
-        ], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], null);
-      }, null, args, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0])),
+        ], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], null);
+      }, null, args, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0])),
     /^Permission Denied:/
   ]
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], 'chai', '#get')[__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[11]], ['assert'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]), [
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'chai', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[10]], ['assert'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('mnew', inaccessibleSymbol, [
-          __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[26],
+          __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[26],
           [],
           (...args) => new inaccessibleSymbol(...args)
-        ], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], null);
-      }, null, args, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0])),
+        ], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], null);
+      }, null, args, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0])),
     /^Permission Denied:/
   ]
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], 'chai', '#get')[__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[11]], ['assert'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]), [
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'chai', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[10]], ['assert'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('mnew', inaccessibleNull, [
-          __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[27],
+          __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[27],
           [],
           (...args) => new inaccessibleNull(...args)
-        ], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], null);
-      }, null, args, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0])),
+        ], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], null);
+      }, null, args, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0])),
     /^Permission Denied:/
   ]
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], 'chai', '#get')[__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[11]], ['assert'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]), [
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'chai', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[10]], ['assert'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('mnew', inaccessibleUndefined, [
-          __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[28],
+          __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[28],
           [],
           (...args) => new inaccessibleUndefined(...args)
-        ], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], null);
-      }, null, args, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0])),
+        ], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], null);
+      }, null, args, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0])),
     /^Permission Denied:/
   ]
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], 'chai', '#get')[__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[11]], ['assert'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]), [
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'chai', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[10]], ['assert'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('mnew', inaccessibleBigInt, [
-          __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[29],
+          __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[29],
           [],
           (...args) => new inaccessibleBigInt(...args)
-        ], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], null);
-      }, null, args, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0])),
+        ], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], null);
+      }, null, args, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0])),
     /^Permission Denied:/
   ]
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], 'chai', '#get')[__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[11]], ['assert'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]), [
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'chai', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[10]], ['assert'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('mnew', inaccessibleFunction, [
-          __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[30],
+          __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[30],
           [],
           (...args) => new inaccessibleFunction(...args)
-        ], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], null);
-      }, null, args, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0])),
+        ], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], null);
+      }, null, args, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0])),
     /^Permission Denied:/
   ]
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);
-__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], 'chai', '#get')[__a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[11]], ['assert'], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]), [
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);
+__hook__('#()', __hook__('#.', $hook$.global(__hook__, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], 'chai', '#get')[__a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[10]], ['assert'], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]), [
   'throws',
   [
     (...args) =>
       (__hook__(() => {
         __hook__('mnew', inaccessibleObject, [
-          __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[31],
+          __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[31],
           [],
           (...args) => new inaccessibleObject(...args)
-        ], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], null);
-      }, null, args, __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0])),
+        ], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], null);
+      }, null, args, __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0])),
     /^Permission Denied:/
   ]
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0]);  /*
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0]);  /*
 // assignment operators
 chai.assert.throws(() => { inaccessibleString = 'abc'; }, /^Permission Denied:/);
 chai.assert.throws(() => { inaccessibleNumber = 1; }, /^Permission Denied:/);
@@ -15972,8 +15979,8 @@ chai.assert.throws(() => { [ inaccessibleObject ] = [ {} ]; }, /^Permission Deni
 __hook__(() => {
 }, null, [
   'export',
-  __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0],
-  __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__module_namespace_0
-], __a7a8677833a155c5fbfedd2baa07eb458e94e5c0a7ec6083e1c5b419cc59265b__[0], NaN);
+  __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0],
+  __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__module_namespace_0
+], __a5cc1f82e6a3190ec4540b7c61aaaaf5717ece4f153f71e68d911d48092d0fca__[0], NaN);
 
 export { HelloWorld };

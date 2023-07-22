@@ -21,8 +21,9 @@ import {
 } from "./module2.js";
 import { UnspecifiedExport } from "./module3.js";
 
+chai.assert.isOk(import.meta.url.endsWith('modules/module1.js'), "import.meta.url.endsWith('modules/module1.js') " + import.meta.url);
 import("lit-html").then(dynamicModule => {
-  if (import.meta.url.indexOf('rollup') >= 0) {
+  if (dynamicModule !== litHtmlNamespace) {
     console.warn('dynamically imported "lit-html" module may conflict with that in this bundle ', import.meta.url);
   }
   else {

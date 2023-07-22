@@ -13,7 +13,7 @@ else {
     //   hook.parameters.noHookAuthorizationFailed
     // JSONs are output to console in the learning mode
     //'*': true,
-    "ce172fcadccbd0fedebc27aefee0cf0ac6a0d26909c84cc81a02f88e2683d90e": true, // hook.min.js
+    "808488cca29f184e97f9e26ba4fd742c4c6cafff09e7a6a973508212d62fea2d": true, // hook.min.js
     "a81209228209941097ac41c5bda3bc1cd64375e69b7c8113aff68c2fe6729ff2": true, // demo/disable-devtools.js
     "4374ae1f28cec2b969ab488895a4266244d65e28e1f82728fd2cd39130fe0d9e": true, // demo/context-generator.js
     "dca933fb4ade771ca8ed30823b52e7e36762522711ebf1d87eb9905c21b840ea": true, // demo/bootstrap.js
@@ -25,7 +25,7 @@ else {
     "e992640bf3759389183b8cb9f06e289f97d6390ebd10515eef7f670366db9291": true, // demo/webpack-es6-module.js
     "97f2022963c310fadb096c328d849fdb6658c1cd509cad030f71cb426c7841a4": true, // demo/webpack-commonjs.js
     "be62ecde142b4cdf07dfa764b264215b0d52ab6209d666fe0f3bc1832f021cd0": true, // demo/rollup-es6-module.js
-    "dfb424d10dd73ee1bb1028ac0073e941d024d3b9a5f9e5a2fd6c9ce99a9ba8f1": true, // demo/rollup-module1.js
+    "e096e23052186db9717374b39a48ca27936f8c6cd4f08b30b893036bb0690c20": true, // demo/rollup-module1.js
     "c46af0c64c274fa3ce4859243777218fc83c7f57f8176e8e35ab815b8eecb19c": true, // demo/wrap-globals.js
     "a578e741369d927f693fedc88c75b1a90f1a79465e2bb9774a3f68ffc6e011e6": true, // /components/thin-hook/demo/ inline cors
     "9c84034cd3f81fcd3e39cf0065e297ba7dae755044aec3a1c4fc3b6ab418ccbd": true, // /components/thin-hook/demo/ inline hooked eval results
