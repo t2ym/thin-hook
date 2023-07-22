@@ -801,6 +801,19 @@ class TargetConfig extends Injectable(Traceable(Configurable(GulpDefaultRegistry
           input: path.resolve(target.entryBase, target.entry),
           treeshake: false,
           plugins: [
+            {
+              name: 'import-meta-url-current-module',
+              resolveImportMeta(property, { moduleId }) {
+                if (property === null) { // import.meta is always separated from url property in hooked code
+                  const url = `new URL('${path.relative(
+                    path.dirname(path.resolve(target.entryBase, target.output)) + '/',
+                    moduleId
+                  )}', import.meta.url).href`;
+                  return `({ url: ${url} })`;
+                }
+                return null;
+              }
+            },
             this.bundles.components.rollupPluginBrowserifyTransform(
               this.bundles.components.hookTransformFactory('rollup', target, this.bundles.components.importMapperFactory, this.bundles.components.contextGeneratorHelper)
             ),
