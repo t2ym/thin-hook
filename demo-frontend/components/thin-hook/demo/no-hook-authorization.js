@@ -13,7 +13,7 @@ else {
     //   hook.parameters.noHookAuthorizationFailed
     // JSONs are output to console in the learning mode
     //'*': true,
-    "808488cca29f184e97f9e26ba4fd742c4c6cafff09e7a6a973508212d62fea2d": true, // hook.min.js
+    "e6d3eccfb98fdea310354e683364036a1f85f1d55a6040dc9ca81f2bc3d1b38e": true, // hook.min.js
     "a81209228209941097ac41c5bda3bc1cd64375e69b7c8113aff68c2fe6729ff2": true, // demo/disable-devtools.js
     "4374ae1f28cec2b969ab488895a4266244d65e28e1f82728fd2cd39130fe0d9e": true, // demo/context-generator.js
     "dca933fb4ade771ca8ed30823b52e7e36762522711ebf1d87eb9905c21b840ea": true, // demo/bootstrap.js
@@ -21,11 +21,11 @@ else {
     "0979646683bec9b9682d974d549effb61b1fc981ad87dac76d44d0440d87b396": true, // demo/hook-native-api.js
     "5b615aa885a0518466153be6ecb2cfeef1300f181ff60ca91cad964659c92052": true, // demo/hook-worker.js
     "478aa0846542d93ec7ba38ae2cf1794849220539393895c9d36aba2c8e2d8386": true, // demo/cache-bundle.js
-    "13517425e13d008da30e5638a6f91b3bcb913210191ada9e5b1be85df73ebaa9": true, // demo/browserify-commonjs.js
+    "7f852cb0b61db5a2b58920b03dd8626c3f67331ef9a7a8cdbe04d77dbeb3fdfc": true, // demo/browserify-commonjs.js
     "e992640bf3759389183b8cb9f06e289f97d6390ebd10515eef7f670366db9291": true, // demo/webpack-es6-module.js
-    "97f2022963c310fadb096c328d849fdb6658c1cd509cad030f71cb426c7841a4": true, // demo/webpack-commonjs.js
+    "b1e27e7e3e5b9481a9ef12f22c11ac72940f07bd9a49e7b4b18cd4a701627557": true, // demo/webpack-commonjs.js
     "be62ecde142b4cdf07dfa764b264215b0d52ab6209d666fe0f3bc1832f021cd0": true, // demo/rollup-es6-module.js
-    "e096e23052186db9717374b39a48ca27936f8c6cd4f08b30b893036bb0690c20": true, // demo/rollup-module1.js
+    "2d94340807fac358e8e0ae20296e1795afacab72d8af37c40a495ed7147c5504": true, // demo/rollup-module1.js
     "c46af0c64c274fa3ce4859243777218fc83c7f57f8176e8e35ab815b8eecb19c": true, // demo/wrap-globals.js
     "a578e741369d927f693fedc88c75b1a90f1a79465e2bb9774a3f68ffc6e011e6": true, // /components/thin-hook/demo/ inline cors
     "9c84034cd3f81fcd3e39cf0065e297ba7dae755044aec3a1c4fc3b6ab418ccbd": true, // /components/thin-hook/demo/ inline hooked eval results

@@ -60,39 +60,11 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports) {
-
-module.exports = function(module) {
-	if(!module.webpackPolyfill) {
-		module.deprecate = function() {};
-		module.paths = [];
-		// module.parent = undefined by default
-		if(!module.children) module.children = [];
-		Object.defineProperty(module, "loaded", {
-			enumerable: true,
-			get: function() {
-				return module.l;
-			}
-		});
-		Object.defineProperty(module, "id", {
-			enumerable: true,
-			get: function() {
-				return module.i;
-			}
-		});
-		module.webpackPolyfill = 1;
-	}
-	return module;
-};
-
-
-/***/ }),
-/* 1 */
 /***/ (function(module, exports) {
 
 /*
@@ -3016,7 +2988,7 @@ __hook__('=', exports, [
 
 
 /***/ }),
-/* 2 */
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const __cc74399e1c1d2140899d39152418f1528f38b74c64259bca5272f0825272cb83__ = $hook$.$(__hook__, [
@@ -3025,7 +2997,7 @@ const __cc74399e1c1d2140899d39152418f1528f38b74c64259bca5272f0825272cb83__ = $ho
   '/components/thin-hook/demo/commonjs.js',
   '_uNpREdiC4aB1e_chai;/components/thin-hook/demo/commonjs.js'
 ]);
-const add = __hook__(() => __webpack_require__(3), null, [
+const add = __hook__(() => __webpack_require__(2), null, [
   'require',
   './commonjs2',
   '/components/thin-hook/demo/commonjs2.js'
@@ -3060,7 +3032,7 @@ __hook__('()', __hook__('.', $hook$.global(__hook__, __cc74399e1c1d2140899d39152
 ], __cc74399e1c1d2140899d39152418f1528f38b74c64259bca5272f0825272cb83__[2]);
 
 /***/ }),
-/* 3 */
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {const __65c113ba194d10494e2bba7f5066029de3ada0d924cf072d5420ceca39aaa28b__ = $hook$.$(__hook__, [
@@ -3113,7 +3085,35 @@ __hook__('=', module, [
     }, null, arguments, __65c113ba194d10494e2bba7f5066029de3ada0d924cf072d5420ceca39aaa28b__[4]);
   }
 ], __65c113ba194d10494e2bba7f5066029de3ada0d924cf072d5420ceca39aaa28b__[1]);
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)(module)))
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports) {
+
+module.exports = function(module) {
+	if(!module.webpackPolyfill) {
+		module.deprecate = function() {};
+		module.paths = [];
+		// module.parent = undefined by default
+		if(!module.children) module.children = [];
+		Object.defineProperty(module, "loaded", {
+			enumerable: true,
+			get: function() {
+				return module.l;
+			}
+		});
+		Object.defineProperty(module, "id", {
+			enumerable: true,
+			get: function() {
+				return module.i;
+			}
+		});
+		module.webpackPolyfill = 1;
+	}
+	return module;
+};
+
 
 /***/ }),
 /* 4 */
@@ -3700,364 +3700,93 @@ __hook__('=', exports, [
 
 /***/ }),
 /* 6 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(module) {/*
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/*
 @license https://github.com/t2ym/xliff-conv/blob/master/LICENSE.md
 Copyright (c) 2016, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 */
-const __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__ = $hook$.$(__hook__, [
-  '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js',
-  'S_uNpREdiC4aB1e_define;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js',
-  '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv',
-  'S_uNpREdiC4aB1e_Date;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv',
-  'S_uNpREdiC4aB1e_window;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv',
-  'S_uNpREdiC4aB1e_console;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv',
-  'S_uNpREdiC4aB1e_Error;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js',
-  '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,parser',
-  '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,dom',
-  '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,fileTag',
-  '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,transUnits',
-  '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,output',
-  'S_uNpREdiC4aB1e_Array;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js',
-  '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,sourceTag',
-  '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,targetTag',
-  '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,id',
-  '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,restype',
-  '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,source',
-  '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,target',
-  '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,approved',
-  '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,state',
-  '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,paths',
-  '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,component',
-  'S_uNpREdiC4aB1e_Number;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js',
-  'S_uNpREdiC4aB1e_Boolean;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js',
-  'S_uNpREdiC4aB1e_JSON;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js',
-  'S_uNpREdiC4aB1e_undefined;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js',
-  '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,patterns',
-  '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,path',
-  '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,serializer',
-  '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,xmlHeader',
-  '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,xliffTemplate',
-  '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,transUnitTemplate',
-  '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,xliff',
-  '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,bodyTag',
-  '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,sourceBundle',
-  '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,targetBundle',
-  '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,transUnitWrapper',
-  '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,transUnit',
-  '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,todo',
-  '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,nodes',
-  'S_uNpREdiC4aB1e_Array;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,nodes'
-]);
-__hook__(function (root, factory) {
+/* harmony default export */ __webpack_exports__["default"] = ((function () {
+// UMD Definition above, do not remove this line
   'use strict';
-  return __hook__((root, factory) => {
-    /* istanbul ignore if: AMD is not tested */
-    if (typeof $hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 'define', '#typeof')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[1]] === 'function' && __hook__('#.', $hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 'define', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[1]], ['amd'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])) {
-      // AMD. Register as an anonymous module.
-      __hook__($hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 'define', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[1]], null, [
-        [],
-        function () {
-          return __hook__(() => {
-            return __hook__('#=', root, [
-              'XliffConv',
-              __hook__(factory, null, [], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 0)
-            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-          }, null, arguments, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-        }
-      ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 0);
-    } else if (true) {
-      // Node. Does not work with strict CommonJS, but
-      // only CommonJS-like enviroments that support module.exports,
-      // like Node.
-      __hook__('#=', module, [
-        'exports',
-        __hook__(factory, null, [], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 0)
-      ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-    } else {
-      // Browser globals
-      __hook__('#=', root, [
-        'XliffConv',
-        __hook__(factory, null, [], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 0)
-      ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+
+  var XliffConv = function XliffConv(options) {
+    options = options || {};
+    this.useSources = options.useSources || false;
+    this.date = options.date || new Date();
+    this.xmldom = typeof window === 'object' ? window : __webpack_require__(7);
+    this.DOMParser = this.xmldom.DOMParser;
+    this.XMLSerializer = this.xmldom.XMLSerializer;
+    this.xliffStates = options.xliffStates || XliffConv.xliffStates.default;
+    this.patterns = options.patterns || XliffConv.patterns;
+    this.todoOps = this._todoOps(this.xliffStates);
+    this.logger = options.logger || function () { console.log.apply(console, arguments); };
+    this.warnLogger = options.warnLogger || function () { console.warn.apply(console, arguments); };
+    this.errorLogger = options.errorLogger || function () { console.error.apply(console, arguments); };
+    this.toolVersion = '1.0.12';
+  };
+
+  XliffConv.xliffStates = {
+    // All state-less unapproved strings are regarded as needs-translation
+    'default': {
+      'add'    : [ 'new' ],
+      'replace': [ 'needs-translation', 'needs-adaptation', 'needs-l10n', '' ],
+      'review' : [ 'needs-review-translation', 'needs-review-adaptation', 'needs-review-l10n' ],
+      'default': [ 'translated', 'signed-off', 'final', '[approved]' ]
+    },
+    // Aannotations {{name}} and tags <tag-name> are regarded as translated
+    'annotationsAsTranslated': {
+      'add'    : [ 'new' ],
+      'replace': [ 'needs-translation', 'needs-adaptation', 'needs-l10n', '' ],
+      'review' : [ 'needs-review-translation', 'needs-review-adaptation', 'needs-review-l10n' ],
+      'default': [ 'translated', 'signed-off', 'final', '[approved]', '[source~=annotationsAndTags]' ]
+    },
+    // Newly added annotations {{name}} and tags <tag-name> are regarded as translated
+    'newAnnotationsAsTranslated': {
+      'add'    : [ 'new' ],
+      'replace': [ 'needs-translation', 'needs-adaptation', 'needs-l10n', '' ],
+      'review' : [ 'needs-review-translation', 'needs-review-adaptation', 'needs-review-l10n' ],
+      'default': [ 'translated', 'signed-off', 'final', '[approved]', '[state==new&&source~=annotationsAndTags]' ]
+    },
+    // Newly added annotations {{name}} and tags <tag-name> are regarded as translated only at export
+    'newAnnotationsAsTranslatedAtExport': {
+      'add'    : [ 'new' ],
+      'replace': [ 'needs-translation', 'needs-adaptation', 'needs-l10n', '' ],
+      'review' : [ 'needs-review-translation', 'needs-review-adaptation', 'needs-review-l10n' ],
+      'default': [ 'translated', 'signed-off', 'final', '[approved]', '[export&&state==new&&source~=annotationsAndTags]' ]
+    },
+    // Annotations {{name}} and tags <tag-name> are skipped in translation by translate=no
+    'annotationsAsNoTranslate': {
+      'add'    : [ 'new' ],
+      'replace': [ 'needs-translation', 'needs-adaptation', 'needs-l10n', '' ],
+      'review' : [ 'needs-review-translation', 'needs-review-adaptation', 'needs-review-l10n' ],
+      'default': [ 'translated', 'signed-off', 'final', '[source~=annotationsAndTags&&translate:=no&&state:=final]', '[approved]' ],
+    },
+    /* === State Mapping Tables for migration from xliff2bundlejson === */
+    // All state-less strings are regarded as approved=yes
+    'approveAll': {
+      'add'    : [ 'new' ],
+      'replace': [ 'needs-translation', 'needs-adaptation', 'needs-l10n' ],
+      'review' : [ 'needs-review-translation', 'needs-review-adaptation', 'needs-review-l10n' ],
+      'default': [ 'translated', 'signed-off', 'final', '' ]
+    },
+    // State-less translated strings need review
+    'reviewTranslated': {
+      'add'    : [ 'new' ],
+      'replace': [ 'needs-translation', 'needs-adaptation', 'needs-l10n', '[!state&&!approved&&source==target]', '' ],
+      'review' : [ 'needs-review-translation', 'needs-review-adaptation', 'needs-review-l10n', '[!state&&!approved&&source!=target]' ],
+      'default': [ 'translated', 'signed-off', 'final', '[approved]' ]
+    },
+    // State-less translated strings are regarded as approved=yes
+    'approveTranslated': {
+      'add'    : [ 'new' ],
+      'replace': [ 'needs-translation', 'needs-adaptation', 'needs-l10n', '[!state&&!approved&&source==target]', '' ],
+      'review' : [ 'needs-review-translation', 'needs-review-adaptation', 'needs-review-l10n' ],
+      'default': [ 'translated', 'signed-off', 'final', '[!state&&!approved&&source!=target]', '[approved]' ]
     }
-  }, null, arguments, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-}, null, [
-  this,
-  function () {
-    // UMD Definition above, do not remove this line
-    'use strict';
-    return __hook__(() => {
-      var XliffConv = function XliffConv(options) {
-        return __hook__(options => {
-          options = options || {};
-          __hook__('#=', this, [
-            'useSources',
-            __hook__('#.', options, ['useSources'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]) || false
-          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]);
-          __hook__('#=', this, [
-            'date',
-            __hook__('#.', options, ['date'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]) || __hook__($hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2], 'Date', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[3]], null, [], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2], true)
-          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]);
-          __hook__('#=', this, [
-            'xmldom',
-            typeof $hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2], 'window', '#typeof')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[4]] === 'object' ? $hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2], 'window', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[4]] : __hook__(() => __webpack_require__(7), null, [
-              'require',
-              'xmldom',
-              '/components/thin-hook/node_modules/xmldom/dom-parser.js'
-            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2], NaN)
-          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]);
-          __hook__('#=', this, [
-            'DOMParser',
-            __hook__('#.', __hook__('#.', this, ['xmldom'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]), ['DOMParser'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2])
-          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]);
-          __hook__('#=', this, [
-            'XMLSerializer',
-            __hook__('#.', __hook__('#.', this, ['xmldom'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]), ['XMLSerializer'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2])
-          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]);
-          __hook__('#=', this, [
-            'xliffStates',
-            __hook__('#.', options, ['xliffStates'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]) || __hook__('#.', __hook__('#.', XliffConv, ['xliffStates'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]), ['default'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2])
-          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]);
-          __hook__('#=', this, [
-            'patterns',
-            __hook__('#.', options, ['patterns'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]) || __hook__('#.', XliffConv, ['patterns'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2])
-          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]);
-          __hook__('#=', this, [
-            'todoOps',
-            __hook__('#()', this, [
-              '_todoOps',
-              [__hook__('#.', this, ['xliffStates'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2])]
-            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2])
-          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]);
-          __hook__('#=', this, [
-            'logger',
-            __hook__('#.', options, ['logger'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]) || function () {
-              return __hook__(() => {
-                __hook__('#()', __hook__('#.', $hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2], 'console', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[5]], ['log'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]), [
-                  'apply',
-                  [
-                    $hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2], 'console', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[5]],
-                    arguments
-                  ]
-                ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]);
-              }, null, arguments, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]);
-            }
-          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]);
-          __hook__('#=', this, [
-            'warnLogger',
-            __hook__('#.', options, ['warnLogger'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]) || function () {
-              return __hook__(() => {
-                __hook__('#()', __hook__('#.', $hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2], 'console', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[5]], ['warn'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]), [
-                  'apply',
-                  [
-                    $hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2], 'console', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[5]],
-                    arguments
-                  ]
-                ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]);
-              }, null, arguments, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]);
-            }
-          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]);
-          __hook__('#=', this, [
-            'errorLogger',
-            __hook__('#.', options, ['errorLogger'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]) || function () {
-              return __hook__(() => {
-                __hook__('#()', __hook__('#.', $hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2], 'console', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[5]], ['error'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]), [
-                  'apply',
-                  [
-                    $hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2], 'console', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[5]],
-                    arguments
-                  ]
-                ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]);
-              }, null, arguments, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]);
-            }
-          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]);
-          __hook__('#=', this, [
-            'toolVersion',
-            '1.0.10'
-          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]);
-        }, null, arguments, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]);
-      };
-      __hook__('#=', XliffConv, [
-        'xliffStates',
-        {
-          // All state-less unapproved strings are regarded as needs-translation
-          'default': {
-            'add': ['new'],
-            'replace': [
-              'needs-translation',
-              'needs-adaptation',
-              'needs-l10n',
-              ''
-            ],
-            'review': [
-              'needs-review-translation',
-              'needs-review-adaptation',
-              'needs-review-l10n'
-            ],
-            'default': [
-              'translated',
-              'signed-off',
-              'final',
-              '[approved]'
-            ]
-          },
-          // Aannotations {{name}} and tags <tag-name> are regarded as translated
-          'annotationsAsTranslated': {
-            'add': ['new'],
-            'replace': [
-              'needs-translation',
-              'needs-adaptation',
-              'needs-l10n',
-              ''
-            ],
-            'review': [
-              'needs-review-translation',
-              'needs-review-adaptation',
-              'needs-review-l10n'
-            ],
-            'default': [
-              'translated',
-              'signed-off',
-              'final',
-              '[approved]',
-              '[source~=annotationsAndTags]'
-            ]
-          },
-          // Newly added annotations {{name}} and tags <tag-name> are regarded as translated
-          'newAnnotationsAsTranslated': {
-            'add': ['new'],
-            'replace': [
-              'needs-translation',
-              'needs-adaptation',
-              'needs-l10n',
-              ''
-            ],
-            'review': [
-              'needs-review-translation',
-              'needs-review-adaptation',
-              'needs-review-l10n'
-            ],
-            'default': [
-              'translated',
-              'signed-off',
-              'final',
-              '[approved]',
-              '[state==new&&source~=annotationsAndTags]'
-            ]
-          },
-          // Newly added annotations {{name}} and tags <tag-name> are regarded as translated only at export
-          'newAnnotationsAsTranslatedAtExport': {
-            'add': ['new'],
-            'replace': [
-              'needs-translation',
-              'needs-adaptation',
-              'needs-l10n',
-              ''
-            ],
-            'review': [
-              'needs-review-translation',
-              'needs-review-adaptation',
-              'needs-review-l10n'
-            ],
-            'default': [
-              'translated',
-              'signed-off',
-              'final',
-              '[approved]',
-              '[export&&state==new&&source~=annotationsAndTags]'
-            ]
-          },
-          // Annotations {{name}} and tags <tag-name> are skipped in translation by translate=no
-          'annotationsAsNoTranslate': {
-            'add': ['new'],
-            'replace': [
-              'needs-translation',
-              'needs-adaptation',
-              'needs-l10n',
-              ''
-            ],
-            'review': [
-              'needs-review-translation',
-              'needs-review-adaptation',
-              'needs-review-l10n'
-            ],
-            'default': [
-              'translated',
-              'signed-off',
-              'final',
-              '[source~=annotationsAndTags&&translate:=no&&state:=final]',
-              '[approved]'
-            ]
-          },
-          /* === State Mapping Tables for migration from xliff2bundlejson === */
-          // All state-less strings are regarded as approved=yes
-          'approveAll': {
-            'add': ['new'],
-            'replace': [
-              'needs-translation',
-              'needs-adaptation',
-              'needs-l10n'
-            ],
-            'review': [
-              'needs-review-translation',
-              'needs-review-adaptation',
-              'needs-review-l10n'
-            ],
-            'default': [
-              'translated',
-              'signed-off',
-              'final',
-              ''
-            ]
-          },
-          // State-less translated strings need review
-          'reviewTranslated': {
-            'add': ['new'],
-            'replace': [
-              'needs-translation',
-              'needs-adaptation',
-              'needs-l10n',
-              '[!state&&!approved&&source==target]',
-              ''
-            ],
-            'review': [
-              'needs-review-translation',
-              'needs-review-adaptation',
-              'needs-review-l10n',
-              '[!state&&!approved&&source!=target]'
-            ],
-            'default': [
-              'translated',
-              'signed-off',
-              'final',
-              '[approved]'
-            ]
-          },
-          // State-less translated strings are regarded as approved=yes
-          'approveTranslated': {
-            'add': ['new'],
-            'replace': [
-              'needs-translation',
-              'needs-adaptation',
-              'needs-l10n',
-              '[!state&&!approved&&source==target]',
-              ''
-            ],
-            'review': [
-              'needs-review-translation',
-              'needs-review-adaptation',
-              'needs-review-l10n'
-            ],
-            'default': [
-              'translated',
-              'signed-off',
-              'final',
-              '[!state&&!approved&&source!=target]',
-              '[approved]'
-            ]
-          }  /*
+    /*
       Expression format:
         [condition1&&condition2&&...&&effect1&&effect2&&...]
           - expression is true when all the conditions are true
@@ -4125,1252 +3854,602 @@ __hook__(function (root, factory) {
         state
           - alias for target.state
      */
+  };
+
+  XliffConv.patterns = {
+    'annotationsAndTags': /^({{[^{} ]*}}|\[\[[^\[\] ]*\]\]|<[-a-zA-Z]{1,}>)$/,
+    'annotations': /^({{[^{} ]*}}|\[\[[^\[\] ]*\]\])$/,
+    'numbers': /^[0-9.]{1,}$/,
+    'tags': /^<[-a-zA-Z]{1,}>$/
+  };
+
+  XliffConv.prototype._todoOps = function (xliffStates) {
+    var output = { expressions: {} };
+    var match;
+    for (var op in xliffStates) {
+      for (var i = 0; i < xliffStates[op].length; i++) {
+        match = xliffStates[op][i].match(/^\[(.*)\]$/);
+        if (match) {
+          output.expressions[match[1]] = output.expressions[match[1]] || [];
+          output.expressions[match[1]].push(op);
         }
-      ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-      __hook__('#=', XliffConv, [
-        'patterns',
-        {
-          'annotationsAndTags': /^({{[^{} ]*}}|\[\[[^\[\] ]*\]\]|<[-a-zA-Z]{1,}>)$/,
-          'annotations': /^({{[^{} ]*}}|\[\[[^\[\] ]*\]\])$/,
-          'numbers': /^[0-9.]{1,}$/,
-          'tags': /^<[-a-zA-Z]{1,}>$/
+        else {
+          output[xliffStates[op][i]] = output[xliffStates[op][i]] || [];
+          output[xliffStates[op][i]].push(op);
         }
-      ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-      __hook__('#=', __hook__('#.', XliffConv, ['prototype'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-        '_todoOps',
-        function (xliffStates) {
-          return __hook__(xliffStates => {
-            var output = { expressions: {} };
-            var match;
-            for (var op in __hook__('#*', xliffStates, [], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])) {
-              for (var i = 0; i < __hook__('#.', __hook__('#.', xliffStates, [op], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['length'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]); i++) {
-                match = __hook__('#()', __hook__('#.', __hook__('#.', xliffStates, [op], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [i], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                  'match',
-                  [/^\[(.*)\]$/]
-                ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                if (match) {
-                  __hook__('#=', __hook__('#.', output, ['expressions'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                    __hook__('#.', match, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]),
-                    __hook__('#.', __hook__('#.', output, ['expressions'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [__hook__('#.', match, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || []
-                  ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                  __hook__('#()', __hook__('#.', __hook__('#.', output, ['expressions'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [__hook__('#.', match, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                    'push',
-                    [op]
-                  ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                } else {
-                  __hook__('#=', output, [
-                    __hook__('#.', __hook__('#.', xliffStates, [op], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [i], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]),
-                    __hook__('#.', output, [__hook__('#.', __hook__('#.', xliffStates, [op], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [i], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || []
-                  ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                  __hook__('#()', __hook__('#.', output, [__hook__('#.', __hook__('#.', xliffStates, [op], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [i], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                    'push',
-                    [op]
-                  ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                }
-              }
+      }
+    }
+    return output;
+  };
+
+  XliffConv.prototype._resolveTodoOps = function (parameters) {
+    var result;
+    var match;
+    var effects;
+    var effect;
+    for (var prop in this.todoOps.expressions) {
+      effects = [];
+      if (prop.split(/&&/).map(function (expression) {
+        match = expression.match(/^([\-\w]*)$/);
+        if (match) {
+          // non-null
+          return !!parameters[match[1]];
+        }
+        match = expression.match(/^!([\-\w]*)$/);
+        if (match) {
+          // negation
+          return !parameters[match[1]];
+        }
+        match = expression.match(/^([\-\w]*)==([\-\w]*)$/);
+        if (match) {
+          // equality
+          return (parameters.hasOwnProperty(match[1]) ? parameters[match[1]] : match[1]) ===
+                 (parameters.hasOwnProperty(match[2]) ? parameters[match[2]] : match[2]);
+        }
+        match = expression.match(/^([\-\w]*)!=([\-\w]*)$/);
+        if (match) {
+          // unequality
+          return (parameters.hasOwnProperty(match[1]) ? parameters[match[1]] : match[1]) !==
+                 (parameters.hasOwnProperty(match[2]) ? parameters[match[2]] : match[2]);
+        }
+        match = expression.match(/^([\-\w]*)([.][\-\w]*)?~=([\-\w]*)$/);
+        if (match) {
+          // pattern matching
+          if (!match[2]) {
+            return !!(parameters.hasOwnProperty(match[1]) ? parameters[match[1]] : match[1])
+                     .match(parameters.patterns.hasOwnProperty(match[3]) ? parameters.patterns[match[3]] : match[3]);
+          }
+          else {
+            return !!(typeof parameters.tags[match[1]] === 'object' ? parameters.tags[match[1]].getAttribute(match[2].substr(1)) : match[1])
+                     .match(parameters.patterns.hasOwnProperty(match[3]) ? parameters.patterns[match[3]] : match[3]);
+          }
+        }
+        match = expression.match(/^([\-\w]*)([.][\-\w]*)?:=([^&]*)$/);
+        if (match) {
+          // assignment effect
+          if (!match[2]) {
+            if (typeof parameters.tags[match[1]] === 'string') {
+              // alias
+              effect = parameters.tags[match[1]].split(/[.]/);
+              effect.push(match[3]);
+              effects.push(effect);
             }
-            return output;
-          }, null, arguments, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+            else if (typeof parameters.tags[match[1]] === 'object') {
+              // tag
+              effects.push([ match[1], 'textContent', match[3] ])
+            }
+            else {
+              this.warnLogger('XliffConv: id = ' + parameters.id + ' effect ' + expression + ' is ignored due to inexistent tag ' + match[1]);
+            }
+          }
+          else {
+            if (typeof parameters.tags[match[1]] === 'object') {
+              // attribute
+              effects.push([ match[1], match[2].substr(1), match[3] ])
+            }
+            else {
+              this.warnLogger('XliffConv: id = ' + parameters.id + ' effect ' + expression + ' is ignored due to inexistent tag ' + match[1]);
+            }
+          }
+          return true;
         }
-      ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-      __hook__('#=', __hook__('#.', XliffConv, ['prototype'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-        '_resolveTodoOps',
-        function (parameters) {
-          return __hook__(parameters => {
-            var result;
-            var match;
-            var effects;
-            var effect;
-            for (var prop in __hook__('#*', __hook__('#.', __hook__('#.', this, ['todoOps'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['expressions'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])) {
-              effects = [];
-              if (__hook__('#()', __hook__('#()', __hook__('#()', prop, [
-                  'split',
-                  [/&&/]
-                ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                  'map',
-                  [
-                    function (expression) {
-                      return __hook__(expression => {
-                        match = __hook__('#()', expression, [
-                          'match',
-                          [/^([\-\w]*)$/]
-                        ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                        if (match) {
-                          // non-null
-                          return !!__hook__('#.', parameters, [__hook__('#.', match, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                        }
-                        match = __hook__('#()', expression, [
-                          'match',
-                          [/^!([\-\w]*)$/]
-                        ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                        if (match) {
-                          // negation
-                          return !__hook__('#.', parameters, [__hook__('#.', match, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                        }
-                        match = __hook__('#()', expression, [
-                          'match',
-                          [/^([\-\w]*)==([\-\w]*)$/]
-                        ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                        if (match) {
-                          // equality
-                          return (__hook__('#()', parameters, [
-                            'hasOwnProperty',
-                            [__hook__('#.', match, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])]
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) ? __hook__('#.', parameters, [__hook__('#.', match, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) : __hook__('#.', match, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])) === (__hook__('#()', parameters, [
-                            'hasOwnProperty',
-                            [__hook__('#.', match, [2], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])]
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) ? __hook__('#.', parameters, [__hook__('#.', match, [2], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) : __hook__('#.', match, [2], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]));
-                        }
-                        match = __hook__('#()', expression, [
-                          'match',
-                          [/^([\-\w]*)!=([\-\w]*)$/]
-                        ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                        if (match) {
-                          // unequality
-                          return (__hook__('#()', parameters, [
-                            'hasOwnProperty',
-                            [__hook__('#.', match, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])]
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) ? __hook__('#.', parameters, [__hook__('#.', match, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) : __hook__('#.', match, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])) !== (__hook__('#()', parameters, [
-                            'hasOwnProperty',
-                            [__hook__('#.', match, [2], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])]
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) ? __hook__('#.', parameters, [__hook__('#.', match, [2], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) : __hook__('#.', match, [2], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]));
-                        }
-                        match = __hook__('#()', expression, [
-                          'match',
-                          [/^([\-\w]*)([.][\-\w]*)?~=([\-\w]*)$/]
-                        ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                        if (match) {
-                          // pattern matching
-                          if (!__hook__('#.', match, [2], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])) {
-                            return !!__hook__('#()', __hook__('#()', parameters, [
-                              'hasOwnProperty',
-                              [__hook__('#.', match, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])]
-                            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) ? __hook__('#.', parameters, [__hook__('#.', match, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) : __hook__('#.', match, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                              'match',
-                              [__hook__('#()', __hook__('#.', parameters, ['patterns'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                                  'hasOwnProperty',
-                                  [__hook__('#.', match, [3], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])]
-                                ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) ? __hook__('#.', __hook__('#.', parameters, ['patterns'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [__hook__('#.', match, [3], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) : __hook__('#.', match, [3], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])]
-                            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                          } else {
-                            return !!__hook__('#()', typeof __hook__('#.', __hook__('#.', parameters, ['tags'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [__hook__('#.', match, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) === 'object' ? __hook__('#()', __hook__('#.', __hook__('#.', parameters, ['tags'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [__hook__('#.', match, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                              'getAttribute',
-                              [__hook__('#()', __hook__('#.', match, [2], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                                  'substr',
-                                  [1]
-                                ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])]
-                            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) : __hook__('#.', match, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                              'match',
-                              [__hook__('#()', __hook__('#.', parameters, ['patterns'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                                  'hasOwnProperty',
-                                  [__hook__('#.', match, [3], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])]
-                                ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) ? __hook__('#.', __hook__('#.', parameters, ['patterns'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [__hook__('#.', match, [3], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) : __hook__('#.', match, [3], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])]
-                            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                          }
-                        }
-                        match = __hook__('#()', expression, [
-                          'match',
-                          [/^([\-\w]*)([.][\-\w]*)?:=([^&]*)$/]
-                        ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                        if (match) {
-                          // assignment effect
-                          if (!__hook__('#.', match, [2], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])) {
-                            if (typeof __hook__('#.', __hook__('#.', parameters, ['tags'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [__hook__('#.', match, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) === 'string') {
-                              // alias
-                              effect = __hook__('#()', __hook__('#.', __hook__('#.', parameters, ['tags'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [__hook__('#.', match, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                                'split',
-                                [/[.]/]
-                              ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                              __hook__('#()', effect, [
-                                'push',
-                                [__hook__('#.', match, [3], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])]
-                              ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                              __hook__('#()', effects, [
-                                'push',
-                                [effect]
-                              ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                            } else if (typeof __hook__('#.', __hook__('#.', parameters, ['tags'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [__hook__('#.', match, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) === 'object') {
-                              // tag
-                              __hook__('#()', effects, [
-                                'push',
-                                [[
-                                    __hook__('#.', match, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]),
-                                    'textContent',
-                                    __hook__('#.', match, [3], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])
-                                  ]]
-                              ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                            } else {
-                              __hook__('#()', this, [
-                                'warnLogger',
-                                ['XliffConv: id = ' + __hook__('#.', parameters, ['id'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) + ' effect ' + expression + ' is ignored due to inexistent tag ' + __hook__('#.', match, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])]
-                              ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                            }
-                          } else {
-                            if (typeof __hook__('#.', __hook__('#.', parameters, ['tags'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [__hook__('#.', match, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) === 'object') {
-                              // attribute
-                              __hook__('#()', effects, [
-                                'push',
-                                [[
-                                    __hook__('#.', match, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]),
-                                    __hook__('#()', __hook__('#.', match, [2], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                                      'substr',
-                                      [1]
-                                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]),
-                                    __hook__('#.', match, [3], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])
-                                  ]]
-                              ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                            } else {
-                              __hook__('#()', this, [
-                                'warnLogger',
-                                ['XliffConv: id = ' + __hook__('#.', parameters, ['id'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) + ' effect ' + expression + ' is ignored due to inexistent tag ' + __hook__('#.', match, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])]
-                              ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                            }
-                          }
-                          return true;
-                        }
-                        return false;
-                      }, null, arguments, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                    },
-                    this
-                  ]
-                ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                  'reduce',
-                  [
-                    function (previous, current) {
-                      return __hook__((previous, current) => {
-                        return previous && current;
-                      }, null, arguments, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                    },
-                    true
-                  ]
-                ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])) {
-                // Expression matched
-                result = __hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', this, ['todoOps'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['expressions'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [prop], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [0], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                __hook__('#()', effects, [
-                  'forEach',
-                  [function (effect) {
-                      return __hook__(effect => {
-                        if (__hook__('#.', effect, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) === 'textContent') {
-                          __hook__('#=', __hook__('#.', __hook__('#.', parameters, ['tags'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [__hook__('#.', effect, [0], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                            'textContent',
-                            __hook__('#.', effect, [2], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                        } else {
-                          if (__hook__('#.', effect, [2], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) && __hook__('#.', effect, [2], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) !== '""') {
-                            __hook__('#()', __hook__('#.', __hook__('#.', parameters, ['tags'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [__hook__('#.', effect, [0], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                              'setAttribute',
-                              [
-                                __hook__('#.', effect, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]),
-                                __hook__('#.', effect, [2], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])
-                              ]
-                            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                          } else {
-                            __hook__('#()', __hook__('#.', __hook__('#.', parameters, ['tags'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [__hook__('#.', effect, [0], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                              'removeAttribute',
-                              [__hook__('#.', effect, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])]
-                            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                          }
-                        }
-                      }, null, arguments, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                    }]
-                ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+        return false;
+      }, this).reduce(function (previous, current) {
+        return previous && current;
+      }, true)) { // Expression matched
+        result = this.todoOps.expressions[prop][0];
+        effects.forEach(function (effect) {
+          if (effect[1] === 'textContent') {
+            parameters.tags[effect[0]].textContent = effect[2];
+          }
+          else {
+            if (effect[2] && effect[2] !== '""') {
+              parameters.tags[effect[0]].setAttribute(effect[1], effect[2]);
+            }
+            else {
+              parameters.tags[effect[0]].removeAttribute(effect[1]);
+            }
+          }
+        });
+        break;
+      }
+    }
+    if (!result) {
+      if (parameters.state &&
+          this.todoOps[parameters.state] &&
+          this.todoOps[parameters.state][0]) {
+        result = this.todoOps[parameters.state][0];
+      }
+      else {
+        result = this.todoOps[''][0];
+      }
+    }
+    return result;
+  };
+
+  XliffConv.prototype.parseXliff = function (xliff, options, callback) {
+    var args = arguments;
+    [ 'string', 'object', 'function' ].forEach(function (type, index) {
+      if (!args[index] || typeof args[index] !== type) {
+        throw new Error('invalid argument');
+      }
+    });
+    if (typeof options.bundle !== 'object') {
+      throw new Error('invalid options.bundle');
+    }
+    var parser = new (this.DOMParser)();
+    var dom = parser.parseFromString(xliff, 'application/xml');
+    var fileTag = dom.getElementsByTagName('file')[0];
+    var transUnits = dom.getElementsByTagName('trans-unit');
+    var output = options.bundle;
+    var stats = { xliff: {}, json: {} };
+    var todoMap = {};
+    var component;
+    var i;
+    for (component in output) {
+      if (output[component].meta && output[component].meta.todo) {
+        for (i in output[component].meta.todo) {
+          todoMap[component + output[component].meta.todo[i].path.replace(/[.]/g, '_$DOT$_').replace(/\//g, '.')] =
+            output[component].meta.todo[i];
+        }
+      }
+    }
+    //console.log('todoMap = ', todoMap);
+    stats.json.total = stats.json.total || {};
+    stats.xliff.total = stats.xliff.total || {};
+    stats.xliff.file = {};
+    Array.prototype.forEach.call(fileTag.attributes, function (attribute) {
+      stats.xliff.file[attribute.name] = attribute.value;
+    });
+    Array.prototype.forEach.call(transUnits, function (transUnit) {
+      var sourceTag = transUnit.getElementsByTagName('source')[0];
+      var targetTag = transUnit.getElementsByTagName('target')[0];
+      var id = transUnit.getAttribute('id');
+      var restype = transUnit.getAttribute('restype') || 'x-json-string';
+      var source = sourceTag.textContent;
+      var target = targetTag.textContent;
+      var approved = transUnit.getAttribute('approved') === 'yes';
+      var state = targetTag.getAttribute('state');
+      var cursor = output;
+      var paths = id.split('.').map(function (p) { return p.replace(/_\$DOT\$_/g, '.'); });
+      var component = paths[0];
+      var parsed;
+      var value;
+      var sourceValue;
+      var todo;
+      var op;
+      //console.log({ id: id, restype: restype, source: source, target: target, state: state, approved: approved });
+      parsed = source.match(/^_\$([a-zA-Z]*)\$_(.*)$/);
+      if (parsed) {
+        // process _$type$_value format for compatibility with xliff2bundlejson
+        source = parsed[2];
+      }
+      // update stats
+      stats.json[component] = stats.json[component] || {};
+      stats.xliff.total.units = stats.xliff.total.units || 0;
+      stats.xliff.total.units++;
+      stats.xliff.total.states = stats.xliff.total.states || {};
+      stats.xliff.total.states[state] = stats.xliff.total.states[state] || 0;
+      stats.xliff.total.states[state]++;
+      stats.xliff.total.approved = stats.xliff.total.approved || 0;
+      stats.xliff.total.approved += approved ? 1 : 0;
+      stats.xliff[component] = stats.xliff[component] || {};
+      stats.xliff[component].units = stats.xliff[component].units || 0;
+      stats.xliff[component].units++;
+      stats.xliff[component].states = stats.xliff[component].states || {};
+      stats.xliff[component].states[state] = stats.xliff[component].states[state] || 0;
+      stats.xliff[component].states[state]++;
+      stats.xliff[component].approved = stats.xliff[component].approved || 0;
+      stats.xliff[component].approved += approved ? 1 : 0;
+      while (paths.length > 0) {
+        if (paths.length === 1) {
+          if (cursor.hasOwnProperty(paths[0])) {
+            parsed = target.match(/^_\$([a-zA-Z]*)\$_(.*)$/);
+            if (parsed) {
+              // process _$type$_value format for compatibility with xliff2bundlejson 
+              target = parsed[2];
+              switch (parsed[1]) {
+              case 'number':
+                sourceValue = Number(source);
+                value = Number(parsed[2]);
+                break;
+              case 'boolean':
+                sourceValue = Boolean(source === 'true');
+                value = Boolean(parsed[2] === 'true');
+                break;
+              case 'object':
+                sourceValue = JSON.parse(source);
+                value = JSON.parse(parsed[2]);
+                break;
+              case 'undefined':
+                sourceValue = undefined;
+                value = undefined;
+                break;
+              case 'string':
+              default:
+                sourceValue = source;
+                value = parsed[2];
                 break;
               }
             }
-            if (!result) {
-              if (__hook__('#.', parameters, ['state'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) && __hook__('#.', __hook__('#.', this, ['todoOps'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [__hook__('#.', parameters, ['state'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) && __hook__('#.', __hook__('#.', __hook__('#.', this, ['todoOps'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [__hook__('#.', parameters, ['state'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [0], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])) {
-                result = __hook__('#.', __hook__('#.', __hook__('#.', this, ['todoOps'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [__hook__('#.', parameters, ['state'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [0], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-              } else {
-                result = __hook__('#.', __hook__('#.', __hook__('#.', this, ['todoOps'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [''], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [0], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+            else {
+              // process <trans-unit restype="x-json-*">
+              switch (restype) {
+              case 'x-json-number':
+                sourceValue = Number(source);
+                value = Number(target);
+                break;
+              case 'x-json-boolean':
+                sourceValue = Boolean(source === 'true');
+                value = Boolean(target === 'true');
+                break;
+              case 'x-json-object':
+                sourceValue = JSON.parse(source);
+                value = JSON.parse(target);
+                break;
+              case 'x-json-undefined':
+                sourceValue = undefined;
+                value = undefined;
+                break;
+              case 'x-json-string':
+              default:
+                sourceValue = source;
+                value = target;
+                break;                
               }
             }
-            return result;
-          }, null, arguments, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-        }
-      ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-      __hook__('#=', __hook__('#.', XliffConv, ['prototype'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-        'parseXliff',
-        function (xliff, options, callback) {
-          return __hook__((xliff, options, callback) => {
-            var args = arguments;
-            __hook__('#()', [
-              'string',
-              'object',
-              'function'
-            ], [
-              'forEach',
-              [function (type, index) {
-                  return __hook__((type, index) => {
-                    if (!__hook__('#.', args, [index], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || typeof __hook__('#.', args, [index], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) !== type) {
-                      throw __hook__($hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 'Error', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[6]], null, ['invalid argument'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], true);
-                    }
-                  }, null, arguments, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                }]
-            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-            if (typeof __hook__('#.', options, ['bundle'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) !== 'object') {
-              throw __hook__($hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 'Error', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[6]], null, ['invalid options.bundle'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], true);
-            }
-            var parser = __hook__(__hook__('#.', this, ['DOMParser'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[7]), null, [], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[7], true);
-            var dom = __hook__('#()', parser, [
-              'parseFromString',
-              [
-                xliff,
-                'application/xml'
-              ]
-            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[8]);
-            var fileTag = __hook__('#.', __hook__('#()', dom, [
-              'getElementsByTagName',
-              ['file']
-            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[9]), [0], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[9]);
-            var transUnits = __hook__('#()', dom, [
-              'getElementsByTagName',
-              ['trans-unit']
-            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[10]);
-            var output = __hook__('#.', options, ['bundle'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[11]);
-            var stats = {
-              xliff: {},
-              json: {}
-            };
-            var todoMap = {};
-            var component;
-            var i;
-            for (component in __hook__('#*', output, [], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])) {
-              if (__hook__('#.', __hook__('#.', output, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['meta'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) && __hook__('#.', __hook__('#.', __hook__('#.', output, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['meta'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todo'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])) {
-                for (i in __hook__('#*', __hook__('#.', __hook__('#.', __hook__('#.', output, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['meta'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todo'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])) {
-                  __hook__('#=', todoMap, [
-                    component + __hook__('#()', __hook__('#()', __hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', output, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['meta'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todo'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [i], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['path'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                      'replace',
-                      [
-                        /[.]/g,
-                        '_$DOT$_'
-                      ]
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                      'replace',
-                      [
-                        /\//g,
-                        '.'
-                      ]
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]),
-                    __hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', output, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['meta'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todo'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [i], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])
-                  ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+            todo = todoMap[id];
+            if (!todo ||
+                (typeof todo.value === 'string' && todo.value.replace(/\s\s*/g, ' ') === source.replace(/\s\s*/g, ' ')) ||
+                (typeof todo.value === 'number' && todo.value === sourceValue) ||
+                (typeof todo.value === 'boolean' && todo.value === sourceValue)) {
+              // no todo or source is matching with todo.value
+              // update value
+              if (cursor[paths[0]] !== value) {
+                cursor[paths[0]] = value;
+                stats.json.total.valueUpdated = stats.json.total.valueUpdated || 0;
+                stats.json.total.valueUpdated++;
+                stats.json[component].valueUpdated = stats.json[component].valueUpdated || 0;
+                stats.json[component].valueUpdated++;
+              }
+              stats.json.total.updated = stats.json.total.updated || 0;
+              stats.json.total.updated++;
+              stats.json[component].updated = stats.json[component].updated || 0;
+              stats.json[component].updated++;
+              // map to todo.op
+              op = this._resolveTodoOps({
+                'state'    : state,
+                'id'       : id,
+                'component': component,
+                'restype'  : restype,
+                'source'   : source,
+                'target'   : target,
+                'approved' : approved, // Boolean
+                'patterns' : this.patterns,
+                'tags'     : {
+                  'file'      : fileTag,
+                  'trans-unit': transUnit,
+                  'source'    : sourceTag,
+                  'target'    : targetTag,
+                  'state'     : 'target.state',
+                  'translate' : 'trans-unit.translate',
+                  'approved'  : 'trans-unit.approved'
+                },
+                'import'   : true,
+                'export'   : false
+              });
+              stats.json.total.todoUpdated = stats.json.total.todoUpdated || 0;
+              stats.json[component].todoUpdated = stats.json[component].todoUpdated || 0;
+              if (op === 'default') {
+                // no todo for approved item
+                if (todo) {
+                  // mark the todo for removal
+                  todo.op = 'noop';
+                  stats.json.total.todoUpdated++;
+                  stats.json[component].todoUpdated++;
                 }
               }
-            }
-            //console.log('todoMap = ', todoMap);
-            __hook__('#=', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-              'total',
-              __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || {}
-            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-            __hook__('#=', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-              'total',
-              __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || {}
-            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-            __hook__('#=', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-              'file',
-              {}
-            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-            __hook__('#()', __hook__('#.', __hook__('#.', $hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 'Array', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[12]], ['prototype'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['forEach'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-              'call',
-              [
-                __hook__('#.', fileTag, ['attributes'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]),
-                function (attribute) {
-                  return __hook__(attribute => {
-                    __hook__('#=', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['file'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                      __hook__('#.', attribute, ['name'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]),
-                      __hook__('#.', attribute, ['value'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                  }, null, arguments, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                }
-              ]
-            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-            __hook__('#()', __hook__('#.', __hook__('#.', $hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 'Array', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[12]], ['prototype'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['forEach'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-              'call',
-              [
-                transUnits,
-                __hook__('#()', function (transUnit) {
-                  return __hook__(transUnit => {
-                    var sourceTag = __hook__('#.', __hook__('#()', transUnit, [
-                      'getElementsByTagName',
-                      ['source']
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[13]), [0], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[13]);
-                    var targetTag = __hook__('#.', __hook__('#()', transUnit, [
-                      'getElementsByTagName',
-                      ['target']
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[14]), [0], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[14]);
-                    var id = __hook__('#()', transUnit, [
-                      'getAttribute',
-                      ['id']
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[15]);
-                    var restype = __hook__('#()', transUnit, [
-                      'getAttribute',
-                      ['restype']
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[16]) || 'x-json-string';
-                    var source = __hook__('#.', sourceTag, ['textContent'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[17]);
-                    var target = __hook__('#.', targetTag, ['textContent'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[18]);
-                    var approved = __hook__('#()', transUnit, [
-                      'getAttribute',
-                      ['approved']
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[19]) === 'yes';
-                    var state = __hook__('#()', targetTag, [
-                      'getAttribute',
-                      ['state']
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[20]);
-                    var cursor = output;
-                    var paths = __hook__('#()', __hook__('#()', id, [
-                      'split',
-                      ['.']
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[21]), [
-                      'map',
-                      [function (p) {
-                          return __hook__(p => {
-                            return __hook__('#()', p, [
-                              'replace',
-                              [
-                                /_\$DOT\$_/g,
-                                '.'
-                              ]
-                            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[21]);
-                          }, null, arguments, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[21]);
-                        }]
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[21]);
-                    var component = __hook__('#.', paths, [0], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[22]);
-                    var parsed;
-                    var value;
-                    var sourceValue;
-                    var todo;
-                    var op;
-                    //console.log({ id: id, restype: restype, source: source, target: target, state: state, approved: approved });
-                    parsed = __hook__('#()', source, [
-                      'match',
-                      [/^_\$([a-zA-Z]*)\$_(.*)$/]
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                    if (parsed) {
-                      // process _$type$_value format for compatibility with xliff2bundlejson
-                      source = __hook__('#.', parsed, [2], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                    }
-                    // update stats
-                    __hook__('#=', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                      component,
-                      __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || {}
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                    __hook__('#=', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                      'units',
-                      __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['units'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                    __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['units'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                    __hook__('#=', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                      'states',
-                      __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['states'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || {}
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                    __hook__('#=', __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['states'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                      state,
-                      __hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['states'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [state], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                    __hook__('#p++', __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['states'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [state], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                    __hook__('#=', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                      'approved',
-                      __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['approved'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                    __hook__('#+=', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                      'approved',
-                      approved ? 1 : 0
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                    __hook__('#=', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                      component,
-                      __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || {}
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                    __hook__('#=', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                      'units',
-                      __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['units'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                    __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['units'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                    __hook__('#=', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                      'states',
-                      __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['states'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || {}
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                    __hook__('#=', __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['states'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                      state,
-                      __hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['states'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [state], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                    __hook__('#p++', __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['states'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [state], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                    __hook__('#=', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                      'approved',
-                      __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['approved'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                    __hook__('#+=', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                      'approved',
-                      approved ? 1 : 0
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                    while (__hook__('#.', paths, ['length'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) > 0) {
-                      if (__hook__('#.', paths, ['length'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) === 1) {
-                        if (__hook__('#()', cursor, [
-                            'hasOwnProperty',
-                            [__hook__('#.', paths, [0], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])]
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])) {
-                          parsed = __hook__('#()', target, [
-                            'match',
-                            [/^_\$([a-zA-Z]*)\$_(.*)$/]
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                          if (parsed) {
-                            // process _$type$_value format for compatibility with xliff2bundlejson 
-                            target = __hook__('#.', parsed, [2], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                            switch (__hook__('#.', parsed, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])) {
-                            case 'number':
-                              sourceValue = __hook__($hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 'Number', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[23]], null, [source], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 0);
-                              value = __hook__($hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 'Number', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[23]], null, [__hook__('#.', parsed, [2], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 0);
-                              break;
-                            case 'boolean':
-                              sourceValue = __hook__($hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 'Boolean', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[24]], null, [source === 'true'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 0);
-                              value = __hook__($hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 'Boolean', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[24]], null, [__hook__('#.', parsed, [2], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) === 'true'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 0);
-                              break;
-                            case 'object':
-                              sourceValue = __hook__('#()', $hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 'JSON', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[25]], [
-                                'parse',
-                                [source]
-                              ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                              value = __hook__('#()', $hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 'JSON', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[25]], [
-                                'parse',
-                                [__hook__('#.', parsed, [2], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])]
-                              ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                              break;
-                            case 'undefined':
-                              sourceValue = $hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 'undefined', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[26]];
-                              value = $hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 'undefined', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[26]];
-                              break;
-                            case 'string':
-                            default:
-                              sourceValue = source;
-                              value = __hook__('#.', parsed, [2], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                              break;
-                            }
-                          } else {
-                            // process <trans-unit restype="x-json-*">
-                            switch (restype) {
-                            case 'x-json-number':
-                              sourceValue = __hook__($hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 'Number', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[23]], null, [source], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 0);
-                              value = __hook__($hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 'Number', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[23]], null, [target], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 0);
-                              break;
-                            case 'x-json-boolean':
-                              sourceValue = __hook__($hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 'Boolean', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[24]], null, [source === 'true'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 0);
-                              value = __hook__($hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 'Boolean', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[24]], null, [target === 'true'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 0);
-                              break;
-                            case 'x-json-object':
-                              sourceValue = __hook__('#()', $hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 'JSON', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[25]], [
-                                'parse',
-                                [source]
-                              ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                              value = __hook__('#()', $hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 'JSON', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[25]], [
-                                'parse',
-                                [target]
-                              ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                              break;
-                            case 'x-json-undefined':
-                              sourceValue = $hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 'undefined', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[26]];
-                              value = $hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 'undefined', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[26]];
-                              break;
-                            case 'x-json-string':
-                            default:
-                              sourceValue = source;
-                              value = target;
-                              break;
-                            }
-                          }
-                          todo = __hook__('#.', todoMap, [id], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                          if (!todo || typeof __hook__('#.', todo, ['value'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) === 'string' && __hook__('#()', __hook__('#.', todo, ['value'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                              'replace',
-                              [
-                                /\s\s*/g,
-                                ' '
-                              ]
-                            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) === __hook__('#()', source, [
-                              'replace',
-                              [
-                                /\s\s*/g,
-                                ' '
-                              ]
-                            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || typeof __hook__('#.', todo, ['value'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) === 'number' && __hook__('#.', todo, ['value'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) === sourceValue || typeof __hook__('#.', todo, ['value'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) === 'boolean' && __hook__('#.', todo, ['value'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) === sourceValue) {
-                            // no todo or source is matching with todo.value
-                            // update value
-                            if (__hook__('#.', cursor, [__hook__('#.', paths, [0], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) !== value) {
-                              __hook__('#=', cursor, [
-                                __hook__('#.', paths, [0], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]),
-                                value
-                              ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                              __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                                'valueUpdated',
-                                __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['valueUpdated'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                              ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                              __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['valueUpdated'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                              __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                                'valueUpdated',
-                                __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['valueUpdated'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                              ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                              __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['valueUpdated'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                            }
-                            __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                              'updated',
-                              __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['updated'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                            __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['updated'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                            __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                              'updated',
-                              __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['updated'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                            __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['updated'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                            // map to todo.op
-                            op = __hook__('#()', this, [
-                              '_resolveTodoOps',
-                              [{
-                                  'state': state,
-                                  'id': id,
-                                  'component': component,
-                                  'restype': restype,
-                                  'source': source,
-                                  'target': target,
-                                  'approved': approved,
-                                  // Boolean
-                                  'patterns': __hook__('#.', this, ['patterns'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[27]),
-                                  'tags': {
-                                    'file': fileTag,
-                                    'trans-unit': transUnit,
-                                    'source': sourceTag,
-                                    'target': targetTag,
-                                    'state': 'target.state',
-                                    'translate': 'trans-unit.translate',
-                                    'approved': 'trans-unit.approved'
-                                  },
-                                  'import': true,
-                                  'export': false
-                                }]
-                            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                            __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                              'todoUpdated',
-                              __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todoUpdated'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                            __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                              'todoUpdated',
-                              __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todoUpdated'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                            if (op === 'default') {
-                              // no todo for approved item
-                              if (todo) {
-                                // mark the todo for removal
-                                __hook__('#=', todo, [
-                                  'op',
-                                  'noop'
-                                ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                                __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todoUpdated'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                                __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todoUpdated'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                              }
-                            } else {
-                              if (todo) {
-                                if (__hook__('#.', todo, ['op'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) !== op) {
-                                  __hook__('#=', todo, [
-                                    'op',
-                                    op
-                                  ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                                  __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todoUpdated'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                                  __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todoUpdated'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                                }
-                              } else {
-                                // Fix #1. Populate missing todo item.
-                                todo = {
-                                  'op': op,
-                                  'path': '/' + __hook__('#()', __hook__('#()', __hook__('#()', __hook__('#()', id, [
-                                    'split',
-                                    ['.']
-                                  ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[28]), [
-                                    'splice',
-                                    [1]
-                                  ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[28]), [
-                                    'join',
-                                    ['/']
-                                  ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[28]), [
-                                    'replace',
-                                    [
-                                      /_\$DOT\$_/g,
-                                      '.'
-                                    ]
-                                  ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[28]),
-                                  'value': sourceValue
-                                };
-                                __hook__('#=', __hook__('#.', output, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                                  'meta',
-                                  __hook__('#.', __hook__('#.', output, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['meta'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || {}
-                                ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                                __hook__('#=', __hook__('#.', __hook__('#.', output, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['meta'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                                  'todo',
-                                  __hook__('#.', __hook__('#.', __hook__('#.', output, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['meta'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todo'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || []
-                                ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                                __hook__('#()', __hook__('#.', __hook__('#.', __hook__('#.', output, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['meta'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todo'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                                  'push',
-                                  [todo]
-                                ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                                __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todoUpdated'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                                __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todoUpdated'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                              }
-                            }
-                          } else {
-                            // discard value
-                            __hook__('#()', this, [
-                              'warnLogger',
-                              ['XliffConv: id = ' + id + ' discarding value "' + value + '"' + ' as source "' + sourceValue + '" does not match with todo.value "' + __hook__('#.', todo, ['value'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) + '"']
-                            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                            __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                              'discarded',
-                              __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['discarded'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                            __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['discarded'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                            __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                              'source_mismatching',
-                              __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['source_mismatching'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                            __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['source_mismatching'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                            __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                              'discarded',
-                              __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['discarded'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                            __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['discarded'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                            __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                              'source_mismatching',
-                              __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['source_mismatching'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                            __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['source_mismatching'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                          }
-                          __hook__('#()', paths, [
-                            'shift',
-                            []
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                        } else {
-                          // missing resource
-                          __hook__('#()', this, [
-                            'warnLogger',
-                            ['XliffConv: id = ' + id + ' is missing']
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                          __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                            'discarded',
-                            __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['discarded'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                          __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['discarded'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                          __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                            'id_missing',
-                            __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['id_missing'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                          __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['id_missing'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                          __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                            'discarded',
-                            __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['discarded'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                          __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['discarded'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                          __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                            'id_missing',
-                            __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['id_missing'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                          __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['id_missing'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                        }
-                        break;
-                      } else {
-                        if (!__hook__('#.', cursor, [__hook__('#.', paths, [0], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])) {
-                          // missing resource
-                          __hook__('#()', this, [
-                            'warnLogger',
-                            ['XliffConv: id = ' + id + ' is missing']
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                          __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                            'discarded',
-                            __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['discarded'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                          __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['discarded'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                          __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                            'id_missing',
-                            __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['id_missing'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                          __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['id_missing'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                          __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                            'discarded',
-                            __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['discarded'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                          __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['discarded'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                          __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                            'id_missing',
-                            __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['id_missing'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                          __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['id_missing'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                          break;
-                        }
-                        cursor = __hook__('#.', cursor, [__hook__('#()', paths, [
-                            'shift',
-                            []
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                      }
-                    }
-                  }, null, arguments, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                }, [
-                  'bind',
-                  [this]
-                ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])
-              ]
-            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-            for (component in __hook__('#*', output, [], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])) {
-              if (__hook__('#.', __hook__('#.', output, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['meta'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) && __hook__('#.', __hook__('#.', __hook__('#.', output, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['meta'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todo'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])) {
-                for (i = __hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', output, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['meta'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todo'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['length'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) - 1; i >= 0; i--) {
-                  if (__hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', output, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['meta'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todo'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [i], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['op'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) === 'noop') {
-                    // remove the noop todo item
-                    __hook__('#()', __hook__('#.', __hook__('#.', __hook__('#.', output, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['meta'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todo'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                      'splice',
-                      [
-                        i,
-                        1
-                      ]
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                  } else {
-                    __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                      'todo',
-                      __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todo'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                    __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todo'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                    __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                      __hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', output, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['meta'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todo'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [i], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['op'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]),
-                      __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [__hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', output, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['meta'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todo'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [i], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['op'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                    __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [__hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', output, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['meta'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todo'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [i], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['op'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                    __hook__('#=', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                      component,
-                      __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || {}
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                    __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                      'todo',
-                      __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todo'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                    __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todo'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                    __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                      __hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', output, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['meta'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todo'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [i], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['op'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]),
-                      __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [__hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', output, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['meta'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todo'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [i], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['op'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                    __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [__hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', output, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['meta'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todo'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [i], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['op'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+              else {
+                if (todo) {
+                  if (todo.op !== op) {
+                    todo.op = op;
+                    stats.json.total.todoUpdated++;
+                    stats.json[component].todoUpdated++;
                   }
                 }
-              }
-            }
-            __hook__(callback, null, [
-              output,
-              stats
-            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 0);
-          }, null, arguments, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-        }
-      ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-      __hook__('#=', __hook__('#.', XliffConv, ['prototype'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-        'parseJSON',
-        function (bundles, options, callback) {
-          return __hook__((bundles, options, callback) => {
-            var args = arguments;
-            __hook__('#()', [
-              'object',
-              'object',
-              'function'
-            ], [
-              'forEach',
-              [function (type, index) {
-                  return __hook__((type, index) => {
-                    if (!__hook__('#.', args, [index], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || typeof __hook__('#.', args, [index], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) !== type) {
-                      throw __hook__($hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 'Error', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[6]], null, ['invalid argument'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], true);
-                    }
-                  }, null, arguments, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                }]
-            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-            var parser = __hook__(__hook__('#.', this, ['DOMParser'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[7]), null, [], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[7], true);
-            var serializer = __hook__(__hook__('#.', this, ['XMLSerializer'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[29]), null, [], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[29], true);
-            var xmlHeader = __hook__('#.', options, ['xmlHeader'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[30]) || '<?xml version="1.0" encoding="UTF-8"?>\n' + '<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">\n';
-            var xliffTemplate = __hook__('#.', options, ['xliffTemplate'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[31]) || '<xliff version="1.0">\n' + '  <file xml:space="' + (__hook__('#.', options, ['xmlSpace'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[31]) || 'default') + '" ' + 'source-language="' + (__hook__('#.', options, ['srcLanguage'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[31]) || 'en') + '" ' + 'target-language="' + (__hook__('#.', options, ['destLanguage'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[31]) || 'fr') + '" ' + 'datatype="' + (__hook__('#.', options, ['dataType'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[31]) || 'plaintext') + '" ' + 'original="' + (__hook__('#.', options, ['original'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[31]) || 'messages') + '" ' + 'date="' + __hook__('#()', __hook__('#()', __hook__('#.', this, ['date'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[31]), [
-              'toISOString',
-              []
-            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[31]), [
-              'replace',
-              [
-                /[.][0-9]*Z$/,
-                'Z'
-              ]
-            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[31]) + '" ' + 'product-name="' + (__hook__('#.', options, ['productName'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[31]) || 'messages') + '">\n' + '    <header>\n' + '      <tool tool-id="xliff-conv" tool-name="xliff-conv" tool-version="' + __hook__('#.', this, ['toolVersion'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[31]) + '"/>\n' + '    </header>\n' + '    <body>\n' + '</body>\n' + '  </file>\n' + '</xliff>';
-            var transUnitTemplate = '<wrapper>' + (__hook__('#.', options, ['transUnitTemplate'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[32]) || '      <trans-unit>\n' + '        <source></source>\n' + '        <target></target>\n' + '      </trans-unit>') + '\n</wrapper>';
-            var spacer = '<wrapper>    </wrapper>';
-            var xliff = __hook__('#()', parser, [
-              'parseFromString',
-              [
-                xliffTemplate,
-                'application/xml'
-              ]
-            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[33]);
-            var fileTag = __hook__('#.', __hook__('#()', xliff, [
-              'getElementsByTagName',
-              ['file']
-            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[9]), [0], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[9]);
-            var bodyTag = __hook__('#.', __hook__('#()', xliff, [
-              'getElementsByTagName',
-              ['body']
-            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[34]), [0], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[34]);
-            var sourceBundle = __hook__('#.', bundles, [''], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[35]);
-            var targetBundle = __hook__('#.', bundles, [__hook__('#.', options, ['destLanguage'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[36])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[36]);
-            var component;
-            var todos;
-            var todoMap;
-            var index;
-            var stats = {
-              xliff: {},
-              json: {}
-            };
-            for (component in __hook__('#*', targetBundle, [], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])) {
-              if (component !== 'bundle') {
-                __hook__('#=', __hook__('#.', targetBundle, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                  'meta',
-                  __hook__('#.', __hook__('#.', targetBundle, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['meta'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || {}
-                ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                __hook__('#=', __hook__('#.', __hook__('#.', targetBundle, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['meta'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                  'todo',
-                  __hook__('#.', __hook__('#.', __hook__('#.', targetBundle, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['meta'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todo'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || []
-                ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                todos = __hook__('#.', __hook__('#.', __hook__('#.', targetBundle, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['meta'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todo'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                todoMap = {};
-                for (index = 0; index < __hook__('#.', todos, ['length'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]); index++) {
-                  __hook__('#=', todoMap, [
-                    __hook__('#()', __hook__('#()', __hook__('#()', __hook__('#.', __hook__('#.', todos, [index], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['path'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                      'replace',
-                      [
-                        /[.]/g,
-                        '_$DOT$_'
-                      ]
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                      'replace',
-                      [
-                        /\//g,
-                        '.'
-                      ]
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                      'substring',
-                      [1]
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]),
-                    __hook__('#.', todos, [index], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])
-                  ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                else {
+                  // Fix #1. Populate missing todo item.
+                  todo = {
+                    'op': op,
+                    'path': '/' + id.split('.').splice(1).join('/').replace(/_\$DOT\$_/g, '.'),
+                    'value': sourceValue
+                  };
+                  output[component].meta = output[component].meta || {};
+                  output[component].meta.todo = output[component].meta.todo || [];
+                  output[component].meta.todo.push(todo);
+                  stats.json.total.todoUpdated++;
+                  stats.json[component].todoUpdated++;
                 }
-                __hook__('#()', this, [
-                  '_traverseBundle',
-                  [
-                    '',
-                    __hook__('#.', sourceBundle, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]),
-                    __hook__('#.', targetBundle, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]),
-                    __hook__('#()', function (id, source, target) {
-                      return __hook__((id, source, target) => {
-                        //console.log('_traverseBundle callback id = ' + component + '.' + id + ' source = ' + source + ' target = ' + target);
-                        var transUnitWrapper = __hook__('#()', parser, [
-                          'parseFromString',
-                          [
-                            transUnitTemplate,
-                            'application/xml'
-                          ]
-                        ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[37]);
-                        var transUnit = __hook__('#.', __hook__('#()', transUnitWrapper, [
-                          'getElementsByTagName',
-                          ['trans-unit']
-                        ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[38]), [0], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[38]);
-                        var sourceTag = __hook__('#.', __hook__('#()', transUnit, [
-                          'getElementsByTagName',
-                          ['source']
-                        ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[13]), [0], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[13]);
-                        var targetTag = __hook__('#.', __hook__('#()', transUnit, [
-                          'getElementsByTagName',
-                          ['target']
-                        ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[14]), [0], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[14]);
-                        var todo = __hook__('#.', todoMap, [id], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[39]);
-                        var op;
-                        var state = todo && __hook__('#.', __hook__('#.', this, ['xliffStates'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[20]), [__hook__('#.', todo, ['op'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[20])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[20]) ? __hook__('#.', __hook__('#.', __hook__('#.', this, ['xliffStates'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[20]), [__hook__('#.', todo, ['op'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[20])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[20]), [0], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[20]) : __hook__('#.', __hook__('#.', __hook__('#.', this, ['xliffStates'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[20]), ['default'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[20]), [0], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[20]);
-                        var restype = 'x-json-' + typeof source;
-                        __hook__('#()', transUnit, [
-                          'setAttribute',
-                          [
-                            'id',
-                            component + '.' + id
-                          ]
-                        ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                        if (restype !== 'x-json-string') {
-                          __hook__('#()', transUnit, [
-                            'setAttribute',
-                            [
-                              'restype',
-                              restype
-                            ]
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                        }
-                        __hook__('#=', sourceTag, [
-                          'textContent',
-                          __hook__('#()', this, [
-                            '_stringify',
-                            [source]
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])
-                        ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                        __hook__('#=', targetTag, [
-                          'textContent',
-                          __hook__('#()', this, [
-                            '_stringify',
-                            [target]
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])
-                        ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                        // apply expressions
-                        op = __hook__('#()', this, [
-                          '_resolveTodoOps',
-                          [{
-                              'state': state,
-                              'id': component + '.' + id,
-                              'component': component,
-                              'restype': restype,
-                              'source': __hook__('#.', sourceTag, ['textContent'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[17]),
-                              'target': __hook__('#.', targetTag, ['textContent'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[18]),
-                              'approved': state === __hook__('#.', __hook__('#.', __hook__('#.', this, ['xliffStates'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[19]), ['default'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[19]), [0], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[19]),
-                              // Boolean
-                              'patterns': __hook__('#.', this, ['patterns'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[27]),
-                              'tags': {
-                                'file': fileTag,
-                                'trans-unit': transUnit,
-                                'source': sourceTag,
-                                'target': targetTag,
-                                'state': 'target.state',
-                                'translate': 'trans-unit.translate',
-                                'approved': 'trans-unit.approved'
-                              },
-                              'import': false,
-                              'export': true
-                            }]
-                        ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                        // update state
-                        state = __hook__('#.', __hook__('#.', __hook__('#.', this, ['xliffStates'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [op], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [0], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                        if (op === 'default' && !__hook__('#()', transUnit, [
-                            'hasAttribute',
-                            ['approved']
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])) {
-                          __hook__('#()', transUnit, [
-                            'setAttribute',
-                            [
-                              'approved',
-                              'yes'
-                            ]
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                        }
-                        // Fix #24: don't force the 'state' attribute if no state
-                        if (!__hook__('#()', targetTag, [
-                            'hasAttribute',
-                            ['state']
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) && state && state !== '""') {
-                          __hook__('#()', targetTag, [
-                            'setAttribute',
-                            [
-                              'state',
-                              state
-                            ]
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                        }
-                        // Fix #28: "" to remove the state attribute
-                        if (!state || state === '""') {
-                          __hook__('#()', targetTag, [
-                            'removeAttribute',
-                            ['state']
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                        }
-                        // update stats
-                        __hook__('#=', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                          'total',
-                          __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || {}
-                        ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                        __hook__('#=', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                          'units',
-                          __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['units'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                        ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                        __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['units'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                        __hook__('#=', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                          'states',
-                          __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['states'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || {}
-                        ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                        __hook__('#=', __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['states'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                          __hook__('#()', targetTag, [
-                            'getAttribute',
-                            ['state']
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]),
-                          __hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['states'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [__hook__('#()', targetTag, [
-                              'getAttribute',
-                              ['state']
-                            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                        ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                        __hook__('#p++', __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['states'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [__hook__('#()', targetTag, [
-                            'getAttribute',
-                            ['state']
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                        __hook__('#=', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                          'approved',
-                          __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['approved'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                        ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                        __hook__('#+=', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                          'approved',
-                          __hook__('#()', transUnit, [
-                            'getAttribute',
-                            ['approved']
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) === 'yes' ? 1 : 0
-                        ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                        __hook__('#=', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                          component,
-                          __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || {}
-                        ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                        __hook__('#=', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                          'units',
-                          __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['units'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                        ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                        __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['units'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                        __hook__('#=', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                          'states',
-                          __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['states'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || {}
-                        ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                        __hook__('#=', __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['states'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                          __hook__('#()', targetTag, [
-                            'getAttribute',
-                            ['state']
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]),
-                          __hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['states'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [__hook__('#()', targetTag, [
-                              'getAttribute',
-                              ['state']
-                            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                        ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                        __hook__('#p++', __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['states'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [__hook__('#()', targetTag, [
-                            'getAttribute',
-                            ['state']
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                        __hook__('#=', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                          'approved',
-                          __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['approved'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                        ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                        __hook__('#+=', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                          'approved',
-                          __hook__('#()', transUnit, [
-                            'getAttribute',
-                            ['approved']
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) === 'yes' ? 1 : 0
-                        ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                        var nodes = __hook__('#()', __hook__('#.', __hook__('#.', $hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[40], 'Array', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[41]], ['prototype'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[40]), ['map'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[40]), [
-                          'call',
-                          [
-                            __hook__('#.', __hook__('#.', __hook__('#()', transUnitWrapper, [
-                              'getElementsByTagName',
-                              ['wrapper']
-                            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[40]), [0], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[40]), ['childNodes'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[40]),
-                            function (node) {
-                              return __hook__(node => {
-                                return node;
-                              }, null, arguments, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[40]);
-                            }
-                          ]
-                        ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[40]);
-                        while (__hook__('#.', nodes, ['length'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) > 0) {
-                          __hook__('#()', bodyTag, [
-                            'appendChild',
-                            [__hook__('#()', nodes, [
-                                'shift',
-                                []
-                              ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])]
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                        }
-                      }, null, arguments, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                    }, [
-                      'bind',
-                      [this]
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])
-                  ]
-                ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
               }
             }
-            __hook__('#()', bodyTag, [
-              'appendChild',
-              [__hook__('#.', __hook__('#.', __hook__('#()', __hook__('#()', parser, [
-                  'parseFromString',
-                  [
-                    spacer,
-                    'application/xml'
-                  ]
-                ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                  'getElementsByTagName',
-                  ['wrapper']
-                ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [0], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['firstChild'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])]
-            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-            __hook__(callback, null, [
-              xmlHeader + __hook__('#()', serializer, [
-                'serializeToString',
-                [xliff]
-              ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]),
-              stats
-            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 0);
-          }, null, arguments, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-        }
-      ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-      __hook__('#=', __hook__('#.', XliffConv, ['prototype'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-        '_stringify',
-        function (value) {
-          return __hook__(value => {
-            switch (typeof value) {
-            case 'string':
-              return value;
-            case 'boolean':
-              return value ? 'true' : 'false';
-            case 'number':
-              return '' + value;
-            case 'object':
-              return __hook__('#()', $hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 'JSON', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[25]], [
-                'stringify',
-                [value]
-              ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-            case 'undefined':
-            default:
-              return '';
+            else {
+              // discard value
+              this.warnLogger('XliffConv: id = ' + id + ' discarding value "' + value + '"' + 
+                ' as source \"' + sourceValue + '\" does not match with todo.value "' + todo.value + '"');
+              stats.json.total.discarded = stats.json.total.discarded || 0;
+              stats.json.total.discarded++;
+              stats.json.total.source_mismatching = stats.json.total.source_mismatching || 0;
+              stats.json.total.source_mismatching++;
+              stats.json[component].discarded = stats.json[component].discarded || 0;
+              stats.json[component].discarded++;
+              stats.json[component].source_mismatching = stats.json[component].source_mismatching || 0;
+              stats.json[component].source_mismatching++;
             }
-          }, null, arguments, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+            paths.shift();
+          }
+          else {
+            // missing resource
+            this.warnLogger('XliffConv: id = ' + id + ' is missing');
+            stats.json.total.discarded = stats.json.total.discarded || 0;
+            stats.json.total.discarded++;
+            stats.json.total.id_missing = stats.json.total.id_missing || 0;
+            stats.json.total.id_missing++;
+            stats.json[component].discarded = stats.json[component].discarded || 0;
+            stats.json[component].discarded++;
+            stats.json[component].id_missing = stats.json[component].id_missing || 0;
+            stats.json[component].id_missing++;
+          }
+          break;
         }
-      ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-      __hook__('#=', __hook__('#.', XliffConv, ['prototype'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-        '_traverseBundle',
-        function (id, source, target, callback) {
-          return __hook__((id, source, target, callback) => {
-            if (typeof target === 'object') {
-              for (var prop in __hook__('#*', target, [], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])) {
-                if (id === '' && prop === 'meta') {
-                  continue;
-                }
-                __hook__('#()', this, [
-                  '_traverseBundle',
-                  [
-                    id + (id ? '.' : '') + __hook__('#()', prop, [
-                      'replace',
-                      [
-                        /[.]/g,
-                        '_$DOT$_'
-                      ]
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]),
-                    source && __hook__('#()', source, [
-                      'hasOwnProperty',
-                      [prop]
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) ? __hook__('#.', source, [prop], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) : typeof source === 'object' && __hook__('#.', source, ['other'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) ? __hook__('#.', source, ['other'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) : '',
-                    __hook__('#.', target, [prop], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]),
-                    callback
-                  ]
-                ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-              }
-            } else {
-              __hook__(callback, null, [
-                id,
-                source,
-                target
-              ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 0);
-            }
-          }, null, arguments, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+        else {
+          if (!cursor[paths[0]]) {
+            // missing resource
+            this.warnLogger('XliffConv: id = ' + id + ' is missing');
+            stats.json.total.discarded = stats.json.total.discarded || 0;
+            stats.json.total.discarded++;
+            stats.json.total.id_missing = stats.json.total.id_missing || 0;
+            stats.json.total.id_missing++;
+            stats.json[component].discarded = stats.json[component].discarded || 0;
+            stats.json[component].discarded++;
+            stats.json[component].id_missing = stats.json[component].id_missing || 0;
+            stats.json[component].id_missing++;
+            break;
+          }
+          cursor = cursor[paths.shift()];
         }
-      ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-      return XliffConv;
-    }, null, arguments, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-  }
-], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 0);
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)(module)))
+      }
+    }.bind(this));
+    for (component in output) {
+      if (output[component].meta && output[component].meta.todo) {
+        for (i = output[component].meta.todo.length - 1; i >= 0; i--) {
+          if (output[component].meta.todo[i].op === 'noop') {
+            // remove the noop todo item
+            output[component].meta.todo.splice(i, 1);
+          }
+          else {
+            stats.json.total.todo = stats.json.total.todo || 0;
+            stats.json.total.todo++;
+            stats.json.total[output[component].meta.todo[i].op] = stats.json.total[output[component].meta.todo[i].op] || 0;
+            stats.json.total[output[component].meta.todo[i].op]++;
+            stats.json[component] = stats.json[component] || {};
+            stats.json[component].todo = stats.json[component].todo || 0;
+            stats.json[component].todo++;
+            stats.json[component][output[component].meta.todo[i].op] = stats.json[component][output[component].meta.todo[i].op] || 0;
+            stats.json[component][output[component].meta.todo[i].op]++;
+          }
+        }
+      }
+    }
+
+    callback(output, stats);
+  };
+
+  XliffConv.prototype.parseJSON = function (bundles, options, callback) {
+    var args = arguments;
+    [ 'object', 'object', 'function' ].forEach(function (type, index) {
+      if (!args[index] || typeof args[index] !== type) {
+        throw new Error('invalid argument');
+      }
+    });
+    var parser = new (this.DOMParser)();
+    var serializer = new (this.XMLSerializer)();
+    var xmlHeader = options.xmlHeader ||
+      '<?xml version="1.0" encoding="UTF-8"?>\n' +
+      '<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">\n';
+    var xliffTemplate = options.xliffTemplate ||
+      '<xliff version="1.0">\n' +
+      '  <file xml:space="' + (options.xmlSpace || 'default') + '" ' +
+              'source-language="' + (options.srcLanguage || 'en') + '" ' +
+              'target-language="' + (options.destLanguage || 'fr') + '" ' +
+              'datatype="' + (options.dataType || 'plaintext') + '" ' +
+              'original="' + (options.original || 'messages') + '" ' +
+              'date="' + this.date.toISOString().replace(/[.][0-9]*Z$/, 'Z') + '" ' +
+              'product-name="' + (options.productName || 'messages') + '">\n' +
+      '    <header>\n' +
+      '      <tool tool-id="xliff-conv" tool-name="xliff-conv" tool-version="' + this.toolVersion + '"/>\n' +
+      '    </header>\n' +
+      '    <body>\n' +
+          '</body>\n' +
+      '  </file>\n' +
+      '</xliff>';
+    var transUnitTemplate =
+      '<wrapper>' + (options.transUnitTemplate ||
+      '      <trans-unit>\n' +
+      '        <source></source>\n' +
+      '        <target></target>\n' +
+      '      </trans-unit>'
+      ) +
+      '\n</wrapper>';
+    var spacer = '<wrapper>    </wrapper>';
+    var xliff = parser.parseFromString(xliffTemplate, 'application/xml');
+    var fileTag = xliff.getElementsByTagName('file')[0];
+    var bodyTag = xliff.getElementsByTagName('body')[0];
+    var sourceBundle = bundles[''];
+    var targetBundle = bundles[options.destLanguage];
+    var component;
+    var todos;
+    var todoMap;
+    var index;
+    var stats = { xliff: {}, json: {} };
+
+    for (component in targetBundle) {
+      if (component !== 'bundle') {
+        targetBundle[component].meta = targetBundle[component].meta || {};
+        targetBundle[component].meta.todo = targetBundle[component].meta.todo || [];
+        todos = targetBundle[component].meta.todo;
+        todoMap = {};
+        for (index = 0; index < todos.length; index++) {
+          todoMap[todos[index].path.replace(/[.]/g, '_$DOT$_').replace(/\//g, '.').substring(1)] = todos[index];
+        }
+        this._traverseBundle('', sourceBundle[component], targetBundle[component], function (id, source, target) {
+          //console.log('_traverseBundle callback id = ' + component + '.' + id + ' source = ' + source + ' target = ' + target);
+          var transUnitWrapper = parser.parseFromString(transUnitTemplate, 'application/xml');
+          var transUnit = transUnitWrapper.getElementsByTagName('trans-unit')[0];
+          var sourceTag = transUnit.getElementsByTagName('source')[0];
+          var targetTag = transUnit.getElementsByTagName('target')[0];
+          var todo = todoMap[id];
+          var op;
+          var state = todo && this.xliffStates[todo.op] ? this.xliffStates[todo.op][0] : this.xliffStates.default[0];
+          var restype = 'x-json-' + typeof source;
+          transUnit.setAttribute('id', component + '.' + id);
+          if (restype !== 'x-json-string') {
+            transUnit.setAttribute('restype', restype);
+          }
+          sourceTag.textContent = this._stringify(source);
+          targetTag.textContent = this._stringify(target);
+          // apply expressions
+          op = this._resolveTodoOps({
+            'state'    : state,
+            'id'       : component + '.' + id,
+            'component': component,
+            'restype'  : restype,
+            'source'   : sourceTag.textContent,
+            'target'   : targetTag.textContent,
+            'approved' : state === this.xliffStates.default[0], // Boolean
+            'patterns' : this.patterns,
+            'tags'     : {
+              'file'      : fileTag,
+              'trans-unit': transUnit,
+              'source'    : sourceTag,
+              'target'    : targetTag,
+              'state'     : 'target.state',
+              'translate' : 'trans-unit.translate',
+              'approved'  : 'trans-unit.approved'
+            },
+            'import'   : false,
+            'export'   : true
+          });
+          // update state
+
+          // --Customise id and add new attribute --
+
+          if (options.addNewAttr) {
+            var newAttrName = Object.getOwnPropertyNames(options.addNewAttr)[0];
+            transUnit.setAttribute('id', options.addNewAttr[newAttrName][id]);
+            transUnit.setAttribute(newAttrName, id);
+          }
+
+          // ---End---
+
+          state = this.xliffStates[op][0];
+          if (op === 'default' && !transUnit.hasAttribute('approved')) {
+            transUnit.setAttribute('approved', 'yes');
+          }
+          // Fix #24: don't force the 'state' attribute if no state
+          if (!targetTag.hasAttribute('state') && state && state !== '""') {
+            targetTag.setAttribute('state', state);
+          }
+          // Fix #28: "" to remove the state attribute
+          if (!state || state === '""') {
+            targetTag.removeAttribute('state');
+          }
+          // update stats
+          stats.xliff.total = stats.xliff.total || {};
+          stats.xliff.total.units = stats.xliff.total.units || 0;
+          stats.xliff.total.units++;
+          stats.xliff.total.states = stats.xliff.total.states || {};
+          stats.xliff.total.states[targetTag.getAttribute('state')] = stats.xliff.total.states[targetTag.getAttribute('state')] || 0;
+          stats.xliff.total.states[targetTag.getAttribute('state')]++;
+          stats.xliff.total.approved = stats.xliff.total.approved || 0;
+          stats.xliff.total.approved += (transUnit.getAttribute('approved') === 'yes' ? 1 : 0);
+          stats.xliff[component] = stats.xliff[component] || {};
+          stats.xliff[component].units = stats.xliff[component].units || 0;
+          stats.xliff[component].units++;
+          stats.xliff[component].states = stats.xliff[component].states || {};
+          stats.xliff[component].states[targetTag.getAttribute('state')] = stats.xliff[component].states[targetTag.getAttribute('state')] || 0;
+          stats.xliff[component].states[targetTag.getAttribute('state')]++;
+          stats.xliff[component].approved = stats.xliff[component].approved || 0;
+          stats.xliff[component].approved += (transUnit.getAttribute('approved') === 'yes' ? 1 : 0);
+          var nodes = Array.prototype.map.call(transUnitWrapper.getElementsByTagName('wrapper')[0].childNodes, function (node) {
+            return node;
+          });
+          while (nodes.length > 0) {
+            bodyTag.appendChild(nodes.shift());
+          }
+        }.bind(this));
+      }
+    }
+    bodyTag.appendChild(parser.parseFromString(spacer, 'application/xml').getElementsByTagName('wrapper')[0].firstChild);
+    callback(xmlHeader + serializer.serializeToString(xliff), stats);
+  };
+
+  XliffConv.prototype._stringify = function (value) {
+    switch (typeof value) {
+    case 'string':
+      return value;
+    case 'boolean':
+      return value ? 'true' : 'false';
+    case 'number':
+      return '' + value;
+    case 'object':
+      return JSON.stringify(value);
+    case 'undefined':
+    default:
+      return '';
+    }
+  };
+
+  XliffConv.prototype._traverseBundle = function (id, source, target, callback) {
+    if (typeof target === 'object') {
+      for (var prop in target) {
+        if (id === '' && prop === 'meta') {
+          continue;
+        }
+        this._traverseBundle(id + (id ? '.' : '') + prop.replace(/[.]/g, '_$DOT$_'),
+          (source && source.hasOwnProperty(prop)
+            ? source[prop]
+            : (typeof source === 'object' && source.other ? source.other : '')),
+          target[prop], callback);
+      }
+    }
+    else {
+      callback(id, source, target);
+    }
+  };
+
+  return XliffConv;
+})());
+
 
 /***/ }),
 /* 7 */
@@ -6001,7 +5080,7 @@ var XMLReader = __hook__('.', __hook__(() => __webpack_require__(8), null, [
 ], __f3812dc4d79b1e30f7d60bd3bf9890142b89a692a8695842f31e1aca8c8078c6__[54], NaN), ['XMLReader'], __f3812dc4d79b1e30f7d60bd3bf9890142b89a692a8695842f31e1aca8c8078c6__[54]);
 var DOMImplementation = __hook__('=', exports, [
   'DOMImplementation',
-  __hook__('.', __hook__(() => __webpack_require__(1), null, [
+  __hook__('.', __hook__(() => __webpack_require__(0), null, [
     'require',
     './dom',
     '/components/thin-hook/node_modules/xmldom/dom.js'
@@ -6009,7 +5088,7 @@ var DOMImplementation = __hook__('=', exports, [
 ], __f3812dc4d79b1e30f7d60bd3bf9890142b89a692a8695842f31e1aca8c8078c6__[55]);
 __hook__('=', exports, [
   'XMLSerializer',
-  __hook__('.', __hook__(() => __webpack_require__(1), null, [
+  __hook__('.', __hook__(() => __webpack_require__(0), null, [
     'require',
     './dom',
     '/components/thin-hook/node_modules/xmldom/dom.js'

@@ -1,4 +1,4 @@
-(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.commonjs_module = f()}})(function(){var define,module,exports;return (function(){function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s}return e})()({1:[function(require,module,exports){
+(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.commonjs_module = f()}})(function(){var define,module,exports;return (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 const __cc74399e1c1d2140899d39152418f1528f38b74c64259bca5272f0825272cb83__ = $hook$.$(__hook__, [
   '/components/thin-hook/demo/commonjs.js,add',
   '/components/thin-hook/demo/commonjs.js,XliffConv',
@@ -75,7 +75,7 @@ __hook__('()', __hook__('.', $hook$.global(__hook__, __65c113ba194d10494e2bba7f5
         const tty = __hook__(() => require('tty'), null, [
           'require',
           'tty',
-          '/components/thin-hook/node_modules/tty-browserify/index.js'
+          '/components/thin-hook/node_modules/browserify/node_modules/tty-browserify/index.js'
         ], __65c113ba194d10494e2bba7f5066029de3ada0d924cf072d5420ceca39aaa28b__[3], NaN);
       }, null, args, __65c113ba194d10494e2bba7f5066029de3ada0d924cf072d5420ceca39aaa28b__[1])),
     /^Permission Denied:/
@@ -89,7 +89,41 @@ __hook__('=', module, [
     }, null, arguments, __65c113ba194d10494e2bba7f5066029de3ada0d924cf072d5420ceca39aaa28b__[4]);
   }
 ], __65c113ba194d10494e2bba7f5066029de3ada0d924cf072d5420ceca39aaa28b__[1]);
-},{"path":3,"tty":4}],3:[function(require,module,exports){
+},{"path":4,"tty":3}],3:[function(require,module,exports){
+const __013ed0e3489b106c6939f198c41e913854df46705057c4ac04ab47559d3bc585__ = $hook$.$(__hook__, [
+  '/components/thin-hook/node_modules/browserify/node_modules/tty-browserify/index.js',
+  '/components/thin-hook/node_modules/browserify/node_modules/tty-browserify/index.js,ReadStream',
+  '_uNpREdiC4aB1e_Error;/components/thin-hook/node_modules/browserify/node_modules/tty-browserify/index.js,ReadStream',
+  '/components/thin-hook/node_modules/browserify/node_modules/tty-browserify/index.js,WriteStream',
+  '_uNpREdiC4aB1e_Error;/components/thin-hook/node_modules/browserify/node_modules/tty-browserify/index.js,WriteStream'
+]);
+__hook__('=', exports, [
+  'isatty',
+  function () {
+    return __hook__(() => {
+      return false;
+    }, null, arguments, __013ed0e3489b106c6939f198c41e913854df46705057c4ac04ab47559d3bc585__[0]);
+  }
+], __013ed0e3489b106c6939f198c41e913854df46705057c4ac04ab47559d3bc585__[0]);
+function ReadStream() {
+  return __hook__(() => {
+    throw __hook__($hook$.global(__hook__, __013ed0e3489b106c6939f198c41e913854df46705057c4ac04ab47559d3bc585__[1], 'Error', 'get')[__013ed0e3489b106c6939f198c41e913854df46705057c4ac04ab47559d3bc585__[2]], null, ['tty.ReadStream is not implemented'], __013ed0e3489b106c6939f198c41e913854df46705057c4ac04ab47559d3bc585__[1], true);
+  }, null, arguments, __013ed0e3489b106c6939f198c41e913854df46705057c4ac04ab47559d3bc585__[1]);
+}
+__hook__('=', exports, [
+  'ReadStream',
+  ReadStream
+], __013ed0e3489b106c6939f198c41e913854df46705057c4ac04ab47559d3bc585__[0]);
+function WriteStream() {
+  return __hook__(() => {
+    throw __hook__($hook$.global(__hook__, __013ed0e3489b106c6939f198c41e913854df46705057c4ac04ab47559d3bc585__[3], 'Error', 'get')[__013ed0e3489b106c6939f198c41e913854df46705057c4ac04ab47559d3bc585__[4]], null, ['tty.WriteStream is not implemented'], __013ed0e3489b106c6939f198c41e913854df46705057c4ac04ab47559d3bc585__[3], true);
+  }, null, arguments, __013ed0e3489b106c6939f198c41e913854df46705057c4ac04ab47559d3bc585__[3]);
+}
+__hook__('=', exports, [
+  'WriteStream',
+  WriteStream
+], __013ed0e3489b106c6939f198c41e913854df46705057c4ac04ab47559d3bc585__[0]);
+},{}],4:[function(require,module,exports){
 // .dirname, .basename, and .extname methods are extracted from Node.js v8.11.1,
 // backported and transplited with Babel, with backwards-compat fixes
 // Copyright Joyent, Inc. and other Node contributors.
@@ -630,46 +664,12 @@ var substr = __hook__('()', 'ab', [
     ], __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[22]);
   }, null, arguments, __868f5c6500226b94a0a18b9c519f95bf6e61036425cec5caa42d5b0b961c800a__[22]);
 };
-},{}],4:[function(require,module,exports){
-const __457acc8c25e9a603939681278e9e0ffa242d4e6c561aa8d7ab669757b8d622ae__ = $hook$.$(__hook__, [
-  '/components/thin-hook/node_modules/tty-browserify/index.js',
-  '/components/thin-hook/node_modules/tty-browserify/index.js,ReadStream',
-  '_uNpREdiC4aB1e_Error;/components/thin-hook/node_modules/tty-browserify/index.js,ReadStream',
-  '/components/thin-hook/node_modules/tty-browserify/index.js,WriteStream',
-  '_uNpREdiC4aB1e_Error;/components/thin-hook/node_modules/tty-browserify/index.js,WriteStream'
-]);
-__hook__('=', exports, [
-  'isatty',
-  function () {
-    return __hook__(() => {
-      return false;
-    }, null, arguments, __457acc8c25e9a603939681278e9e0ffa242d4e6c561aa8d7ab669757b8d622ae__[0]);
-  }
-], __457acc8c25e9a603939681278e9e0ffa242d4e6c561aa8d7ab669757b8d622ae__[0]);
-function ReadStream() {
-  return __hook__(() => {
-    throw __hook__($hook$.global(__hook__, __457acc8c25e9a603939681278e9e0ffa242d4e6c561aa8d7ab669757b8d622ae__[1], 'Error', 'get')[__457acc8c25e9a603939681278e9e0ffa242d4e6c561aa8d7ab669757b8d622ae__[2]], null, ['tty.ReadStream is not implemented'], __457acc8c25e9a603939681278e9e0ffa242d4e6c561aa8d7ab669757b8d622ae__[1], true);
-  }, null, arguments, __457acc8c25e9a603939681278e9e0ffa242d4e6c561aa8d7ab669757b8d622ae__[1]);
-}
-__hook__('=', exports, [
-  'ReadStream',
-  ReadStream
-], __457acc8c25e9a603939681278e9e0ffa242d4e6c561aa8d7ab669757b8d622ae__[0]);
-function WriteStream() {
-  return __hook__(() => {
-    throw __hook__($hook$.global(__hook__, __457acc8c25e9a603939681278e9e0ffa242d4e6c561aa8d7ab669757b8d622ae__[3], 'Error', 'get')[__457acc8c25e9a603939681278e9e0ffa242d4e6c561aa8d7ab669757b8d622ae__[4]], null, ['tty.ReadStream is not implemented'], __457acc8c25e9a603939681278e9e0ffa242d4e6c561aa8d7ab669757b8d622ae__[3], true);
-  }, null, arguments, __457acc8c25e9a603939681278e9e0ffa242d4e6c561aa8d7ab669757b8d622ae__[3]);
-}
-__hook__('=', exports, [
-  'WriteStream',
-  WriteStream
-], __457acc8c25e9a603939681278e9e0ffa242d4e6c561aa8d7ab669757b8d622ae__[0]);
 },{}],5:[function(require,module,exports){
 /*
 @license https://github.com/t2ym/xliff-conv/blob/master/LICENSE.md
 Copyright (c) 2016, Tetsuya Mori <t2y3141592@gmail.com>. All rights reserved.
 */
-const __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__ = $hook$.$(__hook__, [
+const __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__ = $hook$.$(__hook__, [
   '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js',
   'S_uNpREdiC4aB1e_define;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js',
   '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,XliffConv,XliffConv',
@@ -710,6 +710,8 @@ const __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__ = $ho
   '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,transUnitWrapper',
   '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,transUnit',
   '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,todo',
+  '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,newAttrName',
+  'S_uNpREdiC4aB1e_Object;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,newAttrName',
   '/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,nodes',
   'S_uNpREdiC4aB1e_Array;/components/thin-hook/node_modules/xliff-conv/xliff-conv.js,nodes'
 ]);
@@ -717,35 +719,35 @@ __hook__(function (root, factory) {
   'use strict';
   return __hook__((root, factory) => {
     /* istanbul ignore if: AMD is not tested */
-    if (typeof $hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 'define', '#typeof')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[1]] === 'function' && __hook__('#.', $hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 'define', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[1]], ['amd'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])) {
+    if (typeof $hook$.global(__hook__, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0], 'define', '#typeof')[__a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[1]] === 'function' && __hook__('#.', $hook$.global(__hook__, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0], 'define', '#get')[__a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[1]], ['amd'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])) {
       // AMD. Register as an anonymous module.
-      __hook__($hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 'define', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[1]], null, [
+      __hook__($hook$.global(__hook__, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0], 'define', '#get')[__a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[1]], null, [
         [],
         function () {
           return __hook__(() => {
             return __hook__('#=', root, [
               'XliffConv',
-              __hook__(factory, null, [], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 0)
-            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-          }, null, arguments, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+              __hook__(factory, null, [], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0], 0)
+            ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+          }, null, arguments, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
         }
-      ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 0);
+      ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0], 0);
     } else if (typeof exports === 'object') {
       // Node. Does not work with strict CommonJS, but
       // only CommonJS-like enviroments that support module.exports,
       // like Node.
       __hook__('#=', module, [
         'exports',
-        __hook__(factory, null, [], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 0)
-      ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+        __hook__(factory, null, [], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0], 0)
+      ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
     } else {
       // Browser globals
       __hook__('#=', root, [
         'XliffConv',
-        __hook__(factory, null, [], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 0)
-      ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+        __hook__(factory, null, [], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0], 0)
+      ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
     }
-  }, null, arguments, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+  }, null, arguments, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
 }, null, [
   this,
   function () {
@@ -757,90 +759,90 @@ __hook__(function (root, factory) {
           options = options || {};
           __hook__('#=', this, [
             'useSources',
-            __hook__('#.', options, ['useSources'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]) || false
-          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]);
+            __hook__('#.', options, ['useSources'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[2]) || false
+          ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[2]);
           __hook__('#=', this, [
             'date',
-            __hook__('#.', options, ['date'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]) || __hook__($hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2], 'Date', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[3]], null, [], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2], true)
-          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]);
+            __hook__('#.', options, ['date'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[2]) || __hook__($hook$.global(__hook__, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[2], 'Date', '#get')[__a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[3]], null, [], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[2], true)
+          ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[2]);
           __hook__('#=', this, [
             'xmldom',
-            typeof $hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2], 'window', '#typeof')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[4]] === 'object' ? $hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2], 'window', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[4]] : __hook__(() => require('xmldom'), null, [
+            typeof $hook$.global(__hook__, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[2], 'window', '#typeof')[__a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[4]] === 'object' ? $hook$.global(__hook__, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[2], 'window', '#get')[__a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[4]] : __hook__(() => require('xmldom'), null, [
               'require',
               'xmldom',
               '/components/thin-hook/node_modules/xmldom/dom-parser.js'
-            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2], NaN)
-          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]);
+            ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[2], NaN)
+          ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[2]);
           __hook__('#=', this, [
             'DOMParser',
-            __hook__('#.', __hook__('#.', this, ['xmldom'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]), ['DOMParser'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2])
-          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]);
+            __hook__('#.', __hook__('#.', this, ['xmldom'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[2]), ['DOMParser'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[2])
+          ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[2]);
           __hook__('#=', this, [
             'XMLSerializer',
-            __hook__('#.', __hook__('#.', this, ['xmldom'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]), ['XMLSerializer'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2])
-          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]);
+            __hook__('#.', __hook__('#.', this, ['xmldom'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[2]), ['XMLSerializer'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[2])
+          ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[2]);
           __hook__('#=', this, [
             'xliffStates',
-            __hook__('#.', options, ['xliffStates'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]) || __hook__('#.', __hook__('#.', XliffConv, ['xliffStates'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]), ['default'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2])
-          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]);
+            __hook__('#.', options, ['xliffStates'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[2]) || __hook__('#.', __hook__('#.', XliffConv, ['xliffStates'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[2]), ['default'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[2])
+          ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[2]);
           __hook__('#=', this, [
             'patterns',
-            __hook__('#.', options, ['patterns'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]) || __hook__('#.', XliffConv, ['patterns'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2])
-          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]);
+            __hook__('#.', options, ['patterns'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[2]) || __hook__('#.', XliffConv, ['patterns'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[2])
+          ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[2]);
           __hook__('#=', this, [
             'todoOps',
             __hook__('#()', this, [
               '_todoOps',
-              [__hook__('#.', this, ['xliffStates'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2])]
-            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2])
-          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]);
+              [__hook__('#.', this, ['xliffStates'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[2])]
+            ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[2])
+          ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[2]);
           __hook__('#=', this, [
             'logger',
-            __hook__('#.', options, ['logger'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]) || function () {
+            __hook__('#.', options, ['logger'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[2]) || function () {
               return __hook__(() => {
-                __hook__('#()', __hook__('#.', $hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2], 'console', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[5]], ['log'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]), [
+                __hook__('#()', __hook__('#.', $hook$.global(__hook__, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[2], 'console', '#get')[__a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[5]], ['log'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[2]), [
                   'apply',
                   [
-                    $hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2], 'console', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[5]],
+                    $hook$.global(__hook__, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[2], 'console', '#get')[__a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[5]],
                     arguments
                   ]
-                ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]);
-              }, null, arguments, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]);
+                ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[2]);
+              }, null, arguments, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[2]);
             }
-          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]);
+          ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[2]);
           __hook__('#=', this, [
             'warnLogger',
-            __hook__('#.', options, ['warnLogger'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]) || function () {
+            __hook__('#.', options, ['warnLogger'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[2]) || function () {
               return __hook__(() => {
-                __hook__('#()', __hook__('#.', $hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2], 'console', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[5]], ['warn'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]), [
+                __hook__('#()', __hook__('#.', $hook$.global(__hook__, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[2], 'console', '#get')[__a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[5]], ['warn'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[2]), [
                   'apply',
                   [
-                    $hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2], 'console', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[5]],
+                    $hook$.global(__hook__, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[2], 'console', '#get')[__a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[5]],
                     arguments
                   ]
-                ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]);
-              }, null, arguments, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]);
+                ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[2]);
+              }, null, arguments, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[2]);
             }
-          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]);
+          ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[2]);
           __hook__('#=', this, [
             'errorLogger',
-            __hook__('#.', options, ['errorLogger'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]) || function () {
+            __hook__('#.', options, ['errorLogger'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[2]) || function () {
               return __hook__(() => {
-                __hook__('#()', __hook__('#.', $hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2], 'console', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[5]], ['error'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]), [
+                __hook__('#()', __hook__('#.', $hook$.global(__hook__, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[2], 'console', '#get')[__a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[5]], ['error'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[2]), [
                   'apply',
                   [
-                    $hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2], 'console', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[5]],
+                    $hook$.global(__hook__, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[2], 'console', '#get')[__a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[5]],
                     arguments
                   ]
-                ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]);
-              }, null, arguments, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]);
+                ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[2]);
+              }, null, arguments, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[2]);
             }
-          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]);
+          ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[2]);
           __hook__('#=', this, [
             'toolVersion',
-            '1.0.10'
-          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]);
-        }, null, arguments, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[2]);
+            '1.0.12'
+          ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[2]);
+        }, null, arguments, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[2]);
       };
       __hook__('#=', XliffConv, [
         'xliffStates',
@@ -1089,7 +1091,7 @@ __hook__(function (root, factory) {
           - alias for target.state
      */
         }
-      ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+      ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
       __hook__('#=', XliffConv, [
         'patterns',
         {
@@ -1098,45 +1100,45 @@ __hook__(function (root, factory) {
           'numbers': /^[0-9.]{1,}$/,
           'tags': /^<[-a-zA-Z]{1,}>$/
         }
-      ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-      __hook__('#=', __hook__('#.', XliffConv, ['prototype'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+      ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+      __hook__('#=', __hook__('#.', XliffConv, ['prototype'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
         '_todoOps',
         function (xliffStates) {
           return __hook__(xliffStates => {
             var output = { expressions: {} };
             var match;
-            for (var op in __hook__('#*', xliffStates, [], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])) {
-              for (var i = 0; i < __hook__('#.', __hook__('#.', xliffStates, [op], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['length'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]); i++) {
-                match = __hook__('#()', __hook__('#.', __hook__('#.', xliffStates, [op], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [i], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+            for (var op in __hook__('#*', xliffStates, [], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])) {
+              for (var i = 0; i < __hook__('#.', __hook__('#.', xliffStates, [op], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['length'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]); i++) {
+                match = __hook__('#()', __hook__('#.', __hook__('#.', xliffStates, [op], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [i], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                   'match',
                   [/^\[(.*)\]$/]
-                ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                 if (match) {
-                  __hook__('#=', __hook__('#.', output, ['expressions'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                    __hook__('#.', match, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]),
-                    __hook__('#.', __hook__('#.', output, ['expressions'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [__hook__('#.', match, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || []
-                  ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                  __hook__('#()', __hook__('#.', __hook__('#.', output, ['expressions'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [__hook__('#.', match, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                  __hook__('#=', __hook__('#.', output, ['expressions'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
+                    __hook__('#.', match, [1], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]),
+                    __hook__('#.', __hook__('#.', output, ['expressions'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [__hook__('#.', match, [1], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) || []
+                  ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                  __hook__('#()', __hook__('#.', __hook__('#.', output, ['expressions'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [__hook__('#.', match, [1], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                     'push',
                     [op]
-                  ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                  ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                 } else {
                   __hook__('#=', output, [
-                    __hook__('#.', __hook__('#.', xliffStates, [op], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [i], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]),
-                    __hook__('#.', output, [__hook__('#.', __hook__('#.', xliffStates, [op], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [i], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || []
-                  ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                  __hook__('#()', __hook__('#.', output, [__hook__('#.', __hook__('#.', xliffStates, [op], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [i], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                    __hook__('#.', __hook__('#.', xliffStates, [op], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [i], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]),
+                    __hook__('#.', output, [__hook__('#.', __hook__('#.', xliffStates, [op], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [i], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) || []
+                  ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                  __hook__('#()', __hook__('#.', output, [__hook__('#.', __hook__('#.', xliffStates, [op], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [i], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                     'push',
                     [op]
-                  ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                  ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                 }
               }
             }
             return output;
-          }, null, arguments, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+          }, null, arguments, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
         }
-      ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-      __hook__('#=', __hook__('#.', XliffConv, ['prototype'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+      ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+      __hook__('#=', __hook__('#.', XliffConv, ['prototype'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
         '_resolveTodoOps',
         function (parameters) {
           return __hook__(parameters => {
@@ -1144,12 +1146,12 @@ __hook__(function (root, factory) {
             var match;
             var effects;
             var effect;
-            for (var prop in __hook__('#*', __hook__('#.', __hook__('#.', this, ['todoOps'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['expressions'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])) {
+            for (var prop in __hook__('#*', __hook__('#.', __hook__('#.', this, ['todoOps'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['expressions'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])) {
               effects = [];
               if (__hook__('#()', __hook__('#()', __hook__('#()', prop, [
                   'split',
                   [/&&/]
-                ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                   'map',
                   [
                     function (expression) {
@@ -1157,201 +1159,201 @@ __hook__(function (root, factory) {
                         match = __hook__('#()', expression, [
                           'match',
                           [/^([\-\w]*)$/]
-                        ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                        ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                         if (match) {
                           // non-null
-                          return !!__hook__('#.', parameters, [__hook__('#.', match, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                          return !!__hook__('#.', parameters, [__hook__('#.', match, [1], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                         }
                         match = __hook__('#()', expression, [
                           'match',
                           [/^!([\-\w]*)$/]
-                        ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                        ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                         if (match) {
                           // negation
-                          return !__hook__('#.', parameters, [__hook__('#.', match, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                          return !__hook__('#.', parameters, [__hook__('#.', match, [1], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                         }
                         match = __hook__('#()', expression, [
                           'match',
                           [/^([\-\w]*)==([\-\w]*)$/]
-                        ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                        ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                         if (match) {
                           // equality
                           return (__hook__('#()', parameters, [
                             'hasOwnProperty',
-                            [__hook__('#.', match, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])]
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) ? __hook__('#.', parameters, [__hook__('#.', match, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) : __hook__('#.', match, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])) === (__hook__('#()', parameters, [
+                            [__hook__('#.', match, [1], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])]
+                          ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) ? __hook__('#.', parameters, [__hook__('#.', match, [1], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) : __hook__('#.', match, [1], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])) === (__hook__('#()', parameters, [
                             'hasOwnProperty',
-                            [__hook__('#.', match, [2], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])]
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) ? __hook__('#.', parameters, [__hook__('#.', match, [2], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) : __hook__('#.', match, [2], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]));
+                            [__hook__('#.', match, [2], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])]
+                          ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) ? __hook__('#.', parameters, [__hook__('#.', match, [2], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) : __hook__('#.', match, [2], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]));
                         }
                         match = __hook__('#()', expression, [
                           'match',
                           [/^([\-\w]*)!=([\-\w]*)$/]
-                        ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                        ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                         if (match) {
                           // unequality
                           return (__hook__('#()', parameters, [
                             'hasOwnProperty',
-                            [__hook__('#.', match, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])]
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) ? __hook__('#.', parameters, [__hook__('#.', match, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) : __hook__('#.', match, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])) !== (__hook__('#()', parameters, [
+                            [__hook__('#.', match, [1], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])]
+                          ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) ? __hook__('#.', parameters, [__hook__('#.', match, [1], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) : __hook__('#.', match, [1], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])) !== (__hook__('#()', parameters, [
                             'hasOwnProperty',
-                            [__hook__('#.', match, [2], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])]
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) ? __hook__('#.', parameters, [__hook__('#.', match, [2], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) : __hook__('#.', match, [2], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]));
+                            [__hook__('#.', match, [2], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])]
+                          ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) ? __hook__('#.', parameters, [__hook__('#.', match, [2], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) : __hook__('#.', match, [2], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]));
                         }
                         match = __hook__('#()', expression, [
                           'match',
                           [/^([\-\w]*)([.][\-\w]*)?~=([\-\w]*)$/]
-                        ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                        ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                         if (match) {
                           // pattern matching
-                          if (!__hook__('#.', match, [2], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])) {
+                          if (!__hook__('#.', match, [2], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])) {
                             return !!__hook__('#()', __hook__('#()', parameters, [
                               'hasOwnProperty',
-                              [__hook__('#.', match, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])]
-                            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) ? __hook__('#.', parameters, [__hook__('#.', match, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) : __hook__('#.', match, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                              [__hook__('#.', match, [1], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])]
+                            ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) ? __hook__('#.', parameters, [__hook__('#.', match, [1], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) : __hook__('#.', match, [1], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                               'match',
-                              [__hook__('#()', __hook__('#.', parameters, ['patterns'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                              [__hook__('#()', __hook__('#.', parameters, ['patterns'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                                   'hasOwnProperty',
-                                  [__hook__('#.', match, [3], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])]
-                                ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) ? __hook__('#.', __hook__('#.', parameters, ['patterns'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [__hook__('#.', match, [3], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) : __hook__('#.', match, [3], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])]
-                            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                                  [__hook__('#.', match, [3], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])]
+                                ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) ? __hook__('#.', __hook__('#.', parameters, ['patterns'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [__hook__('#.', match, [3], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) : __hook__('#.', match, [3], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])]
+                            ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                           } else {
-                            return !!__hook__('#()', typeof __hook__('#.', __hook__('#.', parameters, ['tags'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [__hook__('#.', match, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) === 'object' ? __hook__('#()', __hook__('#.', __hook__('#.', parameters, ['tags'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [__hook__('#.', match, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                            return !!__hook__('#()', typeof __hook__('#.', __hook__('#.', parameters, ['tags'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [__hook__('#.', match, [1], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) === 'object' ? __hook__('#()', __hook__('#.', __hook__('#.', parameters, ['tags'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [__hook__('#.', match, [1], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                               'getAttribute',
-                              [__hook__('#()', __hook__('#.', match, [2], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                              [__hook__('#()', __hook__('#.', match, [2], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                                   'substr',
                                   [1]
-                                ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])]
-                            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) : __hook__('#.', match, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                                ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])]
+                            ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) : __hook__('#.', match, [1], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                               'match',
-                              [__hook__('#()', __hook__('#.', parameters, ['patterns'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                              [__hook__('#()', __hook__('#.', parameters, ['patterns'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                                   'hasOwnProperty',
-                                  [__hook__('#.', match, [3], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])]
-                                ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) ? __hook__('#.', __hook__('#.', parameters, ['patterns'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [__hook__('#.', match, [3], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) : __hook__('#.', match, [3], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])]
-                            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                                  [__hook__('#.', match, [3], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])]
+                                ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) ? __hook__('#.', __hook__('#.', parameters, ['patterns'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [__hook__('#.', match, [3], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) : __hook__('#.', match, [3], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])]
+                            ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                           }
                         }
                         match = __hook__('#()', expression, [
                           'match',
                           [/^([\-\w]*)([.][\-\w]*)?:=([^&]*)$/]
-                        ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                        ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                         if (match) {
                           // assignment effect
-                          if (!__hook__('#.', match, [2], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])) {
-                            if (typeof __hook__('#.', __hook__('#.', parameters, ['tags'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [__hook__('#.', match, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) === 'string') {
+                          if (!__hook__('#.', match, [2], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])) {
+                            if (typeof __hook__('#.', __hook__('#.', parameters, ['tags'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [__hook__('#.', match, [1], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) === 'string') {
                               // alias
-                              effect = __hook__('#()', __hook__('#.', __hook__('#.', parameters, ['tags'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [__hook__('#.', match, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                              effect = __hook__('#()', __hook__('#.', __hook__('#.', parameters, ['tags'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [__hook__('#.', match, [1], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                                 'split',
                                 [/[.]/]
-                              ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                              ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                               __hook__('#()', effect, [
                                 'push',
-                                [__hook__('#.', match, [3], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])]
-                              ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                                [__hook__('#.', match, [3], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])]
+                              ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                               __hook__('#()', effects, [
                                 'push',
                                 [effect]
-                              ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                            } else if (typeof __hook__('#.', __hook__('#.', parameters, ['tags'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [__hook__('#.', match, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) === 'object') {
+                              ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                            } else if (typeof __hook__('#.', __hook__('#.', parameters, ['tags'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [__hook__('#.', match, [1], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) === 'object') {
                               // tag
                               __hook__('#()', effects, [
                                 'push',
                                 [[
-                                    __hook__('#.', match, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]),
+                                    __hook__('#.', match, [1], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]),
                                     'textContent',
-                                    __hook__('#.', match, [3], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])
+                                    __hook__('#.', match, [3], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])
                                   ]]
-                              ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                              ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                             } else {
                               __hook__('#()', this, [
                                 'warnLogger',
-                                ['XliffConv: id = ' + __hook__('#.', parameters, ['id'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) + ' effect ' + expression + ' is ignored due to inexistent tag ' + __hook__('#.', match, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])]
-                              ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                                ['XliffConv: id = ' + __hook__('#.', parameters, ['id'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) + ' effect ' + expression + ' is ignored due to inexistent tag ' + __hook__('#.', match, [1], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])]
+                              ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                             }
                           } else {
-                            if (typeof __hook__('#.', __hook__('#.', parameters, ['tags'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [__hook__('#.', match, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) === 'object') {
+                            if (typeof __hook__('#.', __hook__('#.', parameters, ['tags'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [__hook__('#.', match, [1], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) === 'object') {
                               // attribute
                               __hook__('#()', effects, [
                                 'push',
                                 [[
-                                    __hook__('#.', match, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]),
-                                    __hook__('#()', __hook__('#.', match, [2], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                                    __hook__('#.', match, [1], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]),
+                                    __hook__('#()', __hook__('#.', match, [2], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                                       'substr',
                                       [1]
-                                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]),
-                                    __hook__('#.', match, [3], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])
+                                    ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]),
+                                    __hook__('#.', match, [3], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])
                                   ]]
-                              ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                              ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                             } else {
                               __hook__('#()', this, [
                                 'warnLogger',
-                                ['XliffConv: id = ' + __hook__('#.', parameters, ['id'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) + ' effect ' + expression + ' is ignored due to inexistent tag ' + __hook__('#.', match, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])]
-                              ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                                ['XliffConv: id = ' + __hook__('#.', parameters, ['id'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) + ' effect ' + expression + ' is ignored due to inexistent tag ' + __hook__('#.', match, [1], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])]
+                              ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                             }
                           }
                           return true;
                         }
                         return false;
-                      }, null, arguments, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                      }, null, arguments, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                     },
                     this
                   ]
-                ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                   'reduce',
                   [
                     function (previous, current) {
                       return __hook__((previous, current) => {
                         return previous && current;
-                      }, null, arguments, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                      }, null, arguments, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                     },
                     true
                   ]
-                ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])) {
+                ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])) {
                 // Expression matched
-                result = __hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', this, ['todoOps'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['expressions'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [prop], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [0], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                result = __hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', this, ['todoOps'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['expressions'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [prop], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [0], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                 __hook__('#()', effects, [
                   'forEach',
                   [function (effect) {
                       return __hook__(effect => {
-                        if (__hook__('#.', effect, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) === 'textContent') {
-                          __hook__('#=', __hook__('#.', __hook__('#.', parameters, ['tags'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [__hook__('#.', effect, [0], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                        if (__hook__('#.', effect, [1], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) === 'textContent') {
+                          __hook__('#=', __hook__('#.', __hook__('#.', parameters, ['tags'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [__hook__('#.', effect, [0], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                             'textContent',
-                            __hook__('#.', effect, [2], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                            __hook__('#.', effect, [2], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])
+                          ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                         } else {
-                          if (__hook__('#.', effect, [2], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) && __hook__('#.', effect, [2], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) !== '""') {
-                            __hook__('#()', __hook__('#.', __hook__('#.', parameters, ['tags'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [__hook__('#.', effect, [0], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                          if (__hook__('#.', effect, [2], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) && __hook__('#.', effect, [2], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) !== '""') {
+                            __hook__('#()', __hook__('#.', __hook__('#.', parameters, ['tags'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [__hook__('#.', effect, [0], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                               'setAttribute',
                               [
-                                __hook__('#.', effect, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]),
-                                __hook__('#.', effect, [2], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])
+                                __hook__('#.', effect, [1], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]),
+                                __hook__('#.', effect, [2], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])
                               ]
-                            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                            ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                           } else {
-                            __hook__('#()', __hook__('#.', __hook__('#.', parameters, ['tags'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [__hook__('#.', effect, [0], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                            __hook__('#()', __hook__('#.', __hook__('#.', parameters, ['tags'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [__hook__('#.', effect, [0], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                               'removeAttribute',
-                              [__hook__('#.', effect, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])]
-                            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                              [__hook__('#.', effect, [1], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])]
+                            ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                           }
                         }
-                      }, null, arguments, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                      }, null, arguments, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                     }]
-                ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                 break;
               }
             }
             if (!result) {
-              if (__hook__('#.', parameters, ['state'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) && __hook__('#.', __hook__('#.', this, ['todoOps'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [__hook__('#.', parameters, ['state'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) && __hook__('#.', __hook__('#.', __hook__('#.', this, ['todoOps'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [__hook__('#.', parameters, ['state'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [0], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])) {
-                result = __hook__('#.', __hook__('#.', __hook__('#.', this, ['todoOps'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [__hook__('#.', parameters, ['state'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [0], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+              if (__hook__('#.', parameters, ['state'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) && __hook__('#.', __hook__('#.', this, ['todoOps'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [__hook__('#.', parameters, ['state'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) && __hook__('#.', __hook__('#.', __hook__('#.', this, ['todoOps'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [__hook__('#.', parameters, ['state'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [0], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])) {
+                result = __hook__('#.', __hook__('#.', __hook__('#.', this, ['todoOps'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [__hook__('#.', parameters, ['state'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [0], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
               } else {
-                result = __hook__('#.', __hook__('#.', __hook__('#.', this, ['todoOps'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [''], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [0], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                result = __hook__('#.', __hook__('#.', __hook__('#.', this, ['todoOps'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [''], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [0], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
               }
             }
             return result;
-          }, null, arguments, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+          }, null, arguments, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
         }
-      ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-      __hook__('#=', __hook__('#.', XliffConv, ['prototype'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+      ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+      __hook__('#=', __hook__('#.', XliffConv, ['prototype'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
         'parseXliff',
         function (xliff, options, callback) {
           return __hook__((xliff, options, callback) => {
@@ -1364,32 +1366,32 @@ __hook__(function (root, factory) {
               'forEach',
               [function (type, index) {
                   return __hook__((type, index) => {
-                    if (!__hook__('#.', args, [index], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || typeof __hook__('#.', args, [index], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) !== type) {
-                      throw __hook__($hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 'Error', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[6]], null, ['invalid argument'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], true);
+                    if (!__hook__('#.', args, [index], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) || typeof __hook__('#.', args, [index], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) !== type) {
+                      throw __hook__($hook$.global(__hook__, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0], 'Error', '#get')[__a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[6]], null, ['invalid argument'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0], true);
                     }
-                  }, null, arguments, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                  }, null, arguments, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                 }]
-            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-            if (typeof __hook__('#.', options, ['bundle'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) !== 'object') {
-              throw __hook__($hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 'Error', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[6]], null, ['invalid options.bundle'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], true);
+            ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+            if (typeof __hook__('#.', options, ['bundle'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) !== 'object') {
+              throw __hook__($hook$.global(__hook__, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0], 'Error', '#get')[__a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[6]], null, ['invalid options.bundle'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0], true);
             }
-            var parser = __hook__(__hook__('#.', this, ['DOMParser'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[7]), null, [], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[7], true);
+            var parser = __hook__(__hook__('#.', this, ['DOMParser'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[7]), null, [], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[7], true);
             var dom = __hook__('#()', parser, [
               'parseFromString',
               [
                 xliff,
                 'application/xml'
               ]
-            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[8]);
+            ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[8]);
             var fileTag = __hook__('#.', __hook__('#()', dom, [
               'getElementsByTagName',
               ['file']
-            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[9]), [0], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[9]);
+            ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[9]), [0], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[9]);
             var transUnits = __hook__('#()', dom, [
               'getElementsByTagName',
               ['trans-unit']
-            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[10]);
-            var output = __hook__('#.', options, ['bundle'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[11]);
+            ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[10]);
+            var output = __hook__('#.', options, ['bundle'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[11]);
             var stats = {
               xliff: {},
               json: {}
@@ -1397,56 +1399,56 @@ __hook__(function (root, factory) {
             var todoMap = {};
             var component;
             var i;
-            for (component in __hook__('#*', output, [], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])) {
-              if (__hook__('#.', __hook__('#.', output, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['meta'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) && __hook__('#.', __hook__('#.', __hook__('#.', output, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['meta'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todo'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])) {
-                for (i in __hook__('#*', __hook__('#.', __hook__('#.', __hook__('#.', output, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['meta'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todo'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])) {
+            for (component in __hook__('#*', output, [], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])) {
+              if (__hook__('#.', __hook__('#.', output, [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['meta'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) && __hook__('#.', __hook__('#.', __hook__('#.', output, [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['meta'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['todo'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])) {
+                for (i in __hook__('#*', __hook__('#.', __hook__('#.', __hook__('#.', output, [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['meta'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['todo'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])) {
                   __hook__('#=', todoMap, [
-                    component + __hook__('#()', __hook__('#()', __hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', output, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['meta'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todo'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [i], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['path'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                    component + __hook__('#()', __hook__('#()', __hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', output, [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['meta'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['todo'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [i], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['path'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                       'replace',
                       [
                         /[.]/g,
                         '_$DOT$_'
                       ]
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                    ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                       'replace',
                       [
                         /\//g,
                         '.'
                       ]
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]),
-                    __hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', output, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['meta'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todo'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [i], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])
-                  ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                    ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]),
+                    __hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', output, [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['meta'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['todo'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [i], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])
+                  ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                 }
               }
             }
             //console.log('todoMap = ', todoMap);
-            __hook__('#=', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+            __hook__('#=', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
               'total',
-              __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || {}
-            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-            __hook__('#=', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+              __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) || {}
+            ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+            __hook__('#=', __hook__('#.', stats, ['xliff'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
               'total',
-              __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || {}
-            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-            __hook__('#=', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+              __hook__('#.', __hook__('#.', stats, ['xliff'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) || {}
+            ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+            __hook__('#=', __hook__('#.', stats, ['xliff'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
               'file',
               {}
-            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-            __hook__('#()', __hook__('#.', __hook__('#.', $hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 'Array', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[12]], ['prototype'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['forEach'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+            ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+            __hook__('#()', __hook__('#.', __hook__('#.', $hook$.global(__hook__, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0], 'Array', '#get')[__a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[12]], ['prototype'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['forEach'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
               'call',
               [
-                __hook__('#.', fileTag, ['attributes'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]),
+                __hook__('#.', fileTag, ['attributes'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]),
                 function (attribute) {
                   return __hook__(attribute => {
-                    __hook__('#=', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['file'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                      __hook__('#.', attribute, ['name'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]),
-                      __hook__('#.', attribute, ['value'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                  }, null, arguments, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                    __hook__('#=', __hook__('#.', __hook__('#.', stats, ['xliff'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['file'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
+                      __hook__('#.', attribute, ['name'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]),
+                      __hook__('#.', attribute, ['value'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])
+                    ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                  }, null, arguments, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                 }
               ]
-            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-            __hook__('#()', __hook__('#.', __hook__('#.', $hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 'Array', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[12]], ['prototype'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['forEach'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+            ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+            __hook__('#()', __hook__('#.', __hook__('#.', $hook$.global(__hook__, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0], 'Array', '#get')[__a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[12]], ['prototype'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['forEach'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
               'call',
               [
                 transUnits,
@@ -1455,34 +1457,34 @@ __hook__(function (root, factory) {
                     var sourceTag = __hook__('#.', __hook__('#()', transUnit, [
                       'getElementsByTagName',
                       ['source']
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[13]), [0], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[13]);
+                    ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[13]), [0], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[13]);
                     var targetTag = __hook__('#.', __hook__('#()', transUnit, [
                       'getElementsByTagName',
                       ['target']
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[14]), [0], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[14]);
+                    ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[14]), [0], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[14]);
                     var id = __hook__('#()', transUnit, [
                       'getAttribute',
                       ['id']
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[15]);
+                    ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[15]);
                     var restype = __hook__('#()', transUnit, [
                       'getAttribute',
                       ['restype']
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[16]) || 'x-json-string';
-                    var source = __hook__('#.', sourceTag, ['textContent'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[17]);
-                    var target = __hook__('#.', targetTag, ['textContent'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[18]);
+                    ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[16]) || 'x-json-string';
+                    var source = __hook__('#.', sourceTag, ['textContent'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[17]);
+                    var target = __hook__('#.', targetTag, ['textContent'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[18]);
                     var approved = __hook__('#()', transUnit, [
                       'getAttribute',
                       ['approved']
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[19]) === 'yes';
+                    ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[19]) === 'yes';
                     var state = __hook__('#()', targetTag, [
                       'getAttribute',
                       ['state']
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[20]);
+                    ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[20]);
                     var cursor = output;
                     var paths = __hook__('#()', __hook__('#()', id, [
                       'split',
                       ['.']
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[21]), [
+                    ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[21]), [
                       'map',
                       [function (p) {
                           return __hook__(p => {
@@ -1492,11 +1494,11 @@ __hook__(function (root, factory) {
                                 /_\$DOT\$_/g,
                                 '.'
                               ]
-                            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[21]);
-                          }, null, arguments, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[21]);
+                            ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[21]);
+                          }, null, arguments, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[21]);
                         }]
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[21]);
-                    var component = __hook__('#.', paths, [0], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[22]);
+                    ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[21]);
+                    var component = __hook__('#.', paths, [0], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[22]);
                     var parsed;
                     var value;
                     var sourceValue;
@@ -1506,130 +1508,130 @@ __hook__(function (root, factory) {
                     parsed = __hook__('#()', source, [
                       'match',
                       [/^_\$([a-zA-Z]*)\$_(.*)$/]
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                    ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                     if (parsed) {
                       // process _$type$_value format for compatibility with xliff2bundlejson
-                      source = __hook__('#.', parsed, [2], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                      source = __hook__('#.', parsed, [2], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                     }
                     // update stats
-                    __hook__('#=', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                    __hook__('#=', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                       component,
-                      __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || {}
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                    __hook__('#=', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                      __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) || {}
+                    ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                    __hook__('#=', __hook__('#.', __hook__('#.', stats, ['xliff'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                       'units',
-                      __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['units'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                    __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['units'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                    __hook__('#=', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                      __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['units'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) || 0
+                    ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                    __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['xliff'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['units'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                    __hook__('#=', __hook__('#.', __hook__('#.', stats, ['xliff'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                       'states',
-                      __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['states'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || {}
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                    __hook__('#=', __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['states'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                      __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['states'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) || {}
+                    ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                    __hook__('#=', __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['states'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                       state,
-                      __hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['states'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [state], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                    __hook__('#p++', __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['states'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [state], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                    __hook__('#=', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                      __hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['states'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [state], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) || 0
+                    ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                    __hook__('#p++', __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['states'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [state], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                    __hook__('#=', __hook__('#.', __hook__('#.', stats, ['xliff'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                       'approved',
-                      __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['approved'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                    __hook__('#+=', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                      __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['approved'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) || 0
+                    ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                    __hook__('#+=', __hook__('#.', __hook__('#.', stats, ['xliff'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                       'approved',
                       approved ? 1 : 0
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                    __hook__('#=', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                    ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                    __hook__('#=', __hook__('#.', stats, ['xliff'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                       component,
-                      __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || {}
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                    __hook__('#=', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                      __hook__('#.', __hook__('#.', stats, ['xliff'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) || {}
+                    ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                    __hook__('#=', __hook__('#.', __hook__('#.', stats, ['xliff'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                       'units',
-                      __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['units'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                    __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['units'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                    __hook__('#=', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                      __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['units'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) || 0
+                    ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                    __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['xliff'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['units'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                    __hook__('#=', __hook__('#.', __hook__('#.', stats, ['xliff'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                       'states',
-                      __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['states'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || {}
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                    __hook__('#=', __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['states'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                      __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['states'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) || {}
+                    ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                    __hook__('#=', __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['states'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                       state,
-                      __hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['states'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [state], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                    __hook__('#p++', __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['states'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [state], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                    __hook__('#=', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                      __hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['states'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [state], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) || 0
+                    ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                    __hook__('#p++', __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['states'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [state], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                    __hook__('#=', __hook__('#.', __hook__('#.', stats, ['xliff'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                       'approved',
-                      __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['approved'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                    __hook__('#+=', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                      __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['approved'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) || 0
+                    ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                    __hook__('#+=', __hook__('#.', __hook__('#.', stats, ['xliff'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                       'approved',
                       approved ? 1 : 0
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                    while (__hook__('#.', paths, ['length'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) > 0) {
-                      if (__hook__('#.', paths, ['length'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) === 1) {
+                    ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                    while (__hook__('#.', paths, ['length'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) > 0) {
+                      if (__hook__('#.', paths, ['length'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) === 1) {
                         if (__hook__('#()', cursor, [
                             'hasOwnProperty',
-                            [__hook__('#.', paths, [0], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])]
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])) {
+                            [__hook__('#.', paths, [0], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])]
+                          ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])) {
                           parsed = __hook__('#()', target, [
                             'match',
                             [/^_\$([a-zA-Z]*)\$_(.*)$/]
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                          ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                           if (parsed) {
                             // process _$type$_value format for compatibility with xliff2bundlejson 
-                            target = __hook__('#.', parsed, [2], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                            switch (__hook__('#.', parsed, [1], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])) {
+                            target = __hook__('#.', parsed, [2], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                            switch (__hook__('#.', parsed, [1], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])) {
                             case 'number':
-                              sourceValue = __hook__($hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 'Number', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[23]], null, [source], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 0);
-                              value = __hook__($hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 'Number', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[23]], null, [__hook__('#.', parsed, [2], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 0);
+                              sourceValue = __hook__($hook$.global(__hook__, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0], 'Number', '#get')[__a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[23]], null, [source], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0], 0);
+                              value = __hook__($hook$.global(__hook__, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0], 'Number', '#get')[__a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[23]], null, [__hook__('#.', parsed, [2], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0], 0);
                               break;
                             case 'boolean':
-                              sourceValue = __hook__($hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 'Boolean', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[24]], null, [source === 'true'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 0);
-                              value = __hook__($hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 'Boolean', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[24]], null, [__hook__('#.', parsed, [2], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) === 'true'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 0);
+                              sourceValue = __hook__($hook$.global(__hook__, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0], 'Boolean', '#get')[__a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[24]], null, [source === 'true'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0], 0);
+                              value = __hook__($hook$.global(__hook__, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0], 'Boolean', '#get')[__a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[24]], null, [__hook__('#.', parsed, [2], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) === 'true'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0], 0);
                               break;
                             case 'object':
-                              sourceValue = __hook__('#()', $hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 'JSON', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[25]], [
+                              sourceValue = __hook__('#()', $hook$.global(__hook__, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0], 'JSON', '#get')[__a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[25]], [
                                 'parse',
                                 [source]
-                              ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                              value = __hook__('#()', $hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 'JSON', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[25]], [
+                              ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                              value = __hook__('#()', $hook$.global(__hook__, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0], 'JSON', '#get')[__a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[25]], [
                                 'parse',
-                                [__hook__('#.', parsed, [2], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])]
-                              ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                                [__hook__('#.', parsed, [2], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])]
+                              ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                               break;
                             case 'undefined':
-                              sourceValue = $hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 'undefined', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[26]];
-                              value = $hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 'undefined', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[26]];
+                              sourceValue = $hook$.global(__hook__, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0], 'undefined', '#get')[__a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[26]];
+                              value = $hook$.global(__hook__, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0], 'undefined', '#get')[__a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[26]];
                               break;
                             case 'string':
                             default:
                               sourceValue = source;
-                              value = __hook__('#.', parsed, [2], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                              value = __hook__('#.', parsed, [2], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                               break;
                             }
                           } else {
                             // process <trans-unit restype="x-json-*">
                             switch (restype) {
                             case 'x-json-number':
-                              sourceValue = __hook__($hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 'Number', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[23]], null, [source], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 0);
-                              value = __hook__($hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 'Number', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[23]], null, [target], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 0);
+                              sourceValue = __hook__($hook$.global(__hook__, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0], 'Number', '#get')[__a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[23]], null, [source], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0], 0);
+                              value = __hook__($hook$.global(__hook__, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0], 'Number', '#get')[__a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[23]], null, [target], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0], 0);
                               break;
                             case 'x-json-boolean':
-                              sourceValue = __hook__($hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 'Boolean', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[24]], null, [source === 'true'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 0);
-                              value = __hook__($hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 'Boolean', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[24]], null, [target === 'true'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 0);
+                              sourceValue = __hook__($hook$.global(__hook__, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0], 'Boolean', '#get')[__a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[24]], null, [source === 'true'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0], 0);
+                              value = __hook__($hook$.global(__hook__, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0], 'Boolean', '#get')[__a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[24]], null, [target === 'true'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0], 0);
                               break;
                             case 'x-json-object':
-                              sourceValue = __hook__('#()', $hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 'JSON', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[25]], [
+                              sourceValue = __hook__('#()', $hook$.global(__hook__, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0], 'JSON', '#get')[__a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[25]], [
                                 'parse',
                                 [source]
-                              ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                              value = __hook__('#()', $hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 'JSON', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[25]], [
+                              ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                              value = __hook__('#()', $hook$.global(__hook__, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0], 'JSON', '#get')[__a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[25]], [
                                 'parse',
                                 [target]
-                              ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                              ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                               break;
                             case 'x-json-undefined':
-                              sourceValue = $hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 'undefined', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[26]];
-                              value = $hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 'undefined', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[26]];
+                              sourceValue = $hook$.global(__hook__, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0], 'undefined', '#get')[__a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[26]];
+                              value = $hook$.global(__hook__, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0], 'undefined', '#get')[__a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[26]];
                               break;
                             case 'x-json-string':
                             default:
@@ -1638,48 +1640,48 @@ __hook__(function (root, factory) {
                               break;
                             }
                           }
-                          todo = __hook__('#.', todoMap, [id], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                          if (!todo || typeof __hook__('#.', todo, ['value'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) === 'string' && __hook__('#()', __hook__('#.', todo, ['value'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                          todo = __hook__('#.', todoMap, [id], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                          if (!todo || typeof __hook__('#.', todo, ['value'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) === 'string' && __hook__('#()', __hook__('#.', todo, ['value'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                               'replace',
                               [
                                 /\s\s*/g,
                                 ' '
                               ]
-                            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) === __hook__('#()', source, [
+                            ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) === __hook__('#()', source, [
                               'replace',
                               [
                                 /\s\s*/g,
                                 ' '
                               ]
-                            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || typeof __hook__('#.', todo, ['value'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) === 'number' && __hook__('#.', todo, ['value'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) === sourceValue || typeof __hook__('#.', todo, ['value'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) === 'boolean' && __hook__('#.', todo, ['value'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) === sourceValue) {
+                            ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) || typeof __hook__('#.', todo, ['value'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) === 'number' && __hook__('#.', todo, ['value'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) === sourceValue || typeof __hook__('#.', todo, ['value'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) === 'boolean' && __hook__('#.', todo, ['value'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) === sourceValue) {
                             // no todo or source is matching with todo.value
                             // update value
-                            if (__hook__('#.', cursor, [__hook__('#.', paths, [0], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) !== value) {
+                            if (__hook__('#.', cursor, [__hook__('#.', paths, [0], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) !== value) {
                               __hook__('#=', cursor, [
-                                __hook__('#.', paths, [0], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]),
+                                __hook__('#.', paths, [0], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]),
                                 value
-                              ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                              __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                              ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                              __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                                 'valueUpdated',
-                                __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['valueUpdated'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                              ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                              __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['valueUpdated'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                              __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                                __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['valueUpdated'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) || 0
+                              ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                              __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['valueUpdated'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                              __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                                 'valueUpdated',
-                                __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['valueUpdated'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                              ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                              __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['valueUpdated'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                                __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['valueUpdated'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) || 0
+                              ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                              __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['valueUpdated'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                             }
-                            __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                            __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                               'updated',
-                              __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['updated'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                            __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['updated'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                            __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                              __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['updated'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) || 0
+                            ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                            __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['updated'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                            __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                               'updated',
-                              __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['updated'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                            __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['updated'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                              __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['updated'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) || 0
+                            ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                            __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['updated'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                             // map to todo.op
                             op = __hook__('#()', this, [
                               '_resolveTodoOps',
@@ -1692,7 +1694,7 @@ __hook__(function (root, factory) {
                                   'target': target,
                                   'approved': approved,
                                   // Boolean
-                                  'patterns': __hook__('#.', this, ['patterns'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[27]),
+                                  'patterns': __hook__('#.', this, ['patterns'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[27]),
                                   'tags': {
                                     'file': fileTag,
                                     'trans-unit': transUnit,
@@ -1705,15 +1707,15 @@ __hook__(function (root, factory) {
                                   'import': true,
                                   'export': false
                                 }]
-                            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                            __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                            ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                            __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                               'todoUpdated',
-                              __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todoUpdated'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                            __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                              __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['todoUpdated'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) || 0
+                            ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                            __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                               'todoUpdated',
-                              __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todoUpdated'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                              __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['todoUpdated'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) || 0
+                            ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                             if (op === 'default') {
                               // no todo for approved item
                               if (todo) {
@@ -1721,19 +1723,19 @@ __hook__(function (root, factory) {
                                 __hook__('#=', todo, [
                                   'op',
                                   'noop'
-                                ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                                __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todoUpdated'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                                __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todoUpdated'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                                ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                                __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['todoUpdated'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                                __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['todoUpdated'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                               }
                             } else {
                               if (todo) {
-                                if (__hook__('#.', todo, ['op'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) !== op) {
+                                if (__hook__('#.', todo, ['op'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) !== op) {
                                   __hook__('#=', todo, [
                                     'op',
                                     op
-                                  ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                                  __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todoUpdated'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                                  __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todoUpdated'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                                  ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                                  __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['todoUpdated'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                                  __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['todoUpdated'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                                 }
                               } else {
                                 // Fix #1. Populate missing todo item.
@@ -1742,175 +1744,175 @@ __hook__(function (root, factory) {
                                   'path': '/' + __hook__('#()', __hook__('#()', __hook__('#()', __hook__('#()', id, [
                                     'split',
                                     ['.']
-                                  ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[28]), [
+                                  ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[28]), [
                                     'splice',
                                     [1]
-                                  ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[28]), [
+                                  ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[28]), [
                                     'join',
                                     ['/']
-                                  ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[28]), [
+                                  ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[28]), [
                                     'replace',
                                     [
                                       /_\$DOT\$_/g,
                                       '.'
                                     ]
-                                  ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[28]),
+                                  ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[28]),
                                   'value': sourceValue
                                 };
-                                __hook__('#=', __hook__('#.', output, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                                __hook__('#=', __hook__('#.', output, [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                                   'meta',
-                                  __hook__('#.', __hook__('#.', output, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['meta'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || {}
-                                ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                                __hook__('#=', __hook__('#.', __hook__('#.', output, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['meta'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                                  __hook__('#.', __hook__('#.', output, [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['meta'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) || {}
+                                ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                                __hook__('#=', __hook__('#.', __hook__('#.', output, [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['meta'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                                   'todo',
-                                  __hook__('#.', __hook__('#.', __hook__('#.', output, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['meta'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todo'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || []
-                                ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                                __hook__('#()', __hook__('#.', __hook__('#.', __hook__('#.', output, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['meta'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todo'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                                  __hook__('#.', __hook__('#.', __hook__('#.', output, [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['meta'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['todo'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) || []
+                                ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                                __hook__('#()', __hook__('#.', __hook__('#.', __hook__('#.', output, [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['meta'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['todo'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                                   'push',
                                   [todo]
-                                ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                                __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todoUpdated'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                                __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todoUpdated'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                                ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                                __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['todoUpdated'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                                __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['todoUpdated'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                               }
                             }
                           } else {
                             // discard value
                             __hook__('#()', this, [
                               'warnLogger',
-                              ['XliffConv: id = ' + id + ' discarding value "' + value + '"' + ' as source "' + sourceValue + '" does not match with todo.value "' + __hook__('#.', todo, ['value'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) + '"']
-                            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                            __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                              ['XliffConv: id = ' + id + ' discarding value "' + value + '"' + ' as source "' + sourceValue + '" does not match with todo.value "' + __hook__('#.', todo, ['value'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) + '"']
+                            ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                            __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                               'discarded',
-                              __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['discarded'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                            __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['discarded'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                            __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                              __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['discarded'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) || 0
+                            ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                            __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['discarded'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                            __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                               'source_mismatching',
-                              __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['source_mismatching'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                            __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['source_mismatching'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                            __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                              __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['source_mismatching'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) || 0
+                            ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                            __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['source_mismatching'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                            __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                               'discarded',
-                              __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['discarded'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                            __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['discarded'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                            __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                              __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['discarded'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) || 0
+                            ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                            __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['discarded'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                            __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                               'source_mismatching',
-                              __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['source_mismatching'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                            __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['source_mismatching'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                              __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['source_mismatching'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) || 0
+                            ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                            __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['source_mismatching'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                           }
                           __hook__('#()', paths, [
                             'shift',
                             []
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                          ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                         } else {
                           // missing resource
                           __hook__('#()', this, [
                             'warnLogger',
                             ['XliffConv: id = ' + id + ' is missing']
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                          __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                          ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                          __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                             'discarded',
-                            __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['discarded'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                          __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['discarded'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                          __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                            __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['discarded'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) || 0
+                          ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                          __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['discarded'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                          __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                             'id_missing',
-                            __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['id_missing'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                          __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['id_missing'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                          __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                            __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['id_missing'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) || 0
+                          ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                          __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['id_missing'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                          __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                             'discarded',
-                            __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['discarded'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                          __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['discarded'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                          __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                            __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['discarded'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) || 0
+                          ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                          __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['discarded'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                          __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                             'id_missing',
-                            __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['id_missing'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                          __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['id_missing'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                            __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['id_missing'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) || 0
+                          ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                          __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['id_missing'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                         }
                         break;
                       } else {
-                        if (!__hook__('#.', cursor, [__hook__('#.', paths, [0], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])) {
+                        if (!__hook__('#.', cursor, [__hook__('#.', paths, [0], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])) {
                           // missing resource
                           __hook__('#()', this, [
                             'warnLogger',
                             ['XliffConv: id = ' + id + ' is missing']
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                          __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                          ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                          __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                             'discarded',
-                            __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['discarded'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                          __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['discarded'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                          __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                            __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['discarded'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) || 0
+                          ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                          __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['discarded'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                          __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                             'id_missing',
-                            __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['id_missing'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                          __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['id_missing'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                          __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                            __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['id_missing'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) || 0
+                          ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                          __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['id_missing'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                          __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                             'discarded',
-                            __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['discarded'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                          __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['discarded'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                          __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                            __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['discarded'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) || 0
+                          ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                          __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['discarded'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                          __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                             'id_missing',
-                            __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['id_missing'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                          __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['id_missing'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                            __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['id_missing'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) || 0
+                          ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                          __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['id_missing'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                           break;
                         }
                         cursor = __hook__('#.', cursor, [__hook__('#()', paths, [
                             'shift',
                             []
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                          ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                       }
                     }
-                  }, null, arguments, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                  }, null, arguments, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                 }, [
                   'bind',
                   [this]
-                ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])
+                ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])
               ]
-            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-            for (component in __hook__('#*', output, [], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])) {
-              if (__hook__('#.', __hook__('#.', output, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['meta'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) && __hook__('#.', __hook__('#.', __hook__('#.', output, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['meta'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todo'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])) {
-                for (i = __hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', output, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['meta'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todo'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['length'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) - 1; i >= 0; i--) {
-                  if (__hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', output, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['meta'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todo'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [i], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['op'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) === 'noop') {
+            ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+            for (component in __hook__('#*', output, [], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])) {
+              if (__hook__('#.', __hook__('#.', output, [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['meta'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) && __hook__('#.', __hook__('#.', __hook__('#.', output, [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['meta'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['todo'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])) {
+                for (i = __hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', output, [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['meta'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['todo'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['length'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) - 1; i >= 0; i--) {
+                  if (__hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', output, [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['meta'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['todo'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [i], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['op'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) === 'noop') {
                     // remove the noop todo item
-                    __hook__('#()', __hook__('#.', __hook__('#.', __hook__('#.', output, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['meta'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todo'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                    __hook__('#()', __hook__('#.', __hook__('#.', __hook__('#.', output, [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['meta'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['todo'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                       'splice',
                       [
                         i,
                         1
                       ]
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                    ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                   } else {
-                    __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                    __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                       'todo',
-                      __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todo'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                    __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todo'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                    __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                      __hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', output, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['meta'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todo'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [i], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['op'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]),
-                      __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [__hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', output, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['meta'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todo'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [i], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['op'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                    __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [__hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', output, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['meta'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todo'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [i], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['op'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                    __hook__('#=', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                      __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['todo'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) || 0
+                    ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                    __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['todo'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                    __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
+                      __hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', output, [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['meta'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['todo'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [i], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['op'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]),
+                      __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [__hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', output, [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['meta'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['todo'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [i], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['op'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) || 0
+                    ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                    __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [__hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', output, [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['meta'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['todo'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [i], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['op'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                    __hook__('#=', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                       component,
-                      __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || {}
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                    __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                      __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) || {}
+                    ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                    __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                       'todo',
-                      __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todo'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                    __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todo'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                    __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
-                      __hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', output, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['meta'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todo'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [i], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['op'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]),
-                      __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [__hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', output, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['meta'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todo'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [i], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['op'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                    __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [__hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', output, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['meta'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todo'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [i], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['op'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                      __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['todo'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) || 0
+                    ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                    __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['todo'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                    __hook__('#=', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
+                      __hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', output, [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['meta'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['todo'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [i], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['op'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]),
+                      __hook__('#.', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [__hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', output, [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['meta'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['todo'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [i], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['op'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) || 0
+                    ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                    __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['json'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [__hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', output, [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['meta'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['todo'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [i], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['op'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                   }
                 }
               }
@@ -1918,11 +1920,11 @@ __hook__(function (root, factory) {
             __hook__(callback, null, [
               output,
               stats
-            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 0);
-          }, null, arguments, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+            ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0], 0);
+          }, null, arguments, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
         }
-      ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-      __hook__('#=', __hook__('#.', XliffConv, ['prototype'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+      ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+      __hook__('#=', __hook__('#.', XliffConv, ['prototype'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
         'parseJSON',
         function (bundles, options, callback) {
           return __hook__((bundles, options, callback) => {
@@ -1935,26 +1937,26 @@ __hook__(function (root, factory) {
               'forEach',
               [function (type, index) {
                   return __hook__((type, index) => {
-                    if (!__hook__('#.', args, [index], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || typeof __hook__('#.', args, [index], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) !== type) {
-                      throw __hook__($hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 'Error', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[6]], null, ['invalid argument'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], true);
+                    if (!__hook__('#.', args, [index], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) || typeof __hook__('#.', args, [index], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) !== type) {
+                      throw __hook__($hook$.global(__hook__, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0], 'Error', '#get')[__a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[6]], null, ['invalid argument'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0], true);
                     }
-                  }, null, arguments, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                  }, null, arguments, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                 }]
-            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-            var parser = __hook__(__hook__('#.', this, ['DOMParser'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[7]), null, [], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[7], true);
-            var serializer = __hook__(__hook__('#.', this, ['XMLSerializer'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[29]), null, [], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[29], true);
-            var xmlHeader = __hook__('#.', options, ['xmlHeader'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[30]) || '<?xml version="1.0" encoding="UTF-8"?>\n' + '<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">\n';
-            var xliffTemplate = __hook__('#.', options, ['xliffTemplate'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[31]) || '<xliff version="1.0">\n' + '  <file xml:space="' + (__hook__('#.', options, ['xmlSpace'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[31]) || 'default') + '" ' + 'source-language="' + (__hook__('#.', options, ['srcLanguage'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[31]) || 'en') + '" ' + 'target-language="' + (__hook__('#.', options, ['destLanguage'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[31]) || 'fr') + '" ' + 'datatype="' + (__hook__('#.', options, ['dataType'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[31]) || 'plaintext') + '" ' + 'original="' + (__hook__('#.', options, ['original'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[31]) || 'messages') + '" ' + 'date="' + __hook__('#()', __hook__('#()', __hook__('#.', this, ['date'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[31]), [
+            ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+            var parser = __hook__(__hook__('#.', this, ['DOMParser'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[7]), null, [], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[7], true);
+            var serializer = __hook__(__hook__('#.', this, ['XMLSerializer'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[29]), null, [], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[29], true);
+            var xmlHeader = __hook__('#.', options, ['xmlHeader'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[30]) || '<?xml version="1.0" encoding="UTF-8"?>\n' + '<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">\n';
+            var xliffTemplate = __hook__('#.', options, ['xliffTemplate'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[31]) || '<xliff version="1.0">\n' + '  <file xml:space="' + (__hook__('#.', options, ['xmlSpace'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[31]) || 'default') + '" ' + 'source-language="' + (__hook__('#.', options, ['srcLanguage'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[31]) || 'en') + '" ' + 'target-language="' + (__hook__('#.', options, ['destLanguage'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[31]) || 'fr') + '" ' + 'datatype="' + (__hook__('#.', options, ['dataType'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[31]) || 'plaintext') + '" ' + 'original="' + (__hook__('#.', options, ['original'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[31]) || 'messages') + '" ' + 'date="' + __hook__('#()', __hook__('#()', __hook__('#.', this, ['date'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[31]), [
               'toISOString',
               []
-            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[31]), [
+            ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[31]), [
               'replace',
               [
                 /[.][0-9]*Z$/,
                 'Z'
               ]
-            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[31]) + '" ' + 'product-name="' + (__hook__('#.', options, ['productName'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[31]) || 'messages') + '">\n' + '    <header>\n' + '      <tool tool-id="xliff-conv" tool-name="xliff-conv" tool-version="' + __hook__('#.', this, ['toolVersion'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[31]) + '"/>\n' + '    </header>\n' + '    <body>\n' + '</body>\n' + '  </file>\n' + '</xliff>';
-            var transUnitTemplate = '<wrapper>' + (__hook__('#.', options, ['transUnitTemplate'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[32]) || '      <trans-unit>\n' + '        <source></source>\n' + '        <target></target>\n' + '      </trans-unit>') + '\n</wrapper>';
+            ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[31]) + '" ' + 'product-name="' + (__hook__('#.', options, ['productName'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[31]) || 'messages') + '">\n' + '    <header>\n' + '      <tool tool-id="xliff-conv" tool-name="xliff-conv" tool-version="' + __hook__('#.', this, ['toolVersion'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[31]) + '"/>\n' + '    </header>\n' + '    <body>\n' + '</body>\n' + '  </file>\n' + '</xliff>';
+            var transUnitTemplate = '<wrapper>' + (__hook__('#.', options, ['transUnitTemplate'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[32]) || '      <trans-unit>\n' + '        <source></source>\n' + '        <target></target>\n' + '      </trans-unit>') + '\n</wrapper>';
             var spacer = '<wrapper>    </wrapper>';
             var xliff = __hook__('#()', parser, [
               'parseFromString',
@@ -1962,17 +1964,17 @@ __hook__(function (root, factory) {
                 xliffTemplate,
                 'application/xml'
               ]
-            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[33]);
+            ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[33]);
             var fileTag = __hook__('#.', __hook__('#()', xliff, [
               'getElementsByTagName',
               ['file']
-            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[9]), [0], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[9]);
+            ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[9]), [0], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[9]);
             var bodyTag = __hook__('#.', __hook__('#()', xliff, [
               'getElementsByTagName',
               ['body']
-            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[34]), [0], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[34]);
-            var sourceBundle = __hook__('#.', bundles, [''], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[35]);
-            var targetBundle = __hook__('#.', bundles, [__hook__('#.', options, ['destLanguage'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[36])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[36]);
+            ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[34]), [0], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[34]);
+            var sourceBundle = __hook__('#.', bundles, [''], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[35]);
+            var targetBundle = __hook__('#.', bundles, [__hook__('#.', options, ['destLanguage'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[36])], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[36]);
             var component;
             var todos;
             var todoMap;
@@ -1981,45 +1983,45 @@ __hook__(function (root, factory) {
               xliff: {},
               json: {}
             };
-            for (component in __hook__('#*', targetBundle, [], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])) {
+            for (component in __hook__('#*', targetBundle, [], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])) {
               if (component !== 'bundle') {
-                __hook__('#=', __hook__('#.', targetBundle, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                __hook__('#=', __hook__('#.', targetBundle, [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                   'meta',
-                  __hook__('#.', __hook__('#.', targetBundle, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['meta'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || {}
-                ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                __hook__('#=', __hook__('#.', __hook__('#.', targetBundle, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['meta'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                  __hook__('#.', __hook__('#.', targetBundle, [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['meta'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) || {}
+                ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                __hook__('#=', __hook__('#.', __hook__('#.', targetBundle, [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['meta'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                   'todo',
-                  __hook__('#.', __hook__('#.', __hook__('#.', targetBundle, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['meta'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todo'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || []
-                ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                todos = __hook__('#.', __hook__('#.', __hook__('#.', targetBundle, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['meta'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['todo'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                  __hook__('#.', __hook__('#.', __hook__('#.', targetBundle, [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['meta'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['todo'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) || []
+                ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                todos = __hook__('#.', __hook__('#.', __hook__('#.', targetBundle, [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['meta'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['todo'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                 todoMap = {};
-                for (index = 0; index < __hook__('#.', todos, ['length'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]); index++) {
+                for (index = 0; index < __hook__('#.', todos, ['length'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]); index++) {
                   __hook__('#=', todoMap, [
-                    __hook__('#()', __hook__('#()', __hook__('#()', __hook__('#.', __hook__('#.', todos, [index], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['path'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                    __hook__('#()', __hook__('#()', __hook__('#()', __hook__('#.', __hook__('#.', todos, [index], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['path'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                       'replace',
                       [
                         /[.]/g,
                         '_$DOT$_'
                       ]
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                    ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                       'replace',
                       [
                         /\//g,
                         '.'
                       ]
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                    ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                       'substring',
                       [1]
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]),
-                    __hook__('#.', todos, [index], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])
-                  ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                    ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]),
+                    __hook__('#.', todos, [index], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])
+                  ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                 }
                 __hook__('#()', this, [
                   '_traverseBundle',
                   [
                     '',
-                    __hook__('#.', sourceBundle, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]),
-                    __hook__('#.', targetBundle, [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]),
+                    __hook__('#.', sourceBundle, [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]),
+                    __hook__('#.', targetBundle, [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]),
                     __hook__('#()', function (id, source, target) {
                       return __hook__((id, source, target) => {
                         //console.log('_traverseBundle callback id = ' + component + '.' + id + ' source = ' + source + ' target = ' + target);
@@ -2029,22 +2031,22 @@ __hook__(function (root, factory) {
                             transUnitTemplate,
                             'application/xml'
                           ]
-                        ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[37]);
+                        ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[37]);
                         var transUnit = __hook__('#.', __hook__('#()', transUnitWrapper, [
                           'getElementsByTagName',
                           ['trans-unit']
-                        ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[38]), [0], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[38]);
+                        ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[38]), [0], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[38]);
                         var sourceTag = __hook__('#.', __hook__('#()', transUnit, [
                           'getElementsByTagName',
                           ['source']
-                        ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[13]), [0], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[13]);
+                        ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[13]), [0], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[13]);
                         var targetTag = __hook__('#.', __hook__('#()', transUnit, [
                           'getElementsByTagName',
                           ['target']
-                        ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[14]), [0], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[14]);
-                        var todo = __hook__('#.', todoMap, [id], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[39]);
+                        ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[14]), [0], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[14]);
+                        var todo = __hook__('#.', todoMap, [id], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[39]);
                         var op;
-                        var state = todo && __hook__('#.', __hook__('#.', this, ['xliffStates'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[20]), [__hook__('#.', todo, ['op'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[20])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[20]) ? __hook__('#.', __hook__('#.', __hook__('#.', this, ['xliffStates'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[20]), [__hook__('#.', todo, ['op'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[20])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[20]), [0], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[20]) : __hook__('#.', __hook__('#.', __hook__('#.', this, ['xliffStates'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[20]), ['default'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[20]), [0], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[20]);
+                        var state = todo && __hook__('#.', __hook__('#.', this, ['xliffStates'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[20]), [__hook__('#.', todo, ['op'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[20])], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[20]) ? __hook__('#.', __hook__('#.', __hook__('#.', this, ['xliffStates'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[20]), [__hook__('#.', todo, ['op'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[20])], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[20]), [0], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[20]) : __hook__('#.', __hook__('#.', __hook__('#.', this, ['xliffStates'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[20]), ['default'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[20]), [0], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[20]);
                         var restype = 'x-json-' + typeof source;
                         __hook__('#()', transUnit, [
                           'setAttribute',
@@ -2052,7 +2054,7 @@ __hook__(function (root, factory) {
                             'id',
                             component + '.' + id
                           ]
-                        ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                        ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                         if (restype !== 'x-json-string') {
                           __hook__('#()', transUnit, [
                             'setAttribute',
@@ -2060,22 +2062,22 @@ __hook__(function (root, factory) {
                               'restype',
                               restype
                             ]
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                          ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                         }
                         __hook__('#=', sourceTag, [
                           'textContent',
                           __hook__('#()', this, [
                             '_stringify',
                             [source]
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])
-                        ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                          ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])
+                        ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                         __hook__('#=', targetTag, [
                           'textContent',
                           __hook__('#()', this, [
                             '_stringify',
                             [target]
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])
-                        ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                          ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])
+                        ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                         // apply expressions
                         op = __hook__('#()', this, [
                           '_resolveTodoOps',
@@ -2084,11 +2086,11 @@ __hook__(function (root, factory) {
                               'id': component + '.' + id,
                               'component': component,
                               'restype': restype,
-                              'source': __hook__('#.', sourceTag, ['textContent'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[17]),
-                              'target': __hook__('#.', targetTag, ['textContent'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[18]),
-                              'approved': state === __hook__('#.', __hook__('#.', __hook__('#.', this, ['xliffStates'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[19]), ['default'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[19]), [0], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[19]),
+                              'source': __hook__('#.', sourceTag, ['textContent'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[17]),
+                              'target': __hook__('#.', targetTag, ['textContent'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[18]),
+                              'approved': state === __hook__('#.', __hook__('#.', __hook__('#.', this, ['xliffStates'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[19]), ['default'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[19]), [0], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[19]),
                               // Boolean
-                              'patterns': __hook__('#.', this, ['patterns'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[27]),
+                              'patterns': __hook__('#.', this, ['patterns'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[27]),
                               'tags': {
                                 'file': fileTag,
                                 'trans-unit': transUnit,
@@ -2101,148 +2103,170 @@ __hook__(function (root, factory) {
                               'import': false,
                               'export': true
                             }]
-                        ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                        ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                         // update state
-                        state = __hook__('#.', __hook__('#.', __hook__('#.', this, ['xliffStates'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [op], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [0], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                        // --Customise id and add new attribute --
+                        if (__hook__('#.', options, ['addNewAttr'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])) {
+                          var newAttrName = __hook__('#.', __hook__('#()', $hook$.global(__hook__, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[40], 'Object', '#get')[__a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[41]], [
+                            'getOwnPropertyNames',
+                            [__hook__('#.', options, ['addNewAttr'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[40])]
+                          ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[40]), [0], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[40]);
+                          __hook__('#()', transUnit, [
+                            'setAttribute',
+                            [
+                              'id',
+                              __hook__('#.', __hook__('#.', __hook__('#.', options, ['addNewAttr'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [newAttrName], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [id], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])
+                            ]
+                          ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                          __hook__('#()', transUnit, [
+                            'setAttribute',
+                            [
+                              newAttrName,
+                              id
+                            ]
+                          ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                        }
+                        // ---End---
+                        state = __hook__('#.', __hook__('#.', __hook__('#.', this, ['xliffStates'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [op], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [0], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                         if (op === 'default' && !__hook__('#()', transUnit, [
                             'hasAttribute',
                             ['approved']
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])) {
+                          ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])) {
                           __hook__('#()', transUnit, [
                             'setAttribute',
                             [
                               'approved',
                               'yes'
                             ]
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                          ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                         }
                         // Fix #24: don't force the 'state' attribute if no state
                         if (!__hook__('#()', targetTag, [
                             'hasAttribute',
                             ['state']
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) && state && state !== '""') {
+                          ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) && state && state !== '""') {
                           __hook__('#()', targetTag, [
                             'setAttribute',
                             [
                               'state',
                               state
                             ]
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                          ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                         }
                         // Fix #28: "" to remove the state attribute
                         if (!state || state === '""') {
                           __hook__('#()', targetTag, [
                             'removeAttribute',
                             ['state']
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                          ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                         }
                         // update stats
-                        __hook__('#=', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                        __hook__('#=', __hook__('#.', stats, ['xliff'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                           'total',
-                          __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || {}
-                        ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                        __hook__('#=', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                          __hook__('#.', __hook__('#.', stats, ['xliff'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) || {}
+                        ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                        __hook__('#=', __hook__('#.', __hook__('#.', stats, ['xliff'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                           'units',
-                          __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['units'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                        ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                        __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['units'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                        __hook__('#=', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                          __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['units'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) || 0
+                        ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                        __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['xliff'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['units'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                        __hook__('#=', __hook__('#.', __hook__('#.', stats, ['xliff'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                           'states',
-                          __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['states'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || {}
-                        ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                        __hook__('#=', __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['states'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                          __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['states'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) || {}
+                        ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                        __hook__('#=', __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['states'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                           __hook__('#()', targetTag, [
                             'getAttribute',
                             ['state']
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]),
-                          __hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['states'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [__hook__('#()', targetTag, [
+                          ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]),
+                          __hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['states'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [__hook__('#()', targetTag, [
                               'getAttribute',
                               ['state']
-                            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                        ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                        __hook__('#p++', __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['states'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [__hook__('#()', targetTag, [
+                            ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) || 0
+                        ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                        __hook__('#p++', __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['states'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [__hook__('#()', targetTag, [
                             'getAttribute',
                             ['state']
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                        __hook__('#=', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                          ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                        __hook__('#=', __hook__('#.', __hook__('#.', stats, ['xliff'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                           'approved',
-                          __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['approved'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                        ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                        __hook__('#+=', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['total'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                          __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['approved'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) || 0
+                        ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                        __hook__('#+=', __hook__('#.', __hook__('#.', stats, ['xliff'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['total'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                           'approved',
                           __hook__('#()', transUnit, [
                             'getAttribute',
                             ['approved']
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) === 'yes' ? 1 : 0
-                        ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                        __hook__('#=', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                          ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) === 'yes' ? 1 : 0
+                        ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                        __hook__('#=', __hook__('#.', stats, ['xliff'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                           component,
-                          __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || {}
-                        ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                        __hook__('#=', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                          __hook__('#.', __hook__('#.', stats, ['xliff'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) || {}
+                        ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                        __hook__('#=', __hook__('#.', __hook__('#.', stats, ['xliff'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                           'units',
-                          __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['units'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                        ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                        __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['units'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                        __hook__('#=', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                          __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['units'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) || 0
+                        ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                        __hook__('#p++', __hook__('#.', __hook__('#.', stats, ['xliff'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['units'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                        __hook__('#=', __hook__('#.', __hook__('#.', stats, ['xliff'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                           'states',
-                          __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['states'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || {}
-                        ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                        __hook__('#=', __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['states'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                          __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['states'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) || {}
+                        ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                        __hook__('#=', __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['states'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                           __hook__('#()', targetTag, [
                             'getAttribute',
                             ['state']
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]),
-                          __hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['states'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [__hook__('#()', targetTag, [
+                          ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]),
+                          __hook__('#.', __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['states'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [__hook__('#()', targetTag, [
                               'getAttribute',
                               ['state']
-                            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                        ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                        __hook__('#p++', __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['states'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [__hook__('#()', targetTag, [
+                            ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) || 0
+                        ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                        __hook__('#p++', __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['states'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [__hook__('#()', targetTag, [
                             'getAttribute',
                             ['state']
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                        __hook__('#=', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                          ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                        __hook__('#=', __hook__('#.', __hook__('#.', stats, ['xliff'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                           'approved',
-                          __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['approved'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) || 0
-                        ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                        __hook__('#+=', __hook__('#.', __hook__('#.', stats, ['xliff'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [component], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                          __hook__('#.', __hook__('#.', __hook__('#.', stats, ['xliff'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['approved'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) || 0
+                        ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                        __hook__('#+=', __hook__('#.', __hook__('#.', stats, ['xliff'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [component], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                           'approved',
                           __hook__('#()', transUnit, [
                             'getAttribute',
                             ['approved']
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) === 'yes' ? 1 : 0
-                        ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-                        var nodes = __hook__('#()', __hook__('#.', __hook__('#.', $hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[40], 'Array', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[41]], ['prototype'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[40]), ['map'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[40]), [
+                          ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) === 'yes' ? 1 : 0
+                        ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+                        var nodes = __hook__('#()', __hook__('#.', __hook__('#.', $hook$.global(__hook__, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[42], 'Array', '#get')[__a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[43]], ['prototype'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[42]), ['map'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[42]), [
                           'call',
                           [
                             __hook__('#.', __hook__('#.', __hook__('#()', transUnitWrapper, [
                               'getElementsByTagName',
                               ['wrapper']
-                            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[40]), [0], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[40]), ['childNodes'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[40]),
+                            ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[42]), [0], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[42]), ['childNodes'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[42]),
                             function (node) {
                               return __hook__(node => {
                                 return node;
-                              }, null, arguments, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[40]);
+                              }, null, arguments, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[42]);
                             }
                           ]
-                        ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[40]);
-                        while (__hook__('#.', nodes, ['length'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) > 0) {
+                        ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[42]);
+                        while (__hook__('#.', nodes, ['length'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) > 0) {
                           __hook__('#()', bodyTag, [
                             'appendChild',
                             [__hook__('#()', nodes, [
                                 'shift',
                                 []
-                              ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])]
-                          ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                              ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])]
+                          ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                         }
-                      }, null, arguments, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                      }, null, arguments, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
                     }, [
                       'bind',
                       [this]
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])
+                    ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])
                   ]
-                ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
               }
             }
             __hook__('#()', bodyTag, [
@@ -2253,22 +2277,22 @@ __hook__(function (root, factory) {
                     spacer,
                     'application/xml'
                   ]
-                ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+                ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
                   'getElementsByTagName',
                   ['wrapper']
-                ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [0], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), ['firstChild'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])]
-            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [0], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), ['firstChild'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])]
+            ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
             __hook__(callback, null, [
               xmlHeader + __hook__('#()', serializer, [
                 'serializeToString',
                 [xliff]
-              ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]),
+              ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]),
               stats
-            ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 0);
-          }, null, arguments, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+            ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0], 0);
+          }, null, arguments, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
         }
-      ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-      __hook__('#=', __hook__('#.', XliffConv, ['prototype'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+      ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+      __hook__('#=', __hook__('#.', XliffConv, ['prototype'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
         '_stringify',
         function (value) {
           return __hook__(value => {
@@ -2280,23 +2304,23 @@ __hook__(function (root, factory) {
             case 'number':
               return '' + value;
             case 'object':
-              return __hook__('#()', $hook$.global(__hook__, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 'JSON', '#get')[__1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[25]], [
+              return __hook__('#()', $hook$.global(__hook__, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0], 'JSON', '#get')[__a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[25]], [
                 'stringify',
                 [value]
-              ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+              ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
             case 'undefined':
             default:
               return '';
             }
-          }, null, arguments, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+          }, null, arguments, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
         }
-      ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
-      __hook__('#=', __hook__('#.', XliffConv, ['prototype'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]), [
+      ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
+      __hook__('#=', __hook__('#.', XliffConv, ['prototype'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]), [
         '_traverseBundle',
         function (id, source, target, callback) {
           return __hook__((id, source, target, callback) => {
             if (typeof target === 'object') {
-              for (var prop in __hook__('#*', target, [], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0])) {
+              for (var prop in __hook__('#*', target, [], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0])) {
                 if (id === '' && prop === 'meta') {
                   continue;
                 }
@@ -2309,30 +2333,30 @@ __hook__(function (root, factory) {
                         /[.]/g,
                         '_$DOT$_'
                       ]
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]),
+                    ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]),
                     source && __hook__('#()', source, [
                       'hasOwnProperty',
                       [prop]
-                    ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) ? __hook__('#.', source, [prop], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) : typeof source === 'object' && __hook__('#.', source, ['other'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) ? __hook__('#.', source, ['other'], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]) : '',
-                    __hook__('#.', target, [prop], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]),
+                    ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) ? __hook__('#.', source, [prop], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) : typeof source === 'object' && __hook__('#.', source, ['other'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) ? __hook__('#.', source, ['other'], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]) : '',
+                    __hook__('#.', target, [prop], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]),
                     callback
                   ]
-                ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+                ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
               }
             } else {
               __hook__(callback, null, [
                 id,
                 source,
                 target
-              ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 0);
+              ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0], 0);
             }
-          }, null, arguments, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+          }, null, arguments, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
         }
-      ], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+      ], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
       return XliffConv;
-    }, null, arguments, __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0]);
+    }, null, arguments, __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0]);
   }
-], __1738d6569b7f9c521dea12670102105a648af096abcb302b8ccec8caa53844f9__[0], 0);
+], __a1ccc944f205c2d9b08bc74905b9f1c1769dd249ede53311aef457893d91e758__[0], 0);
 },{"xmldom":6}],6:[function(require,module,exports){
 const __f3812dc4d79b1e30f7d60bd3bf9890142b89a692a8695842f31e1aca8c8078c6__ = $hook$.$(__hook__, [
   '/components/thin-hook/node_modules/xmldom/dom-parser.js,DOMParser',
