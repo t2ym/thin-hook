@@ -1,0 +1,14 @@
+diff --git a/tsconfig.json b/tsconfig.json
+index 4063b5ae0..4350d90be 100644
+--- a/tsconfig.json
++++ b/tsconfig.json
+@@ -23,7 +23,8 @@
+     "inlineSources": true,
+     "strict": true,
+     "strictNullChecks": false,
+-    "target": "es2020",
++    "target": "es2018",
++    "lib": [ "es2020", "DOM", "DOM.Iterable" ],
+     "types": ["lit", "jasmine"]
+   },
+   "exclude": [

@@ -1,0 +1,816 @@
+diff --git a/package.json b/package.json
+index 59aed94e1..1f523a3fc 100644
+--- a/package.json
++++ b/package.json
+@@ -100,7 +100,7 @@
+     "yargs": "^15.3.1"
+   },
+   "devEngines": {
+-    "node": "^12.17.0 || 13.x || 14.x || 15.x || 16.x || 17.x"
++    "node": "16.x || 18.x || 19.x || 20.x"
+   },
+   "jest": {
+     "testRegex": "/scripts/jest/dont-run-jest-directly\\.js$"
+diff --git a/packages/react-dom/package.json b/packages/react-dom/package.json
+index 4904cdb42..c714a753d 100644
+--- a/packages/react-dom/package.json
++++ b/packages/react-dom/package.json
+@@ -1,6 +1,6 @@
+ {
+   "name": "react-dom",
+-  "version": "18.1.0",
++  "version": "18.2.0",
+   "description": "React package for working with the DOM.",
+   "main": "index.js",
+   "repository": {
+@@ -18,44 +18,34 @@
+   "homepage": "https://reactjs.org/",
+   "dependencies": {
+     "loose-envify": "^1.1.0",
+-    "scheduler": "^0.22.0"
++    "scheduler": "^0.23.0"
+   },
+   "peerDependencies": {
+-    "react": "^18.1.0"
++    "react": "^18.2.0"
+   },
+   "files": [
+     "LICENSE",
+     "README.md",
+     "index.js",
+     "client.js",
+-    "profiling.js",
+-    "server.js",
+-    "server.browser.js",
+-    "server.node.js",
+     "test-utils.js",
+-    "unstable_testing.js",
+     "cjs/",
+-    "umd/"
++    "esm/"
+   ],
+   "exports": {
+-    ".": "./index.js",
+-    "./client": "./client.js",
+-    "./server": {
+-      "deno": "./server.browser.js",
+-      "worker": "./server.browser.js",
+-      "browser": "./server.browser.js",
+-      "default": "./server.node.js"
++    ".": {
++      "import": "./esm/react-dom.js",
++      "default": "./index.js"
++    },
++    "./client": {
++      "import": "./esm/react-dom.js",
++      "default": "./client.js"
+     },
+-    "./server.browser": "./server.browser.js",
+-    "./server.node": "./server.node.js",
+-    "./profiling": "./profiling.js",
+     "./test-utils": "./test-utils.js",
+-    "./unstable_testing": "./unstable_testing.js",
+     "./src/*": "./src/*",
+     "./package.json": "./package.json"
+   },
+   "browser": {
+-    "./server.js": "./server.browser.js"
+   },
+   "browserify": {
+     "transform": [
+diff --git a/packages/react/package.json b/packages/react/package.json
+index 70c9dc2fe..a8a318a64 100644
+--- a/packages/react/package.json
++++ b/packages/react/package.json
+@@ -4,7 +4,7 @@
+   "keywords": [
+     "react"
+   ],
+-  "version": "18.1.0",
++  "version": "18.2.0",
+   "homepage": "https://reactjs.org/",
+   "bugs": "https://github.com/facebook/react/issues",
+   "license": "MIT",
+@@ -13,20 +13,25 @@
+     "README.md",
+     "index.js",
+     "cjs/",
+-    "umd/",
++    "esm/",
+     "jsx-runtime.js",
+-    "jsx-dev-runtime.js",
+-    "react.shared-subset.js"
++    "jsx-dev-runtime.js"
+   ],
+   "main": "index.js",
+   "exports": {
+     ".": {
+-      "react-server": "./react.shared-subset.js",
++      "import": "./esm/react.js",
+       "default": "./index.js"
+     },
+     "./package.json": "./package.json",
+-    "./jsx-runtime": "./jsx-runtime.js",
+-    "./jsx-dev-runtime": "./jsx-dev-runtime.js",
++    "./jsx-runtime": {
++      "import": "./esm/react-jsx-runtime.js",
++      "default": "./jsx-runtime.js"
++    },
++    "./jsx-dev-runtime": {
++      "import": "./esm/react-jsx-dev-runtime.js",
++      "default": "./jsx-dev-runtime.js"
++    },
+     "./src/*": "./src/*"
+   },
+   "repository": {
+diff --git a/packages/scheduler/package.json b/packages/scheduler/package.json
+index 676e9b867..6c6ab0a52 100644
+--- a/packages/scheduler/package.json
++++ b/packages/scheduler/package.json
+@@ -1,6 +1,6 @@
+ {
+   "name": "scheduler",
+-  "version": "0.22.0",
++  "version": "0.23.0",
+   "description": "Cooperative scheduler for the browser environment.",
+   "main": "index.js",
+   "repository": {
+@@ -26,8 +26,19 @@
+     "unstable_mock.js",
+     "unstable_post_task.js",
+     "cjs/",
+-    "umd/"
++    "esm/"
+   ],
++  "exports": {
++    ".": {
++      "import": "./esm/scheduler-unstable_mock.js",
++      "default": "./index.js"
++    },
++    "./unstable_mock": {
++      "import": "./esm/scheduler-unstable_mock.js",
++      "default": "./unstable_mock.js"
++    },
++    "./package.json": "./package.json"
++  },
+   "browserify": {
+     "transform": [
+       "loose-envify"
+diff --git a/scripts/rollup/bundles.js b/scripts/rollup/bundles.js
+index 0c8a3b640..0f3b6b258 100644
+--- a/scripts/rollup/bundles.js
++++ b/scripts/rollup/bundles.js
+@@ -64,17 +64,9 @@ const bundles = [
+   /******* Isomorphic *******/
+   {
+     bundleTypes: [
+-      UMD_DEV,
+-      UMD_PROD,
+-      UMD_PROFILING,
++      NODE_ESM,
+       NODE_DEV,
+       NODE_PROD,
+-      FB_WWW_DEV,
+-      FB_WWW_PROD,
+-      FB_WWW_PROFILING,
+-      RN_FB_DEV,
+-      RN_FB_PROD,
+-      RN_FB_PROFILING,
+     ],
+     moduleType: ISOMORPHIC,
+     entry: 'react',
+@@ -99,13 +91,10 @@ const bundles = [
+   /******* React JSX Runtime *******/
+   {
+     bundleTypes: [
++      NODE_ESM,
+       NODE_DEV,
+       NODE_PROD,
+       NODE_PROFILING,
+-      // TODO: use on WWW.
+-      RN_FB_DEV,
+-      RN_FB_PROD,
+-      RN_FB_PROFILING,
+     ],
+     moduleType: ISOMORPHIC,
+     entry: 'react/jsx-runtime',
+@@ -118,15 +107,10 @@ const bundles = [
+   /******* React JSX DEV Runtime *******/
+   {
+     bundleTypes: [
++      NODE_ESM,
+       NODE_DEV,
+       NODE_PROD,
+       NODE_PROFILING,
+-      FB_WWW_DEV,
+-      FB_WWW_PROD,
+-      FB_WWW_PROFILING,
+-      RN_FB_DEV,
+-      RN_FB_PROD,
+-      RN_FB_PROFILING,
+     ],
+     moduleType: ISOMORPHIC,
+     entry: 'react/jsx-dev-runtime',
+@@ -137,6 +121,7 @@ const bundles = [
+   },
+ 
+   /******* React Fetch Browser (experimental, new) *******/
++  /*
+   {
+     bundleTypes: [NODE_DEV, NODE_PROD],
+     moduleType: ISOMORPHIC,
+@@ -146,8 +131,10 @@ const bundles = [
+     wrapWithModuleBoundaries: false,
+     externals: ['react'],
+   },
++  */
+ 
+   /******* React Fetch Node (experimental, new) *******/
++  /*
+   {
+     bundleTypes: [NODE_DEV, NODE_PROD],
+     moduleType: ISOMORPHIC,
+@@ -157,8 +144,10 @@ const bundles = [
+     wrapWithModuleBoundaries: false,
+     externals: ['react', 'http', 'https'],
+   },
++  */
+ 
+   /******* React FS Browser (experimental, new) *******/
++  /*
+   {
+     bundleTypes: [NODE_DEV, NODE_PROD],
+     moduleType: ISOMORPHIC,
+@@ -168,8 +157,10 @@ const bundles = [
+     wrapWithModuleBoundaries: false,
+     externals: [],
+   },
++  */
+ 
+   /******* React FS Node (experimental, new) *******/
++  /*
+   {
+     bundleTypes: [NODE_DEV, NODE_PROD],
+     moduleType: ISOMORPHIC,
+@@ -179,8 +170,10 @@ const bundles = [
+     wrapWithModuleBoundaries: false,
+     externals: ['react', 'fs/promises', 'path'],
+   },
++  */
+ 
+   /******* React PG Browser (experimental, new) *******/
++  /*
+   {
+     bundleTypes: [NODE_DEV, NODE_PROD],
+     moduleType: ISOMORPHIC,
+@@ -190,8 +183,10 @@ const bundles = [
+     wrapWithModuleBoundaries: false,
+     externals: [],
+   },
++  */
+ 
+   /******* React PG Node (experimental, new) *******/
++  /*
+   {
+     bundleTypes: [NODE_DEV, NODE_PROD],
+     moduleType: ISOMORPHIC,
+@@ -201,19 +196,15 @@ const bundles = [
+     wrapWithModuleBoundaries: false,
+     externals: ['react', 'pg'],
+   },
++  */
+ 
+   /******* React DOM *******/
+   {
+     bundleTypes: [
+-      UMD_DEV,
+-      UMD_PROD,
+-      UMD_PROFILING,
++      NODE_ESM,
+       NODE_DEV,
+       NODE_PROD,
+       NODE_PROFILING,
+-      FB_WWW_DEV,
+-      FB_WWW_PROD,
+-      FB_WWW_PROFILING,
+     ],
+     moduleType: RENDERER,
+     entry: 'react-dom',
+@@ -224,6 +215,7 @@ const bundles = [
+   },
+ 
+   /******* React DOM - www - Uses forked reconciler *******/
++  /*
+   {
+     moduleType: RENDERER,
+     bundleTypes: [FB_WWW_DEV, FB_WWW_PROD, FB_WWW_PROFILING],
+@@ -234,11 +226,12 @@ const bundles = [
+     wrapWithModuleBoundaries: true,
+     externals: ['react'],
+   },
++  */
+ 
+   /******* Test Utils *******/
+   {
+     moduleType: RENDERER_UTILS,
+-    bundleTypes: [FB_WWW_DEV, NODE_DEV, NODE_PROD, UMD_DEV, UMD_PROD],
++    bundleTypes: [NODE_ESM, NODE_DEV, NODE_PROD],
+     entry: 'react-dom/test-utils',
+     global: 'ReactTestUtils',
+     minifyWithProdErrorCodes: false,
+@@ -247,19 +240,22 @@ const bundles = [
+   },
+ 
+   /******* React DOM - www - Testing *******/
++  /*
+   {
+     moduleType: RENDERER,
+     bundleTypes: __EXPERIMENTAL__
+-      ? [FB_WWW_DEV, FB_WWW_PROD, NODE_DEV, NODE_PROD]
+-      : [FB_WWW_DEV, FB_WWW_PROD],
++      ? [NODE_ESM, NODE_DEV, NODE_PROD]
++      : [],
+     entry: 'react-dom/unstable_testing',
+     global: 'ReactDOMTesting',
+     minifyWithProdErrorCodes: true,
+     wrapWithModuleBoundaries: false,
+     externals: ['react'],
+   },
++  */
+ 
+   /******* React DOM Server *******/
++  /*
+   {
+     bundleTypes: [
+       UMD_DEV,
+@@ -298,8 +294,10 @@ const bundles = [
+         ]),
+       }),
+   },
++  */
+ 
+   /******* React DOM Fizz Server *******/
++  /*
+   {
+     bundleTypes: [NODE_DEV, NODE_PROD, UMD_DEV, UMD_PROD],
+     moduleType: RENDERER,
+@@ -329,8 +327,10 @@ const bundles = [
+     wrapWithModuleBoundaries: false,
+     externals: ['react'],
+   },
++  */
+ 
+   /******* React Server DOM Webpack Writer *******/
++  /*
+   {
+     bundleTypes: [NODE_DEV, NODE_PROD, UMD_DEV, UMD_PROD],
+     moduleType: RENDERER,
+@@ -349,8 +349,10 @@ const bundles = [
+     wrapWithModuleBoundaries: false,
+     externals: ['react', 'util'],
+   },
++  */
+ 
+   /******* React Server DOM Webpack Reader *******/
++  /*
+   {
+     bundleTypes: [NODE_DEV, NODE_PROD, UMD_DEV, UMD_PROD],
+     moduleType: RENDERER,
+@@ -360,8 +362,10 @@ const bundles = [
+     wrapWithModuleBoundaries: false,
+     externals: ['react'],
+   },
++  */
+ 
+   /******* React Server DOM Webpack Plugin *******/
++  /*
+   {
+     bundleTypes: [NODE_ES2015],
+     moduleType: RENDERER_UTILS,
+@@ -371,8 +375,10 @@ const bundles = [
+     wrapWithModuleBoundaries: false,
+     externals: ['fs', 'path', 'url', 'neo-async'],
+   },
++  */
+ 
+   /******* React Server DOM Webpack Node.js Loader *******/
++  /*
+   {
+     bundleTypes: [NODE_ESM],
+     moduleType: RENDERER_UTILS,
+@@ -382,8 +388,10 @@ const bundles = [
+     wrapWithModuleBoundaries: false,
+     externals: ['acorn'],
+   },
++  */
+ 
+   /******* React Server DOM Webpack Node.js CommonJS Loader *******/
++  /*
+   {
+     bundleTypes: [NODE_ES2015],
+     moduleType: RENDERER_UTILS,
+@@ -393,8 +401,10 @@ const bundles = [
+     wrapWithModuleBoundaries: false,
+     externals: ['url', 'module'],
+   },
++  */
+ 
+   /******* React Server DOM Relay Writer *******/
++  /*
+   {
+     bundleTypes: [FB_WWW_DEV, FB_WWW_PROD],
+     moduleType: RENDERER,
+@@ -408,8 +418,10 @@ const bundles = [
+       'JSResourceReferenceImpl',
+     ],
+   },
++  */
+ 
+   /******* React Server DOM Relay Reader *******/
++  /*
+   {
+     bundleTypes: [FB_WWW_DEV, FB_WWW_PROD],
+     moduleType: RENDERER,
+@@ -423,8 +435,10 @@ const bundles = [
+       'JSResourceReferenceImpl',
+     ],
+   },
++  */
+ 
+   /******* React Server Native Relay Writer *******/
++  /*
+   {
+     bundleTypes: [RN_FB_DEV, RN_FB_PROD],
+     moduleType: RENDERER,
+@@ -440,8 +454,10 @@ const bundles = [
+       'util',
+     ],
+   },
++  */
+ 
+   /******* React Server Native Relay Reader *******/
++  /*
+   {
+     bundleTypes: [RN_FB_DEV, RN_FB_PROD],
+     moduleType: RENDERER,
+@@ -456,8 +472,10 @@ const bundles = [
+       'ReactNativeInternalFeatureFlags',
+     ],
+   },
++  */
+ 
+   /******* React Suspense Test Utils *******/
++  /*
+   {
+     bundleTypes: [NODE_ES2015],
+     moduleType: RENDERER_UTILS,
+@@ -467,8 +485,10 @@ const bundles = [
+     wrapWithModuleBoundaries: false,
+     externals: ['react'],
+   },
++  */
+ 
+   /******* React ART *******/
++  /*
+   {
+     bundleTypes: [
+       UMD_DEV,
+@@ -496,8 +516,10 @@ const bundles = [
+         ]),
+       }),
+   },
++  */
+ 
+   /******* React Native *******/
++  /*
+   {
+     bundleTypes: __EXPERIMENTAL__
+       ? []
+@@ -530,8 +552,10 @@ const bundles = [
+         ]),
+       }),
+   },
++  */
+ 
+   /******* React Native Fabric *******/
++  /*
+   {
+     bundleTypes: __EXPERIMENTAL__
+       ? []
+@@ -564,8 +588,10 @@ const bundles = [
+         ]),
+       }),
+   },
++  */
+ 
+   /******* React Test Renderer *******/
++  /*
+   {
+     bundleTypes: [
+       FB_WWW_DEV,
+@@ -595,8 +621,10 @@ const bundles = [
+         ]),
+       }),
+   },
++  */
+ 
+   /******* React Noop Renderer (used for tests) *******/
++  /*
+   {
+     bundleTypes: [NODE_DEV, NODE_PROD],
+     moduleType: RENDERER,
+@@ -606,8 +634,10 @@ const bundles = [
+     wrapWithModuleBoundaries: false,
+     externals: ['react', 'scheduler', 'scheduler/unstable_mock', 'expect'],
+   },
++  */
+ 
+   /******* React Noop Persistent Renderer (used for tests) *******/
++  /*
+   {
+     bundleTypes: [NODE_DEV, NODE_PROD],
+     moduleType: RENDERER,
+@@ -617,8 +647,10 @@ const bundles = [
+     wrapWithModuleBoundaries: false,
+     externals: ['react', 'scheduler', 'expect'],
+   },
++  */
+ 
+   /******* React Noop Server Renderer (used for tests) *******/
++  /*
+   {
+     bundleTypes: [NODE_DEV, NODE_PROD],
+     moduleType: RENDERER,
+@@ -628,8 +660,10 @@ const bundles = [
+     wrapWithModuleBoundaries: false,
+     externals: ['react', 'scheduler', 'expect'],
+   },
++  */
+ 
+   /******* React Noop Flight Server (used for tests) *******/
++  /*
+   {
+     bundleTypes: [NODE_DEV, NODE_PROD],
+     moduleType: RENDERER,
+@@ -644,8 +678,10 @@ const bundles = [
+       'react-noop-renderer/flight-modules',
+     ],
+   },
++  */
+ 
+   /******* React Noop Flight Client (used for tests) *******/
++  /*
+   {
+     bundleTypes: [NODE_DEV, NODE_PROD],
+     moduleType: RENDERER,
+@@ -660,8 +696,10 @@ const bundles = [
+       'react-noop-renderer/flight-modules',
+     ],
+   },
++  */
+ 
+   /******* React Reconciler *******/
++  /*
+   {
+     bundleTypes: [NODE_DEV, NODE_PROD, NODE_PROFILING],
+     moduleType: RECONCILER,
+@@ -671,8 +709,10 @@ const bundles = [
+     wrapWithModuleBoundaries: false,
+     externals: ['react'],
+   },
++  */
+ 
+   /******* React Server *******/
++  /*
+   {
+     bundleTypes: [NODE_DEV, NODE_PROD],
+     moduleType: RECONCILER,
+@@ -682,8 +722,10 @@ const bundles = [
+     wrapWithModuleBoundaries: false,
+     externals: ['react'],
+   },
++  */
+ 
+   /******* React Flight Server *******/
++  /*
+   {
+     bundleTypes: [NODE_DEV, NODE_PROD],
+     moduleType: RECONCILER,
+@@ -693,8 +735,10 @@ const bundles = [
+     wrapWithModuleBoundaries: false,
+     externals: ['react'],
+   },
++  */
+ 
+   /******* React Flight Client *******/
++  /*
+   {
+     bundleTypes: [NODE_DEV, NODE_PROD],
+     moduleType: RECONCILER,
+@@ -704,8 +748,10 @@ const bundles = [
+     wrapWithModuleBoundaries: false,
+     externals: ['react'],
+   },
++  */
+ 
+   /******* Reconciler Reflection *******/
++  /*
+   {
+     moduleType: RENDERER_UTILS,
+     bundleTypes: [NODE_DEV, NODE_PROD],
+@@ -715,8 +761,10 @@ const bundles = [
+     wrapWithModuleBoundaries: false,
+     externals: [],
+   },
++  */
+ 
+   /******* Reconciler Constants *******/
++  /*
+   {
+     moduleType: RENDERER_UTILS,
+     bundleTypes: [NODE_DEV, NODE_PROD],
+@@ -726,8 +774,10 @@ const bundles = [
+     wrapWithModuleBoundaries: false,
+     externals: [],
+   },
++  */
+ 
+   /******* React Is *******/
++  /*
+   {
+     bundleTypes: [
+       NODE_DEV,
+@@ -747,8 +797,10 @@ const bundles = [
+     wrapWithModuleBoundaries: false,
+     externals: ['ReactNativeInternalFeatureFlags'],
+   },
++  */
+ 
+   /******* React Debug Tools *******/
++  /*
+   {
+     bundleTypes: [NODE_DEV, NODE_PROD],
+     moduleType: ISOMORPHIC,
+@@ -758,8 +810,10 @@ const bundles = [
+     wrapWithModuleBoundaries: false,
+     externals: [],
+   },
++  */
+ 
+   /******* React Cache (experimental, old) *******/
++  /*
+   {
+     // This is only used by our own tests.
+     // We can delete it later.
+@@ -771,8 +825,10 @@ const bundles = [
+     wrapWithModuleBoundaries: false,
+     externals: ['react', 'scheduler'],
+   },
++  */
+ 
+   /******* Hook for managing subscriptions safely *******/
++  /*
+   {
+     bundleTypes: [NODE_DEV, NODE_PROD],
+     moduleType: ISOMORPHIC,
+@@ -782,8 +838,10 @@ const bundles = [
+     wrapWithModuleBoundaries: true,
+     externals: ['react'],
+   },
++  */
+ 
+   /******* useSyncExternalStore *******/
++  /*
+   {
+     bundleTypes: [NODE_DEV, NODE_PROD],
+     moduleType: ISOMORPHIC,
+@@ -793,8 +851,10 @@ const bundles = [
+     wrapWithModuleBoundaries: true,
+     externals: ['react'],
+   },
++  */
+ 
+   /******* useSyncExternalStore (shim) *******/
++  /*
+   {
+     bundleTypes: [NODE_DEV, NODE_PROD],
+     moduleType: ISOMORPHIC,
+@@ -804,8 +864,10 @@ const bundles = [
+     wrapWithModuleBoundaries: true,
+     externals: ['react'],
+   },
++  */
+ 
+   /******* useSyncExternalStore (shim, native) *******/
++  /*
+   {
+     bundleTypes: [NODE_DEV, NODE_PROD],
+     moduleType: ISOMORPHIC,
+@@ -815,8 +877,10 @@ const bundles = [
+     wrapWithModuleBoundaries: true,
+     externals: ['react'],
+   },
++  */
+ 
+   /******* useSyncExternalStoreWithSelector *******/
++  /*
+   {
+     bundleTypes: [NODE_DEV, NODE_PROD],
+     moduleType: ISOMORPHIC,
+@@ -826,8 +890,10 @@ const bundles = [
+     wrapWithModuleBoundaries: true,
+     externals: ['react'],
+   },
++  */
+ 
+   /******* useSyncExternalStoreWithSelector (shim) *******/
++  /*
+   {
+     bundleTypes: [NODE_DEV, NODE_PROD],
+     moduleType: ISOMORPHIC,
+@@ -837,18 +903,14 @@ const bundles = [
+     wrapWithModuleBoundaries: true,
+     externals: ['react', 'use-sync-external-store/shim'],
+   },
++  */
+ 
+   /******* React Scheduler (experimental) *******/
+   {
+     bundleTypes: [
++      NODE_ESM,
+       NODE_DEV,
+       NODE_PROD,
+-      FB_WWW_DEV,
+-      FB_WWW_PROD,
+-      FB_WWW_PROFILING,
+-      RN_FB_DEV,
+-      RN_FB_PROD,
+-      RN_FB_PROFILING,
+     ],
+     moduleType: ISOMORPHIC,
+     entry: 'scheduler',
+@@ -861,14 +923,9 @@ const bundles = [
+   /******* React Scheduler Mock (experimental) *******/
+   {
+     bundleTypes: [
+-      UMD_DEV,
+-      UMD_PROD,
++      NODE_ESM,
+       NODE_DEV,
+       NODE_PROD,
+-      FB_WWW_DEV,
+-      FB_WWW_PROD,
+-      RN_FB_DEV,
+-      RN_FB_PROD,
+     ],
+     moduleType: ISOMORPHIC,
+     entry: 'scheduler/unstable_mock',
+@@ -879,6 +936,7 @@ const bundles = [
+   },
+ 
+   /******* React Scheduler Post Task (experimental) *******/
++  /*
+   {
+     bundleTypes: [
+       NODE_DEV,
+@@ -894,8 +952,10 @@ const bundles = [
+     wrapWithModuleBoundaries: false,
+     externals: [],
+   },
++  */
+ 
+   /******* Jest React (experimental) *******/
++  /*
+   {
+     bundleTypes: [NODE_DEV, NODE_PROD],
+     moduleType: ISOMORPHIC,
+@@ -905,8 +965,10 @@ const bundles = [
+     wrapWithModuleBoundaries: false,
+     externals: ['react', 'scheduler', 'scheduler/unstable_mock'],
+   },
++  */
+ 
+   /******* ESLint Plugin for Hooks *******/
++  /*
+   {
+     // TODO: it's awkward to create a bundle for this but if we don't, the package
+     // won't get copied. We also can't create just DEV bundle because it contains a
+@@ -920,8 +982,10 @@ const bundles = [
+     wrapWithModuleBoundaries: false,
+     externals: [],
+   },
++  */
+ 
+   /******* React Fresh *******/
++  /*
+   {
+     bundleTypes: [NODE_DEV, NODE_PROD],
+     moduleType: ISOMORPHIC,
+@@ -940,6 +1004,7 @@ const bundles = [
+     wrapWithModuleBoundaries: false,
+     externals: [],
+   },
++  */
+ ];
+ 
+ // Based on deep-freeze by substack (public domain)
