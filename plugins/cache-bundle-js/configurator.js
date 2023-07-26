@@ -27,6 +27,7 @@ const configurator = function (targetConfig) {
           EQUAL: '=',
           SEMICOLON: ';',
           enableCacheBundle,
+          enableMonitoring: this.mode.enableMonitoring || undefined, // for @ifdef enableMonitoring
         },
         {
           type: 'js',
@@ -46,6 +47,7 @@ const configurator = function (targetConfig) {
           EQUAL: '=',
           SEMICOLON: ';',
           enableCacheBundle,
+          enableMonitoring: this.mode.enableMonitoring || undefined, // for @ifdef enableMonitoring
         },
         {
           type: 'js',

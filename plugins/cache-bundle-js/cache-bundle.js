@@ -513,6 +513,7 @@ else if (enableCacheBundle) {
         const automationFunctionResultName = '__' + status.serverSecret + '__';
         const automationFunctionWrapper = async function automationFunctionWrapper() {
           try {
+/* @ifndef enableMonitoring */
             // clear cache
             let automationStatus = JSON.parse(await (await (await caches.open(version)).match(AUTOMATION_PSEUDO_URL)).text());
             if (automationStatus.state === 'init') {
@@ -563,6 +564,37 @@ else if (enableCacheBundle) {
             await (await caches.open(version)).put(new Request(AUTOMATION_PSEUDO_URL), new Response(JSON.stringify(automationStatus), { headers: { 'Content-Type': 'application/json', 'User-Agent': navigator.userAgent }}));
             //console.log('cache-bundle.js: done');
             return result;
+/* @endif */
+/* @ifdef enableMonitoring */
+            // automate navigation for monitoring
+            console.log('cache-bundle.js: calling automationFunction()');
+            await automationFunction();
+            //console.log('cache-bundle.js: automationFunction() exited');
+            await (await caches.open(version)).put(new Request(AUTOMATION_PSEUDO_URL), new Response(JSON.stringify(status), { headers: { 'Content-Type': 'application/json', 'User-Agent': navigator.userAgent }}));
+            switch (status.state) {
+            case 'cleaning':
+              {
+                let cache = await caches.open(version);
+                let keys = await cache.keys();
+                for (let key of keys) {
+                  if (key.url.startsWith(PSEUDO_URL_PREFIX)) {
+                    continue;
+                  }
+                  await cache.delete(key);
+                }
+                status.state = 'cleaned';
+                console.log('cache-bundle.js: cleaned caches');
+                await (await caches.open(version)).put(new Request(AUTOMATION_PSEUDO_URL), new Response(JSON.stringify(status), { headers: { 'Content-Type': 'application/json', 'User-Agent': navigator.userAgent }}));
+                //await new Promise(resolve => setTimeout(resolve, 5000));
+                location.reload();
+              }
+              break;
+            default:
+              break;
+            }
+            //console.log('cache-bundle.js: done');
+            return null;
+/* @endif */
           }
           catch (e) {
             //console.log('cache-bundle.js: error ', e);
