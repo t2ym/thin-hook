@@ -103,7 +103,7 @@ const Traceable = (base) => class TraceableConfigBase extends base {
             if (target === trace.proxy.this.proxy) {
               isProxy = true;
             }
-            name = name.replace(new RegExp(`^.*${trace.thisReference.replace(/\./g, '[.]')}(.*)$`), 'this$1');
+            name = (name || '').replace(new RegExp(`^.*${trace.thisReference.replace(/\./g, '[.]')}(.*)$`), 'this$1');
             if (trace.proxy[name]) {
               if (target === trace.proxy[name].proxy) {
                 isProxy = true;
