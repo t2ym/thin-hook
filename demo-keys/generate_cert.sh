@@ -15,6 +15,19 @@ if [ "$1" = "" ]; then
 fi
 export host=$1
 export mode=$2
+export wildcard=
+export fileprefix=
+if [ "$mode" = "wildcard" ]; then
+  if [ "$host" = "localhost" ]; then
+    wildcard=
+    for i in `seq 1 32`; do {
+      wildcard=${wildcard},DNS:$i.localhost
+    } done;
+  else
+    wildcard=,DNS:*.${host};
+  fi
+  fileprefix=wildcard.
+fi
 which openssl
 if [ "$?" = "1" ]; then
   echo Please install openssl command
@@ -39,11 +52,11 @@ if [ ! -e demoCA.crt ]; then
   echo cd demo-keys
   echo certutil -d sql:$HOME/.pki/nssdb -A -n 'thin-hook demo CA' -i ./demoCA/demoCA.crt -t TCP,TCP,TCP
 fi
-if [ ! -e ${host}.key ]; then
-  openssl genrsa 2048 >${host}.key
+if [ ! -e ${fileprefix}${host}.key ]; then
+  openssl genrsa 2048 >${fileprefix}${host}.key
 fi
-if [ ! -e ${host}.csr ]; then
-cat > ${host}_csr.txt <<-EOF
+if [ ! -e ${fileprefix}${host}.csr ]; then
+cat > ${fileprefix}${host}_csr.txt <<-EOF
 [req]
 default_bits = 2048
 prompt = no
@@ -59,22 +72,22 @@ OU=demo
 CN=${host}
 
 [SAN]
-subjectAltName=DNS:${host}
+subjectAltName=DNS:${host}${wildcard}
 EOF
-  openssl req -config ${host}_csr.txt -new -sha256 -key ${host}.key -out ${host}.csr
-  openssl req -text -noout -in ${host}.csr
+  openssl req -config ${fileprefix}${host}_csr.txt -new -sha256 -key ${fileprefix}${host}.key -out ${fileprefix}${host}.csr
+  openssl req -text -noout -in ${fileprefix}${host}.csr
 fi
 cd ..
-if [ ! -e demoCA/${host}.crt ]; then
-  openssl x509 -req -CA demoCA/demoCA.crt -CAkey demoCA/demoCA.key -CAcreateserial -out demoCA/${host}.crt -in demoCA/${host}.csr -sha256 -days 3650 \
-  -extfile demoCA/${host}_csr.txt -extensions SAN
+if [ ! -e demoCA/${fileprefix}${host}.crt ]; then
+  openssl x509 -req -CA demoCA/demoCA.crt -CAkey demoCA/demoCA.key -CAcreateserial -out demoCA/${fileprefix}${host}.crt -in demoCA/${fileprefix}${host}.csr -sha256 -days 3650 \
+  -extfile demoCA/${fileprefix}${host}_csr.txt -extensions SAN
 fi
 if [ "$mode" = "client" ]; then
-  if [ ! -e demoCA/${host}.pfx ]; then
+  if [ ! -e demoCA/${fileprefix}${host}.pfx ]; then
     echo Note: Some browsers may not accept client certificates with empty passwords
-    openssl pkcs12 -export -inkey demoCA/${host}.key -in demoCA/${host}.crt -out demoCA/${host}.pfx
+    openssl pkcs12 -export -inkey demoCA/${fileprefix}${host}.key -in demoCA/${fileprefix}${host}.crt -out demoCA/${fileprefix}${host}.pfx
     echo how to import pfx on Linux:
     echo cd demo-keys
-    echo pk12util -d sql:$HOME/.pki/nssdb -i ./demoCA/${host}.pfx
+    echo pk12util -d sql:$HOME/.pki/nssdb -i ./demoCA/${fileprefix}${host}.pfx
   fi
 fi

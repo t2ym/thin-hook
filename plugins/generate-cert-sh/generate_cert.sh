@@ -15,6 +15,19 @@ if [ "$1" = "" ]; then
 fi
 export host=$1
 export mode=$2
+export wildcard=
+export fileprefix=
+if [ "$mode" = "wildcard" ]; then
+  if [ "$host" = "localhost" ]; then
+    wildcard=
+    for i in `seq 1 32`; do {
+      wildcard=${wildcard},DNS:$i.localhost
+    } done;
+  else
+    wildcard=,DNS:*.${host};
+  fi
+  fileprefix=wildcard.
+fi
 which openssl
 if [ "$?" = "1" ]; then
   echo Please install openssl command
@@ -39,11 +52,11 @@ if [ ! -e /* @echo demoCA */.crt ]; then
   echo cd /* @echo keys */
   echo certutil -d sql:$HOME/.pki/nssdb -A -n '/* @echo CN */' -i .//* @echo demoCA *///* @echo demoCA */.crt -t TCP,TCP,TCP
 fi
-if [ ! -e ${host}.key ]; then
-  openssl genrsa 2048 >${host}.key
+if [ ! -e ${fileprefix}${host}.key ]; then
+  openssl genrsa 2048 >${fileprefix}${host}.key
 fi
-if [ ! -e ${host}.csr ]; then
-cat > ${host}_csr.txt <<-EOF
+if [ ! -e ${fileprefix}${host}.csr ]; then
+cat > ${fileprefix}${host}_csr.txt <<-EOF
 [req]
 default_bits = 2048
 prompt = no
@@ -59,22 +72,22 @@ OU=/* @echo OU */
 CN=${host}
 
 [SAN]
-subjectAltName=DNS:${host}
+subjectAltName=DNS:${host}${wildcard}
 EOF
-  openssl req -config ${host}_csr.txt -new -sha256 -key ${host}.key -out ${host}.csr
-  openssl req -text -noout -in ${host}.csr
+  openssl req -config ${fileprefix}${host}_csr.txt -new -sha256 -key ${fileprefix}${host}.key -out ${fileprefix}${host}.csr
+  openssl req -text -noout -in ${fileprefix}${host}.csr
 fi
 cd ..
-if [ ! -e demoCA/${host}.crt ]; then
-  openssl x509 -req -CA /* @echo demoCA *///* @echo demoCA */.crt -CAkey /* @echo demoCA *///* @echo demoCA */.key -CAcreateserial -out /* @echo demoCA *//${host}.crt -in /* @echo demoCA *//${host}.csr -sha256 -days 3650 \
-  -extfile /* @echo demoCA *//${host}_csr.txt -extensions SAN
+if [ ! -e demoCA/${fileprefix}${host}.crt ]; then
+  openssl x509 -req -CA /* @echo demoCA *///* @echo demoCA */.crt -CAkey /* @echo demoCA *///* @echo demoCA */.key -CAcreateserial -out /* @echo demoCA *//${fileprefix}${host}.crt -in /* @echo demoCA *//${fileprefix}${host}.csr -sha256 -days 3650 \
+  -extfile /* @echo demoCA *//${fileprefix}${host}_csr.txt -extensions SAN
 fi
 if [ "$mode" = "client" ]; then
-  if [ ! -e /* @echo demoCA *//${host}.pfx ]; then
+  if [ ! -e /* @echo demoCA *//${fileprefix}${host}.pfx ]; then
     echo Note: Some browsers may not accept client certificates with empty passwords
-    openssl pkcs12 -export -inkey /* @echo demoCA *//${host}.key -in /* @echo demoCA *//${host}.crt -out /* @echo demoCA *//${host}.pfx
+    openssl pkcs12 -export -inkey /* @echo demoCA *//${fileprefix}${host}.key -in /* @echo demoCA *//${fileprefix}${host}.crt -out /* @echo demoCA *//${fileprefix}${host}.pfx
     echo how to import pfx on Linux:
     echo cd /* @echo keys */
-    echo pk12util -d sql:$HOME/.pki/nssdb -i .//* @echo demoCA *//${host}.pfx
+    echo pk12util -d sql:$HOME/.pki/nssdb -i .//* @echo demoCA *//${fileprefix}${host}.pfx
   fi
 fi
