@@ -656,6 +656,9 @@ const verifyConnectRecord = function verifyConnectRecord(req, res, Connect, Curr
       break;
     }
     break;
+  case 'monitor': // no hash verification on monitoring
+    //global.console.log('skipping validation: ', req.headers['user-agent'], CurrentSession.ClientIntegrity.browserHash.toString('hex'));
+    break;
   }
 }
 
@@ -744,6 +747,9 @@ const prepareNextSession = function prepareNextSession(req, res, Record, Accept,
 
 const aboutBlankRedirectorHTML = `<script no-hook>location = 'about:blank';</script>`;
 const integrityService = function integrityService({ mode = 'debug', entryPageURLPath = '/', authority = 'localhost', whitelist = null, blacklist = null, clientHints = 'default' }) {
+  if (mode === 'monitor') {
+    authority = null; // no authority validation on monitoring
+  }
   const integrityServiceURLPath = path.join(entryPageURLPath, 'integrity');
   validate = validationService({ mode, host: process.env['VALIDATION_HOST'] || 'localhost', keys });
   //const aboutBlankURL = mode !== 'debug' ? 'about:blank' : 'about:blank?from=integrityService.js';
