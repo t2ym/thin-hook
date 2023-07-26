@@ -57,7 +57,7 @@ class TargetConfig extends Injectable(Traceable(Configurable(GulpDefaultRegistry
         'this._tasks',
       ],
       thisReference: '.components.targetConfig',
-      propertyName: (object, property) => `${object}${typeof property === 'string' && property.match(/^[a-zA-Z_][a-zA-Z0-9_-]*$/) ? '.' + property : '[' + property + ']'}`,
+      propertyName: (object, property) => `${object}${typeof property === 'string' && property.match(/^[a-zA-Z_][a-zA-Z0-9_-]*$/) ? '.' + property : typeof property === 'symbol' ? '[' + property.toString() + ']' : '[' + property + ']'}`,
       dot: {
         path: path.resolve(targetConfig.path.base, targetConfig.path.config, 'dependency-graph.dot'),
         svg: path.resolve(targetConfig.path.base, targetConfig.path.config, 'dependency-graph.svg'),
