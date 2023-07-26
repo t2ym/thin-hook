@@ -21,6 +21,6 @@
   },
   "homepage": "https://github.com/t2ym/thin-hook#readme",
   "dependencies": {
-    "del": "*"
+    "del": "^6.1.1"
   }
 }
