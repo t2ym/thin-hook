@@ -27,6 +27,7 @@ const configurator = function (targetConfig) {
           EQUAL: '=',
           SEMICOLON: ';',
           enableDebugging: typeof enableDebugging === 'undefined' ? 'false' : enableDebugging,
+          enableMonitoring: this.mode.enableMonitoring || undefined, // for @ifdef enableMonitoring
           ...Object.getOwnPropertyNames(this[pluginName]).reduce((acc, curr) => { acc[curr] = this[pluginName][curr]; return acc; }, {}),
         },
         {
@@ -46,6 +47,7 @@ const configurator = function (targetConfig) {
           SPACE: ' ',
           EQUAL: '=',
           SEMICOLON: ';',
+          enableMonitoring: this.mode.enableMonitoring || undefined, // for @ifdef enableMonitoring
           ...Object.getOwnPropertyNames(this[pluginName]).reduce((acc, curr) => { acc[curr] = this[pluginName][curr]; return acc; }, {}),
         },
         {
