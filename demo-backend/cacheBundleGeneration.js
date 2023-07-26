@@ -92,8 +92,8 @@ const loadOnly = process.argv[2] === 'loadOnly';
   // start generation of cache-bundle.json
   await page.goto(targetURL);
   console.log('goto', targetURL);
-  await page.waitFor(4000);
-  console.log('waitFor(4000)');
+  await new Promise(resolve => setTimeout(resolve, 4000)); // page.waitFor() is deprecated
+  console.log('wait 4000');
   if (loadOnly) {
     browser.close();
     return;
