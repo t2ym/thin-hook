@@ -1,6 +1,8 @@
 node_modules
 bower_components
 test/coverage*
+test/log
+nginx.pid
 coverage
 .nyc_output
 demo-backend/integrity-service-helpers/node_modules/*
