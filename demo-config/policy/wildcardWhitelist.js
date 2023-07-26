@@ -9,4 +9,7 @@ const wildcardWhitelist = [
   new RegExp('^at ([^(]* [(])?' + 'https://cdnjs.cloudflare.com/ajax/libs/vis/4[.]18[.]1/vis[.]min[.]js'),
   new RegExp('^at ([^(]* [(])?' + 'https://www.gstatic.com/charts/loader[.]js'),
   new RegExp('^at ([^(]* [(])?' + 'https://apis.google.com/js/api[.]js'),
+/* @ifdef enableMonitoring */
+  new RegExp('^at ([^(]* [(])?([^(]* [(])?' + '/* @echo reporterOrigin *//.*[.]js'),
+/* @endif */
 ];
