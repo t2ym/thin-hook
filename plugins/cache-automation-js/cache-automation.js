@@ -6,6 +6,7 @@ async function automationFunction() {
 /*__BEGIN__*/
 /* #include automation.js */
 /*__END__*/
-
+/* @ifndef enableMonitoring *//* @echo EMPTY */
   /* @include cache-about-blank-redirector.js */
+/* @endif */
 }
