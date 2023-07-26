@@ -17,7 +17,9 @@ console.log('targetConfig', stringify(targetConfig, null, 2));
   '@thin-hook/demo-convert-full',
   '@thin-hook/demo-gulpfile-js',
   'clean-gzip-json',
+  'generate-version',
   'get-version',
+  'non-js-imports',
   'generate-cert-sh',
   'certificates',
   'keys',
@@ -57,6 +59,8 @@ console.log('targetConfig', stringify(targetConfig, null, 2));
   'bundle-rollup',
   'dependency-graph',
   'injector-helpers',
+  'reportage-nginx-conf',
+  'reportage-config-js',
   // Notes on 'inject' plugin
   // - targetConfig.commands are registered as tasks
   // - Plugins with targetConfig[plugin].series are registered as gulp.task(plugin, gulp.series(...this[plugin].series))
