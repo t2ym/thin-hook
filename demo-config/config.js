@@ -761,6 +761,10 @@ class TargetConfig extends Injectable(Traceable(Configurable(GulpDefaultRegistry
           if (href.match(/[.](css|svg)[.]js$/)) {
             done(false, false); // skip processed JavaScripts
           }
+          else if (href.match(/\/index[.]js$/)) {
+            href = href.replace(/\/index[.]js$/, '');
+            done(false, true); // resolve extension-less directory name
+          }
           else {
             href = href.replace(/[.]js$/, '');
             done(false, true); // resolve extension-less name
