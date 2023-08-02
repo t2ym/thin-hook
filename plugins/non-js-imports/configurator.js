@@ -21,7 +21,7 @@ const configurator = function (targetConfig) {
     }))
     .pipe(this.gulp.dest(function (file) {
       //console.log(path.dirname(file.path));
-      return path.dirname(file.path);
+      return file.base;
     }))
     /*
     .pipe(through.obj((file, end, callback) => {
