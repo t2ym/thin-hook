@@ -736,7 +736,7 @@ class TargetConfig extends Injectable(Traceable(Configurable(GulpDefaultRegistry
         'style', // 0: document.head.appendChild(style)
         'link',  // 1: document.head.appendChild(link)
         'none',  // 2: no appending to DOM
-      ][0],
+      ][1],
       cssDefaultExport: [ // for non-explicit module css (!= *.module.css)
         'css',   // 0: css string
         'sheet', // 1: CSSStyleSheet object
