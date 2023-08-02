@@ -13,7 +13,7 @@ else {
     //   hook.parameters.noHookAuthorizationFailed
     // JSONs are output to console in the learning mode
     //'*': true,
-    "0b99d45f14b56033f6fce9f896804fd87971994a4086a6efde0b74387e73a5f3": true, // hook.min.js
+    "13549da9c544a54d9e4faeff6881b01e25fd7bd7a6f25cf20e2e4a4e6c719faf": true, // hook.min.js
     "a81209228209941097ac41c5bda3bc1cd64375e69b7c8113aff68c2fe6729ff2": true, // demo/disable-devtools.js
     "4374ae1f28cec2b969ab488895a4266244d65e28e1f82728fd2cd39130fe0d9e": true, // demo/context-generator.js
     "dca933fb4ade771ca8ed30823b52e7e36762522711ebf1d87eb9905c21b840ea": true, // demo/bootstrap.js
