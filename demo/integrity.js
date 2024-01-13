@@ -1524,6 +1524,7 @@
         '.navigator:object.connection:object.saveData:boolean', // a reduced data usage option
         '.document:object.hidden:boolean', // hidden status of the document
         '.document:object.webkitHidden:boolean', // hidden status of the document
+        '.document:object.prerendering:boolean', // prerendering status of the document
       ];
       const volatileBooleansSet = new Set();
       volatileBooleans.forEach(pos => volatileBooleansSet.add(pos));
