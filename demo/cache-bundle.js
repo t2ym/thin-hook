@@ -422,6 +422,41 @@ else if (enableCacheBundle) {
       switch (cacheStatus.status) {
       default:
       case 'load': // transition to loading state
+        await caches.delete(version); // delete the empty cache temporarily
+        cache = null;
+        if (document.prerendering) {
+          console.log(`cache-bundle.js: awaiting while document is in prerendering`);
+          await new Promise((resolve, reject) => {
+            let listener;
+            document.addEventListener('prerenderingchange', listener = () => {
+              if (!document.prerendering) {
+                document.removeEventListener('prerenderingchange', listener);
+                resolve();
+              }
+            });
+          });
+        }
+        const action = await new Promise((resolve, reject) => {
+          if (hook.parameters.actionOnPrerenderingChange) {
+            resolve(hook.parameters.actionOnPrerenderingChange);
+          }
+          else {
+            let listener;
+            document.addEventListener('action-on-prerenderingchange', listener = (event) => {
+              document.removeEventListener('action-on-prerenderingchange', listener);
+              resolve(event.detail.name);
+            });
+          }
+        });
+        switch (action) {
+        case 'resume':
+        default:
+          cache = await caches.open(version);
+          break;
+        case 'reload':
+          await new Promise((resolve, reject) => { /* never settles */ });
+          break;
+        }
         cacheStatus.status = 'loading';
         await cache.put(new Request(CACHE_STATUS_PSEUDO_URL), new Response(JSON.stringify(cacheStatus), { headers: { 'Content-Type': 'application/json', 'User-Agent': navigator.userAgent }}));
         break;

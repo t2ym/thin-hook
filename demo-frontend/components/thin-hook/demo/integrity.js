@@ -2257,6 +2257,45 @@
           crypto.getRandomValues(new Uint8Array(CurrentSession.connect_salt));
           delete CurrentSession.connect_salt;
 
+          // suspend prerendering just before Connect request
+          let action = 'resume'; // default action
+          if (document.prerendering) {
+            const beforePrerenderingSuspension = performance.now();
+            console.log(`integrity.js: awaiting while document is in prerendering`);
+            await new Promise((resolve, reject) => {
+              let listener;
+              document.addEventListener('prerenderingchange', listener = () => {
+                if (!document.prerendering) {
+                  document.removeEventListener('prerenderingchange', listener);
+                  resolve();
+                }
+              });
+            });
+            const afterPrerenderingSuspension = performance.now();
+            const DEFAULT_AGED_PRERENDERING_THRESHOLD = 2000; // ms
+            const agedPrerenderingThreshold = hook.parameters.agedPrerenderingThreshold || DEFAULT_AGED_PRERENDERING_THRESHOLD;
+            const suspensionPeriod = afterPrerenderingSuspension - beforePrerenderingSuspension;
+            if (agedPrerenderingThreshold > 0) {
+              if (suspensionPeriod > agedPrerenderingThreshold) {
+                action = 'reload';
+              }
+            }
+            console.log(`integrity.js: prerenderingchange action = ${action}`);
+          }
+          // for scripts that will miss the following event notification
+          hook.parameters.actionOnPrerenderingChange = action; // Note: this assignment does not affect browserHash
+          // notify other scripts of the action whether prerendering is triggered or not
+          document.dispatchEvent(new CustomEvent('action-on-prerenderingchange', { detail: { name: action } }));
+          switch (action) {
+          case 'reload':
+            location.reload();
+            await new Promise((resolve, reject) => { /* never settles */ });
+            break;
+          case 'resume':
+          default:
+            break;
+          }
+
           if (!await sendConnectRequest(Connect, Accept, CurrentSession, NextSession)) {
             throw new Error('doConnect: sendConnectRequest failed');
           }
