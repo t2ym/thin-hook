@@ -1520,6 +1520,10 @@
         '\.document:object\.location:object|' + // document.location object
         '\.localStorage:object|' + // browser storage
         '\.sessionStorage:object).*$'); // browser storage
+      const volatilePropertiesRegExp = new RegExp(
+        '^(' +
+        '\.HTMLAnchorElement:function\.prototype:object\.hrefTranslate:object' + // Google Translate enabled
+        ').*$');
       const volatileBooleans = [
         '.navigator:object.connection:object.saveData:boolean', // a reduced data usage option
         '.document:object.hidden:boolean', // hidden status of the document
@@ -1642,6 +1646,9 @@
             visited.set(obj, pos);
             if (volatileObjectsRegExp.test(pos)) {
               return null;
+            }
+            if (volatilePropertiesRegExp.test(pos)) {
+              return undefined;
             }
             ({ descriptors: ownPropertyDescriptors, names: ownPropertyNames } = getCachedOwnPropertyDescriptors(obj));
             ownPropertySymbols = getCachedOwnPropertySymbols(obj);
